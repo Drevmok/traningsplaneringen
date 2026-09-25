@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   BLOCK_LABELS,
   stationEquipmentLabelText,
@@ -8,6 +8,7 @@ import {
   equipmentIconId,
   getEquipmentPiece,
 } from '../data/equipmentPieces'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import {
   isTipDismissed,
   TIP_EXPERIENCED_SAFETY,
@@ -55,13 +56,7 @@ export function ActivityDetail({
   const [editingDuration, setEditingDuration] = useState(false)
   const [duration, setDuration] = useState(activity.durationMinutesDefault)
 
-  useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
+  useBodyScrollLock(true)
 
   const suggested = activity.defaultStationEquipment
   const equipmentUnset = stationEquipment === undefined

@@ -1,6 +1,6 @@
 # Stationsuppsättning av redskap — svensk microcopy (Slice 13 + 18)
 
-**Status:** Docs lock — Slice 13 compose (2026-09-24); Slice 18 broader selective förslag (2026-09-25). Builder may ship from these keys.  
+**Status:** Docs lock — Slice 13 compose; Slice 18 förslag table; Slice 19 bulk accept; Slice 20 dirty Stäng (2026-09-26). Builder may ship from these keys.  
 **Tone:** Warm, short, coach-to-coach. Prefer *du*.  
 **Product lock:** Compose a Teknik station from equipment **pieces**; Hallöversikt still shows **one** markör per station. Tap → detail includes redskapslista. CTA / sheet title: **Redigera redskap**. Entry: **hall detail only** (no Passbyggaren compose). No marker equipment badge. Unset may show förslag; `[]` = coach cleared; Golvklart / Förrådslista / print use **saved** composition only.  
 **Carry-forward (Slice 11–17):** Placeable = **Teknik** only. Icon-first markers; tap ≠ drag; Erfaren; ranks / Golvklart Teknik-only; quiet redskap; Förrådslista; Kom igång soft compose step; Golvklart short titles.  
@@ -123,6 +123,25 @@ Entry: hall detail only — no Passbyggaren compose strings this slice.
 
 ---
 
+
+## Dirty Stäng confirm (Slice 20)
+
+In-sheet only — **not** `window.confirm`. Show when recipe is dirty and coach taps **Stäng** / backdrop close. Clean Stäng closes immediately. **Klar** never routes here.
+
+| Key | Swedish |
+| --- | --- |
+| `composeDirtyBody` | Du har osparade ändringar. |
+| `composeDirtyDiscard` | Stäng utan att spara |
+| `composeDirtyKeep` | Fortsätt redigera |
+| `composeDirtyDiscardAria` | Stäng utan att spara ändringarna |
+| `composeDirtyKeepAria` | Fortsätt redigera redskap |
+
+- Discard = secondary / danger-ish; keep editing = secondary / default.
+- Both confirm actions ≥44px min-height on phone.
+- Full Slice 20 lock: [`dirty-stang.sv.md`](./dirty-stang.sv.md).
+
+---
+
 ## Accessibility
 
 | Key | Swedish |
@@ -153,7 +172,7 @@ Keep Slice 12 a11y as default. Use `…WithEquipment` only when composition is n
 
 | Key | Swedish |
 | --- | --- |
-| `footerSliceLabel` | Träningsplaneraren · Slice 19 |
+| `footerSliceLabel` | Träningsplaneraren · Slice 20 |
 
 Keep **Visa tips igen** / **Om utkast**. Footer remains `no-print`.
 
@@ -189,5 +208,6 @@ Keep **Visa tips igen** / **Om utkast**. Footer remains `no-print`.
 - Wire compose from **hall detail only**.
 - Defaults: all nine Teknik drills (table above). Keep the original four arrays unchanged; add the five Slice 18 seeds only.
 - Soft cap (slots / count) may use `composeMaxReached` — document numbers in ship notes.
+- Slice 20: wire `composeDirty*` for in-sheet Stäng confirm; keep `hallRemove` aria on enlarged canvas × (edit only).
 - Optional soft tip `tipRedskapForslag` exists in the seed file — **not** required for PASS; prefer quiet.
 - Full tip pack: align `coach-tips.sv.md` / `station-tiles.sv.md` hallTileHint with the soft-hint table above.

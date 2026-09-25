@@ -25,6 +25,7 @@ import type {
   Session,
   SideTab,
 } from '../types'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { CoachTipStrip } from './CoachTipStrip'
 import { ActivityDetail } from './ActivityDetail'
 import { BlockCard } from './BlockCard'
@@ -37,6 +38,8 @@ interface Props {
   onHome: () => void
   onOpenHall: () => void
   initialTemplatePicker?: boolean
+  /** Slice 20 C1 — clear App openTemplates after mall picker consumed. */
+  onInitialTemplateConsumed?: () => void
   tips: CoachTipsStateV1
   onDismissTip: (tipId: string) => void
   onBuilderMounted?: () => void
@@ -50,6 +53,7 @@ export function SessionBuilder({
   onHome,
   onOpenHall,
   initialTemplatePicker = false,
+  onInitialTemplateConsumed,
   tips,
   onDismissTip,
   onBuilderMounted,
@@ -95,14 +99,7 @@ export function SessionBuilder({
     onBuilderMounted?.()
   }, [onBuilderMounted])
 
-  useEffect(() => {
-    if (!panelOpen || !isNarrow) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [panelOpen, isNarrow])
+  useBodyScrollLock(panelOpen && isNarrow)
 
   function showToast(msg: string) {
     setToast(msg)
@@ -116,6 +113,9 @@ export function SessionBuilder({
 
   function closePanel() {
     setPanelOpen(false)
+    if (initialTemplatePicker) {
+      onInitialTemplateConsumed?.()
+    }
   }
 
   function openAddForBlock(blockId: string) {
@@ -179,11 +179,13 @@ export function SessionBuilder({
   function handleConfirmTemplate() {
     if (!pendingTemplate) return
     const cloned = cloneTemplate(pendingTemplate)
-    onChange(cloned)
     setSelectedBlockId(cloned.blocks[0]?.id ?? null)
     setPendingTemplateId(null)
     setMismatch(null)
-    openPanel('library')
+    // Slice 20 C1 — clear one-shot flag before remount key; close sheet (not library).
+    onInitialTemplateConsumed?.()
+    onChange(cloned)
+    closePanel()
   }
 
   function handleTitle(title: string) {

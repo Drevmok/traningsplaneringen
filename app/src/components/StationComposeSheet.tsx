@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   composeTitleWithName,
   stationEquipmentLabelText,
@@ -13,6 +13,7 @@ import {
   sanitizeStationEquipment,
 } from '../data/equipmentPieces'
 import { VisualIcon } from '../icons'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { StationEquipmentSlot } from '../types'
 
 interface Props {
@@ -50,14 +51,9 @@ export function StationComposeSheet({
   const [recipe, setRecipe] = useState<StationEquipmentSlot[]>(() =>
     cloneSlots(baseline),
   )
+  const [confirmDiscard, setConfirmDiscard] = useState(false)
 
-  useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
+  useBodyScrollLock(true)
 
   const dirty = !sameRecipe(recipe, baseline)
   const atMaxSlots = recipe.length >= STATION_EQUIPMENT_MAX_SLOTS
@@ -103,12 +99,18 @@ export function StationComposeSheet({
 
   function handleClose() {
     if (dirty) {
-      const ok = window.confirm(
-        'Du har osparade ändringar. Stäng utan att spara?',
-      )
-      if (!ok) return
+      setConfirmDiscard(true)
+      return
     }
     onClose()
+  }
+
+  function handleDiscard() {
+    onClose()
+  }
+
+  function handleKeepEditing() {
+    setConfirmDiscard(false)
   }
 
   function handleDone() {
@@ -148,6 +150,30 @@ export function StationComposeSheet({
             </button>
           </div>
         </header>
+
+        {confirmDiscard && (
+          <div className="station-compose-dirty" role="status">
+            <p className="station-compose-dirty-body">{UI.composeDirtyBody}</p>
+            <div className="station-compose-dirty-actions">
+              <button
+                type="button"
+                className="btn-secondary station-compose-dirty-discard"
+                onClick={handleDiscard}
+                aria-label={UI.composeDirtyDiscardAria}
+              >
+                {UI.composeDirtyDiscard}
+              </button>
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={handleKeepEditing}
+                aria-label={UI.composeDirtyKeepAria}
+              >
+                {UI.composeDirtyKeep}
+              </button>
+            </div>
+          </div>
+        )}
 
         <section className="station-compose-recipe" aria-labelledby="compose-recipe-h">
           <h3 id="compose-recipe-h">{UI.composeRecipeHeading}</h3>

@@ -27,20 +27,9 @@ _(none — Scout run 2026-09-25 post–Slice 18 gated: all three Approved)_
 
 _(none)_
 
----
-
 ## Approved (ready for a slice pack)
 
-Christoffer Approved 2026-09-25 (batch gate). Remaining: **two S bundled** per SCOUT-PLAYBOOK (phone polish).
-
-### Phone polish — dirty Stäng + canvas remove (bundled)
-
-- **Effort:** S + S → **one polish pack** (likely Slice 20)
-- **Parts:**
-  1. **Compose dirty Stäng — in-sheet Swedish confirm** — replace `window.confirm` on dirty Redigera redskap Stäng with in-sheet Swedish discard / keep editing; Klar still primary save.
-  2. **Canvas remove — touch-friendly hit target** — ≥44px remove hit area and/or clear **Ta bort från hall** when marker selected; keep tap→detail and drag≠detail; edit canvas only.
-- **Evidence:** Slice 13 dirty Stäng via `window.confirm`; Slice 12 compact canvas × vs tray ≥44px; Slice 07 phone tap targets.
-- **Suggested slice shape:** One Docs → Builder → Verifier loop covering both; no Passbyggaren compose entry, no badge/CAD.
+_(none)_
 
 ---
 
@@ -68,6 +57,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Phone polish — dirty Stäng + canvas remove + template scroll freeze | 20 | Verifier PASS 2026-09-26; GitHub Pages not yet redeployed (phone until Christoffer asks). Pack `slice-20/`. |
 | Hall — Använd alla förslag | 19 | Verifier PASS 2026-09-25; Netlify not yet republished (phone still Slice 17 until Christoffer asks). Slice 18 also still not on phone. |
 | Broader selective redskap-förslag on Teknik drills | 18 | Verifier PASS 2026-09-25; Netlify not yet republished (phone still Slice 17 until Christoffer asks) |
 | Golvklart screen — short station titles | 17 | Verifier PASS 2026-09-25; live on Netlify · https://fancy-blancmange-4d516b.netlify.app/ |

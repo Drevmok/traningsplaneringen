@@ -1832,14 +1832,15 @@
 
 .hall-chip--canvas .hall-chip-remove {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -14px;
+  right: -14px;
   z-index: 3;
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
-  min-height: 22px;
-  font-size: 0.85rem;
+  /* Slice 20 B1 — ≥44×44 hit target (edit canvas only) */
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.95rem;
   border-radius: 999px;
   padding: 0;
   margin: 0;
@@ -2065,10 +2066,10 @@
   }
 
   .hall-chip--canvas .hall-chip-remove {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .hall-header .back,
@@ -2267,7 +2268,7 @@
     height: 44px;
   }
 
-  /* Canvas markers: keep compact remove; 52px marker is the tap target */
+  /* Slice 20 B1 — canvas remove ≥44×44 hit; marker stays compact */
   .hall-chip--canvas {
     width: 52px;
     height: 52px;
@@ -2276,10 +2277,10 @@
   }
 
   .hall-chip--canvas .hall-chip-remove {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
@@ -2636,6 +2637,43 @@
 
   .station-equipment-actions .btn-primary {
     width: 100%;
+    min-height: 44px;
+  }
+}
+
+
+/* —— Slice 20 — dirty Stäng in-sheet confirm —— */
+.station-compose-dirty {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.station-compose-dirty-body {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #9a3412;
+}
+
+.station-compose-dirty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.station-compose-dirty-discard {
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+@media (max-width: 768px) {
+  .station-compose-dirty-actions .btn-secondary {
+    flex: 1 1 auto;
     min-height: 44px;
   }
 }

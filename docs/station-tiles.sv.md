@@ -118,6 +118,22 @@ Keep **Visa tips igen** / **Om utkast**. Footer remains `no-print`.
 
 ---
 
+---
+
+## Canvas remove hit target (Slice 20)
+
+Edit canvas only: enlarge remove control hit area to **≥44×44px**. Keep existing label / aria:
+
+| Key | Swedish |
+| --- | --- |
+| `hallRemove` | Ta bort från hall |
+
+- Tap markör (not on remove) → detail; drag ≠ detail; Golvklart has **no** remove.
+- **No** B2 detail text button this slice.
+- Strings: [`dirty-stang.sv.md`](./dirty-stang.sv.md).
+
+---
+
 ## Notes for Builder
 
 - Prefer these strings over inventing synonyms (“ikon-pin”, “station card”, “info sheet”).

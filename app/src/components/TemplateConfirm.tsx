@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { UI } from '../data/blockMeta'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { SessionTemplate } from '../types'
 
 interface Props {
@@ -9,13 +9,7 @@ interface Props {
 }
 
 export function TemplateConfirm({ template, onConfirm, onCancel }: Props) {
-  useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
+  useBodyScrollLock(true)
 
   return (
     <div

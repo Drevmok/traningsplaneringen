@@ -291,6 +291,12 @@ export const UI = {
   composeDone: 'Klar',
   composeClose: 'Stäng',
   composeCloseAria: 'Stäng redigering av redskap',
+  // Slice 20 — dirty Stäng (locked: docs/dirty-stang.sv.md)
+  composeDirtyBody: 'Du har osparade ändringar.',
+  composeDirtyDiscard: 'Stäng utan att spara',
+  composeDirtyKeep: 'Fortsätt redigera',
+  composeDirtyDiscardAria: 'Stäng utan att spara ändringarna',
+  composeDirtyKeepAria: 'Fortsätt redigera redskap',
   composeRecipeHeading: 'Dina redskap',
   composeLibraryHeading: 'Lägg till',
   composeAddPiece: 'Lägg till {label}',
@@ -323,7 +329,7 @@ export const UI = {
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
   // Slice 10 — distribution (locked: docs/distribution-copy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 19',
+  footerSliceLabel: 'Träningsplaneraren · Slice 20',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
     'Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen.',

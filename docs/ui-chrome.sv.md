@@ -209,3 +209,17 @@ Full microcopy: [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md) (also
 | Disabled / N=0 | Inga stationer med osparade förslag / Inga osparade förslag just nu. |
 | Placement | Hallöversikt **edit** only |
 | Footer | Träningsplaneraren · Slice 19 |
+
+---
+
+## Dirty Stäng + canvas remove (Slice 20)
+
+Full microcopy: [`dirty-stang.sv.md`](./dirty-stang.sv.md) (also under `slice-20/content/`).
+
+| Key | Swedish |
+| --- | --- |
+| Dirty body | Du har osparade ändringar. |
+| Discard | Stäng utan att spara |
+| Keep editing | Fortsätt redigera |
+| Canvas remove aria | Ta bort från hall (`hallRemove`) |
+| Footer | Träningsplaneraren · Slice 20 |

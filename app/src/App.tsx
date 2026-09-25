@@ -179,6 +179,11 @@ export default function App() {
     patchTips(markBuilderVisited)
   }, [])
 
+  /** Slice 20 C1 — one-shot Starta från mall flag; clear after apply or sheet close. */
+  const handleInitialTemplateConsumed = useCallback(() => {
+    setOpenTemplates(false)
+  }, [])
+
   return (
     <div className="app-shell">
       {view === 'home' ? (
@@ -217,6 +222,7 @@ export default function App() {
           onHome={() => setView('home')}
           onOpenHall={handleOpenHallFromBuilder}
           initialTemplatePicker={openTemplates}
+          onInitialTemplateConsumed={handleInitialTemplateConsumed}
           tips={syncedTips}
           onDismissTip={handleDismissTip}
           onBuilderMounted={handleBuilderMounted}

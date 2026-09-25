@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { stationEquipmentLabelText, UI } from '../data/blockMeta'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { AggregatedEquipmentRow } from '../data/equipmentPieces'
 
 interface Props {
@@ -9,13 +9,7 @@ interface Props {
 
 /** Slice 15 — read-only pass-wide Förrådslista bottom sheet. */
 export function ForradslistaSheet({ rows, onClose }: Props) {
-  useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
+  useBodyScrollLock(true)
 
   const empty = rows.length === 0
 

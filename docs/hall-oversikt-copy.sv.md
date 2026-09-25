@@ -56,6 +56,8 @@ Caption (muted, on canvas): **Schematisk hall — inte exakt mått** (`hallSchem
 | `hallRemove` | Ta bort från hall |
 | `hallPlaceHere` | Placera här |
 
+Slice 20: canvas × uses `hallRemove` with ≥44×44px hit target (edit only) — no new B2 button. See [`dirty-stang.sv.md`](./dirty-stang.sv.md).
+
 ---
 
 ## Empty / edge states
