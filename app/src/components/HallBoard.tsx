@@ -4,6 +4,7 @@ import {
   hallApplyAllSuggestedResultText,
   hallStationCountText,
   hallUnplacedBannerText,
+  hallUnplacedWithCountText,
   stationEquipmentLabelText,
   UI,
 } from '../data/blockMeta'
@@ -18,15 +19,20 @@ import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets'
 import { getActivityById } from '../data/seedActivities'
 import {
   applyPreset,
+  clampHallZoom,
   countPlaceableItems,
   countSessionItems,
   getPreset,
   getUnplacedItems,
+  HALL_ZOOM_MAX,
+  HALL_ZOOM_MIN,
+  HALL_ZOOM_STEP,
   isHallShowFlow,
   listSessionItems,
   normalizeTemplateId,
   pruneHallPlacements,
   removePlacement,
+  roundHallZoom,
   upsertPlacement,
 } from '../lib/hall'
 import {
@@ -54,10 +60,6 @@ interface Props {
   onEnterGolvklart?: () => void
 }
 
-const ZOOM_MIN = 1
-const ZOOM_MAX = 2
-const ZOOM_STEP = 0.25
-
 export function HallBoard({
   session,
   onChange,
@@ -80,6 +82,8 @@ export function HallBoard({
   const [applyAllStatus, setApplyAllStatus] = useState<string | null>(null)
   const [isNarrow, setIsNarrow] = useState(false)
   const [viewZoom, setViewZoom] = useState(1)
+  /** Slice 21 B1 — phone edit tray collapsed by default to free canvas. */
+  const [trayCollapsed, setTrayCollapsed] = useState(true)
   const trayRef = useRef<HTMLElement | null>(null)
   const [trayHeight, setTrayHeight] = useState(0)
 
@@ -202,6 +206,7 @@ export function HallBoard({
   }
 
   function exitFloor() {
+    setTrayCollapsed(true)
     setHallMode('edit')
   }
 
@@ -210,11 +215,15 @@ export function HallBoard({
   }
 
   function zoomIn() {
-    setViewZoom((z) => Math.min(ZOOM_MAX, Math.round((z + ZOOM_STEP) * 100) / 100))
+    setViewZoom((z) => roundHallZoom(z + HALL_ZOOM_STEP))
   }
 
   function zoomOut() {
-    setViewZoom((z) => Math.max(ZOOM_MIN, Math.round((z - ZOOM_STEP) * 100) / 100))
+    setViewZoom((z) => roundHallZoom(z - HALL_ZOOM_STEP))
+  }
+
+  function handlePinchZoom(next: number) {
+    setViewZoom(clampHallZoom(roundHallZoom(next)))
   }
 
   function handleChipClick(itemId: string) {
@@ -466,7 +475,7 @@ export function HallBoard({
             type="button"
             className="btn-secondary hall-zoom-btn hall-tap-target"
             aria-label={UI.hallZoomOut}
-            disabled={viewZoom <= ZOOM_MIN}
+            disabled={viewZoom <= HALL_ZOOM_MIN}
             onClick={zoomOut}
           >
             −
@@ -475,7 +484,7 @@ export function HallBoard({
             type="button"
             className="btn-secondary hall-zoom-btn hall-tap-target"
             aria-label={UI.hallZoomIn}
-            disabled={viewZoom >= ZOOM_MAX}
+            disabled={viewZoom >= HALL_ZOOM_MAX}
             onClick={zoomIn}
           >
             +
@@ -500,6 +509,7 @@ export function HallBoard({
           placeModeItemId={isFloor ? null : placeModeItemId}
           selectedItemId={selectedItemId}
           viewZoom={viewZoom}
+          onViewZoomChange={handlePinchZoom}
           onPlaceAt={placeAt}
           onChipClick={(id) => {
             if (isFloor) {
@@ -523,55 +533,91 @@ export function HallBoard({
         {!isFloor && (
           <aside
             ref={trayRef}
-            className={`hall-tray${isNarrow ? ' hall-tray--sticky' : ''} no-print`}
+            className={`hall-tray${isNarrow ? ' hall-tray--sticky' : ''}${isNarrow && trayCollapsed ? ' hall-tray--compact' : ''} no-print`}
             onDragOver={(e) => {
               e.preventDefault()
               e.dataTransfer.dropEffect = 'move'
             }}
             onDrop={handleTrayDrop}
           >
-            <h2 className="hall-tray-title">
-              {UI.hallUnplacedStations} ({unplaced.length})
-            </h2>
-            <p className="hall-tray-hint">{UI.hallDragHint}</p>
-            <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
-            {!isTipDismissed(tips, TIP_HALL_PLACE) && (
-              <CoachTipStrip
-                tipId={TIP_HALL_PLACE}
-                className="hall-place-coach-tip"
-                text={UI.tipHallPlace}
-                onDismiss={onDismissTip}
-              />
-            )}
-
-            {placeModeItemId && isNarrow && (
-              <p className="hall-place-mode-hint" role="status">
-                {UI.hallPlaceHere}
-              </p>
-            )}
-
-            {unplaced.length === 0 ? (
-              <p className="hall-tray-empty">{UI.hallTrayEmptyStations}</p>
+            {isNarrow && trayCollapsed ? (
+              <div className="hall-tray-compact-bar">
+                <p className="hall-tray-compact-count">
+                  {hallUnplacedWithCountText(unplaced.length)}
+                </p>
+                <button
+                  type="button"
+                  className="btn-secondary hall-tap-target hall-tray-toggle"
+                  aria-label={UI.hallTrayExpandAria}
+                  aria-expanded={false}
+                  onClick={() => setTrayCollapsed(false)}
+                >
+                  {UI.hallTrayExpand}
+                </button>
+              </div>
             ) : (
-              <ul className="hall-tray-list">
-                {unplaced.map((item) => (
-                  <li key={item.id}>
-                    <HallChip
-                      item={item}
-                      variant="tray"
-                      selected={placeModeItemId === item.id}
-                      onDragStart={(_e, id) => setDraggingId(id)}
-                      onDragEnd={() => setDraggingId(null)}
-                      onClick={handleChipClick}
-                    />
-                    {isNarrow && placeModeItemId === item.id && (
-                      <p className="hall-place-here-label">{UI.hallPlaceHere}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              <>
+                {isNarrow && (
+                  <div className="hall-tray-toolbar">
+                    <button
+                      type="button"
+                      className="btn-secondary hall-tap-target hall-tray-toggle"
+                      aria-label={UI.hallTrayCollapseAria}
+                      aria-expanded={true}
+                      onClick={() => {
+                        setPlaceModeItemId(null)
+                        setTrayCollapsed(true)
+                      }}
+                    >
+                      {UI.hallTrayCollapse}
+                    </button>
+                  </div>
+                )}
+                <h2 className="hall-tray-title">
+                  {UI.hallUnplacedStations} ({unplaced.length})
+                </h2>
+                <p className="hall-tray-hint">{UI.hallDragHint}</p>
+                <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
+                {!isTipDismissed(tips, TIP_HALL_PLACE) && (
+                  <CoachTipStrip
+                    tipId={TIP_HALL_PLACE}
+                    className="hall-place-coach-tip"
+                    text={UI.tipHallPlace}
+                    onDismiss={onDismissTip}
+                  />
+                )}
+
+                {placeModeItemId && isNarrow && (
+                  <p className="hall-place-mode-hint" role="status">
+                    {UI.hallPlaceHere}
+                  </p>
+                )}
+
+                {unplaced.length === 0 ? (
+                  <p className="hall-tray-empty">{UI.hallTrayEmptyStations}</p>
+                ) : (
+                  <ul className="hall-tray-list">
+                    {unplaced.map((item) => (
+                      <li key={item.id}>
+                        <HallChip
+                          item={item}
+                          variant="tray"
+                          selected={placeModeItemId === item.id}
+                          onDragStart={(_e, id) => setDraggingId(id)}
+                          onDragEnd={() => setDraggingId(null)}
+                          onClick={handleChipClick}
+                        />
+                        {isNarrow && placeModeItemId === item.id && (
+                          <p className="hall-place-here-label">{UI.hallPlaceHere}</p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
             )}
           </aside>
+
         )}
       </div>
 

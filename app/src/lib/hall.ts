@@ -42,6 +42,29 @@ export function clamp01(n: number): number {
   return Math.min(1, Math.max(0, n))
 }
 
+
+/** View-only hall zoom (Slice 07 buttons; Slice 21 pinch). Stored placements unchanged. */
+export const HALL_ZOOM_MIN = 1
+export const HALL_ZOOM_MAX = 2
+export const HALL_ZOOM_STEP = 0.25
+
+export function clampHallZoom(z: number): number {
+  if (!Number.isFinite(z)) return HALL_ZOOM_MIN
+  return Math.min(HALL_ZOOM_MAX, Math.max(HALL_ZOOM_MIN, z))
+}
+
+/** Round to hundredths so continuous pinch stays stable near button steps. */
+export function roundHallZoom(z: number): number {
+  return Math.round(clampHallZoom(z) * 100) / 100
+}
+
+export function touchDistance(
+  a: { clientX: number; clientY: number },
+  b: { clientX: number; clientY: number },
+): number {
+  return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
+}
+
 /** Resolve preset; alias legacy Slice 05 `generic-trupp` → `standard-trupp`. */
 export function getPreset(
   id: HallTemplateId | string | undefined | null,

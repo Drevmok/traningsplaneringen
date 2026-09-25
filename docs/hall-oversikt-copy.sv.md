@@ -114,9 +114,31 @@ Full lock: [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md). Edit chro
 
 ---
 
+---
+
+## Phone tray collapse (Slice 21)
+
+Phone ≤768px, Hallöversikt **edit** only. Collapsed by default. Full lock: [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `hallTrayExpand` | Visa stationsbricka |
+| `hallTrayCollapse` | Dölj bricka |
+| `hallTrayExpandAria` | Visa brickan med ej placerade stationer |
+| `hallTrayCollapseAria` | Dölj brickan med ej placerade stationer |
+
+Compact bar count: reuse **`hallUnplacedWithCount`** — Ej placerade ({n}). Expanded heading stays `hallUnplacedStations`. Golvklart: no tray chrome.
+
+- No new Kom igång tip.
+- Caption unchanged: **Schematisk hall — inte exakt mått**.
+- Footer when shipped: **Träningsplaneraren · Slice 21**
+
+---
+
 ## Notes for Builder
 
 - Prefer these strings over inventing synonyms (“Golvplan”, “Karta”, “Visa hall”, “Acceptera alla seeds”).
 - Keep **pass** / **övning** / **gymnaster** consistent with Slice 01–03 chrome.
 - Phone alternate place path uses `hallPlaceHere` only — no extra coaching copy required in 05.
 - Slice 19: wire `hallApplyAllSuggested*` from edit chrome only; see [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).
+- Slice 21: wire `hallTrayExpand` / `hallTrayCollapse` (+ aria) on phone edit tray; reuse `hallUnplacedWithCount` on the compact bar — [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).

@@ -1,10 +1,12 @@
-import type { DragEvent, MouseEvent } from 'react'
+import { useEffect, useRef, type DragEvent, type MouseEvent } from 'react'
 import { UI } from '../data/blockMeta'
 import {
   flowSegments,
   getPlacedItems,
   getPreset,
+  roundHallZoom,
   stationRanks,
+  touchDistance,
 } from '../lib/hall'
 import type { Session } from '../types'
 import { HallChip, HALL_CHIP_MIME } from './HallChip'
@@ -17,6 +19,8 @@ interface Props {
   placeModeItemId: string | null
   selectedItemId: string | null
   viewZoom: number
+  /** Slice 21 A1 — pinch updates viewZoom (parent clamps / persists view only). */
+  onViewZoomChange?: (zoom: number) => void
   onPlaceAt: (sessionItemId: string, x: number, y: number) => void
   onChipClick: (itemId: string) => void
   onRemovePlacement: (itemId: string) => void
@@ -36,12 +40,18 @@ function clientToNormalized(
   return { x, y }
 }
 
+interface PinchState {
+  initialDistance: number
+  initialZoom: number
+}
+
 export function HallCanvas({
   session,
   hallMode,
   placeModeItemId,
   selectedItemId,
   viewZoom,
+  onViewZoomChange,
   onPlaceAt,
   onChipClick,
   onRemovePlacement,
@@ -56,6 +66,73 @@ export function HallCanvas({
   const segments = flowSegments(session)
   const isFloor = hallMode === 'floor'
   const editPlaceMode = !isFloor && placeModeItemId
+
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const viewZoomRef = useRef(viewZoom)
+  const pinchRef = useRef<PinchState | null>(null)
+
+  viewZoomRef.current = viewZoom
+
+  // Slice 21 A1/C1 — two-finger pinch → viewZoom; one-finger empty uses wrap overflow pan.
+  useEffect(() => {
+    const wrap = wrapRef.current
+    if (!wrap || !onViewZoomChange) return
+    const setZoom: (zoom: number) => void = onViewZoomChange
+
+    function beginPinch(touches: TouchList) {
+      if (touches.length < 2) return
+      const a = touches.item(0)
+      const b = touches.item(1)
+      if (!a || !b) return
+      const dist = touchDistance(a, b)
+      if (dist <= 0) return
+      pinchRef.current = {
+        initialDistance: dist,
+        initialZoom: viewZoomRef.current,
+      }
+    }
+
+    function onTouchStart(e: TouchEvent) {
+      if (e.touches.length === 2) {
+        beginPinch(e.touches)
+      }
+    }
+
+    function onTouchMove(e: TouchEvent) {
+      if (e.touches.length < 2 || !pinchRef.current) return
+      const a = e.touches.item(0)
+      const b = e.touches.item(1)
+      if (!a || !b) return
+      const dist = touchDistance(a, b)
+      if (dist <= 0 || pinchRef.current.initialDistance <= 0) return
+      // Block browser page-zoom while we own the pinch; single-finger pan stays native.
+      e.preventDefault()
+      const scale = dist / pinchRef.current.initialDistance
+      const next = roundHallZoom(pinchRef.current.initialZoom * scale)
+      if (next !== viewZoomRef.current) {
+        setZoom(next)
+      }
+    }
+
+    function endPinchIfNeeded(e: TouchEvent) {
+      if (e.touches.length < 2) {
+        pinchRef.current = null
+      }
+    }
+
+    wrap.addEventListener('touchstart', onTouchStart, { passive: true })
+    wrap.addEventListener('touchmove', onTouchMove, { passive: false })
+    wrap.addEventListener('touchend', endPinchIfNeeded)
+    wrap.addEventListener('touchcancel', endPinchIfNeeded)
+
+    return () => {
+      wrap.removeEventListener('touchstart', onTouchStart)
+      wrap.removeEventListener('touchmove', onTouchMove)
+      wrap.removeEventListener('touchend', endPinchIfNeeded)
+      wrap.removeEventListener('touchcancel', endPinchIfNeeded)
+      pinchRef.current = null
+    }
+  }, [onViewZoomChange])
 
   function handleDrop(e: DragEvent<HTMLDivElement>) {
     if (isFloor) return
@@ -77,7 +154,7 @@ export function HallCanvas({
   }
 
   return (
-    <div className="hall-canvas-wrap">
+    <div className="hall-canvas-wrap" ref={wrapRef}>
       <div
         className="hall-canvas-zoom"
         style={{

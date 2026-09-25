@@ -223,3 +223,16 @@ Full microcopy: [`dirty-stang.sv.md`](./dirty-stang.sv.md) (also under `slice-20
 | Keep editing | Fortsätt redigera |
 | Canvas remove aria | Ta bort från hall (`hallRemove`) |
 | Footer | Träningsplaneraren · Slice 20 |
+
+---
+
+## Phone tray (Slice 21)
+
+Full microcopy: [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md) (also under `slice-21/content/`).
+
+| Key | Swedish |
+| --- | --- |
+| Expand | Visa stationsbricka |
+| Collapse | Dölj bricka |
+| Compact count | Ej placerade ({n}) — reuse `hallUnplacedWithCount` |
+| Footer | Träningsplaneraren · Slice 21 |

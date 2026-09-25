@@ -19,13 +19,51 @@ Statuses: `Proposed` · `Approved` · `In flight` · `Declined` · `Parked` · `
 
 ## Proposed
 
-_(none — Scout run 2026-09-25 post–Slice 18 gated: all three Approved)_
+### Scout run 2026-09-26 (post Slice 20 PASS · Slice 21 candidates)
+
+Ranked by new-coach impact vs build cost. Redskap spine + phone polish (18–20) are shipped. Does **not** re-propose Parked or Shipped. Each idea: experience-first + standing-lock check (pstack / `PSTACK-OPS.md`).
+
+#### 1. Hall — soft “saknar redskap” banner
+
+- **Coach benefit:** On Hallöversikt edit you see how many placed Teknik-stationer still have no saved redskap, so Golvklart/Förrådslista are not a surprise empty floor.
+- **Experience-first:** After place → Använd alla förslag (Slice 19), the only pass-wide signal is a short toast; nothing stays visible that N stations are still unset. New coaches jump to Golvklart with quiet under-markör lines.
+- **Standing lock?** **No fight.** Complements hall-detail-only compose and Teknik-only hall; does not add Passbyggaren compose, badge, CAD, or library growth. Banner is soft (like unplaced) — never blocks Golvklart.
+- **Evidence:** Slice 19 applies only to **placed** unset Teknik with seeds and then clears (`SLICE19-SHIPPED.md`, `slice-19/decisions.md` C); Golvklart/Förråd/print stay quiet on unset (`SLICE18` lock C). Unplaced banner exists (`hallUnplacedBanner` station wording in `blockMeta.ts`); no parallel “saknar redskap” count. Kom igång step 5 completes after **any** one saved composition (`SLICE16-SHIPPED.md`).
+- **Effort:** S
+- **Suggested slice shape:** Soft `role="status"` banner on Hallöversikt **edit** when count of placed Teknik with no non-empty saved `stationEquipment` is ≥1 (treat unset and `[]` as missing for this signal, or unset-only — lock in pack). Copy e.g. “{n} stationer saknar redskap” + optional secondary affordance pointing at **Använd alla förslag** when that CTA is enabled. Hide on Golvklart. Docs Swedish; Builder HallBoard; Verifier partial/full/empty. Bundle candidate with #3 only if Planner wants one hall-phone polish pack (different loops — default keep separate).
+
+#### 2. Kom igång — place step needs a real placement
+
+- **Coach benefit:** The checklist only checks off “placera på hallen” after at least one Teknik-station is actually on the schematic, not merely after opening Hallöversikt.
+- **Experience-first:** New coaches currently get credit for opening the hall (`openedHall`), which teaches the wrong habit before Redigera redskap / Använd alla förslag.
+- **Standing lock?** **No fight.** Home-only checklist; does not change Teknik-only placeable set, compose entry, or drafts model.
+- **Evidence:** `coachTips.ts` marks `openHallAndPlace` when `placementCount >= 1` **or** `openedHall` (`markHallOpened` / sync heuristics). Slice 09 shipped that heuristic (`SLICE09-SHIPPED.md`); Slice 16 added compose step but left place heuristic unchanged (`docs/kom-igang-redskap.sv.md`, `verify-traningsplaneraren/features/home-kom-igang.md`).
+- **Effort:** S
+- **Suggested slice shape:** Docs clarify step copy if needed; Builder: auto-progress place step only when `placementCount >= 1` (stop counting bare `openedHall`). Keep soft — do not block Hall/Golvklart. Optional: if previously checked via open-only, leave as-is (no regress old tips state) or recompute on next sync — pick in pack. Verifier: open hall alone leaves step unchecked; place one Teknik checks it.
+
+#### 3. Hall phone — pinch-zoom — **absorbed into Slice 21 APPROVED**
+
+- **Status:** Absorbed into **Slice 21** Hallöversikt phone usability pack (`slice-21/`) together with collapsible sticky tray + pan-while-zoomed. Pack **APPROVED 2026-09-26** (recommended A–F); Docs+Builder done; Verifier in flight.
+- **Coach benefit:** On a phone you can pinch the schematic to aim placements and read Golvklart titles/redskap without hunting only +/− buttons.
+- **Experience-first:** Floor setup on a small screen is the highest-friction remaining hall loop after Slice 20 hit-target/scroll polish; pinch is how coaches already zoom maps.
+- **Standing lock?** **No fight.** View-only scale (same as +/−); does not change stored x,y, caption, CAD, or placeable rules.
+- **Evidence:** Slice 07 chose +/− only and deferred pinch (`SLICE07-SHIPPED.md` Gaps: “Pinch-zoom not implemented (buttons chosen)”; zoom is view-only). Slice 20 polished remove/Stäng/mall scroll but not zoom (`SLICE20-SHIPPED.md`). Phone URL now carries dense Golvklart chrome (titles + redskap, Slices 14–17).
+- **Effort:** M (now part of Slice 21 pack)
+- **Suggested slice shape:** See `slice-21/` recommended A1 (+ B1 tray + C1 pan). Do **not** re-propose pinch alone while Slice 21 is In flight.
 
 ---
 
 ## In flight
 
-_(none)_
+### Slice 21 — Hallöversikt phone usability (**APPROVED** · Verifier in flight)
+
+- **Locked A–F (2026-09-26):** A1 · B1 · C1 · D1 · E1 · F1
+
+- **Pack:** [`slice-21/`](../slice-21/) — **APPROVED 2026-09-26**.
+- **Parts:** pinch-zoom beside +/− (A1) · collapsible sticky tray / more canvas (B1) · reliable pan while zoomed (C1) · thin Docs (D1) · footer Slice 21 (E1) · hard non-goals (F1).
+- **Absorbs:** Scout Proposed #3 pinch-zoom (annotated above).
+- **Leaves Proposed:** #1 saknar-redskap banner · #2 Kom igång place-step heuristic.
+- **Next:** Verifier (in flight). No Pages republish unless asked.
 
 ## Approved (ready for a slice pack)
 

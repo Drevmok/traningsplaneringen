@@ -159,6 +159,7 @@ export const UI = {
   hallBack: 'Tillbaka till Passbyggaren',
   hallBackShort: 'Till Passbyggaren',
   hallUnplaced: 'Ej placerade',
+  hallUnplacedWithCount: 'Ej placerade ({n})',
   hallUnplacedStations: 'Ej placerade stationer',
   hallAllPlaced: 'Alla Teknik-stationer är placerade.',
   hallTrayEmptyStations: 'Alla Teknik-stationer är placerade.',
@@ -208,6 +209,11 @@ export const UI = {
   hallZoom: 'Zooma',
   hallZoomIn: 'Zooma in',
   hallZoomOut: 'Zooma ut',
+  // Slice 21 — phone tray collapse (locked: docs/hall-phone-chrome.sv.md)
+  hallTrayExpand: 'Visa stationsbricka',
+  hallTrayCollapse: 'Dölj bricka',
+  hallTrayExpandAria: 'Visa brickan med ej placerade stationer',
+  hallTrayCollapseAria: 'Dölj brickan med ej placerade stationer',
   hallFloorCoachTip:
     'Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa gruppen — skriv ut eller håll upp skärmen.',
   // Slice 09 — onboarding / coach tips (locked: coach-tips.sv.md)
@@ -329,7 +335,7 @@ export const UI = {
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
   // Slice 10 — distribution (locked: docs/distribution-copy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 20',
+  footerSliceLabel: 'Träningsplaneraren · Slice 21',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
     'Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen.',
@@ -350,6 +356,11 @@ export const UI = {
   privacyPublicUrl:
     'Har du en öppen länk kan vem som helst öppna den tomma appen. Dina övningar och placeringar sparas bara i din webbläsare — inte på servern.',
 } as const
+
+
+export function hallUnplacedWithCountText(n: number): string {
+  return UI.hallUnplacedWithCount.replace('{n}', String(n))
+}
 
 export function hallUnplacedBannerText(n: number): string {
   if (n === 1) return UI.hallUnplacedBannerOne

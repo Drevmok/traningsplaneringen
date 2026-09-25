@@ -49,6 +49,7 @@ Hallöversikt stays openable (CTA not disabled solely for missing Teknik). Show 
 | `hallRemove` | Ta bort från hall |
 
 - Prefer tray heading **Ej placerade stationer** (`hallUnplacedStations`) when space allows; short **Ej placerade** is OK with count.
+- Phone ≤768px (Slice 21): collapsed compact bar uses `hallUnplacedWithCount`; expand/collapse = **Visa stationsbricka** / **Dölj bricka** — [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).
 - `hallAllPlaced` / `hallTrayEmptyStations` are the same coach meaning — pick one key in code.
 - Supersedes Slice 05 `Alla övningar är placerade i hallen` / `Dra övningar till hallen…`.
 
