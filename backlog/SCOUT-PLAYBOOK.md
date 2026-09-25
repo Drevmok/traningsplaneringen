@@ -51,6 +51,10 @@ When Christoffer Approves **two or more Effort S** ideas that share the same coa
 
 Effort **M** / **L** (or unrelated S ideas) stay separate packs.
 
+## pstack (Slice 21+)
+
+Team rigor layer: see `backlog/PSTACK-OPS.md`. Scout: tag each idea with experience-first benefit and whether it fights a standing lock. Verification source of truth for driving the app: `verify-traningsplaneraren/`.
+
 ## Hard no’s for Scout
 
 - Implement code or Docs polish  

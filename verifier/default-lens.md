@@ -30,3 +30,7 @@ Use for each slice. Report **PASS / FAIL / BLOCKED** with concrete notes. Do not
 - Edge cases: ...
 - Criteria checklist: ...
 - Concrete gaps (actionable, not vague)
+
+## Project verification skill (Slice 21+)
+
+Before formal drive: read `/workspace/gymnastics-planner/verify-traningsplaneraren/SKILL.md` and the relevant `features/*`. Follow Launch → Doctor → Drive → Evidence. Ops note: `backlog/PSTACK-OPS.md`.
