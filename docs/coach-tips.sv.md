@@ -1,0 +1,143 @@
+# Slice 09 — coach tips & Kom igång (svenska)
+
+**Status:** Docs lock — Christoffer approved Slice 09 (2026-09-24). Builder may ship these keys.  
+**Tone:** Warm, short, coach-to-coach. Prefer *du/ni*. No marketing superlatives.  
+**Locked terms:** gymnaster · pass · övning · Hallöversikt · Golvklart · Erfaren · Passbyggaren · Kom igång · Redigera redskap · Visa tips igen  
+**Out of scope:** nya teknikprogressioner, övningsbibliotek, CAD, blocking tour-copy.
+
+Existing Slice 01 `EMPTY_TIPS` / Tips-flik and Slice 05–07 hall one-liners **stay**. These strings are additive dismissible chrome.
+
+Keep hall caption exactly: **Schematisk hall — inte exakt mått**
+
+**Slice 11:** Hall tips / Kom igång steg 3 say **Teknik-stationer** — not all pass övningar. See also [`hall-declutter.sv.md`](./hall-declutter.sv.md).
+**Slice 12:** Placed stations are **markörer** (icon-first); tap for details. See [`station-tiles.sv.md`](./station-tiles.sv.md).
+**Slice 13:** Hall detail can list **redskap**; CTA **Redigera redskap**. See [`station-compose.sv.md`](./station-compose.sv.md).
+**Slice 16:** Kom igång gets a soft fifth step — discover **Redigera redskap**. See [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md). Supersedes “no fifth step” below.
+
+---
+
+## Kom igång (checklist card)
+
+| Key | Swedish |
+| --- | --- |
+| `komIgangTitle` | Kom igång |
+| `komIgangIntro` | Fem korta steg — från tomt pass till något du kan visa på golvet. |
+| `komIgangStep1` | Välj eller bygg ett pass |
+| `komIgangStep1Hint` | Börja tomt, från en mall, eller fortsätt ditt utkast. |
+| `komIgangStep2` | Lägg till övningar i blocken |
+| `komIgangStep2Hint` | Samling → Uppvärmning → Teknik → Styrka → Lek och spel. |
+| `komIgangStep3` | Öppna Hallöversikt och placera stationer |
+| `komIgangStep3Hint` | Dra Teknik-stationerna ungefär dit ni brukar vara i hallen. |
+| `komIgangStepCompose` | Ange redskap på Teknik-stationerna |
+| `komIgangStepComposeHint` | Tryck en markör och välj **Redigera redskap**. |
+| `komIgangStepComposeHintShort` | Tryck markör, välj Redigera redskap. |
+| `komIgangStep4` | Använd Golvklart på golvet |
+| `komIgangStep4Hint` | Visa gruppen — eller skriv ut. Schemat är inte exakta mått. |
+| `komIgangProgress` | {done} av {total} klart |
+| `komIgangDismiss` | Dölj Kom igång |
+| `komIgangDismissAlt` | Jag klarar mig |
+| `komIgangNeedActivity` | Lägg till minst en övning först |
+| `komIgangNeedHall` | Öppna Hallöversikt när du har övningar i passet |
+| `komIgangNeedComposeHall` | Öppna Hallöversikt när du har övningar i passet |
+| `komIgangAllDone` | Snyggt — du har gått hela vägen till golvet. |
+| `komIgangAllDoneHint` | Du kan visa tips igen under **Visa tips igen**. |
+
+- Primary dismiss label: **Dölj Kom igång**. **Jag klarar mig** is an allowed alternate (same action).
+- `komIgangNeedActivity` matches the Hallöversikt disabled-CTA sense (`hallCtaDisabled`).
+- **Slice 16:** Five soft steps (place → **Ange redskap** → Golvklart). Soft only — never block Golvklart. Auto-progress when any non-empty saved `stationEquipment`. Full lock: [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
+- Slice 09 “Do not invent a fifth step” is **superseded** by this Approved step.
+
+---
+
+## Visa tips igen
+
+| Key | Swedish |
+| --- | --- |
+| `visaTipsIgen` | Visa tips igen |
+| `visaTipsIgenDone` | Tips visas igen |
+| `visaTipsIgenAlready` | Tips syns redan |
+
+Quiet link on Home or near app footer — not a settings page.
+
+---
+
+## Contextual tips
+
+### Passbyggaren — `tip-builder-empty`
+
+| Key | Swedish |
+| --- | --- |
+| `tipBuilderEmpty` | Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Under **Tips** finns korta råd per block. |
+| `tipBuilderEmptyShort` | Börja från mall eller lägg till en övning. Mer råd under Tips. |
+
+Keep existing (do not replace):
+
+- Top bar: `Ny som tränare? Börja från en mall`
+- Block `EMPTY_TIPS` / Tips-flik `TIPS_TAB` from Slice 01
+
+### Hallöversikt placement — `tip-hall-place`
+
+| Key | Swedish |
+| --- | --- |
+| `tipHallPlace` | Placera Teknik-stationerna ungefär där ni brukar köra dem. De visas som små markörer — tryck för detaljer och redskap. Släpp på en zon för att fästa; på öppen yta kan du placera fritt. |
+
+Prefer one dismissible paragraph. Keep always-on one-liners if useful:
+
+- `Dra Teknik-stationer till hallen. Placeringen sparas med utkastet.`
+- `Släpp på en zon för att fästa stationen där. På öppen yta kan du placera fritt.`
+
+Do not leave three redundant paragraphs visible at once.
+
+
+Optional after first hall detail (Slice 13):
+
+| Key | Swedish |
+| --- | --- |
+| `tipStationCompose` | Redigera redskapen ni faktiskt använder. Det sparas i utkastet och syns när du trycker på markören. |
+
+### Flow / Golvklart — `tip-hall-flow-golvklart`
+
+| Key | Swedish |
+| --- | --- |
+| `tipHallFlowGolvklart` | Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. **Golvklart** är till för att visa gruppen — skriv ut eller håll upp skärmen. |
+
+Always-on OK: `Stationsordning följer passet`
+
+Wire/adapt existing `hallFloorCoachTip` to this wording.
+
+### Optional Erfaren — `tip-experienced-safety`
+
+| Key | Swedish |
+| --- | --- |
+| `tipExperiencedSafety` | **Erfaren** betyder aktiv spotting och rätt uppbyggnad. Lägg bara in om du (eller en kollega) kan leda säkert — du kan fortfarande välja övningen medvetet. |
+
+Do **not** add new drills, cues, or progression lists. Echo existing safety language only.
+
+---
+
+## Shared chrome
+
+| Key | Swedish |
+| --- | --- |
+| `tipDismiss` | Dölj tips |
+| `tipDismissAria` | Dölj det här tipset |
+| `tipInfoAria` | Visa tränartips |
+| `tipClose` | Stäng |
+
+---
+
+## Kort principer
+
+1. Each tip ≤ ~2 short sentences so it fits a phone strip.
+2. Soft guidance only — never copy that blocks Passbyggaren, Hallöversikt, or Golvklart.
+3. Hide tip chrome in print CSS and prefer hide in Golvklart floor mode.
+4. Vocabulary lock: gymnaster, pass, övning — never aktiva/elever/session as product words.
+
+---
+
+## Notes for Builder
+
+- Prefer these strings over inventing synonyms (“Kom igång-guide”, “Floor ready tips”, “Tour”).
+- Checklist step order: Slice 16 A–F (5 steps; soft Golvklart). Wording here + [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
+- Keep `tipStationCompose` as-is (Slice 16 locked C).
+- Slice 09 base + Slice 16 compose step; Erfaren tip optional if time-boxed.
