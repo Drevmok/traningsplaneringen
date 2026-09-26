@@ -1,6 +1,6 @@
 # Kom igång — discover Redigera redskap (Slice 16)
 
-**Status:** Docs lock — Christoffer approved Slice 16 (2026-09-25). **Slice 22** adds collapse/expand chrome only — step semantics unchanged. Builder may ship from these keys.  
+**Status:** Docs lock — Christoffer approved Slice 16 (2026-09-25). **Slice 22** adds collapse/expand chrome only. **Slice 26** tightens place-step auto-progress (placement-only); step 3 Swedish **unchanged** — see [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md). Builder may ship from these keys.  
 **Tone:** Warm, short, coach-to-coach. Prefer *du/ni*. No marketing superlatives.  
 **Product lock:** Soft Home **Kom igång** discoverability for **Redigera redskap**. New soft checklist step (**5 total**) between place and Golvklart. Auto-progress when any saved non-empty `stationEquipment`. **Never** block Golvklart. Tip strip keeps `tipStationCompose` as-is. No Home visual redesign beyond copy/checklist/progress.  
 **Carry-forward:** Compose CTA stays **Redigera redskap** (hall detail only — Slice 13). Floor quiet / Förrådslista unchanged (Slices 14–15).  
@@ -53,8 +53,8 @@ Do **not** ship all-done copy that implies Golvklart was blocked until redskap.
 | `komIgangStep1Hint` | Börja tomt, från en mall, eller fortsätt ditt utkast. | Unchanged |
 | `komIgangStep2` | Lägg till övningar i blocken | Unchanged |
 | `komIgangStep2Hint` | Samling → Uppvärmning → Teknik → Styrka → Lek och spel. | Unchanged |
-| `komIgangStep3` | Öppna Hallöversikt och placera stationer | Unchanged |
-| `komIgangStep3Hint` | Dra Teknik-stationerna ungefär dit ni brukar vara i hallen. | Primary place copy; redskap lives in step 4 |
+| `komIgangStep3` | Öppna Hallöversikt och placera stationer | Unchanged — placera = on-hall (Slice 26) |
+| `komIgangStep3Hint` | Dra Teknik-stationerna ungefär dit ni brukar vara i hallen. | Unchanged — drag/place on hall; redskap lives in step 4 |
 
 ---
 
@@ -104,7 +104,7 @@ Checklist key (Builder): e.g. `composeStationEquipment` (internal; not shown to 
 
 ## Slice 22 — collapse does not change steps
 
-Slice 22 quiets the card chrome (collapsed summary after progress > 0 or prior collapse; 0/n stays expanded). **Step labels, hints, order, auto-progress, and soft Golvklart gate are unchanged.** No place-step heuristic (Scout #2 stays Proposed). No saknar-redskap copy.
+Slice 22 quiets the card chrome (collapsed summary after progress > 0 or prior collapse; 0/n stays expanded). **Step labels, hints, order, and soft Golvklart gate are unchanged by Slice 22.** No saknar-redskap copy here. Place-step heuristic → Slice 26 ([`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md)).
 
 | Key | Swedish |
 | --- | --- |
@@ -115,13 +115,27 @@ Slice 22 quiets the card chrome (collapsed summary after progress > 0 or prior c
 
 Summary reuses `komIgangTitle` + `komIgangProgress`. Full lock: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
 
-## Footer (locked E)
+## Slice 26 — place step needs real placement
+
+**Placera** in step 3 means on-hall placement of ≥1 Teknik-markör — not merely opening Hallöversikt. User-facing `komIgangStep3` / `komIgangStep3Hint` stay **unchanged** (already clear). Full Docs lock: [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md).
+
+**Builder heuristic (A1/B1):**
+- `syncChecklistHeuristics` advances `openHallAndPlace` only when `placementCount >= 1`.
+- `markOpenedHall` may set `openedHall`; must **not** alone set `openHallAndPlace: true`.
+- Legacy already-true left as-is (no regress). Soft — never block Hallöversikt / Golvklart.
+- Compose remains a separate Slice 16 step — do not require `stationEquipment` to check place.
+
+Footer when Slice 26 ships: `Träningsplaneraren · Slice 26` (see place-step Docs). No saknar banner (Slice 25). No tip strip.
+
+---
+
+## Footer (locked E — Slice 16 ship marker)
 
 | Key | Swedish |
 | --- | --- |
 | `footerSliceLabel` | Träningsplaneraren · Slice 16 |
 
-Keep footer `no-print`.
+Keep footer `no-print`. Later slices override the footer ship marker (Slice 26 → `Träningsplaneraren · Slice 26`).
 
 ---
 
@@ -157,6 +171,7 @@ Keep footer `no-print`.
 
 - Prefer these strings over inventing synonyms (“Kom igång-guide”, “Equipment checklist tour”).  
 - Wire new checklist key + `CHECKLIST_TOTAL = 5`.  
-- Heuristic: non-empty saved `stationEquipment` only (locked B).  
+- Compose heuristic: non-empty saved `stationEquipment` only (locked B).  
+- Place heuristic (Slice 26): `openHallAndPlace` only when `placementCount >= 1` — see [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md).  
 - Golvklart path stays soft (locked D).  
 - Living keys also merged in [`coach-tips.sv.md`](./coach-tips.sv.md). This file is the Slice 16 companion lock.

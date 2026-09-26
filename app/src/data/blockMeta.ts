@@ -350,8 +350,15 @@ export const UI = {
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
-  // Slice 10 — distribution; Slice 24 footer (docs/forrad-empty-soft-path.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 24',
+  // Slice 25 — saknar redskap banner (docs/saknar-redskap-banner.sv.md)
+  hallSaknarRedskapBanner: '{n} stationer saknar redskap',
+  hallSaknarRedskapBannerOne: '1 station saknar redskap',
+  hallSaknarPointApplyAll: 'Använd alla förslag',
+  hallSaknarPointApplyAllAria:
+    'Visa Använd alla förslag. Sparar inte automatiskt.',
+  hallSaknarPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
+  // Slice 10 — distribution; Slice 25 footer (docs/saknar-redskap-banner.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 26',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
@@ -386,6 +393,11 @@ export function hallUnplacedWithCountText(n: number): string {
 export function hallUnplacedBannerText(n: number): string {
   if (n === 1) return UI.hallUnplacedBannerOne
   return UI.hallUnplacedBanner.replace('{n}', String(n))
+}
+
+export function hallSaknarRedskapBannerText(n: number): string {
+  if (n === 1) return UI.hallSaknarRedskapBannerOne
+  return UI.hallSaknarRedskapBanner.replace('{n}', String(n))
 }
 
 export function hallStationCountText(n: number): string {

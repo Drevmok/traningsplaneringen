@@ -285,3 +285,20 @@ Full microcopy: [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md)
 | Gate | Empty Förråd **and** `eligibleSuggestedCount ≥ 1` |
 | Behavior | Close → Hall edit → point at **Använd alla förslag**; **no** auto-apply; **no** compose from Förråd |
 | Footer | Träningsplaneraren · Slice 24 |
+
+---
+
+## Soft saknar redskap (Slice 25)
+
+Full microcopy: [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md) (also under `slice-25/content/`). Hall: [`hall-oversikt-copy.sv.md`](./hall-oversikt-copy.sv.md). Apply-all: [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| Banner (N>1) | {n} stationer saknar redskap |
+| Banner (N=1) | 1 station saknar redskap |
+| Optional point-CTA | Använd alla förslag |
+| Point-CTA aria | Visa Använd alla förslag. Sparar inte automatiskt. |
+| Gate | Hall **edit**; missing unset/`[]` ≥1; CTA only if `eligibleSuggestedCount ≥ 1` |
+| Behavior | Soft `role="status"`; point at apply-all; **no** auto-apply; hide on Golvklart |
+| Footer | Träningsplaneraren · Slice 25 |
+

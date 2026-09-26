@@ -27,9 +27,9 @@ Christoffer (2026-09-26) approved all three ideas. Per `SCOUT-PLAYBOOK.md` bundl
 |---|---|---|
 | **#1** | Home — Hallöversikt / Golvklart när utkast finns | → **Shipped** as **Slice 23** (bundled with #2) |
 | **#2** | Home — Öppna på telefon (wire existing copy) | → **Shipped** as **Slice 23** (bundled with #1) |
-| **#3** | Förråd tom — peka på Använd alla förslag | → **Shipped** as **Slice 24** (pack APPROVED 2026-09-26 · Docs in flight) |
+| **#3** | Förråd tom — peka på Använd alla förslag | → **Shipped** as **Slice 24** (Verifier PASS 2026-09-26 · live on Pages) |
 
-Full write-ups: #1–#2 under **Shipped** (Slice 23); #3 under **In flight** (Slice 24) below (not re-listed here).
+Full write-ups: #1–#2 under **Shipped** (Slice 23); #3 under **Shipped** (Slice 24) below (not re-listed here).
 
 ---
 
@@ -37,27 +37,27 @@ Full write-ups: #1–#2 under **Shipped** (Slice 23); #3 under **In flight** (Sl
 
 Ranked by new-coach impact vs build cost. Redskap spine + phone polish (18–20) are shipped. Does **not** re-propose Parked or Shipped. Each idea: experience-first + standing-lock check (pstack / `PSTACK-OPS.md`).
 
-**Note (2026-09-26):** Quiet-chrome polish shipped as **Slice 22** (progressive Hall hints · quieter Kom igång · one chrome layer). **#1** and **#2** below stay **Proposed** (not absorbed — #1 would add chrome; #2 is a different heuristic axis). **Still out of Slice 23** (Home polish pack; F1).
+**Note (2026-09-26):** Quiet-chrome polish shipped as **Slice 22**. Christoffer (2026-09-26 via Planner) **Approved** leftover **#1** and **#2** below → **Slice 25** / **Slice 26** (separate packs — Hall vs Home/Kom igång; no auto-bundle). Status moves:
 
-#### 1. Hall — soft “saknar redskap” banner — **stays Proposed**
+| Scout # | Idea | Status move |
+|---|---|---|
+| **#1** | Hall — soft “saknar redskap” banner | → **Shipped** as **Slice 25** (Verifier PASS 2026-09-26) |
+| **#2** | Kom igång — place step needs a real placement | → **Shipped** as **Slice 26** (Verifier PASS 2026-09-26) |
+| **#3** | Hall phone — pinch-zoom | → **Shipped** as **Slice 21** (absorbed earlier) |
 
-- **Status:** Stays **Proposed**. Explicitly **out** of Slice 22 (would ADD chrome; quiet-chrome pack suppresses stacking) and **out** of Slice 23 (Home polish only).
+Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25); #3 under **Shipped** (Slice 21). Not re-listed as Proposed.
+
+#### 1. Hall — soft “saknar redskap” banner — **Shipped → Slice 25**
+
+- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-25-verify-report.md`; pack `slice-25/`. Was out of Slice 22/23/24 (Hall chrome ≠ Förråd empty path; quiet-chrome pack did not absorb). Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). See **Shipped** section.
 - **Coach benefit:** On Hallöversikt edit you see how many placed Teknik-stationer still have no saved redskap, so Golvklart/Förrådslista are not a surprise empty floor.
-- **Experience-first:** After place → Använd alla förslag (Slice 19), the only pass-wide signal is a short toast; nothing stays visible that N stations are still unset. New coaches jump to Golvklart with quiet under-markör lines.
-- **Standing lock?** **No fight.** Complements hall-detail-only compose and Teknik-only hall; does not add Passbyggaren compose, badge, CAD, or library growth. Banner is soft (like unplaced) — never blocks Golvklart.
-- **Evidence:** Slice 19 applies only to **placed** unset Teknik with seeds and then clears (`SLICE19-SHIPPED.md`, `slice-19/decisions.md` C); Golvklart/Förråd/print stay quiet on unset (`SLICE18` lock C). Unplaced banner exists (`hallUnplacedBanner` station wording in `blockMeta.ts`); no parallel “saknar redskap” count. Kom igång step 5 completes after **any** one saved composition (`SLICE16-SHIPPED.md`).
-- **Effort:** S
-- **Suggested slice shape:** Soft `role="status"` banner on Hallöversikt **edit** when count of placed Teknik with no non-empty saved `stationEquipment` is ≥1 (treat unset and `[]` as missing for this signal, or unset-only — lock in pack). Copy e.g. “{n} stationer saknar redskap” + optional secondary affordance pointing at **Använd alla förslag** when that CTA is enabled. Hide on Golvklart. Docs Swedish; Builder HallBoard; Verifier partial/full/empty. Bundle candidate with Förråd empty CTA (Approved → Slice 24) only if Planner wants one “redskap readiness” pack — **default keep separate** (Förråd vs Hall chrome).
+- **Effort:** S · separate pack (do not auto-bundle with Slice 26).
 
-#### 2. Kom igång — place step needs a real placement — **stays Proposed**
+#### 2. Kom igång — place step needs a real placement — **Shipped → Slice 26**
 
-- **Status:** Stays **Proposed**. Explicitly **out** of Slice 22 (heuristic axis ≠ collapse/quiet chrome) and **out** of Slice 23.
+- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-26-verify-report.md`; pack `slice-26/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). See **Shipped** section.
 - **Coach benefit:** The checklist only checks off “placera på hallen” after at least one Teknik-station is actually on the schematic, not merely after opening Hallöversikt.
-- **Experience-first:** New coaches currently get credit for opening the hall (`openedHall`), which teaches the wrong habit before Redigera redskap / Använd alla förslag.
-- **Standing lock?** **No fight.** Home-only checklist; does not change Teknik-only placeable set, compose entry, or drafts model.
-- **Evidence:** `coachTips.ts` marks `openHallAndPlace` when `placementCount >= 1` **or** `openedHall` (`markHallOpened` / sync heuristics). Slice 09 shipped that heuristic (`SLICE09-SHIPPED.md`); Slice 16 added compose step but left place heuristic unchanged (`docs/kom-igang-redskap.sv.md`, `verify-traningsplaneraren/features/home-kom-igang.md`).
-- **Effort:** S
-- **Suggested slice shape:** Docs clarify step copy if needed; Builder: auto-progress place step only when `placementCount >= 1` (stop counting bare `openedHall`). Keep soft — do not block Hall/Golvklart. Optional: if previously checked via open-only, leave as-is (no regress old tips state) or recompute on next sync — pick in pack. Verifier: open hall alone leaves step unchecked; place one Teknik checks it.
+- **Effort:** S · separate pack (do not auto-bundle with Slice 25).
 
 #### 3. Hall phone — pinch-zoom — **absorbed into Slice 21 Shipped**
 
@@ -73,13 +73,13 @@ Ranked by new-coach impact vs build cost. Redskap spine + phone polish (18–20)
 
 ## In flight
 
-_(none)_
+_(none — Slice 26 shipped after Verifier PASS 2026-09-26.)_
 
 ---
 
 ## Approved (ready for a slice pack)
 
-_(none)_
+No approved item remains here.
 
 ---
 
@@ -107,6 +107,8 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Kom igång — place step needs a real placement | 26 | Verifier PASS 2026-09-26; report `verifier/slice-26-verify-report.md`; pack `slice-26/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). |
+| Hall — soft “saknar redskap” banner | 25 | Verifier PASS 2026-09-26; report `verifier/slice-25-verify-report.md`; pack `slice-25/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). |
 | Förråd tom — soft path to Använd alla förslag | 24 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-24/`. Report `verifier/slice-24-verify-report.md`. |
 | Home polish — Hallöversikt/Golvklart when draft + Öppna på telefon | 23 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-23/`. Report `verifier/slice-23-verify-report.md`. |
 | Quieter chrome (progressive Hall hints · quieter Kom igång · one chrome layer) | 22 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-22/`. Report `verifier/slice-22-verify-report.md`. |

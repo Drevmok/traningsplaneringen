@@ -73,7 +73,7 @@ Keep unchanged dismiss paths:
 
 - Expand / collapse ≥44px.
 - Brand-new (`done === 0`, never collapsed): stay **expanded** — no new strings.
-- Collapse does **not** change step labels, hints, or heuristics (Scout #2 stays out).
+- Collapse does **not** change step labels, hints, or heuristics. Place-step heuristic is Slice 26 ([`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md)) — out of Slice 22.
 - Pair mirrors **Visa flöde** / **Dölj flöde** and Slice 21 **Visa stationsbricka** / **Dölj bricka**.
 - **Visa tips igen** may clear compact/collapse prefs (decisions Q4) — label unchanged.
 
@@ -90,7 +90,7 @@ Keep unchanged dismiss paths:
 ## Out of scope (do not invent)
 
 - Saknar-redskap banner  
-- Kom igång place-step / `openedHall` heuristic copy  
+- Kom igång place-step / `openedHall` heuristic (owned by Slice 26 — [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md))  
 - New required tip content  
 - Rewriting caption / Netlify / konton  
 - Renaming floor **markör**  

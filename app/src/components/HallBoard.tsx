@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
 import {
   hallApplyAllSuggestedResultText,
+  hallSaknarRedskapBannerText,
   hallStationCountText,
   hallUnplacedBannerText,
   hallUnplacedWithCountText,
@@ -40,6 +41,7 @@ import {
   applyAllSuggestedStationEquipment,
   eligibleSuggestedStationEquipmentItems,
   findSessionItem,
+  placedTeknikMissingSavedEquipment,
   saveDraft,
   updateItemStationEquipment,
 } from '../lib/session'
@@ -135,6 +137,11 @@ export function HallBoard({
   )
   const eligibleSuggestedCount = useMemo(
     () => eligibleSuggestedStationEquipmentItems(session).length,
+    [session],
+  )
+  /** Slice 25 — placed Teknik with unset or [] saved redskap (edit banner). */
+  const missingSavedCompositionCount = useMemo(
+    () => placedTeknikMissingSavedEquipment(session).length,
     [session],
   )
 
@@ -294,10 +301,8 @@ export function HallBoard({
     window.setTimeout(() => setApplyAllStatus(null), 2200)
   }
 
-  /** Slice 24 B1 — close Förråd, ensure edit, point at Använd alla förslag (no auto-apply). */
-  function pointAtApplyAllFromForrad() {
-    setForradOpen(false)
-    if (isFloor) exitFloor()
+  /** Shared point-at Använd alla förslag (Slice 24/25) — no auto-apply. */
+  function pointAtApplyAll(toast: string) {
     window.setTimeout(() => {
       const btn = applyAllBtnRef.current
       if (btn) {
@@ -306,9 +311,21 @@ export function HallBoard({
         setApplyAllHighlight(true)
         window.setTimeout(() => setApplyAllHighlight(false), 1800)
       }
-      setApplyAllStatus(UI.forradslistaPointApplyAllToast)
+      setApplyAllStatus(toast)
       window.setTimeout(() => setApplyAllStatus(null), 2200)
     }, 80)
+  }
+
+  /** Slice 24 B1 — close Förråd, ensure edit, point at Använd alla förslag (no auto-apply). */
+  function pointAtApplyAllFromForrad() {
+    setForradOpen(false)
+    if (isFloor) exitFloor()
+    pointAtApplyAll(UI.forradslistaPointApplyAllToast)
+  }
+
+  /** Slice 25 B1 — point at Använd alla förslag from saknar banner (no auto-apply). */
+  function pointAtApplyAllFromSaknar() {
+    pointAtApplyAll(UI.hallSaknarPointApplyAllToast)
   }
 
   function handleTrayDrop(e: DragEvent) {
@@ -491,6 +508,23 @@ export function HallBoard({
             <p className="hall-preset-note">{UI.hallPresetMigrateNote}</p>
             <p className="hall-preset-coach-tip">{UI.hallPresetCoachTip}</p>
           </div>
+          {missingSavedCompositionCount >= 1 && (
+            <div className="hall-saknar-banner no-print">
+              <p className="hall-unplaced-banner" role="status">
+                {hallSaknarRedskapBannerText(missingSavedCompositionCount)}
+              </p>
+              {eligibleSuggestedCount >= 1 && (
+                <button
+                  type="button"
+                  className="btn-secondary hall-tap-target hall-saknar-point-cta"
+                  aria-label={UI.hallSaknarPointApplyAllAria}
+                  onClick={pointAtApplyAllFromSaknar}
+                >
+                  {UI.hallSaknarPointApplyAll}
+                </button>
+              )}
+            </div>
+          )}
           {showMultiLineHints && (
             <>
               <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>

@@ -2284,6 +2284,25 @@
   font-weight: 600;
 }
 
+/* Slice 25 — edit soft saknar-redskap status (unplaced visual family) */
+.hall-saknar-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 6px 0 4px;
+}
+
+.hall-saknar-banner .hall-unplaced-banner {
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hall-saknar-point-cta {
+  align-self: flex-start;
+}
+
 .hall-floor-duration {
   font-weight: 500;
   color: #475569;

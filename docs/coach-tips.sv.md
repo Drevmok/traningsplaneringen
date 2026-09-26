@@ -14,6 +14,7 @@ Keep hall caption exactly: **Schematisk hall — inte exakt mått**
 **Slice 13:** Hall detail can list **redskap**; CTA **Redigera redskap**. See [`station-compose.sv.md`](./station-compose.sv.md).
 **Slice 16:** Kom igång gets a soft fifth step — discover **Redigera redskap**. See [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md). Supersedes “no fifth step” below.
 **Slice 22:** Quieter Kom igång (collapse after progress) + progressive Hall hints info control. See [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
+**Slice 26:** Place-step auto-progress = on-hall placement only (`placementCount >= 1`). Step 3 Swedish unchanged. See [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md).
 
 ---
 
@@ -45,8 +46,9 @@ Keep hall caption exactly: **Schematisk hall — inte exakt mått**
 
 - Primary dismiss label: **Dölj Kom igång**. **Jag klarar mig** is an allowed alternate (same action).
 - `komIgangNeedActivity` matches the Hallöversikt disabled-CTA sense (`hallCtaDisabled`).
-- **Slice 16:** Five soft steps (place → **Ange redskap** → Golvklart). Soft only — never block Golvklart. Auto-progress when any non-empty saved `stationEquipment`. Full lock: [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
-- Slice 09 “Do not invent a fifth step” is **superseded** by this Approved step.
+- **Slice 16:** Five soft steps (place → **Ange redskap** → Golvklart). Soft only — never block Golvklart. Compose auto-progress when any non-empty saved `stationEquipment`. Full lock: [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
+- **Slice 26:** Step 3 (`openHallAndPlace`) checks only after ≥1 Teknik on the schematic — not open-only. `komIgangStep3` / `komIgangStep3Hint` **unchanged**. Full lock: [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md).
+- Slice 09 “Do not invent a fifth step” is **superseded** by the Slice 16 Approved step.
 
 ---
 
@@ -162,5 +164,6 @@ Collapsed summary reuses `komIgangTitle` (**Kom igång**) + `komIgangProgress` (
 
 - Prefer these strings over inventing synonyms (“Kom igång-guide”, “Floor ready tips”, “Tour”).
 - Checklist step order: Slice 16 A–F (5 steps; soft Golvklart). Wording here + [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
+- Place-step heuristic: Slice 26 — [`kom-igang-place-step.sv.md`](./kom-igang-place-step.sv.md). Do not invent new step-3 synonyms.
 - Keep `tipStationCompose` as-is (Slice 16 locked C).
 - Slice 09 base + Slice 16 compose step; Erfaren tip optional if time-boxed.

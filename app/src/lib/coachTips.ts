@@ -164,11 +164,11 @@ export function markChecklist(
 }
 
 export function markOpenedHall(state: CoachTipsStateV1): CoachTipsStateV1 {
-  if (state.openedHall && state.checklist.openHallAndPlace) return state
+  // Slice 26 B1 — record open only; do not alone check openHallAndPlace
+  if (state.openedHall) return state
   return saveCoachTips({
     ...state,
     openedHall: true,
-    checklist: { ...state.checklist, openHallAndPlace: true },
   })
 }
 
@@ -221,10 +221,8 @@ export function syncChecklistHeuristics(
     checklist.addActivities = true
     changed = true
   }
-  if (
-    !checklist.openHallAndPlace &&
-    (opts.placementCount >= 1 || state.openedHall)
-  ) {
+  // Slice 26 A1 — placement-only; never clear already-true (B1)
+  if (!checklist.openHallAndPlace && opts.placementCount >= 1) {
     checklist.openHallAndPlace = true
     changed = true
   }

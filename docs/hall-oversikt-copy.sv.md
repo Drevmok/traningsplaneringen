@@ -1,6 +1,6 @@
 # Hallöversikt — svensk microcopy (Slice 05)
 
-**Status:** Living Hallöversikt chrome — Slice 05 base; Slice 19 adds bulk **Använd alla förslag**.  
+**Status:** Living Hallöversikt chrome — Slice 05 base; Slice 19 bulk **Använd alla förslag**; Slice 25 edit soft **saknar redskap** banner.  
 **Terminologi:** **gymnaster**, **pass**. CTA: **Hallöversikt**.  
 **Keep caption exactly:** **Schematisk hall — inte exakt mått**  
 **Out of scope (Slice 19):** confirm dialogs, Golvklart/Passbyggaren variants of bulk CTA, auto-apply on place, badge/CAD, Netlify.
@@ -135,6 +135,26 @@ Compact bar count: reuse **`hallUnplacedWithCount`** — Ej placerade ({n}). Exp
 
 ---
 
+
+---
+
+## Soft saknar redskap (Slice 25)
+
+Edit-only soft `role="status"` when ≥1 placed Teknik has missing saved redskap (unset **or** `[]`). Hide on Golvklart. Full lock: [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `hallSaknarRedskapBanner` | {n} stationer saknar redskap |
+| `hallSaknarRedskapBannerOne` | 1 station saknar redskap |
+| `hallSaknarPointApplyAll` | Använd alla förslag |
+| `hallSaknarPointApplyAllAria` | Visa Använd alla förslag. Sparar inte automatiskt. |
+| `hallSaknarPointApplyAllToast` | Tryck Använd alla förslag för att spara. |
+
+- Helper `hallSaknarRedskapBannerText(n)` mirrors `hallUnplacedBannerText`.
+- Optional ≥44px CTA only when `eligibleSuggestedCount ≥ 1` — **points** at existing **Använd alla förslag**; **no** auto-apply. Text-only when eligible=0.
+- Soft chrome (unplaced family); never blocks Golvklart. No Förråd / Kom igång place-heuristic changes.
+- Footer when shipped: **Träningsplaneraren · Slice 25**
+
 ## Notes for Builder
 
 - Prefer these strings over inventing synonyms (“Golvplan”, “Karta”, “Visa hall”, “Acceptera alla seeds”).
@@ -142,4 +162,5 @@ Compact bar count: reuse **`hallUnplacedWithCount`** — Ej placerade ({n}). Exp
 - Phone alternate place path uses `hallPlaceHere` only — no extra coaching copy required in 05.
 - Slice 19: wire `hallApplyAllSuggested*` from edit chrome only; see [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).
 - Slice 24: empty Förråd may **point** at that CTA (no auto-apply) — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).
+- Slice 25: wire `hallSaknarRedskapBanner*` (+ optional `hallSaknarPointApplyAll*`) on edit only — [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md).
 - Slice 21: wire `hallTrayExpand` / `hallTrayCollapse` (+ aria) on phone edit tray; reuse `hallUnplacedWithCount` on the compact bar — [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).

@@ -70,6 +70,22 @@ Header activity count on Hallöversikt/Golvklart should use station wording when
 
 ---
 
+## Soft saknar redskap (Slice 25)
+
+Hallöversikt **edit only** — not Golvklart. Count placed Teknik with unset **or** `[]` as missing saved redskap. Soft `role="status"` (same family as unplaced). Full lock: [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `hallSaknarRedskapBanner` | {n} stationer saknar redskap |
+| `hallSaknarRedskapBannerOne` | 1 station saknar redskap |
+| `hallSaknarPointApplyAll` | Använd alla förslag *(optional; only when eligible ≥1 — points only)* |
+
+- Never blocks Golvklart / place / Stäng. No tip strip. No Förråd rewrite. No Kom igång place-heuristic.
+- If both unplaced + saknar visible: unplaced first, saknar under.
+- Footer when shipped: **Träningsplaneraren · Slice 25**
+
+---
+
 ## Compact canvas chips (copy notes)
 
 No new marketing strings — visual only:

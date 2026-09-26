@@ -205,6 +205,24 @@ export function eligibleSuggestedStationEquipmentItems(
 }
 
 /**
+ * Slice 25 — placed Teknik with missing saved redskap (unset OR empty []).
+ * Does not change Slice 19 eligibility (still unset + seed only).
+ */
+export function placedTeknikMissingSavedEquipment(
+  session: Session,
+): SessionItem[] {
+  const placedIds = new Set(
+    (session.hallPlacements ?? []).map((p) => p.sessionItemId),
+  )
+  return placeableItems(session).filter((item) => {
+    if (!placedIds.has(item.id)) return false
+    const eq = item.stationEquipment
+    if (eq === undefined) return true
+    return Array.isArray(eq) && eq.length === 0
+  })
+}
+
+/**
  * Bulk-persist unset Teknik seeds via the same path as Använd förslag (Slice 19).
  * Recomputes eligibility; skips saved lists and cleared `[]`.
  */

@@ -1,6 +1,6 @@
 # Använd alla förslag — svensk microcopy (Slice 19)
 
-**Status:** Docs lock — Slice 19 **APPROVED 2026-09-25**. Living companion: [`hall-oversikt-copy.sv.md`](./hall-oversikt-copy.sv.md) (Slice 19 section). This file is the Slice 19 lock. Slice 24 soft Förråd path **points** here — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).  
+**Status:** Docs lock — Slice 19 **APPROVED 2026-09-25**. Living companion: [`hall-oversikt-copy.sv.md`](./hall-oversikt-copy.sv.md) (Slice 19 section). This file is the Slice 19 lock. Slice 24 soft Förråd path **points** here — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md). Slice 25 Hall saknar banner may **point** here — [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md).  
 **Tone:** Warm, short, coach-to-coach. Prefer *du*.  
 **Product lock:** Hallöversikt **edit** secondary CTA bulk-accepts unset Teknik seeds via the same persist path as **Använd förslag**. Immediate apply + one-line result; no confirm. Edit chrome only — not markör sheet, not Golvklart, not Passbyggaren.  
 **Carry-forward:** Unset vs `[]` + per-station Använd förslag / Klar (13). Quiet Golvklart / Förrådslista / print until saved (14–15). Nine Teknik seeds (18). Caption unchanged.  
@@ -95,6 +95,23 @@ Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as
 
 ---
 
+
+---
+
+## Soft path from Hall saknar banner (Slice 25)
+
+When Hallöversikt **edit** shows the soft saknar-redskap banner **and** ≥1 station is eligible for this CTA, the banner may show a secondary control that **points here** — it does **not** call apply-all. Full lock: [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `hallSaknarRedskapBanner` | {n} stationer saknar redskap |
+| `hallSaknarRedskapBannerOne` | 1 station saknar redskap |
+| `hallSaknarPointApplyAll` | Använd alla förslag |
+| `hallSaknarPointApplyAllAria` | Visa Använd alla förslag. Sparar inte automatiskt. |
+| `hallSaknarPointApplyAllToast` | Tryck Använd alla förslag för att spara. |
+
+Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as locked above. Slice 25 does not change this file’s CTA / result strings.
+
 ## Out of scope (do not invent)
 
 - Confirm-dialog copy / browser `confirm`
@@ -102,5 +119,6 @@ Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as
 - Overwrite-saved / re-apply-onto-`[]` wording
 - Auto-spara förslag vid placering
 - Auto-apply from Förråd soft CTA (Slice 24 points only)
+- Auto-apply from Hall saknar banner (Slice 25 points only)
 - Ändra caption **Schematisk hall — inte exakt mått**
 - Netlify / konton / moln
