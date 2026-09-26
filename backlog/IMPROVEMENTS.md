@@ -49,13 +49,13 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 #### 1. Hall — soft “saknar redskap” banner — **Shipped → Slice 25**
 
-- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-25-verify-report.md`; pack `slice-25/`. Was out of Slice 22/23/24 (Hall chrome ≠ Förråd empty path; quiet-chrome pack did not absorb). Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). See **Shipped** section.
+- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-25-verify-report.md`; pack `slice-25/`. Was out of Slice 22/23/24 (Hall chrome ≠ Förråd empty path; quiet-chrome pack did not absorb). Live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. See **Shipped** section.
 - **Coach benefit:** On Hallöversikt edit you see how many placed Teknik-stationer still have no saved redskap, so Golvklart/Förrådslista are not a surprise empty floor.
 - **Effort:** S · separate pack (do not auto-bundle with Slice 26).
 
 #### 2. Kom igång — place step needs a real placement — **Shipped → Slice 26**
 
-- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-26-verify-report.md`; pack `slice-26/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). See **Shipped** section.
+- **Status:** **Shipped** · Verifier **PASS 2026-09-26**; report `verifier/slice-26-verify-report.md`; pack `slice-26/`. Live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. See **Shipped** section.
 - **Coach benefit:** The checklist only checks off “placera på hallen” after at least one Teknik-station is actually on the schematic, not merely after opening Hallöversikt.
 - **Effort:** S · separate pack (do not auto-bundle with Slice 25).
 
@@ -107,8 +107,8 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
-| Kom igång — place step needs a real placement | 26 | Verifier PASS 2026-09-26; report `verifier/slice-26-verify-report.md`; pack `slice-26/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). |
-| Hall — soft “saknar redskap” banner | 25 | Verifier PASS 2026-09-26; report `verifier/slice-25-verify-report.md`; pack `slice-25/`. Phone/Pages still Slice 24 until Christoffer asks republish (repo already footer Slice 26; includes Slice 25). |
+| Kom igång — place step needs a real placement | 26 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-26/`. Report `verifier/slice-26-verify-report.md`. |
+| Hall — soft “saknar redskap” banner | 25 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-25/`. Report `verifier/slice-25-verify-report.md`. |
 | Förråd tom — soft path to Använd alla förslag | 24 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-24/`. Report `verifier/slice-24-verify-report.md`. |
 | Home polish — Hallöversikt/Golvklart when draft + Öppna på telefon | 23 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-23/`. Report `verifier/slice-23-verify-report.md`. |
 | Quieter chrome (progressive Hall hints · quieter Kom igång · one chrome layer) | 22 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-22/`. Report `verifier/slice-22-verify-report.md`. |
