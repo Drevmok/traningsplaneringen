@@ -91,7 +91,10 @@ export function HallBoard({
   /** Slice 22 A1 — session-local expand for progressive hints info panel */
   const [hintsInfoOpen, setHintsInfoOpen] = useState(false)
   const trayRef = useRef<HTMLElement | null>(null)
+  const applyAllBtnRef = useRef<HTMLButtonElement | null>(null)
   const [trayHeight, setTrayHeight] = useState(0)
+  /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
+  const [applyAllHighlight, setApplyAllHighlight] = useState(false)
 
   const itemCount = useMemo(() => countSessionItems(session), [session])
   const placeableCount = useMemo(
@@ -291,6 +294,23 @@ export function HallBoard({
     window.setTimeout(() => setApplyAllStatus(null), 2200)
   }
 
+  /** Slice 24 B1 — close Förråd, ensure edit, point at Använd alla förslag (no auto-apply). */
+  function pointAtApplyAllFromForrad() {
+    setForradOpen(false)
+    if (isFloor) exitFloor()
+    window.setTimeout(() => {
+      const btn = applyAllBtnRef.current
+      if (btn) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        btn.focus({ preventScroll: true })
+        setApplyAllHighlight(true)
+        window.setTimeout(() => setApplyAllHighlight(false), 1800)
+      }
+      setApplyAllStatus(UI.forradslistaPointApplyAllToast)
+      window.setTimeout(() => setApplyAllStatus(null), 2200)
+    }, 80)
+  }
+
   function handleTrayDrop(e: DragEvent) {
     if (isFloor) return
     e.preventDefault()
@@ -427,8 +447,11 @@ export function HallBoard({
               {UI.forradslistaOpen}
             </button>
             <button
+              ref={applyAllBtnRef}
               type="button"
-              className="btn-secondary hall-tap-target"
+              className={`btn-secondary hall-tap-target${
+                applyAllHighlight ? ' hall-apply-all--point' : ''
+              }`}
               aria-label={UI.hallApplyAllSuggestedAria}
               title={
                 eligibleSuggestedCount === 0
@@ -721,7 +744,9 @@ export function HallBoard({
       {forradOpen && (
         <ForradslistaSheet
           rows={forradRows}
+          eligibleSuggestedCount={eligibleSuggestedCount}
           onClose={() => setForradOpen(false)}
+          onPointAtApplyAll={pointAtApplyAllFromForrad}
         />
       )}
 

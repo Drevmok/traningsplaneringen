@@ -269,3 +269,19 @@ Full microcopy: [`copy-home-polish.sv.md`](./copy-home-polish.sv.md) (also under
 | Footer | Träningsplaneraren · Slice 23 |
 
 Secondary CTAs when `draftExists` only; phone block always near honesty. No Förråd empty / saknar / tip-strip invent.
+
+---
+
+## Förråd tom → Använd alla förslag (Slice 24)
+
+Full microcopy: [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md) (also under `slice-24/content/`). Living Förråd: [`forradslista.sv.md`](./forradslista.sv.md). Apply-all: [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| Soft empty hint | Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. |
+| Soft CTA | Använd alla förslag på hallen |
+| Soft CTA aria | Stäng Förrådslista och visa Använd alla förslag på Hallöversikt. Sparar inte automatiskt. |
+| Soft toast (optional) | Tryck Använd alla förslag för att spara. |
+| Gate | Empty Förråd **and** `eligibleSuggestedCount ≥ 1` |
+| Behavior | Close → Hall edit → point at **Använd alla förslag**; **no** auto-apply; **no** compose from Förråd |
+| Footer | Träningsplaneraren · Slice 24 |

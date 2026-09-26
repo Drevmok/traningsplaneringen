@@ -141,4 +141,5 @@ Compact bar count: reuse **`hallUnplacedWithCount`** — Ej placerade ({n}). Exp
 - Keep **pass** / **övning** / **gymnaster** consistent with Slice 01–03 chrome.
 - Phone alternate place path uses `hallPlaceHere` only — no extra coaching copy required in 05.
 - Slice 19: wire `hallApplyAllSuggested*` from edit chrome only; see [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).
+- Slice 24: empty Förråd may **point** at that CTA (no auto-apply) — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).
 - Slice 21: wire `hallTrayExpand` / `hallTrayCollapse` (+ aria) on phone edit tray; reuse `hallUnplacedWithCount` on the compact bar — [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).

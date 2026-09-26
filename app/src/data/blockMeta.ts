@@ -333,6 +333,13 @@ export const UI = {
   forradslistaEmptyHint:
     'Ange redskap på Teknik-stationerna. Tryck en markör och välj Redigera redskap.',
   forradslistaEmptyHintShort: 'Tryck en markör och välj Redigera redskap.',
+  // Slice 24 — Förråd empty soft path (docs/forrad-empty-soft-path.sv.md)
+  forradslistaEmptySoftHint:
+    'Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.',
+  forradslistaPointApplyAll: 'Använd alla förslag på hallen',
+  forradslistaPointApplyAllAria:
+    'Stäng Förrådslista och visa Använd alla förslag på Hallöversikt. Sparar inte automatiskt.',
+  forradslistaPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
   forradslistaPrintHeading: 'Förrådslista',
   forradslistaPrintIntro: 'Ta med från förrådet:',
   // Slice 19 — Använd alla förslag (locked: docs/anvand-alla-forslag.sv.md)
@@ -343,8 +350,8 @@ export const UI = {
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
-  // Slice 10 — distribution; Slice 23 footer + Home polish (docs/copy-home-polish.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 23',
+  // Slice 10 — distribution; Slice 24 footer (docs/forrad-empty-soft-path.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 24',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',

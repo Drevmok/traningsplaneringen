@@ -27,9 +27,9 @@ Christoffer (2026-09-26) approved all three ideas. Per `SCOUT-PLAYBOOK.md` bundl
 |---|---|---|
 | **#1** | Home — Hallöversikt / Golvklart när utkast finns | → **Shipped** as **Slice 23** (bundled with #2) |
 | **#2** | Home — Öppna på telefon (wire existing copy) | → **Shipped** as **Slice 23** (bundled with #1) |
-| **#3** | Förråd tom — peka på Använd alla förslag | → **Approved** (ready for **Slice 24** pack — do **not** draft `slice-24/` yet) |
+| **#3** | Förråd tom — peka på Använd alla förslag | → **Shipped** as **Slice 24** (pack APPROVED 2026-09-26 · Docs in flight) |
 
-Full write-ups for #1–#3 live under **In flight** / **Approved** below (not re-listed here).
+Full write-ups: #1–#2 under **Shipped** (Slice 23); #3 under **In flight** (Slice 24) below (not re-listed here).
 
 ---
 
@@ -79,15 +79,7 @@ _(none)_
 
 ## Approved (ready for a slice pack)
 
-### Förråd tom — peka på Använd alla förslag (när eligible) — **ready for Slice 24**
-
-- **Status:** **Approved** 2026-09-26 (Christoffer). **Queued as Slice 24** — do **not** draft `slice-24/` until Planner starts that pack. **Out** of Slice 23 (F1).
-- **Coach benefit:** Empty Förrådslista offers a soft path toward persisting seeds on placed Teknik, instead of only “tryck en markör → Redigera redskap” one-by-one.
-- **Experience-first:** Empty packing is often “placed but unset” — the same population Slice 19’s **Använd alla förslag** already solves on Hall edit, but Förråd does not bridge to that CTA.
-- **Standing lock?** **No fight** if soft: reuse apply-all persist on Hall edit; do **not** open compose from Förråd; do **not** promote förslag without save; no Passbyggaren compose; no Parked station-breakdown UI.
-- **Evidence:** `ForradslistaSheet.tsx` empty state = empty + hint only (per-markör Redigera redskap); HallBoard gates **Använd alla förslag** by `eligibleSuggestedCount` (Slice 19); eligibility = placed + unset + seed (`session.ts`); quiet floor rules still require saved composition (Slices 14–15/18).
-- **Effort:** S
-- **Suggested slice shape:** When Förråd empty **and** `eligibleSuggestedCount ≥ 1`, add soft secondary copy + CTA that closes sheet and focuses Hall edit apply-all (or navigates to Hall with toast pointing at existing CTA). When not eligible, keep today’s empty hint. Docs Swedish; Verifier: eligible empty vs no-placements empty vs already-saved. Optional later bundle with Proposed saknar banner as one “redskap readiness” pack — **default keep separate**.
+_(none)_
 
 ---
 
@@ -115,6 +107,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Förråd tom — soft path to Använd alla förslag | 24 | Verifier PASS 2026-09-26; Pages still Slice 23 until Christoffer asks to republish. Pack `slice-24/`. Report `verifier/slice-24-verify-report.md`. |
 | Home polish — Hallöversikt/Golvklart when draft + Öppna på telefon | 23 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-23/`. Report `verifier/slice-23-verify-report.md`. |
 | Quieter chrome (progressive Hall hints · quieter Kom igång · one chrome layer) | 22 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-22/`. Report `verifier/slice-22-verify-report.md`. |
 | Hallöversikt phone usability (pinch + collapsible tray + pan) | 21 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-21/`. |

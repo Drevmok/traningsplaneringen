@@ -4,14 +4,22 @@ import type { AggregatedEquipmentRow } from '../data/equipmentPieces'
 
 interface Props {
   rows: AggregatedEquipmentRow[]
+  eligibleSuggestedCount: number
   onClose: () => void
+  onPointAtApplyAll: () => void
 }
 
-/** Slice 15 — read-only pass-wide Förrådslista bottom sheet. */
-export function ForradslistaSheet({ rows, onClose }: Props) {
+/** Slice 15 — read-only pass-wide Förrådslista bottom sheet. Slice 24 soft empty path. */
+export function ForradslistaSheet({
+  rows,
+  eligibleSuggestedCount,
+  onClose,
+  onPointAtApplyAll,
+}: Props) {
   useBodyScrollLock(true)
 
   const empty = rows.length === 0
+  const showSoftPath = empty && eligibleSuggestedCount >= 1
 
   return (
     <div
@@ -44,7 +52,21 @@ export function ForradslistaSheet({ rows, onClose }: Props) {
         {empty ? (
           <div className="forradslista-empty">
             <p>{UI.forradslistaEmpty}</p>
-            <p className="muted">{UI.forradslistaEmptyHint}</p>
+            {showSoftPath ? (
+              <>
+                <p className="muted">{UI.forradslistaEmptySoftHint}</p>
+                <button
+                  type="button"
+                  className="btn-secondary hall-tap-target forradslista-soft-cta"
+                  aria-label={UI.forradslistaPointApplyAllAria}
+                  onClick={onPointAtApplyAll}
+                >
+                  {UI.forradslistaPointApplyAll}
+                </button>
+              </>
+            ) : (
+              <p className="muted">{UI.forradslistaEmptyHint}</p>
+            )}
           </div>
         ) : (
           <ul className="forradslista-list">

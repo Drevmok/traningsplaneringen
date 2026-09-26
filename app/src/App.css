@@ -2934,6 +2934,31 @@
   font-size: 0.9rem;
 }
 
+.forradslista-soft-cta {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+/* Slice 24 — brief point highlight on Använd alla förslag */
+.hall-apply-all--point {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+  animation: hall-apply-all-pulse 1.6s ease-out 1;
+}
+
+@keyframes hall-apply-all-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+  }
+}
+
 .forradslista-print {
   display: none;
 }

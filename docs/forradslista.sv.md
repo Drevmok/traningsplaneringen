@@ -1,10 +1,10 @@
 # Förrådslista — svensk microcopy (Slice 15)
 
-**Status:** Docs lock — Christoffer approved Slice 15 (2026-09-25). Builder may ship from these keys.  
-**Tone:** Warm, short, coach-to-coach. Prefer *du*.  
-**Product lock:** Read-only **Förrådslista** — pass-wide packing rollup. Merge non-empty `stationEquipment` by `pieceId`, sum counts. Fixed 10-piece library. No custom redskap. No club inventory (“vi har N”).  
-**Carry-forward:** Reuse Slice 13 labels / count format ([`station-compose.sv.md`](./station-compose.sv.md)) and Slice 14 floor quiet rules ([`golvklart-redskap.sv.md`](./golvklart-redskap.sv.md)). Compose CTA stays **Redigera redskap** (hall detail only).  
-**Locked terms:** gymnaster · pass · övning · station / stationer · markör · redskap · Hallöversikt · Golvklart · Erfaren · Passbyggaren · Förrådslista  
+**Status:** Docs lock — Christoffer approved Slice 15 (2026-09-25). **Slice 24** (2026-09-26) adds soft empty path → Använd alla förslag — see [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).  
+**Tone:** Warm, short, coach-to-coach. Prefer *du*. Soft secondary when Slice 24 eligible — not a hard banner.  
+**Product lock:** Read-only **Förrådslista** — pass-wide packing rollup. Merge non-empty `stationEquipment` by `pieceId`, sum counts. Fixed 10-piece library. No custom redskap. No club inventory (“vi har N”). Soft empty CTA **points** at Hall **Använd alla förslag**; does **not** auto-apply or open compose.  
+**Carry-forward:** Reuse Slice 13 labels / count format ([`station-compose.sv.md`](./station-compose.sv.md)) and Slice 14 floor quiet rules ([`golvklart-redskap.sv.md`](./golvklart-redskap.sv.md)). Compose CTA stays **Redigera redskap** (hall detail only). Soft empty path: [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md) · apply-all: [`anvand-alla-forslag.sv.md`](./anvand-alla-forslag.sv.md).  
+**Locked terms:** gymnaster · pass · övning · station / stationer · markör · redskap · Hallöversikt · Golvklart · Erfaren · Passbyggaren · Förrådslista · Använd alla förslag · Använd förslag · Redigera redskap  
 **Keep hall caption exactly:** **Schematisk hall — inte exakt mått**  
 **Out of scope copy:** CAD, badge, Passbyggaren-compose, inventory stock, Kom igång hard gate, Netlify, accounts, custom “eget redskap”.
 
@@ -70,7 +70,11 @@ Landningsmatta
 
 ---
 
-## Empty state (nudge compose — existing CTA)
+## Empty state
+
+### Not eligible (Slice 15 — nudge compose)
+
+When `rows.length === 0` **and** `eligibleSuggestedCount === 0` (no Slice 19–eligible unset seeds):
 
 | Key | Swedish | Notes |
 | --- | --- | --- |
@@ -83,6 +87,23 @@ Landningsmatta
 - Do **not** ship “vi har 0 trampetter” / stock language.  
 - Do **not** force “Inga redskap” under every quiet markör (Slice 14 quiet stays).  
 - Empty sheet stays reachable (discoverability). Do **not** auto-open compose from the sheet.
+
+### Eligible soft path (Slice 24)
+
+When `rows.length === 0` **and** `eligibleSuggestedCount ≥ 1` (same population as Hall **Använd alla förslag**): soft secondary path. Full lock: [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).
+
+| Key | Swedish | Notes |
+| --- | --- | --- |
+| `forradslistaEmpty` | Inga redskap summerade ännu. | Reuse lead |
+| `forradslistaEmptySoftHint` | Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. | Replaces EmptyHint in this branch |
+| `forradslistaPointApplyAll` | Använd alla förslag på hallen | ≥44px secondary CTA |
+| `forradslistaPointApplyAllAria` | Stäng Förrådslista och visa Använd alla förslag på Hallöversikt. Sparar inte automatiskt. | a11y — no auto-apply |
+| `forradslistaPointApplyAllToast` | Tryck Använd alla förslag för att spara. | Optional brief `role="status"` after close |
+
+- Soft hint **replaces** `forradslistaEmptyHint` when eligible (no stacked paragraphs).  
+- CTA: close sheet → Hall **edit** → point at existing **Använd alla förslag** (focus/scroll/highlight and/or brief toast).  
+- **Does not** auto-apply / persist seeds. **Does not** open **Redigera redskap** / compose.  
+- No saknar banner, tip strip, place-heuristic, or station-breakdown copy.
 
 ---
 
@@ -118,7 +139,7 @@ Landningsmatta
 | --- | --- |
 | `footerSliceLabel` | Träningsplaneraren · Slice 15 |
 
-Keep footer `no-print`.
+Keep footer `no-print`. When Slice 24 ships, footer becomes **Träningsplaneraren · Slice 24** (see soft-path lock).
 
 ---
 
@@ -139,8 +160,9 @@ Keep footer `no-print`.
 - “Vi har N i förrådet” / stock / inventory counts  
 - Custom “eget redskap” field copy  
 - Implying Förrådslista edits compositions or opens compose  
+- Implying the soft empty CTA auto-saves förslag (it only points at Hall **Använd alla förslag**)  
 - Hard gate “måste fylla Förrådslista innan Golvklart”  
-- “Saknas på N stationer” warning banner (keep partial quiet this slice)  
+- “Saknas på N stationer” warning banner (Proposed — separate pack; not Slice 24)  
 - CAD / exakta mått / Netlify / konton language  
 - Renaming library piece labels  
 - English “packing list” as primary chrome
@@ -152,4 +174,5 @@ Keep footer `no-print`.
 - Prefer Slice 13 `stationEquipmentCount` / `stationEquipmentOne` over new synonyms.  
 - Wire CTAs in **Hallöversikt edit** and **Golvklart** only; same read-only sheet.  
 - Aggregate: omit unset / `[]`; never include `defaultStationEquipment` / förslag.  
-- Companion: this file under `docs/forradslista.sv.md`. Compose chrome stays in `station-compose.sv.md`; floor lines in `golvklart-redskap.sv.md`.
+- Slice 24 soft empty: pass `eligibleSuggestedCount` into the sheet; point-only CTA — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).  
+- Companion: this file under `docs/forradslista.sv.md`. Compose chrome stays in `station-compose.sv.md`; floor lines in `golvklart-redskap.sv.md`; apply-all in `anvand-alla-forslag.sv.md`.

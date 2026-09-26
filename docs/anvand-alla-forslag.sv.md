@@ -1,6 +1,6 @@
 # Använd alla förslag — svensk microcopy (Slice 19)
 
-**Status:** Docs lock — Slice 19 **APPROVED 2026-09-25**. Living companion: [`hall-oversikt-copy.sv.md`](./hall-oversikt-copy.sv.md) (Slice 19 section). This file is the Slice 19 lock.  
+**Status:** Docs lock — Slice 19 **APPROVED 2026-09-25**. Living companion: [`hall-oversikt-copy.sv.md`](./hall-oversikt-copy.sv.md) (Slice 19 section). This file is the Slice 19 lock. Slice 24 soft Förråd path **points** here — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).  
 **Tone:** Warm, short, coach-to-coach. Prefer *du*.  
 **Product lock:** Hallöversikt **edit** secondary CTA bulk-accepts unset Teknik seeds via the same persist path as **Använd förslag**. Immediate apply + one-line result; no confirm. Edit chrome only — not markör sheet, not Golvklart, not Passbyggaren.  
 **Carry-forward:** Unset vs `[]` + per-station Använd förslag / Klar (13). Quiet Golvklart / Förrådslista / print until saved (14–15). Nine Teknik seeds (18). Caption unchanged.  
@@ -80,11 +80,27 @@ At most one soft tip; dismissible; omit entirely if Docs/Builder prefers quiet.
 
 ---
 
+## Soft path from empty Förråd (Slice 24)
+
+When Förrådslista is empty **and** ≥1 station is eligible for this CTA, Förråd may show a soft secondary path that **closes the sheet and points here** — it does **not** call apply-all. Full Förråd lock: [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `forradslistaEmptySoftHint` | Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. |
+| `forradslistaPointApplyAll` | Använd alla förslag på hallen |
+| `forradslistaPointApplyAllAria` | Stäng Förrådslista och visa Använd alla förslag på Hallöversikt. Sparar inte automatiskt. |
+| `forradslistaPointApplyAllToast` | Tryck Använd alla förslag för att spara. |
+
+Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as locked above. Slice 24 does not change this file’s CTA / result strings.
+
+---
+
 ## Out of scope (do not invent)
 
 - Confirm-dialog copy / browser `confirm`
 - Golvklart or Passbyggaren variants of this CTA
 - Overwrite-saved / re-apply-onto-`[]` wording
 - Auto-spara förslag vid placering
+- Auto-apply from Förråd soft CTA (Slice 24 points only)
 - Ändra caption **Schematisk hall — inte exakt mått**
 - Netlify / konton / moln
