@@ -343,8 +343,13 @@ export const UI = {
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
-  // Slice 10 — distribution; Slice 22 footer (locked: docs/copy-quieter-chrome.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 22',
+  // Slice 10 — distribution; Slice 23 footer + Home polish (docs/copy-home-polish.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 23',
+  homeOpenHall: 'Hallöversikt',
+  homeOpenHallAria: 'Öppna Hallöversikt från Hem',
+  homeOpenGolvklart: 'Golvklart',
+  homeOpenGolvklartAria: 'Öppna Golvklart från Hem',
+  oppnaPaTelefonUrl: 'https://drevmok.github.io/traningsplaneringen/',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
     'Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen.',

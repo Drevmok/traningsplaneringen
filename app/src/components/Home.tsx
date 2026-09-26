@@ -98,7 +98,6 @@ export function Home({
         onDismiss={onDismissChecklist}
         onStep={handleStep}
         onCollapseChange={onKomIgangCollapseChange}
-        stepHint={stepHint}
       />
 
       <div className="home-actions" ref={actionsRef}>
@@ -135,7 +134,43 @@ export function Home({
               : 'Inget utkast sparat ännu.'}
           </span>
         </button>
+
+        {draftExists && (
+          <div className="home-actions-secondary">
+            <button
+              type="button"
+              className="btn-secondary home-secondary-cta hall-tap-target"
+              aria-label={UI.homeOpenHallAria}
+              onClick={() => {
+                if (!onOpenHall()) flashHint(UI.komIgangNeedActivity)
+              }}
+            >
+              {UI.homeOpenHall}
+            </button>
+            <button
+              type="button"
+              className="btn-secondary home-secondary-cta hall-tap-target"
+              aria-label={UI.homeOpenGolvklartAria}
+              onClick={() => {
+                if (!onOpenGolvklart())
+                  flashHint(
+                    itemCount < 1
+                      ? UI.komIgangNeedActivity
+                      : UI.komIgangNeedHall,
+                  )
+              }}
+            >
+              {UI.homeOpenGolvklart}
+            </button>
+          </div>
+        )}
       </div>
+
+      {stepHint && (
+        <p className="home-step-hint" role="status">
+          {stepHint}
+        </p>
+      )}
 
       <div className="home-tips-again no-print">
         <button
@@ -165,6 +200,27 @@ export function Home({
         </h2>
         <p className="home-honesty-body">{UI.draftHonestyBody}</p>
         <p className="home-honesty-other">{UI.draftHonestyOtherDevice}</p>
+      </aside>
+
+      {/* Slice 23 — Öppna på telefon (always-on; live Pages URL; no-print) */}
+      <aside
+        className="home-phone no-print"
+        aria-labelledby="home-phone-title"
+      >
+        <h2 id="home-phone-title">{UI.oppnaPaTelefonTitle}</h2>
+        <p>{UI.oppnaPaTelefonBody}</p>
+        <p>
+          <a
+            href={UI.oppnaPaTelefonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {UI.oppnaPaTelefonUrl}
+          </a>
+        </p>
+        <p>{UI.oppnaPaTelefonBookmark}</p>
+        <p>{UI.oppnaPaTelefonHonesty}</p>
+        <p>{UI.oppnaPaTelefonAddHome}</p>
       </aside>
     </div>
   )

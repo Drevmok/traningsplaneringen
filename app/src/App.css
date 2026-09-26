@@ -93,6 +93,35 @@
   color: #57534e;
 }
 
+/* —— Slice 23 — Home secondary CTAs + step flash —— */
+.home-actions-secondary {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.home-secondary-cta {
+  flex: 1 1 140px;
+  font-weight: 600;
+  color: #44403c;
+  background: #fafaf9;
+  border-color: #e7e5e4;
+  box-shadow: none;
+}
+
+.home-step-hint {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  font-size: 0.9rem;
+  max-width: 36em;
+}
+
 /* —— Slice 09 — Kom igång / coach tips —— */
 .kom-igang {
   margin: 0 0 24px;
@@ -336,6 +365,39 @@
 .home-honesty-other {
   margin-top: 6px;
   color: #78716c;
+}
+
+/* —— Slice 23 — Öppna på telefon (honesty cluster) —— */
+.home-phone {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e7e5e4;
+  background: #fafaf9;
+  max-width: 36em;
+}
+
+.home-phone h2 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #44403c;
+}
+
+.home-phone p {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #57534e;
+}
+
+.home-phone p:last-child {
+  margin-bottom: 0;
+}
+
+.home-phone a {
+  color: #5b21b6;
+  word-break: break-all;
 }
 
 .home-tips-again {
@@ -1480,6 +1542,14 @@
 
   .home-card-title {
     font-size: 17px;
+  }
+
+  .home-actions-secondary {
+    flex-direction: column;
+  }
+
+  .home-secondary-cta {
+    width: 100%;
   }
 
   .builder-title-row {

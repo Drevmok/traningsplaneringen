@@ -251,3 +251,21 @@ Full microcopy: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md) (also
 | Kom igång expand | Visa steg |
 | Kom igång collapse | Dölj steg |
 | Footer | Träningsplaneraren · Slice 22 |
+
+---
+
+## Home polish (Slice 23)
+
+Full microcopy: [`copy-home-polish.sv.md`](./copy-home-polish.sv.md) (also under `slice-23/content/`). Distribution living: [`distribution-copy.sv.md`](./distribution-copy.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| Home Hallöversikt CTA | Hallöversikt |
+| Home Hallöversikt aria | Öppna Hallöversikt från Hem |
+| Home Golvklart CTA | Golvklart |
+| Home Golvklart aria | Öppna Golvklart från Hem |
+| Öppna på telefon | Öppna på telefon |
+| Phone URL line (host-swappable) | https://drevmok.github.io/traningsplaneringen/ |
+| Footer | Träningsplaneraren · Slice 23 |
+
+Secondary CTAs when `draftExists` only; phone block always near honesty. No Förråd empty / saknar / tip-strip invent.
