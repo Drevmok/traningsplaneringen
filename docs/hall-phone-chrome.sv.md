@@ -72,6 +72,13 @@ No new Kom igång tip. Optional live-region for zoom level is Builder-only if ne
 
 ---
 
+
+---
+
+## Slice 22 note (hint quiet ≠ tray collapse)
+
+Tray **collapse** (this file: **Visa stationsbricka** / **Dölj bricka**) is unchanged. Slice 22 only quiets **instructional hint paragraphs** inside the expanded tray / above the canvas — behind **Tips om placering** (`hallHintsInfo`). See [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
+
 ## Out of scope (do not invent)
 
 - Saknar-redskap banner  

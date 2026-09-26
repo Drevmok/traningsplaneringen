@@ -262,6 +262,52 @@
   font-size: 0.85rem;
 }
 
+/* —— Slice 22 — quieter Kom igång (B1) —— */
+.kom-igang-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.kom-igang--collapsed {
+  padding: 12px 14px;
+}
+
+.kom-igang-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kom-igang-summary-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.kom-igang-summary .kom-igang-title {
+  margin: 0 0 2px;
+}
+
+.kom-igang-summary .kom-igang-progress {
+  margin: 0;
+}
+
+.kom-igang-toggle {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .kom-igang-summary {
+    flex-wrap: wrap;
+  }
+
+  .kom-igang-toggle {
+    width: 100%;
+  }
+}
+
 /* —— Slice 10 — localStorage honesty (Home) —— */
 .home-honesty {
   margin-top: 28px;
@@ -2114,6 +2160,37 @@
   min-height: 44px;
   min-width: 44px;
   padding: 8px 14px;
+}
+
+/* —— Slice 22 — progressive Hall hints info (A1) —— */
+.hall-hints-info {
+  margin: 6px 0 10px;
+}
+
+.hall-hints-info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hall-hints-info-panel {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.hall-hints-info-panel .hall-station-hint,
+.hall-hints-info-panel .hall-stations-only-hint,
+.hall-hints-info-panel .hall-tile-hint,
+.hall-hints-info-panel .hall-tray-hint {
+  margin-bottom: 6px;
+}
+
+.hall-hints-info-panel .hall-tray-hint:last-child,
+.hall-hints-info-panel .hall-tile-hint:last-child {
+  margin-bottom: 0;
 }
 
 .hall-station-hint {

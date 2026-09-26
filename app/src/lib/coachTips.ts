@@ -32,6 +32,10 @@ export type CoachTipsStateV1 = {
   openedHall?: boolean
   openedGolvklart?: boolean
   builderFirstVisitSeen?: boolean
+  /** Slice 22 — durable after first successful Teknik place ever */
+  hallHintsCompact?: boolean
+  /** Slice 22 — coach collapsed Kom igång summary */
+  komIgangCollapsed?: boolean
 }
 
 export function defaultCoachTips(): CoachTipsStateV1 {
@@ -72,6 +76,9 @@ function normalize(raw: unknown): CoachTipsStateV1 {
     openedHall: o.openedHall ? true : undefined,
     openedGolvklart: o.openedGolvklart ? true : undefined,
     builderFirstVisitSeen: o.builderFirstVisitSeen ? true : undefined,
+    // Slice 22 — missing → false/undefined (older localStorage)
+    hallHintsCompact: o.hallHintsCompact ? true : undefined,
+    komIgangCollapsed: o.komIgangCollapsed ? true : undefined,
   }
 }
 
@@ -125,13 +132,17 @@ export function dismissChecklist(state: CoachTipsStateV1): CoachTipsStateV1 {
   })
 }
 
-/** Clears dismissals so checklist + tips reappear. Does not touch draft. */
+/** Clears dismissals so checklist + tips reappear. Does not touch draft.
+ * Slice 22 Q4 — also clears hallHintsCompact + komIgangCollapsed.
+ */
 export function resetTipsVisibility(state: CoachTipsStateV1): CoachTipsStateV1 {
   return saveCoachTips({
     ...state,
     checklistDismissed: false,
     dismissed: {},
     showTipsAgain: true,
+    hallHintsCompact: undefined,
+    komIgangCollapsed: undefined,
   })
 }
 
@@ -229,6 +240,26 @@ export function syncChecklistHeuristics(
 
   if (!changed) return state
   return saveCoachTips({ ...state, checklist })
+}
+
+
+/** Slice 22 A1 — durable compact after first successful Teknik place (idempotent). */
+export function markHallHintsCompact(state: CoachTipsStateV1): CoachTipsStateV1 {
+  if (state.hallHintsCompact) return state
+  return saveCoachTips({ ...state, hallHintsCompact: true })
+}
+
+/** Slice 22 B1 — persist Kom igång collapsed preference. */
+export function setKomIgangCollapsed(
+  state: CoachTipsStateV1,
+  collapsed: boolean,
+): CoachTipsStateV1 {
+  if (collapsed) {
+    if (state.komIgangCollapsed) return state
+    return saveCoachTips({ ...state, komIgangCollapsed: true })
+  }
+  if (!state.komIgangCollapsed) return state
+  return saveCoachTips({ ...state, komIgangCollapsed: undefined })
 }
 
 export function checklistDoneCount(state: CoachTipsStateV1): number {

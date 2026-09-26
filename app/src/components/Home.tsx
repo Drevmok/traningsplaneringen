@@ -20,6 +20,7 @@ interface Props {
   onDismissChecklist: () => void
   onShowTipsAgain: () => 'restored' | 'already'
   onChecklistStepDone: (action: KomIgangAction) => void
+  onKomIgangCollapseChange?: (collapsed: boolean) => void
 }
 
 export function Home({
@@ -35,6 +36,7 @@ export function Home({
   onDismissChecklist,
   onShowTipsAgain,
   onChecklistStepDone,
+  onKomIgangCollapseChange,
 }: Props) {
   const draftExists = hasDraft()
   const actionsRef = useRef<HTMLDivElement>(null)
@@ -89,11 +91,13 @@ export function Home({
       </header>
 
       <KomIgangCard
+        key={`kom-${Boolean(tips.showTipsAgain)}-${tips.checklistDismissed}`}
         tips={tips}
         itemCount={itemCount}
         canOpenHall={canOpenHall}
         onDismiss={onDismissChecklist}
         onStep={handleStep}
+        onCollapseChange={onKomIgangCollapseChange}
         stepHint={stepHint}
       />
 

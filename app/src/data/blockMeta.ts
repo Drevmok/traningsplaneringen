@@ -264,6 +264,15 @@ export const UI = {
   tipDismissAria: 'Dölj det här tipset',
   tipInfoAria: 'Visa tränartips',
   tipClose: 'Stäng',
+  // Slice 22 — quieter chrome (locked: docs/copy-quieter-chrome.sv.md)
+  hallHintsInfo: 'Tips om placering',
+  hallHintsInfoAria: 'Visa tips om hur du placerar Teknik-stationer',
+  hallHintsHide: 'Dölj tips',
+  hallHintsHideAria: 'Dölj placeringstipsen',
+  komIgangExpand: 'Visa steg',
+  komIgangCollapse: 'Dölj steg',
+  komIgangExpandAria: 'Visa alla Kom igång-steg',
+  komIgangCollapseAria: 'Dölj stegen och visa bara sammanfattning',
   // Slice 12 — station markers + tap-to-detail (locked: docs/station-tiles.sv.md)
   hallTileHint:
     'Stationerna visas som markörer. Tryck för detaljer och redskap.',
@@ -334,8 +343,8 @@ export const UI = {
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
-  // Slice 10 — distribution (locked: docs/distribution-copy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 21',
+  // Slice 10 — distribution; Slice 22 footer (locked: docs/copy-quieter-chrome.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 22',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
     'Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen.',

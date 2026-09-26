@@ -14,6 +14,7 @@ import {
   markOpenedGolvklart,
   markOpenedHall,
   resetTipsVisibility,
+  setKomIgangCollapsed,
   syncChecklistHeuristics,
   type CoachTipsStateV1,
 } from './lib/coachTips'
@@ -60,6 +61,8 @@ export default function App() {
 
   // Auto-progress checklist from draft/session heuristics (data-model §4).
   // Adjust state during render when heuristics change (React-recommended pattern).
+  // Slice 22 A1 compact is set only on successful placeAt (not placementCount sync),
+  // so Visa tips igen can clear hallHintsCompact without being immediately re-set.
   const syncedTips = syncChecklistHeuristics(tips, {
     hasDraft: hasDraft(),
     itemCount: liveItemCount,
@@ -147,6 +150,16 @@ export default function App() {
     patchTips(dismissChecklist)
   }
 
+  function handleKomIgangCollapseChange(collapsed: boolean) {
+    patchTips((prev) => setKomIgangCollapsed(prev, collapsed))
+  }
+
+  function handleTipsUpdate(
+    updater: (prev: CoachTipsStateV1) => CoachTipsStateV1,
+  ) {
+    patchTips(updater)
+  }
+
   function handleShowTipsAgain(): 'restored' | 'already' {
     if (!anyTipsHidden(syncedTips)) return 'already'
     patchTips(resetTipsVisibility)
@@ -200,6 +213,7 @@ export default function App() {
           onDismissChecklist={handleDismissChecklist}
           onShowTipsAgain={handleShowTipsAgain}
           onChecklistStepDone={handleChecklistStepDone}
+          onKomIgangCollapseChange={handleKomIgangCollapseChange}
         />
       ) : view === 'hall' ? (
         <HallBoard
@@ -211,6 +225,7 @@ export default function App() {
           }}
           tips={syncedTips}
           onDismissTip={handleDismissTip}
+          onTips={handleTipsUpdate}
           initialFloor={hallStartFloor}
           onEnterGolvklart={handleEnterGolvklart}
         />

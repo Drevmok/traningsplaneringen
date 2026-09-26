@@ -1,6 +1,6 @@
 # Kom igång — discover Redigera redskap (Slice 16)
 
-**Status:** Docs lock — Christoffer approved Slice 16 (2026-09-25). Builder may ship from these keys.  
+**Status:** Docs lock — Christoffer approved Slice 16 (2026-09-25). **Slice 22** adds collapse/expand chrome only — step semantics unchanged. Builder may ship from these keys.  
 **Tone:** Warm, short, coach-to-coach. Prefer *du/ni*. No marketing superlatives.  
 **Product lock:** Soft Home **Kom igång** discoverability for **Redigera redskap**. New soft checklist step (**5 total**) between place and Golvklart. Auto-progress when any saved non-empty `stationEquipment`. **Never** block Golvklart. Tip strip keeps `tipStationCompose` as-is. No Home visual redesign beyond copy/checklist/progress.  
 **Carry-forward:** Compose CTA stays **Redigera redskap** (hall detail only — Slice 13). Floor quiet / Förrådslista unchanged (Slices 14–15).  
@@ -98,6 +98,22 @@ Checklist key (Builder): e.g. `composeStationEquipment` (internal; not shown to 
 - Do not strengthen or retire in this slice.
 
 ---
+
+
+---
+
+## Slice 22 — collapse does not change steps
+
+Slice 22 quiets the card chrome (collapsed summary after progress > 0 or prior collapse; 0/n stays expanded). **Step labels, hints, order, auto-progress, and soft Golvklart gate are unchanged.** No place-step heuristic (Scout #2 stays Proposed). No saknar-redskap copy.
+
+| Key | Swedish |
+| --- | --- |
+| `komIgangExpand` | Visa steg |
+| `komIgangCollapse` | Dölj steg |
+| `komIgangExpandAria` | Visa alla Kom igång-steg |
+| `komIgangCollapseAria` | Dölj stegen och visa bara sammanfattning |
+
+Summary reuses `komIgangTitle` + `komIgangProgress`. Full lock: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
 
 ## Footer (locked E)
 

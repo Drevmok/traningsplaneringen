@@ -3,7 +3,7 @@
 **App:** Träningsplaneraren  
 **Approval:** **APPROVED 2026-09-26** — recommended A–F locked  
 **Date drafted:** 2026-09-26  
-**Status:** **APPROVED** — Christoffer approved via Planner lock widget; Docs may start.
+**Status:** **SHIPPED** — Verifier PASS 2026-09-26; live on GitHub Pages as Slice 21.
 
 **Backlog:** Scout Proposed #3 (pinch-zoom) absorbed into this Hallöversikt phone usability pack; also covers sticky-tray chrome cost and pan-while-zoomed reliability. Phone live baseline: https://drevmok.github.io/traningsplaneringen/ (Slice 20).
 

@@ -236,3 +236,18 @@ Full microcopy: [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md) (also und
 | Collapse | Dölj bricka |
 | Compact count | Ej placerade ({n}) — reuse `hallUnplacedWithCount` |
 | Footer | Träningsplaneraren · Slice 21 |
+
+---
+
+## Quieter chrome (Slice 22)
+
+Full microcopy: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md) (also under `slice-22/content/`).
+
+| Key | Swedish |
+| --- | --- |
+| Hall info | Tips om placering |
+| Hall info aria | Visa tips om hur du placerar Teknik-stationer |
+| Hall hide tips | Dölj tips |
+| Kom igång expand | Visa steg |
+| Kom igång collapse | Dölj steg |
+| Footer | Träningsplaneraren · Slice 22 |

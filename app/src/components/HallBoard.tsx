@@ -11,6 +11,7 @@ import {
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import {
   isTipDismissed,
+  markHallHintsCompact,
   TIP_HALL_FLOW_GOLVKLART,
   TIP_HALL_PLACE,
   type CoachTipsStateV1,
@@ -56,6 +57,8 @@ interface Props {
   onBack: () => void
   tips: CoachTipsStateV1
   onDismissTip: (tipId: string) => void
+  /** Slice 22 — tips mutators (hallHintsCompact on place) */
+  onTips?: (updater: (prev: CoachTipsStateV1) => CoachTipsStateV1) => void
   initialFloor?: boolean
   onEnterGolvklart?: () => void
 }
@@ -66,6 +69,7 @@ export function HallBoard({
   onBack,
   tips,
   onDismissTip,
+  onTips,
   initialFloor = false,
   onEnterGolvklart,
 }: Props) {
@@ -84,6 +88,8 @@ export function HallBoard({
   const [viewZoom, setViewZoom] = useState(1)
   /** Slice 21 B1 — phone edit tray collapsed by default to free canvas. */
   const [trayCollapsed, setTrayCollapsed] = useState(true)
+  /** Slice 22 A1 — session-local expand for progressive hints info panel */
+  const [hintsInfoOpen, setHintsInfoOpen] = useState(false)
   const trayRef = useRef<HTMLElement | null>(null)
   const [trayHeight, setTrayHeight] = useState(0)
 
@@ -100,6 +106,18 @@ export function HallBoard({
   const showFlow = isHallShowFlow(session)
   const isFloor = hallMode === 'floor'
   const presetLabel = getPreset(activeTemplateId).label
+
+  // Slice 22 A1/C1 — progressive hints + one chrome layer
+  const headerTipVisible =
+    !isFloor && !isTipDismissed(tips, TIP_HALL_FLOW_GOLVKLART)
+  const trayTipVisible =
+    !isFloor &&
+    !(isNarrow && trayCollapsed) &&
+    !isTipDismissed(tips, TIP_HALL_PLACE)
+  const anyEditTipVisible = headerTipVisible || trayTipVisible
+  const showMultiLineHints = !tips.hallHintsCompact && !anyEditTipVisible
+  const showHintsInfo = Boolean(tips.hallHintsCompact) || anyEditTipVisible
+  // C1 Golvklart: no tip strip on floor today (edit tips already hidden); banner alone.
 
   const detailItem = detailItemId
     ? findSessionItem(session, detailItemId) ?? null
@@ -174,6 +192,8 @@ export function HallBoard({
       y,
     })
     persist(next)
+    // Slice 22 A1 — durable quiet chrome after first successful Teknik place
+    onTips?.(markHallHintsCompact)
     setPlaceModeItemId(null)
     setSelectedItemId(null)
   }
@@ -448,10 +468,40 @@ export function HallBoard({
             <p className="hall-preset-note">{UI.hallPresetMigrateNote}</p>
             <p className="hall-preset-coach-tip">{UI.hallPresetCoachTip}</p>
           </div>
-          <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
-          <p className="hall-stations-only-hint">{UI.hallStationsOnlyHint}</p>
-          <p className="hall-tile-hint">{UI.hallTileHint}</p>
-          {!isTipDismissed(tips, TIP_HALL_FLOW_GOLVKLART) && (
+          {showMultiLineHints && (
+            <>
+              <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
+              <p className="hall-stations-only-hint">{UI.hallStationsOnlyHint}</p>
+              <p className="hall-tile-hint">{UI.hallTileHint}</p>
+            </>
+          )}
+          {!showMultiLineHints && showHintsInfo && (
+            <div className="hall-hints-info no-print">
+              <button
+                type="button"
+                className="btn-secondary hall-tap-target hall-hints-info-btn"
+                aria-label={
+                  hintsInfoOpen ? UI.hallHintsHideAria : UI.hallHintsInfoAria
+                }
+                aria-expanded={hintsInfoOpen}
+                onClick={() => setHintsInfoOpen((o) => !o)}
+              >
+                {hintsInfoOpen ? UI.hallHintsHide : UI.hallHintsInfo}
+              </button>
+              {hintsInfoOpen && (
+                <div className="hall-hints-info-panel" role="region">
+                  <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
+                  <p className="hall-stations-only-hint">
+                    {UI.hallStationsOnlyHint}
+                  </p>
+                  <p className="hall-tile-hint">{UI.hallTileHint}</p>
+                  <p className="hall-tray-hint">{UI.hallDragHint}</p>
+                  <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
+                </div>
+              )}
+            </div>
+          )}
+          {headerTipVisible && (
             <CoachTipStrip
               tipId={TIP_HALL_FLOW_GOLVKLART}
               className="hall-flow-coach-tip"
@@ -576,9 +626,13 @@ export function HallBoard({
                 <h2 className="hall-tray-title">
                   {UI.hallUnplacedStations} ({unplaced.length})
                 </h2>
-                <p className="hall-tray-hint">{UI.hallDragHint}</p>
-                <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
-                {!isTipDismissed(tips, TIP_HALL_PLACE) && (
+                {showMultiLineHints && (
+                  <>
+                    <p className="hall-tray-hint">{UI.hallDragHint}</p>
+                    <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
+                  </>
+                )}
+                {trayTipVisible && (
                   <CoachTipStrip
                     tipId={TIP_HALL_PLACE}
                     className="hall-place-coach-tip"

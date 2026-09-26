@@ -1,6 +1,6 @@
 # Slice 21 — handoff
 
-**Status:** Pack **APPROVED 2026-09-26** — Docs done · Builder shipped · **Verifier in flight** (Planner pinged).
+**Status:** Pack **APPROVED 2026-09-26** — Docs done · Builder shipped · Pages live · **Verifier PASS 2026-09-26** · **Shipped**.
 
 Backlog: Hallöversikt phone usability (pinch + canvas chrome + pan) → Slice 21. Scout Proposed #3 (pinch-zoom) absorbed; Proposed #1–#2 stay Proposed.
 

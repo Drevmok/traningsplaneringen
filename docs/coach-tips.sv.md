@@ -1,6 +1,6 @@
 # Slice 09 — coach tips & Kom igång (svenska)
 
-**Status:** Docs lock — Christoffer approved Slice 09 (2026-09-24). Builder may ship these keys.  
+**Status:** Docs lock — Christoffer approved Slice 09 (2026-09-24). **Slice 22** adds Kom igång collapse/expand + chrome layering — see section below. Builder may ship these keys.  
 **Tone:** Warm, short, coach-to-coach. Prefer *du/ni*. No marketing superlatives.  
 **Locked terms:** gymnaster · pass · övning · Hallöversikt · Golvklart · Erfaren · Passbyggaren · Kom igång · Redigera redskap · Visa tips igen  
 **Out of scope:** nya teknikprogressioner, övningsbibliotek, CAD, blocking tour-copy.
@@ -13,6 +13,7 @@ Keep hall caption exactly: **Schematisk hall — inte exakt mått**
 **Slice 12:** Placed stations are **markörer** (icon-first); tap for details. See [`station-tiles.sv.md`](./station-tiles.sv.md).
 **Slice 13:** Hall detail can list **redskap**; CTA **Redigera redskap**. See [`station-compose.sv.md`](./station-compose.sv.md).
 **Slice 16:** Kom igång gets a soft fifth step — discover **Redigera redskap**. See [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md). Supersedes “no fifth step” below.
+**Slice 22:** Quieter Kom igång (collapse after progress) + progressive Hall hints info control. See [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
 
 ---
 
@@ -86,7 +87,7 @@ Prefer one dismissible paragraph. Keep always-on one-liners if useful:
 - `Dra Teknik-stationer till hallen. Placeringen sparas med utkastet.`
 - `Släpp på en zon för att fästa stationen där. På öppen yta kan du placera fritt.`
 
-Do not leave three redundant paragraphs visible at once.
+Do not leave three redundant paragraphs visible at once. After first Teknik place, Slice 22 hides multi-line Hall instructional paragraphs behind the info control ([`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md)).
 
 
 Optional after first hall detail (Slice 13):
@@ -114,6 +115,28 @@ Wire/adapt existing `hallFloorCoachTip` to this wording.
 Do **not** add new drills, cues, or progression lists. Echo existing safety language only.
 
 ---
+
+
+---
+
+## Slice 22 — quieter Kom igång + chrome layering
+
+Once checklist progress > 0 **or** the coach previously collapsed the card, default next Home visit to a **collapsed** summary. Brand-new 0/n stays expanded. Collapse does not change step semantics or heuristics.
+
+Full lock: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md). Companion step wording: [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `komIgangExpand` | Visa steg |
+| `komIgangCollapse` | Dölj steg |
+| `komIgangExpandAria` | Visa alla Kom igång-steg |
+| `komIgangCollapseAria` | Dölj stegen och visa bara sammanfattning |
+
+Collapsed summary reuses `komIgangTitle` (**Kom igång**) + `komIgangProgress` (`{done} av {total} klart`). Keep `komIgangDismiss` / `komIgangDismissAlt` / `visaTipsIgen` unchanged.
+
+**Layering (C1):** At most one of tip strip / status banner / multi-line Hall hints. On Home: brand-new 0/n prefers expanded Kom igång over stacking a tip strip; once progress > 0, collapsed summary + tip strip OK as the single teaching layer. Hall info control stays available when tip strip suppresses multi-line hints.
+
+**Do not** invent a new required tip for “hints moved” or quieter chrome.
 
 ## Shared chrome
 

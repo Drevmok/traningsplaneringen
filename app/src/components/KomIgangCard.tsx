@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   CHECKLIST_TOTAL,
   checklistAllDone,
@@ -18,6 +19,8 @@ interface Props {
   canOpenHall: boolean
   onDismiss: () => void
   onStep: (action: KomIgangAction) => void
+  /** Slice 22 B1 — persist collapse preference */
+  onCollapseChange?: (collapsed: boolean) => void
   stepHint?: string | null
 }
 
@@ -36,12 +39,28 @@ export function KomIgangCard({
   canOpenHall,
   onDismiss,
   onStep,
+  onCollapseChange,
   stepHint,
 }: Props) {
-  if (tips.checklistDismissed) return null
-
   const done = checklistDoneCount(tips)
   const allDone = checklistAllDone(tips)
+
+  // B1: default collapsed when progress > 0 OR previously collapsed
+  const [expanded, setExpanded] = useState(
+    () => !(done > 0 || tips.komIgangCollapsed === true),
+  )
+
+  if (tips.checklistDismissed) return null
+
+  function collapse() {
+    setExpanded(false)
+    onCollapseChange?.(true)
+  }
+
+  function expand() {
+    setExpanded(true)
+    onCollapseChange?.(false)
+  }
 
   const steps: Step[] = [
     {
@@ -86,6 +105,35 @@ export function KomIgangCard({
     },
   ]
 
+  if (!expanded) {
+    return (
+      <section
+        className="kom-igang kom-igang--collapsed no-print"
+        aria-labelledby="kom-igang-title"
+      >
+        <div className="kom-igang-summary">
+          <div className="kom-igang-summary-text">
+            <h2 id="kom-igang-title" className="kom-igang-title">
+              {UI.komIgangTitle}
+            </h2>
+            <p className="kom-igang-progress" aria-live="polite">
+              {komIgangProgressText(done, CHECKLIST_TOTAL)}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="btn-secondary hall-tap-target kom-igang-toggle"
+            aria-label={UI.komIgangExpandAria}
+            aria-expanded={false}
+            onClick={expand}
+          >
+            {UI.komIgangExpand}
+          </button>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section
       className="kom-igang no-print"
@@ -95,14 +143,25 @@ export function KomIgangCard({
         <h2 id="kom-igang-title" className="kom-igang-title">
           {UI.komIgangTitle}
         </h2>
-        <button
-          type="button"
-          className="kom-igang-dismiss"
-          aria-label={UI.komIgangDismiss}
-          onClick={onDismiss}
-        >
-          {UI.komIgangDismiss}
-        </button>
+        <div className="kom-igang-header-actions">
+          <button
+            type="button"
+            className="btn-secondary hall-tap-target kom-igang-toggle"
+            aria-label={UI.komIgangCollapseAria}
+            aria-expanded={true}
+            onClick={collapse}
+          >
+            {UI.komIgangCollapse}
+          </button>
+          <button
+            type="button"
+            className="kom-igang-dismiss"
+            aria-label={UI.komIgangDismiss}
+            onClick={onDismiss}
+          >
+            {UI.komIgangDismiss}
+          </button>
+        </div>
       </div>
       <p className="kom-igang-intro">{UI.komIgangIntro}</p>
       <p className="kom-igang-progress" aria-live="polite">

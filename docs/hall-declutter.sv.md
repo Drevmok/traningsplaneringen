@@ -1,6 +1,6 @@
 # Hallöversikt declutter — svensk microcopy (Slice 11)
 
-**Status:** Docs lock — Christoffer approved Slice 11 (2026-09-24). Builder may ship from these keys.  
+**Status:** Docs lock — Christoffer approved Slice 11 (2026-09-24). **Slice 22** adds progressive quiet + info control — see section below. Builder may ship from these keys.  
 **Tone:** Warm, short, coach-to-coach. Prefer *du*.  
 **Product lock:** Placeable = **Teknik** (`techniques`) only. Not on hall: Samling, Uppvärmning, Styrka, Lek och spel.  
 **Locked terms:** gymnaster · pass · övning · station / stationer · Hallöversikt · Golvklart · Erfaren · Passbyggaren  
@@ -11,9 +11,9 @@ This file **supersedes** Slice 05–07 hall tray wording that implied all pass �
 
 ---
 
-## Soft note (always available)
+## Soft note (Teknik-only)
 
-Quiet one-liner under caption or above tray — does not block CTAs.
+Quiet one-liner under caption or above tray — does not block CTAs. After first Teknik place (Slice 22), this and other multi-line instructional paragraphs hide behind the info control; see **Slice 22 — progressive hints** below.
 
 | Key | Swedish |
 | --- | --- |
@@ -101,6 +101,29 @@ Always-on one-liners (replace older “övningar” variants):
 Do not invent technique progressions. Full tip pack still lives in `coach-tips.sv.md` (Slice 09) — wording there should match this table.
 
 ---
+
+
+---
+
+## Slice 22 — progressive hints (quiet chrome)
+
+After the coach has successfully placed ≥1 Teknik station once (durable `hallHintsCompact`), hide the multi-line instructional paragraphs above. Reveal them on demand via an info control (≥44px). Zero placements keep today’s full hints. Subject to one-chrome-layer rules (tip strip suppresses multi-line; info still available).
+
+Full lock: [`copy-quieter-chrome.sv.md`](./copy-quieter-chrome.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| `hallHintsInfo` | Tips om placering |
+| `hallHintsInfoAria` | Visa tips om hur du placerar Teknik-stationer |
+| `hallHintsHide` | Dölj tips |
+| `hallHintsHideAria` | Dölj placeringstipsen |
+
+- Revealed body reuses existing keys only — do **not** invent parallel paragraphs:
+  - Tray: `hallDragHint`, `hallSnapHint`
+  - Header: `hallStationsOnlyHint`, `hallStationOrderHint`, `hallTileHint` / `hallTileHintShort`
+- Do **not** reuse `tipInfoAria` for this Hall control.
+- Caption remains **Schematisk hall — inte exakt mått**.
+- Tray **collapse** (Slice 21 **Visa stationsbricka** / **Dölj bricka**) is separate from hint **quiet** (this section).
 
 ## Footer
 
