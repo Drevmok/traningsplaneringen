@@ -109,8 +109,14 @@ export const UI = {
   browseTemplates: 'Bläddra bland mallar',
   continueDraft: 'Fortsätt senaste pass',
   homeInvite:
-    'Börja med en mall eller skapa ett tomt pass. Du kan alltid ändra senare.',
+    'Tre frågor ger dig ett färdigt pass. Du kan fortfarande börja tomt eller från mall.',
   planFirst: 'Planera ditt första pass',
+  // Slice 29 — Home 3-question wizard (docs/home-wizard.sv.md)
+  homeWizardPrimary: 'Planera pass',
+  homeWizardPrimaryDesc: 'Tre frågor — färdigt pass med stationer på hallen.',
+  homeWizardPrimaryAria: 'Planera pass med tre frågor',
+  newSessionDesc: 'Börja tomt med Samling.',
+  startFromTemplateDesc: 'Välj Nybörjare eller Kort.',
   sessionBuilder: 'Passbyggaren',
   saveDraft: 'Spara utkast',
   useTemplate: 'Använd mall',
@@ -357,8 +363,28 @@ export const UI = {
   hallSaknarPointApplyAllAria:
     'Visa Använd alla förslag. Sparar inte automatiskt.',
   hallSaknarPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
-  // Slice 10 — distribution; Slice 25 footer (docs/saknar-redskap-banner.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 27',
+  // Slice 29 — wizard chrome (docs/home-wizard.sv.md)
+  wizardStepProgress: 'Fråga {n} av 3',
+  wizardBack: 'Tillbaka',
+  wizardNext: 'Nästa',
+  wizardCancel: 'Avbryt',
+  wizardClose: 'Stäng',
+  wizardFinish: 'Skapa pass',
+  wizardQ1Label: 'Ålder / nivå',
+  wizardQ1Age46: '4–6 år',
+  wizardQ1Age79: '7–9 år',
+  wizardQ1Beginner: 'Nybörjare',
+  wizardQ1Training: 'Träning',
+  wizardQ2Label: 'Fokus',
+  wizardQ2Vault: 'Satsbräda',
+  wizardQ2Trampett: 'Trampett',
+  wizardQ2Tumbling: 'Tumbling',
+  wizardQ2Mixed: 'Blandat',
+  wizardQ3Label: 'Hallayout',
+  wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
+  wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
+  // Slice 10 — distribution; Slice 29 footer (docs/home-wizard.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 29',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
@@ -415,6 +441,11 @@ export function komIgangProgressText(done: number, total: number): string {
   return UI.komIgangProgress
     .replace('{done}', String(done))
     .replace('{total}', String(total))
+}
+
+
+export function wizardStepProgressText(n: number): string {
+  return UI.wizardStepProgress.replace('{n}', String(n))
 }
 
 

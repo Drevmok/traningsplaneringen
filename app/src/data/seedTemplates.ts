@@ -32,7 +32,7 @@ function block(
 /** ~55 min item sum — new-coach-safe Slice 03 ids only */
 const beginnerBlocks: SessionBlock[] = [
   block('gathering', [
-    item('gather-valkomstcheck-in', 5, 0),
+    item('gather-narvaro', 3, 0),
     item('gather-dagens-teknik', 3, 1),
   ]),
   block('warmup', [item('warm-hall-varv', 10, 0)]),

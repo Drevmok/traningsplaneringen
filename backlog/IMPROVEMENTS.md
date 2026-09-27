@@ -73,13 +73,13 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## In flight
 
-_(none — Slice 27 shipped after Verifier PASS 2026-09-26 evening.)_
+_(none — Slice 29 shipped after Verifier PASS 2026-09-27.)_
 
 ---
 
 ## Approved (ready for a slice pack)
 
-No approved item remains here.
+_(none — wizard moved to Shipped Slice 29)_
 
 ---
 
@@ -107,6 +107,8 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Home 3-question wizard — full pass + hall placements | 29 | Verifier PASS 2026-09-27; Phone/Pages still Slice 27 until Christoffer asks to republish; repo already footer Slice 29 (includes Slice 28). Pack `slice-29/`. Report `verifier/slice-29-verify-report.md`. |
+| Mall Samling within budget | 28 | Verifier PASS 2026-09-27; Phone/Pages still Slice 27 until Christoffer asks to republish; repo footer Slice 28. Pack `slice-28/`. Report `verifier/slice-28-verify-report.md`. |
 | Soft Samling — default upprop + kort genomgång | 27 | Verifier PASS 2026-09-26 evening; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-27/`. Report `verifier/slice-27-verify-report.md`. |
 | Kom igång — place step needs a real placement | 26 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-26/`. Report `verifier/slice-26-verify-report.md`. |
 | Hall — soft “saknar redskap” banner | 25 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-25/`. Report `verifier/slice-25-verify-report.md`. |

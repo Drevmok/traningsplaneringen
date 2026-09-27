@@ -5,6 +5,7 @@ import {
   type CoachTipsStateV1,
 } from '../lib/coachTips'
 import { hasDraft } from '../lib/session'
+import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
 import { KomIgangCard, type KomIgangAction } from './KomIgangCard'
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
   onNew: () => void
   onTemplate: () => void
   onContinue: () => void
+  onWizardFinish: (answers: WizardFinishAnswers) => void
   onOpenBuilder: () => void
   onOpenHall: () => boolean
   onOpenGolvklart: () => boolean
@@ -30,6 +32,7 @@ export function Home({
   onNew,
   onTemplate,
   onContinue,
+  onWizardFinish,
   onOpenBuilder,
   onOpenHall,
   onOpenGolvklart,
@@ -42,6 +45,7 @@ export function Home({
   const actionsRef = useRef<HTMLDivElement>(null)
   const [stepHint, setStepHint] = useState<string | null>(null)
   const [tipsFeedback, setTipsFeedback] = useState<string | null>(null)
+  const [wizardOpen, setWizardOpen] = useState(false)
 
   function flashHint(msg: string) {
     setStepHint(msg)
@@ -82,6 +86,11 @@ export function Home({
     window.setTimeout(() => setTipsFeedback(null), 2200)
   }
 
+  function handleWizardFinish(answers: WizardFinishAnswers) {
+    setWizardOpen(false)
+    onWizardFinish(answers)
+  }
+
   return (
     <div className="home">
       <header className="home-header">
@@ -101,12 +110,25 @@ export function Home({
       />
 
       <div className="home-actions" ref={actionsRef}>
-        <button type="button" className="home-card primary" onClick={onNew}>
+        <button
+          type="button"
+          className="home-card primary"
+          onClick={() => setWizardOpen(true)}
+          aria-label={UI.homeWizardPrimaryAria}
+        >
+          <span className="home-card-icon" aria-hidden>
+            ✨
+          </span>
+          <span className="home-card-title">{UI.homeWizardPrimary}</span>
+          <span className="home-card-desc">{UI.homeWizardPrimaryDesc}</span>
+        </button>
+
+        <button type="button" className="home-card" onClick={onNew}>
           <span className="home-card-icon" aria-hidden>
             ➕
           </span>
           <span className="home-card-title">{UI.newSession}</span>
-          <span className="home-card-desc">{UI.planFirst}</span>
+          <span className="home-card-desc">{UI.newSessionDesc}</span>
         </button>
 
         <button type="button" className="home-card" onClick={onTemplate}>
@@ -114,7 +136,7 @@ export function Home({
             📋
           </span>
           <span className="home-card-title">{UI.startFromTemplate}</span>
-          <span className="home-card-desc">{UI.browseTemplates}</span>
+          <span className="home-card-desc">{UI.startFromTemplateDesc}</span>
         </button>
 
         <button
@@ -222,6 +244,13 @@ export function Home({
         <p>{UI.oppnaPaTelefonHonesty}</p>
         <p>{UI.oppnaPaTelefonAddHome}</p>
       </aside>
+
+      {wizardOpen && (
+        <HomeWizard
+          onFinish={handleWizardFinish}
+          onCancel={() => setWizardOpen(false)}
+        />
+      )}
     </div>
   )
 }

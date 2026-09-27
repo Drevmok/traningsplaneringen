@@ -315,7 +315,48 @@ Full microcopy: [`soft-samling.sv.md`](./soft-samling.sv.md) (also under `slice-
 | `EMPTY_TIPS.gathering.tip` | Få allas uppmärksamhet — gärna med upprop och en kort genomgång av passet — innan ni börjar med färdigheter. |
 | `EMPTY_TIPS.gathering.addLabel` | Lägg till din första samlingsövning (**unchanged**) |
 | `BLOCK_BUDGETS.gathering` | **6** (was 5) — Builder D2 |
-| Inject | Blank **Nytt pass** only; templates / drafts unchanged |
-| Footer | Träningsplaneraren · Slice 27 |
+| Inject | Blank **Nytt pass** only; Soft inject path unchanged |
+| Footer (Slice 27 ship) | Träningsplaneraren · Slice 27 |
 
 No hard-lock UI. No hall copy. Soft = editable. Kom igång `addActivities` auto-check from soft items = intentional.
+
+**Slice 28:** Beginner **mall** Samling authored to Soft pair (within budget 6) — [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md). Soft blank inject stays blank-only.
+
+---
+
+## Mall Samling within budget (Slice 28)
+
+Full lock: [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md) (also under `slice-28/content/`). Soft blank: [`soft-samling.sv.md`](./soft-samling.sv.md).
+
+| Key | Swedish / rule |
+| --- | --- |
+| Nybörjare mall Samling (A1) | Närvaro (`gather-narvaro`, 3) + Dagens pass — snabb genomgång (`gather-dagens-teknik`, 3) = **6 / 6** |
+| Short mall (B1) | Välkomstcheck-in 5 — leave alone |
+| `BLOCK_BUDGETS.gathering` | **6** (unchanged) |
+| Library | Välkomstcheck-in remains; not beginner mall default |
+| Seed retitle | **None** (D1 — Slice 27 already) |
+| Footer | Träningsplaneraren · Slice 28 |
+
+No Home/wizard/hall copy. No Soft blank inject change.
+
+---
+
+## Home 3-question wizard (Slice 29)
+
+Full lock: [`home-wizard.sv.md`](./home-wizard.sv.md) (also under `slice-29/content/`). Home polish secondary: [`copy-home-polish.sv.md`](./copy-home-polish.sv.md). Soft blank: [`soft-samling.sv.md`](./soft-samling.sv.md). Mall budget: [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| Primary CTA | Planera pass |
+| Primary desc | Tre frågor — färdigt pass med stationer på hallen. |
+| Finish CTA | Skapa pass |
+| Step progress | Fråga {n} av 3 |
+| Q1 options | 4–6 år · 7–9 år · Nybörjare · Träning |
+| Q2 options | Satsbräda · Trampett · Tumbling · Blandat |
+| Q3 presets | Standard trupp · Tävling / linjer · Liten hall |
+| Focus honesty | Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok. |
+| Escapes (secondary) | Nytt pass · Starta från mall |
+| Footer | Träningsplaneraren · Slice 29 |
+
+Wizard = primary Home start. Soft blank + malls remain escapes. Slice 23 Hall/Golvklart when `draftExists` unchanged. Teknik-only pre-place; empty non-focus zones OK.
+

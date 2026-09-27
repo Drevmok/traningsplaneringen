@@ -6,10 +6,12 @@
 **Carry-forward:** Quiet chrome (22). Home polish (23). Förråd soft path (24). Saknar banner (25). Place-step heuristic (26).  
 **Locked terms:** gymnaster · pass · övning · Samling · Uppvärmning · Teknik · Styrka · Lek och spel · Passbyggaren · Hallöversikt · Golvklart · Förrådslista · Redigera redskap · Starta från mall · Kom igång · Använd alla förslag · Nytt pass  
 **Keep hall caption exactly:** **Schematisk hall — inte exakt mått**  
-**Out of scope copy:** hard-lock Samling · hall / Golvklart placeable · other seeds · template Samling rewrite · draft migrate · tip strip invent · library/CAD/cloud/accounts · Netlify/Pages republish · app code in this Docs pass
+**Out of scope copy:** hard-lock Samling · hall / Golvklart placeable · other seeds · draft migrate · tip strip invent · library/CAD/cloud/accounts · Netlify/Pages republish · app code in this Docs pass  
+**Slice 28 companion:** Beginner mall Samling aligns to Soft pair — see [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md).  
+**Slice 29:** Home primary is **Planera pass** (wizard); Soft blank **Nytt pass** stays as secondary escape — inject path unchanged. See [`home-wizard.sv.md`](./home-wizard.sv.md).
 
 Pack mirror: [`slice-27/content/soft-samling.sv.md`](../slice-27/content/soft-samling.sv.md).  
-Living companions: [`slice-03-seed-activities.sv.md`](./slice-03-seed-activities.sv.md) · [`slice-01-empty-states.sv.md`](./slice-01-empty-states.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md) · [`coach-tips.sv.md`](./coach-tips.sv.md).
+Living companions: [`slice-03-seed-activities.sv.md`](./slice-03-seed-activities.sv.md) · [`slice-01-empty-states.sv.md`](./slice-01-empty-states.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md) · [`coach-tips.sv.md`](./coach-tips.sv.md) · [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md) (Slice 28 — Nybörjare mall Soft pair) · [`home-wizard.sv.md`](./home-wizard.sv.md) (Slice 29 — wizard primary; Soft blank escape).
 
 ---
 
@@ -89,7 +91,7 @@ cloneTemplate / loadDraft:
 ```
 
 - Soft inject **only** on blank **Nytt pass**.  
-- Templates keep authored gathering (e.g. beginner: Välkomstcheck-in + Dagens pass; short: Välkomstcheck-in).  
+- Templates are authored separately: **Slice 28** sets beginner mall gathering to the Soft pair (Närvaro + Dagens pass); short mall keeps Välkomstcheck-in — see [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md). Soft inject path itself is unchanged.  
 - Cleared Samling → empty tip; **no** re-inject mid-edit.  
 - Editability unchanged: remove, reorder, duration, add from library (incl. Välkomstcheck-in).
 
@@ -127,7 +129,7 @@ Keep footer `no-print`. Ship when Builder lands Soft Samling.
 - New seed id for pass-rundown (keep `gather-dagens-teknik`)  
 - Hall / Golvklart / Förråd / saknar / place-step copy rewrites  
 - Removing Välkomstcheck-in or other seeds from the library  
-- Rewriting template Samling to match soft pair  
+- ~~Rewriting template Samling to match soft pair~~ — **superseded by Slice 28 A1** ([`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md)); Soft inject remains blank-only  
 - Migrating existing empty drafts  
 - Netlify / Pages republish unless Christoffer asks  
 - App code in the Docs pass

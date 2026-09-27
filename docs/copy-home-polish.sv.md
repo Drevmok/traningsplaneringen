@@ -8,7 +8,9 @@
 **Out of scope:** Förråd empty CTA (Slice 24); saknar-redskap banner; Kom igång place-heuristic; tip strips; Passbyggaren compose; library/CAD; caption change; accounts/cloud/sync wording; Netlify/Pages republish.
 
 Pack seed: [`slice-23/content/copy-home-polish.sv.md`](../slice-23/content/copy-home-polish.sv.md).  
-Living companions: [`distribution-copy.sv.md`](./distribution-copy.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md).
+Living companions: [`distribution-copy.sv.md`](./distribution-copy.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md) · [`home-wizard.sv.md`](./home-wizard.sv.md) (Slice 29 — primary **Planera pass**).
+
+**Slice 29 Home stack:** primary **Planera pass** (3-question wizard) sits above **Nytt pass** / **Starta från mall** / **Fortsätt**. This doc stays authoritative for secondary **Hallöversikt** + **Golvklart** when `draftExists` and for **Öppna på telefon** + honesty — those remain unchanged under the new primary.
 
 ---
 
@@ -27,7 +29,7 @@ Living companions: [`distribution-copy.sv.md`](./distribution-copy.sv.md) · [`u
 
 ## Home — secondary CTAs (A1)
 
-Visible when `draftExists`; **hide** both when `!draftExists`. Secondary under Nytt / Mall / Fortsätt. ≥44px. Soft-fail flashes reuse Kom igång hints (unchanged).
+Visible when `draftExists`; **hide** both when `!draftExists`. Secondary under the start cards (after Slice 29: under **Planera pass** / Nytt / Mall / Fortsätt). ≥44px. Soft-fail flashes reuse Kom igång hints (unchanged). Wizard primary lock: [`home-wizard.sv.md`](./home-wizard.sv.md).
 
 | Key | Swedish |
 | --- | --- |

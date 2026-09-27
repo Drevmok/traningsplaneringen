@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
+import type { WizardFinishAnswers } from './components/HomeWizard'
 import type { KomIgangAction } from './components/KomIgangCard'
 import { SessionBuilder } from './components/SessionBuilder'
 import { UI } from './data/blockMeta'
@@ -23,8 +24,10 @@ import {
   createBlankSession,
   hasDraft,
   loadDraft,
+  saveDraft,
   withComputedTotal,
 } from './lib/session'
+import { composeWizardSession } from './lib/wizard'
 import type { Session } from './types'
 import './App.css'
 
@@ -91,6 +94,16 @@ export default function App() {
     patchTips(markChooseOrBuild)
     setSession(createBlankSession())
     setOpenTemplates(true)
+    setHallStartFloor(false)
+    setView('builder')
+  }
+
+  function goWizardFinish(answers: WizardFinishAnswers) {
+    patchTips(markChooseOrBuild)
+    const next = composeWizardSession(answers)
+    setSession(next)
+    saveDraft(next)
+    setOpenTemplates(false)
     setHallStartFloor(false)
     setView('builder')
   }
@@ -207,6 +220,7 @@ export default function App() {
           onNew={goNew}
           onTemplate={goTemplate}
           onContinue={goContinue}
+          onWizardFinish={goWizardFinish}
           onOpenBuilder={openBuilderFromChecklist}
           onOpenHall={openHallFromHome}
           onOpenGolvklart={openGolvklartFromHome}

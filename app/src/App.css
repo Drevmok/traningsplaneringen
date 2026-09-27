@@ -3042,3 +3042,115 @@
     color: #0f172a;
   }
 }
+
+/* —— Slice 29 — Home 3-question wizard (quiet chrome) —— */
+.home-wizard-backdrop {
+  z-index: 45;
+}
+
+.home-wizard-sheet {
+  max-width: 420px;
+  padding: 20px 20px 16px;
+}
+
+.home-wizard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-right: 28px;
+}
+
+.home-wizard-progress {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: #78716c;
+  letter-spacing: 0.01em;
+}
+
+.home-wizard-label {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 650;
+  color: #1c1917;
+}
+
+.home-wizard-hint,
+.home-wizard-honesty {
+  margin: 0 0 12px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #78716c;
+}
+
+.home-wizard-honesty {
+  margin-bottom: 14px;
+}
+
+.home-wizard-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.home-wizard-chip {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  width: 100%;
+  padding: 12px 16px;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid #e7e5e4;
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 550;
+  color: #1c1917;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.home-wizard-chip:hover {
+  border-color: #c4b5fd;
+  background: #faf5ff;
+}
+
+.home-wizard-chip.selected {
+  border-color: #8b5cf6;
+  background: linear-gradient(160deg, #f5f3ff, #fff);
+  box-shadow: 0 0 0 1px #8b5cf6;
+}
+
+.home-wizard-chip:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+.home-wizard-actions {
+  margin-top: 4px;
+}
+
+.home-wizard-actions .btn-primary:disabled,
+.home-wizard-actions .btn-primary[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .home-wizard-sheet {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    align-self: end;
+  }
+
+  .home-wizard-backdrop {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .home-wizard-chip {
+    min-height: 48px;
+  }
+}
