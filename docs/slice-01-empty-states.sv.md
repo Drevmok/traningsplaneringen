@@ -25,10 +25,12 @@ Blocknamn (använd exakt): Samling · Uppvärmning · Teknik · Styrka · Lek oc
 Visa tipset + en tydlig Lägg till-åtgärd på varje tomt block. Primär CTA: **Lägg till övning**. Valfri sekundär: **Bläddra bland idéer** (öppnar biblioteket filtrerat till det blocket).
 
 ### Samling
-**Tips:** Få allas uppmärksamhet och sätt tonen innan ni börjar med färdigheter.  
+**Tips:** Få allas uppmärksamhet — gärna med upprop och en kort genomgång av passet — innan ni börjar med färdigheter.  
 **Lägg till-etikett:** Lägg till din första samlingsövning  
 **Primär knapp:** Lägg till övning  
 **Sekundär (valfri):** Bläddra bland idéer
+
+*(Slice 27 Soft Samling: tip gently invites upprop + kort genomgång when Samling is empty. Soft = not mandatory; no re-inject mid-edit. See [`soft-samling.sv.md`](./soft-samling.sv.md).)*
 
 ### Uppvärmning
 **Tips:** Väck kroppen mjukt så att gymnasterna är redo.  

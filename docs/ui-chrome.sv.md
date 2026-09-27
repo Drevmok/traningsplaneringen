@@ -302,3 +302,20 @@ Full microcopy: [`saknar-redskap-banner.sv.md`](./saknar-redskap-banner.sv.md) (
 | Behavior | Soft `role="status"`; point at apply-all; **no** auto-apply; hide on Golvklart |
 | Footer | Träningsplaneraren · Slice 25 |
 
+---
+
+## Soft Samling (Slice 27)
+
+Full microcopy: [`soft-samling.sv.md`](./soft-samling.sv.md) (also under `slice-27/content/`). Seed library: [`slice-03-seed-activities.sv.md`](./slice-03-seed-activities.sv.md). Empty tip: [`slice-01-empty-states.sv.md`](./slice-01-empty-states.sv.md).
+
+| Key | Swedish |
+| --- | --- |
+| Soft pair (blank Nytt pass) | Närvaro (`gather-narvaro`, 3) + Dagens pass — snabb genomgång (`gather-dagens-teknik`, 3) |
+| Seed retitle id | `gather-dagens-teknik` (**same id** — no new seed) |
+| `EMPTY_TIPS.gathering.tip` | Få allas uppmärksamhet — gärna med upprop och en kort genomgång av passet — innan ni börjar med färdigheter. |
+| `EMPTY_TIPS.gathering.addLabel` | Lägg till din första samlingsövning (**unchanged**) |
+| `BLOCK_BUDGETS.gathering` | **6** (was 5) — Builder D2 |
+| Inject | Blank **Nytt pass** only; templates / drafts unchanged |
+| Footer | Träningsplaneraren · Slice 27 |
+
+No hard-lock UI. No hall copy. Soft = editable. Kom igång `addActivities` auto-check from soft items = intentional.

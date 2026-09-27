@@ -36,15 +36,25 @@ export function createEmptyBlocks(): SessionBlock[] {
 }
 
 export function createBlankSession(): Session {
-  return {
+  // Slice 27 Soft Samling (B1): blank Nytt pass only — Närvaro + pass-rundown.
+  // createEmptyBlocks stays empty for all blocks; templates/loadDraft untouched.
+  const blocks = createEmptyBlocks()
+  const gathering = blocks.find((b) => b.type === 'gathering')
+  if (gathering) {
+    gathering.items = [
+      createSessionItem('gather-narvaro', 3, 0),
+      createSessionItem('gather-dagens-teknik', 3, 1),
+    ]
+  }
+  return withComputedTotal({
     id: uid('session'),
     title: 'Nytt pass',
     totalMinutes: 0,
     notes: '',
-    blocks: createEmptyBlocks(),
+    blocks,
     hallTemplateId: DEFAULT_HALL_TEMPLATE,
     hallPlacements: [],
-  }
+  })
 }
 
 export function computeTotal(session: Session): number {

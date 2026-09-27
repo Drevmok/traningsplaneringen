@@ -73,7 +73,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## In flight
 
-_(none — Slice 26 shipped after Verifier PASS 2026-09-26.)_
+_(none — Slice 27 shipped after Verifier PASS 2026-09-26 evening.)_
 
 ---
 
@@ -107,6 +107,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Soft Samling — default upprop + kort genomgång | 27 | Verifier PASS 2026-09-26 evening; Phone/Pages still Slice 26 until Christoffer asks republish (repo already footer Slice 27). Pack `slice-27/`. Report `verifier/slice-27-verify-report.md`. |
 | Kom igång — place step needs a real placement | 26 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-26/`. Report `verifier/slice-26-verify-report.md`. |
 | Hall — soft “saknar redskap” banner | 25 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-25/`. Report `verifier/slice-25-verify-report.md`. |
 | Förråd tom — soft path to Använd alla förslag | 24 | Verifier PASS 2026-09-26; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-24/`. Report `verifier/slice-24-verify-report.md`. |

@@ -48,17 +48,17 @@ export const seedActivities: Activity[] = [
   },
   {
     id: 'gather-dagens-teknik',
-    title: 'Dagens teknik — snabb genomgång',
+    title: 'Dagens pass — snabb genomgång',
     blockType: 'gathering',
     durationMinutesDefault: 3,
     difficulty: 'intro',
     tags: ['samling', 'group', 'equipment-free', 'new-coach-ok'],
     summary:
-      'Kort genomgång av dagens huvudteknik innan uppvärmning och träning.',
+      'Kort genomgång av vad ni ska göra på passet — så alla vet planen innan ni börjar.',
     howTo:
-      '1. Säg dagens fokusfärdighet i enkla ord.\n2. Visa kort eller peka ut vad ni ska sikta på.\n3. Spara djup coaching till Teknik-blocket.',
+      '1. Samla gymnasterna så alla syns och hör.\n2. Säg i enkla ord vad passet innehåller — block för block eller dagens fokus.\n3. Håll det kort; spara djup coaching till respektive block.',
     watchFor:
-      'För lång teori — håll det till ”vad + varför idag”, inte hela övningen.',
+      'För lång genomgång — håll det till ”vad vi gör idag”, inte hela övningarna.',
     watchForRequired: true,
     visualKey: 'gather-today-tech',
     stub: false,

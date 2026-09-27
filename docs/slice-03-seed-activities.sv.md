@@ -51,18 +51,19 @@
 
 ### gather-dagens-teknik
 - **block:** `samling`
-- **title:** Dagens teknik — snabb genomgång
+- **title:** Dagens pass — snabb genomgång
 - **durationMinutes:** 3
-- **summary:** Kort genomgång av dagens huvudteknik innan uppvärmning och träning.
+- **summary:** Kort genomgång av vad ni ska göra på passet — så alla vet planen innan ni börjar.
 - **howTo:**
-  1. Säg dagens fokusfärdighet i enkla ord.
-  2. Visa kort eller peka ut vad ni ska sikta på.
-  3. Spara djup coaching till Teknik-blocket.
-- **watchFor:** För lång teori — håll det till ”vad + varför idag”, inte hela övningen.
+  1. Samla gymnasterna så alla syns och hör.
+  2. Säg i enkla ord vad passet innehåller — block för block eller dagens fokus.
+  3. Håll det kort; spara djup coaching till respektive block.
+- **watchFor:** För lång genomgång — håll det till ”vad vi gör idag”, inte hela övningarna.
 - **newCoachOk:** true
 - **experiencedCoachOnly:** false
 - **stub:** false
 - **needsCoachReview:** true
+- **note (Slice 27 A2):** Same id — retitled from technique-framed “Dagens teknik” to whole-pass rundown for Soft Samling. See [`docs/soft-samling.sv.md`](./soft-samling.sv.md).
 
 ---
 

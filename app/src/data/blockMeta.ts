@@ -9,7 +9,7 @@ export const BLOCK_ORDER: BlockType[] = [
 ]
 
 export const BLOCK_BUDGETS: Record<BlockType, number> = {
-  gathering: 5,
+  gathering: 6,
   warmup: 10,
   techniques: 20,
   strength: 15,
@@ -63,7 +63,7 @@ export const BLOCK_COLORS: Record<
 /** From slice-01-empty-states.sv.md */
 export const EMPTY_TIPS: Record<BlockType, { tip: string; addLabel: string }> = {
   gathering: {
-    tip: 'Få allas uppmärksamhet och sätt tonen innan ni börjar med färdigheter.',
+    tip: 'Få allas uppmärksamhet — gärna med upprop och en kort genomgång av passet — innan ni börjar med färdigheter.',
     addLabel: 'Lägg till din första samlingsövning',
   },
   warmup: {
@@ -358,7 +358,7 @@ export const UI = {
     'Visa Använd alla förslag. Sparar inte automatiskt.',
   hallSaknarPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
   // Slice 10 — distribution; Slice 25 footer (docs/saknar-redskap-banner.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 26',
+  footerSliceLabel: 'Träningsplaneraren · Slice 27',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
