@@ -9,8 +9,9 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { BLOCK_ICON_IDS, VisualIcon } from '../icons'
 import { blockFilledMinutes } from '../lib/session'
-import type { BlockType, MismatchWarning, SessionBlock } from '../types'
+import type { BlockType, MismatchWarning, SessionBlock, Activity } from '../types'
 import { MismatchBanner } from './MismatchBanner'
+import { ActivityTip } from './ActivityTip'
 
 interface Props {
   block: SessionBlock
@@ -24,6 +25,7 @@ interface Props {
   onMoveItem: (itemId: string, direction: 'up' | 'down') => void
   onMoveItemToBlock: (itemId: string, toBlockType: BlockType) => void
   onDurationChange: (itemId: string, minutes: number) => void
+  onOpenActivity: (activity: Activity) => void
 }
 
 export function BlockCard({
@@ -38,6 +40,7 @@ export function BlockCard({
   onMoveItem,
   onMoveItemToBlock,
   onDurationChange,
+  onOpenActivity,
 }: Props) {
   const colors = BLOCK_COLORS[block.type]
   const filled = blockFilledMinutes(block)
@@ -111,6 +114,7 @@ export function BlockCard({
               const activity = getActivityById(item.activityId)
               return (
                 <li key={item.id} className="session-item">
+                  <div className="session-item-main">
                   <VisualIcon
                     visualKey={activity?.visualKey}
                     blockType={activity?.blockType}
@@ -185,6 +189,13 @@ export function BlockCard({
                       ×
                     </button>
                   </div>
+                  </div>
+                  {activity && (
+                    <ActivityTip
+                      activity={activity}
+                      onOpen={() => onOpenActivity(activity)}
+                    />
+                  )}
                 </li>
               )
             })}

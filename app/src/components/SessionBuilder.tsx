@@ -70,6 +70,7 @@ export function SessionBuilder({
     'all',
   )
   const [detailActivity, setDetailActivity] = useState<Activity | null>(null)
+  const [detailReadOnly, setDetailReadOnly] = useState(false)
   const [pendingTemplateId, setPendingTemplateId] = useState<string | null>(
     null,
   )
@@ -127,6 +128,12 @@ export function SessionBuilder({
   }
 
   function handleSelectActivity(activity: Activity) {
+    setDetailReadOnly(false)
+    setDetailActivity(activity)
+  }
+
+  function handleOpenInPass(activity: Activity) {
+    setDetailReadOnly(true)
     setDetailActivity(activity)
   }
 
@@ -278,10 +285,7 @@ export function SessionBuilder({
               block={block}
               selected={block.id === selectedBlockId}
               mismatch={mismatch ?? undefined}
-              onSelect={() => {
-                setSelectedBlockId(block.id)
-                openPanel('tips')
-              }}
+              onSelect={() => setSelectedBlockId(block.id)}
               onAdd={() => openAddForBlock(block.id)}
               onBrowse={() => openAddForBlock(block.id)}
               onDismissMismatch={() => setMismatch(null)}
@@ -299,6 +303,7 @@ export function SessionBuilder({
                   updateItemDuration(session, block.id, itemId, minutes),
                 )
               }
+              onOpenActivity={handleOpenInPass}
             />
           ))}
         </div>
@@ -342,7 +347,13 @@ export function SessionBuilder({
               filterBlockType={filterBlockType}
               onFilterChange={setFilterBlockType}
               selectedBlockType={selectedBlock?.type ?? null}
+              blockActivities={(selectedBlock?.items ?? [])
+                .slice()
+                .sort((a, b) => a.order - b.order)
+                .map((item) => getActivityById(item.activityId))
+                .filter((activity): activity is Activity => Boolean(activity))}
               onSelectActivity={handleSelectActivity}
+              onReadActivity={handleOpenInPass}
               onPickTemplate={(id) => setPendingTemplateId(id)}
             />
           </div>
@@ -352,7 +363,8 @@ export function SessionBuilder({
       {detailActivity && (
         <ActivityDetail
           activity={detailActivity}
-          onAdd={handleAddFromDetail}
+          onAdd={detailReadOnly ? undefined : handleAddFromDetail}
+          readOnly={detailReadOnly}
           onClose={() => setDetailActivity(null)}
           tips={tips}
           onDismissTip={onDismissTip}
