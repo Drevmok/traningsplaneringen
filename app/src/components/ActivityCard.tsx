@@ -1,4 +1,5 @@
 import { UI } from '../data/blockMeta'
+import { validateActivityTip } from '../data/activityTips'
 import { VisualIcon } from '../icons'
 import type { Activity } from '../types'
 
@@ -27,10 +28,14 @@ export function ActivityCard({ activity, onSelect }: Props) {
           {activity.experiencedCoachOnly && (
             <span className="experienced-badge">{UI.experiencedCoach}</span>
           )}
+          {validateActivityTip(activity).length > 0 && (
+            <span className="tip-invalid-badge">{UI.tipIncomplete}</span>
+          )}
         </span>
         <span className="activity-duration">
           {activity.durationMinutesDefault} min
         </span>
+        <span className="activity-cue">{activity.summary}</span>
       </span>
     </button>
   )
