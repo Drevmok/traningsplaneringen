@@ -9,6 +9,7 @@ import { seedActivities } from '../data/seedActivities'
 import { seedTemplates } from '../data/seedTemplates'
 import type { Activity, BlockType, SideTab } from '../types'
 import { ActivityCard } from './ActivityCard'
+import { ActivityTip } from './ActivityTip'
 
 interface Props {
   tab: SideTab
@@ -16,7 +17,9 @@ interface Props {
   filterBlockType: BlockType | 'all'
   onFilterChange: (t: BlockType | 'all') => void
   selectedBlockType: BlockType | null
+  blockActivities: Activity[]
   onSelectActivity: (activity: Activity) => void
+  onReadActivity: (activity: Activity) => void
   onPickTemplate: (templateId: string) => void
 }
 
@@ -26,7 +29,9 @@ export function LibraryPanel({
   filterBlockType,
   onFilterChange,
   selectedBlockType,
+  blockActivities,
   onSelectActivity,
+  onReadActivity,
   onPickTemplate,
 }: Props) {
   const [query, setQuery] = useState('')
@@ -114,7 +119,24 @@ export function LibraryPanel({
           {selectedBlockType ? (
             <>
               <h3>{BLOCK_LABELS[selectedBlockType]}</h3>
+              <p className="tips-kicker">{UI.tipsBlockLead}</p>
               <p>{TIPS_TAB[selectedBlockType]}</p>
+              <p className="tips-kicker">{UI.tipsExercisesLead}</p>
+              {blockActivities.length === 0 ? (
+                <p className="muted">{UI.tipsNoExercises}</p>
+              ) : (
+                <ul className="tips-exercise-list">
+                  {blockActivities.map((activity) => (
+                    <li key={activity.id} className="tips-exercise-card">
+                      <p className="tips-exercise-title">{activity.title}</p>
+                      <ActivityTip
+                        activity={activity}
+                        onOpen={() => onReadActivity(activity)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </>
           ) : (
             <p className="muted">{UI.selectBlockForTips}</p>
