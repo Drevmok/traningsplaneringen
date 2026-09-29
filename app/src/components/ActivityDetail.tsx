@@ -17,6 +17,7 @@ import {
 } from '../lib/coachTips'
 import { CoachTipStrip } from './CoachTipStrip'
 import { VisualIcon } from '../icons'
+import { floorTip, validateActivityTip } from '../data/activityTips'
 import type { Activity, StationEquipmentSlot } from '../types'
 
 interface Props {
@@ -59,6 +60,8 @@ export function ActivityDetail({
   useBodyScrollLock(true)
 
   const suggested = activity.defaultStationEquipment
+  const tip = floorTip(activity)
+  const tipIssues = validateActivityTip(activity)
   const equipmentUnset = stationEquipment === undefined
   const equipmentList =
     stationEquipment !== undefined ? stationEquipment : undefined
@@ -133,8 +136,14 @@ export function ActivityDetail({
             />
           )}
 
+        {tipIssues.length > 0 && (
+          <p className="activity-tip-invalid" role="alert">
+            {UI.tipIncomplete} {tipIssues.map((issue) => issue.message).join(' ')}
+          </p>
+        )}
+
         <section>
-          <h3>{UI.summary}</h3>
+          <h3>{UI.why}</h3>
           <p>{activity.summary}</p>
         </section>
         <section>
@@ -145,6 +154,12 @@ export function ActivityDetail({
           <h3>{UI.watchFor}</h3>
           <p>{activity.watchFor || '—'}</p>
         </section>
+        {tip.safety && (
+          <section>
+            <h3>{UI.safety}</h3>
+            <p>{tip.safety}</p>
+          </section>
+        )}
 
         {showStationEquipment && (
           <section className="station-equipment-section">
