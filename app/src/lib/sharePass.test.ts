@@ -6,6 +6,9 @@ import type { Session, SessionBlock } from '../types.ts'
 import {
   decodeShare,
   encodeShare,
+  passFileName,
+  sessionFromPassJson,
+  sessionFromTransfer,
   sessionToShare,
   shareToSession,
   shareTokenFromHash,
@@ -108,5 +111,24 @@ describe('sharePass', () => {
       'item-a',
     )
     assert.equal(await decodeShare('j.not-base64'), null)
+  })
+
+  it('reads a file and a pasted link without keeping the draft id', async () => {
+    const json = JSON.stringify(sessionToShare(session()))
+    const fromFile = sessionFromPassJson(json)
+    assert.equal(fromFile?.title, 'Torsdag')
+    assert.equal(fromFile?.id, 'shared')
+    assert.equal(
+      fromFile?.blocks.find((block) => block.type === 'techniques')?.items[1]?.id,
+      'item-b',
+    )
+    assert.equal(sessionFromPassJson('inte json'), null)
+    assert.equal(passFileName('Nytt pass'), 'nytt-pass.json')
+    const token = await encodeShare(session())
+    const fromUrl = await sessionFromTransfer(
+      `https://example.test/traningsplaneringen/#dela=${token}`,
+    )
+    assert.equal(fromUrl?.title, 'Torsdag')
+    assert.equal(await sessionFromTransfer(''), null)
   })
 })

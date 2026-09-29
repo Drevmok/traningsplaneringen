@@ -186,3 +186,72 @@ export function shareTokenFromHash(hash: string): string | null {
   const token = hash.slice(marker.length)
   return token.length > 0 ? token : null
 }
+
+/** SharePass JSON, or a full session that can be slimmed to one. */
+export function sessionFromPassJson(text: string): Session | null {
+  try {
+    const data = JSON.parse(text) as { v?: number; blocks?: unknown }
+    if (!data || typeof data !== 'object' || !Array.isArray(data.blocks)) return null
+    if (data.v === 1) return shareToSession(data as SharePass)
+    return shareToSession(sessionToShare(data as Session))
+  } catch {
+    return null
+  }
+}
+
+/** URL with #dela=, a z./j. token, or pass JSON. */
+export async function sessionFromTransfer(text: string): Promise<Session | null> {
+  const trimmed = text.trim()
+  if (!trimmed) return null
+  if (trimmed.startsWith('{')) return sessionFromPassJson(trimmed)
+  const marker = '#dela='
+  const at = trimmed.indexOf(marker)
+  if (at >= 0) {
+    const raw = trimmed.slice(at + marker.length).split(/[\s&]/)[0]
+    if (!raw) return null
+    try {
+      return await decodeShare(decodeURIComponent(raw))
+    } catch {
+      return decodeShare(raw)
+    }
+  }
+  return decodeShare(trimmed)
+}
+
+export function passFileName(title: string): string {
+  const slug = title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40)
+  return `${slug || 'pass'}.json`
+}
+
+export function downloadPassFile(session: Session): void {
+  const json = JSON.stringify(sessionToShare(session), null, 2)
+  const blob = new Blob([json], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = passFileName(session.title)
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
+
+export async function copyText(value: string): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(value)
+  } catch {
+    const input = document.createElement('textarea')
+    input.value = value
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand('copy')
+    input.remove()
+  }
+}
+

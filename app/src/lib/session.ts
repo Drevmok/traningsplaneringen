@@ -106,6 +106,20 @@ export function saveDraft(session: Session): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
 }
 
+/** Copy a received pass into this browser and make it the draft. */
+export function adoptAsDraft(session: Session): Session {
+  const next = withComputedTotal(
+    migrateHallFields(
+      migrateSessionEquipment({
+        ...session,
+        id: uid('session'),
+      }),
+    ),
+  )
+  saveDraft(next)
+  return next
+}
+
 export function loadDraft(): Session | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)

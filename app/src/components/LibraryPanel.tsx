@@ -7,6 +7,7 @@ import {
 } from '../data/blockMeta'
 import { seedActivities } from '../data/seedActivities'
 import { seedTemplates } from '../data/seedTemplates'
+import type { SavedTemplate } from '../lib/savedTemplates'
 import type { Activity, BlockType, SideTab } from '../types'
 import { ActivityCard } from './ActivityCard'
 import { ActivityTip } from './ActivityTip'
@@ -21,6 +22,10 @@ interface Props {
   onSelectActivity: (activity: Activity) => void
   onReadActivity: (activity: Activity) => void
   onPickTemplate: (templateId: string) => void
+  savedTemplates: SavedTemplate[]
+  onPickSaved: (id: string) => void
+  onCopySaved: (id: string) => void
+  onDeleteSaved: (id: string) => void
 }
 
 export function LibraryPanel({
@@ -33,6 +38,10 @@ export function LibraryPanel({
   onSelectActivity,
   onReadActivity,
   onPickTemplate,
+  savedTemplates,
+  onPickSaved,
+  onCopySaved,
+  onDeleteSaved,
 }: Props) {
   const [query, setQuery] = useState('')
 
@@ -146,6 +155,43 @@ export function LibraryPanel({
 
       {tab === 'templates' && (
         <div className="side-body">
+          {savedTemplates.length > 0 && (
+            <>
+              <h3 className="template-group">{UI.myTemplates}</h3>
+              <ul className="template-list">
+                {savedTemplates.map((template) => (
+                  <li key={template.id} className="template-saved">
+                    <button
+                      type="button"
+                      className="template-card"
+                      onClick={() => onPickSaved(template.id)}
+                    >
+                      <strong>{template.title}</strong>
+                      <span className="template-meta">{template.totalMinutes} min</span>
+                    </button>
+                    <div className="template-saved-actions">
+                      <button
+                        type="button"
+                        className="btn-text"
+                        onClick={() => onCopySaved(template.id)}
+                      >
+                        {UI.copyTemplateCode}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-text"
+                        aria-label={`${UI.deleteTemplate} ${template.title}`}
+                        onClick={() => onDeleteSaved(template.id)}
+                      >
+                        {UI.deleteTemplate}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          <p className="muted template-saved-hint">{UI.savedTemplatesHint}</p>
           <ul className="template-list">
             {seedTemplates.map((t) => (
               <li key={t.id}>
