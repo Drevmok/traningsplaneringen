@@ -1,0 +1,313 @@
+/* Exportera / dela — stationskort, helskärm, delat pass, utskrift */
+
+.export-sheet {
+  max-height: min(90vh, 760px);
+  overflow: auto;
+}
+
+.export-block + .export-block {
+  border-top: 1px solid #e7e5e4;
+  margin-top: 4px;
+  padding-top: 14px;
+}
+
+.export-block h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #1c1917;
+}
+
+.export-block .modal-actions {
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.export-url {
+  width: 100%;
+  margin-top: 10px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #44403c;
+  border: 1px solid #e7e5e4;
+  border-radius: 8px;
+  padding: 8px;
+  resize: vertical;
+  word-break: break-all;
+}
+
+.share-qr {
+  margin-top: 12px;
+  width: min(220px, 100%);
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.share-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.share-banner {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd6fe;
+  background: #f5f3ff;
+  color: #5b21b6;
+  font-size: 14px;
+}
+
+.share-pass {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+  color: #1c1917;
+}
+
+.share-head h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.share-head p {
+  margin: 4px 0 0;
+  color: #57534e;
+}
+
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+
+.share-pass section h2,
+.pass-sheet-head h1 {
+  margin: 0 0 8px;
+}
+
+.pass-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pass-timeline > li {
+  margin: 0 0 14px;
+}
+
+.pass-timeline h2,
+.pass-timeline h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.pass-timeline ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pass-timeline ul li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid #e7e5e4;
+}
+
+.share-map {
+  margin-top: 20px;
+}
+
+.export-sheet .btn-primary:disabled,
+.export-sheet .btn-secondary:disabled,
+.share-actions .btn-primary:disabled,
+.share-actions .btn-secondary:disabled,
+.hall-floor-actions .btn-primary:disabled,
+.station-deck-nav .btn-primary:disabled,
+.station-deck-nav .btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.share-actions .btn-primary,
+.share-actions .btn-secondary,
+.export-sheet .btn-primary,
+.export-sheet .btn-secondary,
+.station-deck-nav button {
+  min-height: 44px;
+}
+
+.station-deck {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 20px 32px;
+  text-align: center;
+  color: #fff;
+  background: #1c1917;
+}
+
+.station-deck-count {
+  margin: 0;
+  color: #d6d3d1;
+  font-size: 0.95rem;
+}
+
+.station-deck-rank {
+  margin: 0;
+  font-size: clamp(8rem, 34vw, 16rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.station-deck h1 {
+  margin: 8px 0 0;
+  max-width: 18ch;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.station-deck-meta,
+.station-deck p {
+  max-width: 36ch;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.station-deck-safety {
+  color: #fecaca;
+}
+
+.station-deck-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.station-deck-nav .btn-secondary {
+  color: #fff;
+  background: transparent;
+  border-color: #a8a29e;
+}
+
+.print-host {
+  display: none;
+}
+
+@page station-card {
+  size: A4 portrait;
+  margin: 14mm;
+}
+
+@page pass-sheet {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+@media print {
+  body.is-print-stations {
+    page: station-card;
+  }
+
+  body.is-print-pass {
+    page: pass-sheet;
+  }
+
+  body.is-print-stations > :not(.print-host),
+  body.is-print-pass > :not(.print-host) {
+    display: none !important;
+  }
+
+  body.is-print-stations .print-host,
+  body.is-print-pass .print-host {
+    display: block !important;
+  }
+
+  .station-sheet {
+    break-after: page;
+    page-break-after: always;
+    color: #0f172a;
+    background: #fff;
+  }
+
+  .station-sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .station-sheet .station-sheet-rank {
+    margin: 0;
+    font-size: 150pt;
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+  }
+
+  .station-sheet h1 {
+    margin: 8mm 0 4mm;
+    font-size: 28pt;
+    line-height: 1.15;
+  }
+
+  .station-sheet p {
+    max-width: 42rem;
+    margin: 0 0 5mm;
+    font-size: 16pt;
+    line-height: 1.35;
+  }
+
+  .station-sheet-safety {
+    border-top: 2px solid #0f172a;
+    padding-top: 4mm;
+  }
+
+  .pass-sheet {
+    color: #0f172a;
+    background: #fff;
+  }
+
+  .pass-sheet-head h1 {
+    font-size: 22pt;
+  }
+
+  .pass-timeline > li {
+    break-inside: avoid;
+  }
+
+  .pass-sheet-map .hall-canvas {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    break-inside: avoid;
+  }
+
+  .pass-sheet-gear {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .pass-sheet-gear ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14pt;
+  }
+
+  .pass-sheet-gear li {
+    padding: 2mm 0;
+    border-bottom: 1px solid #e7e5e4;
+  }
+}

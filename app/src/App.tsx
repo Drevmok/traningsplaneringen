@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
 import type { WizardFinishAnswers } from './components/HomeWizard'
 import type { KomIgangAction } from './components/KomIgangCard'
 import { SessionBuilder } from './components/SessionBuilder'
+import { SharePass } from './components/SharePass'
 import { UI } from './data/blockMeta'
 import {
   anyTipsHidden,
@@ -28,9 +29,11 @@ import {
   withComputedTotal,
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
+import { decodeShare, shareTokenFromHash } from './lib/sharePass'
 import type { Session } from './types'
 import './App.css'
 import './tips.css'
+import './export.css'
 
 type View = 'home' | 'builder' | 'hall'
 
@@ -41,6 +44,38 @@ export default function App() {
   const [hallStartFloor, setHallStartFloor] = useState(false)
   const [tips, setTips] = useState<CoachTipsStateV1>(() => loadCoachTips())
   const [footerTipsMsg, setFooterTipsMsg] = useState<string | null>(null)
+  const [shared, setShared] = useState<Session | null>(null)
+  const [shareError, setShareError] = useState(false)
+
+  useEffect(() => {
+    let seq = 0
+    async function readHash() {
+      const id = ++seq
+      const token = shareTokenFromHash(window.location.hash)
+      if (!token) {
+        if (id === seq) {
+          setShared(null)
+          setShareError(false)
+        }
+        return
+      }
+      const next = await decodeShare(token)
+      if (id !== seq) return
+      if (next) {
+        setShared(next)
+        setShareError(false)
+      } else {
+        setShared(null)
+        setShareError(true)
+      }
+    }
+    void readHash()
+    window.addEventListener('hashchange', readHash)
+    return () => {
+      seq += 1
+      window.removeEventListener('hashchange', readHash)
+    }
+  }, [])
 
   const draft = loadDraft()
   const draftItemCount = draft ? countSessionItems(draft) : 0
@@ -213,8 +248,16 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      {view === 'home' ? (
-        <Home
+      {shared ? (
+        <SharePass session={shared} />
+      ) : view === 'home' ? (
+        <>
+          {shareError && (
+            <p className="share-banner" role="alert">
+              {UI.shareBad}
+            </p>
+          )}
+          <Home
           tips={syncedTips}
           itemCount={draftItemCount}
           canOpenHall={canOpenHall}
@@ -230,6 +273,7 @@ export default function App() {
           onChecklistStepDone={handleChecklistStepDone}
           onKomIgangCollapseChange={handleKomIgangCollapseChange}
         />
+        </>
       ) : view === 'hall' ? (
         <HallBoard
           session={session}
