@@ -30,6 +30,7 @@ import {
 import { composeWizardSession } from './lib/wizard'
 import type { Session } from './types'
 import './App.css'
+import './tips.css'
 
 type View = 'home' | 'builder' | 'hall'
 
