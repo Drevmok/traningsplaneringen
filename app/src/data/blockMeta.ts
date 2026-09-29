@@ -133,8 +133,12 @@ export const UI = {
   stub: 'Utkast',
   topBarHelp: 'Ny som tränare? Börja från en mall',
   summary: 'Sammanfattning',
+  why: 'Varför',
   howTo: 'Så gör du',
   watchFor: 'Se upp för',
+  safety: 'Säkerhet',
+  openExercise: 'Hela övningen',
+  tipIncomplete: 'Ofullständigt tips.',
   addToBlock: 'Lägg till i valt block',
   addAndEditDuration: 'Lägg till och ändra tid',
   templateTitle: 'Ersätta det här passet?',
@@ -153,7 +157,11 @@ export const UI = {
   overflow: 'Över budget',
   filterAll: 'Alla typer',
   noResults: 'Inga övningar matchar.',
-  selectBlockForTips: 'Välj ett block för att se tips.',
+  selectBlockForTips: 'Välj ett block — då syns tipsen för övningarna där.',
+  tipsBlockLead: 'För hela blocket',
+  tipsExercisesLead: 'Övningarna',
+  tipsNoExercises:
+    'Inga övningar i blocket ännu. Lägg till en, så syns tipset här.',
   backHome: 'Till startsidan',
   experiencedCoach: 'Erfaren ledare',
   experiencedCoachWarning:
@@ -255,9 +263,9 @@ export const UI = {
   visaTipsIgenDone: 'Tips visas igen',
   visaTipsIgenAlready: 'Tips syns redan',
   tipBuilderEmpty:
-    'Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Under Tips finns korta råd per block.',
+    'Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Varje övning visar varför, hur och vad du ska se upp för.',
   tipBuilderEmptyShort:
-    'Börja från mall eller lägg till en övning. Mer råd under Tips.',
+    'Börja från mall eller lägg till en övning. Tipsen sitter på övningen.',
   tipHallPlace:
     'Placera Teknik-stationerna ungefär där ni brukar köra dem. De visas som små markörer — tryck för detaljer och redskap. Släpp på en zon för att fästa; på öppen yta kan du placera fritt.',
   tipStationCompose:
