@@ -20,8 +20,9 @@ import {
   syncChecklistHeuristics,
   type CoachTipsStateV1,
 } from './lib/coachTips'
-import { countSessionItems, listSessionItems } from './lib/hall'
+import { countPlaceableItems, countSessionItems, listSessionItems } from './lib/hall'
 import {
+  adoptAsDraft,
   createBlankSession,
   hasDraft,
   loadDraft,
@@ -246,10 +247,38 @@ export default function App() {
     setOpenTemplates(false)
   }, [])
 
+  function receiveSession(next: Session) {
+    const adopted = adoptAsDraft(next)
+    patchTips(markChooseOrBuild)
+    setSession(adopted)
+    setOpenTemplates(false)
+    setHallStartFloor(false)
+    setShared(null)
+    setView('builder')
+    if (window.location.hash) window.location.hash = ''
+  }
+
+  function saveShared(run: boolean) {
+    if (!shared) return
+    const adopted = adoptAsDraft(shared)
+    const floor = run && countPlaceableItems(adopted) > 0
+    patchTips((prev) =>
+      floor
+        ? markOpenedGolvklart(markOpenedHall(markChooseOrBuild(prev)))
+        : markChooseOrBuild(prev),
+    )
+    setSession(adopted)
+    setOpenTemplates(false)
+    setHallStartFloor(floor)
+    setView(floor ? 'hall' : 'builder')
+    setShared(null)
+    if (window.location.hash) window.location.hash = ''
+  }
+
   return (
     <div className="app-shell">
       {shared ? (
-        <SharePass session={shared} />
+        <SharePass session={shared} onSave={saveShared} />
       ) : view === 'home' ? (
         <>
           {shareError && (
@@ -272,6 +301,7 @@ export default function App() {
           onShowTipsAgain={handleShowTipsAgain}
           onChecklistStepDone={handleChecklistStepDone}
           onKomIgangCollapseChange={handleKomIgangCollapseChange}
+          onReceive={receiveSession}
         />
         </>
       ) : view === 'hall' ? (

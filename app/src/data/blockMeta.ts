@@ -125,18 +125,42 @@ export const UI = {
   exportStationsHint: 'En station per A4, med stor siffra. Sätt upp vid stationen eller håll upp skärmen.',
   exportFullscreen: 'Helskär',
   printStations: 'Skriv ut kort',
-  exportShareLink: 'Dela länk',
-  exportShareHint: 'Medtränaren öppnar samma pass och kan bara titta.',
+  exportShareLink: 'Skicka till telefonen',
+  exportShareHint:
+    'Skanna QR-koden. På telefonen sparar du passet och kör det i hallen. Koden innehåller passet — inget konto och ingen molnsynk.',
   exportCopy: 'Kopiera länk',
   exportCopied: 'Länken är kopierad.',
   exportQr: 'QR-kod till det delade passet',
-  exportQrLong: 'Länken är för lång för en QR. Kopiera den i stället.',
+  exportQrLong: 'Länken är för lång för en QR. Kopiera den eller ladda ner filen.',
+  downloadFile: 'Ladda ner fil',
+  importFile: 'Importera fil',
+  saveAsTemplate: 'Spara som mall',
+  savedAsTemplate: 'Sparad som mall på den här enheten.',
+  importDone: 'Passet är sparat på den här enheten.',
+  receiveBad: 'Filen eller koden gick inte att läsa.',
+  receiveTitle: 'Ta emot ett pass',
+  receiveHint: 'Importera filen, eller klistra in länken, från den andra enheten.',
+  pasteCode: 'Länk eller kod',
+  openCode: 'Öppna',
+  saveHere: 'Spara på den här enheten',
+  saveAndRun: 'Spara och kör',
+  replaceDraftTitle: 'Ersätta utkastet här?',
+  replaceDraftBody:
+    'Passet sparas i den här webbläsaren och ersätter utkastet som redan finns här.',
+  replaceDraftConfirm: 'Ersätt utkast',
+  myTemplates: 'Mina mallar',
+  deleteTemplate: 'Ta bort',
+  copyTemplateCode: 'Kopiera delningskod',
+  templateCodeCopied: 'Delningskoden är kopierad.',
+  savedTemplatesHint:
+    'Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen.',
   exportPrintPass: 'Skriv ut passet',
   exportPrintPassHint: 'Tidslinje och hallkarta. Välj Spara som PDF i dialogen.',
   stationCardsEmpty: 'Inga teknikstationer i passet.',
   deckNext: 'Nästa',
   deckPrev: 'Föregående',
-  shareBanner: 'Delat pass. Bara att titta.',
+  shareBanner:
+    'Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.',
   shareBad: 'Länken gick inte att läsa.',
   shareExit: 'Till planeringen',
   comingSoon: 'Kommer snart',
@@ -418,10 +442,10 @@ export const UI = {
   oppnaPaTelefonUrl: 'https://drevmok.github.io/traningsplaneringen/',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
-    'Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen.',
+    'Passet sparas i den här webbläsaren, inte i molnet. Rensar du webbplatsdata försvinner det. Skicka till telefonen, eller ladda ner en fil, om samma pass ska köras på en annan enhet.',
   draftHonestyBodyShort: 'Sparas lokalt i webbläsaren — inte i molnet.',
   draftHonestyOtherDevice:
-    'Öppnar du länken i en annan telefon eller webbläsare börjar du tomt — utkastet följer inte med.',
+    'En annan telefon börjar tom. QR, länk eller fil flyttar en kopia dit. Utkastet synkas inte av sig själv.',
   draftHonestyDismiss: 'Jag förstår',
   omUtkast: 'Om utkast',
   oppnaPaTelefonTitle: 'Öppna på telefon',
@@ -430,7 +454,7 @@ export const UI = {
   oppnaPaTelefonBookmark:
     'Spara länken som bokmärke så hittar du tillbaka till passet.',
   oppnaPaTelefonHonesty:
-    'Kom ihåg: utkastet bor i just den telefonens webbläsare.',
+    'Appen på telefonen är tom tills du skickar passet dit. Det sparas bara i den webbläsare där du trycker Spara.',
   oppnaPaTelefonAddHome:
     'På iPhone: Dela → Lägg till på hemskärmen. På Android: menyn → Installera app / Lägg till på startsidan.',
   privacyPublicUrl:

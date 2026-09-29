@@ -1,28 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { UI } from '../data/blockMeta'
 import { useBodyPrint } from '../lib/bodyPrint'
-import { encodeShare, shareUrl } from '../lib/sharePass'
+import { saveSessionAsTemplate } from '../lib/savedTemplates'
+import {
+  copyText,
+  downloadPassFile,
+  encodeShare,
+  sessionFromTransfer,
+  shareUrl,
+} from '../lib/sharePass'
 import { qrSvg } from '../lib/qrSvg'
 import { stationCards } from '../lib/stationCards'
 import type { Session } from '../types'
 import { PassPrint } from './PassPrint'
+import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
 import { enterPresentation, StationDeck } from './StationDeck'
 
 interface Props {
   session: Session
   onClose: () => void
+  onImport: (session: Session) => void
+  onTemplateSaved: () => void
 }
 
 type PrintMode = 'stations' | 'pass' | null
 
-export function ExportSheet({ session, onClose }: Props) {
+export function ExportSheet({ session, onClose, onImport, onTemplateSaved }: Props) {
   const [url, setUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [qr, setQr] = useState<string | null>(null)
   const [qrFailed, setQrFailed] = useState(false)
   const [printMode, setPrintMode] = useState<PrintMode>(null)
   const [deck, setDeck] = useState(false)
+  const [templateNote, setTemplateNote] = useState<string | null>(null)
+  const [receiveError, setReceiveError] = useState<string | null>(null)
+  const [pendingImport, setPendingImport] = useState<Session | null>(null)
+  const fileRef = useRef<HTMLInputElement | null>(null)
   const cards = stationCards(session)
 
   useBodyPrint(printMode, () => setPrintMode(null))
@@ -52,17 +66,25 @@ export function ExportSheet({ session, onClose }: Props) {
 
   async function copy() {
     if (!url) return
-    try {
-      await navigator.clipboard.writeText(url)
-    } catch {
-      const input = document.createElement('textarea')
-      input.value = url
-      document.body.appendChild(input)
-      input.select()
-      document.execCommand('copy')
-      input.remove()
-    }
+    await copyText(url)
     setCopied(true)
+  }
+
+  function saveTemplate() {
+    saveSessionAsTemplate(session)
+    onTemplateSaved()
+    setTemplateNote(UI.savedAsTemplate)
+  }
+
+  async function onFile(file: File) {
+    const text = await file.text()
+    const next = await sessionFromTransfer(text)
+    if (!next) {
+      setReceiveError(UI.receiveBad)
+      return
+    }
+    setReceiveError(null)
+    setPendingImport(next)
   }
 
   return (
@@ -112,9 +134,14 @@ export function ExportSheet({ session, onClose }: Props) {
           <section className="export-block">
             <h3>{UI.exportShareLink}</h3>
             <p>{UI.exportShareHint}</p>
-            <button type="button" className="btn-primary" disabled={!url} onClick={() => void copy()}>
-              {copied ? UI.exportCopied : UI.exportCopy}
-            </button>
+            <div className="modal-actions">
+              <button type="button" className="btn-primary" disabled={!url} onClick={() => void copy()}>
+                {copied ? UI.exportCopied : UI.exportCopy}
+              </button>
+              <button type="button" className="btn-secondary" onClick={() => downloadPassFile(session)}>
+                {UI.downloadFile}
+              </button>
+            </div>
             {url && (
               <textarea
                 className="export-url"
@@ -133,6 +160,30 @@ export function ExportSheet({ session, onClose }: Props) {
               />
             )}
             {qrFailed && <p className="muted">{UI.exportQrLong}</p>}
+            <div className="modal-actions">
+              <label className="btn-secondary receive-file">
+                {UI.importFile}
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="application/json,.json"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    e.target.value = ''
+                    if (file) void onFile(file)
+                  }}
+                />
+              </label>
+              <button type="button" className="btn-secondary" onClick={saveTemplate}>
+                {UI.saveAsTemplate}
+              </button>
+            </div>
+            {templateNote && <p className="muted">{templateNote}</p>}
+            {receiveError && (
+              <p className="muted" role="alert">
+                {receiveError}
+              </p>
+            )}
           </section>
 
           <section className="export-block">
@@ -144,6 +195,16 @@ export function ExportSheet({ session, onClose }: Props) {
           </section>
         </div>
       </div>
+      {pendingImport && (
+        <ReplaceDraftConfirm
+          onCancel={() => setPendingImport(null)}
+          onConfirm={() => {
+            const next = pendingImport
+            setPendingImport(null)
+            onImport(next)
+          }}
+        />
+      )}
       {deck && <StationDeck cards={cards} onClose={() => setDeck(false)} />}
       {printMode &&
         createPortal(<PassPrint session={session} mode={printMode} />, document.body)}

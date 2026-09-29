@@ -5,8 +5,11 @@ import {
   type CoachTipsStateV1,
 } from '../lib/coachTips'
 import { hasDraft } from '../lib/session'
+import { sessionFromTransfer } from '../lib/sharePass'
+import type { Session } from '../types'
 import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
 import { KomIgangCard, type KomIgangAction } from './KomIgangCard'
+import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
 
 interface Props {
   tips: CoachTipsStateV1
@@ -23,6 +26,7 @@ interface Props {
   onShowTipsAgain: () => 'restored' | 'already'
   onChecklistStepDone: (action: KomIgangAction) => void
   onKomIgangCollapseChange?: (collapsed: boolean) => void
+  onReceive: (session: Session) => void
 }
 
 export function Home({
@@ -40,12 +44,16 @@ export function Home({
   onShowTipsAgain,
   onChecklistStepDone,
   onKomIgangCollapseChange,
+  onReceive,
 }: Props) {
   const draftExists = hasDraft()
   const actionsRef = useRef<HTMLDivElement>(null)
   const [stepHint, setStepHint] = useState<string | null>(null)
   const [tipsFeedback, setTipsFeedback] = useState<string | null>(null)
   const [wizardOpen, setWizardOpen] = useState(false)
+  const [code, setCode] = useState('')
+  const [receiveError, setReceiveError] = useState<string | null>(null)
+  const [pendingReceive, setPendingReceive] = useState<Session | null>(null)
 
   function flashHint(msg: string) {
     setStepHint(msg)
@@ -89,6 +97,17 @@ export function Home({
   function handleWizardFinish(answers: WizardFinishAnswers) {
     setWizardOpen(false)
     onWizardFinish(answers)
+  }
+
+  async function takeTransfer(text: string) {
+    const next = await sessionFromTransfer(text)
+    if (!next) {
+      setReceiveError(UI.receiveBad)
+      return
+    }
+    setReceiveError(null)
+    if (hasDraft()) setPendingReceive(next)
+    else onReceive(next)
   }
 
   return (
@@ -243,7 +262,52 @@ export function Home({
         <p>{UI.oppnaPaTelefonBookmark}</p>
         <p>{UI.oppnaPaTelefonHonesty}</p>
         <p>{UI.oppnaPaTelefonAddHome}</p>
+        <h3 className="receive-title">{UI.receiveTitle}</h3>
+        <p>{UI.receiveHint}</p>
+        <div className="receive-pass">
+          <label className="btn-secondary receive-file">
+            {UI.importFile}
+            <input
+              type="file"
+              accept="application/json,.json"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                e.target.value = ''
+                if (file) void file.text().then((text) => takeTransfer(text))
+              }}
+            />
+          </label>
+          <textarea
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            aria-label={UI.pasteCode}
+            placeholder={UI.pasteCode}
+            rows={3}
+          />
+          <button
+            type="button"
+            className="btn-primary"
+            disabled={code.trim().length === 0}
+            onClick={() => void takeTransfer(code)}
+          >
+            {UI.openCode}
+          </button>
+          {receiveError && (
+            <p role="alert">{receiveError}</p>
+          )}
+        </div>
       </aside>
+
+      {pendingReceive && (
+        <ReplaceDraftConfirm
+          onCancel={() => setPendingReceive(null)}
+          onConfirm={() => {
+            const next = pendingReceive
+            setPendingReceive(null)
+            onReceive(next)
+          }}
+        />
+      )}
 
       {wizardOpen && (
         <HomeWizard

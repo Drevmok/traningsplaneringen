@@ -9,6 +9,7 @@ import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import {
   addItemToBlock,
+  adoptAsDraft,
   cloneTemplate,
   getTemplateById,
   moveItemToBlock,
@@ -18,6 +19,12 @@ import {
   updateItemDuration,
   withComputedTotal,
 } from '../lib/session'
+import {
+  deleteSavedTemplate,
+  loadSavedTemplates,
+  savedTemplateToSession,
+} from '../lib/savedTemplates'
+import { copyText, encodeShare, shareUrl } from '../lib/sharePass'
 import type {
   Activity,
   BlockType,
@@ -78,6 +85,8 @@ export function SessionBuilder({
   const [mismatch, setMismatch] = useState<MismatchWarning | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [showExport, setShowExport] = useState(false)
+  const [savedTemplates, setSavedTemplates] = useState(() => loadSavedTemplates())
+  const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
 
   const selectedBlock = useMemo(
@@ -87,6 +96,9 @@ export function SessionBuilder({
 
   const pendingTemplate = pendingTemplateId
     ? getTemplateById(pendingTemplateId)
+    : undefined
+  const pendingSaved = pendingSavedId
+    ? savedTemplates.find((item) => item.id === pendingSavedId)
     : undefined
 
   useEffect(() => {
@@ -194,6 +206,37 @@ export function SessionBuilder({
     onInitialTemplateConsumed?.()
     onChange(cloned)
     closePanel()
+  }
+
+  function handleConfirmSaved() {
+    if (!pendingSaved) return
+    const next = adoptAsDraft(savedTemplateToSession(pendingSaved))
+    setSelectedBlockId(next.blocks[0]?.id ?? null)
+    setPendingSavedId(null)
+    setMismatch(null)
+    onChange(next)
+    closePanel()
+  }
+
+  function handleDeleteSaved(id: string) {
+    setSavedTemplates(deleteSavedTemplate(id))
+  }
+
+  async function handleCopySaved(id: string) {
+    const template = savedTemplates.find((item) => item.id === id)
+    if (!template) return
+    const token = await encodeShare(savedTemplateToSession(template))
+    await copyText(shareUrl(token))
+    showToast(UI.templateCodeCopied)
+  }
+
+  function handleImported(next: Session) {
+    const adopted = adoptAsDraft(next)
+    setSelectedBlockId(adopted.blocks[0]?.id ?? null)
+    setMismatch(null)
+    onChange(adopted)
+    setShowExport(false)
+    showToast(UI.importDone)
   }
 
   function handleTitle(title: string) {
@@ -352,6 +395,10 @@ export function SessionBuilder({
               onSelectActivity={handleSelectActivity}
               onReadActivity={handleOpenInPass}
               onPickTemplate={(id) => setPendingTemplateId(id)}
+              savedTemplates={savedTemplates}
+              onPickSaved={(id) => setPendingSavedId(id)}
+              onCopySaved={(id) => void handleCopySaved(id)}
+              onDeleteSaved={handleDeleteSaved}
             />
           </div>
         </div>
@@ -376,9 +423,29 @@ export function SessionBuilder({
         />
       )}
 
+      {pendingSaved && (
+        <TemplateConfirm
+          template={{
+            id: pendingSaved.id,
+            title: pendingSaved.title,
+            description: '',
+            targetLevel: 'beginner',
+            totalMinutes: pendingSaved.totalMinutes,
+            blocks: [],
+          }}
+          onConfirm={handleConfirmSaved}
+          onCancel={() => setPendingSavedId(null)}
+        />
+      )}
+
       {toast && <div className="toast">{toast}</div>}
       {showExport && (
-        <ExportSheet session={session} onClose={() => setShowExport(false)} />
+        <ExportSheet
+          session={session}
+          onClose={() => setShowExport(false)}
+          onImport={handleImported}
+          onTemplateSaved={() => setSavedTemplates(loadSavedTemplates())}
+        />
       )}
     </div>
   )
