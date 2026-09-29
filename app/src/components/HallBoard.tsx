@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
+import { createPortal } from 'react-dom'
 import {
   hallApplyAllSuggestedResultText,
   hallSaknarRedskapBannerText,
@@ -51,7 +52,11 @@ import { CoachTipStrip } from './CoachTipStrip'
 import { HallCanvas, type HallMode } from './HallCanvas'
 import { ForradslistaSheet } from './ForradslistaSheet'
 import { HallChip, HALL_CHIP_MIME } from './HallChip'
+import { PassPrint } from './PassPrint'
 import { StationComposeSheet } from './StationComposeSheet'
+import { enterPresentation, StationDeck } from './StationDeck'
+import { useBodyPrint } from '../lib/bodyPrint'
+import { stationCards } from '../lib/stationCards'
 
 interface Props {
   session: Session
@@ -97,12 +102,16 @@ export function HallBoard({
   const [trayHeight, setTrayHeight] = useState(0)
   /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
   const [applyAllHighlight, setApplyAllHighlight] = useState(false)
+  const [deckOpen, setDeckOpen] = useState(false)
+  const [cardPrint, setCardPrint] = useState<'stations' | 'pass' | null>(null)
+  useBodyPrint(cardPrint, () => setCardPrint(null))
 
   const itemCount = useMemo(() => countSessionItems(session), [session])
   const placeableCount = useMemo(
     () => countPlaceableItems(session),
     [session],
   )
+  const cards = useMemo(() => stationCards(session), [session])
   const unplaced = useMemo(() => getUnplacedItems(session), [session])
   const allUnplaced =
     placeableCount > 0 && unplaced.length === placeableCount
@@ -238,10 +247,6 @@ export function HallBoard({
   function exitFloor() {
     setTrayCollapsed(true)
     setHallMode('edit')
-  }
-
-  function handlePrint() {
-    window.print()
   }
 
   function zoomIn() {
@@ -397,6 +402,25 @@ export function HallBoard({
             </button>
             <button
               type="button"
+              className="btn-primary hall-tap-target"
+              disabled={cards.length === 0}
+              onClick={() => {
+                enterPresentation()
+                setDeckOpen(true)
+              }}
+            >
+              {UI.exportFullscreen}
+            </button>
+            <button
+              type="button"
+              className="btn-secondary hall-tap-target"
+              disabled={cards.length === 0}
+              onClick={() => setCardPrint('stations')}
+            >
+              {UI.printStations}
+            </button>
+            <button
+              type="button"
               className="btn-secondary hall-tap-target"
               aria-label={UI.forradslistaOpenAria}
               onClick={() => setForradOpen(true)}
@@ -405,10 +429,10 @@ export function HallBoard({
             </button>
             <button
               type="button"
-              className="btn-primary hall-tap-target"
-              onClick={handlePrint}
+              className="btn-secondary hall-tap-target"
+              onClick={() => setCardPrint('pass')}
             >
-              {UI.hallPrint}
+              {UI.exportPrintPass}
             </button>
           </div>
           <div className="hall-header-main">
@@ -789,6 +813,14 @@ export function HallBoard({
           {applyAllStatus}
         </div>
       )}
+      {deckOpen && (
+        <StationDeck cards={cards} onClose={() => setDeckOpen(false)} />
+      )}
+      {cardPrint &&
+        createPortal(
+          <PassPrint session={session} mode={cardPrint} />,
+          document.body,
+        )}
     </div>
   )
 }

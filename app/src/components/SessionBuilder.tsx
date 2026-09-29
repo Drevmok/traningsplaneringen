@@ -31,6 +31,7 @@ import { ActivityDetail } from './ActivityDetail'
 import { BlockCard } from './BlockCard'
 import { LibraryPanel } from './LibraryPanel'
 import { TemplateConfirm } from './TemplateConfirm'
+import { ExportSheet } from './ExportSheet'
 
 interface Props {
   session: Session
@@ -76,7 +77,7 @@ export function SessionBuilder({
   )
   const [mismatch, setMismatch] = useState<MismatchWarning | null>(null)
   const [toast, setToast] = useState<string | null>(null)
-  const [exportHint, setExportHint] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
 
   const selectedBlock = useMemo(
@@ -260,18 +261,14 @@ export function SessionBuilder({
             <button
               type="button"
               className="btn-secondary"
-              disabled
-              onMouseEnter={() => setExportHint(true)}
-              onMouseLeave={() => setExportHint(false)}
-              onFocus={() => setExportHint(true)}
-              onBlur={() => setExportHint(false)}
-              title={UI.comingSoon}
+              disabled={countSessionItems(session) < 1}
+              title={
+                countSessionItems(session) < 1 ? UI.hallCtaDisabled : undefined
+              }
+              onClick={() => setShowExport(true)}
             >
               {UI.export}
             </button>
-            {exportHint && (
-              <span className="export-tooltip">{UI.comingSoon}</span>
-            )}
           </div>
         </div>
       </header>
@@ -380,6 +377,9 @@ export function SessionBuilder({
       )}
 
       {toast && <div className="toast">{toast}</div>}
+      {showExport && (
+        <ExportSheet session={session} onClose={() => setShowExport(false)} />
+      )}
     </div>
   )
 }
