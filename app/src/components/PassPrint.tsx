@@ -102,7 +102,6 @@ export function PassPrint({ session, mode }: Props) {
           onDragOverCanvas={() => {}}
           draggingId={null}
           setDraggingId={() => {}}
-          allUnplaced={false}
         />
       </div>
       {rows.length > 0 && (

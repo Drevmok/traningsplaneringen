@@ -7,6 +7,7 @@ import {
 } from '../data/blockMeta'
 import { seedActivities } from '../data/seedActivities'
 import { seedTemplates } from '../data/seedTemplates'
+import { activityFitsOwned, loadOwnedEquipment, loadTonightFilter, ownsEveryPiece, saveTonightFilter } from '../lib/ownedEquipment'
 import type { SavedTemplate } from '../lib/savedTemplates'
 import type { Activity, BlockType, SideTab } from '../types'
 import { ActivityCard } from './ActivityCard'
@@ -44,12 +45,19 @@ export function LibraryPanel({
   onDeleteSaved,
 }: Props) {
   const [query, setQuery] = useState('')
+  const [ownedIds] = useState(() => loadOwnedEquipment())
+  const [tonightOnly, setTonightOnly] = useState(() => {
+    const saved = loadTonightFilter()
+    if (saved !== null) return saved
+    return !ownsEveryPiece(ownedIds)
+  })
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return seedActivities.filter((a) => {
       if (filterBlockType !== 'all' && a.blockType !== filterBlockType)
         return false
+      if (tonightOnly && !activityFitsOwned(a, ownedIds)) return false
       if (!q) return true
       return (
         a.title.toLowerCase().includes(q) ||
@@ -57,7 +65,7 @@ export function LibraryPanel({
         a.tags.some((t) => t.includes(q))
       )
     })
-  }, [query, filterBlockType])
+  }, [query, filterBlockType, tonightOnly, ownedIds])
 
   return (
     <aside className="side-panel">
@@ -107,6 +115,20 @@ export function LibraryPanel({
                 </option>
               ))}
             </select>
+          </label>
+          <label className="library-tonight">
+            <input
+              type="checkbox"
+              checked={tonightOnly}
+              onChange={(e) => {
+                setTonightOnly(e.target.checked)
+                saveTonightFilter(e.target.checked)
+              }}
+            />
+            <span>
+              {UI.libraryTonight}
+              <span className="library-tonight-hint">{UI.libraryTonightHint}</span>
+            </span>
           </label>
           <div className="library-list">
             {filtered.length === 0 && (

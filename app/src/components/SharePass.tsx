@@ -123,7 +123,6 @@ export function SharePass({ session, onSave }: Props) {
           onDragOverCanvas={() => {}}
           draggingId={null}
           setDraggingId={() => {}}
-          allUnplaced={false}
         />
       </section>
 

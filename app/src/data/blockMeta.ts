@@ -199,6 +199,12 @@ export const UI = {
   overflow: 'Över budget',
   filterAll: 'Alla typer',
   noResults: 'Inga övningar matchar.',
+  libraryTonight: 'Visa bara övningar vi kan köra ikväll',
+  libraryTonightHint:
+    'Döljer övningar som behöver redskap du kryssat bort i Förrådslistan.',
+  ownedEquipmentTitle: 'Vad finns i hallen ikväll?',
+  ownedEquipmentHint:
+    'Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra.',
   selectBlockForTips: 'Välj ett block — då syns tipsen för övningarna där.',
   tipsBlockLead: 'För hela blocket',
   tipsExercisesLead: 'Övningarna',
@@ -221,7 +227,7 @@ export const UI = {
   hallTrayEmptyStations: 'Alla Teknik-stationer är placerade.',
   hallEmptyPass: 'Inga övningar i passet ännu.',
   hallDragHint:
-    'Dra Teknik-stationer till hallen. Placeringen sparas med utkastet.',
+    'Förslagen ligger redan i zonen. Dra bara det som sitter fel, eller välj en station och tryck Placera här.',
   hallSchematicNote: 'Schematisk hall — inte exakt mått',
   hallStationsOnlyHint:
     'Endast Teknik-stationer placeras på hallen. Samling, Uppvärmning, Styrka och Lek och spel planeras i Passbyggaren.',
@@ -234,9 +240,9 @@ export const UI = {
   hallPlaceHere: 'Placera här',
   hallDropHint: 'Dra en Teknik-station hit',
   hallDropHintStations:
-    'Dra Teknik-stationer hit, eller välj en och tryck Placera här.',
+    'De här saknar förslag. Välj en station och tryck Placera här.',
   hallCoachTip:
-    'Placera Teknik-stationerna ungefär där ni brukar köra dem i hallen. Schemat är en hjälp för gruppen — inte en ritning med mått.',
+    'Zonen kommer från övningens redskap. Flytta bara det som sitter fel. Schemat är en hjälp, inte en ritning.',
   hallExperiencedShort: 'Erfaren',
   hallStationCount: '{n} stationer',
   hallStationCountOne: '1 station',
@@ -283,7 +289,7 @@ export const UI = {
     'Samling → Uppvärmning → Teknik → Styrka → Lek och spel.',
   komIgangStep3: 'Öppna Hallöversikt och placera stationer',
   komIgangStep3Hint:
-    'Dra Teknik-stationerna ungefär dit ni brukar vara i hallen.',
+    'Teknik-stationerna föreslås i zonen för redskapet. Flytta bara det som sitter fel.',
   // Slice 16 — soft compose discoverability step
   komIgangStepCompose: 'Ange redskap på Teknik-stationerna',
   komIgangStepComposeHint:
@@ -309,7 +315,7 @@ export const UI = {
   tipBuilderEmptyShort:
     'Börja från mall eller lägg till en övning. Tipsen sitter på övningen.',
   tipHallPlace:
-    'Placera Teknik-stationerna ungefär där ni brukar köra dem. De visas som små markörer — tryck för detaljer och redskap. Släpp på en zon för att fästa; på öppen yta kan du placera fritt.',
+    'Stationerna föreslås i zonen för redskapet. Dra bara det som sitter fel. Tryck en markör för detaljer.',
   tipStationCompose:
     'Redigera redskapen ni faktiskt använder. Det sparas i utkastet och syns när du trycker på markören.',
   tipHallFlowGolvklart:
@@ -400,9 +406,11 @@ export const UI = {
   forradslistaPrintIntro: 'Ta med från förrådet:',
   // Slice 19 — Använd alla förslag (locked: docs/anvand-alla-forslag.sv.md)
   hallApplyAllSuggested: 'Använd alla förslag',
+  hallApplyAllSuggestedIdle: 'Inga förslag att spara',
   hallApplyAllSuggestedAria:
-    'Använd alla osparade redskapsförslag på placerade Teknik-stationer',
-  hallApplyAllSuggestedDisabled: 'Inga stationer med osparade förslag',
+    'Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap',
+  hallApplyAllSuggestedDisabled:
+    'Redskapen är redan sparade, eller så har stationen inget förslag.',
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',

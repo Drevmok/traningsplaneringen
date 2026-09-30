@@ -263,6 +263,26 @@ function offsetFromSlot(
   return { x: clamp01(ox), y: clamp01(oy) }
 }
 
+/** Suggested chip center in a zone. Later indexes step aside so they don't stack. */
+export function pointInZone(
+  preset: HallPreset,
+  zoneId: HallZoneId,
+  index: number,
+): { x: number; y: number; zoneId: HallZoneId } {
+  const zone = zoneById(preset, zoneId) ?? zoneById(preset, 'open')
+  if (!zone) return { x: 0.4, y: 0.45, zoneId: 'open' }
+  if (zone.snaps && zone.snap) {
+    const point = offsetFromSlot(zone.snap, index, zone.bbox)
+    return { x: point.x, y: point.y, zoneId: zone.id }
+  }
+  const origin = {
+    x: zone.bbox.x + zone.bbox.w * 0.28,
+    y: zone.bbox.y + zone.bbox.h * 0.28,
+  }
+  const point = offsetFromSlot(origin, index, zone.bbox)
+  return { x: point.x, y: point.y, zoneId: zone.id }
+}
+
 /**
  * Snap write-time helper used by DnD and phone Placera här.
  * Apparatus zones → snap slot (+ multi-chip offset); open stays free;
