@@ -32,6 +32,7 @@ import {
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
+import { applyUpdate, fetchRemoteBuild, isNewerBuild, localBuild } from './lib/appUpdate'
 import { startNewWeek } from './lib/savedTemplates'
 import type { Session } from './types'
 import './App.css'
@@ -50,6 +51,8 @@ export default function App() {
   const [shared, setShared] = useState<Session | null>(null)
   const [shareError, setShareError] = useState(false)
   const [runSession, setRunSession] = useState<Session | null>(null)
+  const [remoteBuild, setRemoteBuild] = useState<string | null>(null)
+  const updateReady = isNewerBuild(localBuild(), remoteBuild)
 
   useEffect(() => {
     let seq = 0
@@ -78,6 +81,23 @@ export default function App() {
     return () => {
       seq += 1
       window.removeEventListener('hashchange', readHash)
+    }
+  }, [])
+
+  useEffect(() => {
+    let cancel = false
+    async function check() {
+      const next = await fetchRemoteBuild(import.meta.env.BASE_URL)
+      if (!cancel) setRemoteBuild(next)
+    }
+    void check()
+    function onVisible() {
+      if (document.visibilityState === 'visible') void check()
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      cancel = true
+      document.removeEventListener('visibilitychange', onVisible)
     }
   }, [])
 
@@ -308,6 +328,14 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      {updateReady && (
+        <div className="app-update no-print" role="status">
+          <p>{UI.updateReady}</p>
+          <button type="button" className="btn-primary" onClick={() => applyUpdate(remoteBuild)}>
+            {UI.updateNow}
+          </button>
+        </div>
+      )}
       {shared ? (
         <SharePass session={shared} onSave={saveShared} onRun={openRunFromShare} />
       ) : view === 'home' ? (
@@ -379,6 +407,16 @@ export default function App() {
           onClick={handleFooterShowTipsAgain}
         >
           {UI.visaTipsIgen}
+        </button>
+        <span className="app-footer-sep" aria-hidden>
+          ·
+        </span>
+        <button
+          type="button"
+          className="btn-text visa-tips-igen footer-update"
+          onClick={() => applyUpdate(remoteBuild)}
+        >
+          {UI.updateApp}
         </button>
         {footerTipsMsg && (
           <span className="visa-tips-feedback" role="status">

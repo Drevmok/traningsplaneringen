@@ -513,6 +513,11 @@ export const UI = {
     'Appen på telefonen är tom tills du skickar passet dit. Det sparas bara i den webbläsare där du trycker Spara.',
   oppnaPaTelefonAddHome:
     'På iPhone: Dela → Lägg till på hemskärmen. På Android: menyn → Installera app / Lägg till på startsidan.',
+  updateReady: 'En ny version finns. Utkastet ligger kvar på den här enheten.',
+  updateNow: 'Uppdatera',
+  updateApp: 'Uppdatera appen',
+  updateHomeHint:
+    'Appen på hemskärmen uppdateras inte själv. Tryck Uppdatera appen längst ner. Passet i den här webbläsaren finns kvar.',
   privacyPublicUrl:
     'Har du en öppen länk kan vem som helst öppna den tomma appen. Dina övningar och placeringar sparas bara i din webbläsare — inte på servern.',
 } as const

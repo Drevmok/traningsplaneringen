@@ -292,6 +292,7 @@ export function Home({
         <p>{UI.oppnaPaTelefonBookmark}</p>
         <p>{UI.oppnaPaTelefonHonesty}</p>
         <p>{UI.oppnaPaTelefonAddHome}</p>
+        <p>{UI.updateHomeHint}</p>
         <h3 className="receive-title">{UI.receiveTitle}</h3>
         <p>{UI.receiveHint}</p>
         <div className="receive-pass">
