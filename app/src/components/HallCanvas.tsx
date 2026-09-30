@@ -161,7 +161,7 @@ export function HallCanvas({
         }}
       >
         <div
-          className={`hall-canvas${editPlaceMode ? ' is-place-mode' : ''}${isFloor ? ' is-floor' : ''}`}
+          className={`hall-canvas${preset.plan ? ' hall-canvas--plan hall-canvas--' + preset.id : ''}${editPlaceMode ? ' is-place-mode' : ''}${isFloor ? ' is-floor' : ''}`}
           onDragOver={(e) => {
             if (isFloor) return
             e.preventDefault()
@@ -173,6 +173,33 @@ export function HallCanvas({
           role="application"
           aria-label={UI.hallOverview}
         >
+          {preset.plan ? (
+            <div className="hall-plan-layer" aria-hidden>
+              {preset.plan.map((shape, index) =>
+                shape.kind === 'poly' && shape.d ? (
+                  <svg
+                    key={`${shape.kind}-${index}`}
+                    className="hall-plan hall-plan--poly"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                  >
+                    <path d={shape.d} />
+                  </svg>
+                ) : (
+                  <div
+                    key={`${shape.kind}-${index}`}
+                    className={`hall-plan hall-plan--${shape.kind}`}
+                    style={{
+                      left: `${shape.x * 100}%`,
+                      top: `${shape.y * 100}%`,
+                      width: `${shape.w * 100}%`,
+                      height: `${shape.h * 100}%`,
+                    }}
+                  />
+                ),
+              )}
+            </div>
+          ) : (
           <div className="hall-floor" aria-hidden>
             {preset.zones.map((zone) => {
               const b = zone.bbox
@@ -211,6 +238,7 @@ export function HallCanvas({
               )
             })}
           </div>
+          )}
 
           {segments.length > 0 && (
             <svg
