@@ -120,6 +120,8 @@ export const UI = {
   sessionBuilder: 'Passbyggaren',
   saveDraft: 'Spara utkast',
   useTemplate: 'Använd mall',
+  more: 'Mer',
+  moreAria: 'Fler saker med passet',
   export: 'Exportera / dela',
   exportStations: 'Stationskort',
   exportStationsHint: 'En station per A4, med stor siffra. Sätt upp vid stationen eller håll upp skärmen.',
