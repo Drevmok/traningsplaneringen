@@ -8,22 +8,28 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { autoPlaceItems } from '../lib/hallSuggest'
+import { loadOwnActivities, deleteOwnActivity } from '../lib/ownActivities'
 import {
   addItemToBlock,
   adoptAsDraft,
   cloneTemplate,
   getTemplateById,
+  loadDraft,
   moveItemToBlock,
   moveItemWithinBlock,
   removeItem,
+  replaceItemActivity,
   saveDraft,
   updateItemDuration,
   withComputedTotal,
 } from '../lib/session'
 import {
+  activityIdInTemplates,
   deleteSavedTemplate,
   loadSavedTemplates,
   savedTemplateToSession,
+  saveSessionAsTemplate,
+  startNewWeek,
 } from '../lib/savedTemplates'
 import { copyText, encodeShare, shareUrl } from '../lib/sharePass'
 import type {
@@ -40,6 +46,9 @@ import { BlockCard } from './BlockCard'
 import { LibraryPanel } from './LibraryPanel'
 import { TemplateConfirm } from './TemplateConfirm'
 import { ExportSheet } from './ExportSheet'
+import { NewWeekConfirm } from './NewWeekConfirm'
+import { OwnActivityForm } from './OwnActivityForm'
+import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from './StationDeck'
 
 interface Props {
@@ -92,6 +101,11 @@ export function SessionBuilder({
   const [savedTemplates, setSavedTemplates] = useState(() => loadSavedTemplates())
   const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
+  const [replacing, setReplacing] = useState<{ blockId: string; itemId: string } | null>(null)
+  const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
+  const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
+  const [showSaveTemplate, setShowSaveTemplate] = useState(false)
+  const [showNewWeek, setShowNewWeek] = useState(false)
 
   const selectedBlock = useMemo(
     () => session.blocks.find((b) => b.id === selectedBlockId) ?? null,
@@ -131,6 +145,7 @@ export function SessionBuilder({
 
   function closePanel() {
     setPanelOpen(false)
+    setReplacing(null)
     if (initialTemplatePicker) {
       onInitialTemplateConsumed?.()
     }
@@ -141,10 +156,32 @@ export function SessionBuilder({
     if (!block) return
     setSelectedBlockId(blockId)
     setFilterBlockType(block.type)
+    setReplacing(null)
     openPanel('library')
   }
 
   function handleSelectActivity(activity: Activity) {
+    if (replacing) {
+      const next = replaceItemActivity(
+        session,
+        replacing.blockId,
+        replacing.itemId,
+        activity.id,
+      )
+      onChange(next)
+      const block = session.blocks.find((item) => item.id === replacing.blockId)
+      if (block && activity.blockType !== block.type) {
+        setMismatch({
+          blockId: block.id,
+          intendedBlockType: activity.blockType,
+          activityTitle: activity.title,
+        })
+      }
+      setReplacing(null)
+      setPanelOpen(false)
+      showToast(UI.swapped)
+      return
+    }
     setDetailReadOnly(false)
     setDetailActivity(activity)
   }
@@ -205,6 +242,47 @@ export function SessionBuilder({
   function handleSave() {
     saveDraft(session)
     showToast(UI.savedToast)
+  }
+
+  function handleSaveTemplate(title: string) {
+    saveSessionAsTemplate(session, title)
+    setSavedTemplates(loadSavedTemplates())
+    setShowSaveTemplate(false)
+    showToast(UI.ownTemplateSaved)
+  }
+
+  function handleNewWeek() {
+    const started = startNewWeek(session)
+    saveDraft(started.session)
+    setShowNewWeek(false)
+    setReplacing(null)
+    onChange(started.session)
+  }
+
+  function openSwap(blockId: string, itemId: string) {
+    const block = session.blocks.find((item) => item.id === blockId)
+    if (!block) return
+    setSelectedBlockId(blockId)
+    setFilterBlockType(block.type)
+    setReplacing({ blockId, itemId })
+    openPanel('library')
+  }
+
+  function ownInUse(activityId: string): boolean {
+    const used = (source: typeof session) =>
+      source.blocks.some((block) =>
+        block.items.some((item) => item.activityId === activityId),
+      )
+    if (used(session)) return true
+    const draft = loadDraft()
+    if (draft && used(draft)) return true
+    return activityIdInTemplates(activityId)
+  }
+
+  function handleDeleteOwn(activity: Activity) {
+    if (ownInUse(activity.id)) return
+    setOwnActivities(deleteOwnActivity(activity.id))
+    showToast(UI.ownDeleted)
   }
 
   function handleConfirmTemplate() {
@@ -300,6 +378,25 @@ export function SessionBuilder({
           </button>
           <button
             type="button"
+            className="btn-secondary"
+            disabled={countSessionItems(session) < 1}
+            title={countSessionItems(session) < 1 ? UI.runPassDisabled : undefined}
+            onClick={() => setShowSaveTemplate(true)}
+          >
+            {UI.saveOwnTemplate}
+          </button>
+          <button
+            type="button"
+            className="btn-secondary"
+            disabled={countSessionItems(session) < 1}
+            title={countSessionItems(session) < 1 ? UI.runPassDisabled : undefined}
+            aria-label={UI.newWeekAria}
+            onClick={() => setShowNewWeek(true)}
+          >
+            {UI.newWeek}
+          </button>
+          <button
+            type="button"
             className="btn-primary"
             onClick={() => openPanel('templates')}
           >
@@ -368,6 +465,7 @@ export function SessionBuilder({
                 )
               }
               onOpenActivity={handleOpenInPass}
+              onSwapItem={(itemId) => openSwap(block.id, itemId)}
             />
           ))}
         </div>
@@ -423,6 +521,13 @@ export function SessionBuilder({
               onPickSaved={(id) => setPendingSavedId(id)}
               onCopySaved={(id) => void handleCopySaved(id)}
               onDeleteSaved={handleDeleteSaved}
+              ownActivities={ownActivities}
+              swapping={replacing !== null}
+              onCancelSwap={() => setReplacing(null)}
+              onCreateOwn={() => setOwnEdit('new')}
+              onEditOwn={(activity) => setOwnEdit(activity)}
+              onDeleteOwn={handleDeleteOwn}
+              ownInUse={ownInUse}
             />
           </div>
         </div>
@@ -463,6 +568,31 @@ export function SessionBuilder({
       )}
 
       {toast && <div className="toast">{toast}</div>}
+      {showSaveTemplate && (
+        <SaveTemplateDialog
+          initialTitle={session.title}
+          onCancel={() => setShowSaveTemplate(false)}
+          onSave={handleSaveTemplate}
+        />
+      )}
+      {showNewWeek && (
+        <NewWeekConfirm
+          onCancel={() => setShowNewWeek(false)}
+          onConfirm={handleNewWeek}
+        />
+      )}
+      {ownEdit && (
+        <OwnActivityForm
+          initial={ownEdit === 'new' ? null : ownEdit}
+          blockType={selectedBlock?.type ?? 'techniques'}
+          onCancel={() => setOwnEdit(null)}
+          onSaved={() => {
+            setOwnActivities(loadOwnActivities())
+            setOwnEdit(null)
+            showToast(UI.ownSaved)
+          }}
+        />
+      )}
       {showExport && (
         <ExportSheet
           session={session}

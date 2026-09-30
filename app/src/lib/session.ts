@@ -17,6 +17,7 @@ import {
   placeableItems,
   pruneHallPlacements,
 } from './hall'
+import { persistEphemeralOwn } from './ownActivities'
 
 const STORAGE_KEY = 'gymnastics-planner-draft-v1'
 
@@ -102,6 +103,7 @@ export function blockFilledMinutes(block: SessionBlock): number {
 }
 
 export function saveDraft(session: Session): void {
+  persistEphemeralOwn(session)
   const toSave = withComputedTotal(session)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
 }
@@ -367,6 +369,69 @@ export function updateItemDuration(
       items: block.items.map((i) =>
         i.id === itemId ? { ...i, durationMinutes: minutes } : i,
       ),
+    }
+  })
+  return withComputedTotal({ ...session, blocks })
+}
+
+export function newWeekTitle(title: string): string {
+  const base = title.trim() || 'pass'
+  if (base.startsWith('Ny vecka')) return base
+  return `Ny vecka — ${base}`
+}
+
+/** New ids so the copy is a different pass. Hall chips follow the new item ids. */
+export function duplicateSession(session: Session): Session {
+  const idMap = new Map<string, string>()
+  const blocks = session.blocks.map((block) => ({
+    ...block,
+    id: uid(`block-${block.type}`),
+    items: [...block.items]
+      .sort((a, b) => a.order - b.order)
+      .map((item, order) => {
+        const id = uid('item')
+        idMap.set(item.id, id)
+        return { ...item, id, order }
+      }),
+  }))
+  const hallPlacements = (session.hallPlacements ?? [])
+    .filter((placement) => idMap.has(placement.sessionItemId))
+    .map((placement) => ({
+      ...placement,
+      sessionItemId: idMap.get(placement.sessionItemId) ?? placement.sessionItemId,
+    }))
+  return withComputedTotal({
+    ...session,
+    id: uid('session'),
+    title: newWeekTitle(session.title),
+    date: undefined,
+    basedOnTemplateId: undefined,
+    blocks,
+    hallPlacements,
+  })
+}
+
+/** Keep the time slot and the hall chip. Drop the old redskap recipe. */
+export function replaceItemActivity(
+  session: Session,
+  blockId: string,
+  itemId: string,
+  activityId: string,
+): Session {
+  const blocks = session.blocks.map((block) => {
+    if (block.id !== blockId) return block
+    return {
+      ...block,
+      items: block.items.map((item) => {
+        if (item.id !== itemId) return item
+        return {
+          id: item.id,
+          activityId,
+          durationMinutes: item.durationMinutes,
+          note: item.note,
+          order: item.order,
+        }
+      }),
     }
   })
   return withComputedTotal({ ...session, blocks })

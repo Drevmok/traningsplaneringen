@@ -24,6 +24,7 @@ export function ActivityCard({ activity, onSelect }: Props) {
       <span className="activity-card-body">
         <span className="activity-title">
           {activity.title}
+          {activity.own && <span className="own-badge">{UI.ownBadge}</span>}
           {activity.stub && <span className="stub-badge">{UI.stub}</span>}
           {activity.experiencedCoachOnly && (
             <span className="experienced-badge">{UI.experiencedCoach}</span>
