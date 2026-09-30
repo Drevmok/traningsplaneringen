@@ -69,25 +69,23 @@ export function SharePass({ session, onSave, onRun }: Props) {
         >
           {UI.saveHere}
         </button>
-        <button
-          type="button"
-          className="btn-secondary"
-          disabled={cards.length === 0}
-          onClick={() => {
-            enterPresentation()
-            setDeck(true)
-          }}
-        >
-          {UI.exportFullscreen}
-        </button>
-        <button
-          type="button"
-          className="btn-secondary"
-          disabled={cards.length === 0}
-          onClick={() => setPrintMode('stations')}
-        >
-          {UI.printStations}
-        </button>
+        {cards.length > 0 && (
+          <>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                enterPresentation()
+                setDeck(true)
+              }}
+            >
+              {UI.exportFullscreen}
+            </button>
+            <button type="button" className="btn-secondary" onClick={() => setPrintMode('stations')}>
+              {UI.printStations}
+            </button>
+          </>
+        )}
         <button type="button" className="btn-secondary" onClick={() => setPrintMode('pass')}>
           {UI.exportPrintPass}
         </button>

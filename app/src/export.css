@@ -360,6 +360,16 @@
   cursor: pointer;
 }
 
+.item-actions {
+  flex-wrap: wrap;
+}
+
+.item-actions select {
+  flex: 1 1 9.5rem;
+  min-width: 9.5rem;
+  max-width: 100%;
+}
+
 .own-badge {
   margin-left: 6px;
   font-size: 11px;

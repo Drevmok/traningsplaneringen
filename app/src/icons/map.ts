@@ -31,6 +31,18 @@ export const VISUAL_ICON: Record<string, IconId> = {
   'fun-hs-challenge': 'hands-up',
   'fun-headstand': 'invert-head',
   'fun-dark-hide': 'moon',
+  'gather-rules': 'clipboard',
+  'gather-high-five': 'hands-up',
+  'warm-animals': 'shuffle',
+  'warm-feet': 'run',
+  'tech-roll': 'rotate',
+  'tech-cartwheel': 'shuffle',
+  'tech-bridge': 'stretch',
+  'tech-balance': 'flag',
+  'str-plank': 'dumbbell',
+  'str-crawl': 'burst',
+  'fun-follow': 'users-wave',
+  'fun-freeze': 'music',
 }
 
 export const BLOCK_ICON_IDS: Record<BlockType, IconId> = {

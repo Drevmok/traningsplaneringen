@@ -15,6 +15,10 @@ const ACTIVITY_SAFETY: Record<string, string> = {
     'Ingen press djupare än behagligt. Rätta farliga vinklar.',
   'warm-tojning-coach':
     'Studsa inte i stretchen. Smärta är inte målet.',
+  'warm-djurpromenad':
+    'Håll avstånd mellan leden. Inga hopp på hårt golv.',
+  'warm-fotarbete':
+    'Mjuka landningar. Ingen maxhopp på hårt golv.',
   'tech-ljushopp-satsbrada':
     'En i taget. Ingen springer in förrän landningen är klar.',
   'tech-ljushopp-trampett':
@@ -33,12 +37,24 @@ const ACTIVITY_SAFETY: Record<string, string> = {
     'Endast med erfaren ledare, spotting och madrass före första försöket. Stoppa osäkra försök.',
   'tech-handstaende-falla-rygg':
     'Madrass bakom innan någon går upp i handstående.',
+  'tech-kullerbytta':
+    'Madrass under. Hakan i. Nästa väntar tills mattan är fri.',
+  'tech-hjul':
+    'Fri bana. En i taget. Båda hållen, utan att någon står i vägen.',
+  'tech-bro':
+    'Ingen trycker ner ryggen. Avbryt om handlederna gör ont.',
+  'tech-balansgang':
+    'Linjen är på golvet, inte på en upphöjd bänk. En i taget.',
   'strength-cirkeltraning':
     'Teknik före tempo. Låt inte nybörjare ta skadliga genvägar.',
   'strength-burpee-emom':
     'Avbryt setet när formen faller. Step-back eller utan hopp är tillåtet.',
   'strength-styrkelatar':
     'Knän och axlar håller formen. En eller två låtar räcker.',
+  'strength-planka':
+    'Höfterna får sjunka till knäna. Avbryt om ryggen gör ont.',
+  'strength-djurkryp':
+    'Korta banor. Ingen tävling in i varandra.',
   'fun-rundpingis-medicinboll':
     'Lagom bollvikt. Inga hårda kast mot ansikte eller händer.',
   'fun-hojdhopp':
@@ -55,6 +71,10 @@ const ACTIVITY_SAFETY: Record<string, string> = {
     'Aldrig utan madrass. Avbryt vid smärta. Ingen knuffar upp någon annan.',
   'fun-morkerkurragomma':
     'Regler innan ljuset dämpas. Nödutgångsljus på. Räkna in alla efteråt.',
+  'fun-folja-ledaren':
+    'Ledaren lägger inte in volter. Håll banan fri.',
+  'fun-frysdans':
+    'Frys på två fötter. Inga vilda hopp när musiken går.',
 }
 
 export interface FloorTip {

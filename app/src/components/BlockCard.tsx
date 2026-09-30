@@ -177,7 +177,7 @@ export function BlockCard({
                       }}
                     >
                       <option value="" disabled>
-                        {UI.moveTo}…
+                        {UI.moveTo}
                       </option>
                       {otherBlocks.map((t) => (
                         <option key={t} value={t}>
