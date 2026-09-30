@@ -5,7 +5,6 @@ import {
   UI,
 } from '../data/blockMeta'
 import {
-  equipmentIconId,
   getEquipmentPiece,
 } from '../data/equipmentPieces'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
@@ -17,6 +16,7 @@ import {
 } from '../lib/coachTips'
 import { CoachTipStrip } from './CoachTipStrip'
 import { VisualIcon } from '../icons'
+import { EquipmentIcon } from './equipmentMark'
 import { StationSketch } from './StationSketch'
 import { floorTip, validateActivityTip } from '../data/activityTips'
 import type { Activity, StationEquipmentSlot } from '../types'
@@ -182,10 +182,7 @@ export function ActivityDetail({
                     const label = piece?.labelSv ?? s.pieceId
                     return (
                       <li key={s.pieceId} className="station-equipment-item">
-                        <VisualIcon
-                          iconId={equipmentIconId(piece?.visualKey)}
-                          size="item"
-                        />
+                        <EquipmentIcon pieceId={s.pieceId} />
                         <span>{stationEquipmentLabelText(label, s.count)}</span>
                       </li>
                     )
@@ -210,10 +207,7 @@ export function ActivityDetail({
                   const label = piece?.labelSv ?? s.pieceId
                   return (
                     <li key={s.pieceId} className="station-equipment-item">
-                      <VisualIcon
-                        iconId={equipmentIconId(piece?.visualKey)}
-                        size="item"
-                      />
+                      <EquipmentIcon pieceId={s.pieceId} />
                       <span>{stationEquipmentLabelText(label, s.count)}</span>
                     </li>
                   )

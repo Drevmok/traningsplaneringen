@@ -8,11 +8,10 @@ import {
   EQUIPMENT_PIECES,
   STATION_EQUIPMENT_MAX_COUNT,
   STATION_EQUIPMENT_MAX_SLOTS,
-  equipmentIconId,
   getEquipmentPiece,
   sanitizeStationEquipment,
 } from '../data/equipmentPieces'
-import { VisualIcon } from '../icons'
+import { EquipmentIcon } from './equipmentMark'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { StationEquipmentSlot } from '../types'
 
@@ -189,11 +188,7 @@ export function StationComposeSheet({
                 const label = piece?.labelSv ?? s.pieceId
                 return (
                   <li key={s.pieceId} className="station-compose-recipe-row">
-                    <VisualIcon
-                      iconId={equipmentIconId(piece?.visualKey)}
-                      size="item"
-                      className="station-compose-piece-icon"
-                    />
+                    <EquipmentIcon pieceId={s.pieceId} />
                     <span className="station-compose-recipe-label">
                       {stationEquipmentLabelText(label, s.count)}
                     </span>
@@ -260,11 +255,7 @@ export function StationComposeSheet({
                     )}
                     onClick={() => addPiece(piece.id)}
                   >
-                    <VisualIcon
-                      iconId={equipmentIconId(piece.visualKey)}
-                      size="card"
-                      className="station-compose-piece-icon"
-                    />
+                    <EquipmentIcon pieceId={piece.id} />
                     <span>{piece.labelSv}</span>
                   </button>
                 </li>
