@@ -40,12 +40,14 @@ import { BlockCard } from './BlockCard'
 import { LibraryPanel } from './LibraryPanel'
 import { TemplateConfirm } from './TemplateConfirm'
 import { ExportSheet } from './ExportSheet'
+import { enterPresentation } from './StationDeck'
 
 interface Props {
   session: Session
   onChange: (session: Session) => void
   onHome: () => void
   onOpenHall: () => void
+  onRun: () => void
   initialTemplatePicker?: boolean
   /** Slice 20 C1 — clear App openTemplates after mall picker consumed. */
   onInitialTemplateConsumed?: () => void
@@ -61,6 +63,7 @@ export function SessionBuilder({
   onChange,
   onHome,
   onOpenHall,
+  onRun,
   initialTemplatePicker = false,
   onInitialTemplateConsumed,
   tips,
@@ -279,6 +282,19 @@ export function SessionBuilder({
             />
           )}
         <div className="builder-actions">
+          {countSessionItems(session) >= 1 && (
+            <button
+              type="button"
+              className="btn-primary"
+              aria-label={UI.runPassAria}
+              onClick={() => {
+                enterPresentation()
+                onRun()
+              }}
+            >
+              {UI.runPass}
+            </button>
+          )}
           <button type="button" className="btn-secondary" onClick={handleSave}>
             {UI.saveDraft}
           </button>

@@ -4,6 +4,7 @@ import { BLOCK_LABELS, BLOCK_ORDER, UI } from '../data/blockMeta'
 import { getActivityById } from '../data/seedActivities'
 import { useBodyPrint } from '../lib/bodyPrint'
 import { hasDraft } from '../lib/session'
+import { countSessionItems } from '../lib/hall'
 import { stationCards } from '../lib/stationCards'
 import type { Session } from '../types'
 import { HallCanvas } from './HallCanvas'
@@ -14,9 +15,10 @@ import { enterPresentation, StationDeck } from './StationDeck'
 interface Props {
   session: Session
   onSave: (run: boolean) => void
+  onRun: () => void
 }
 
-export function SharePass({ session, onSave }: Props) {
+export function SharePass({ session, onSave, onRun }: Props) {
   const cards = stationCards(session)
   const [deck, setDeck] = useState(false)
   const [printMode, setPrintMode] = useState<'stations' | 'pass' | null>(null)
@@ -43,8 +45,20 @@ export function SharePass({ session, onSave }: Props) {
         <p>{session.totalMinutes} min</p>
       </header>
       <div className="share-actions no-print">
+        <button
+          type="button"
+          className="btn-primary"
+          disabled={countSessionItems(session) < 1}
+          aria-label={UI.runPassAria}
+          onClick={() => {
+            enterPresentation()
+            onRun()
+          }}
+        >
+          {UI.runPass}
+        </button>
         {cards.length > 0 && (
-          <button type="button" className="btn-primary" onClick={() => askSave(true)}>
+          <button type="button" className="btn-secondary" onClick={() => askSave(true)}>
             {UI.saveAndRun}
           </button>
         )}

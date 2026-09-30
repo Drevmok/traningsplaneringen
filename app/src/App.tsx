@@ -5,6 +5,7 @@ import type { WizardFinishAnswers } from './components/HomeWizard'
 import type { KomIgangAction } from './components/KomIgangCard'
 import { SessionBuilder } from './components/SessionBuilder'
 import { SharePass } from './components/SharePass'
+import { RunPass } from './components/RunPass'
 import { UI } from './data/blockMeta'
 import {
   anyTipsHidden,
@@ -47,6 +48,7 @@ export default function App() {
   const [footerTipsMsg, setFooterTipsMsg] = useState<string | null>(null)
   const [shared, setShared] = useState<Session | null>(null)
   const [shareError, setShareError] = useState(false)
+  const [runSession, setRunSession] = useState<Session | null>(null)
 
   useEffect(() => {
     let seq = 0
@@ -190,6 +192,22 @@ export default function App() {
     return true
   }
 
+  function openRunFromHome() {
+    const loaded = loadDraft()
+    if (!loaded || countSessionItems(loaded) < 1) return
+    setRunSession(withComputedTotal(loaded))
+  }
+
+  function openRunFromBuilder() {
+    if (countSessionItems(session) < 1) return
+    setRunSession(session)
+  }
+
+  function openRunFromShare() {
+    if (!shared || countSessionItems(shared) < 1) return
+    setRunSession(shared)
+  }
+
   function handleChecklistStepDone(action: KomIgangAction) {
     if (action === 'chooseOrBuild') {
       patchTips(markChooseOrBuild)
@@ -278,7 +296,7 @@ export default function App() {
   return (
     <div className="app-shell">
       {shared ? (
-        <SharePass session={shared} onSave={saveShared} />
+        <SharePass session={shared} onSave={saveShared} onRun={openRunFromShare} />
       ) : view === 'home' ? (
         <>
           {shareError && (
@@ -297,6 +315,7 @@ export default function App() {
           onOpenBuilder={openBuilderFromChecklist}
           onOpenHall={openHallFromHome}
           onOpenGolvklart={openGolvklartFromHome}
+          onRun={openRunFromHome}
           onDismissChecklist={handleDismissChecklist}
           onShowTipsAgain={handleShowTipsAgain}
           onChecklistStepDone={handleChecklistStepDone}
@@ -325,6 +344,7 @@ export default function App() {
           onChange={setSession}
           onHome={() => setView('home')}
           onOpenHall={handleOpenHallFromBuilder}
+          onRun={openRunFromBuilder}
           initialTemplatePicker={openTemplates}
           onInitialTemplateConsumed={handleInitialTemplateConsumed}
           tips={syncedTips}
@@ -352,6 +372,9 @@ export default function App() {
           </span>
         )}
       </footer>
+      {runSession && (
+        <RunPass session={runSession} onClose={() => setRunSession(null)} />
+      )}
     </div>
   )
 }

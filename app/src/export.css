@@ -139,7 +139,9 @@
 .share-actions .btn-secondary,
 .export-sheet .btn-primary,
 .export-sheet .btn-secondary,
-.station-deck-nav button {
+.station-deck-nav button,
+.run-nav button,
+.run-exit {
   min-height: 44px;
 }
 
@@ -310,6 +312,10 @@
     padding: 2mm 0;
     border-bottom: 1px solid #e7e5e4;
   }
+
+  .run-pass {
+    display: none !important;
+  }
 }
 
 .receive-title {
@@ -376,6 +382,143 @@
   gap: 4px 12px;
   margin: -4px 0 12px;
 }
+
+/* Kör passet — one exercise, countdown, cue. No edit controls. */
+.run-pass {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    16px
+    max(16px, env(safe-area-inset-bottom));
+  color: #fff;
+  background: #1c1917;
+  text-align: center;
+}
+
+.run-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.run-kicker {
+  margin: 0;
+  color: #d6d3d1;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.run-exit {
+  flex: 0 0 auto;
+  color: #fff;
+  background: transparent;
+  border-color: #a8a29e;
+}
+
+.run-pass h1 {
+  margin: 4px auto 0;
+  max-width: 22ch;
+  font-size: clamp(1.45rem, 5vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.run-experienced {
+  margin: 0;
+  color: #fde68a;
+  font-weight: 650;
+}
+
+.run-clock {
+  margin: 4px auto 0;
+  padding: 4px 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: clamp(4.25rem, 18vw, 7.5rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  cursor: pointer;
+}
+
+.run-clock.is-paused {
+  opacity: 0.45;
+}
+
+.run-status {
+  margin: 0;
+  color: #d6d3d1;
+  font-size: 1rem;
+}
+
+.run-timeup {
+  color: #fecaca;
+  font-weight: 700;
+}
+
+.run-script {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  width: min(40rem, 100%);
+  margin: 4px auto 0;
+  text-align: left;
+}
+
+.run-script p {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.run-label {
+  display: block;
+  margin-bottom: 2px;
+  color: #a8a29e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.run-script .run-cue {
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.run-safety {
+  color: #fecaca;
+}
+
+.run-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.run-nav .btn-secondary {
+  color: #fff;
+  background: transparent;
+  border-color: #a8a29e;
+}
+
+.run-nav .btn-primary:disabled,
+.run-nav .btn-secondary:disabled,
+.builder-actions .btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 
 .template-saved-actions .btn-text {
   min-height: 44px;
