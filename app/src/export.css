@@ -277,6 +277,12 @@
     padding-top: 4mm;
   }
 
+  .station-sketch {
+    max-width: 160mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .pass-sheet {
     color: #0f172a;
     background: #fff;
@@ -735,6 +741,30 @@
   display: block;
   width: fit-content;
   margin: 6px 0 0;
+}
+
+.station-sketch-wrap {
+  margin: 8px 0 12px;
+}
+
+.station-sketch {
+  display: block;
+  width: 100%;
+  max-width: 36rem;
+  height: auto;
+  border-radius: 10px;
+}
+
+.station-sketch-caption {
+  margin: 6px 0 0;
+  max-width: 36rem;
+  color: #57534e;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.station-deck .station-sketch-caption {
+  color: #d6d3d1;
 }
 
 .hall-canvas--plan {

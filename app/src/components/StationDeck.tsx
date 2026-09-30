@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { UI } from '../data/blockMeta'
 import type { StationCardModel } from '../lib/stationCards'
+import { StationSketch } from './StationSketch'
 
 interface Props {
   cards: StationCardModel[]
@@ -48,6 +49,9 @@ export function StationDeck({ cards, onClose }: Props) {
         {card.minutes} min
         {card.experienced ? ` · ${UI.experiencedCoach}` : ''}
       </p>
+      {card.equipmentSlots && card.equipmentSlots.length > 0 && (
+        <StationSketch slots={card.equipmentSlots} />
+      )}
       {card.safety && <p className="station-deck-safety">{card.safety}</p>}
       {!card.safety && card.watch && <p>{card.watch}</p>}
       <div className="station-deck-nav">
