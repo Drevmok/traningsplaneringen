@@ -3,6 +3,7 @@ import { aggregateStationEquipment } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
 import { listSessionItems } from '../lib/hall'
 import { HallCanvas } from './HallCanvas'
+import { StationSketch } from './StationSketch'
 import { stationCards } from '../lib/stationCards'
 import type { Session } from '../types'
 
@@ -28,6 +29,9 @@ export function PassPrint({ session, mode }: Props) {
                 {card.blockLabel} · {card.minutes} min
                 {card.experienced ? ` · ${UI.experiencedCoach}` : ''}
               </p>
+              {card.equipmentSlots && card.equipmentSlots.length > 0 && (
+                <StationSketch slots={card.equipmentSlots} />
+              )}
               {card.watch && (
                 <p>
                   <strong>{UI.watchFor}. </strong>

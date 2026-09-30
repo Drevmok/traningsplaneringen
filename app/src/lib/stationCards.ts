@@ -13,6 +13,7 @@ export interface StationCardModel {
   watch: string
   safety?: string
   equipment?: string
+  equipmentSlots?: StationEquipmentSlot[]
   experienced: boolean
 }
 
@@ -40,6 +41,7 @@ export function stationCards(session: Session): StationCardModel[] {
       watch: tip?.watchFor || '',
       safety: tip?.safety,
       equipment: equipmentLine(slots),
+      equipmentSlots: slots,
       experienced: Boolean(activity?.experiencedCoachOnly),
     }
   })

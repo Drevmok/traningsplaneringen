@@ -17,6 +17,7 @@ import {
 } from '../lib/coachTips'
 import { CoachTipStrip } from './CoachTipStrip'
 import { VisualIcon } from '../icons'
+import { StationSketch } from './StationSketch'
 import { floorTip, validateActivityTip } from '../data/activityTips'
 import type { Activity, StationEquipmentSlot } from '../types'
 
@@ -78,6 +79,10 @@ export function ActivityDetail({
     showStationEquipment &&
     equipmentList !== undefined &&
     equipmentList.length > 0
+  const sketchSlots =
+    stationEquipment !== undefined
+      ? stationEquipment
+      : activity.defaultStationEquipment ?? []
 
   return (
     <div
@@ -115,6 +120,7 @@ export function ActivityDetail({
           {BLOCK_LABELS[activity.blockType]} · {activity.durationMinutesDefault}{' '}
           min
         </p>
+        {sketchSlots.length > 0 && <StationSketch slots={sketchSlots} />}
 
         {activity.experiencedCoachOnly && (
           <div className="experienced-warning" role="alert">

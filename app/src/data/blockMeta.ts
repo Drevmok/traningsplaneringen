@@ -367,6 +367,9 @@ export const UI = {
   hallFloorEquipmentOne: '{label}',
   stationEquipmentSuggested: 'Förslag — du kan ändra',
   stationEquipmentUseSuggested: 'Använd förslag',
+  stationSketchCaption: 'Skiss — så kan stationen stå.',
+  stationSketchApproach:
+    'Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.',
   composeTitle: 'Redigera redskap',
   composeTitleWithName: 'Redigera redskap: {title}',
   composeDone: 'Klar',
