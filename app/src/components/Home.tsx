@@ -10,6 +10,7 @@ import type { Session } from '../types'
 import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
 import { KomIgangCard, type KomIgangAction } from './KomIgangCard'
 import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
+import { enterPresentation } from './StationDeck'
 
 interface Props {
   tips: CoachTipsStateV1
@@ -22,6 +23,7 @@ interface Props {
   onOpenBuilder: () => void
   onOpenHall: () => boolean
   onOpenGolvklart: () => boolean
+  onRun: () => void
   onDismissChecklist: () => void
   onShowTipsAgain: () => 'restored' | 'already'
   onChecklistStepDone: (action: KomIgangAction) => void
@@ -40,6 +42,7 @@ export function Home({
   onOpenBuilder,
   onOpenHall,
   onOpenGolvklart,
+  onRun,
   onDismissChecklist,
   onShowTipsAgain,
   onChecklistStepDone,
@@ -178,6 +181,19 @@ export function Home({
 
         {draftExists && (
           <div className="home-actions-secondary">
+            <button
+              type="button"
+              className="btn-primary home-secondary-cta hall-tap-target"
+              aria-label={UI.runPassAria}
+              disabled={!canOpenHall}
+              title={!canOpenHall ? UI.runPassDisabled : undefined}
+              onClick={() => {
+                enterPresentation()
+                onRun()
+              }}
+            >
+              {UI.runPass}
+            </button>
             <button
               type="button"
               className="btn-secondary home-secondary-cta hall-tap-target"
