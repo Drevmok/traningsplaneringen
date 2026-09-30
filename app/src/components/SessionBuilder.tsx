@@ -7,6 +7,7 @@ import {
 } from '../lib/coachTips'
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
+import { autoPlaceItems } from '../lib/hallSuggest'
 import {
   addItemToBlock,
   adoptAsDraft,
@@ -157,12 +158,19 @@ export function SessionBuilder({
       return
     }
     const dest = selectedBlock
-    const next = addItemToBlock(
+    const before = new Set(session.blocks.flatMap((block) => block.items.map((item) => item.id)))
+    const addedSession = addItemToBlock(
       session,
       dest.id,
       detailActivity.id,
       duration,
     )
+    const added = new Set(
+      addedSession.blocks
+        .flatMap((block) => block.items.map((item) => item.id))
+        .filter((id) => !before.has(id)),
+    )
+    const next = autoPlaceItems(addedSession, added)
     onChange(next)
     if (detailActivity.blockType !== dest.type) {
       setMismatch({

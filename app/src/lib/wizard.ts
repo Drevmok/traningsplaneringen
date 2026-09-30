@@ -13,11 +13,8 @@ import {
 } from '../data/wizardPaths'
 import { getActivityById } from '../data/seedActivities'
 import type { HallZoneId, Session } from '../types'
-import {
-  getPreset,
-  normalizeTemplateId,
-  upsertPlacement,
-} from './hall'
+import { normalizeTemplateId } from './hall'
+import { autoPlaceUnplaced } from './hallSuggest'
 import {
   createEmptyBlocks,
   createSessionItem,
@@ -31,9 +28,7 @@ export interface WizardAnswers {
 }
 
 /**
- * D1 Docs tag → zone map:
- * vault tag → vault; trampett → trampett;
- * floor + flickis|rondat → tumbling; floor otherwise → open; fallback → open.
+ * Tag fallback when a drill has no redskap. Prefer suggestZoneId.
  */
 export function mapActivityToZone(activityId: string): HallZoneId {
   const activity = getActivityById(activityId)
@@ -51,13 +46,6 @@ export function mapActivityToZone(activityId: string): HallZoneId {
 
 function uid(prefix: string): string {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}-${Date.now().toString(36)}`
-}
-
-function bboxCenter(bbox: { x: number; y: number; w: number; h: number }): {
-  x: number
-  y: number
-} {
-  return { x: bbox.x + bbox.w / 2, y: bbox.y + bbox.h / 2 }
 }
 
 /**
@@ -115,21 +103,6 @@ export function composeWizardSession(answers: WizardAnswers): Session {
     hallPlacements: [],
   })
 
-  const preset = getPreset(hallTemplateId)
-  const teknikItems = techniques?.items ?? []
-  for (const item of teknikItems) {
-    const zoneId = mapActivityToZone(item.activityId)
-    const zone = preset.zones.find((z) => z.id === zoneId)
-    const center = zone ? bboxCenter(zone.bbox) : { x: 0.5, y: 0.5 }
-    const x = zone?.snap?.x ?? center.x
-    const y = zone?.snap?.y ?? center.y
-    session = upsertPlacement(session, {
-      sessionItemId: item.id,
-      x,
-      y,
-      zoneId,
-    })
-  }
-
+  session = autoPlaceUnplaced(session)
   return withComputedTotal(session)
 }

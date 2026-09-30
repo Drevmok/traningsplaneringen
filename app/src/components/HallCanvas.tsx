@@ -27,7 +27,6 @@ interface Props {
   onDragOverCanvas: (e: DragEvent) => void
   draggingId: string | null
   setDraggingId: (id: string | null) => void
-  allUnplaced: boolean
 }
 
 function clientToNormalized(
@@ -58,7 +57,6 @@ export function HallCanvas({
   onDragOverCanvas,
   draggingId,
   setDraggingId,
-  allUnplaced,
 }: Props) {
   const placed = getPlacedItems(session)
   const preset = getPreset(session.hallTemplateId)
@@ -232,15 +230,6 @@ export function HallCanvas({
                 />
               ))}
             </svg>
-          )}
-
-          <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
-
-          {!isFloor && allUnplaced && (
-            <div className="hall-drop-hint" aria-hidden>
-              <p>{UI.hallDropHintStations}</p>
-              <p className="hall-coach-tip">{UI.hallCoachTip}</p>
-            </div>
           )}
 
           {placed.map(({ item, placement }) => (

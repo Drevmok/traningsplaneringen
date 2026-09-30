@@ -38,6 +38,8 @@ import {
   roundHallZoom,
   upsertPlacement,
 } from '../lib/hall'
+import { autoPlaceUnplaced } from '../lib/hallSuggest'
+import { loadOwnedEquipment, saveOwnedEquipment } from '../lib/ownedEquipment'
 import {
   applyAllSuggestedStationEquipment,
   eligibleSuggestedStationEquipmentItems,
@@ -102,6 +104,7 @@ export function HallBoard({
   const [trayHeight, setTrayHeight] = useState(0)
   /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
   const [applyAllHighlight, setApplyAllHighlight] = useState(false)
+  const [ownedIds, setOwnedIds] = useState<string[]>(() => loadOwnedEquipment())
   const [deckOpen, setDeckOpen] = useState(false)
   const [cardPrint, setCardPrint] = useState<'stations' | 'pass' | null>(null)
   useBodyPrint(cardPrint, () => setCardPrint(null))
@@ -113,8 +116,6 @@ export function HallBoard({
   )
   const cards = useMemo(() => stationCards(session), [session])
   const unplaced = useMemo(() => getUnplacedItems(session), [session])
-  const allUnplaced =
-    placeableCount > 0 && unplaced.length === placeableCount
   const noStations = itemCount > 0 && placeableCount === 0
   const activeTemplateId = normalizeTemplateId(session.hallTemplateId)
   const showFlow = isHallShowFlow(session)
@@ -160,9 +161,16 @@ export function HallBoard({
     if (pruned !== session) {
       onChange(pruned)
       saveDraft(pruned)
+      return
     }
-    // Only on mount / when placements or blocks identity shifts via session ref.
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- prune on open/session change
+    if (countPlaceableItems(session) < 1) return
+    if ((session.hallPlacements ?? []).length > 0) return
+    const suggested = autoPlaceUnplaced(session)
+    if (suggested === session) return
+    onChange(suggested)
+    saveDraft(suggested)
+    // Suggest once when the hall is still empty. Later removals stay removed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- session identity is the trigger
   }, [session.id, session.hallPlacements, session.blocks])
 
   useEffect(() => {
@@ -492,17 +500,18 @@ export function HallBoard({
               type="button"
               className={`btn-secondary hall-tap-target${
                 applyAllHighlight ? ' hall-apply-all--point' : ''
-              }`}
-              aria-label={UI.hallApplyAllSuggestedAria}
-              title={
+              }${eligibleSuggestedCount === 0 ? ' is-idle' : ''}`}
+              aria-label={
                 eligibleSuggestedCount === 0
                   ? UI.hallApplyAllSuggestedDisabled
-                  : undefined
+                  : UI.hallApplyAllSuggestedAria
               }
               disabled={eligibleSuggestedCount === 0}
               onClick={handleApplyAllSuggested}
             >
-              {UI.hallApplyAllSuggested}
+              {eligibleSuggestedCount === 0
+                ? UI.hallApplyAllSuggestedIdle
+                : UI.hallApplyAllSuggested}
             </button>
             <button
               type="button"
@@ -658,8 +667,8 @@ export function HallBoard({
           onDragOverCanvas={() => {}}
           draggingId={draggingId}
           setDraggingId={setDraggingId}
-          allUnplaced={allUnplaced}
         />
+        <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
 
         {!isFloor && (
           <aside
@@ -805,6 +814,18 @@ export function HallBoard({
           eligibleSuggestedCount={eligibleSuggestedCount}
           onClose={() => setForradOpen(false)}
           onPointAtApplyAll={pointAtApplyAllFromForrad}
+          ownedIds={ownedIds}
+          onToggleOwned={(pieceId, on) => {
+            setOwnedIds((prev) => {
+              const next = on
+                ? prev.includes(pieceId)
+                  ? prev
+                  : [...prev, pieceId]
+                : prev.filter((id) => id !== pieceId)
+              saveOwnedEquipment(next)
+              return next
+            })
+          }}
         />
       )}
 
