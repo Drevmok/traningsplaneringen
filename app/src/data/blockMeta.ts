@@ -182,6 +182,8 @@ export const UI = {
   watchFor: 'Se upp för',
   safety: 'Säkerhet',
   openExercise: 'Hela övningen',
+  seeDescription: 'Se beskrivning',
+  hideDescription: 'Dölj beskrivning',
   tipIncomplete: 'Ofullständigt tips.',
   addToBlock: 'Lägg till i valt block',
   addAndEditDuration: 'Lägg till och ändra tid',

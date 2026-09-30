@@ -367,13 +367,89 @@
 }
 
 .item-actions {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .item-actions select {
-  flex: 1 1 9.5rem;
-  min-width: 9.5rem;
-  max-width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+}
+
+@media (min-width: 769px) {
+  .item-actions select {
+    flex: 0 1 9.5rem;
+    min-width: 9.5rem;
+    max-width: 100%;
+  }
+
+  .activity-tip-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .item-actions {
+    display: grid;
+    grid-template-columns: 44px 44px minmax(0, 1fr) auto 44px;
+    gap: 4px;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .item-actions button,
+  .item-actions select {
+    min-width: 0;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .item-actions select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 4px 0 8px;
+    font-size: 15px;
+  }
+
+  .item-actions .btn-swap {
+    padding: 0 10px;
+  }
+
+  .activity-tip-toggle {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 2px;
+    color: #6d28d9;
+    font-weight: 650;
+    font-size: 16px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .activity-tip-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .activity-tip-fold:not([open]) .activity-tip-when-open,
+  .activity-tip-fold[open] .activity-tip-when-closed {
+    display: none;
+  }
+}
+
+.activity-tip-slot {
+  min-width: 0;
+}
+
+@media print {
+  .activity-tip-toggle {
+    display: none !important;
+  }
+
+  .activity-tip-fold > .activity-tip {
+    display: block !important;
+  }
 }
 
 .app-update {
