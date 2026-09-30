@@ -275,12 +275,11 @@ function glyph(id: IconId): ReactNode {
       )
     case 'dumbbell':
       return (
-        <>
-          <path d="M7.5 12h9" {...stroke} />
-          <rect x="3.5" y="8.5" width="3.5" height="7" rx="1" {...stroke} />
-          <rect x="17" y="8.5" width="3.5" height="7" rx="1" {...stroke} />
-          <path d="M7 10v4M17 10v4" {...stroke} />
-        </>
+        <path
+          fill="currentColor"
+          stroke="none"
+          d="M3 7.2h3.4v9.6H3zM7.2 10.7h9.6v2.6H7.2zM17.6 7.2H21v9.6h-3.4z"
+        />
       )
     case 'smile':
       return (

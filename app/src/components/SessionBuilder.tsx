@@ -421,19 +421,13 @@ export function SessionBuilder({
               {UI.hallCtaDisabled}
             </span>
           )}
-          <div className="export-wrap">
-            <button
-              type="button"
-              className="btn-secondary"
-              disabled={countSessionItems(session) < 1}
-              title={
-                countSessionItems(session) < 1 ? UI.hallCtaDisabled : undefined
-              }
-              onClick={() => setShowExport(true)}
-            >
-              {UI.export}
-            </button>
-          </div>
+          {countSessionItems(session) >= 1 && (
+            <div className="export-wrap">
+              <button type="button" className="btn-secondary" onClick={() => setShowExport(true)}>
+                {UI.export}
+              </button>
+            </div>
+          )}
         </div>
       </header>
 

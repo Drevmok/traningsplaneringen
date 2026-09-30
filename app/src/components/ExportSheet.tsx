@@ -107,28 +107,29 @@ export function ExportSheet({ session, onClose, onImport, onTemplateSaved }: Pro
           <section className="export-block">
             <h3>{UI.exportStations}</h3>
             <p>{UI.exportStationsHint}</p>
-            <div className="modal-actions">
-              <button
-                type="button"
-                className="btn-primary"
-                disabled={cards.length === 0}
-                onClick={() => {
-                  enterPresentation()
-                  setDeck(true)
-                }}
-              >
-                {UI.exportFullscreen}
-              </button>
-              <button
-                type="button"
-                className="btn-secondary"
-                disabled={cards.length === 0}
-                onClick={() => setPrintMode('stations')}
-              >
-                {UI.printStations}
-              </button>
-            </div>
-            {cards.length === 0 && <p className="muted">{UI.stationCardsEmpty}</p>}
+            {cards.length === 0 ? (
+              <p className="muted">{UI.stationCardsEmpty}</p>
+            ) : (
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => {
+                    enterPresentation()
+                    setDeck(true)
+                  }}
+                >
+                  {UI.exportFullscreen}
+                </button>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => setPrintMode('stations')}
+                >
+                  {UI.printStations}
+                </button>
+              </div>
+            )}
           </section>
 
           <section className="export-block">
