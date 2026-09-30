@@ -139,7 +139,7 @@ export function floorTip(activity: Activity): FloorTip {
     .map((line) => line.replace(/^\s*\d+\.\s*/, '').trim())
     .filter(Boolean)
 
-  const safety = ACTIVITY_SAFETY[activity.id]
+  const safety = activity.safetyLine?.trim() || ACTIVITY_SAFETY[activity.id]
 
   return {
     why: activity.summary.trim(),

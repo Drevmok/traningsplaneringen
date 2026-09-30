@@ -1,4 +1,11 @@
 import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER } from '../data/blockMeta'
+import {
+  activitiesFromShareOwn,
+  activityToShareOwn,
+  ownActivitiesForIds,
+  setEphemeralOwn,
+  type ShareOwn,
+} from './ownActivities'
 import { withComputedTotal } from './session'
 import type {
   BlockType,
@@ -35,9 +42,16 @@ export interface SharePass {
   hallShowFlow?: boolean
   hallPlacements?: HallPlacement[]
   blocks: ShareBlock[]
+  /** Own drills referenced by this pass. Absent on older links. */
+  own?: ShareOwn[]
 }
 
 export function sessionToShare(session: Session): SharePass {
+  const ids = new Set<string>()
+  for (const block of session.blocks) {
+    for (const item of block.items) ids.add(item.activityId)
+  }
+  const own = ownActivitiesForIds(ids).map(activityToShareOwn)
   return {
     v: 1,
     title: session.title,
@@ -59,7 +73,13 @@ export function sessionToShare(session: Session): SharePass {
           : {}),
       })),
     })),
+    ...(own.length > 0 ? { own } : {}),
   }
+}
+
+function sessionFromSharePass(pass: SharePass): Session {
+  setEphemeralOwn(activitiesFromShareOwn(pass.own))
+  return shareToSession(pass)
 }
 
 export function shareToSession(pass: SharePass): Session {
@@ -137,7 +157,7 @@ function parseShare(json: string): Session | null {
   try {
     const pass = JSON.parse(json) as SharePass
     if (pass?.v !== 1 || !Array.isArray(pass.blocks)) return null
-    return shareToSession(pass)
+    return sessionFromSharePass(pass)
   } catch {
     return null
   }
@@ -192,8 +212,8 @@ export function sessionFromPassJson(text: string): Session | null {
   try {
     const data = JSON.parse(text) as { v?: number; blocks?: unknown }
     if (!data || typeof data !== 'object' || !Array.isArray(data.blocks)) return null
-    if (data.v === 1) return shareToSession(data as SharePass)
-    return shareToSession(sessionToShare(data as Session))
+    if (data.v === 1) return sessionFromSharePass(data as SharePass)
+    return sessionFromSharePass(sessionToShare(data as Session))
   } catch {
     return null
   }

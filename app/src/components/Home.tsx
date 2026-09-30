@@ -9,6 +9,7 @@ import { sessionFromTransfer } from '../lib/sharePass'
 import type { Session } from '../types'
 import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
 import { KomIgangCard, type KomIgangAction } from './KomIgangCard'
+import { NewWeekConfirm } from './NewWeekConfirm'
 import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
 import { enterPresentation } from './StationDeck'
 
@@ -24,6 +25,7 @@ interface Props {
   onOpenHall: () => boolean
   onOpenGolvklart: () => boolean
   onRun: () => void
+  onNewWeek: () => void
   onDismissChecklist: () => void
   onShowTipsAgain: () => 'restored' | 'already'
   onChecklistStepDone: (action: KomIgangAction) => void
@@ -43,6 +45,7 @@ export function Home({
   onOpenHall,
   onOpenGolvklart,
   onRun,
+  onNewWeek,
   onDismissChecklist,
   onShowTipsAgain,
   onChecklistStepDone,
@@ -57,6 +60,7 @@ export function Home({
   const [code, setCode] = useState('')
   const [receiveError, setReceiveError] = useState<string | null>(null)
   const [pendingReceive, setPendingReceive] = useState<Session | null>(null)
+  const [weekConfirm, setWeekConfirm] = useState(false)
 
   function flashHint(msg: string) {
     setStepHint(msg)
@@ -181,6 +185,16 @@ export function Home({
 
         {draftExists && (
           <div className="home-actions-secondary">
+            {canOpenHall && (
+              <button
+                type="button"
+                className="btn-secondary home-secondary-cta hall-tap-target"
+                aria-label={UI.newWeekAria}
+                onClick={() => setWeekConfirm(true)}
+              >
+                {UI.newWeek}
+              </button>
+            )}
             <button
               type="button"
               className="btn-primary home-secondary-cta hall-tap-target"
@@ -314,6 +328,15 @@ export function Home({
         </div>
       </aside>
 
+      {weekConfirm && (
+        <NewWeekConfirm
+          onCancel={() => setWeekConfirm(false)}
+          onConfirm={() => {
+            setWeekConfirm(false)
+            onNewWeek()
+          }}
+        />
+      )}
       {pendingReceive && (
         <ReplaceDraftConfirm
           onCancel={() => setPendingReceive(null)}

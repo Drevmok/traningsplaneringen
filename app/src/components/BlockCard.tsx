@@ -26,6 +26,7 @@ interface Props {
   onMoveItemToBlock: (itemId: string, toBlockType: BlockType) => void
   onDurationChange: (itemId: string, minutes: number) => void
   onOpenActivity: (activity: Activity) => void
+  onSwapItem: (itemId: string) => void
 }
 
 export function BlockCard({
@@ -41,6 +42,7 @@ export function BlockCard({
   onMoveItemToBlock,
   onDurationChange,
   onOpenActivity,
+  onSwapItem,
 }: Props) {
   const colors = BLOCK_COLORS[block.type]
   const filled = blockFilledMinutes(block)
@@ -124,6 +126,9 @@ export function BlockCard({
                   <div className="item-body">
                     <span className="item-title">
                       {activity?.title ?? item.activityId}
+                      {activity?.own && (
+                        <span className="own-badge">{UI.ownBadge}</span>
+                      )}
                       {activity?.stub && (
                         <span className="stub-badge">{UI.stub}</span>
                       )}
@@ -180,6 +185,14 @@ export function BlockCard({
                         </option>
                       ))}
                     </select>
+                    <button
+                      type="button"
+                      className="btn-swap"
+                      aria-label={UI.swapActivityAria}
+                      onClick={() => onSwapItem(item.id)}
+                    >
+                      {UI.swapActivity}
+                    </button>
                     <button
                       type="button"
                       className="danger"

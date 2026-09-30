@@ -47,6 +47,10 @@ export interface Activity {
   experiencedCoachOnly?: boolean
   newCoachOk?: boolean
   needsCoachReview?: boolean
+  /** Coach-written drill stored in this browser. Not part of the seed catalog. */
+  own?: boolean
+  /** Floor safety for an own drill. Seed drills keep using the fixed safety list. */
+  safetyLine?: string
 }
 
 export interface SessionItem {

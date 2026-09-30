@@ -1,4 +1,5 @@
 import type { Activity } from '../types'
+import { findOwnActivity } from '../lib/ownActivities'
 
 /**
  * Slice 03 — Christoffer’s real Swedish truppgymnastik drills.
@@ -590,7 +591,7 @@ export const seedActivities: Activity[] = [
 ]
 
 export function getActivityById(id: string): Activity | undefined {
-  return seedActivities.find((a) => a.id === id)
+  return findOwnActivity(id) ?? seedActivities.find((a) => a.id === id)
 }
 
 export function activitiesForBlock(

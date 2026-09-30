@@ -27,6 +27,13 @@ interface Props {
   onPickSaved: (id: string) => void
   onCopySaved: (id: string) => void
   onDeleteSaved: (id: string) => void
+  ownActivities: Activity[]
+  swapping: boolean
+  onCancelSwap: () => void
+  onCreateOwn: () => void
+  onEditOwn: (activity: Activity) => void
+  onDeleteOwn: (activity: Activity) => void
+  ownInUse: (activityId: string) => boolean
 }
 
 export function LibraryPanel({
@@ -43,6 +50,13 @@ export function LibraryPanel({
   onPickSaved,
   onCopySaved,
   onDeleteSaved,
+  ownActivities,
+  swapping,
+  onCancelSwap,
+  onCreateOwn,
+  onEditOwn,
+  onDeleteOwn,
+  ownInUse,
 }: Props) {
   const [query, setQuery] = useState('')
   const [ownedIds] = useState(() => loadOwnedEquipment())
@@ -54,7 +68,7 @@ export function LibraryPanel({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return seedActivities.filter((a) => {
+    return [...ownActivities, ...seedActivities].filter((a) => {
       if (filterBlockType !== 'all' && a.blockType !== filterBlockType)
         return false
       if (tonightOnly && !activityFitsOwned(a, ownedIds)) return false
@@ -65,7 +79,7 @@ export function LibraryPanel({
         a.tags.some((t) => t.includes(q))
       )
     })
-  }, [query, filterBlockType, tonightOnly, ownedIds])
+  }, [query, filterBlockType, tonightOnly, ownedIds, ownActivities])
 
   return (
     <aside className="side-panel">
@@ -116,6 +130,20 @@ export function LibraryPanel({
               ))}
             </select>
           </label>
+          <div className="library-own">
+            <button type="button" className="btn-secondary" onClick={onCreateOwn}>
+              {UI.ownNew}
+            </button>
+            <p className="muted">{UI.ownHint}</p>
+          </div>
+          {swapping && (
+            <div className="swap-banner" role="status">
+              <p>{UI.swapBanner}</p>
+              <button type="button" className="btn-text" onClick={onCancelSwap}>
+                {UI.swapCancel}
+              </button>
+            </div>
+          )}
           <label className="library-tonight">
             <input
               type="checkbox"
@@ -135,11 +163,25 @@ export function LibraryPanel({
               <p className="muted">{UI.noResults}</p>
             )}
             {filtered.map((a) => (
-              <ActivityCard
-                key={a.id}
-                activity={a}
-                onSelect={onSelectActivity}
-              />
+              <div key={a.id} className="library-entry">
+                <ActivityCard activity={a} onSelect={onSelectActivity} />
+                {a.own && (
+                  <div className="own-card-actions">
+                    <button type="button" className="btn-text" onClick={() => onEditOwn(a)}>
+                      {UI.ownEditAction}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-text"
+                      disabled={ownInUse(a.id)}
+                      title={ownInUse(a.id) ? UI.ownInUse : undefined}
+                      onClick={() => onDeleteOwn(a)}
+                    >
+                      {UI.ownDelete}
+                    </button>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

@@ -32,6 +32,7 @@ import {
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
+import { startNewWeek } from './lib/savedTemplates'
 import type { Session } from './types'
 import './App.css'
 import './tips.css'
@@ -152,6 +153,18 @@ export default function App() {
     if (!loaded) return
     patchTips(markChooseOrBuild)
     setSession(withComputedTotal(loaded))
+    setOpenTemplates(false)
+    setHallStartFloor(false)
+    setView('builder')
+  }
+
+  function startNewWeekFromHome() {
+    const loaded = loadDraft()
+    if (!loaded || countSessionItems(loaded) < 1) return
+    const started = startNewWeek(loaded)
+    saveDraft(started.session)
+    patchTips(markChooseOrBuild)
+    setSession(started.session)
     setOpenTemplates(false)
     setHallStartFloor(false)
     setView('builder')
@@ -316,6 +329,7 @@ export default function App() {
           onOpenHall={openHallFromHome}
           onOpenGolvklart={openGolvklartFromHome}
           onRun={openRunFromHome}
+          onNewWeek={startNewWeekFromHome}
           onDismissChecklist={handleDismissChecklist}
           onShowTipsAgain={handleShowTipsAgain}
           onChecklistStepDone={handleChecklistStepDone}
