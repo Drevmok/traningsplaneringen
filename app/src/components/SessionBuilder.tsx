@@ -15,10 +15,8 @@ import {
   cloneTemplate,
   getTemplateById,
   loadDraft,
-  moveItemToBlock,
   moveItemWithinBlock,
   removeItem,
-  replaceItemActivity,
   saveDraft,
   updateItemDuration,
   withComputedTotal,
@@ -101,7 +99,6 @@ export function SessionBuilder({
   const [savedTemplates, setSavedTemplates] = useState(() => loadSavedTemplates())
   const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
-  const [replacing, setReplacing] = useState<{ blockId: string; itemId: string } | null>(null)
   const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
   const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
   const [showSaveTemplate, setShowSaveTemplate] = useState(false)
@@ -146,7 +143,6 @@ export function SessionBuilder({
 
   function closePanel() {
     setPanelOpen(false)
-    setReplacing(null)
     if (initialTemplatePicker) {
       onInitialTemplateConsumed?.()
     }
@@ -157,32 +153,10 @@ export function SessionBuilder({
     if (!block) return
     setSelectedBlockId(blockId)
     setFilterBlockType(block.type)
-    setReplacing(null)
     openPanel('library')
   }
 
   function handleSelectActivity(activity: Activity) {
-    if (replacing) {
-      const next = replaceItemActivity(
-        session,
-        replacing.blockId,
-        replacing.itemId,
-        activity.id,
-      )
-      onChange(next)
-      const block = session.blocks.find((item) => item.id === replacing.blockId)
-      if (block && activity.blockType !== block.type) {
-        setMismatch({
-          blockId: block.id,
-          intendedBlockType: activity.blockType,
-          activityTitle: activity.title,
-        })
-      }
-      setReplacing(null)
-      setPanelOpen(false)
-      showToast(UI.swapped)
-      return
-    }
     setDetailReadOnly(false)
     setDetailActivity(activity)
   }
@@ -223,23 +197,6 @@ export function SessionBuilder({
     setDetailActivity(null)
   }
 
-  function handleMoveToBlock(fromBlockId: string, itemId: string, toType: BlockType) {
-    const toBlock = session.blocks.find((b) => b.type === toType)
-    if (!toBlock) return
-    const fromBlock = session.blocks.find((b) => b.id === fromBlockId)
-    const item = fromBlock?.items.find((i) => i.id === itemId)
-    const activity = item ? getActivityById(item.activityId) : undefined
-    const next = moveItemToBlock(session, fromBlockId, toBlock.id, itemId)
-    onChange(next)
-    if (activity && activity.blockType !== toType) {
-      setMismatch({
-        blockId: toBlock.id,
-        intendedBlockType: activity.blockType,
-        activityTitle: activity.title,
-      })
-    }
-  }
-
   function handleSave() {
     saveDraft(session)
     showToast(UI.savedToast)
@@ -256,17 +213,7 @@ export function SessionBuilder({
     const started = startNewWeek(session)
     saveDraft(started.session)
     setShowNewWeek(false)
-    setReplacing(null)
     onChange(started.session)
-  }
-
-  function openSwap(blockId: string, itemId: string) {
-    const block = session.blocks.find((item) => item.id === blockId)
-    if (!block) return
-    setSelectedBlockId(blockId)
-    setFilterBlockType(block.type)
-    setReplacing({ blockId, itemId })
-    openPanel('library')
   }
 
   function ownInUse(activityId: string): boolean {
@@ -484,16 +431,12 @@ export function SessionBuilder({
               onMoveItem={(itemId, dir) =>
                 onChange(moveItemWithinBlock(session, block.id, itemId, dir))
               }
-              onMoveItemToBlock={(itemId, toType) =>
-                handleMoveToBlock(block.id, itemId, toType)
-              }
               onDurationChange={(itemId, minutes) =>
                 onChange(
                   updateItemDuration(session, block.id, itemId, minutes),
                 )
               }
               onOpenActivity={handleOpenInPass}
-              onSwapItem={(itemId) => openSwap(block.id, itemId)}
             />
           ))}
         </div>
@@ -550,8 +493,6 @@ export function SessionBuilder({
               onCopySaved={(id) => void handleCopySaved(id)}
               onDeleteSaved={handleDeleteSaved}
               ownActivities={ownActivities}
-              swapping={replacing !== null}
-              onCancelSwap={() => setReplacing(null)}
               onCreateOwn={() => setOwnEdit('new')}
               onEditOwn={(activity) => setOwnEdit(activity)}
               onDeleteOwn={handleDeleteOwn}
