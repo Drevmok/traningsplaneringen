@@ -28,8 +28,6 @@ interface Props {
   onCopySaved: (id: string) => void
   onDeleteSaved: (id: string) => void
   ownActivities: Activity[]
-  swapping: boolean
-  onCancelSwap: () => void
   onCreateOwn: () => void
   onEditOwn: (activity: Activity) => void
   onDeleteOwn: (activity: Activity) => void
@@ -51,8 +49,6 @@ export function LibraryPanel({
   onCopySaved,
   onDeleteSaved,
   ownActivities,
-  swapping,
-  onCancelSwap,
   onCreateOwn,
   onEditOwn,
   onDeleteOwn,
@@ -136,14 +132,6 @@ export function LibraryPanel({
             </button>
             <p className="muted">{UI.ownHint}</p>
           </div>
-          {swapping && (
-            <div className="swap-banner" role="status">
-              <p>{UI.swapBanner}</p>
-              <button type="button" className="btn-text" onClick={onCancelSwap}>
-                {UI.swapCancel}
-              </button>
-            </div>
-          )}
           <label className="library-tonight">
             <input
               type="checkbox"

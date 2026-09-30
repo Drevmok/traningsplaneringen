@@ -2,14 +2,13 @@ import type { CSSProperties } from 'react'
 import {
   BLOCK_COLORS,
   BLOCK_LABELS,
-  BLOCK_ORDER,
   EMPTY_TIPS,
   UI,
 } from '../data/blockMeta'
 import { getActivityById } from '../data/seedActivities'
 import { BLOCK_ICON_IDS, VisualIcon } from '../icons'
 import { blockFilledMinutes } from '../lib/session'
-import type { BlockType, MismatchWarning, SessionBlock, Activity } from '../types'
+import type { MismatchWarning, SessionBlock, Activity } from '../types'
 import { MismatchBanner } from './MismatchBanner'
 import { ActivityTip } from './ActivityTip'
 
@@ -23,10 +22,8 @@ interface Props {
   onDismissMismatch: () => void
   onRemoveItem: (itemId: string) => void
   onMoveItem: (itemId: string, direction: 'up' | 'down') => void
-  onMoveItemToBlock: (itemId: string, toBlockType: BlockType) => void
   onDurationChange: (itemId: string, minutes: number) => void
   onOpenActivity: (activity: Activity) => void
-  onSwapItem: (itemId: string) => void
 }
 
 export function BlockCard({
@@ -39,17 +36,14 @@ export function BlockCard({
   onDismissMismatch,
   onRemoveItem,
   onMoveItem,
-  onMoveItemToBlock,
   onDurationChange,
   onOpenActivity,
-  onSwapItem,
 }: Props) {
   const colors = BLOCK_COLORS[block.type]
   const filled = blockFilledMinutes(block)
   const over = filled > block.durationMinutes
   const empty = block.items.length === 0
   const tip = EMPTY_TIPS[block.type]
-  const otherBlocks = BLOCK_ORDER.filter((t) => t !== block.type)
 
   return (
     <article
@@ -168,32 +162,6 @@ export function BlockCard({
                       onClick={() => onMoveItem(item.id, 'down')}
                     >
                       ↓
-                    </button>
-                    <select
-                      aria-label={UI.moveTo}
-                      defaultValue=""
-                      onChange={(e) => {
-                        const t = e.target.value as BlockType
-                        if (t) onMoveItemToBlock(item.id, t)
-                        e.target.value = ''
-                      }}
-                    >
-                      <option value="" disabled>
-                        {UI.moveTo}
-                      </option>
-                      {otherBlocks.map((t) => (
-                        <option key={t} value={t}>
-                          {BLOCK_LABELS[t]}
-                        </option>
-                      ))}
-                    </select>
-                    <button
-                      type="button"
-                      className="btn-swap"
-                      aria-label={UI.swapActivityAria}
-                      onClick={() => onSwapItem(item.id)}
-                    >
-                      {UI.swapActivity}
                     </button>
                     <button
                       type="button"
