@@ -31,6 +31,8 @@ const FOCUS_OPTIONS: { id: WizardFocus; label: string }[] = [
 ]
 
 const PRESET_LABEL: Record<HallTemplateId, string> = {
+  'forening-bla': UI.hallPresetBla,
+  'forening-vit': UI.hallPresetVit,
   'standard-trupp': UI.hallPresetStandard,
   'tavling-linjer': UI.hallPresetTavling,
   'liten-hall': UI.hallPresetLiten,

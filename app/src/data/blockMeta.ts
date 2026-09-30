@@ -253,12 +253,14 @@ export const UI = {
   hallPresetStandard: 'Standard trupp',
   hallPresetTavling: 'Tävling / linjer',
   hallPresetLiten: 'Liten hall',
+  hallPresetBla: 'Blå hall',
+  hallPresetVit: 'Vit hall',
   hallPresetMigrateNote:
     'Placerade övningar flyttas till samma zon i den nya layouten när det går.',
   hallSnapHint:
     'Släpp på en zon för att fästa stationen där. På öppen yta kan du placera fritt.',
   hallPresetCoachTip:
-    'Välj den hallayout som liknar er hall mest. Övningar på trampett, tumbling och liknande fäster i zonen; på öppen yta placerar du fritt.',
+    'Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.',
   // Slice 07 — Golvklart / flöde / telefon (locked: golvklart-copy.sv.md)
   hallFloorReady: 'Golvklart',
   hallFloorReadyShort: 'Visa för golvet',

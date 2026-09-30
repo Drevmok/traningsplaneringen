@@ -118,6 +118,8 @@ export type HallZoneId =
   | 'mats'
 
 export type HallTemplateId =
+  | 'forening-bla'
+  | 'forening-vit'
   | 'standard-trupp'
   | 'tavling-linjer'
   | 'liten-hall'

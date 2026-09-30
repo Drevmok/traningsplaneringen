@@ -737,6 +737,112 @@
   margin: 6px 0 0;
 }
 
+.hall-canvas--plan {
+  border-radius: 4px;
+  background: #d9d9d6;
+}
+
+.hall-canvas.hall-canvas--forening-bla {
+  aspect-ratio: 2132 / 1572;
+  min-height: 0;
+}
+
+.hall-canvas.hall-canvas--forening-vit {
+  aspect-ratio: 2108 / 2200;
+  min-height: 0;
+}
+
+.hall-plan-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.hall-plan {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.hall-plan--floor {
+  background: #bed0da;
+  border: 2px solid #111;
+}
+
+.hall-plan--mat,
+.hall-plan--block,
+.hall-plan--wall {
+  border: 2px solid #111;
+}
+
+.hall-plan--mat {
+  background: #fff;
+}
+
+.hall-plan--block {
+  background: #6e70f5;
+}
+
+.hall-plan--track {
+  background: #221716;
+}
+
+.hall-plan--rail {
+  background: #fffe7d;
+  border: 1px solid #111;
+}
+
+.hall-plan--wall {
+  background: #c7c7c7;
+}
+
+.hall-plan--line {
+  background: #2caf35;
+}
+
+.hall-plan--bars {
+  background: repeating-linear-gradient(#111 0 1.5px, transparent 1.5px 4px);
+  border-left: 3px solid #111;
+  border-right: 3px solid #111;
+}
+
+.hall-plan--poly {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hall-plan--poly path {
+  fill: #c7c7c7;
+  stroke: #111;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+@media (max-width: 768px) {
+  .hall-canvas.hall-canvas--forening-bla,
+  .hall-canvas.hall-canvas--forening-vit {
+    min-height: 0;
+  }
+}
+
+@media print {
+  .hall-plan,
+  .pass-sheet-map .hall-canvas.hall-canvas--forening-bla,
+  .pass-sheet-map .hall-canvas.hall-canvas--forening-vit {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .pass-sheet-map .hall-canvas.hall-canvas--forening-bla {
+    aspect-ratio: 2132 / 1572;
+  }
+
+  .pass-sheet-map .hall-canvas.hall-canvas--forening-vit {
+    aspect-ratio: 2108 / 2200;
+  }
+}
+
 .hall-apply-all-idle,
 .btn-secondary.is-idle:disabled {
   opacity: 1;
