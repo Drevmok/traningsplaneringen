@@ -106,6 +106,7 @@ export function SessionBuilder({
   const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
   const [showSaveTemplate, setShowSaveTemplate] = useState(false)
   const [showNewWeek, setShowNewWeek] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
 
   const selectedBlock = useMemo(
     () => session.blocks.find((b) => b.id === selectedBlockId) ?? null,
@@ -332,6 +333,46 @@ export function SessionBuilder({
     onChange(withComputedTotal({ ...session, title }))
   }
 
+  const hasItems = countSessionItems(session) >= 1
+
+  function renderPassExtras() {
+    return (
+      <>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={!hasItems}
+          title={!hasItems ? UI.runPassDisabled : undefined}
+          onClick={() => setShowSaveTemplate(true)}
+        >
+          {UI.saveOwnTemplate}
+        </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={!hasItems}
+          title={!hasItems ? UI.runPassDisabled : undefined}
+          aria-label={UI.newWeekAria}
+          onClick={() => setShowNewWeek(true)}
+        >
+          {UI.newWeek}
+        </button>
+        <button
+          type="button"
+          className={hasItems ? 'btn-secondary' : 'btn-primary'}
+          onClick={() => openPanel('templates')}
+        >
+          {UI.useTemplate}
+        </button>
+        {hasItems && (
+          <button type="button" className="btn-secondary" onClick={() => setShowExport(true)}>
+            {UI.export}
+          </button>
+        )}
+      </>
+    )
+  }
+
   return (
     <div className="builder">
       <header className="builder-top">
@@ -380,32 +421,6 @@ export function SessionBuilder({
             type="button"
             className="btn-secondary"
             disabled={countSessionItems(session) < 1}
-            title={countSessionItems(session) < 1 ? UI.runPassDisabled : undefined}
-            onClick={() => setShowSaveTemplate(true)}
-          >
-            {UI.saveOwnTemplate}
-          </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            disabled={countSessionItems(session) < 1}
-            title={countSessionItems(session) < 1 ? UI.runPassDisabled : undefined}
-            aria-label={UI.newWeekAria}
-            onClick={() => setShowNewWeek(true)}
-          >
-            {UI.newWeek}
-          </button>
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={() => openPanel('templates')}
-          >
-            {UI.useTemplate}
-          </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            disabled={countSessionItems(session) < 1}
             title={
               countSessionItems(session) < 1 ? UI.hallCtaDisabled : undefined
             }
@@ -421,13 +436,32 @@ export function SessionBuilder({
               {UI.hallCtaDisabled}
             </span>
           )}
-          {countSessionItems(session) >= 1 && (
-            <div className="export-wrap">
-              <button type="button" className="btn-secondary" onClick={() => setShowExport(true)}>
-                {UI.export}
-              </button>
-            </div>
-          )}
+          <div className="builder-extra">{renderPassExtras()}</div>
+          <div className="more-menu">
+            <button
+              type="button"
+              className="btn-secondary"
+              aria-expanded={moreOpen}
+              aria-haspopup="menu"
+              aria-label={UI.moreAria}
+              onClick={() => setMoreOpen((open) => !open)}
+            >
+              {UI.more}
+            </button>
+            {moreOpen && (
+              <>
+                <button
+                  type="button"
+                  className="more-backdrop"
+                  aria-label={UI.close}
+                  onClick={() => setMoreOpen(false)}
+                />
+                <div className="more-menu-panel" role="menu" onClick={() => setMoreOpen(false)}>
+                  {renderPassExtras()}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </header>
 

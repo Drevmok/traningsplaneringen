@@ -71,10 +71,12 @@ export function BlockCard({
           className="block-icon"
         />
         <h3>{BLOCK_LABELS[block.type]}</h3>
-        <span className={`block-budget${over ? ' over' : ''}`}>
-          {filled} / {block.durationMinutes} min
-          {over && <span className="overflow-tag"> · {UI.overflow}</span>}
-        </span>
+        {!empty && (
+          <span className={`block-budget${over ? ' over' : ''}`}>
+            {filled} / {block.durationMinutes} min
+            {over && <span className="overflow-tag"> · {UI.overflow}</span>}
+          </span>
+        )}
       </header>
 
       {mismatch && mismatch.blockId === block.id && (
