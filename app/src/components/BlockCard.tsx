@@ -21,7 +21,6 @@ interface Props {
   onBrowse: () => void
   onDismissMismatch: () => void
   onRemoveItem: (itemId: string) => void
-  onMoveItem: (itemId: string, direction: 'up' | 'down') => void
   onDurationChange: (itemId: string, minutes: number) => void
   onOpenActivity: (activity: Activity) => void
 }
@@ -35,7 +34,6 @@ export function BlockCard({
   onBrowse,
   onDismissMismatch,
   onRemoveItem,
-  onMoveItem,
   onDurationChange,
   onOpenActivity,
 }: Props) {
@@ -108,7 +106,7 @@ export function BlockCard({
         <ul className="block-items">
           {[...block.items]
             .sort((a, b) => a.order - b.order)
-            .map((item, idx) => {
+            .map((item) => {
               const activity = getActivityById(item.activityId)
               return (
                 <li key={item.id} className="session-item">
@@ -134,56 +132,26 @@ export function BlockCard({
                     className="item-actions"
                     onClick={(e) => e.stopPropagation()}
                   >
+                    {activity && (
+                      <ActivityTip
+                        compact
+                        activity={activity}
+                        minutes={item.durationMinutes}
+                        onMinutesChange={(minutes) =>
+                          onDurationChange(item.id, minutes)
+                        }
+                        onOpen={() => onOpenActivity(activity)}
+                      />
+                    )}
                     <button
                       type="button"
-                      title={UI.moveUp}
-                      disabled={idx === 0}
-                      onClick={() => onMoveItem(item.id, 'up')}
-                    >
-                      ↑
-                    </button>
-                    <button
-                      type="button"
-                      title={UI.moveDown}
-                      disabled={idx === block.items.length - 1}
-                      onClick={() => onMoveItem(item.id, 'down')}
-                    >
-                      ↓
-                    </button>
-                    <button
-                      type="button"
-                      className="danger"
+                      className="item-remove"
                       title={UI.remove}
                       onClick={() => onRemoveItem(item.id)}
                     >
                       ×
                     </button>
                   </div>
-                  </div>
-                  <div
-                    className="item-foot"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <label className="item-duration">
-                      <input
-                        type="number"
-                        min={1}
-                        max={60}
-                        value={item.durationMinutes}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) =>
-                          onDurationChange(item.id, Number(e.target.value))
-                        }
-                      />
-                      min
-                    </label>
-                    {activity && (
-                      <ActivityTip
-                        compact
-                        activity={activity}
-                        onOpen={() => onOpenActivity(activity)}
-                      />
-                    )}
                   </div>
                 </li>
               )

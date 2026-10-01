@@ -15,7 +15,6 @@ import {
   cloneTemplate,
   getTemplateById,
   loadDraft,
-  moveItemWithinBlock,
   removeItem,
   saveDraft,
   updateItemDuration,
@@ -436,9 +435,6 @@ export function SessionBuilder({
               onDismissMismatch={() => setMismatch(null)}
               onRemoveItem={(itemId) =>
                 onChange(removeItem(session, block.id, itemId))
-              }
-              onMoveItem={(itemId, dir) =>
-                onChange(moveItemWithinBlock(session, block.id, itemId, dir))
               }
               onDurationChange={(itemId, minutes) =>
                 onChange(
