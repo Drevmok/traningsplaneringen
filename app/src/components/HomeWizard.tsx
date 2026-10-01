@@ -66,7 +66,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
   }
 
   function handleNext() {
-    if (step === 1 && age) setStep(2)
+    if (step === 1 && (age || level)) setStep(2)
     else if (step === 2 && focus) setStep(3)
   }
 
