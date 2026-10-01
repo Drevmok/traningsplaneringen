@@ -5,7 +5,6 @@ import {
 } from '../data/blockMeta'
 import { getActivityById } from '../data/seedActivities'
 import { BLOCK_ICON_IDS, VisualIcon } from '../icons'
-import { blockFilledMinutes } from '../lib/session'
 import type { MismatchWarning, SessionBlock } from '../types'
 import { MismatchBanner } from './MismatchBanner'
 import { ActivityTip } from './ActivityTip'
@@ -29,13 +28,11 @@ export function BlockCard({
   onRemoveItem,
   onDurationChange,
 }: Props) {
-  const filled = blockFilledMinutes(block)
-  const over = filled > block.durationMinutes
   const empty = block.items.length === 0
   const tip = EMPTY_TIPS[block.type]
 
   return (
-    <article className={`block-card${over ? ' overflow' : ''}`}>
+    <article className="block-card">
       <header className="block-header">
         <VisualIcon
           iconId={BLOCK_ICON_IDS[block.type]}
@@ -44,12 +41,6 @@ export function BlockCard({
           className="block-icon"
         />
         <h3>{BLOCK_LABELS[block.type]}</h3>
-        {!empty && (
-          <span className={`block-budget${over ? ' over' : ''}`}>
-            {filled} / {block.durationMinutes} min
-            {over && <span className="overflow-tag"> · {UI.overflow}</span>}
-          </span>
-        )}
       </header>
 
       {mismatch && mismatch.blockId === block.id && (

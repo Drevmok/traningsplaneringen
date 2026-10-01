@@ -336,7 +336,11 @@ export function SessionBuilder({
             aria-label="Passets titel"
           />
           <div className="pass-length" role="group" aria-label={UI.passLength}>
-            <span className="pass-length-filled">
+            <span
+              className={`pass-length-filled${
+                session.totalMinutes > passLengthOf(session) ? ' is-over' : ''
+              }`}
+            >
               {session.totalMinutes} /
             </span>
             {PASS_LENGTHS.map((minutes) => (

@@ -256,7 +256,7 @@ export function ActivityDetail({
                 <input
                   type="number"
                   min={1}
-                  max={60}
+                  max={180}
                   value={duration}
                   onChange={(e) => setDuration(Number(e.target.value))}
                 />

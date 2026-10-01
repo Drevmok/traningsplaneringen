@@ -75,7 +75,7 @@ export function PassPrint({ session, mode }: Props) {
           return (
             <li key={type}>
               <h2>
-                {BLOCK_LABELS[type]} · {block.durationMinutes} min
+                {BLOCK_LABELS[type]} · {block.items.reduce((sum, item) => sum + item.durationMinutes, 0)} min
               </h2>
               <ul>
                 {items.map((item) => {
