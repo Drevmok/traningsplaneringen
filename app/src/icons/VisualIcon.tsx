@@ -18,6 +18,8 @@ interface VisualIconProps {
   blockType?: BlockType
   size?: VisualIconSize
   className?: string
+  /** Same surface for every block, instead of the block color. */
+  neutral?: boolean
 }
 
 export function VisualIcon({
@@ -26,11 +28,19 @@ export function VisualIcon({
   blockType,
   size = 'card',
   className,
+  neutral = false,
 }: VisualIconProps) {
   const iconId = iconIdProp ?? resolveIconId(visualKey)
   const dims = VISUAL_ICON_SIZES[size]
-  const colors =
-    blockType != null ? BLOCK_COLORS[blockType] : FALLBACK_COLORS
+  const colors = neutral
+    ? {
+        bg: 'transparent',
+        border: 'transparent',
+        text: 'var(--md-on-surface-variant)',
+      }
+    : blockType != null
+      ? BLOCK_COLORS[blockType]
+      : FALLBACK_COLORS
 
   const style = {
     width: dims.tile,
