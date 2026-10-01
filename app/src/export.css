@@ -1358,14 +1358,13 @@
   box-sizing: border-box;
   text-align: center;
   background: var(--md-surface);
-  height: calc(100svh - 56px);
-  max-height: calc(100svh - 56px);
-  overflow: hidden;
+  min-height: calc(100svh - 56px);
+  overflow: visible;
 }
 
 .home-hero {
-  flex: 1 1 auto;
-  min-height: 168px;
+  flex: 1 1 0;
+  min-height: 120px;
   overflow: hidden;
   background: #efeaf6;
 }
@@ -1381,49 +1380,38 @@
 .home-pane {
   position: relative;
   z-index: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   margin-top: -28px;
-  padding: 0 24px 12px;
+  padding: 20px 20px max(12px, env(safe-area-inset-bottom));
   border-radius: 28px 28px 0 0;
   background: var(--md-surface);
-  min-height: 0;
-  overflow: auto;
+  overflow: visible;
 }
 
 .home-entry-main,
 .home-entry-foot,
 .home-start {
-  width: min(100%, 22rem);
-}
-
-.home-mark {
-  width: 56px;
-  height: 56px;
-  margin: -28px auto 12px;
-  display: grid;
-  place-items: center;
-  border-radius: 16px;
-  background: var(--md-primary-container);
-  color: var(--md-primary);
-  box-shadow: 0 1px 2px rgb(29 27 32 / 12%);
+  width: 100%;
+  max-width: 22rem;
 }
 
 .home.home-entry h1 {
   margin: 0;
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 26px;
+  line-height: 32px;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
 
 .home-promise {
-  margin: 4px 0 20px;
+  margin: 4px 0 16px;
   color: var(--md-on-surface-variant);
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 20px;
 }
 
 .home-start {
@@ -1535,11 +1523,6 @@
     gap: 28px;
     padding: 48px 40px;
     background: var(--md-surface);
-  }
-
-  .home-mark {
-    margin: 0 auto 16px;
-    box-shadow: none;
   }
 
   .home.home-entry h1 {

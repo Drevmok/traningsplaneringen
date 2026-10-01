@@ -52,13 +52,6 @@ export function Home({
       </div>
       <div className="home-pane">
       <div className="home-entry-main">
-        <div className="home-mark" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <path d="M4 16.5 14 10l10 6.5L14 23Z" fill="currentColor" />
-            <path d="M4 16.5 14 23v3.2L4 19.7Z" fill="currentColor" opacity="0.55" />
-            <path d="M24 16.5 14 23v3.2l10-6.5Z" fill="currentColor" opacity="0.35" />
-          </svg>
-        </div>
         <h1>{UI.appName}</h1>
         <p className="home-promise">{UI.homePromise}</p>
 
