@@ -439,7 +439,6 @@ export function SessionBuilder({
                   updateItemDuration(session, block.id, itemId, minutes),
                 )
               }
-              onOpenActivity={handleOpenInPass}
             />
           ))}
         </div>

@@ -64,9 +64,39 @@ export function ActivityTip({
       </label>
     ) : null
 
+  const fullBody = (
+    <div className="activity-tip">
+      {activity.experiencedCoachOnly && (
+        <p className="activity-tip-line activity-tip-safety">
+          <span className="activity-tip-label">{UI.experiencedCoach}. </span>
+          {UI.experiencedCoachWarning}
+        </p>
+      )}
+      <p className="activity-tip-why">{activity.summary}</p>
+      {activity.howTo && (
+        <p className="activity-tip-line activity-tip-how">
+          <span className="activity-tip-label">{UI.howTo}. </span>
+          {activity.howTo}
+        </p>
+      )}
+      {activity.watchFor && (
+        <p className="activity-tip-line">
+          <span className="activity-tip-label">{UI.watchFor}. </span>
+          {activity.watchFor}
+        </p>
+      )}
+      {tip.safety && (
+        <p className="activity-tip-line activity-tip-safety">
+          <span className="activity-tip-label">{UI.safety}. </span>
+          {tip.safety}
+        </p>
+      )}
+      {minutesField && <div className="activity-tip-foot">{minutesField}</div>}
+    </div>
+  )
+
   const tipBody = (
     <div className="activity-tip">
-      {minutesField}
       <p className="activity-tip-why">{tip.why}</p>
       {tip.steps.length > 0 && (
         <ol className="activity-tip-steps">
@@ -146,7 +176,7 @@ export function ActivityTip({
               {issues.map((issue) => issue.message).join(' ')}
             </p>
           )}
-          {tipBody}
+          {fullBody}
         </div>
       </>
     )

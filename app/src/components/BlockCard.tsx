@@ -6,7 +6,7 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { BLOCK_ICON_IDS, VisualIcon } from '../icons'
 import { blockFilledMinutes } from '../lib/session'
-import type { MismatchWarning, SessionBlock, Activity } from '../types'
+import type { MismatchWarning, SessionBlock } from '../types'
 import { MismatchBanner } from './MismatchBanner'
 import { ActivityTip } from './ActivityTip'
 
@@ -18,7 +18,6 @@ interface Props {
   onDismissMismatch: () => void
   onRemoveItem: (itemId: string) => void
   onDurationChange: (itemId: string, minutes: number) => void
-  onOpenActivity: (activity: Activity) => void
 }
 
 export function BlockCard({
@@ -29,7 +28,6 @@ export function BlockCard({
   onDismissMismatch,
   onRemoveItem,
   onDurationChange,
-  onOpenActivity,
 }: Props) {
   const filled = blockFilledMinutes(block)
   const over = filled > block.durationMinutes
@@ -123,7 +121,6 @@ export function BlockCard({
                         onMinutesChange={(minutes) =>
                           onDurationChange(item.id, minutes)
                         }
-                        onOpen={() => onOpenActivity(activity)}
                       />
                     )}
                     <button
