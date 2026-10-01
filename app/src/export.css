@@ -1514,6 +1514,12 @@
   background: color-mix(in srgb, var(--md-on-surface) 8%, var(--md-surface-container-low));
 }
 
+.home-clear {
+  min-height: 44px;
+  margin-top: 4px;
+  color: #9a3412;
+}
+
 .home-entry-foot {
   display: flex;
   flex-direction: column;
