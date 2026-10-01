@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { UI } from '../data/blockMeta'
-import { loadDraft } from '../lib/session'
+import { loadDraft, clearDraft } from '../lib/session'
+import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { sessionFromTransfer } from '../lib/sharePass'
 import type { Session } from '../types'
 import heroUrl from '../assets/home-hero.jpg'
@@ -22,7 +23,9 @@ export function Home({
   onWizardFinish,
   onReceive,
 }: Props) {
-  const draft = loadDraft()
+  const [draft, setDraft] = useState(() => loadDraft())
+  const [confirmClear, setConfirmClear] = useState(false)
+  useBodyScrollLock(confirmClear)
   const [wizardOpen, setWizardOpen] = useState(false)
   const [receiveOpen, setReceiveOpen] = useState(false)
   const [code, setCode] = useState('')
@@ -85,6 +88,15 @@ export function Home({
               {UI.fromTemplate}
             </button>
           </div>
+          {draft && (
+            <button
+              type="button"
+              className="btn-text home-clear"
+              onClick={() => setConfirmClear(true)}
+            >
+              {UI.clearPass}
+            </button>
+          )}
         </div>
       </div>
 
@@ -133,6 +145,43 @@ export function Home({
         )}
       </div>
       </div>
+
+      {confirmClear && (
+        <div
+          className="modal-backdrop replace-draft-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-label={UI.clearPassTitle}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setConfirmClear(false)
+          }}
+        >
+          <div className="modal">
+            <h2>{UI.clearPassTitle}</h2>
+            <p>{UI.clearPassBody}</p>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => setConfirmClear(false)}
+              >
+                {UI.wizardCancel}
+              </button>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => {
+                  clearDraft()
+                  setDraft(null)
+                  setConfirmClear(false)
+                }}
+              >
+                {UI.clearPassConfirm}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {pendingReceive && (
         <ReplaceDraftConfirm

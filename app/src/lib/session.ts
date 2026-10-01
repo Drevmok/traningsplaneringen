@@ -152,6 +152,10 @@ export function hasDraft(): boolean {
   return loadDraft() !== null
 }
 
+export function clearDraft(): void {
+  localStorage.removeItem(STORAGE_KEY)
+}
+
 export function createSessionItem(
   activityId: string,
   durationMinutes: number,

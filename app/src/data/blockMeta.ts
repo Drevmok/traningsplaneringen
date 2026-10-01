@@ -124,6 +124,11 @@ export const UI = {
   homeWizardPrimaryDesc: 'Tre frågor — färdigt pass med stationer på hallen.',
   homeWizardPrimaryAria: 'Planera pass med tre frågor',
   continuePass: 'Fortsätt passet',
+  clearPass: 'Rensa passet',
+  clearPassTitle: 'Rensa passet?',
+  clearPassBody:
+    'Passet försvinner från den här enheten. Sedan kan du planera ett nytt från början.',
+  clearPassConfirm: 'Rensa',
   emptyPass: 'Tomt pass',
   fromTemplate: 'Från mall',
   fetchPass: 'Hämta ett pass',
