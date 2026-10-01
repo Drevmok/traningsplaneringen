@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { UI, wizardStepProgressText } from '../data/blockMeta'
 import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets'
-import type { WizardAge, WizardFocus } from '../data/wizardPaths'
+import type { WizardAge, WizardFocus, WizardLevel } from '../data/wizardPaths'
 import type { HallTemplateId } from '../types'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 
 export interface WizardFinishAnswers {
-  age: WizardAge
+  age: WizardAge | null
+  level: WizardLevel | null
   focus: WizardFocus
   hallTemplateId: HallTemplateId
 }
@@ -19,9 +20,11 @@ interface Props {
 const AGE_OPTIONS: { id: WizardAge; label: string }[] = [
   { id: 'age46', label: UI.wizardQ1Age46 },
   { id: 'age79', label: UI.wizardQ1Age79 },
-  { id: 'beginner', label: UI.wizardQ1Beginner },
-  { id: 'training', label: UI.wizardQ1Training },
+  { id: 'age1012', label: UI.wizardQ1Age1012 },
+  { id: 'age1318', label: UI.wizardQ1Age1318 },
 ]
+
+const LEVELS: WizardLevel[] = [9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 const FOCUS_OPTIONS: { id: WizardFocus; label: string }[] = [
   { id: 'vault', label: UI.wizardQ2Vault },
@@ -42,12 +45,19 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
   useBodyScrollLock(true)
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [age, setAge] = useState<WizardAge | null>(null)
+  const [level, setLevel] = useState<WizardLevel | null>(null)
+  const [showLevels, setShowLevels] = useState(false)
   const [focus, setFocus] = useState<WizardFocus | null>(null)
   const [hallTemplateId, setHallTemplateId] = useState<HallTemplateId | null>(
     null,
   )
 
   function handleBack() {
+    if (step === 1 && showLevels) {
+      setShowLevels(false)
+      setLevel(null)
+      return
+    }
     if (step === 1) {
       onCancel()
       return
@@ -61,12 +71,13 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
   }
 
   function handleFinish() {
-    if (!age || !focus || !hallTemplateId) return
-    onFinish({ age, focus, hallTemplateId })
+    if ((!age && !level) || !focus || !hallTemplateId) return
+    onFinish({ age, level, focus, hallTemplateId })
   }
 
   const canNext =
-    (step === 1 && age !== null) || (step === 2 && focus !== null)
+    (step === 1 && (age !== null || level !== null)) ||
+    (step === 2 && focus !== null)
   const canFinish = step === 3 && hallTemplateId !== null
 
   return (
@@ -87,7 +98,9 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
             </p>
             <h2 className="home-wizard-label">
               {step === 1
-                ? UI.wizardQ1Label
+                ? showLevels
+                  ? UI.wizardQ1Level
+                  : UI.wizardQ1Label
                 : step === 2
                   ? UI.wizardQ2Label
                   : UI.wizardQ3Label}
@@ -104,6 +117,10 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
           </button>
         </header>
 
+        {step === 1 && showLevels && (
+          <p className="home-wizard-hint muted">{UI.wizardLevelsHint}</p>
+        )}
+
         {step === 3 && (
           <p className="home-wizard-hint muted">{UI.wizardQ3Hint}</p>
         )}
@@ -113,7 +130,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
         )}
 
         <div className="home-wizard-options" role="listbox">
-          {step === 1 &&
+          {step === 1 && !showLevels &&
             AGE_OPTIONS.map((opt) => (
               <button
                 key={opt.id}
@@ -123,9 +140,47 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
                 className={
                   'home-wizard-chip' + (age === opt.id ? ' selected' : '')
                 }
-                onClick={() => setAge(opt.id)}
+                onClick={() => {
+                  setAge(opt.id)
+                  setLevel(null)
+                }}
               >
                 {opt.label}
+              </button>
+            ))}
+
+          {step === 1 && !showLevels && (
+            <button
+              type="button"
+              role="option"
+              aria-selected={false}
+              className="home-wizard-chip"
+              onClick={() => {
+                setShowLevels(true)
+                setAge(null)
+              }}
+            >
+              {UI.wizardQ1Level}
+            </button>
+          )}
+
+          {step === 1 &&
+            showLevels &&
+            LEVELS.map((n) => (
+              <button
+                key={n}
+                type="button"
+                role="option"
+                aria-selected={level === n}
+                className={
+                  'home-wizard-chip' + (level === n ? ' selected' : '')
+                }
+                onClick={() => {
+                  setLevel(n)
+                  setAge(null)
+                }}
+              >
+                {UI.wizardQ1Level} {n}
               </button>
             ))}
 
@@ -165,7 +220,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
 
         <div className="home-wizard-actions modal-actions">
           <button type="button" className="btn-secondary" onClick={handleBack}>
-            {step === 1 ? UI.wizardCancel : UI.wizardBack}
+            {step === 1 && !showLevels ? UI.wizardCancel : UI.wizardBack}
           </button>
           {step < 3 ? (
             <button

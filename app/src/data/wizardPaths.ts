@@ -4,7 +4,8 @@
  * Durations chosen to stay ≤ block budgets (warmup ≤10; never short-mall 11).
  */
 
-export type WizardAge = 'age46' | 'age79' | 'beginner' | 'training'
+export type WizardAge = 'age46' | 'age79' | 'age1012' | 'age1318'
+export type WizardLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 export type WizardFocus = 'vault' | 'trampett' | 'tumbling' | 'mixed'
 
 export interface WizardPathItem {
@@ -76,12 +77,15 @@ const TEKNIK_AGE46: Partial<Record<WizardFocus, string[]>> = {
   ],
 }
 
-/** Teknik activity IDs for age + focus (durations applied in compose). */
+/** Teknik activity IDs. 4–6 år and nivå 8–9 stay on the gentler set. */
 export function teknikActivityIdsFor(
-  age: WizardAge,
+  age: WizardAge | null,
   focus: WizardFocus,
+  level: WizardLevel | null = null,
 ): string[] {
-  if (age === 'age46' && TEKNIK_AGE46[focus]) {
+  const gentle =
+    age === 'age46' || (level != null && level >= 8)
+  if (gentle && TEKNIK_AGE46[focus]) {
     return [...TEKNIK_AGE46[focus]!]
   }
   return [...TEKNIK_BY_FOCUS[focus]]
@@ -93,6 +97,11 @@ export function focusTitleLabel(focus: WizardFocus): string {
   return WIZARD_FOCUS_TITLE_LABEL[focus]
 }
 
-export function wizardSessionTitle(focus: WizardFocus): string {
-  return `Pass — ${focusTitleLabel(focus)}`
+export function wizardSessionTitle(
+  focus: WizardFocus,
+  level?: WizardLevel | null,
+): string {
+  const name = focusTitleLabel(focus)
+  if (level) return `Nivå ${level} — ${name}`
+  return `Pass — ${name}`
 }
