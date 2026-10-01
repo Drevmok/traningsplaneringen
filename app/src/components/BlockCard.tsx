@@ -129,19 +129,6 @@ export function BlockCard({
                         <span className="stub-badge">{UI.stub}</span>
                       )}
                     </span>
-                    <label className="item-duration">
-                      <input
-                        type="number"
-                        min={1}
-                        max={60}
-                        value={item.durationMinutes}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) =>
-                          onDurationChange(item.id, Number(e.target.value))
-                        }
-                      />
-                      min
-                    </label>
                   </div>
                   <div
                     className="item-actions"
@@ -173,12 +160,31 @@ export function BlockCard({
                     </button>
                   </div>
                   </div>
-                  {activity && (
-                    <ActivityTip
-                      activity={activity}
-                      onOpen={() => onOpenActivity(activity)}
-                    />
-                  )}
+                  <div
+                    className="item-foot"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <label className="item-duration">
+                      <input
+                        type="number"
+                        min={1}
+                        max={60}
+                        value={item.durationMinutes}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) =>
+                          onDurationChange(item.id, Number(e.target.value))
+                        }
+                      />
+                      min
+                    </label>
+                    {activity && (
+                      <ActivityTip
+                        compact
+                        activity={activity}
+                        onOpen={() => onOpenActivity(activity)}
+                      />
+                    )}
+                  </div>
                 </li>
               )
             })}
