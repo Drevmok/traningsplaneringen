@@ -1562,6 +1562,91 @@
   display: contents;
 }
 
+.session-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  column-gap: 8px;
+  row-gap: 8px;
+  align-items: center;
+}
+
+.session-item-main,
+.item-actions {
+  display: contents;
+}
+
+.item-visual {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.item-body {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.item-info {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.item-remove {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+.activity-tip-panel {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
+}
+
+.item-actions .item-info,
+.item-actions .item-remove {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--md-shape-full);
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.item-actions .item-remove {
+  color: var(--md-error);
+}
+
+.item-actions .item-info:hover,
+.item-actions .item-remove:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.activity-tip-panel .item-duration {
+  margin-bottom: 8px;
+}
+
+@media (min-width: 769px) {
+  .session-item {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .item-info {
+    display: none;
+  }
+
+  .item-remove {
+    grid-column: 3;
+  }
+}
+
 @media (max-width: 768px) {
   .item-foot {
     display: flex;
