@@ -113,6 +113,7 @@ export const UI = {
   planFirst: 'Planera ditt första pass',
   // Slice 29 — Home 3-question wizard (docs/home-wizard.sv.md)
   homeWizardPrimary: 'Planera pass',
+  homePromise: 'Ett pass på några minuter.',
   homeWizardPrimaryDesc: 'Tre frågor — färdigt pass med stationer på hallen.',
   homeWizardPrimaryAria: 'Planera pass med tre frågor',
   continuePass: 'Fortsätt passet',

@@ -45,53 +45,61 @@ export function Home({
   }
 
   return (
-    <div className="home">
-      <header className="home-header">
-        <h1>{UI.appName}</h1>
-      </header>
-
-      <div className="home-start">
-        {draft ? (
-          <button
-            type="button"
-            className="btn-primary home-start-primary"
-            onClick={onContinue}
-          >
-            <span>{UI.continuePass}</span>
-            <span className="home-start-meta">
-              {draft.title} · {draft.totalMinutes} min
-            </span>
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="btn-primary home-start-primary"
-            onClick={() => setWizardOpen(true)}
-          >
-            {UI.homeWizardPrimary}
-          </button>
-        )}
-
-        <div className="home-start-links">
-          <button type="button" className="btn-text" onClick={onNew}>
-            {UI.emptyPass}
-          </button>
-          <button type="button" className="btn-text" onClick={onTemplate}>
-            {UI.fromTemplate}
-          </button>
+    <div className="home home-entry">
+      <div className="home-entry-main">
+        <div className="home-mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M4 16.5 14 10l10 6.5L14 23Z" fill="currentColor" />
+            <path d="M4 16.5 14 23v3.2L4 19.7Z" fill="currentColor" opacity="0.55" />
+            <path d="M24 16.5 14 23v3.2l10-6.5Z" fill="currentColor" opacity="0.35" />
+          </svg>
         </div>
+        <h1>{UI.appName}</h1>
+        <p className="home-promise">{UI.homePromise}</p>
 
+        <div className="home-start">
+          {draft ? (
+            <button
+              type="button"
+              className="btn-primary home-start-primary"
+              onClick={onContinue}
+            >
+              <span>{UI.continuePass}</span>
+              <span className="home-start-meta">
+                {draft.title} · {draft.totalMinutes} min
+              </span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn-primary home-start-primary"
+              onClick={() => setWizardOpen(true)}
+            >
+              {UI.homeWizardPrimary}
+            </button>
+          )}
+
+          <div className="home-start-links">
+            <button type="button" className="btn-text home-alt" onClick={onNew}>
+              {UI.emptyPass}
+            </button>
+            <button type="button" className="btn-text home-alt" onClick={onTemplate}>
+              {UI.fromTemplate}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="home-entry-foot">
         <p className="home-start-note">{UI.draftHonestyBodyShort}</p>
-
         <button
           type="button"
-          className="btn-text"
+          className="btn-text home-fetch"
           aria-expanded={receiveOpen}
           onClick={() => setReceiveOpen((open) => !open)}
         >
           {UI.fetchPass}
         </button>
-
         {receiveOpen && (
           <div className="home-receive">
             <p className="home-start-note">{UI.receiveHint}</p>
