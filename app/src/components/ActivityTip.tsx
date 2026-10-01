@@ -14,6 +14,13 @@ interface Props {
 
 const WIDE = '(min-width: 769px)'
 
+function howSteps(howTo: string): string[] {
+  return howTo
+    .split('\n')
+    .map((line) => line.replace(/^\s*\d+\.\s*/, '').trim())
+    .filter(Boolean)
+}
+
 /** Scannable floor card: why, how, watch, safety. Folded on a phone. */
 export function ActivityTip({
   activity,
@@ -64,32 +71,42 @@ export function ActivityTip({
       </label>
     ) : null
 
+  const steps = howSteps(activity.howTo)
+
   const fullBody = (
     <div className="activity-tip">
       {activity.experiencedCoachOnly && (
-        <p className="activity-tip-line activity-tip-safety">
-          <span className="activity-tip-label">{UI.experiencedCoach}. </span>
+        <p className="activity-tip-note activity-tip-safety">
+          <span className="activity-tip-kicker">{UI.experiencedCoach}</span>
           {UI.experiencedCoachWarning}
         </p>
       )}
       <p className="activity-tip-why">{activity.summary}</p>
-      {activity.howTo && (
-        <p className="activity-tip-line activity-tip-how">
-          <span className="activity-tip-label">{UI.howTo}. </span>
-          {activity.howTo}
-        </p>
+      {steps.length > 0 && (
+        <div className="activity-tip-block">
+          <p className="activity-tip-kicker">{UI.howTo}</p>
+          {steps.length === 1 ? (
+            <p className="activity-tip-copy">{steps[0]}</p>
+          ) : (
+            <ol className="activity-tip-steps">
+              {steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          )}
+        </div>
       )}
       {activity.watchFor && (
-        <p className="activity-tip-line">
-          <span className="activity-tip-label">{UI.watchFor}. </span>
-          {activity.watchFor}
-        </p>
+        <div className="activity-tip-block">
+          <p className="activity-tip-kicker">{UI.watchFor}</p>
+          <p className="activity-tip-copy">{activity.watchFor}</p>
+        </div>
       )}
       {tip.safety && (
-        <p className="activity-tip-line activity-tip-safety">
-          <span className="activity-tip-label">{UI.safety}. </span>
-          {tip.safety}
-        </p>
+        <div className="activity-tip-block activity-tip-safety">
+          <p className="activity-tip-kicker">{UI.safety}</p>
+          <p className="activity-tip-copy">{tip.safety}</p>
+        </div>
       )}
       {minutesField && <div className="activity-tip-foot">{minutesField}</div>}
     </div>
