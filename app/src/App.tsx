@@ -2,14 +2,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
 import type { WizardFinishAnswers } from './components/HomeWizard'
-import type { KomIgangAction } from './components/KomIgangCard'
 import { SessionBuilder } from './components/SessionBuilder'
 import { SharePass } from './components/SharePass'
 import { RunPass } from './components/RunPass'
 import { UI } from './data/blockMeta'
 import {
   anyTipsHidden,
-  dismissChecklist,
   dismissTip,
   loadCoachTips,
   markBuilderVisited,
@@ -17,7 +15,6 @@ import {
   markOpenedGolvklart,
   markOpenedHall,
   resetTipsVisibility,
-  setKomIgangCollapsed,
   syncChecklistHeuristics,
   type CoachTipsStateV1,
 } from './lib/coachTips'
@@ -33,7 +30,6 @@ import {
 import { composeWizardSession } from './lib/wizard'
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
 import { applyUpdate, fetchRemoteBuild, isNewerBuild, localBuild } from './lib/appUpdate'
-import { startNewWeek } from './lib/savedTemplates'
 import type { Session } from './types'
 import './App.css'
 import './tips.css'
@@ -102,10 +98,8 @@ export default function App() {
   }, [])
 
   const draft = loadDraft()
-  const draftItemCount = draft ? countSessionItems(draft) : 0
   const liveItemCount =
-    view === 'home' ? draftItemCount : countSessionItems(session)
-  const canOpenHall = liveItemCount >= 1
+    view === 'home' ? (draft ? countSessionItems(draft) : 0) : countSessionItems(session)
   const placementCount =
     view === 'home'
       ? (draft?.hallPlacements?.length ?? 0)
@@ -178,59 +172,6 @@ export default function App() {
     setView('builder')
   }
 
-  function startNewWeekFromHome() {
-    const loaded = loadDraft()
-    if (!loaded || countSessionItems(loaded) < 1) return
-    const started = startNewWeek(loaded)
-    saveDraft(started.session)
-    patchTips(markChooseOrBuild)
-    setSession(started.session)
-    setOpenTemplates(false)
-    setHallStartFloor(false)
-    setView('builder')
-  }
-
-  function openBuilderFromChecklist() {
-    const loaded = loadDraft()
-    patchTips(markChooseOrBuild)
-    if (loaded) {
-      setSession(withComputedTotal(loaded))
-    } else {
-      setSession(createBlankSession())
-    }
-    setOpenTemplates(false)
-    setHallStartFloor(false)
-    setView('builder')
-  }
-
-  function openHallFromHome(): boolean {
-    const loaded = loadDraft()
-    if (!loaded || countSessionItems(loaded) < 1) return false
-    patchTips((prev) => markOpenedHall(markChooseOrBuild(prev)))
-    setSession(withComputedTotal(loaded))
-    setHallStartFloor(false)
-    setView('hall')
-    return true
-  }
-
-  function openGolvklartFromHome(): boolean {
-    const loaded = loadDraft()
-    if (!loaded || countSessionItems(loaded) < 1) return false
-    patchTips((prev) =>
-      markOpenedGolvklart(markOpenedHall(markChooseOrBuild(prev))),
-    )
-    setSession(withComputedTotal(loaded))
-    setHallStartFloor(true)
-    setView('hall')
-    return true
-  }
-
-  function openRunFromHome() {
-    const loaded = loadDraft()
-    if (!loaded || countSessionItems(loaded) < 1) return
-    setRunSession(withComputedTotal(loaded))
-  }
-
   function openRunFromBuilder() {
     if (countSessionItems(session) < 1) return
     setRunSession(session)
@@ -239,20 +180,6 @@ export default function App() {
   function openRunFromShare() {
     if (!shared || countSessionItems(shared) < 1) return
     setRunSession(shared)
-  }
-
-  function handleChecklistStepDone(action: KomIgangAction) {
-    if (action === 'chooseOrBuild') {
-      patchTips(markChooseOrBuild)
-    }
-  }
-
-  function handleDismissChecklist() {
-    patchTips(dismissChecklist)
-  }
-
-  function handleKomIgangCollapseChange(collapsed: boolean) {
-    patchTips((prev) => setKomIgangCollapsed(prev, collapsed))
   }
 
   function handleTipsUpdate(
@@ -346,24 +273,12 @@ export default function App() {
             </p>
           )}
           <Home
-          tips={syncedTips}
-          itemCount={draftItemCount}
-          canOpenHall={canOpenHall}
-          onNew={goNew}
-          onTemplate={goTemplate}
-          onContinue={goContinue}
-          onWizardFinish={goWizardFinish}
-          onOpenBuilder={openBuilderFromChecklist}
-          onOpenHall={openHallFromHome}
-          onOpenGolvklart={openGolvklartFromHome}
-          onRun={openRunFromHome}
-          onNewWeek={startNewWeekFromHome}
-          onDismissChecklist={handleDismissChecklist}
-          onShowTipsAgain={handleShowTipsAgain}
-          onChecklistStepDone={handleChecklistStepDone}
-          onKomIgangCollapseChange={handleKomIgangCollapseChange}
-          onReceive={receiveSession}
-        />
+            onNew={goNew}
+            onTemplate={goTemplate}
+            onContinue={goContinue}
+            onWizardFinish={goWizardFinish}
+            onReceive={receiveSession}
+          />
         </>
       ) : view === 'hall' ? (
         <HallBoard
@@ -395,22 +310,24 @@ export default function App() {
         />
       )}
       <footer className="app-footer no-print">
-        <span>
-          {UI.footerSliceLabel}
-        </span>
-        <span className="app-footer-sep" aria-hidden>
-          ·
-        </span>
-        <button
-          type="button"
-          className="btn-text visa-tips-igen footer-visa-tips"
-          onClick={handleFooterShowTipsAgain}
-        >
-          {UI.visaTipsIgen}
-        </button>
-        <span className="app-footer-sep" aria-hidden>
-          ·
-        </span>
+        {view !== 'home' && (
+          <>
+            <span>{UI.footerSliceLabel}</span>
+            <span className="app-footer-sep" aria-hidden>
+              ·
+            </span>
+            <button
+              type="button"
+              className="btn-text visa-tips-igen footer-visa-tips"
+              onClick={handleFooterShowTipsAgain}
+            >
+              {UI.visaTipsIgen}
+            </button>
+            <span className="app-footer-sep" aria-hidden>
+              ·
+            </span>
+          </>
+        )}
         <button
           type="button"
           className="btn-text visa-tips-igen footer-update"
