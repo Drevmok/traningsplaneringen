@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { DEFAULT_TARGET_MINUTES, UI } from '../data/blockMeta'
+import { PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
 import {
   isTipDismissed,
   TIP_BUILDER_EMPTY,
@@ -15,8 +15,10 @@ import {
   cloneTemplate,
   getTemplateById,
   loadDraft,
+  passLengthOf,
   removeItem,
   saveDraft,
+  setSessionLength,
   updateItemDuration,
   withComputedTotal,
 } from '../lib/session'
@@ -333,9 +335,25 @@ export function SessionBuilder({
             onChange={(e) => handleTitle(e.target.value)}
             aria-label="Passets titel"
           />
-          <span className="total-badge" title={UI.totalTime}>
-            {session.totalMinutes} / {DEFAULT_TARGET_MINUTES} min
-          </span>
+          <div className="pass-length" role="group" aria-label={UI.passLength}>
+            <span className="pass-length-filled">
+              {session.totalMinutes} /
+            </span>
+            {PASS_LENGTHS.map((minutes) => (
+              <button
+                key={minutes}
+                type="button"
+                aria-pressed={passLengthOf(session) === minutes}
+                className={passLengthOf(session) === minutes ? 'is-on' : ''}
+                onClick={() =>
+                  onChange(setSessionLength(session, minutes as PassLength))
+                }
+              >
+                {minutes}
+              </button>
+            ))}
+            <span className="pass-length-unit">{UI.passLengthMinutes}</span>
+          </div>
         </div>
         <p className="topbar-help">{UI.topBarHelp}</p>
         {!isTipDismissed(tips, TIP_BUILDER_EMPTY) &&

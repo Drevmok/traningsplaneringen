@@ -1,4 +1,4 @@
-import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES } from '../data/blockMeta'
+import { BLOCK_BUDGETS, BLOCK_BUDGETS_BY_LENGTH, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES, type PassLength } from '../data/blockMeta'
 import { orderedTemplateBlocks, seedTemplates } from '../data/seedTemplates'
 import { sanitizeStationEquipment } from '../data/equipmentPieces'
 import type {
@@ -52,6 +52,7 @@ export function createBlankSession(): Session {
     title: 'Nytt pass',
     totalMinutes: 0,
     notes: '',
+    targetMinutes: DEFAULT_TARGET_MINUTES,
     blocks,
     hallTemplateId: DEFAULT_HALL_TEMPLATE,
     hallPlacements: [],
@@ -68,6 +69,25 @@ export function computeTotal(session: Session): number {
 
 export function withComputedTotal(session: Session): Session {
   return { ...session, totalMinutes: computeTotal(session) }
+}
+
+export function passLengthOf(session: Session): PassLength {
+  return session.targetMinutes === 90 || session.targetMinutes === 120
+    ? session.targetMinutes
+    : 60
+}
+
+/** Set the pass length and the block targets. The drills keep their times. */
+export function setSessionLength(session: Session, length: PassLength): Session {
+  const budgets = BLOCK_BUDGETS_BY_LENGTH[length]
+  return {
+    ...session,
+    targetMinutes: length,
+    blocks: session.blocks.map((block) => ({
+      ...block,
+      durationMinutes: budgets[block.type],
+    })),
+  }
 }
 
 export function cloneTemplate(template: SessionTemplate): Session {

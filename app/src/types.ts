@@ -82,6 +82,8 @@ export interface Session {
   title: string
   date?: string
   totalMinutes: number
+  /** Planned length of the pass: 60, 90 or 120. Missing means 60. */
+  targetMinutes?: number
   notes: string
   basedOnTemplateId?: string
   blocks: SessionBlock[]
