@@ -1,9 +1,25 @@
 :root {
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --md-primary: #6d28d9;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #ede9fe;
+  --md-on-primary-container: #4c1d95;
+  --md-surface: #f7f2fa;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f3edf7;
+  --md-on-surface: #1c1b1f;
+  --md-on-surface-variant: #49454f;
+  --md-outline-variant: #cac4d0;
+  --md-scrim: rgb(0 0 0 / 32%);
+  --md-shape-sm: 12px;
+  --md-shape-md: 16px;
+  --md-shape-lg: 28px;
+  --md-shape-full: 999px;
+
+  font-family: Roboto, system-ui, 'Segoe UI', sans-serif;
   line-height: 1.45;
   font-weight: 400;
-  color: #1c1917;
-  background: #f8f7fb;
+  color: var(--md-on-surface);
+  background: var(--md-surface);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
