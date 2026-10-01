@@ -1,6 +1,4 @@
-import type { CSSProperties } from 'react'
 import {
-  BLOCK_COLORS,
   BLOCK_LABELS,
   EMPTY_TIPS,
   UI,
@@ -14,9 +12,7 @@ import { ActivityTip } from './ActivityTip'
 
 interface Props {
   block: SessionBlock
-  selected: boolean
   mismatch?: MismatchWarning
-  onSelect: () => void
   onAdd: () => void
   onBrowse: () => void
   onDismissMismatch: () => void
@@ -27,9 +23,7 @@ interface Props {
 
 export function BlockCard({
   block,
-  selected,
   mismatch,
-  onSelect,
   onAdd,
   onBrowse,
   onDismissMismatch,
@@ -37,29 +31,18 @@ export function BlockCard({
   onDurationChange,
   onOpenActivity,
 }: Props) {
-  const colors = BLOCK_COLORS[block.type]
   const filled = blockFilledMinutes(block)
   const over = filled > block.durationMinutes
   const empty = block.items.length === 0
   const tip = EMPTY_TIPS[block.type]
 
   return (
-    <article
-      className={`block-card${selected ? ' selected' : ''}${over ? ' overflow' : ''}`}
-      style={
-        {
-          '--block-bg': colors.bg,
-          '--block-border': colors.border,
-          '--block-text': colors.text,
-        } as CSSProperties
-      }
-      onClick={onSelect}
-    >
+    <article className={`block-card${over ? ' overflow' : ''}`}>
       <header className="block-header">
         <VisualIcon
           iconId={BLOCK_ICON_IDS[block.type]}
-          blockType={block.type}
           size="block"
+          neutral
           className="block-icon"
         />
         <h3>{BLOCK_LABELS[block.type]}</h3>
@@ -113,8 +96,8 @@ export function BlockCard({
                   <div className="session-item-main">
                   <VisualIcon
                     visualKey={activity?.visualKey}
-                    blockType={activity?.blockType}
                     size="item"
+                    neutral
                     className="item-visual"
                   />
                   <div className="item-body">

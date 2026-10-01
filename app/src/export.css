@@ -1692,4 +1692,42 @@
   overflow: auto;
 }
 
+.block-card {
+  --block-bg: var(--md-surface-container-low);
+  --block-border: var(--md-outline-variant);
+  --block-text: var(--md-on-surface);
+  background: var(--md-surface-container-lowest);
+  border: none;
+  cursor: default;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.3),
+    0 1px 3px 1px rgb(0 0 0 / 0.15);
+}
+
+.block-card.selected {
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.3),
+    0 1px 3px 1px rgb(0 0 0 / 0.15);
+}
+
+.block-card .block-empty,
+.block-card .session-item {
+  background: var(--md-surface-container-low);
+  border: none;
+  box-shadow: none;
+}
+
+.block-card .activity-tip {
+  background: var(--md-surface-container-lowest);
+  border-left: none;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.3),
+    0 1px 3px 1px rgb(0 0 0 / 0.15);
+}
+
+.block-card .block-budget:not(.over) {
+  background: var(--md-surface-container-low);
+  color: var(--md-on-surface-variant);
+}
+
 

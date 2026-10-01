@@ -427,9 +427,7 @@ export function SessionBuilder({
             <BlockCard
               key={block.id}
               block={block}
-              selected={block.id === selectedBlockId}
               mismatch={mismatch ?? undefined}
-              onSelect={() => setSelectedBlockId(block.id)}
               onAdd={() => openAddForBlock(block.id)}
               onBrowse={() => openAddForBlock(block.id)}
               onDismissMismatch={() => setMismatch(null)}
