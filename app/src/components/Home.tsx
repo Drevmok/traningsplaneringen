@@ -3,6 +3,7 @@ import { UI } from '../data/blockMeta'
 import { loadDraft } from '../lib/session'
 import { sessionFromTransfer } from '../lib/sharePass'
 import type { Session } from '../types'
+import heroUrl from '../assets/home-hero.jpg'
 import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
 import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
 
@@ -46,6 +47,10 @@ export function Home({
 
   return (
     <div className="home home-entry">
+      <div className="home-hero" aria-hidden="true">
+        <img src={heroUrl} alt="" />
+      </div>
+      <div className="home-pane">
       <div className="home-entry-main">
         <div className="home-mark" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -133,6 +138,7 @@ export function Home({
             {receiveError && <p role="alert">{receiveError}</p>}
           </div>
         )}
+      </div>
       </div>
 
       {pendingReceive && (
