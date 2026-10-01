@@ -1351,12 +1351,46 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 48px 24px 32px;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
   box-sizing: border-box;
   text-align: center;
+  background: var(--md-surface);
+  height: calc(100svh - 56px);
+  max-height: calc(100svh - 56px);
+  overflow: hidden;
+}
+
+.home-hero {
+  flex: 1 1 auto;
+  min-height: 168px;
+  overflow: hidden;
+  background: #efeaf6;
+}
+
+.home-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+
+.home-pane {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: -28px;
+  padding: 0 24px 12px;
+  border-radius: 28px 28px 0 0;
+  background: var(--md-surface);
+  min-height: 0;
+  overflow: auto;
 }
 
 .home-entry-main,
@@ -1366,26 +1400,27 @@
 }
 
 .home-mark {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 20px;
+  width: 56px;
+  height: 56px;
+  margin: -28px auto 12px;
   display: grid;
   place-items: center;
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--md-primary-container);
   color: var(--md-primary);
+  box-shadow: 0 1px 2px rgb(29 27 32 / 12%);
 }
 
 .home.home-entry h1 {
   margin: 0;
-  font-size: 36px;
-  line-height: 44px;
+  font-size: 28px;
+  line-height: 36px;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
 
 .home-promise {
-  margin: 8px 0 32px;
+  margin: 4px 0 20px;
   color: var(--md-on-surface-variant);
   font-size: 16px;
   line-height: 24px;
@@ -1438,7 +1473,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0;
+  margin-top: 8px;
 }
 
 .home-start-note {
@@ -1475,10 +1511,55 @@
   resize: vertical;
 }
 
-@media (max-width: 480px) {
+@media (min-width: 600px) {
+  .home.home-entry {
+    flex-direction: row;
+    min-height: calc(100svh - 64px);
+  }
+
+  .home-hero {
+    flex: 0 0 42%;
+    max-width: 480px;
+    min-height: 0;
+  }
+
+  .home-hero img {
+    object-position: center;
+  }
+
+  .home-pane {
+    flex: 1;
+    margin-top: 0;
+    border-radius: 0;
+    justify-content: center;
+    gap: 28px;
+    padding: 48px 40px;
+    background: var(--md-surface);
+  }
+
+  .home-mark {
+    margin: 0 auto 16px;
+    box-shadow: none;
+  }
+
   .home.home-entry h1 {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .home-promise {
+    margin-bottom: 28px;
+  }
+}
+
+@media (min-width: 840px) {
+  .home-hero {
+    flex-basis: clamp(440px, 46vw, 680px);
+    max-width: none;
+  }
+
+  .home-pane {
+    padding: 64px 80px;
   }
 }
 
