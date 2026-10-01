@@ -42,6 +42,8 @@ export interface SharePass {
   hallShowFlow?: boolean
   hallPlacements?: HallPlacement[]
   blocks: ShareBlock[]
+  /** 60, 90 or 120. Absent on older links means 60. */
+  targetMinutes?: number
   /** Own drills referenced by this pass. Absent on older links. */
   own?: ShareOwn[]
 }
@@ -59,6 +61,9 @@ export function sessionToShare(session: Session): SharePass {
     hallTemplateId: session.hallTemplateId,
     hallShowFlow: session.hallShowFlow,
     hallPlacements: session.hallPlacements,
+    ...(session.targetMinutes === 90 || session.targetMinutes === 120
+      ? { targetMinutes: session.targetMinutes }
+      : {}),
     blocks: session.blocks.map((block) => ({
       type: block.type,
       durationMinutes: block.durationMinutes,
@@ -110,6 +115,10 @@ export function shareToSession(pass: SharePass): Session {
     title: pass.title || 'Delat pass',
     notes: pass.notes ?? '',
     totalMinutes: 0,
+    targetMinutes:
+      pass.targetMinutes === 90 || pass.targetMinutes === 120
+        ? pass.targetMinutes
+        : 60,
     blocks,
     hallTemplateId: pass.hallTemplateId,
     hallPlacements: pass.hallPlacements,
