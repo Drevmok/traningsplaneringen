@@ -1692,6 +1692,16 @@
   overflow: auto;
 }
 
+.activity-tip-how {
+  white-space: pre-line;
+}
+
+.activity-tip-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
 .block-card {
   --block-bg: var(--md-surface-container-low);
   --block-border: var(--md-outline-variant);
