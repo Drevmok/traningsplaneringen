@@ -1546,4 +1546,9 @@
   }
 }
 
+.home-wizard-options {
+  max-height: min(52svh, 420px);
+  overflow: auto;
+}
+
 

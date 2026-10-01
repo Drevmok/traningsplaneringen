@@ -10,6 +10,7 @@ import {
   WIZARD_TEKNIK_DURATION,
   type WizardAge,
   type WizardFocus,
+  type WizardLevel,
 } from '../data/wizardPaths'
 import { getActivityById } from '../data/seedActivities'
 import type { HallZoneId, Session } from '../types'
@@ -22,7 +23,8 @@ import {
 } from './session'
 
 export interface WizardAnswers {
-  age: WizardAge
+  age: WizardAge | null
+  level: WizardLevel | null
   focus: WizardFocus
   hallTemplateId: string
 }
@@ -53,7 +55,7 @@ function uid(prefix: string): string {
  * pre-place Teknik into matching hall zones.
  */
 export function composeWizardSession(answers: WizardAnswers): Session {
-  const { age, focus } = answers
+  const { age, focus, level } = answers
   const hallTemplateId = normalizeTemplateId(answers.hallTemplateId)
   const blocks = createEmptyBlocks()
 
@@ -72,7 +74,7 @@ export function composeWizardSession(answers: WizardAnswers): Session {
   }
 
   const techniques = blocks.find((b) => b.type === 'techniques')
-  const teknikIds = teknikActivityIdsFor(age, focus)
+  const teknikIds = teknikActivityIdsFor(age, focus, level)
   if (techniques) {
     techniques.items = teknikIds.map((activityId, order) =>
       createSessionItem(activityId, WIZARD_TEKNIK_DURATION, order),
@@ -95,7 +97,7 @@ export function composeWizardSession(answers: WizardAnswers): Session {
 
   let session: Session = withComputedTotal({
     id: uid('session'),
-    title: wizardSessionTitle(focus),
+    title: wizardSessionTitle(focus, level),
     totalMinutes: 0,
     notes: '',
     blocks,
