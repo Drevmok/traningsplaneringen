@@ -1007,4 +1007,171 @@
   flex: none;
 }
 
+.app-shell {
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+}
+
+.home h1 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--md-on-surface);
+}
+
+.home-card,
+.side-panel,
+.more-menu-panel,
+.block-card,
+.modal {
+  background: var(--md-surface-container-lowest);
+}
+
+.home-card,
+.side-panel,
+.more-menu-panel {
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-md);
+  box-shadow: none;
+}
+
+.home-card.primary {
+  background: var(--md-primary-container);
+  border-color: transparent;
+}
+
+.home-card-title,
+.home-card.primary .home-card-title {
+  color: var(--md-on-surface);
+}
+
+.home-card.primary .home-card-desc {
+  color: var(--md-on-primary-container);
+}
+
+.home-card:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--md-on-surface) 8%, var(--md-surface-container-lowest));
+}
+
+.home-card.primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--md-on-primary-container) 8%, var(--md-primary-container));
+}
+
+.block-card {
+  border-radius: var(--md-shape-md);
+}
+
+.session-item,
+.activity-card,
+.template-card {
+  border-radius: var(--md-shape-sm);
+}
+
+.modal {
+  border-radius: var(--md-shape-lg);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 14%);
+}
+
+.modal-backdrop {
+  background: var(--md-scrim);
+}
+
+.total-badge {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-text {
+  border-radius: var(--md-shape-full);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  min-height: 40px;
+  padding: 0 24px;
+}
+
+.btn-primary {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--md-on-primary) 8%, var(--md-primary));
+}
+
+.btn-secondary {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border: none;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--md-on-primary-container) 8%, var(--md-primary-container));
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--md-primary);
+  padding: 0 12px;
+}
+
+.btn-text:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--md-primary) 8%, transparent);
+}
+
+.btn-text.back {
+  color: var(--md-on-surface-variant);
+}
+
+.btn-primary:active:not(:disabled),
+.btn-secondary:active:not(:disabled),
+.home-card:active:not(:disabled) {
+  transform: none;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  background: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-on-surface) 38%, transparent);
+  border: none;
+  opacity: 1;
+}
+
+.btn-text.footer-visa-tips,
+.btn-text.footer-update,
+.btn-text.visa-tips-igen {
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.item-actions button {
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-outline-variant);
+  background: var(--md-surface-container-lowest);
+}
+
+.item-actions button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-text:focus-visible,
+.home-card:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .home h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
 
