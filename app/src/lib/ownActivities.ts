@@ -1,4 +1,4 @@
-import { BLOCK_ORDER } from '../data/blockMeta'
+import { BLOCK_ORDER, ITEM_MINUTES_MAX } from '../data/blockMeta'
 import type { Activity, BlockType, Session } from '../types'
 
 const KEY = 'gymnastics-planner-own-activities-v1'
@@ -49,7 +49,7 @@ function clip(value: unknown, max: number): string {
 
 function clampMinutes(value: number): number {
   if (!Number.isFinite(value)) return 5
-  return Math.max(1, Math.min(60, Math.round(value)))
+  return Math.max(1, Math.min(ITEM_MINUTES_MAX, Math.round(value)))
 }
 
 export function parseHowLines(howText: string): string[] {

@@ -103,7 +103,7 @@ export function SharePass({ session, onSave, onRun }: Props) {
             return (
               <li key={type}>
                 <h3>
-                  {BLOCK_LABELS[type]} · {block.durationMinutes} min
+                  {BLOCK_LABELS[type]} · {block.items.reduce((sum, item) => sum + item.durationMinutes, 0)} min
                 </h3>
                 <ul>
                   {[...block.items]

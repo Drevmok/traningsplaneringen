@@ -62,7 +62,7 @@ export function ActivityTip({
         <input
           type="number"
           min={1}
-          max={60}
+          max={180}
           value={minutes}
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => onMinutesChange(Number(e.target.value))}

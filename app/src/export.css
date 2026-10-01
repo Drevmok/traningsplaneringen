@@ -1166,6 +1166,10 @@
   padding: 0 6px;
 }
 
+.pass-length-filled.is-over {
+  color: #9a3412;
+}
+
 .pass-length button {
   min-height: 36px;
   min-width: 40px;

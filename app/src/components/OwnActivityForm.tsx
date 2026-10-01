@@ -111,7 +111,7 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
           <input
             type="number"
             min={1}
-            max={60}
+            max={180}
             value={draft.durationMinutes}
             onChange={(e) => set('durationMinutes', Number(e.target.value))}
           />

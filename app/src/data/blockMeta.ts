@@ -100,31 +100,12 @@ export const TIPS_TAB: Record<BlockType, string> = {
 
 export const DEFAULT_TARGET_MINUTES = 60
 
+/** A single drill can fill most of a pass. Not a section budget. */
+export const ITEM_MINUTES_MAX = 180
+
 export const PASS_LENGTHS = [60, 90, 120] as const
 
 export type PassLength = (typeof PASS_LENGTHS)[number]
-
-/** Block targets for a whole pass. 60 keeps the original budgets. */
-export const BLOCK_BUDGETS_BY_LENGTH: Record<
-  PassLength,
-  Record<BlockType, number>
-> = {
-  60: BLOCK_BUDGETS,
-  90: {
-    gathering: 10,
-    warmup: 15,
-    techniques: 30,
-    strength: 20,
-    fun_and_games: 15,
-  },
-  120: {
-    gathering: 12,
-    warmup: 20,
-    techniques: 40,
-    strength: 28,
-    fun_and_games: 20,
-  },
-}
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {

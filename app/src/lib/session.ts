@@ -1,4 +1,4 @@
-import { BLOCK_BUDGETS, BLOCK_BUDGETS_BY_LENGTH, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES, type PassLength } from '../data/blockMeta'
+import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES, ITEM_MINUTES_MAX, type PassLength } from '../data/blockMeta'
 import { orderedTemplateBlocks, seedTemplates } from '../data/seedTemplates'
 import { sanitizeStationEquipment } from '../data/equipmentPieces'
 import type {
@@ -77,17 +77,9 @@ export function passLengthOf(session: Session): PassLength {
     : 60
 }
 
-/** Set the pass length and the block targets. The drills keep their times. */
+/** Remember the pass length. Sections have no time target of their own. */
 export function setSessionLength(session: Session, length: PassLength): Session {
-  const budgets = BLOCK_BUDGETS_BY_LENGTH[length]
-  return {
-    ...session,
-    targetMinutes: length,
-    blocks: session.blocks.map((block) => ({
-      ...block,
-      durationMinutes: budgets[block.type],
-    })),
-  }
+  return { ...session, targetMinutes: length }
 }
 
 export function cloneTemplate(template: SessionTemplate): Session {
@@ -381,7 +373,7 @@ export function updateItemDuration(
   itemId: string,
   durationMinutes: number,
 ): Session {
-  const minutes = Math.max(1, Math.min(60, Math.round(durationMinutes) || 1))
+  const minutes = Math.max(1, Math.min(ITEM_MINUTES_MAX, Math.round(durationMinutes) || 1))
   const blocks = session.blocks.map((block) => {
     if (block.id !== blockId) return block
     return {
