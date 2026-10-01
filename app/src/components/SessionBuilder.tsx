@@ -323,8 +323,9 @@ export function SessionBuilder({
   return (
     <div className="builder">
       <header className="builder-top">
-        <button type="button" className="btn-text back" onClick={onHome}>
-          ← {UI.backHome}
+        <button type="button" className="btn-text back" onClick={onHome} aria-label={UI.backHome}>
+          <span className="back-long">← {UI.backHome}</span>
+          <span className="back-short" aria-hidden="true">←</span>
         </button>
         <div className="builder-title-row">
           <input
@@ -366,7 +367,7 @@ export function SessionBuilder({
           </button>
           <button
             type="button"
-            className="btn-secondary"
+            className="btn-secondary builder-hall"
             disabled={countSessionItems(session) < 1}
             title={
               countSessionItems(session) < 1 ? UI.hallCtaDisabled : undefined
@@ -404,6 +405,14 @@ export function SessionBuilder({
                   onClick={() => setMoreOpen(false)}
                 />
                 <div className="more-menu-panel" role="menu" onClick={() => setMoreOpen(false)}>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    disabled={countSessionItems(session) < 1}
+                    onClick={onOpenHall}
+                  >
+                    {UI.hallOverview}
+                  </button>
                   {renderPassExtras()}
                 </div>
               </>

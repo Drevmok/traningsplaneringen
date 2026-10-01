@@ -9,6 +9,9 @@
   --md-on-surface: #1c1b1f;
   --md-on-surface-variant: #49454f;
   --md-outline-variant: #cac4d0;
+  --md-error: #b3261e;
+  --md-error-container: #f9dedc;
+  --md-on-error-container: #410e0b;
   --md-scrim: rgb(0 0 0 / 32%);
   --md-shape-sm: 12px;
   --md-shape-md: 16px;
