@@ -1,0 +1,610 @@
+[
+  {
+    "id": "own-trial-2dj-01-grenhopp-trampett",
+    "title": "Grenhopp från trampett",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Grenform i luften och en stabil landning. Första steget mot att hoppa former från trampett med kontroll, inte höjd.",
+    "howTo": "1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.",
+    "watchFor": "Lång eller snabb ansats, studs nära kanten, benen kvar isär i landningen.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "trampett",
+      "hopp",
+      "landning",
+      "grenhopp"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-trampett",
+        "count": 1
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Landningsmatta direkt efter trampetten. En i taget. Ingen springer in förrän landningen är klar.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "progressionOf": "own-trial-2dj-12-landning-plint",
+    "regressionOf": "own-trial-2dj-02-formhopp-over-block",
+    "station": 1,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=16",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "0:16",
+      "timestampSeconds": 16,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Mini tramp"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Ingen bild från just den här stationen; uppställningen antas vara samma som i nästa station (trampett + matta). Rörelsen bygger på ljudspåret."
+    },
+    "unmappedEquipment": [
+      "Videon visar en liten studsmatta (minitramp); vi mappar den till trampett."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-02-formhopp-over-block",
+    "title": "Formhopp över block från trampett",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.",
+    "howTo": "1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.",
+    "watchFor": "Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "trampett",
+      "hopp",
+      "former",
+      "landning"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-trampett",
+        "count": 1
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "progressionOf": "own-trial-2dj-01-grenhopp-trampett",
+    "station": 2,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=30",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 0:30",
+      "timestampSeconds": 30,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Mini tramp",
+      "frameSeenAt": "0:41"
+    },
+    "confidence": {
+      "level": "hög",
+      "uncertain": "Uppställningen syns på bild (trampett, rött block, blå matta). Exakt starttid för stationen är uppskattad; blockhöjden är okänd."
+    },
+    "unmappedEquipment": [
+      "Mjukt block (röd skumkloss) mellan trampett och matta – finns inte i redskapslistan. Ersätt t.ex. med en plintdel i skum.",
+      "Studsmattan i videon är en liten minitramp, inte en klassisk trampett."
+    ],
+    "keyframe": "station-2.jpg"
+  },
+  {
+    "id": "own-trial-2dj-03-aggrullning-kil",
+    "title": "Äggrullning nerför kil",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.",
+    "howTo": "1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.",
+    "watchFor": "Formen som släpper (ben eller armar åker ut), hakan som åker upp.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "intro",
+    "tags": [
+      "teknik",
+      "rullning",
+      "kil",
+      "form",
+      "nybörjare"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-madrass",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Kilen ligger stadigt på en matta. Bara en i taget i backen.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 3,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=50",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "0:50",
+      "timestampSeconds": 50,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Wedge",
+      "frameSeenAt": "0:54"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Kil + matta syns på bild. Rullriktningen är osäker: bilden ser ut som att gymnasten ligger tvärs över kilen (rullar åt sidan), men det syns inte säkert."
+    },
+    "unmappedEquipment": [
+      "Kilmatta (gul/blå kil) – finns inte i redskapslistan.",
+      "Underlaget i videon är en tunnare blå matta; vi mappar den till madrass."
+    ],
+    "keyframe": "station-3.jpg"
+  },
+  {
+    "id": "own-trial-2dj-04-spindelmannen-kil",
+    "title": "Spindelmannen uppför kil",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Gymnasten går upp med fötterna på kilen och hamnar i ett lutande stöd. Bygger raka, starka armar och vana att bära kroppen på händerna.",
+    "howTo": "1. Ställ kilen stadigt mot en vägg. Gymnasten står med ryggen mot kilen och sätter händerna i golvet.\n2. Gå upp med fötterna mot kilens topp.\n3. Gå närmare med händerna tills kroppen ligger rak mot kilen, armarna raka.\n4. Gå långsamt ner med fötterna igen.",
+    "watchFor": "Armar som viker sig, svank, att någon går högre än de orkar ta sig ner från.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "styrka",
+      "handstående",
+      "kil",
+      "armstöd"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-madrass",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Kilen ska stå stadigt mot väggen. Matta under händerna. Gå ner lugnt, aldrig hoppa ner.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 4,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=75",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 1:15",
+      "timestampSeconds": 75,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Wedge"
+    },
+    "confidence": {
+      "level": "låg",
+      "uncertain": "Ingen bild från stationen. Bygger bara på ljudspåret. Starttid är en gissning mellan 0:54 och 1:39."
+    },
+    "unmappedEquipment": [
+      "Kilmatta lutad mot vägg – finns inte i redskapslistan. Madrassen är vårt förslag som underlag; den syns inte i videon."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-05-l-hang-racke",
+    "title": "L-häng i räcke",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Gymnasten hänger med raka armar och lyfter benen framåt. Tränar bål och grepp som behövs i räckesövningar.",
+    "howTo": "1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.",
+    "watchFor": "Gungande kropp, böjda armar, ben som faller ner okontrollerat.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "räcke",
+      "bål",
+      "grepp",
+      "styrka"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-landningsmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Matta under räcket. Räcket så lågt att gymnasten når själv. Ledare nära vid första försöken.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 5,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=99",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "1:39",
+      "timestampSeconds": 99,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Bars"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Ingen bild från just L-hänget; räcke och matta syns i nästa station. Kan passa lika bra under Styrka."
+    },
+    "unmappedEquipment": [
+      "Räcke (lågt räcke/stång) – finns inte i redskapslistan."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-06-stod-racke-pendel",
+    "title": "Stöd på räcke med pendel",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Upp i stöd på räcket med raka armar och spänd kropp. Grunden för alla räckesövningar och en trygg nedgång.",
+    "howTo": "1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.",
+    "watchFor": "Böjda armar, axlar som sjunker, höfter som viker sig vid stången, landning för nära räcket.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "räcke",
+      "stöd",
+      "landning"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-landningsmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Matta under och bakom räcket. Räcket i lagom höjd för gruppen. Ledare står nära vid nedgången.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 6,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=115",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 1:55",
+      "timestampSeconds": 115,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Bars",
+      "frameSeenAt": "2:07"
+    },
+    "confidence": {
+      "level": "hög",
+      "uncertain": "Räcke och tjock matta under syns på bild. Greppet beskrivs otydligt i ljudet ('tummarna ovanpå'); vi skriver bara 'händerna ovanpå stången'."
+    },
+    "unmappedEquipment": [
+      "Räcke (enkel stång på ställning) – finns inte i redskapslistan."
+    ],
+    "keyframe": "station-6.jpg"
+  },
+  {
+    "id": "own-trial-2dj-07-asnesparkar",
+    "title": "Åsnesparkar",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Ett litet hopp upp på händerna med benen sparkade bakåt. Tidigt steg mot att våga lägga vikten på händerna inför handstående.",
+    "howTo": "1. Armarna raka och upp framför kroppen, ett ben böjt fram och ett rakt bak.\n2. Sätt händerna i mattan, skjut ifrån med det främre benet och sparka upp bakåt.\n3. Landa mjukt på fötterna. Byt ben varannan gång.",
+    "watchFor": "Armar som viker sig, huvudet långt fram mellan armarna, bara ett ben.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "handstående",
+      "golv",
+      "armstöd"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-tumblingmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Matta under. Avstånd mellan gymnasterna så ingen får en spark. Ingen tävling om höjd.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 7,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=146",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "2:26",
+      "timestampSeconds": 146,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Floor mats"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Ingen bild från stationen. Rörelsen bygger på ljudspåret; om händerna sätts i mattan sägs inte uttryckligen."
+    },
+    "unmappedEquipment": [
+      "Videon visar hopvikbara golvmattor (panelmattor); vi mappar till tumblingmatta."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-08-minihjul-krabbhjul",
+    "title": "Minihjul (krabbhjul)",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Ett litet hjul nära golvet: hand, hand, fot, fot. Lär rytmen och handisättningen i hjulet utan höjd.",
+    "howTo": "1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.",
+    "watchFor": "Fel ordning på händer och fötter, händer som hamnar för långt bort, bara ett håll.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "intro",
+    "tags": [
+      "teknik",
+      "hjul",
+      "golv",
+      "nybörjare"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-tumblingmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Fri bana. En i taget på mattan. Ingen står där fötterna landar.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "regressionOf": "tech-hjul",
+    "station": 8,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=165",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 2:45",
+      "timestampSeconds": 165,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Floor mats",
+      "frameSeenAt": "2:54"
+    },
+    "confidence": {
+      "level": "hög",
+      "uncertain": "Matta och rörelse syns på bild. Exakt starttid uppskattad."
+    },
+    "unmappedEquipment": [
+      "Videon visar en hopvikbar golvmatta (panelmatta); vi mappar till tumblingmatta."
+    ],
+    "keyframe": "station-8.jpg"
+  },
+  {
+    "id": "own-trial-2dj-09-soldatsparkar-bom",
+    "title": "Soldatsparkar på bom",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Gå längs bommen och sparka fram med raka ben. Tränar balans, raka ben och spänd kropp på smal yta.",
+    "howTo": "1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.",
+    "watchFor": "Böjda ben, blicken ner i bommen, för snabbt tempo.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "bom",
+      "balans",
+      "raka ben"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-landningsmatta",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Låg bom med matta bredvid och vid nedhoppet. En i taget på bommen.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "progressionOf": "tech-balansgang",
+    "station": 9,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=184",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "3:04",
+      "timestampSeconds": 184,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Beam"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Ingen bild från stationen; bomhöjden okänd (i nästa station ligger bommen lågt nära golvet)."
+    },
+    "unmappedEquipment": [
+      "Bom (låg bom) – finns inte i redskapslistan. Landningsmattan vid nedhoppet är vårt förslag; den syns inte i videon."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-10-krabbgang-bom",
+    "title": "Krabbgång längs bom",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Bakåtstöd med händerna på bommen och förflyttning i sidled. Bygger stark axelposition och raka armar.",
+    "howTo": "1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.",
+    "watchFor": "Böjda armar, höfter som sjunker mot golvet, axlar som åker upp mot öronen.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "easy",
+    "tags": [
+      "teknik",
+      "bom",
+      "stöd",
+      "axlar",
+      "styrka"
+    ],
+    "defaultStationEquipment": [],
+    "safetyLine": "Bom som står stadigt på golvet. Avbryt om handlederna eller axlarna gör ont.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 10,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=205",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 3:25",
+      "timestampSeconds": 205,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Beam",
+      "frameSeenAt": "3:34"
+    },
+    "confidence": {
+      "level": "hög",
+      "uncertain": "Låg bom och bakåtstöd syns på bild. Benen ser lätt böjda ut på bilden; vi skriver 'så raka som möjligt'."
+    },
+    "unmappedEquipment": [
+      "Bom (låg bom direkt på golvet) – finns inte i redskapslistan."
+    ],
+    "keyframe": "station-10.jpg"
+  },
+  {
+    "id": "own-trial-2dj-11-ljushopp-rockringar",
+    "title": "Ljushopp i rockringar",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Raka ljushopp från ring till ring i sicksack. Tränar spänd kropp, samlade ben och rytm i hoppen.",
+    "howTo": "1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.",
+    "watchFor": "Armar som åker ner, ben isär, hårda landningar.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "intro",
+    "tags": [
+      "teknik",
+      "hopp",
+      "ljushopp",
+      "golv",
+      "nybörjare"
+    ],
+    "defaultStationEquipment": [],
+    "safetyLine": "Ringarna ligger platt på golvet. Avstånd mellan gymnasterna i banan.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "station": 11,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=227",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "3:47",
+      "timestampSeconds": 227,
+      "timestampPrecision": "kapitelstart",
+      "chapter": "Misc"
+    },
+    "confidence": {
+      "level": "medel",
+      "uncertain": "Ingen bild från stationen. Antal ringar och avstånd okänt."
+    },
+    "unmappedEquipment": [
+      "Rockringar – finns inte i redskapslistan (koner kan markera banan om ringar saknas)."
+    ],
+    "keyframe": null
+  },
+  {
+    "id": "own-trial-2dj-12-landning-plint",
+    "title": "Landningar upp på och ner från plint",
+    "blockType": "techniques",
+    "durationMinutesDefault": 6,
+    "summary": "Hopp upp på en låg plint, stabil landning, sedan hopp ner med en form. Grunden för alla trygga landningar.",
+    "howTo": "1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.",
+    "watchFor": "Raka ben i landningen, knän som faller inåt, att gymnasten tar steg efter landningen.",
+    "watchForRequired": true,
+    "visualKey": "own",
+    "difficulty": "intro",
+    "tags": [
+      "teknik",
+      "landning",
+      "hopp",
+      "plint",
+      "nybörjare"
+    ],
+    "defaultStationEquipment": [
+      {
+        "pieceId": "eq-plint",
+        "count": 1
+      }
+    ],
+    "safetyLine": "Låg och stadig plint. Mjukt underlag vid nedhoppet. En i taget.",
+    "own": true,
+    "needsCoachReview": true,
+    "newCoachOk": true,
+    "experiencedCoachOnly": false,
+    "stub": false,
+    "regressionOf": "own-trial-2dj-01-grenhopp-trampett",
+    "station": 12,
+    "level": "Nybörjare, ca 5–9 år (videon riktar sig till skolidrott F–3, 'elementary PE')",
+    "source": {
+      "url": "https://youtu.be/2DJ_oMM81mI?t=245",
+      "channel": "Prime Coaching Sport",
+      "videoTitle": "Fun gymnastics stations",
+      "timestamp": "ca 4:05",
+      "timestampSeconds": 245,
+      "timestampPrecision": "uppskattad",
+      "chapter": "Misc",
+      "frameSeenAt": "4:13"
+    },
+    "confidence": {
+      "level": "hög",
+      "uncertain": "Låda och golv syns på bild. Lådans höjd och material uppskattade. Länken till grenhopp är vår egen bedömning."
+    },
+    "unmappedEquipment": [
+      "Lådan i videon ser ut som ett orange mjukt skumblock; vi mappar till plint."
+    ],
+    "keyframe": "station-12.jpg"
+  }
+]

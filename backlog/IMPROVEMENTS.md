@@ -4,7 +4,7 @@
 **Scout id:** `8d938891-4fba-490d-a96d-5f261cd2da81`  
 **Rule:** Nothing here becomes a slice until Christoffer Approves. Scout proposes; Planner drafts packs.
 
-Statuses: `Proposed` · `Approved` · `In flight` · `Declined` · `Parked` · `Shipped`
+Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `Parked` · `Shipped`
 
 ---
 
@@ -73,7 +73,9 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## In flight
 
-_(none — Slice 29 shipped after Verifier PASS 2026-09-27.)_
+| Idea | Slice | Status / notes |
+|---|---|---|
+| Övningsimport | 30 | **Approved/Locked 2026-10-02**; in progress: Docs → Builder → Verifier. Pack `slice-30/`; reference input `import-trials/2DJ_oMM81mI/`. |
 
 ---
 

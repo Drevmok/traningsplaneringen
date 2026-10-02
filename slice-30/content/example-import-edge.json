@@ -1,0 +1,86 @@
+{
+  "format": "traningsplaneraren.ovningar",
+  "schemaVersion": 1,
+  "createdAt": "2026-10-02",
+  "producedBy": "Planner",
+  "batchNote": "Verifier edge fixture — one row per rule.",
+  "exercises": [
+    {
+      "id": "own-imp-edge-01-okant-redskap",
+      "title": "Okänt redskap tas bort",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Rad med ett redskap som inte finns i biblioteket.",
+      "howTo": "1. Steg ett.\n2. Steg två.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "En i taget.",
+      "defaultStationEquipment": [
+        { "pieceId": "eq-trampett", "count": 1 },
+        { "pieceId": "eq-ringar", "count": 2 }
+      ]
+    },
+    {
+      "id": "own-imp-edge-02-fem-steg",
+      "title": "Fem steg blir fyra",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Rad med fem steg — sista steget ska klippas.",
+      "howTo": "1. Ett.\n2. Två.\n3. Tre.\n4. Fyra.\n5. Fem.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "En i taget."
+    },
+    {
+      "id": "own-imp-edge-03-saknar-sakerhet",
+      "title": "Saknar säkerhet",
+      "blockType": "strength",
+      "durationMinutesDefault": 5,
+      "summary": "Ska inte gå att importera.",
+      "howTo": "1. Steg.",
+      "watchFor": "Inget särskilt."
+    },
+    {
+      "id": "own-imp-edge-03-saknar-sakerhet",
+      "title": "Dubbel id i filen",
+      "blockType": "warmup",
+      "durationMinutesDefault": 5,
+      "summary": "Andra raden med samma id ska vara ogiltig.",
+      "howTo": "1. Steg.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "Gott om plats."
+    },
+    {
+      "id": "own-imp-edge-05-dalig-lank",
+      "title": "Kullerbytta framåt",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Samma namn som en befintlig övning, okänd länk-id och källa utan https.",
+      "howTo": "1. Steg.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "Madrass under.",
+      "progressionOf": "own-finns-inte",
+      "source": { "url": "http://example.com/video", "creator": "Någon" }
+    },
+    {
+      "id": "own-imp-edge-06-redskap-utanfor-teknik",
+      "title": "Redskap utanför Teknik",
+      "blockType": "warmup",
+      "durationMinutesDefault": 5,
+      "summary": "Redskap ska tas bort eftersom blocket inte är Teknik.",
+      "howTo": "1. Steg.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "Gott om plats.",
+      "defaultStationEquipment": [{ "pieceId": "eq-kon", "count": 4 }],
+      "needsCoachReview": false
+    },
+    {
+      "id": "BAD-ID",
+      "title": "Fel id-format",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Ska inte gå att importera.",
+      "howTo": "1. Steg.",
+      "watchFor": "Inget särskilt.",
+      "safetyLine": "En i taget."
+    }
+  ]
+}

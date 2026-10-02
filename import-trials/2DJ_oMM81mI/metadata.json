@@ -1,0 +1,22 @@
+{
+  "url": "https://youtu.be/2DJ_oMM81mI",
+  "title": "Fun gymnastics stations",
+  "channel": "Prime Coaching Sport",
+  "channelUrl": "https://www.youtube.com/@PrimeCoachingSport",
+  "duration": "PT4M29S",
+  "published": "2023-08-06",
+  "views": "40,722 (2026-10-02)",
+  "chapters": [
+    {"t": "0:00", "title": "Intro"}, {"t": "0:16", "title": "Mini tramp"}, {"t": "0:50", "title": "Wedge"},
+    {"t": "1:39", "title": "Bars"}, {"t": "2:14", "title": "Gym course (reklam för kurs)"}, {"t": "2:26", "title": "Floor mats"},
+    {"t": "3:04", "title": "Beam"}, {"t": "3:47", "title": "Misc"}
+  ],
+  "descriptionSummary": "Demonstrates basic elementary PE gymnastics skills on different equipment; links to paid Grade K-3 and 3-6 PE programs and website.",
+  "retrieval": {
+    "yt-dlp": "failed: 'Sign in to confirm you're not a bot' on all player clients (web, tv, mweb, web_safari, android, ios, web_embedded); no cookies used",
+    "videoDownload": "not possible",
+    "transcript": "untimed auto-transcript text via WebFetch of the watch page (transcript.txt)",
+    "metadata": "public watch page HTML (ytInitialData) + oEmbed",
+    "frames": "8 YouTube chapter thumbnails (336x188) + hq1-3/sd/maxres auto thumbnails in frames/"
+  }
+}
