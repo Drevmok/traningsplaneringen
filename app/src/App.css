@@ -2857,6 +2857,9 @@
 
 .station-compose-recipe-label {
   flex: 1 1 auto;
+  /* Slice 30 — long names (Landningsmatta) wrap instead of pushing × off a 390 px sheet */
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 15px;
   color: #292524;
 }

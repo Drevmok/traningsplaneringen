@@ -6,8 +6,8 @@ export const STATION_EQUIPMENT_MAX_SLOTS = 8
 export const STATION_EQUIPMENT_MAX_COUNT = 9
 
 /**
- * Fixed Swedish redskap library (Slice 13) — all 10 pieces.
- * Mattberg is ONE catalog piece (not N×matta).
+ * Fixed Swedish redskap library (Slice 13) — 10 pieces, +5 in Slice 30 (C1)
+ * appended after Kon. Mattberg is ONE catalog piece (not N×matta).
  */
 export const EQUIPMENT_PIECES: EquipmentPiece[] = [
   { id: 'eq-trampett', labelSv: 'Trampett', visualKey: 'eq-trampett' },
@@ -33,6 +33,26 @@ export const EQUIPMENT_PIECES: EquipmentPiece[] = [
   },
   { id: 'eq-airtrack', labelSv: 'Airtrack', visualKey: 'eq-airtrack' },
   { id: 'eq-kon', labelSv: 'Kon', visualKey: 'eq-kon' },
+  { id: 'eq-kilmatta', labelSv: 'Kilmatta', visualKey: 'eq-kilmatta' },
+  { id: 'eq-skumblock', labelSv: 'Skumblock', visualKey: 'eq-skumblock' },
+  /** One piece regardless of height — the drill text says how low. */
+  { id: 'eq-bom', labelSv: 'Bom', visualKey: 'eq-bom' },
+  { id: 'eq-racke', labelSv: 'Räcke', visualKey: 'eq-racke' },
+  { id: 'eq-rockring', labelSv: 'Rockring', visualKey: 'eq-rockring' },
+]
+
+/** The ten pieces shipped before Slice 30 (owned-list migration baseline). */
+export const LEGACY_PIECE_IDS: readonly string[] = [
+  'eq-trampett',
+  'eq-satsbrada',
+  'eq-plint',
+  'eq-landningsmatta',
+  'eq-tumblingmatta',
+  'eq-madrass',
+  'eq-mattberg',
+  'eq-flickiskudde',
+  'eq-airtrack',
+  'eq-kon',
 ]
 
 const PIECE_BY_ID = new Map(EQUIPMENT_PIECES.map((p) => [p.id, p]))
@@ -49,6 +69,11 @@ export const EQUIPMENT_ICON: Record<string, IconId> = {
   'eq-flickiskudde': 'pad',
   'eq-airtrack': 'fall-back',
   'eq-kon': 'flag',
+  'eq-kilmatta': 'pad',
+  'eq-skumblock': 'pad',
+  'eq-bom': 'fallback',
+  'eq-racke': 'hands-up',
+  'eq-rockring': 'target',
 }
 
 export function getEquipmentPiece(

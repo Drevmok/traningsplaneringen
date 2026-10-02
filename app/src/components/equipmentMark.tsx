@@ -82,6 +82,11 @@ export type EquipmentKind =
   | 'hill'
   | 'flick'
   | 'cone'
+  | 'wedge'
+  | 'block'
+  | 'beam'
+  | 'bar'
+  | 'hoop'
 
 export const EQUIPMENT_KIND: Record<string, EquipmentKind> = {
   'eq-trampett': 'trampett',
@@ -94,6 +99,11 @@ export const EQUIPMENT_KIND: Record<string, EquipmentKind> = {
   'eq-flickiskudde': 'flick',
   'eq-airtrack': 'air',
   'eq-kon': 'cone',
+  'eq-kilmatta': 'wedge',
+  'eq-skumblock': 'block',
+  'eq-bom': 'beam',
+  'eq-racke': 'bar',
+  'eq-rockring': 'hoop',
 }
 
 /** Horizontal room each piece needs on a station row. */
@@ -108,6 +118,11 @@ export const EQUIPMENT_ROW_WIDTH: Record<EquipmentKind, number> = {
   hill: 128,
   flick: 96,
   cone: 40,
+  wedge: 120,
+  block: 64,
+  beam: 168,
+  bar: 110,
+  hoop: 44,
 }
 
 export function EquipmentMark({
@@ -195,6 +210,55 @@ export function EquipmentMark({
           <polygon points={`${x + 6},${y - 4} ${x + 26},${y - 4} ${x + 16},${y - 36}`} fill="#f0c14a" strokeWidth="1.2" {...stroke} />
         </g>
       )
+    case 'wedge': {
+      // Triangular prism, high end left (Kilmatta).
+      const w = 96
+      const h = 34
+      const dx = 14
+      const dy = 9
+      return (
+        <g>
+          <polygon
+            points={`${x},${y - h} ${x + dx},${y - h - dy} ${x + dx},${y - dy} ${x},${y}`}
+            fill="#3d34c4"
+            strokeWidth="1.3"
+            {...stroke}
+          />
+          <polygon
+            points={`${x},${y - h} ${x + w},${y} ${x + w + dx},${y - dy} ${x + dx},${y - h - dy}`}
+            fill="#6a60f2"
+            strokeWidth="1.3"
+            {...stroke}
+          />
+          <polygon points={`${x},${y} ${x + w},${y} ${x},${y - h}`} fill="#5348e6" strokeWidth="1.3" {...stroke} />
+        </g>
+      )
+    }
+    case 'block':
+      return <Box x={x + 4} y={y} w={44} d={26} h={18} front="#e2674f" top="#ee8a74" side="#b84a36" />
+    case 'beam':
+      return (
+        <g>
+          <rect x={x + 14} y={y - 10} width="6" height="10" fill="#a5845a" strokeWidth="1.1" {...stroke} />
+          <rect x={x + 130} y={y - 10} width="6" height="10" fill="#a5845a" strokeWidth="1.1" {...stroke} />
+          <Box x={x} y={y - 10} w={150} d={14} h={8} front="#c9a77a" top="#dcc29c" side="#a5845a" />
+        </g>
+      )
+    case 'bar':
+      return (
+        <g>
+          <rect x={x + 4} y={y - 4} width="18" height="4" rx="1" fill="#6b7079" strokeWidth="1.1" {...stroke} />
+          <rect x={x + 82} y={y - 4} width="18" height="4" rx="1" fill="#6b7079" strokeWidth="1.1" {...stroke} />
+          <rect x={x + 10} y={y - 50} width="6" height="46" fill="#8a8f99" strokeWidth="1.2" {...stroke} />
+          <rect x={x + 88} y={y - 50} width="6" height="46" fill="#8a8f99" strokeWidth="1.2" {...stroke} />
+          <line x1={x + 8} y1={y - 48} x2={x + 96} y2={y - 48} stroke="#161616" strokeWidth="6" strokeLinecap="round" />
+          <line x1={x + 8} y1={y - 48} x2={x + 96} y2={y - 48} stroke="#d5d8de" strokeWidth="3.4" strokeLinecap="round" />
+        </g>
+      )
+    case 'hoop':
+      return (
+        <ellipse cx={x + 20} cy={y - 6} rx="18" ry="6" fill="none" stroke="#d9534f" strokeWidth="4" />
+      )
   }
 }
 
@@ -209,6 +273,11 @@ const ICON_FRAME: Record<EquipmentKind, { vb: string; x: number; y: number }> = 
   flick: { vb: '0 90 108 84', x: 14, y: 160 },
   air: { vb: '0 86 168 88', x: 8, y: 158 },
   cone: { vb: '0 90 56 84', x: 12, y: 162 },
+  wedge: { vb: '0 90 128 84', x: 10, y: 160 },
+  block: { vb: '0 96 76 78', x: 10, y: 160 },
+  beam: { vb: '0 86 168 88', x: 6, y: 158 },
+  bar: { vb: '0 90 110 84', x: 4, y: 162 },
+  hoop: { vb: '0 112 56 62', x: 8, y: 160 },
 }
 
 export function EquipmentIcon({ pieceId }: { pieceId: string }) {

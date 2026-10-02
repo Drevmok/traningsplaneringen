@@ -1,0 +1,68 @@
+[
+  {
+    "id": "F1",
+    "name": "Footer still Träningsplaneraren · Slice 30",
+    "ok": true,
+    "detail": "Träningsplaneraren · Slice 30 · Visa tips igen · Uppdatera appen"
+  },
+  {
+    "id": "S0",
+    "name": "Own drill has source + needsCoachReview, Teknik",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "L1",
+    "name": "Bibliotek detail: Källa line + badge still shown",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "E1",
+    "name": "Hallöversikt edit detail shows Källa line",
+    "ok": true,
+    "detail": "Källa: Prime Coaching Sport · 0:30 ↗"
+  },
+  {
+    "id": "E2",
+    "name": "Hallöversikt edit detail shows Behöver granskas badge",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "G0",
+    "name": "Golvklart chip opens the Formhopp detail",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "G1",
+    "name": "Golvklart detail: NO Källa line",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "G2",
+    "name": "Golvklart detail: NO Behöver granskas badge / hint / button",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "G3",
+    "name": "Golvklart detail still shows Redskap + sketch",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "E3",
+    "name": "After Avsluta golvklart, edit detail shows Källa + badge again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "P",
+    "name": "No page errors",
+    "ok": true,
+    "detail": ""
+  }
+]

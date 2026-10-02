@@ -22,6 +22,17 @@ export interface EquipmentPiece {
   visualKey: string
 }
 
+/** Slice 30 — where a drill idea came from. Link only; never embedded. */
+export interface ActivitySource {
+  /** https:// only */
+  url: string
+  creator: string
+  /** Video title — used in the aria-label only */
+  title?: string
+  /** Where in the video the drill starts (0–86400) */
+  startSeconds?: number
+}
+
 export interface Activity {
   id: string
   title: string
@@ -51,6 +62,8 @@ export interface Activity {
   own?: boolean
   /** Floor safety for an own drill. Seed drills keep using the fixed safety list. */
   safetyLine?: string
+  /** Slice 30 — credit + link to the original video (F1). */
+  source?: ActivitySource
 }
 
 export interface SessionItem {

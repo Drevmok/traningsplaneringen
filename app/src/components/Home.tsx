@@ -3,6 +3,7 @@ import { UI } from '../data/blockMeta'
 import { loadDraft, clearDraft } from '../lib/session'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { sessionFromTransfer } from '../lib/sharePass'
+import { isExerciseFile } from '../lib/ownImport'
 import type { Session } from '../types'
 import heroUrl from '../assets/home-hero.jpg'
 import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
@@ -38,6 +39,11 @@ export function Home({
   }
 
   async function takeTransfer(text: string) {
+    // Slice 30 — an exercise file belongs in Bibliotek; the draft stays as it is.
+    if (isExerciseFile(text)) {
+      setReceiveError(UI.importIsExercises)
+      return
+    }
     const next = await sessionFromTransfer(text)
     if (!next) {
       setReceiveError(UI.receiveBad)

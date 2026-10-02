@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { UI } from '../data/blockMeta'
 import { floorTip, validateActivityTip } from '../data/activityTips'
 import type { Activity } from '../types'
+import { SourceLine } from './SourceLine'
 
 interface Props {
   activity: Activity
@@ -109,6 +110,7 @@ export function ActivityTip({
         </div>
       )}
       {minutesField && <div className="activity-tip-foot">{minutesField}</div>}
+      <SourceLine source={activity.source} />
     </div>
   )
 

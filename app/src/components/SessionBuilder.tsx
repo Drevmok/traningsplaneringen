@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
+import { ownImportDoneText, PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
 import {
   isTipDismissed,
   TIP_BUILDER_EMPTY,
@@ -8,7 +8,7 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { autoPlaceItems } from '../lib/hallSuggest'
-import { loadOwnActivities, deleteOwnActivity } from '../lib/ownActivities'
+import { loadOwnActivities, deleteOwnActivity, markOwnReviewed } from '../lib/ownActivities'
 import {
   addItemToBlock,
   adoptAsDraft,
@@ -47,6 +47,7 @@ import { TemplateConfirm } from './TemplateConfirm'
 import { ExportSheet } from './ExportSheet'
 import { NewWeekConfirm } from './NewWeekConfirm'
 import { OwnActivityForm } from './OwnActivityForm'
+import { OwnImportSheet } from './OwnImportSheet'
 import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from './StationDeck'
 
@@ -102,6 +103,7 @@ export function SessionBuilder({
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
   const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
   const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
+  const [ownImportOpen, setOwnImportOpen] = useState(false)
   const [showSaveTemplate, setShowSaveTemplate] = useState(false)
   const [showNewWeek, setShowNewWeek] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -232,6 +234,20 @@ export function SessionBuilder({
     if (ownInUse(activity.id)) return
     setOwnActivities(deleteOwnActivity(activity.id))
     showToast(UI.ownDeleted)
+  }
+
+  function handleMarkReviewed(activity: Activity) {
+    const next = markOwnReviewed(activity.id)
+    setOwnActivities(next)
+    const updated = next.find((item) => item.id === activity.id)
+    if (updated) setDetailActivity(updated)
+    showToast(UI.ownReviewedToast)
+  }
+
+  function handleOwnImported(count: number) {
+    setOwnActivities(loadOwnActivities())
+    setOwnImportOpen(false)
+    showToast(ownImportDoneText(count))
   }
 
   function handleConfirmTemplate() {
@@ -518,6 +534,7 @@ export function SessionBuilder({
               onDeleteSaved={handleDeleteSaved}
               ownActivities={ownActivities}
               onCreateOwn={() => setOwnEdit('new')}
+              onImportOwn={() => setOwnImportOpen(true)}
               onEditOwn={(activity) => setOwnEdit(activity)}
               onDeleteOwn={handleDeleteOwn}
               ownInUse={ownInUse}
@@ -534,6 +551,11 @@ export function SessionBuilder({
           onClose={() => setDetailActivity(null)}
           tips={tips}
           onDismissTip={onDismissTip}
+          onMarkReviewed={
+            detailActivity.own && detailActivity.needsCoachReview
+              ? () => handleMarkReviewed(detailActivity)
+              : undefined
+          }
         />
       )}
 
@@ -560,7 +582,11 @@ export function SessionBuilder({
         />
       )}
 
-      {toast && <div className="toast">{toast}</div>}
+      {toast && (
+        <div className="toast" role="status">
+          {toast}
+        </div>
+      )}
       {showSaveTemplate && (
         <SaveTemplateDialog
           initialTitle={session.title}
@@ -584,6 +610,12 @@ export function SessionBuilder({
             setOwnEdit(null)
             showToast(UI.ownSaved)
           }}
+        />
+      )}
+      {ownImportOpen && (
+        <OwnImportSheet
+          onImported={handleOwnImported}
+          onClose={() => setOwnImportOpen(false)}
         />
       )}
       {showExport && (

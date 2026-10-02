@@ -14,6 +14,8 @@ import {
   shareTokenFromHash,
 } from './sharePass.ts'
 import { stationCards } from './stationCards.ts'
+import { clearOwnActivities, importOwnActivities, sanitizeOwnActivity } from './ownActivities.ts'
+import type { Activity } from '../types.ts'
 
 function session(): Session {
   const blocks: SessionBlock[] = BLOCK_ORDER.map((type) => ({
@@ -130,5 +132,103 @@ describe('sharePass', () => {
     )
     assert.equal(fromUrl?.title, 'Torsdag')
     assert.equal(await sessionFromTransfer(''), null)
+  })
+})
+
+describe('sharePass — own drills carry Slice 30 fields (AC 6, 39)', () => {
+  function withOwn(): Session {
+    const s = session()
+    const teknik = s.blocks.find((b) => b.type === 'techniques')
+    teknik?.items.push({
+      id: 'item-own',
+      activityId: 'own-imp-share-01',
+      durationMinutes: 6,
+      note: '',
+      order: 2,
+    })
+    return s
+  }
+
+  it('encodes source + redskap and the receiver sees them', async () => {
+    const mem = new Map<string, string>()
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => mem.get(key) ?? null,
+        setItem: (key: string, value: string) => void mem.set(key, value),
+        removeItem: (key: string) => void mem.delete(key),
+        clear: () => mem.clear(),
+        key: (index: number) => [...mem.keys()][index] ?? null,
+        get length() {
+          return mem.size
+        },
+      },
+    })
+    clearOwnActivities()
+    const drill = sanitizeOwnActivity({
+      id: 'own-imp-share-01',
+      title: 'Äggrullning nerför kil',
+      blockType: 'techniques',
+      durationMinutesDefault: 6,
+      summary: 's',
+      howTo: '1. a',
+      watchFor: 'w',
+      safetyLine: 'x',
+      tags: ['kil'],
+      defaultStationEquipment: [{ pieceId: 'eq-kilmatta', count: 1 }],
+      regressionOf: 'tech-kullerbytta',
+      needsCoachReview: true,
+      source: { url: 'https://youtu.be/2DJ_oMM81mI?t=50', creator: 'Prime Coaching Sport', startSeconds: 50 },
+    } as Partial<Activity>)
+    assert.ok(drill)
+    importOwnActivities([drill])
+    const pass = sessionToShare(withOwn())
+    assert.equal(pass.own?.[0]?.source?.creator, 'Prime Coaching Sport')
+    const token = await encodeShare(withOwn())
+    clearOwnActivities()
+    mem.clear()
+    const back = await decodeShare(token)
+    assert.ok(back)
+    const received = getActivityById('own-imp-share-01')
+    assert.equal(received?.source?.startSeconds, 50)
+    assert.deepEqual(received?.defaultStationEquipment, [{ pieceId: 'eq-kilmatta', count: 1 }])
+    assert.equal(received?.regressionOf, 'tech-kullerbytta')
+    assert.ok(received?.tags.includes('kil'))
+    const fromJson = sessionFromPassJson(JSON.stringify(pass))
+    assert.ok(fromJson)
+    assert.equal(getActivityById('own-imp-share-01')?.source?.url, 'https://youtu.be/2DJ_oMM81mI?t=50')
+  })
+
+  it('an old pass file without the new fields still opens', () => {
+    const old = {
+      v: 1,
+      title: 'Gammalt',
+      notes: '',
+      blocks: [
+        {
+          type: 'techniques',
+          durationMinutes: 20,
+          items: [{ id: 'i1', activityId: 'own-old-123', durationMinutes: 6, note: '', order: 0 }],
+        },
+      ],
+      own: [
+        {
+          id: 'own-old-123',
+          title: 'Gammal egen',
+          blockType: 'techniques',
+          durationMinutesDefault: 6,
+          summary: 's',
+          howTo: '1. a',
+          watchFor: 'w',
+          safetyLine: 'x',
+        },
+      ],
+    }
+    const back = sessionFromPassJson(JSON.stringify(old))
+    assert.equal(back?.title, 'Gammalt')
+    const own = getActivityById('own-old-123')
+    assert.equal(own?.title, 'Gammal egen')
+    assert.equal(own?.source, undefined)
+    assert.equal(own?.needsCoachReview, undefined)
   })
 })

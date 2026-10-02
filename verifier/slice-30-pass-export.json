@@ -1,0 +1,186 @@
+{
+  "v": 1,
+  "title": "Nytt pass",
+  "notes": "",
+  "hallTemplateId": "standard-trupp",
+  "hallPlacements": [
+    {
+      "sessionItemId": "item-dxdm1nzs-muqtdve7",
+      "x": 0.77,
+      "y": 0.18,
+      "zoneId": "trampett"
+    },
+    {
+      "sessionItemId": "item-94potf99-muqtdvoc",
+      "x": 0.86,
+      "y": 0.8,
+      "zoneId": "mats"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gathering",
+      "durationMinutes": 6,
+      "items": [
+        {
+          "id": "item-0ysljewe-muqtdsn8",
+          "activityId": "gather-narvaro",
+          "durationMinutes": 3,
+          "note": "",
+          "order": 0
+        },
+        {
+          "id": "item-sejf872e-muqtdsn8",
+          "activityId": "gather-dagens-teknik",
+          "durationMinutes": 3,
+          "note": "",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "type": "warmup",
+      "durationMinutes": 10,
+      "items": []
+    },
+    {
+      "type": "techniques",
+      "durationMinutes": 20,
+      "items": [
+        {
+          "id": "item-dxdm1nzs-muqtdve7",
+          "activityId": "own-imp-2dj-02-formhopp-over-block",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 0,
+          "stationEquipment": [
+            {
+              "pieceId": "eq-trampett",
+              "count": 1
+            },
+            {
+              "pieceId": "eq-skumblock",
+              "count": 1
+            },
+            {
+              "pieceId": "eq-landningsmatta",
+              "count": 1
+            },
+            {
+              "pieceId": "eq-rockring",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "id": "item-94potf99-muqtdvoc",
+          "activityId": "own-imp-2dj-03-aggrullning-kil",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 1,
+          "stationEquipment": [
+            {
+              "pieceId": "eq-kilmatta",
+              "count": 1
+            },
+            {
+              "pieceId": "eq-madrass",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "strength",
+      "durationMinutes": 15,
+      "items": []
+    },
+    {
+      "type": "fun_and_games",
+      "durationMinutes": 10,
+      "items": []
+    }
+  ],
+  "own": [
+    {
+      "id": "own-imp-2dj-02-formhopp-over-block",
+      "title": "Formhopp över block från trampett",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.",
+      "howTo": "1. Ställ ett lågt skumblock mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.",
+      "watchFor": "Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.",
+      "safetyLine": "Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.",
+      "tags": [
+        "teknik",
+        "trampett",
+        "hopp",
+        "former",
+        "landning",
+        "egen"
+      ],
+      "defaultStationEquipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-skumblock",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-rockring",
+          "count": 2
+        }
+      ],
+      "progressionOf": "tech-ljushopp-trampett",
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=30",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 30
+      }
+    },
+    {
+      "id": "own-imp-2dj-03-aggrullning-kil",
+      "title": "Äggrullning nerför kil",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.",
+      "howTo": "1. Lägg kilmattan på en madrass. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.",
+      "watchFor": "Formen som släpper (ben eller armar åker ut), hakan som åker upp.",
+      "safetyLine": "Kilen ligger stadigt på en matta. Bara en i taget i backen.",
+      "tags": [
+        "teknik",
+        "rullning",
+        "kil",
+        "form",
+        "nybörjare",
+        "egen"
+      ],
+      "difficulty": "intro",
+      "defaultStationEquipment": [
+        {
+          "pieceId": "eq-kilmatta",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "regressionOf": "tech-kullerbytta",
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=50",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 50
+      }
+    }
+  ]
+}
