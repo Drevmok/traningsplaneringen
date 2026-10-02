@@ -75,13 +75,15 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 | Idea | Slice | Status / notes |
 |---|---|---|
-| _(none — Övningsimport moved to Shipped Slice 30)_ | | |
+| Delad övningsbank i databas (Supabase, bara läsa) | 31 | **Approved/Locked 2026-10-02 20:25** (A1 · D1 of pack A1/B2/C1/D1/E1/F1); next: Christoffer Supabase setup → Docs → Builder → Verifier. Pack `slice-31/` (branch `slice-31-pack`). |
 
 ---
 
 ## Approved (ready for a slice pack)
 
-_(none — wizard moved to Shipped Slice 29)_
+| Idea | Slice | Status / notes |
+|---|---|---|
+| Admin-inloggning + redigering av banken (magic link, Godkänn/Ändra/Dölj, bot skriver som Väntar) | 32 | **Approved/Locked 2026-10-02 20:25** (B2 · C1 · E1 · F1). Pack written — `slice-31/` (shared with Slice 31). Starts after Slice 31 is live; E1 replaces the PR seed path (`slice-31/content/bot-writes.md`). |
 
 ---
 
@@ -93,7 +95,7 @@ _(none — wizard moved to Shipped Slice 29)_
 | Passbyggaren entry for Redigera redskap | Hall-detail-only locked for Slice 13 | Slice 13 decisions |
 | Canvas equipment-count badge on markers | Detail-only locked for Slice 13 | Slice 13 decisions |
 | Styrka / other blocks placeable on hall | Teknik-only locked Slice 11+ | Slice 11 |
-| Accounts / cloud sync / App Store | Out of near-term scope | Standing product locks |
+| Accounts / cloud sync / App Store | Out of near-term scope. **Narrowly lifted 2026-10-02** by Slices 31–32: read-only shared bank + admin-only login. Coach accounts / sync stay parked | Standing product locks · `slice-31/decisions.md` |
 | Custom coach-authored redskap catalog | Fixed 10-piece library for Slice 13 | Slice 13 |
 | Förrådslista — show which stations contribute | Useful later; keep flat list for now | Christoffer / Scout 2026-09-25 |
 

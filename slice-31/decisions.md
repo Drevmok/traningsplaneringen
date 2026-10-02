@@ -1,13 +1,13 @@
-# Slice 31 + 32 — decisions (DRAFT · recommended A1 / B2 / C1 / D1 / E1 / F1)
+# Slice 31 + 32 — decisions (LOCKED · A1 / B2 / C1 / D1 / E1 / F1)
 
-**Status:** **DRAFT 2026-10-02** — waiting for Christoffer. Nothing is built until A–F are locked.  
+**Status:** **LOCKED 2026-10-02 20:25** — A1 / B2 / C1 / D1 / E1 / F1 (Christoffer, all six at once).  
 **Direction:** Put the shared exercise bank in a database so it can be updated without a code change per exercise (Slice 31, read-only), then let admins log in and edit it in the app (Slice 32).  
-**Which slice needs which answer:** Slice 31 needs **A** and **D**. Slice 32 needs **B, C, E, F**. Locking all six now is recommended so the database built in Slice 31 already fits Slice 32.  
+**Which slice uses which answer:** Slice 31 = **A1 + D1**. Slice 32 = **B2, C1, E1, F1**. All six locked together, so the Slice 31 database already fits Slice 32. The slices still ship separately.  
 **Standing locks:** Swedish UI · coaches never log in · own exercises/passes stay on the device · Teknik-only hall · quiet chrome · fixed redskap library · no in-app AI · no video fetching.
 
-## Recommended A–F
+## Locked A–F
 
-| # | Rec. | In one line |
+| # | Locked | In one line |
 |---|---|---|
 | A | **A1** | Supabase (hosted database with login built in) |
 | B | **B2** | A list of admins — on day one only you |
@@ -64,7 +64,7 @@
 
 | Option | What it means for you |
 |---|---|
-| **E1 Rekommenderat** | **A dedicated robot key, kept only on the agents' computer (the box).** After you've looked at Planner's drafts, Planner writes them straight into the bank marked **"Väntar på godkännande"** — invisible to coaches. You open the app, read them, and tap **Godkänn** (or Ändra / Dölj). | Fastest: no code PR or publish per video, and nothing reaches coaches until you tap Godkänn. The key has its own name (`planner-bot`), so you can switch it off with one click without touching anything else. It is **never** put in the app, GitHub or chat. Trade-off: any agent on the box could technically use that key — that's why it can only add/edit "waiting" rows (it can't delete) and every robot write is labelled `bot:planner`. |
+| **E1 Rekommenderat** | **A dedicated robot key, kept only on the agents' computer (the box).** After you've looked at Planner's drafts, Planner writes them straight into the bank marked **"Väntar på godkännande"** — invisible to coaches. You open the app, read them, and tap **Godkänn** (or Ändra / Dölj). | Fastest: no code PR or publish per video, and nothing reaches coaches until you tap Godkänn. The key has its own name (`planner-bot`), so you can switch it off with one click without touching anything else. It is **never** put in the app, GitHub or chat. Trade-off: any agent on the box could technically use that key — that's why the database refuses any delete with it, the robot's script only adds "waiting" rows (it won't overwrite an existing exercise without your OK), and every robot write is labelled `bot:planner`. |
 | E2 | **Keep the PR route as today.** Builder adds stations to the built-in list in a code PR; after merge they are copied into the database. | Proven and reviewed in GitHub, but slow (one PR + publish per video), and there are two "truths" (code and database) that can drift apart. |
 | E3 | **Through the admin screen only.** Planner sends you a file, like today's import; you log in and use **Importera till banken**. | No robot key exists at all — the safest option. But you do the import taps every time, and we must build a bigger admin screen (an import tool inside admin mode). |
 

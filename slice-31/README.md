@@ -1,15 +1,15 @@
 # Slice 31 + 32 — Delad övningsbank i en databas (läsa) · Admin-inloggning och redigering
 
 **App:** Träningsplaneraren  
-**Approval:** **DRAFT — awaiting Christoffer's A–F** (recommended **A1 / B2 / C1 / D1 / E1 / F1**)  
-**Date drafted:** 2026-10-02  
-**Status:** DRAFT. One pack, **two slices that ship separately**: Slice 31 needs **A + D** locked; Slice 32 needs **B, C, E, F** locked. Recommended: lock all six now so the Slice 31 schema already fits Slice 32.
+**Approval:** **LOCKED 2026-10-02 20:25** — **A1 / B2 / C1 / D1 / E1 / F1**  
+**Date locked:** 2026-10-02  
+**Status:** LOCKED — one pack, **two slices that ship separately**. Slice 31 (A1 + D1): next — Christoffer setup → Docs → Builder → Verifier. Slice 32 (B2 + C1 + E1 + F1): Approved/Locked, starts after Slice 31 is live.
 
 **Why slice 31:** highest pack folder is `slice-30/`, highest ship note `app/SLICE30-SHIPPED.md`, PR #32 (11 Prime Coaching Sport seeds) was a seed batch, not a slice. → **slice-31** (read-only bank) and **slice-32** (admin) share this folder; Slice 32 gets its own ship note `app/SLICE32-SHIPPED.md`.
 
 **Product direction:** The exercise bank should live in one shared place that Christoffer (and later trusted admins) can update **without a code PR + deploy per exercise**, while every coach still opens the app with no login and it still works in a hall with bad wifi.
 
-**Standing locks touched (deliberately, only on lock):** "no accounts / cloud" is lifted **narrowly**: Slice 31 = the app *reads* a public bank from a hosted database; Slice 32 = **admins only** can log in. Coaches still have **no accounts**; own exercises, passes, mallar, tips and hall stay **device-local**. All other locks stand: Swedish UI, Teknik-only hall placements, quiet chrome, no in-app AI, no video fetching, fixed redskap library.
+**Standing locks touched (deliberately, now locked):** "no accounts / cloud" is lifted **narrowly**: Slice 31 = the app *reads* a public bank from a hosted database; Slice 32 = **admins only** can log in. Coaches still have **no accounts**; own exercises, passes, mallar, tips and hall stay **device-local**. All other locks stand: Swedish UI, Teknik-only hall placements, quiet chrome, no in-app AI, no video fetching, fixed redskap library.
 
 ## Goal
 
@@ -30,9 +30,9 @@
 **Coach outcome (31):** "Appen startar som vanligt, men övningarna kommer från den gemensamma banken — och den funkar ändå när hallens wifi strular."  
 **Coach outcome (32):** "Jag loggar in med en länk i mejlen, godkänner Planners nya stationer och rättar en text direkt i appen — alla tränare ser det nästa gång de öppnar."
 
-## Recommended A–F (draft)
+## Locked A–F
 
-| # | Rec. | Meaning | Slice |
+| # | Locked | Meaning | Slice |
 |---|---|---|---|
 | A | **A1** | Bank in **Supabase** (hosted Postgres + login), free plan, EU region | 31 |
 | B | **B2** | **Admins list**, starting with only Christoffer | 32 |
