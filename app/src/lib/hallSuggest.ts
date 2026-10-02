@@ -10,10 +10,16 @@ const PIECE_ZONE: ReadonlyArray<readonly [string, HallZoneId]> = [
   ['eq-airtrack', 'tumbling'],
   ['eq-flickiskudde', 'tumbling'],
   ['eq-mattberg', 'mattberg'],
+  // Slice 30 — a bar or beam outranks its dismount mat (no Mattor zone for a räcke).
+  ['eq-racke', 'open'],
+  ['eq-bom', 'open'],
   ['eq-plint', 'open'],
+  ['eq-kilmatta', 'mats'],
   ['eq-madrass', 'mats'],
   ['eq-landningsmatta', 'mats'],
   ['eq-kon', 'open'],
+  ['eq-skumblock', 'open'],
+  ['eq-rockring', 'open'],
 ]
 
 function zoneFromTags(activityId: string): HallZoneId {

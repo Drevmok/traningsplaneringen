@@ -471,8 +471,8 @@ export const UI = {
   wizardQ3Label: 'Hallayout',
   wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
   wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
-  // Slice 10 — distribution; Slice 29 footer (docs/home-wizard.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 29',
+  // Slice 10 — distribution; Slice 30 footer (slice-30/content/microcopy.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 30',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
@@ -519,12 +519,76 @@ export const UI = {
   ownInUse: 'Övningen sitter i ett pass eller en mall.',
   ownSaved: 'Egen övning sparad.',
   ownDeleted: 'Egen övning borttagen.',
-  ownFull: 'Du har 40 egna övningar. Ta bort en först.',
+  ownFull: 'Du har 100 egna övningar. Ta bort en först.',
   ownNeedTitle: 'Skriv ett namn.',
   ownNeedWhy: 'Skriv varför ni gör den.',
   ownNeedHow: 'Skriv minst ett steg, högst fyra.',
   ownNeedWatch: 'Skriv vad ni ska se upp för.',
   ownNeedSafety: 'Skriv säkerheten. Den följer med till golvet.',
+  // Slice 30 — Övningsimport (slice-30/content/microcopy.sv.md, Docs final)
+  ownImport: 'Importera övningar',
+  ownImportAria: 'Importera övningar från en fil eller en kod',
+  ownImportTitle: 'Importera övningar',
+  ownImportHint:
+    'Välj filen eller klistra in koden du fick. Inget sparas förrän du trycker Importera.',
+  ownImportFile: 'Välj fil',
+  ownImportPaste: 'Klistra in kod',
+  ownImportRead: 'Läs in',
+  ownImportCancel: 'Avbryt',
+  ownImportCloseAria: 'Stäng importen utan att spara',
+  ownImportBad: 'Filen eller koden gick inte att läsa.',
+  ownImportNewer:
+    'Filen kommer från en nyare version av appen. Uppdatera appen och försök igen.',
+  ownImportEmpty: 'Det finns inga övningar i filen.',
+  ownImportIsPass: 'Det här är ett pass. Öppna det under Hämta ett pass på startsidan.',
+  importIsExercises:
+    'Det här är övningar. Importera dem under Bibliotek → Importera övningar.',
+  ownImportRoom: 'Plats för {n} till',
+  ownImportRoomNone:
+    'Du har redan 100 egna övningar. Ta bort några för att importera fler.',
+  ownImportInclude: 'Ta med',
+  ownImportSkip: 'Hoppa över',
+  ownImportReplace: 'Ersätt',
+  ownImportChoiceAria: 'Välj vad som händer med {title}',
+  ownImportStateNew: 'Ny',
+  ownImportStateSameName: 'Samma namn finns redan',
+  ownImportStateExists: 'Finns redan',
+  ownImportStateInvalid: 'Kan inte importeras',
+  ownImportStateNoRoom: 'Ingen plats',
+  ownImportNoteClipped: 'Förkortad.',
+  ownImportNoteSteps: 'Högst fyra steg. Resten togs bort.',
+  ownImportNoteUnknownPiece: 'Okänt redskap togs bort: {list}',
+  ownImportNoteNotTeknik: 'Redskapen togs bort. De används bara i Teknik.',
+  ownImportNoteLink: 'Kopplingen till en annan övning togs bort.',
+  ownImportNoteSource: 'Källan togs bort. Den behöver en https-länk och ett namn.',
+  ownImportNoteDupId: 'Samma övning finns två gånger i filen.',
+  ownImportNoteBadFormat: 'Övningen har fel format.',
+  ownImportNoteMissing: 'Saknar {fält}.',
+  ownImportNoteSameName: 'Tar du med den får du två övningar med samma namn.',
+  ownImportNoteExists:
+    'Ersätt skriver över din version. Pass som använder övningen får den nya texten.',
+  ownImportConfirm: 'Importera {n} övningar',
+  ownImportConfirmOne: 'Importera 1 övning',
+  ownImportConfirmNone: 'Välj minst en övning först',
+  ownImportDone: '{n} övningar importerade. Läs igenom dem före passet.',
+  ownImportDoneOne: '1 övning importerad. Läs igenom den före passet.',
+  ownNeedsReview: 'Behöver granskas',
+  ownNeedsReviewHint:
+    'Importerad övning. Läs igenom den och ändra så att den passar er hall.',
+  ownMarkReviewed: 'Markera som granskad',
+  ownMarkReviewedAria: 'Markera {title} som granskad',
+  ownReviewedToast: 'Markerad som granskad.',
+  sourceLabel: 'Källa',
+  sourceLine: 'Källa: {creator}',
+  sourceLineAt: 'Källa: {creator} · {time}',
+  sourceAria: 'Öppna videon hos {creator} i en ny flik',
+  sourceAriaTitled: 'Öppna ”{title}” hos {creator} i en ny flik',
+  progressionOfLabel: 'Bygger på',
+  regressionOfLabel: 'Lättare variant av',
+  ownEquipment: 'Redskap',
+  ownEquipmentHint: 'Förslag till stationen. Bara i Teknik.',
+  ownEquipmentPick: 'Välj redskap',
+  ownEquipmentNone: 'Inga redskap valda.',
   oppnaPaTelefonUrl: 'https://drevmok.github.io/traningsplaneringen/',
   draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
   draftHonestyBody:
@@ -636,4 +700,41 @@ export function composeTitleWithName(title: string): string {
 
 export function mismatchMessage(intendedBlockLabel: string): string {
   return `Den här övningen används vanligtvis i ${intendedBlockLabel}. Du kan ändå lägga till den här.`
+}
+
+// Slice 30 — Övningsimport helpers
+
+export function ownImportRoomText(n: number): string {
+  if (n <= 0) return UI.ownImportRoomNone
+  return UI.ownImportRoom.replace('{n}', String(n))
+}
+
+export function ownImportConfirmText(n: number): string {
+  if (n <= 0) return UI.ownImportConfirmNone
+  if (n === 1) return UI.ownImportConfirmOne
+  return UI.ownImportConfirm.replace('{n}', String(n))
+}
+
+export function ownImportDoneText(n: number): string {
+  if (n === 1) return UI.ownImportDoneOne
+  return UI.ownImportDone.replace('{n}', String(n))
+}
+
+/** "Saknar varför och säkerhet." · "Saknar namn, varför och säkerhet." */
+export function ownImportMissingText(fields: readonly string[]): string {
+  const list =
+    fields.length <= 1
+      ? (fields[0] ?? '')
+      : `${fields.slice(0, -1).join(', ')} och ${fields[fields.length - 1]}`
+  return UI.ownImportNoteMissing.replace('{fält}', list)
+}
+
+export function sourceLineText(creator: string, time?: string): string {
+  if (time) return UI.sourceLineAt.replace('{creator}', creator).replace('{time}', time)
+  return UI.sourceLine.replace('{creator}', creator)
+}
+
+export function sourceAriaText(creator: string, title?: string): string {
+  if (title) return UI.sourceAriaTitled.replace('{title}', title).replace('{creator}', creator)
+  return UI.sourceAria.replace('{creator}', creator)
 }

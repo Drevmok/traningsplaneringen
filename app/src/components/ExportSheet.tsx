@@ -10,6 +10,7 @@ import {
   sessionFromTransfer,
   shareUrl,
 } from '../lib/sharePass'
+import { isExerciseFile } from '../lib/ownImport'
 import { qrSvg } from '../lib/qrSvg'
 import { stationCards } from '../lib/stationCards'
 import type { Session } from '../types'
@@ -78,6 +79,10 @@ export function ExportSheet({ session, onClose, onImport, onTemplateSaved }: Pro
 
   async function onFile(file: File) {
     const text = await file.text()
+    if (isExerciseFile(text)) {
+      setReceiveError(UI.importIsExercises)
+      return
+    }
     const next = await sessionFromTransfer(text)
     if (!next) {
       setReceiveError(UI.receiveBad)

@@ -29,6 +29,7 @@ interface Props {
   onDeleteSaved: (id: string) => void
   ownActivities: Activity[]
   onCreateOwn: () => void
+  onImportOwn: () => void
   onEditOwn: (activity: Activity) => void
   onDeleteOwn: (activity: Activity) => void
   ownInUse: (activityId: string) => boolean
@@ -50,6 +51,7 @@ export function LibraryPanel({
   onDeleteSaved,
   ownActivities,
   onCreateOwn,
+  onImportOwn,
   onEditOwn,
   onDeleteOwn,
   ownInUse,
@@ -127,9 +129,19 @@ export function LibraryPanel({
             </select>
           </label>
           <div className="library-own">
-            <button type="button" className="btn-secondary" onClick={onCreateOwn}>
-              {UI.ownNew}
-            </button>
+            <div className="library-own-actions">
+              <button type="button" className="btn-secondary" onClick={onCreateOwn}>
+                {UI.ownNew}
+              </button>
+              <button
+                type="button"
+                className="btn-secondary"
+                aria-label={UI.ownImportAria}
+                onClick={onImportOwn}
+              >
+                {UI.ownImport}
+              </button>
+            </div>
             <p className="muted">{UI.ownHint}</p>
           </div>
           <label className="library-tonight">

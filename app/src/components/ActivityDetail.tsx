@@ -19,7 +19,9 @@ import { VisualIcon } from '../icons'
 import { EquipmentIcon } from './equipmentMark'
 import { StationSketch } from './StationSketch'
 import { floorTip, validateActivityTip } from '../data/activityTips'
+import { getActivityById } from '../data/seedActivities'
 import type { Activity, StationEquipmentSlot } from '../types'
+import { SourceLine } from './SourceLine'
 
 interface Props {
   activity: Activity
@@ -41,6 +43,8 @@ interface Props {
   showStationEquipment?: boolean
   onEditEquipment?: () => void
   onUseSuggestedEquipment?: (slots: StationEquipmentSlot[]) => void
+  /** Slice 30 (D1) — shown with the review hint on own drills that need it. */
+  onMarkReviewed?: () => void
 }
 
 export function ActivityDetail({
@@ -54,6 +58,7 @@ export function ActivityDetail({
   showStationEquipment = false,
   onEditEquipment,
   onUseSuggestedEquipment,
+  onMarkReviewed,
 }: Props) {
   const [editingDuration, setEditingDuration] = useState(false)
   const [duration, setDuration] = useState(activity.durationMinutesDefault)
@@ -79,6 +84,9 @@ export function ActivityDetail({
     showStationEquipment &&
     equipmentList !== undefined &&
     equipmentList.length > 0
+  const needsReview = activity.own === true && activity.needsCoachReview === true
+  const builtOn = activity.progressionOf ? getActivityById(activity.progressionOf) : undefined
+  const easierOf = activity.regressionOf ? getActivityById(activity.regressionOf) : undefined
   const sketchSlots =
     stationEquipment !== undefined
       ? stationEquipment
@@ -115,12 +123,27 @@ export function ActivityDetail({
           {activity.experiencedCoachOnly && (
             <span className="experienced-badge">{UI.experiencedCoach}</span>
           )}
+          {needsReview && <span className="review-badge">{UI.ownNeedsReview}</span>}
         </h2>
         <p className="detail-meta">
           {BLOCK_LABELS[activity.blockType]} · {activity.durationMinutesDefault}{' '}
           min
         </p>
         {sketchSlots.length > 0 && <StationSketch slots={sketchSlots} />}
+
+        {needsReview && onMarkReviewed && (
+          <div className="review-hint">
+            <p>{UI.ownNeedsReviewHint}</p>
+            <button
+              type="button"
+              className="btn-secondary"
+              aria-label={UI.ownMarkReviewedAria.replace('{title}', activity.title)}
+              onClick={onMarkReviewed}
+            >
+              {UI.ownMarkReviewed}
+            </button>
+          </div>
+        )}
 
         {activity.experiencedCoachOnly && (
           <div className="experienced-warning" role="alert">
@@ -166,6 +189,22 @@ export function ActivityDetail({
             <p>{tip.safety}</p>
           </section>
         )}
+
+        {(builtOn || easierOf) && (
+          <div className="detail-links">
+            {builtOn && (
+              <p className="detail-link-line">
+                {UI.progressionOfLabel}: {builtOn.title}
+              </p>
+            )}
+            {easierOf && (
+              <p className="detail-link-line">
+                {UI.regressionOfLabel}: {easierOf.title}
+              </p>
+            )}
+          </div>
+        )}
+        <SourceLine source={activity.source} />
 
         {showStationEquipment && (
           <section className="station-equipment-section">

@@ -478,6 +478,249 @@
   vertical-align: 1px;
 }
 
+.review-badge {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: #78350f;
+  background: #fef3c7;
+  border-radius: 999px;
+  padding: 1px 6px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.review-hint {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #78350f;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.review-hint p {
+  margin: 0;
+  flex: 1 1 14rem;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.review-hint .btn-secondary {
+  min-height: 44px;
+}
+
+.detail-links {
+  margin: 4px 0 0;
+}
+
+.detail-link-line,
+.source-line {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #78716c;
+}
+
+.source-line a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #d6d3d1;
+  text-underline-offset: 2px;
+}
+
+.source-line a:hover,
+.source-line a:focus-visible {
+  color: #44403c;
+}
+
+.activity-tip .source-line {
+  margin-top: 8px;
+}
+
+.library-own-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Slice 30 — own form Redskap field */
+.own-equipment {
+  align-items: flex-start;
+}
+
+.own-equipment-none,
+.own-equipment-hint {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 450;
+  color: #78716c;
+}
+
+.own-equipment-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.own-equipment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px 2px 4px;
+  border: 1px solid #e7e5e4;
+  border-radius: 999px;
+  background: #fafaf9;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.own-equipment-chip .equipment-icon {
+  width: 28px;
+  height: 22px;
+}
+
+.own-equipment .btn-secondary {
+  min-height: 44px;
+}
+
+.own-equipment-picker {
+  z-index: 65;
+}
+
+/* Slice 30 — Importera övningar sheet */
+.own-import-backdrop {
+  z-index: 60;
+  overflow: auto;
+  align-items: start;
+}
+
+.own-import {
+  position: relative;
+  margin: 12px auto;
+  max-height: none;
+  max-width: 560px;
+}
+
+.own-import h2 {
+  padding-right: 40px;
+}
+
+.own-import-input {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.own-import-input .own-field {
+  margin: 0;
+}
+
+.own-import-input > .btn-secondary,
+.own-import-input .receive-file {
+  align-self: flex-start;
+  min-height: 44px;
+}
+
+.own-import-file,
+.own-import-batch {
+  margin: 0;
+  font-size: 13px;
+}
+
+.own-import-error {
+  margin: 0;
+  color: #b91c1c;
+}
+
+.own-import-room {
+  margin: 4px 0 8px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.own-import-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #e7e5e4;
+  border-radius: 10px;
+}
+
+.own-import-row {
+  padding: 10px 12px;
+  border-top: 1px solid #e7e5e4;
+}
+
+.own-import-row:first-child {
+  border-top: 0;
+}
+
+.own-import-row-head,
+.own-import-row-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.own-import-row-foot {
+  align-items: center;
+  margin-top: 6px;
+}
+
+.own-import-row-meta {
+  font-size: 13px;
+  color: #78716c;
+  white-space: nowrap;
+}
+
+.own-import-state {
+  font-size: 13px;
+  font-weight: 650;
+  color: #44403c;
+}
+
+.own-import-row.is-invalid .own-import-state,
+.own-import-row.is-noRoom .own-import-state {
+  color: #b91c1c;
+}
+
+.own-import-choice {
+  font: inherit;
+  min-height: 40px;
+  border: 1px solid #d6d3d1;
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: #fff;
+}
+
+.own-import-note {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #78716c;
+}
+
+.own-import-actions {
+  justify-content: space-between;
+}
+
+.own-import-actions .btn-primary,
+.own-import-actions .btn-secondary {
+  min-height: 44px;
+}
+
 .library-own {
   display: flex;
   flex-direction: column;

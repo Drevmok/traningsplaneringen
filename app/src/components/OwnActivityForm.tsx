@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { BLOCK_LABELS, BLOCK_ORDER, UI } from '../data/blockMeta'
+import { BLOCK_LABELS, BLOCK_ORDER, stationEquipmentLabelText, UI } from '../data/blockMeta'
+import { getEquipmentPiece } from '../data/equipmentPieces'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import {
   ownActivityIssues,
@@ -8,7 +9,9 @@ import {
   type OwnDraft,
   type OwnIssue,
 } from '../lib/ownActivities'
-import type { Activity, BlockType } from '../types'
+import type { Activity, BlockType, StationEquipmentSlot } from '../types'
+import { EquipmentIcon } from './equipmentMark'
+import { StationComposeSheet } from './StationComposeSheet'
 
 interface Props {
   initial: Activity | null
@@ -40,7 +43,9 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
     howText: linesFromActivity(initial),
     watchFor: initial?.watchFor ?? '',
     safety: initial?.safetyLine ?? '',
+    equipment: initial?.defaultStationEquipment ?? [],
   }))
+  const [picking, setPicking] = useState(false)
   const [issues, setIssues] = useState<OwnIssue[]>([])
   const [full, setFull] = useState(false)
   useBodyScrollLock(true)
@@ -134,6 +139,32 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
             placeholder={UI.ownStepsHint}
           />
         </label>
+        {draft.blockType === 'techniques' && (
+          <div className="own-field own-equipment" role="group" aria-labelledby="own-equipment-label">
+            <span id="own-equipment-label">{UI.ownEquipment}</span>
+            {draft.equipment.length === 0 ? (
+              <p className="own-equipment-none">{UI.ownEquipmentNone}</p>
+            ) : (
+              <ul className="own-equipment-chips">
+                {draft.equipment.map((slot: StationEquipmentSlot) => (
+                  <li key={slot.pieceId} className="own-equipment-chip">
+                    <EquipmentIcon pieceId={slot.pieceId} />
+                    <span>
+                      {stationEquipmentLabelText(
+                        getEquipmentPiece(slot.pieceId)?.labelSv ?? slot.pieceId,
+                        slot.count,
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button type="button" className="btn-secondary" onClick={() => setPicking(true)}>
+              {UI.ownEquipmentPick}
+            </button>
+            <p className="own-equipment-hint">{UI.ownEquipmentHint}</p>
+          </div>
+        )}
         <label className="own-field">
           <span>{UI.watchFor}</span>
           <textarea
@@ -161,6 +192,19 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
           </button>
         </div>
       </form>
+      {picking && (
+        <StationComposeSheet
+          activityTitle={draft.title}
+          title={UI.ownEquipmentPick}
+          backdropClassName="own-equipment-picker"
+          initialSlots={draft.equipment}
+          onClose={() => setPicking(false)}
+          onSave={(slots) => {
+            set('equipment', slots)
+            setPicking(false)
+          }}
+        />
+      )}
     </div>
   )
 }

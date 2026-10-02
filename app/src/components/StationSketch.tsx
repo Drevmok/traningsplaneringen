@@ -28,13 +28,18 @@ function expand(slots: StationEquipmentSlot[]): { pieces: EquipmentKind[]; appro
     ['eq-airtrack', 'air', 1],
     ['eq-tumblingmatta', 'track', 1],
     ['eq-madrass', 'cushion', 4],
+    ['eq-kilmatta', 'wedge', 2],
     ['eq-satsbrada', 'board', 2],
     ['eq-trampett', 'trampett', 3],
+    ['eq-skumblock', 'block', 3],
     ['eq-flickiskudde', 'flick', 2],
     ['eq-plint', 'plint', 2],
     ['eq-mattberg', 'hill', 1],
+    ['eq-racke', 'bar', 1],
+    ['eq-bom', 'beam', 1],
     ['eq-landningsmatta', 'landing', 2],
     ['eq-kon', 'cone', 4],
+    ['eq-rockring', 'hoop', 4],
   ]
   for (const [id, kind, cap] of order) {
     const n = Math.min(count.get(id) ?? 0, cap)

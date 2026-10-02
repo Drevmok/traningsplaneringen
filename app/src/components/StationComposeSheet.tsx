@@ -21,6 +21,9 @@ interface Props {
   initialSlots: StationEquipmentSlot[]
   onSave: (slots: StationEquipmentSlot[]) => void
   onClose: () => void
+  /** Slice 30 — own form reuses the grid as **Välj redskap** (förslag, not a saved station). */
+  title?: string
+  backdropClassName?: string
 }
 
 function cloneSlots(slots: StationEquipmentSlot[]): StationEquipmentSlot[] {
@@ -42,6 +45,8 @@ export function StationComposeSheet({
   initialSlots,
   onSave,
   onClose,
+  title,
+  backdropClassName,
 }: Props) {
   const baseline = useMemo(
     () => sanitizeStationEquipment(initialSlots) ?? [],
@@ -118,7 +123,7 @@ export function StationComposeSheet({
 
   return (
     <div
-      className="modal-backdrop station-compose-backdrop"
+      className={`modal-backdrop station-compose-backdrop${backdropClassName ? ` ${backdropClassName}` : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="station-compose-title"
@@ -129,7 +134,7 @@ export function StationComposeSheet({
       <div className="modal station-compose-sheet">
         <header className="station-compose-header">
           <h2 id="station-compose-title">
-            {composeTitleWithName(activityTitle)}
+            {title ?? composeTitleWithName(activityTitle)}
           </h2>
           <div className="station-compose-header-actions">
             <button

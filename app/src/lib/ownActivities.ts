@@ -1,8 +1,31 @@
 import { BLOCK_ORDER, ITEM_MINUTES_MAX } from '../data/blockMeta'
-import type { Activity, BlockType, Session } from '../types'
+import { sanitizeStationEquipment } from '../data/equipmentPieces'
+import type {
+  Activity,
+  ActivitySource,
+  BlockType,
+  Difficulty,
+  Session,
+  StationEquipmentSlot,
+} from '../types'
+import { sanitizeSource } from './source'
 
 const KEY = 'gymnastics-planner-own-activities-v1'
-const MAX_OWN = 40
+/** E1 — room for several imported videos. */
+export const MAX_OWN = 100
+
+/** One set of limits for the form, storage, share links and import. */
+export const OWN_LIMITS = {
+  title: 80,
+  text: 240,
+  step: 180,
+  steps: 4,
+  tags: 8,
+  tag: 24,
+  link: 80,
+} as const
+
+const DIFFICULTIES: readonly Difficulty[] = ['intro', 'easy', 'medium', 'hard']
 
 export type OwnIssue = 'title' | 'why' | 'how' | 'how-too-long' | 'watch' | 'safety'
 
@@ -14,6 +37,8 @@ export interface OwnDraft {
   howText: string
   watchFor: string
   safety: string
+  /** Redskap förslag. Saved only when the block is Teknik. */
+  equipment: StationEquipmentSlot[]
 }
 
 export interface ShareOwn {
@@ -25,6 +50,15 @@ export interface ShareOwn {
   howTo: string
   watchFor: string
   safetyLine?: string
+  /** Slice 30 — all optional so older links still parse. */
+  tags?: string[]
+  difficulty?: Difficulty
+  defaultStationEquipment?: StationEquipmentSlot[]
+  progressionOf?: string
+  regressionOf?: string
+  needsCoachReview?: boolean
+  experiencedCoachOnly?: boolean
+  source?: ActivitySource
 }
 
 export type SaveOwnResult =
@@ -71,32 +105,109 @@ export function ownActivityIssues(draft: OwnDraft): OwnIssue[] {
   return issues
 }
 
-function asActivity(raw: Partial<Activity> | null | undefined): Activity | null {
-  if (!raw || typeof raw.id !== 'string' || !raw.id.startsWith('own-')) return null
+/** Lower-case, trimmed, deduped, at most 8 (each ≤24). `egen` is always added. */
+export function sanitizeTags(raw: unknown): string[] {
+  const out: string[] = []
+  if (Array.isArray(raw)) {
+    for (const entry of raw) {
+      if (typeof entry !== 'string') continue
+      const tag = entry.trim().toLowerCase().slice(0, OWN_LIMITS.tag)
+      if (!tag || tag === 'egen' || out.includes(tag)) continue
+      if (out.length >= OWN_LIMITS.tags) break
+      out.push(tag)
+    }
+  }
+  return [...out, 'egen']
+}
+
+export function sanitizeDifficulty(raw: unknown): Difficulty {
+  return DIFFICULTIES.includes(raw as Difficulty) ? (raw as Difficulty) : 'easy'
+}
+
+/** Redskap förslag live on Teknik drills only. Unknown pieces are dropped. */
+export function sanitizeOwnEquipment(
+  blockType: BlockType,
+  raw: unknown,
+): StationEquipmentSlot[] | undefined {
+  if (blockType !== 'techniques') return undefined
+  const slots = sanitizeStationEquipment(raw)
+  return slots && slots.length > 0 ? slots : undefined
+}
+
+export function sanitizeLinkId(raw: unknown): string | undefined {
+  if (typeof raw !== 'string') return undefined
+  const id = raw.trim()
+  if (!id || id.length > OWN_LIMITS.link || !/^[a-z0-9-]+$/.test(id)) return undefined
+  return id
+}
+
+/** "1. …\n2. …" with at most four steps, each ≤180. */
+export function normalizeHowTo(howText: string): string {
+  return parseHowLines(howText)
+    .slice(0, OWN_LIMITS.steps)
+    .map((line, index) => `${index + 1}. ${clip(line, OWN_LIMITS.step)}`)
+    .join('\n')
+}
+
+type HiddenFields = Pick<
+  Activity,
+  | 'tags'
+  | 'difficulty'
+  | 'progressionOf'
+  | 'regressionOf'
+  | 'needsCoachReview'
+  | 'experiencedCoachOnly'
+  | 'source'
+>
+
+/** Fields the own form does not show. Shared by storage, share links and import. */
+function hiddenFields(raw: Partial<Activity>): HiddenFields {
+  const fields: HiddenFields = {
+    tags: sanitizeTags(raw.tags),
+    difficulty: sanitizeDifficulty(raw.difficulty),
+    experiencedCoachOnly: raw.experiencedCoachOnly === true,
+  }
+  const progressionOf = sanitizeLinkId(raw.progressionOf)
+  if (progressionOf) fields.progressionOf = progressionOf
+  const regressionOf = sanitizeLinkId(raw.regressionOf)
+  if (regressionOf) fields.regressionOf = regressionOf
+  if (raw.needsCoachReview === true) fields.needsCoachReview = true
+  const source = sanitizeSource(raw.source)
+  if (source) fields.source = source
+  return fields
+}
+
+/** The one sanitizer for own drills (storage, share links, import). */
+export function sanitizeOwnActivity(raw: Partial<Activity> | null | undefined): Activity | null {
+  if (!raw || typeof raw !== 'object') return null
+  if (typeof raw.id !== 'string' || !raw.id.startsWith('own-')) return null
   if (!BLOCK_ORDER.includes(raw.blockType as BlockType)) return null
-  const title = clip(raw.title, 80)
+  const blockType = raw.blockType as BlockType
+  const title = clip(raw.title, OWN_LIMITS.title)
   if (!title) return null
   const activity: Activity = {
     id: raw.id,
     title,
-    blockType: raw.blockType as BlockType,
+    blockType,
     durationMinutesDefault: clampMinutes(raw.durationMinutesDefault ?? 5),
-    summary: clip(raw.summary, 240),
+    summary: clip(raw.summary, OWN_LIMITS.text),
     howTo: clip(raw.howTo, 800),
-    watchFor: clip(raw.watchFor, 240),
+    watchFor: clip(raw.watchFor, OWN_LIMITS.text),
     watchForRequired: true,
     visualKey: 'own',
-    difficulty: 'easy',
-    tags: ['egen'],
     own: true,
     newCoachOk: true,
-    experiencedCoachOnly: false,
     stub: false,
+    ...hiddenFields(raw),
   }
-  const safety = clip(raw.safetyLine, 240)
+  const safety = clip(raw.safetyLine, OWN_LIMITS.text)
   if (safety) activity.safetyLine = safety
+  const equipment = sanitizeOwnEquipment(blockType, raw.defaultStationEquipment)
+  if (equipment) activity.defaultStationEquipment = equipment
   return activity
 }
+
+const asActivity = sanitizeOwnActivity
 
 function readStored(): Activity[] {
   const box = storage()
@@ -141,27 +252,23 @@ function newId(): string {
   return `own-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
 }
 
-function build(draft: OwnDraft, id: string): Activity {
-  const steps = parseHowLines(draft.howText).slice(0, 4)
-  const activity: Activity = {
+/** Form fields from the draft; hidden fields kept from the drill being edited. */
+function build(draft: OwnDraft, id: string, base?: Activity): Activity {
+  const activity = asActivity({
+    ...(base ?? {}),
     id,
-    title: clip(draft.title, 80),
+    title: draft.title,
     blockType: draft.blockType,
-    durationMinutesDefault: clampMinutes(draft.durationMinutes),
-    summary: clip(draft.summary, 240),
-    howTo: steps.map((line, index) => `${index + 1}. ${clip(line, 180)}`).join('\n'),
-    watchFor: clip(draft.watchFor, 240),
-    watchForRequired: true,
-    visualKey: 'own',
-    difficulty: 'easy',
-    tags: ['egen'],
-    own: true,
-    newCoachOk: true,
-    experiencedCoachOnly: false,
-    stub: false,
-  }
-  const safety = clip(draft.safety, 240)
-  if (safety) activity.safetyLine = safety
+    durationMinutesDefault: draft.durationMinutes,
+    summary: draft.summary,
+    howTo: normalizeHowTo(draft.howText),
+    watchFor: draft.watchFor,
+    safetyLine: draft.safety,
+    defaultStationEquipment: draft.equipment,
+    // D1 — saving an edit counts as reviewed.
+    needsCoachReview: false,
+  })
+  if (!activity) throw new Error('own drill failed its own sanitizer')
   return activity
 }
 
@@ -169,18 +276,56 @@ export function saveOwnActivity(draft: OwnDraft, existingId?: string): SaveOwnRe
   if (ownActivityIssues(draft).length > 0) return { ok: false, reason: 'invalid' }
   if (!BLOCK_ORDER.includes(draft.blockType)) return { ok: false, reason: 'invalid' }
   const current = loadOwnActivities()
-  const id =
-    existingId && existingId.startsWith('own-') && current.some((item) => item.id === existingId)
-      ? existingId
-      : newId()
-  const updating = current.some((item) => item.id === id)
-  if (!updating && current.length >= MAX_OWN) return { ok: false, reason: 'full' }
-  const activity = build(draft, id)
-  const next = updating
-    ? current.map((item) => (item.id === id ? activity : item))
+  const existing =
+    existingId && existingId.startsWith('own-')
+      ? current.find((item) => item.id === existingId)
+      : undefined
+  if (!existing && current.length >= MAX_OWN) return { ok: false, reason: 'full' }
+  const activity = build(draft, existing?.id ?? newId(), existing)
+  const next = existing
+    ? current.map((item) => (item.id === existing.id ? activity : item))
     : [activity, ...current]
   write(next)
   return { ok: true, activity }
+}
+
+/** D1 — clears Behöver granskas. Returns the updated list. */
+export function markOwnReviewed(id: string): Activity[] {
+  const current = loadOwnActivities()
+  if (!current.some((item) => item.id === id && item.needsCoachReview)) return current
+  const next = current.map((item) => {
+    if (item.id !== id) return item
+    const copy = { ...item }
+    delete copy.needsCoachReview
+    return copy
+  })
+  write(next)
+  return next
+}
+
+export type ImportOwnResult =
+  | { ok: true; added: number; replaced: number; list: Activity[] }
+  | { ok: false; reason: 'full' }
+
+/**
+ * One write for a whole import. Activities whose id already exists replace
+ * that drill in place (same id, so passes using it get the new text); the
+ * rest are added on top in file order.
+ */
+export function importOwnActivities(incoming: readonly Activity[]): ImportOwnResult {
+  const current = loadOwnActivities()
+  const clean = incoming
+    .map((item) => asActivity(item))
+    .filter((item): item is Activity => Boolean(item))
+  const byId = new Map(clean.map((item) => [item.id, item]))
+  const known = new Set(current.map((item) => item.id))
+  const added = [...byId.values()].filter((item) => !known.has(item.id))
+  if (current.length + added.length > MAX_OWN) return { ok: false, reason: 'full' }
+  const replacedList = current.map((item) => byId.get(item.id) ?? item)
+  const replaced = current.filter((item) => byId.has(item.id)).length
+  const next = [...added, ...replacedList]
+  write(next)
+  return { ok: true, added: added.length, replaced, list: next }
 }
 
 export function deleteOwnActivity(id: string): Activity[] {
@@ -215,6 +360,16 @@ export function activityToShareOwn(activity: Activity): ShareOwn {
     howTo: activity.howTo,
     watchFor: activity.watchFor,
     ...(activity.safetyLine ? { safetyLine: activity.safetyLine } : {}),
+    ...(activity.tags.some((tag) => tag !== 'egen') ? { tags: activity.tags } : {}),
+    ...(activity.difficulty !== 'easy' ? { difficulty: activity.difficulty } : {}),
+    ...(activity.defaultStationEquipment?.length
+      ? { defaultStationEquipment: activity.defaultStationEquipment }
+      : {}),
+    ...(activity.progressionOf ? { progressionOf: activity.progressionOf } : {}),
+    ...(activity.regressionOf ? { regressionOf: activity.regressionOf } : {}),
+    ...(activity.needsCoachReview ? { needsCoachReview: true } : {}),
+    ...(activity.experiencedCoachOnly ? { experiencedCoachOnly: true } : {}),
+    ...(activity.source ? { source: activity.source } : {}),
   }
 }
 

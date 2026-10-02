@@ -99,3 +99,20 @@ describe('activityFitsOwned', () => {
     assert.equal(activityFitsOwned(gathering, []), true)
   })
 })
+
+describe('suggestZoneId — Slice 30 redskap (AC 33)', () => {
+  const at = (pieces: string[]) =>
+    suggestZoneId({
+      activityId: 'gather-narvaro',
+      stationEquipment: pieces.map((pieceId) => ({ pieceId, count: 1 })),
+    })
+
+  it('places the five new pieces by the strongest apparatus', () => {
+    assert.equal(at(['eq-trampett', 'eq-skumblock', 'eq-landningsmatta']), 'trampett')
+    assert.equal(at(['eq-kilmatta', 'eq-madrass']), 'mats')
+    assert.equal(at(['eq-racke', 'eq-landningsmatta']), 'open')
+    assert.equal(at(['eq-bom']), 'open')
+    assert.equal(at(['eq-rockring']), 'open')
+    assert.equal(at(['eq-skumblock']), 'open')
+  })
+})
