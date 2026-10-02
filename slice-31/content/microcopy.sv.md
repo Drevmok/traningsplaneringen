@@ -1,18 +1,38 @@
-# Slice 31 + 32 — microcopy (Swedish · Planner draft, Docs finalises)
+# Slice 31 + 32 — microcopy (Swedish)
 
-**Status:** **DRAFT** — Docs finalises after lock. Builder ships keys in `UI` (`app/src/data/blockMeta.ts`).  
+**Status:** **Slice 31: Docs final 2026-10-02** (lock A1 / B2 / C1 / D1 / E1 / F1). Builder may ship the Slice 31 keys. **Slice 32: Planner draft**, Docs finalises when Slice 32 starts.  
+**Owner:** Docs owns the words. Builder ships the keys in `UI` (`app/src/data/blockMeta.ts`).  
+**Living doc:** [`docs/delad-bank.sv.md`](../../docs/delad-bank.sv.md) (coach note + the same key table for Builder).  
 **Tone:** du, short, coach-to-coach; quiet chrome (Slice 22): no exclamation marks, one line where possible.  
 **Locked terms (unchanged):** övning · egen övning · pass · gymnaster · Bibliotek(et) · Teknik · Redskap · Ändra · Behöver granskas · Markera som granskad · Källa.  
-**New terms:** **banken** (the shared bank) · **admin** · **Väntar på godkännande** · **Godkänn** · **Dölj för alla** / **Visa igen** · **Dold**.
+**New terms (Slice 32):** **banken** (the shared bank) · **admin** · **Väntar på godkännande** · **Godkänn** · **Dölj för alla** / **Visa igen** · **Dold**.
 
-## Slice 31 — coaches
+## Slice 31 — coaches (Docs final)
 
 | Key | Svenska | Where / when |
 |---|---|---|
-| `bankStale` | Visar sparade övningar — kunde inte hämta de senaste. | Biblioteket only, muted, one line under the list header. Only when the bank is configured **and** the last fetch failed this session. Never on Golvklart, Kör passet, print, Home |
+| `bankStale` | Visar sparade övningar. Du kan planera som vanligt. | Biblioteket only, muted, small, one line under the list header (screen-spec §1). Shows only when `bankStatus() === 'stale'`: the bank is configured **and** this load's fetch failed (offline, timeout, error, or 0 valid rows). Same text whether the app is showing its saved copy or, on a first visit, the built-in exercises. Never on Home, Golvklart, Kör passet, print or share |
 | `footerSliceLabel` | Träningsplaneraren · Slice 31 | Footer |
 
-No other coach-facing text changes in Slice 31 (no spinner, no "laddar", no toast on refresh).
+### When the line shows (per `bankStatus()`)
+
+| State | What the coach sees | Text |
+|---|---|---|
+| `bundled`: build without the two repo variables (bank off) | Built-in exercises | None |
+| `cached` / `bundled` while the first fetch is still running (≤ 8 s) | Saved copy or built-in exercises | None. No spinner, no "laddar" |
+| `fresh`: fetch succeeded | Cards update in place; scroll, open sheets and form input kept | None. No toast |
+| `stale`: fetch failed, `navigator.onLine === false`, or 0 valid rows | Saved copy (or built-in on a first visit) | `bankStale` |
+
+The line stays until the next app load (one fetch per load, no retry loop).
+
+### Deliberately no other text in Slice 31
+
+- **Loading:** none. The list is always filled from the saved copy or the built-in exercises before first render.
+- **Errors:** none beyond `bankStale`. No dialog, no toast, no retry button. A failed fetch is not an error for the coach.
+- **Empty:** none new. The bank never shows an empty list (0 valid rows = failed fetch → built-in/saved copy + `bankStale`). Existing Biblioteket empty/filter texts (Slice 01–30) are unchanged.
+- **No tech words in UI:** no new coach-facing text says "Supabase", "databas", "server", "cache", "offline" or "synk". Existing Slice 10 honesty lines stay as they are.
+
+Docs note for Builder: render `bankStale` as plain muted text, not `role="status"` / `aria-live`. It is a quiet note, not an alert.
 
 ## Slice 32 — login (admins)
 

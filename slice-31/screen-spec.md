@@ -8,7 +8,7 @@
 
 ```
 Bibliotek                                   [Ny egen övning] [Importera övningar]
-Visar sparade övningar — kunde inte hämta de senaste.        (muted, small, one line)
+Visar sparade övningar. Du kan planera som vanligt.          (muted, small, one line · `bankStale`, Docs final)
 [Alla] [Samling] [Uppvärmning] [Teknik] [Styrka] [Lek]
 …cards unchanged…
 ```

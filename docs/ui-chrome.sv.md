@@ -377,3 +377,14 @@ Full lock: [`ovningsimport.sv.md`](./ovningsimport.sv.md) (keys also in `slice-3
 | Redskap +5 | Kilmatta · Skumblock · Bom · Räcke · Rockring |
 | Own cap | Du har 100 egna övningar. Ta bort en först. |
 | Footer | Träningsplaneraren · Slice 30 |
+
+---
+
+## Delad övningsbank (Slice 31)
+
+Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/content/microcopy.sv.md`).
+
+| Key | Swedish |
+| --- | --- |
+| Bibliotek, grå rad (`bankStale`) | Visar sparade övningar. Du kan planera som vanligt. |
+| Footer | Träningsplaneraren · Slice 31 |
