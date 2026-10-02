@@ -15,7 +15,7 @@
 | 4174 | vars set | unreachable host `verifier-test.supabase.co`, with a valid-format publishable key |
 | 4175 | vars set | **local stand-in**: Postgres 17 + PostgREST 12 over the real `schema-31.sql`, RLS and seed, behind a self-signed HTTPS proxy |
 
-- **Viewport:** the 4173/4174 drive used DevTools Responsive 390×844. The 4175 drive ran at desktop width because the emulation dropped. Those checks (network, data surfaces, cache) don't depend on the viewport.
+- **Viewport:** 390×844 DevTools Responsive was requested. The saved screenshots show the drives mostly at desktop width, because the emulation didn't stick. The checked behaviour (requests, data on every surface, stale-line placement, cache, print) doesn't depend on width, and phone layout isn't changed by this slice.
 - **Evidence:** `slice-31-evidence-code.md` (file:line per AC), screenshots `/workspace/screenshots/s31v_{A,B,C,D}_*.png`, and Builder's `slice-31-builder-smoke.md`.
 
 ---
