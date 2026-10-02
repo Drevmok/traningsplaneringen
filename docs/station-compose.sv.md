@@ -31,6 +31,8 @@ Stable ids for Builder; Swedish labels for UI. **Keep all 10.** **Mattberg** = o
 
 Do not add custom “eget redskap” text fields this slice. Do not ship club inventory counts (“vi har 2 trampetter”).
 
+**Slice 30 (C1):** five pieces appended after Kon — `eq-kilmatta` Kilmatta · `eq-skumblock` Skumblock · `eq-bom` Bom · `eq-racke` Räcke · `eq-rockring` Rockring. The ten above keep their labels and order. See [`ovningsimport.sv.md`](./ovningsimport.sv.md).
+
 ---
 
 ## Soft hint (Hallöversikt)

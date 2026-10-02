@@ -99,7 +99,7 @@ Living drill→förslag table lives in `docs/station-compose.sv.md` (existing fo
 
 ## Out of scope (do not invent)
 
-- Nya `eq-*` / “eget redskap”
+- Nya `eq-*` / “eget redskap” (Slice 18). *Slice 30 lade till fem redskap efter Kon — se [`ovningsimport.sv.md`](./ovningsimport.sv.md). Fortfarande inget “eget redskap”.*
 - Passbyggaren-compose CTA
 - Canvas badge / CAD
 - Auto-spara förslag vid placering

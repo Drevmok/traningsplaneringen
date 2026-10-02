@@ -180,6 +180,7 @@ Full microcopy: [`station-compose.sv.md`](./station-compose.sv.md) (also under `
 | Empty | Inga redskap angivna ännu. |
 | Footer | Träningsplaneraren · Slice 13 |
 | Library (10) | Trampett · Satsbräda · Plint · Landningsmatta · Tumblingmatta · Madrass · Mattberg · Flickiskudde · Airtrack · Kon |
+| Library +5 (Slice 30) | Kilmatta · Skumblock · Bom · Räcke · Rockring (after Kon) — [`ovningsimport.sv.md`](./ovningsimport.sv.md) |
 
 ---
 
@@ -360,3 +361,19 @@ Full lock: [`home-wizard.sv.md`](./home-wizard.sv.md) (also under `slice-29/cont
 
 Wizard = primary Home start. Soft blank + malls remain escapes. Slice 23 Hall/Golvklart when `draftExists` unchanged. Teknik-only pre-place; empty non-focus zones OK.
 
+---
+
+## Övningsimport (Slice 30)
+
+Full lock: [`ovningsimport.sv.md`](./ovningsimport.sv.md) (keys also in `slice-30/content/microcopy.sv.md`).
+
+| Key | Swedish |
+| --- | --- |
+| Bibliotek CTA | Importera övningar |
+| Confirm | Importera {n} övningar · Importera 1 övning |
+| Review badge | Behöver granskas |
+| Review action | Markera som granskad |
+| Källa | Källa: {creator} · {time} |
+| Redskap +5 | Kilmatta · Skumblock · Bom · Räcke · Rockring |
+| Own cap | Du har 100 egna övningar. Ta bort en först. |
+| Footer | Träningsplaneraren · Slice 30 |

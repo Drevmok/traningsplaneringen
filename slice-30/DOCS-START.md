@@ -1,6 +1,6 @@
-# Slice 30 — Docs start (DRAFT)
+# Slice 30 — Docs start
 
-**Status:** **Not started** — Docs begins only after Christoffer locks A–F (recommended A1/B3/C1/D1/E1/F1).
+**Status:** **Docs shipped 2026-10-02** (lock A1/B3/C1/D1/E1/F1). Final keys: [`content/microcopy.sv.md`](./content/microcopy.sv.md) · living doc: [`docs/ovningsimport.sv.md`](../docs/ovningsimport.sv.md). Next: Builder.
 
 ## Docs scope
 
