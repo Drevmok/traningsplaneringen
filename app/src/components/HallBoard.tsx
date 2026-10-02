@@ -785,6 +785,7 @@ export function HallBoard({
         <ActivityDetail
           activity={detailActivity}
           readOnly
+          floor={isFloor}
           onClose={closeDetail}
           tips={tips}
           onDismissTip={onDismissTip}

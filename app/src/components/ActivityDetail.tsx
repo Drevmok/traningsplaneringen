@@ -22,6 +22,7 @@ import { floorTip, validateActivityTip } from '../data/activityTips'
 import { getActivityById } from '../data/seedActivities'
 import type { Activity, StationEquipmentSlot } from '../types'
 import { SourceLine } from './SourceLine'
+import { detailCoachMeta } from '../lib/source'
 
 interface Props {
   activity: Activity
@@ -45,6 +46,8 @@ interface Props {
   onUseSuggestedEquipment?: (slots: StationEquipmentSlot[]) => void
   /** Slice 30 (D1) — shown with the review hint on own drills that need it. */
   onMarkReviewed?: () => void
+  /** Slice 30 (D1) — Golvklart: hide Källa + Behöver granskas. */
+  floor?: boolean
 }
 
 export function ActivityDetail({
@@ -59,6 +62,7 @@ export function ActivityDetail({
   onEditEquipment,
   onUseSuggestedEquipment,
   onMarkReviewed,
+  floor = false,
 }: Props) {
   const [editingDuration, setEditingDuration] = useState(false)
   const [duration, setDuration] = useState(activity.durationMinutesDefault)
@@ -84,7 +88,8 @@ export function ActivityDetail({
     showStationEquipment &&
     equipmentList !== undefined &&
     equipmentList.length > 0
-  const needsReview = activity.own === true && activity.needsCoachReview === true
+  const coachMeta = detailCoachMeta(activity, floor)
+  const needsReview = coachMeta.showReview
   const builtOn = activity.progressionOf ? getActivityById(activity.progressionOf) : undefined
   const easierOf = activity.regressionOf ? getActivityById(activity.regressionOf) : undefined
   const sketchSlots =
@@ -204,7 +209,7 @@ export function ActivityDetail({
             )}
           </div>
         )}
-        <SourceLine source={activity.source} />
+        {coachMeta.showSource && <SourceLine source={activity.source} />}
 
         {showStationEquipment && (
           <section className="station-equipment-section">

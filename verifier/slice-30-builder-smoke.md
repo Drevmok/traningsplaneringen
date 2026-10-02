@@ -150,3 +150,27 @@ Screenshots: `/workspace/screenshots/slice30_*.png`
 - shot /workspace/screenshots/slice30_regress_soft_blank.png
 - shot /workspace/screenshots/slice30_regress_mall.png
 - shot /workspace/screenshots/slice30_desktop_import_preview.png
+
+---
+
+## B1 fix re-smoke (2026-10-02, after verify 304d2f0)
+
+**Fix:** `ActivityDetail` takes `floor` (HallBoard passes `floor={isFloor}`); `detailCoachMeta(activity, floor)` in `lib/source.ts` hides the Källa line and the Behöver granskas badge (+ hint/button) on Golvklart. Biblioteket, Passbyggaren and Hallöversikt edit mode are unchanged. Unit test: `lib/source.test.ts` (3 tests). `bun test src` 49/0, `npm run build` green.
+
+**Smoke** (`node verifier/slice-30-fix-b1-smoke.mjs`, headless Chrome 390×844, local preview; own drill "Formhopp över block från trampett" imported from `example-import.json`: source Prime Coaching Sport · 0:30, needsCoachReview, Teknik, auto-placed on the hall): **PASS 11 / FAIL 0**
+
+| ID | Check | Result |
+| --- | --- | --- |
+| F1 | Footer still `Träningsplaneraren · Slice 30` | PASS |
+| S0 | Own drill stored with source + needsCoachReview, Teknik | PASS |
+| L1 | Bibliotek detail: Källa line + badge still shown | PASS |
+| E1 | Hallöversikt edit detail: `Källa: Prime Coaching Sport · 0:30 ↗` | PASS |
+| E2 | Hallöversikt edit detail: Behöver granskas badge | PASS |
+| G0 | Golvklart chip opens the Formhopp detail | PASS |
+| G1 | Golvklart detail: no Källa line | PASS |
+| G2 | Golvklart detail: no badge / hint / Markera som granskad | PASS |
+| G3 | Golvklart detail still shows Redskap + sketch | PASS |
+| E3 | After Avsluta golvklart, edit detail shows Källa + badge again | PASS |
+| P | No page errors | PASS |
+
+Screenshots: `slice30_fix_bibliotek_detail.png`, `slice30_fix_hall_edit_detail.png`, `slice30_fix_golvklart.png`, `slice30_fix_golvklart_detail.png`, `slice30_fix_hall_edit_detail_after.png` (in `/workspace/screenshots/`). Results: `verifier/slice-30-fix-b1-results.json`.

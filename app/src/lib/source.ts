@@ -54,3 +54,20 @@ export function formatSourceTime(seconds: number): string {
   if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${ss}`
   return `${m}:${ss}`
 }
+
+/**
+ * Slice 30 (D1, AC 5/29) — the quiet coach-only meta in the detail:
+ * the Källa line and the Behöver granskas badge (+ hint/button).
+ * Never on Golvklart (`floor`); Biblioteket, Passbyggaren and
+ * Hallöversikt edit mode keep them.
+ */
+export function detailCoachMeta(
+  activity: { own?: boolean; needsCoachReview?: boolean; source?: unknown },
+  floor = false,
+): { showSource: boolean; showReview: boolean } {
+  if (floor) return { showSource: false, showReview: false }
+  return {
+    showSource: sanitizeSource(activity.source) !== undefined,
+    showReview: activity.own === true && activity.needsCoachReview === true,
+  }
+}

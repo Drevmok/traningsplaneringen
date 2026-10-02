@@ -70,7 +70,7 @@ A1 (file + paste only, no `#importera=`) · B3 (own now; seed path documented, n
 3. **Picker reuse:** `StationComposeSheet` got optional `title`/`backdropClassName` instead of extracting `EquipmentPicker.tsx` (builder-notes allowed either).
 4. **File pick reads at once** (no extra Läs in tap needed); Läs in still parses the paste box.
 5. **Pre-existing CSS fix:** recipe rows with *Landningsmatta* overflowed a 390 px compose sheet by 14 px (old pieces only). Label now wraps (`min-width: 0; overflow-wrap: anywhere`). Affects Redigera redskap too, and only by removing the overflow.
-6. **Badge in hall detail:** the hall's read-only exercise detail shows the badge (it is an exercise detail) but not the hint/button; Markera som granskad lives in the Passbyggaren detail.
+6. **Badge in hall detail:** Hallöversikt edit mode's read-only exercise detail shows the badge (not the hint/button) and the Källa line; Markera som granskad lives in the Passbyggaren detail. **B1 fix (verify 304d2f0):** in Golvklart the chip detail now hides both the Källa line and the badge (`ActivityDetail floor` prop → `detailCoachMeta`, `lib/source.ts`; test `lib/source.test.ts`). Smoke 11/0, `verifier/slice-30-fix-b1-smoke.mjs`.
 7. **Lenient source fields:** an over-long `creator` is clipped to 80 rather than dropping the source; an invalid `startSeconds` drops only the time. A source without https url or creator is dropped with the note, as specified.
 8. **Tags:** up to 8 file tags are kept, then `egen` is added (so 9 at most).
 9. **Links to rows the coach skipped** are dropped at write time if they don't resolve; render also hides unresolved links.
