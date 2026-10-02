@@ -4,7 +4,9 @@ import { findOwnActivity } from '../lib/ownActivities'
 /**
  * Slice 03 — Christoffer’s real Swedish truppgymnastik drills.
  * Source: slice-03/content/slice-03-seed-activities.sv.md
- * Counts: Samling 5 · Uppvärmning 7 · Teknik 13 · Styrka 5 · Lek 10 = 40
+ * Counts: Samling 5 · Uppvärmning 7 · Teknik 24 · Styrka 5 · Lek 10 = 51
+ * Teknik includes 11 seeds promoted from Prime Coaching Sport, “Fun gymnastics stations”
+ * (import-trials/2DJ_oMM81mI, B3 seed path; source → Källa line).
  * Experienced-only: tech-rondat-flickis, tech-salto-fran-hojd
  */
 export const seedActivities: Activity[] = [
@@ -514,6 +516,342 @@ export const seedActivities: Activity[] = [
     stub: false,
     newCoachOk: true,
     experiencedCoachOnly: false,
+  },
+
+  // —— Teknik · Prime Coaching Sport, Fun gymnastics stations (11) ——
+  // Seed promotion 2DJ_oMM81mI (B3). Own-words drafts; needsCoachReview until
+  // Christoffer approves the text word-for-word (seed-promotion.md step 3).
+  {
+    id: 'tech-grenhopp-trampett',
+    title: 'Grenhopp från trampett',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'trampett', 'hopp', 'landning', 'grenhopp', 'new-coach-ok'],
+    summary:
+      'Grenform i luften och en stabil landning. Första steget mot att hoppa former från trampett med kontroll, inte höjd.',
+    howTo:
+      '1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.',
+    watchFor:
+      'Lång eller snabb ansats, studs nära kanten, benen kvar isär i landningen.',
+    watchForRequired: true,
+    visualKey: 'tech-straddle-trampett',
+    defaultStationEquipment: [
+      { pieceId: 'eq-trampett', count: 1 },
+      { pieceId: 'eq-landningsmatta', count: 1 },
+    ],
+    progressionOf: 'tech-landning-plint',
+    regressionOf: 'tech-formhopp-over-block',
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=16',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 16,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-formhopp-over-block',
+    title: 'Formhopp över block från trampett',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'trampett', 'hopp', 'former', 'landning', 'new-coach-ok'],
+    summary:
+      'Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.',
+    howTo:
+      '1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.',
+    watchFor:
+      'Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.',
+    watchForRequired: true,
+    visualKey: 'tech-shape-over-block',
+    defaultStationEquipment: [
+      { pieceId: 'eq-trampett', count: 1 },
+      { pieceId: 'eq-skumblock', count: 1 },
+      { pieceId: 'eq-landningsmatta', count: 1 },
+    ],
+    progressionOf: 'tech-grenhopp-trampett',
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=30',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 30,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-aggrullning-kil',
+    title: 'Äggrullning nerför kil',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'intro',
+    tags: ['teknik', 'rullning', 'kil', 'form', 'nybörjare', 'new-coach-ok'],
+    summary:
+      'Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.',
+    howTo:
+      '1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.',
+    watchFor:
+      'Formen som släpper (ben eller armar åker ut), hakan som åker upp.',
+    watchForRequired: true,
+    visualKey: 'tech-egg-roll-wedge',
+    defaultStationEquipment: [
+      { pieceId: 'eq-kilmatta', count: 1 },
+      { pieceId: 'eq-madrass', count: 1 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=50',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 50,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-l-hang-racke',
+    title: 'L-häng i räcke',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'räcke', 'bål', 'grepp', 'styrka', 'new-coach-ok'],
+    summary:
+      'Gymnasten hänger med raka armar och lyfter benen framåt. Tränar bål och grepp som behövs i räckesövningar.',
+    howTo:
+      '1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.',
+    watchFor:
+      'Gungande kropp, böjda armar, ben som faller ner okontrollerat.',
+    watchForRequired: true,
+    visualKey: 'tech-l-hang-bar',
+    defaultStationEquipment: [
+      { pieceId: 'eq-racke', count: 1 },
+      { pieceId: 'eq-landningsmatta', count: 1 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=99',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 99,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-stod-racke-pendel',
+    title: 'Stöd på räcke med pendel',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'räcke', 'stöd', 'landning', 'new-coach-ok'],
+    summary:
+      'Upp i stöd på räcket med raka armar och spänd kropp. Grunden för alla räckesövningar och en trygg nedgång.',
+    howTo:
+      '1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.',
+    watchFor:
+      'Böjda armar, axlar som sjunker, höfter som viker sig vid stången, landning för nära räcket.',
+    watchForRequired: true,
+    visualKey: 'tech-support-bar',
+    defaultStationEquipment: [
+      { pieceId: 'eq-racke', count: 1 },
+      { pieceId: 'eq-landningsmatta', count: 1 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=115',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 115,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-asnesparkar',
+    title: 'Åsnesparkar',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'handstående', 'golv', 'armstöd', 'floor', 'new-coach-ok'],
+    summary:
+      'Ett litet hopp upp på händerna med benen sparkade bakåt. Tidigt steg mot att våga lägga vikten på händerna inför handstående.',
+    howTo:
+      '1. Armarna raka och upp framför kroppen, ett ben böjt fram och ett rakt bak.\n2. Sätt händerna i mattan, skjut ifrån med det främre benet och sparka upp bakåt.\n3. Landa mjukt på fötterna. Byt ben varannan gång.',
+    watchFor:
+      'Armar som viker sig, huvudet långt fram mellan armarna, bara ett ben.',
+    watchForRequired: true,
+    visualKey: 'tech-donkey-kick',
+    defaultStationEquipment: [
+      { pieceId: 'eq-tumblingmatta', count: 1 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=146',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 146,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-minihjul',
+    title: 'Minihjul (krabbhjul)',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'intro',
+    tags: ['teknik', 'hjul', 'golv', 'nybörjare', 'floor', 'new-coach-ok'],
+    summary:
+      'Ett litet hjul nära golvet: hand, hand, fot, fot. Lär rytmen och handisättningen i hjulet utan höjd.',
+    howTo:
+      '1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.',
+    watchFor:
+      'Fel ordning på händer och fötter, händer som hamnar för långt bort, bara ett håll.',
+    watchForRequired: true,
+    visualKey: 'tech-mini-cartwheel',
+    defaultStationEquipment: [
+      { pieceId: 'eq-tumblingmatta', count: 1 },
+    ],
+    regressionOf: 'tech-hjul',
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=165',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 165,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-soldatsparkar-bom',
+    title: 'Soldatsparkar på bom',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'bom', 'balans', 'raka ben', 'new-coach-ok'],
+    summary:
+      'Gå längs bommen och sparka fram med raka ben. Tränar balans, raka ben och spänd kropp på smal yta.',
+    howTo:
+      '1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.',
+    watchFor:
+      'Böjda ben, blicken ner i bommen, för snabbt tempo.',
+    watchForRequired: true,
+    visualKey: 'tech-soldier-kicks-beam',
+    defaultStationEquipment: [
+      { pieceId: 'eq-bom', count: 1 },
+      { pieceId: 'eq-landningsmatta', count: 1 },
+    ],
+    progressionOf: 'tech-balansgang',
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=184',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 184,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-krabbgang-bom',
+    title: 'Krabbgång längs bom',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'easy',
+    tags: ['teknik', 'bom', 'stöd', 'axlar', 'styrka', 'new-coach-ok'],
+    summary:
+      'Bakåtstöd med händerna på bommen och förflyttning i sidled. Bygger stark axelposition och raka armar.',
+    howTo:
+      '1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.',
+    watchFor:
+      'Böjda armar, höfter som sjunker mot golvet, axlar som åker upp mot öronen.',
+    watchForRequired: true,
+    visualKey: 'tech-crab-walk-beam',
+    defaultStationEquipment: [
+      { pieceId: 'eq-bom', count: 1 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=205',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 205,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-ljushopp-rockringar',
+    title: 'Ljushopp i rockringar',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'intro',
+    tags: ['teknik', 'hopp', 'ljushopp', 'golv', 'nybörjare', 'floor', 'new-coach-ok'],
+    summary:
+      'Raka ljushopp från ring till ring i sicksack. Tränar spänd kropp, samlade ben och rytm i hoppen.',
+    howTo:
+      '1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.',
+    watchFor:
+      'Armar som åker ner, ben isär, hårda landningar.',
+    watchForRequired: true,
+    visualKey: 'tech-hoop-jumps',
+    defaultStationEquipment: [
+      { pieceId: 'eq-rockring', count: 4 },
+    ],
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=227',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 227,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
+  },
+  {
+    id: 'tech-landning-plint',
+    title: 'Landningar upp på och ner från plint',
+    blockType: 'techniques',
+    durationMinutesDefault: 6,
+    difficulty: 'intro',
+    tags: ['teknik', 'landning', 'hopp', 'plint', 'nybörjare', 'new-coach-ok'],
+    summary:
+      'Hopp upp på en låg plint, stabil landning, sedan hopp ner med en form. Grunden för alla trygga landningar.',
+    howTo:
+      '1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.',
+    watchFor:
+      'Raka ben i landningen, knän som faller inåt, att gymnasten tar steg efter landningen.',
+    watchForRequired: true,
+    visualKey: 'tech-stick-landing-box',
+    defaultStationEquipment: [
+      { pieceId: 'eq-plint', count: 1 },
+    ],
+    regressionOf: 'tech-grenhopp-trampett',
+    source: {
+      url: 'https://youtu.be/2DJ_oMM81mI?t=245',
+      creator: 'Prime Coaching Sport',
+      title: 'Fun gymnastics stations',
+      startSeconds: 245,
+    },
+    stub: false,
+    newCoachOk: true,
+    experiencedCoachOnly: false,
+    needsCoachReview: true,
   },
 
   // —— Styrka (3) ——

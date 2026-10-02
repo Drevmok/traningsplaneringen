@@ -43,6 +43,18 @@ export const VISUAL_ICON: Record<string, IconId> = {
   'str-crawl': 'burst',
   'fun-follow': 'users-wave',
   'fun-freeze': 'music',
+  // Seed promotion 2DJ_oMM81mI — existing icons, new keys
+  'tech-straddle-trampett': 'bounce',
+  'tech-shape-over-block': 'bounce',
+  'tech-egg-roll-wedge': 'rotate',
+  'tech-l-hang-bar': 'hands-up',
+  'tech-support-bar': 'dumbbell',
+  'tech-donkey-kick': 'handstand',
+  'tech-mini-cartwheel': 'shuffle',
+  'tech-soldier-kicks-beam': 'flag',
+  'tech-crab-walk-beam': 'burst',
+  'tech-hoop-jumps': 'arrow-up',
+  'tech-stick-landing-box': 'target',
 }
 
 export const BLOCK_ICON_IDS: Record<BlockType, IconId> = {

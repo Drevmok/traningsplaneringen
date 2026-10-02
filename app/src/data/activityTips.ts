@@ -75,6 +75,29 @@ const ACTIVITY_SAFETY: Record<string, string> = {
     'Ledaren lägger inte in volter. Håll banan fri.',
   'fun-frysdans':
     'Frys på två fötter. Inga vilda hopp när musiken går.',
+  // Seed promotion 2DJ_oMM81mI (Prime Coaching Sport)
+  'tech-grenhopp-trampett':
+    'Landningsmatta direkt efter trampetten. En i taget. Ingen springer in förrän landningen är klar.',
+  'tech-formhopp-over-block':
+    'Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.',
+  'tech-aggrullning-kil':
+    'Kilen ligger stadigt på en matta. Bara en i taget i backen.',
+  'tech-l-hang-racke':
+    'Matta under räcket. Räcket så lågt att gymnasten når själv. Ledare nära vid första försöken.',
+  'tech-stod-racke-pendel':
+    'Matta under och bakom räcket. Räcket i lagom höjd för gruppen. Ledare står nära vid nedgången.',
+  'tech-asnesparkar':
+    'Matta under. Avstånd mellan gymnasterna så ingen får en spark. Ingen tävling om höjd.',
+  'tech-minihjul':
+    'Fri bana. En i taget på mattan. Ingen står där fötterna landar.',
+  'tech-soldatsparkar-bom':
+    'Låg bom med matta bredvid och vid nedhoppet. En i taget på bommen.',
+  'tech-krabbgang-bom':
+    'Bom som står stadigt på golvet. Avbryt om handlederna eller axlarna gör ont.',
+  'tech-ljushopp-rockringar':
+    'Ringarna ligger platt på golvet. Avstånd mellan gymnasterna i banan.',
+  'tech-landning-plint':
+    'Låg och stadig plint. Mjukt underlag vid nedhoppet. En i taget.',
 }
 
 export interface FloorTip {

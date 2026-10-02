@@ -94,11 +94,12 @@ describe('parseExerciseFile — envelope (AC 17)', () => {
 })
 
 describe('example import (AC 14, 15, 7, 24)', () => {
-  it('previews two new rows, default Ta med, with the batch note — and writes nothing', () => {
+  it('previews two rows, default Ta med, with the batch note — and writes nothing', () => {
     fresh()
     const { rows, room, batchNote } = rowsOf(example)
     assert.equal(rows.length, 2)
-    assert.deepEqual(rows.map((r) => r.state), ['new', 'new'])
+    // Both example drills are seeds since promotion 2DJ_oMM81mI → Samma namn finns redan.
+    assert.deepEqual(rows.map((r) => r.state), ['sameName', 'sameName'])
     assert.deepEqual(rows.map((r) => r.defaultChoice), ['include', 'include'])
     assert.match(batchNote ?? '', /Prime Coaching Sport/)
     assert.equal(room, MAX_OWN)
@@ -242,11 +243,11 @@ describe('room (AC 25)', () => {
     if (!result.ok) return
     assert.equal(result.room, 1)
     const resolved = resolveRows(result.rows, new Map(), result.room)
-    assert.deepEqual(resolved.map((r) => r.state), ['new', 'noRoom'])
+    assert.deepEqual(resolved.map((r) => r.state), ['sameName', 'noRoom'])
     assert.equal(resolved[1].locked, true)
     // Skipping the first frees the room for the second.
     const swapped = resolveRows(result.rows, new Map([[0, 'skip' as RowChoice]]), result.room)
-    assert.deepEqual(swapped.map((r) => r.state), ['new', 'new'])
+    assert.deepEqual(swapped.map((r) => r.state), ['sameName', 'sameName'])
     assert.deepEqual(swapped.map((r) => r.choice), ['skip', 'include'])
   })
 })
