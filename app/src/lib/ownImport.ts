@@ -1,6 +1,7 @@
 import { BLOCK_ORDER } from '../data/blockMeta'
 import { isKnownPieceId } from '../data/equipmentPieces'
 import { seedActivities } from '../data/seedActivities'
+import { bankActivityIds, listBankActivities } from './bank'
 import type { Activity, ActivitySource, BlockType } from '../types'
 import {
   MAX_OWN,
@@ -220,7 +221,7 @@ export function parseExerciseFile(text: string, context?: ImportContext): ParseR
   if (!Array.isArray(list) || list.length === 0) return { ok: false, reason: 'empty' }
 
   const own = context?.own ?? loadOwnActivities()
-  const seeds = context?.seeds ?? seedActivities
+  const seeds = context?.seeds ?? listBankActivities()
   const ownIds = new Set(own.map((a) => a.id))
   const titles = new Set([...own, ...seeds].map((a) => a.title.trim().toLowerCase()))
   const fileIds = new Set(
@@ -228,7 +229,8 @@ export function parseExerciseFile(text: string, context?: ImportContext): ParseR
       .map((entry) => (isRecord(entry) && typeof entry.id === 'string' ? entry.id : ''))
       .filter((id) => ID_RE.test(id)),
   )
-  const knownIds = new Set([...seeds.map((a) => a.id), ...ownIds, ...fileIds])
+  // Links may point at any resolvable exercise, hidden bank rows included.
+  const knownIds = new Set([...seeds.map((a) => a.id), ...bankActivityIds(), ...ownIds, ...fileIds])
 
   const seen = new Set<string>()
   const rows: ImportRow[] = list.slice(0, MAX_OWN * 2).map((entry, index) => {
@@ -326,6 +328,7 @@ export function applyImport(rows: readonly ResolvedRow[]): { ok: boolean; count:
     .map((row) => row.activity as Activity)
   if (chosen.length === 0) return { ok: false, count: 0 }
   const resolvable = new Set([
+    ...bankActivityIds(),
     ...seedActivities.map((a) => a.id),
     ...loadOwnActivities().map((a) => a.id),
     ...chosen.map((a) => a.id),

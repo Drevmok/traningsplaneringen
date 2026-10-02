@@ -4,3 +4,7 @@ app/dist/
 *.log
 .env
 .env.*
+# Slice 31 — exporter output is regenerated; only the seed files Christoffer pastes are kept.
+tools/bank/out/*
+!tools/bank/out/bank-seed.sql
+!tools/bank/out/bank-seed.json

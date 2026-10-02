@@ -20,6 +20,7 @@ import {
 } from '../lib/coachTips'
 import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets'
 import { getActivityById } from '../data/seedActivities'
+import { useBank } from '../lib/useBank'
 import {
   applyPreset,
   clampHallZoom,
@@ -109,13 +110,13 @@ export function HallBoard({
   const [cardPrint, setCardPrint] = useState<'stations' | 'pass' | null>(null)
   useBodyPrint(cardPrint, () => setCardPrint(null))
 
+  // Slice 31 — activity-derived values are plain (not memoized on session) so a bank
+  // refresh that re-renders the board shows the new text in place.
+  useBank()
   const itemCount = useMemo(() => countSessionItems(session), [session])
-  const placeableCount = useMemo(
-    () => countPlaceableItems(session),
-    [session],
-  )
-  const cards = useMemo(() => stationCards(session), [session])
-  const unplaced = useMemo(() => getUnplacedItems(session), [session])
+  const placeableCount = countPlaceableItems(session)
+  const cards = stationCards(session)
+  const unplaced = getUnplacedItems(session)
   const noStations = itemCount > 0 && placeableCount === 0
   const activeTemplateId = normalizeTemplateId(session.hallTemplateId)
   const showFlow = isHallShowFlow(session)
@@ -145,15 +146,11 @@ export function HallBoard({
     () => aggregateStationEquipment(listSessionItems(session)),
     [session],
   )
-  const eligibleSuggestedCount = useMemo(
-    () => eligibleSuggestedStationEquipmentItems(session).length,
-    [session],
-  )
+  const eligibleSuggestedCount =
+    eligibleSuggestedStationEquipmentItems(session).length
   /** Slice 25 — placed Teknik with unset or [] saved redskap (edit banner). */
-  const missingSavedCompositionCount = useMemo(
-    () => placedTeknikMissingSavedEquipment(session).length,
-    [session],
-  )
+  const missingSavedCompositionCount =
+    placedTeknikMissingSavedEquipment(session).length
 
   // Silent prune of non-Teknik / missing placements when Hallöversikt is open.
   useEffect(() => {

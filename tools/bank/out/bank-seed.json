@@ -1,0 +1,1765 @@
+{
+  "format": "traningsplaneraren.bank",
+  "schemaVersion": 1,
+  "redskap": [
+    {
+      "id": "eq-trampett",
+      "label_sv": "Trampett",
+      "visual_key": "eq-trampett",
+      "sort_order": 10
+    },
+    {
+      "id": "eq-satsbrada",
+      "label_sv": "Satsbräda",
+      "visual_key": "eq-satsbrada",
+      "sort_order": 20
+    },
+    {
+      "id": "eq-plint",
+      "label_sv": "Plint",
+      "visual_key": "eq-plint",
+      "sort_order": 30
+    },
+    {
+      "id": "eq-landningsmatta",
+      "label_sv": "Landningsmatta",
+      "visual_key": "eq-landningsmatta",
+      "sort_order": 40
+    },
+    {
+      "id": "eq-tumblingmatta",
+      "label_sv": "Tumblingmatta",
+      "visual_key": "eq-tumblingmatta",
+      "sort_order": 50
+    },
+    {
+      "id": "eq-madrass",
+      "label_sv": "Madrass",
+      "visual_key": "eq-madrass",
+      "sort_order": 60
+    },
+    {
+      "id": "eq-mattberg",
+      "label_sv": "Mattberg",
+      "visual_key": "eq-mattberg",
+      "sort_order": 70
+    },
+    {
+      "id": "eq-flickiskudde",
+      "label_sv": "Flickiskudde",
+      "visual_key": "eq-flickiskudde",
+      "sort_order": 80
+    },
+    {
+      "id": "eq-airtrack",
+      "label_sv": "Airtrack",
+      "visual_key": "eq-airtrack",
+      "sort_order": 90
+    },
+    {
+      "id": "eq-kon",
+      "label_sv": "Kon",
+      "visual_key": "eq-kon",
+      "sort_order": 100
+    },
+    {
+      "id": "eq-kilmatta",
+      "label_sv": "Kilmatta",
+      "visual_key": "eq-kilmatta",
+      "sort_order": 110
+    },
+    {
+      "id": "eq-skumblock",
+      "label_sv": "Skumblock",
+      "visual_key": "eq-skumblock",
+      "sort_order": 120
+    },
+    {
+      "id": "eq-bom",
+      "label_sv": "Bom",
+      "visual_key": "eq-bom",
+      "sort_order": 130
+    },
+    {
+      "id": "eq-racke",
+      "label_sv": "Räcke",
+      "visual_key": "eq-racke",
+      "sort_order": 140
+    },
+    {
+      "id": "eq-rockring",
+      "label_sv": "Rockring",
+      "visual_key": "eq-rockring",
+      "sort_order": 150
+    }
+  ],
+  "exercises": [
+    {
+      "id": "gather-valkomstcheck-in",
+      "block_type": "gathering",
+      "title": "Välkomstcheck-in",
+      "duration_minutes_default": 5,
+      "summary": "Välkomna gruppen och kolla hur veckan har varit — kort, inkluderande start på passet.",
+      "how_to": "1. Samla gymnasterna så alla syns och hör.\n2. Hälsa alla; modellera ett kort svar själv.\n3. Kort runda: hur mår ni / hur har veckan varit?\n4. Tacka och gå vidare innan det blir långt.",
+      "watch_for": "Enskilda monologer som äter tiden; se till att tysta gymnaster också får plats — utan press att prata.",
+      "watch_for_required": true,
+      "safety_line": null,
+      "visual_key": "gather-checkin",
+      "difficulty": "intro",
+      "tags": [
+        "samling",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 10
+    },
+    {
+      "id": "gather-narvaro",
+      "block_type": "gathering",
+      "title": "Närvaro",
+      "duration_minutes_default": 3,
+      "summary": "Bocka av listan så att alla som ska vara där är på plats.",
+      "how_to": "1. Ta fram närvarolistan innan gruppen sprider sig.\n2. Markera närvarande/frånvarande.\n3. Följ upp saknade enligt klubbens rutin.",
+      "watch_for": "Glöm inte avvikande namn och nya gymnaster; lämna inte gruppen utan uppsikt medan du bara stirrar i listan.",
+      "watch_for_required": true,
+      "safety_line": null,
+      "visual_key": "gather-attendance",
+      "difficulty": "intro",
+      "tags": [
+        "samling",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": null,
+      "sort_order": 20
+    },
+    {
+      "id": "gather-dagens-teknik",
+      "block_type": "gathering",
+      "title": "Dagens pass — snabb genomgång",
+      "duration_minutes_default": 3,
+      "summary": "Kort genomgång av vad ni ska göra på passet — så alla vet planen innan ni börjar.",
+      "how_to": "1. Samla gymnasterna så alla syns och hör.\n2. Säg i enkla ord vad passet innehåller — block för block eller dagens fokus.\n3. Håll det kort; spara djup coaching till respektive block.",
+      "watch_for": "För lång genomgång — håll det till ”vad vi gör idag”, inte hela övningarna.",
+      "watch_for_required": true,
+      "safety_line": null,
+      "visual_key": "gather-today-tech",
+      "difficulty": "intro",
+      "tags": [
+        "samling",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": null,
+      "sort_order": 30
+    },
+    {
+      "id": "gather-regler",
+      "block_type": "gathering",
+      "title": "Dagens regler",
+      "duration_minutes_default": 3,
+      "summary": "Tre regler för hallen, innan gruppen sprider sig.",
+      "how_to": "1. Säg tre regler, inte en lång lista.\n2. Visa ett exempel, till exempel var man får springa.\n3. Låt en gymnast säga en regel tillbaka.\n4. Gå vidare innan det blir en föreläsning.",
+      "watch_for": "En lång regelrunda äter samlingen. Håll det till det ni behöver idag.",
+      "watch_for_required": true,
+      "safety_line": null,
+      "visual_key": "gather-rules",
+      "difficulty": "intro",
+      "tags": [
+        "samling",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 40
+    },
+    {
+      "id": "gather-hog-fem",
+      "block_type": "gathering",
+      "title": "Hög fem i cirkel",
+      "duration_minutes_default": 3,
+      "summary": "Kort start så alla är med, innan ni går till uppvärmningen.",
+      "how_to": "1. Stå i cirkel så alla syns.\n2. Hög fem med grannen, en riktning runt.\n3. En mening om vad ni ska göra sen.\n4. Bryt cirkeln när energin är där.",
+      "watch_for": "Ingen tvingas till hög fem. Erbjud en nick eller en vink.",
+      "watch_for_required": true,
+      "safety_line": null,
+      "visual_key": "gather-high-five",
+      "difficulty": "intro",
+      "tags": [
+        "samling",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 50
+    },
+    {
+      "id": "warm-hall-varv",
+      "block_type": "warmup",
+      "title": "Uppvärmningsvarv (hallen runt)",
+      "duration_minutes_default": 10,
+      "summary": "Rörligt varv i hallen med löpning och grundfärdigheter — väcker kroppen inför tekniken.",
+      "how_to": "1. Led varvet i lagom fart runt hallen.\n2. Växla typiskt: springa, springa baklänges, ljusstakar fram/bak, kullerbytta framåt/bakåt, hjulning vänster och höger, bear walk, handstand, handstand till hopkrupen, crocodile walk, kaninhopp.\n3. Anpassa vilka delar som är med efter nivå och dag.\n4. Håll kö och avstånd så ingen springer in i nästa.",
+      "watch_for": "Utrymme och krockar; handstand och bakåtkullerbytta kräver madrass/uppsikt — tvinga inte max om tekniken inte sitter. Hjulning: båda sidorna; kolla axlar och handleder.",
+      "watch_for_required": true,
+      "safety_line": "Handstående och bakåtkullerbytta kräver madrass och uppsikt. Tvinga inte max.",
+      "visual_key": "warm-hall-lap",
+      "difficulty": "easy",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": null,
+      "sort_order": 60
+    },
+    {
+      "id": "warm-uppvarmningsdans",
+      "block_type": "warmup",
+      "title": "Uppvärmningsdans",
+      "duration_minutes_default": 6,
+      "summary": "Dansuppvärmning som rör hela kroppen — rörlighet och glädje, inte maxpuls.",
+      "how_to": "1. Sätt på musik.\n2. Led eller använd en känd uppvärmningsdans.\n3. Sikta på axlar, höfter, rygg, ben och koordination.\n4. Erbjud en enklare, mindre ”scenisk” variant åt den som behöver.",
+      "watch_for": "För vilda hopp på hårt golv; ge alternativ för den som inte vill dansa sceniskt.",
+      "watch_for_required": true,
+      "safety_line": "Inga vilda hopp på hårt golv. Erbjud en lugnare variant.",
+      "visual_key": "warm-dance",
+      "difficulty": "intro",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 70
+    },
+    {
+      "id": "warm-123-voltpositioner",
+      "block_type": "warmup",
+      "title": "1-2-3 (voltpositioner)",
+      "duration_minutes_default": 4,
+      "summary": "Positionerna 1, 2 och 3 inför framåtvolt / frivolt-arbete — kort formträning utan full volt.",
+      "how_to": "1. Gå igenom de tre positionerna ni använder i klubben för framåtvolt.\n2. Låt gymnasterna öva dem rytmiskt, samma språk varje gång.\n3. Håll det kort — ingen full volt i uppvärmningen om ni bara övar formerna.",
+      "watch_for": "Tydlighet i språket så alla menar samma position; ingen full volt här om målet bara är formerna.",
+      "watch_for_required": true,
+      "safety_line": "Ingen full volt här — bara formerna.",
+      "visual_key": "warm-123-volt",
+      "difficulty": "easy",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": null,
+      "sort_order": 80
+    },
+    {
+      "id": "warm-tojning-gymnaster",
+      "block_type": "warmup",
+      "title": "Töjning — gymnasterna leder",
+      "duration_minutes_default": 5,
+      "summary": "Töjning där gymnaster leder varandra eller gruppen — ansvar och igenkända stretch.",
+      "how_to": "1. Utse ledare (rotera mellan passen).\n2. De visar töjningar ni redan kan.\n3. Coachen backar upp säkerhet och tid.",
+      "watch_for": "Ojämn kvalitet — rätta farliga vinklar; ingen ”press” djupare än behagligt.",
+      "watch_for_required": true,
+      "safety_line": "Ingen press djupare än behagligt. Rätta farliga vinklar.",
+      "visual_key": "warm-stretch-athletes",
+      "difficulty": "intro",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 90
+    },
+    {
+      "id": "warm-tojning-coach",
+      "block_type": "warmup",
+      "title": "Töjning — coach leder",
+      "duration_minutes_default": 5,
+      "summary": "Coachledd töjning efter eller mitt i uppvärmningen — lugn, förutsägbar stretch.",
+      "how_to": "1. Led ett kort stretchprogram (ben, höftböjare, axlar, handleder efter behov).\n2. Andas lugnt; håll ca 15–30 s per sida där det passar.\n3. Håll samma ordning så gruppen känner igen flödet.",
+      "watch_for": "Studsande stretch; smärta ≠ ”bra”; anpassa för hypermobila gymnaster.",
+      "watch_for_required": true,
+      "safety_line": "Studsa inte i stretchen. Smärta är inte målet.",
+      "visual_key": "warm-stretch-coach",
+      "difficulty": "intro",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 100
+    },
+    {
+      "id": "warm-djurpromenad",
+      "block_type": "warmup",
+      "title": "Djurpromenad",
+      "duration_minutes_default": 6,
+      "summary": "Björn, krabba och kanin över golvet — kroppen vaknar utan maxhopp.",
+      "how_to": "1. Visa björn, krabba och kanin.\n2. Gå en led över golvet, ett djur i taget.\n3. Byt djur efter varje vända.\n4. Håll kön så ingen startar förrän ytan är fri.",
+      "watch_for": "Handleder och avstånd. Ingen kapplöpning in i nästa.",
+      "watch_for_required": true,
+      "safety_line": "Håll avstånd mellan leden. Inga hopp på hårt golv.",
+      "visual_key": "warm-animals",
+      "difficulty": "easy",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 110
+    },
+    {
+      "id": "warm-fotarbete",
+      "block_type": "warmup",
+      "title": "Fotarbete på stället",
+      "duration_minutes_default": 4,
+      "summary": "Lätt fötter på egen ruta — jogg, galopp och små hopp, inte en tävling.",
+      "how_to": "1. Varje gymnast har en egen ruta, inte en tät klunga.\n2. Lätt jogg, galopp och små jämfotahopp på stället.\n3. Mjuka landningar. Armarna hjälper balansen.\n4. Avsluta med att stå stilla och andas.",
+      "watch_for": "Hårda landningar och hopp som blir tävling.",
+      "watch_for_required": true,
+      "safety_line": "Mjuka landningar. Ingen maxhopp på hårt golv.",
+      "visual_key": "warm-feet",
+      "difficulty": "intro",
+      "tags": [
+        "uppvärmning",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 120
+    },
+    {
+      "id": "tech-ljushopp-satsbrada",
+      "block_type": "techniques",
+      "title": "Ljushopp på satsbräda",
+      "duration_minutes_default": 6,
+      "summary": "Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först.",
+      "how_to": "1. Visa sats → bräda → ljushopp med kontrollerad landning.\n2. En i taget; tydlig kö.\n3. Cue: timing och rak kropp före höjd.",
+      "watch_for": "Fel fotisättning på brädan; landning bakom/framför mattan; köhållning så ingen springer in för tidigt.",
+      "watch_for_required": true,
+      "safety_line": "En i taget. Ingen springer in förrän landningen är klar.",
+      "visual_key": "tech-ljushopp-board",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "vault",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-satsbrada",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 130
+    },
+    {
+      "id": "tech-ljushopp-trampett",
+      "block_type": "techniques",
+      "title": "Ljushopp på trampett",
+      "duration_minutes_default": 6,
+      "summary": "Ljushopp på trampett — tydlig ansats, studs i mitten, sträckt hopp och mjuk landning.",
+      "how_to": "1. Visa tydlig ansats och studs i mitten av trampetten.\n2. Sträckt ljushopp, mjuk landning.\n3. En i taget; vänta tills landningen är klar.",
+      "watch_for": "Ansats för lång/snabb; studs nära kanten; landning utan madrasskydd där det behövs.",
+      "watch_for_required": true,
+      "safety_line": "En i taget. Landning på madrass — vänta tills den är klar.",
+      "visual_key": "tech-ljushopp-trampett",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "trampett",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 140
+    },
+    {
+      "id": "tech-satsbrada-volt-rygg",
+      "block_type": "techniques",
+      "title": "Satsbräda volt till rygg",
+      "duration_minutes_default": 9,
+      "summary": "Volt från satsbräda till landning på rygg — progressiv volt med madrass.",
+      "how_to": "1. Säkerställ madrass som räcker bakåt innan första försöket.\n2. Satsbräda → rotation → landning på rygg.\n3. Bygg från kortare rotation innan fullare volt; spotta efter nivå.\n4. En i taget.",
+      "watch_for": "För lite rotation (nacke/huvud); för mycket höjd utan kontroll; madrassen måste räcka bakåt.",
+      "watch_for_required": true,
+      "safety_line": "Madrassen måste räcka bakåt innan första försöket. En i taget.",
+      "visual_key": "tech-board-volt-back",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "vault",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-satsbrada",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 150
+    },
+    {
+      "id": "tech-trampett-volt-mattberg",
+      "block_type": "techniques",
+      "title": "Trampett volt upp på mattberg",
+      "duration_minutes_default": 9,
+      "summary": "Volt från trampett upp på mattberg — progressiv höjd och rotation.",
+      "how_to": "1. Kolla att mattberget är stabilt och högt nog.\n2. Ansats → trampett → volt → landning högt på mattberg.\n3. Progressera höjd/rotation efter nivå.\n4. En i taget; nästa väntar tills landningen är klar.",
+      "watch_for": "Mattberg som tippar eller är för lågt; underrotation; att nästa gymnast startar för tidigt.",
+      "watch_for_required": true,
+      "safety_line": "Mattberget ska stå stabilt. Nästa väntar tills landningen är klar.",
+      "visual_key": "tech-trampett-mattberg",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "trampett",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-mattberg",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 160
+    },
+    {
+      "id": "tech-rondat-flickis",
+      "block_type": "techniques",
+      "title": "Rondat–flickis",
+      "duration_minutes_default": 10,
+      "summary": "Rondat till flickis (bakåtväxel / flic-flac) — endast med erfaren ledare och aktiv spotting.",
+      "how_to": "1. Endast när erfaren ledare leder och spotttar.\n2. Progressera från bekanta delar innan hela kedjan.\n3. Spotting aktivt under hela setet.\n4. Avbryt om tekniken fallerar.",
+      "watch_for": "Handplacering, axellinje, underrotation, nacke. Avbryt om tekniken fallerar under setet.",
+      "watch_for_required": true,
+      "safety_line": "Endast med erfaren ledare och aktiv spotting. Avbryt om tekniken fallerar.",
+      "visual_key": "tech-rondat-flickis",
+      "difficulty": "hard",
+      "tags": [
+        "teknik",
+        "floor",
+        "experienced-coach-only"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-tumblingmatta",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": true,
+      "new_coach_ok": false,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 170
+    },
+    {
+      "id": "tech-flickis-kudde",
+      "block_type": "techniques",
+      "title": "Flickis med flickiskudde",
+      "duration_minutes_default": 9,
+      "summary": "Flickis med flickiskudde som stöd — känna bakåtrörelsen innan fri flickis.",
+      "how_to": "1. Placera kudden enligt klubbens metod.\n2. Låt gymnasten känna bakåtrörelsen med stöd.\n3. Progressera mot friare flickis när formen sitter.",
+      "watch_for": "Kudden rätt placerad; inte ”kasta” bakåt utan aktivt handstöd från gymnasten där metoden kräver det.",
+      "watch_for_required": true,
+      "safety_line": "Kudden enligt klubbens metod. Kasta inte bakåt utan handstöd.",
+      "visual_key": "tech-flickis-pad",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-flickiskudde",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 180
+    },
+    {
+      "id": "tech-falla-bakat-hojd",
+      "block_type": "techniques",
+      "title": "Falla bakåt från höjd till rygg",
+      "duration_minutes_default": 6,
+      "summary": "Kontrollerad fall bakåt från höjd till landning på rygg — trygghet inför bakåtmoment.",
+      "how_to": "1. Använd plint/höjd som klubben brukar; tjock och lång madrass bakom.\n2. Falla bakåt till rygg med teknikfokus.\n3. Bygg trygghet stegvis — ingen ”vem vågar högst”-lek.",
+      "watch_for": "Huvudet får inte ta emot; madrass tillräckligt tjock/lång; ingen höjdtävling utan teknikfokus.",
+      "watch_for_required": true,
+      "safety_line": "Tjock och lång madrass bakom. Huvudet får inte ta emot.",
+      "visual_key": "tech-fall-back",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-plint",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 190
+    },
+    {
+      "id": "tech-salto-fran-hojd",
+      "block_type": "techniques",
+      "title": "Salto från höjd",
+      "duration_minutes_default": 9,
+      "summary": "Salto från höjd (fullare voltmoment) — endast med erfaren ledare, spotting och rätt uppbyggnad.",
+      "how_to": "1. Endast med erfaren ledare och rätt progression bakom.\n2. Spotting och madrassuppställning före första försöket.\n3. En i taget; stoppa tidigt vid osäkra försök.",
+      "watch_for": "Under-/överrotation; landningszon; trötthet i kön. Stoppa tidigt vid osäkra försök.",
+      "watch_for_required": true,
+      "safety_line": "Endast med erfaren ledare, spotting och madrass före första försöket. Stoppa osäkra försök.",
+      "visual_key": "tech-salto-height",
+      "difficulty": "hard",
+      "tags": [
+        "teknik",
+        "floor",
+        "experienced-coach-only"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-plint",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": true,
+      "new_coach_ok": false,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 200
+    },
+    {
+      "id": "tech-handstaende-falla-rygg",
+      "block_type": "techniques",
+      "title": "Handstående falla till rygg",
+      "duration_minutes_default": 6,
+      "summary": "Från handstående, kontrollerad fall till rygg — öppning och trygg bakåtlandning.",
+      "how_to": "1. Lägg madrass bakom innan någon går upp i handstående.\n2. Handstående (mot vägg eller fri enligt nivå) → tippa/falla till rygg.\n3. Cue öppning och mjuk landning på rygg.",
+      "watch_for": "Huvud/nacke; axlar som kollapsar; madrass bakom måste finnas innan de går upp.",
+      "watch_for_required": true,
+      "safety_line": "Madrass bakom innan någon går upp i handstående.",
+      "visual_key": "tech-hs-fall-back",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 210
+    },
+    {
+      "id": "tech-kullerbytta",
+      "block_type": "techniques",
+      "title": "Kullerbytta framåt",
+      "duration_minutes_default": 6,
+      "summary": "En trygg kullerbytta framåt på matta — rund rygg, inte ett kast.",
+      "how_to": "1. Lägg madrassen fram. Visa haka i och rund rygg.\n2. En i taget från huk, händerna i mattan.\n3. Rulla upp till fötterna utan att sätta fart i väggen.\n4. Nästa startar först när mattan är fri.",
+      "watch_for": "Platt rygg, hakan upp, eller någon som skjuter på bakifrån.",
+      "watch_for_required": true,
+      "safety_line": "Madrass under. Hakan i. Nästa väntar tills mattan är fri.",
+      "visual_key": "tech-roll",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 220
+    },
+    {
+      "id": "tech-hjul",
+      "block_type": "techniques",
+      "title": "Hjul",
+      "duration_minutes_default": 6,
+      "summary": "Hjul åt båda håll på en fri linje — händer och fötter i en bana.",
+      "how_to": "1. Markera en linje på golvet.\n2. Visa hjul med magen in och blicken på händerna.\n3. En i taget, först ett håll och sedan det andra.\n4. Ingen står i landningen.",
+      "watch_for": "Böjd bana, någon i vägen, eller bara ett håll.",
+      "watch_for_required": true,
+      "safety_line": "Fri bana. En i taget. Båda hållen, utan att någon står i vägen.",
+      "visual_key": "tech-cartwheel",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 230
+    },
+    {
+      "id": "tech-bro",
+      "block_type": "techniques",
+      "title": "Bro",
+      "duration_minutes_default": 5,
+      "summary": "Bro med egna händer och fötter. Ingen trycker ner ryggen.",
+      "how_to": "1. Madrass. Ligg på rygg, fötterna nära rumpan, händerna vid öronen.\n2. Lyft höfterna till bro, eller stanna på en lägre båge.\n3. Håll en kort stund och kom ner på ryggen, inte på huvudet.\n4. En i taget om ytan är liten.",
+      "watch_for": "Någon som trycker på magen eller ryggen. Handleder som viker sig.",
+      "watch_for_required": true,
+      "safety_line": "Ingen trycker ner ryggen. Avbryt om handlederna gör ont.",
+      "visual_key": "tech-bridge",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 240
+    },
+    {
+      "id": "tech-balansgang",
+      "block_type": "techniques",
+      "title": "Balansgång",
+      "duration_minutes_default": 5,
+      "summary": "Balans på en linje på golvet. Armarna ut, inte en upphöjd bänk.",
+      "how_to": "1. Markera en linje, eller ställ koner som gång.\n2. Gå framåt med blicken långt fram.\n3. Armarna ut. Vänd kontrollerat.\n4. En i taget om linjen är smal.",
+      "watch_for": "De tittar i golvet och tappar linjen. Ingen kliver upp på plint eller bänk.",
+      "watch_for_required": true,
+      "safety_line": "Linjen är på golvet, inte på en upphöjd bänk. En i taget.",
+      "visual_key": "tech-balance",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-kon",
+          "count": 4
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 250
+    },
+    {
+      "id": "tech-grenhopp-trampett",
+      "block_type": "techniques",
+      "title": "Grenhopp från trampett",
+      "duration_minutes_default": 6,
+      "summary": "Grenform i luften och en stabil landning. Första steget mot att hoppa former från trampett med kontroll, inte höjd.",
+      "how_to": "1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.",
+      "watch_for": "Lång eller snabb ansats, studs nära kanten, benen kvar isär i landningen.",
+      "watch_for_required": true,
+      "safety_line": "Landningsmatta direkt efter trampetten. En i taget. Ingen springer in förrän landningen är klar.",
+      "visual_key": "tech-straddle-trampett",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "trampett",
+        "hopp",
+        "landning",
+        "grenhopp",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": "tech-landning-plint",
+      "regression_of": "tech-formhopp-over-block",
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=16",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 16
+      },
+      "sort_order": 260
+    },
+    {
+      "id": "tech-formhopp-over-block",
+      "block_type": "techniques",
+      "title": "Formhopp över block från trampett",
+      "duration_minutes_default": 6,
+      "summary": "Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.",
+      "how_to": "1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.",
+      "watch_for": "Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.",
+      "watch_for_required": true,
+      "safety_line": "Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.",
+      "visual_key": "tech-shape-over-block",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "trampett",
+        "hopp",
+        "former",
+        "landning",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-skumblock",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": "tech-grenhopp-trampett",
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=30",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 30
+      },
+      "sort_order": 270
+    },
+    {
+      "id": "tech-aggrullning-kil",
+      "block_type": "techniques",
+      "title": "Äggrullning nerför kil",
+      "duration_minutes_default": 6,
+      "summary": "Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.",
+      "how_to": "1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.",
+      "watch_for": "Formen som släpper (ben eller armar åker ut), hakan som åker upp.",
+      "watch_for_required": true,
+      "safety_line": "Kilen ligger stadigt på en matta. Bara en i taget i backen.",
+      "visual_key": "tech-egg-roll-wedge",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "rullning",
+        "kil",
+        "form",
+        "nybörjare",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-kilmatta",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=50",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 50
+      },
+      "sort_order": 280
+    },
+    {
+      "id": "tech-l-hang-racke",
+      "block_type": "techniques",
+      "title": "L-häng i räcke",
+      "duration_minutes_default": 6,
+      "summary": "Gymnasten hänger med raka armar och lyfter benen framåt. Tränar bål och grepp som behövs i räckesövningar.",
+      "how_to": "1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.",
+      "watch_for": "Gungande kropp, böjda armar, ben som faller ner okontrollerat.",
+      "watch_for_required": true,
+      "safety_line": "Matta under räcket. Räcket så lågt att gymnasten når själv. Ledare nära vid första försöken.",
+      "visual_key": "tech-l-hang-bar",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "räcke",
+        "bål",
+        "grepp",
+        "styrka",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-racke",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=99",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 99
+      },
+      "sort_order": 290
+    },
+    {
+      "id": "tech-stod-racke-pendel",
+      "block_type": "techniques",
+      "title": "Stöd på räcke med pendel",
+      "duration_minutes_default": 6,
+      "summary": "Upp i stöd på räcket med raka armar och spänd kropp. Grunden för alla räckesövningar och en trygg nedgång.",
+      "how_to": "1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.",
+      "watch_for": "Böjda armar, axlar som sjunker, höfter som viker sig vid stången, landning för nära räcket.",
+      "watch_for_required": true,
+      "safety_line": "Matta under och bakom räcket. Räcket i lagom höjd för gruppen. Ledare står nära vid nedgången.",
+      "visual_key": "tech-support-bar",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "räcke",
+        "stöd",
+        "landning",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-racke",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=115",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 115
+      },
+      "sort_order": 300
+    },
+    {
+      "id": "tech-asnesparkar",
+      "block_type": "techniques",
+      "title": "Åsnesparkar",
+      "duration_minutes_default": 6,
+      "summary": "Ett litet hopp upp på händerna med benen sparkade bakåt. Tidigt steg mot att våga lägga vikten på händerna inför handstående.",
+      "how_to": "1. Armarna raka och upp framför kroppen, ett ben böjt fram och ett rakt bak.\n2. Sätt händerna i mattan, skjut ifrån med det främre benet och sparka upp bakåt.\n3. Landa mjukt på fötterna. Byt ben varannan gång.",
+      "watch_for": "Armar som viker sig, huvudet långt fram mellan armarna, bara ett ben.",
+      "watch_for_required": true,
+      "safety_line": "Matta under. Avstånd mellan gymnasterna så ingen får en spark. Ingen tävling om höjd.",
+      "visual_key": "tech-donkey-kick",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "handstående",
+        "golv",
+        "armstöd",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-tumblingmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=146",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 146
+      },
+      "sort_order": 310
+    },
+    {
+      "id": "tech-minihjul",
+      "block_type": "techniques",
+      "title": "Minihjul (krabbhjul)",
+      "duration_minutes_default": 6,
+      "summary": "Ett litet hjul nära golvet: hand, hand, fot, fot. Lär rytmen och handisättningen i hjulet utan höjd.",
+      "how_to": "1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.",
+      "watch_for": "Fel ordning på händer och fötter, händer som hamnar för långt bort, bara ett håll.",
+      "watch_for_required": true,
+      "safety_line": "Fri bana. En i taget på mattan. Ingen står där fötterna landar.",
+      "visual_key": "tech-mini-cartwheel",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "hjul",
+        "golv",
+        "nybörjare",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-tumblingmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": "tech-hjul",
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=165",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 165
+      },
+      "sort_order": 320
+    },
+    {
+      "id": "tech-soldatsparkar-bom",
+      "block_type": "techniques",
+      "title": "Soldatsparkar på bom",
+      "duration_minutes_default": 6,
+      "summary": "Gå längs bommen och sparka fram med raka ben. Tränar balans, raka ben och spänd kropp på smal yta.",
+      "how_to": "1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.",
+      "watch_for": "Böjda ben, blicken ner i bommen, för snabbt tempo.",
+      "watch_for_required": true,
+      "safety_line": "Låg bom med matta bredvid och vid nedhoppet. En i taget på bommen.",
+      "visual_key": "tech-soldier-kicks-beam",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "bom",
+        "balans",
+        "raka ben",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-bom",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": "tech-balansgang",
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=184",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 184
+      },
+      "sort_order": 330
+    },
+    {
+      "id": "tech-krabbgang-bom",
+      "block_type": "techniques",
+      "title": "Krabbgång längs bom",
+      "duration_minutes_default": 6,
+      "summary": "Bakåtstöd med händerna på bommen och förflyttning i sidled. Bygger stark axelposition och raka armar.",
+      "how_to": "1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.",
+      "watch_for": "Böjda armar, höfter som sjunker mot golvet, axlar som åker upp mot öronen.",
+      "watch_for_required": true,
+      "safety_line": "Bom som står stadigt på golvet. Avbryt om handlederna eller axlarna gör ont.",
+      "visual_key": "tech-crab-walk-beam",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "bom",
+        "stöd",
+        "axlar",
+        "styrka",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-bom",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=205",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 205
+      },
+      "sort_order": 340
+    },
+    {
+      "id": "tech-ljushopp-rockringar",
+      "block_type": "techniques",
+      "title": "Ljushopp i rockringar",
+      "duration_minutes_default": 6,
+      "summary": "Raka ljushopp från ring till ring i sicksack. Tränar spänd kropp, samlade ben och rytm i hoppen.",
+      "how_to": "1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.",
+      "watch_for": "Armar som åker ner, ben isär, hårda landningar.",
+      "watch_for_required": true,
+      "safety_line": "Ringarna ligger platt på golvet. Avstånd mellan gymnasterna i banan.",
+      "visual_key": "tech-hoop-jumps",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "hopp",
+        "ljushopp",
+        "golv",
+        "nybörjare",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-rockring",
+          "count": 4
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=227",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 227
+      },
+      "sort_order": 350
+    },
+    {
+      "id": "tech-landning-plint",
+      "block_type": "techniques",
+      "title": "Landningar upp på och ner från plint",
+      "duration_minutes_default": 6,
+      "summary": "Hopp upp på en låg plint, stabil landning, sedan hopp ner med en form. Grunden för alla trygga landningar.",
+      "how_to": "1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.",
+      "watch_for": "Raka ben i landningen, knän som faller inåt, att gymnasten tar steg efter landningen.",
+      "watch_for_required": true,
+      "safety_line": "Låg och stadig plint. Mjukt underlag vid nedhoppet. En i taget.",
+      "visual_key": "tech-stick-landing-box",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "landning",
+        "hopp",
+        "plint",
+        "nybörjare",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": [
+        {
+          "pieceId": "eq-plint",
+          "count": 1
+        }
+      ],
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": "tech-grenhopp-trampett",
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=245",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 245
+      },
+      "sort_order": 360
+    },
+    {
+      "id": "strength-cirkeltraning",
+      "block_type": "strength",
+      "title": "Cirkelträning (par, stationer)",
+      "duration_minutes_default": 12,
+      "summary": "Cirkel med flera stationer; gymnaster går runt i par — teknik före tempo.",
+      "how_to": "1. Sätt 4–8 stationer med lagom avstånd.\n2. Visa varje station kort innan start.\n3. 30 s arbete, 20 s vila/byte; jobba i par.\n4. Håll tiden tydligt (timer eller musiksignal).",
+      "watch_for": "Stationer för tätt; teknik före tempo; anpassa så nybörjare inte tar skadliga genvägar.",
+      "watch_for_required": true,
+      "safety_line": "Teknik före tempo. Låt inte nybörjare ta skadliga genvägar.",
+      "visual_key": "str-circuit",
+      "difficulty": "easy",
+      "tags": [
+        "styrka",
+        "group",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 370
+    },
+    {
+      "id": "strength-burpee-emom",
+      "block_type": "strength",
+      "title": "Burpee-challenge (EMOM)",
+      "duration_minutes_default": 8,
+      "summary": "Burpees EMOM (every minute on the minute) — tydlig nivå och tillåtna regressioner.",
+      "how_to": "1. Visa korrekt burpee först.\n2. Varje minut: bestämt antal (eller max under resten av minuten enligt vald variant).\n3. Vila till nästa minutstart; sätt nivå efter gruppen.\n4. Tillåt step-back / utan hopp när formen faller.",
+      "watch_for": "Ojämn form när de blir trötta (höfter sjunker, hopp blir slarviga); erbjud regression tidigt.",
+      "watch_for_required": true,
+      "safety_line": "Avbryt setet när formen faller. Step-back eller utan hopp är tillåtet.",
+      "visual_key": "str-burpee",
+      "difficulty": "easy",
+      "tags": [
+        "styrka",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 380
+    },
+    {
+      "id": "strength-styrkelatar",
+      "block_type": "strength",
+      "title": "Styrkelåtar (Sally, Thunderstruck, Gimme Gimme, jägarvila)",
+      "duration_minutes_default": 5,
+      "summary": "Styrka till kända låtar — t.ex. Sally, Thunderstruck, Gimme Gimme Gimme eller jägarvila hela låten.",
+      "how_to": "1. Välj en låt (en eller två räcker ofta i ett pass).\n2. Förklara rörelsen innan musiken startar.\n3. Synka till refränger/verser enligt klubbrutin (Sally = upp/ner till texten; Thunderstruck = burpee/jump-variation; Gimme = vald styrkeövning; jägarvila = holds hela låten).",
+      "watch_for": "Knän/hållning i squat; axlar i holds; erbjud knästående/kortare hold. Volym — en eller två låtar räcker ofta.",
+      "watch_for_required": true,
+      "safety_line": "Knän och axlar håller formen. En eller två låtar räcker.",
+      "visual_key": "str-songs",
+      "difficulty": "intro",
+      "tags": [
+        "styrka",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 390
+    },
+    {
+      "id": "strength-planka",
+      "block_type": "strength",
+      "title": "Planka i lag",
+      "duration_minutes_default": 6,
+      "summary": "Kort planka där formen vinner över tiden.",
+      "how_to": "1. Visa planka på tå och på knä.\n2. 15–20 sekunder, vila, en omgång till.\n3. Knäversionen är den vanliga, inte ett straff.\n4. Avbryt när höften tappar eller ryggen svankar.",
+      "watch_for": "Svank, och tävling om vem som håller längst.",
+      "watch_for_required": true,
+      "safety_line": "Höfterna får sjunka till knäna. Avbryt om ryggen gör ont.",
+      "visual_key": "str-plank",
+      "difficulty": "easy",
+      "tags": [
+        "styrka",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 400
+    },
+    {
+      "id": "strength-djurkryp",
+      "block_type": "strength",
+      "title": "Björngång och krabba",
+      "duration_minutes_default": 6,
+      "summary": "Björngång och krabbkryp som styrka, inte som race.",
+      "how_to": "1. Visa björn och krabba på en kort bana.\n2. Gå över, vila, byt djur.\n3. Håll handlederna så att det inte gör ont.\n4. Ingen startar mot en kompis i samma bana.",
+      "watch_for": "Tävling och handleder som viker sig.",
+      "watch_for_required": true,
+      "safety_line": "Korta banor. Ingen tävling in i varandra.",
+      "visual_key": "str-crawl",
+      "difficulty": "easy",
+      "tags": [
+        "styrka",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 410
+    },
+    {
+      "id": "fun-rundpingis-medicinboll",
+      "block_type": "fun_and_games",
+      "title": "Rundpingis med medicinboll",
+      "duration_minutes_default": 6,
+      "summary": "Pingis-/rundspel med medicinboll i stället för vanlig boll — lagom vikt för åldern.",
+      "how_to": "1. Ställ upp cirkel eller er vanliga rundpingis-uppställning.\n2. Välj medicinboll med lagom vikt för åldern.\n3. Sätt tydliga gränser för hur hårt de får kasta.",
+      "watch_for": "Ansikte/händer — för tung boll eller hårda kast; anpassa bollvikt.",
+      "watch_for_required": true,
+      "safety_line": "Lagom bollvikt. Inga hårda kast mot ansikte eller händer.",
+      "visual_key": "fun-medball",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": [
+        "medicinboll"
+      ],
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 420
+    },
+    {
+      "id": "fun-hojdhopp",
+      "block_type": "fun_and_games",
+      "title": "Höjdhopp (lek)",
+      "duration_minutes_default": 6,
+      "summary": "Lekfullt höjdhopp över ribba eller mjuk höjd — höj stegvis med trygg landning.",
+      "how_to": "1. Sätt en säker ”ribba” (elastiskt band, moppskaft på koner eller mjuka mattor).\n2. En i taget eller stafettvariant.\n3. Höj stegvis; landning i mjuk zon.",
+      "watch_for": "Landning på två fötter i mjuk zon; ingen hård ribba i ansiktshöjd; köordning.",
+      "watch_for_required": true,
+      "safety_line": "Mjuk landning på två fötter. Ingen hård ribba i ansiktshöjd.",
+      "visual_key": "fun-highjump",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 430
+    },
+    {
+      "id": "fun-stafett",
+      "block_type": "fun_and_games",
+      "title": "Stafett",
+      "duration_minutes_default": 8,
+      "summary": "Klassisk stafett — lag, sträcka och växling med fair start.",
+      "how_to": "1. Dela lag.\n2. Bestäm bana och vad som bärs/görs vid växling.\n3. Demonstrera en gång; fair start.",
+      "watch_for": "Hala golv i kurvor; krockar i växling; håll banan fri från redskap.",
+      "watch_for_required": true,
+      "safety_line": "Håll banan fri från redskap. Se upp för krockar i växlingen.",
+      "visual_key": "fun-relay",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 440
+    },
+    {
+      "id": "fun-123-forflyttning",
+      "block_type": "fun_and_games",
+      "title": "1-2-3 (förflyttningslek)",
+      "duration_minutes_default": 4,
+      "summary": "Förflyttningslek: 1 = den framför går bak, 2 = den bak går fram, 3 = spring — skilt från voltpositionernas 1-2-3.",
+      "how_to": "1. Ställ gymnasterna i led/par enligt er uppställning.\n2. Ropa 1, 2 eller 3.\n3. 1: personen längst fram flyttar sig längst bak. 2: personen längst bak flyttar sig längst fram. 3: alla springer (t.ex. till linje och tillbaka).",
+      "watch_for": "Krockar vid 3; tydliga gränser i hallen.",
+      "watch_for_required": true,
+      "safety_line": "Tydliga gränser i hallen så ingen krockar när ni springer.",
+      "visual_key": "fun-123-move",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 450
+    },
+    {
+      "id": "fun-maffia",
+      "block_type": "fun_and_games",
+      "title": "Maffia",
+      "duration_minutes_default": 10,
+      "summary": "Maffia-lek (social/rollek) enligt klubbens variant — håll det kort och åldersanpassat.",
+      "how_to": "1. Använd er vanliga Maffia-uppsättning (roller, ”natt/dag”, ledare som berättar).\n2. Håll det åldersanpassat; byt roller ofta.\n3. Ingen fysisk ”attack”.",
+      "watch_for": "Uteslutning/önskan — byt roller ofta; ingen fysisk attack.",
+      "watch_for_required": true,
+      "safety_line": "Ingen fysisk attack. Byt roller ofta.",
+      "visual_key": "fun-mafia",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": true,
+      "source": null,
+      "sort_order": 460
+    },
+    {
+      "id": "fun-handstaende-utmaning",
+      "block_type": "fun_and_games",
+      "title": "Handstående-utmaning",
+      "duration_minutes_default": 5,
+      "summary": "Lekfull utmaning — håll handstående eller flest kontrollerade försök med bra form.",
+      "how_to": "1. Mot vägg eller med kompisstöd efter nivå; madrass redo.\n2. Mät tid eller antal kontrollerade försök.\n3. Belöna form, inte bara ”vågat”; tillåt knä/björn-alternativ.",
+      "watch_for": "Fall utan madrass; nacke; tävlingshets som ger slarviga uppsättningar.",
+      "watch_for_required": true,
+      "safety_line": "Madrass redo. Belöna form, inte bara att någon vågar.",
+      "visual_key": "fun-hs-challenge",
+      "difficulty": "easy",
+      "tags": [
+        "lek",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 470
+    },
+    {
+      "id": "fun-huvudstaende-utmaning",
+      "block_type": "fun_and_games",
+      "title": "Stå-på-huvud-utmaning",
+      "duration_minutes_default": 5,
+      "summary": "Huvudstående-utmaning med fokus på trygg upp- och nedgång.",
+      "how_to": "1. Triangelbas, madrass, gärna mot vägg först.\n2. Utmana tid med bra form.\n3. Spotting för dem som är nya.",
+      "watch_for": "Belastning på nacke/huvud — avbryt vid smärta; aldrig utan madrass; ingen som ”knuffar upp” andra.",
+      "watch_for_required": true,
+      "safety_line": "Aldrig utan madrass. Avbryt vid smärta. Ingen knuffar upp någon annan.",
+      "visual_key": "fun-headstand",
+      "difficulty": "easy",
+      "tags": [
+        "lek",
+        "group",
+        "floor",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 480
+    },
+    {
+      "id": "fun-morkerkurragomma",
+      "block_type": "fun_and_games",
+      "title": "Mörkerkurragömma",
+      "duration_minutes_default": 10,
+      "summary": "Kurragömma med dämpad belysning i hallen — tydliga regler innan ljuset skruvas ner.",
+      "how_to": "1. Sätt regler innan mörker: var man får gömma sig, var man inte får (förråd, redskapsskåp, ovanpå plintar som kan tippa), hur man blir tagen, när ljuset tänds.\n2. Behåll nöd-/utgångsljus enligt hallens krav.\n3. Räkna in alla efteråt innan ni lämnar.",
+      "watch_for": "Fall i mörker; gömställen under tunga redskap; rädsla — erbjud ”ljusvakt”-roll. Räkna in hela gruppen.",
+      "watch_for_required": true,
+      "safety_line": "Regler innan ljuset dämpas. Nödutgångsljus på. Räkna in alla efteråt.",
+      "visual_key": "fun-dark-hide",
+      "difficulty": "easy",
+      "tags": [
+        "lek",
+        "group",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 490
+    },
+    {
+      "id": "fun-folja-ledaren",
+      "block_type": "fun_and_games",
+      "title": "Följa ledaren",
+      "duration_minutes_default": 6,
+      "summary": "En ledare visar enkla rörelser. Gruppen härmar. Inga volter.",
+      "how_to": "1. Ledaren visar en enkel förflyttning: jogg, jämfotahopp eller kryp.\n2. Gruppen följer med avstånd.\n3. Byt ledare efter en kort runda.\n4. Stoppa om ledet klumpar ihop sig.",
+      "watch_for": "Ledaren hittar på volter eller hopp mot vägg.",
+      "watch_for_required": true,
+      "safety_line": "Ledaren lägger inte in volter. Håll banan fri.",
+      "visual_key": "fun-follow",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 500
+    },
+    {
+      "id": "fun-frysdans",
+      "block_type": "fun_and_games",
+      "title": "Frysdans",
+      "duration_minutes_default": 5,
+      "summary": "Dansa tills musiken stannar. Frys på två fötter.",
+      "how_to": "1. Sätt regeln först: frys på fötter, inte i handstående.\n2. Musik på. Var och en rör sig i sin ruta.\n3. Musik av. Alla står stilla.\n4. En kort runda räcker.",
+      "watch_for": "Vilda hopp, och frysar som blir volt.",
+      "watch_for_required": true,
+      "safety_line": "Frys på två fötter. Inga vilda hopp när musiken går.",
+      "visual_key": "fun-freeze",
+      "difficulty": "intro",
+      "tags": [
+        "lek",
+        "group",
+        "equipment-free",
+        "new-coach-ok"
+      ],
+      "default_station_equipment": null,
+      "legacy_equipment": null,
+      "progression_of": null,
+      "regression_of": null,
+      "experienced_coach_only": false,
+      "new_coach_ok": true,
+      "needs_coach_review": false,
+      "source": null,
+      "sort_order": 510
+    }
+  ]
+}

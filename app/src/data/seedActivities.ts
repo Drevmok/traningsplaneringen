@@ -1,5 +1,6 @@
 import type { Activity } from '../types'
 import { findOwnActivity } from '../lib/ownActivities'
+import { findBankActivity, listBankActivities } from '../lib/bank'
 
 /**
  * Slice 03 — Christoffer’s real Swedish truppgymnastik drills.
@@ -1136,12 +1137,18 @@ export const seedActivities: Activity[] = [
   },
 ]
 
+/**
+ * Slice 31 — lookup order own → shared bank (published + hidden) → bundled seeds.
+ * `seedActivities` above stays the bundled fallback snapshot (and the source for
+ * tools/bank/export-seed.ts). Sync on purpose: the bank store is filled before first render.
+ */
 export function getActivityById(id: string): Activity | undefined {
-  return findOwnActivity(id) ?? seedActivities.find((a) => a.id === id)
+  return findOwnActivity(id) ?? findBankActivity(id) ?? seedActivities.find((a) => a.id === id)
 }
 
+/** Published bank exercises for a block (bundled seeds when the bank is off). */
 export function activitiesForBlock(
   blockType: Activity['blockType'],
 ): Activity[] {
-  return seedActivities.filter((a) => a.blockType === blockType)
+  return listBankActivities().filter((a) => a.blockType === blockType)
 }

@@ -5,7 +5,7 @@ import {
   TIPS_TAB,
   UI,
 } from '../data/blockMeta'
-import { seedActivities } from '../data/seedActivities'
+import { useBank } from '../lib/useBank'
 import { seedTemplates } from '../data/seedTemplates'
 import { activityFitsOwned, loadOwnedEquipment, loadTonightFilter, ownsEveryPiece, saveTonightFilter } from '../lib/ownedEquipment'
 import type { SavedTemplate } from '../lib/savedTemplates'
@@ -57,6 +57,7 @@ export function LibraryPanel({
   ownInUse,
 }: Props) {
   const [query, setQuery] = useState('')
+  const bank = useBank()
   const [ownedIds] = useState(() => loadOwnedEquipment())
   const [tonightOnly, setTonightOnly] = useState(() => {
     const saved = loadTonightFilter()
@@ -66,7 +67,7 @@ export function LibraryPanel({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return [...ownActivities, ...seedActivities].filter((a) => {
+    return [...ownActivities, ...bank.activities].filter((a) => {
       if (filterBlockType !== 'all' && a.blockType !== filterBlockType)
         return false
       if (tonightOnly && !activityFitsOwned(a, ownedIds)) return false
@@ -77,7 +78,7 @@ export function LibraryPanel({
         a.tags.some((t) => t.includes(q))
       )
     })
-  }, [query, filterBlockType, tonightOnly, ownedIds, ownActivities])
+  }, [query, filterBlockType, tonightOnly, ownedIds, ownActivities, bank.activities])
 
   return (
     <aside className="side-panel">
@@ -104,6 +105,7 @@ export function LibraryPanel({
 
       {tab === 'library' && (
         <div className="side-body">
+          {bank.status === 'stale' && <p className="bank-stale">{UI.bankStale}</p>}
           <input
             className="search-input"
             type="search"

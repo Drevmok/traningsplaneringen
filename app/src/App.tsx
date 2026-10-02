@@ -28,6 +28,7 @@ import {
   withComputedTotal,
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
+import { useBank } from './lib/useBank'
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
 import { applyUpdate, fetchRemoteBuild, isNewerBuild, localBuild } from './lib/appUpdate'
 import type { Session } from './types'
@@ -38,6 +39,8 @@ import './export.css'
 type View = 'home' | 'builder' | 'hall'
 
 export default function App() {
+  // Slice 31 — fresh bank data re-renders the tree in place (no remount, sheets and input kept).
+  useBank()
   const [view, setView] = useState<View>('home')
   const [session, setSession] = useState<Session>(() => createBlankSession())
   const [openTemplates, setOpenTemplates] = useState(false)
