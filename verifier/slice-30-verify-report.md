@@ -13,7 +13,31 @@
 
 ---
 
-## Overall verdict: **FAIL — 1 blocking item (small)**
+## Re-verify 2026-10-02 ~14:45 CEST — **PASS** (B1 resolved)
+
+**Code under test:** SHA `5f7198e` on `slice-30-ovningsimport` (Builder's B1 fix on top of `304d2f0`). Not merged, nothing pushed to main.  
+**Build/tests:** `npm run build` exit 0 · `bun test src` **49 pass / 0 fail** (10 files, includes new `source.test.ts`).  
+**Scope:** Golvklart chip detail (AC 5, AC 29), Hallöversikt and Biblioteket unchanged, footer, build/tests. Everything else from the first verify stands.
+
+**Code:** `ActivityDetail` takes a `floor` prop; `HallBoard` passes `floor={isFloor}`. `detailCoachMeta(activity, floor)` in `lib/source.ts` returns no source and no review when `floor`; otherwise source follows `sanitizeSource` and review follows `own && needsCoachReview`. The review hint and the "Markera som granskad" button sit behind the same gate.
+
+**Drive** (fresh localStorage, footer "Träningsplaneraren · Slice 30", imported `s30-fixtures/example-import.json`, Formhopp + Äggrullning added to Teknik and placed, "Ej placerade stationer (0)"):
+
+| Check | Result |
+| --- | --- |
+| Biblioteket detail (Formhopp) | **PASS** — "Behöver granskas", hint "Importerad övning. Läs igenom den och ändra så att den passar er hall.", button "Markera som granskad", "Källa: Prime Coaching Sport · 0:30 ↗" (`slice30v_R_bibliotek_detail.png`) |
+| Hallöversikt edit-mode chip detail (Formhopp) | **PASS** — badge and Källa shown (`slice30v_R_hall_detail.png`) |
+| Golvklart chip detail (Formhopp) | **PASS** — no Källa, no badge, no hint, no button (`slice30v_R_golvklart_formhopp.png`) |
+| Golvklart chip detail (Äggrullning) | **PASS** — same (`slice30v_R_golvklart_aggrullning.png`) |
+| Hallöversikt after leaving Golvklart | **PASS** — badge and Källa back (`slice30v_R_hall_after.png`) |
+
+**AC 5 → PASS. AC 29 → PASS. B1 resolved.** Overall Slice 30 verdict: **PASS** (AC 31 PASS-with-note and the deviation rulings below are unchanged; deviation 6 now holds as ruled, with the badge in Hallöversikt only).
+
+Note: the box restarted during the re-verify. Screenshots from the first pass (`slice30v_{A,B,C}_*`) were lost with it; their findings stand as recorded below. The re-verify screenshots `slice30v_R_*` are in `/workspace/screenshots/`.
+
+---
+
+## First-pass verdict (SHA `a252e9a`): **FAIL — 1 blocking item (small)** → resolved at `5f7198e`, see re-verify above
 
 | Section | Verdict |
 | --- | --- |
@@ -40,7 +64,7 @@ Violates lock **D1** ("not shown on Golvklart / stationskort / Kör passet / pri
 | 2 | PASS | Detail: `Källa: Prime Coaching Sport · 0:30 ↗` (Formhopp) and `· 0:50` (Äggrullning). The pass-row info panel shows the same line (Äggrullning ERSATT check). Drills without a source show nothing (edge-01). |
 | 3 | PASS | Inspected: `href=https://youtu.be/2DJ_oMM81mI?t=30`, `target=_blank`, `rel=noopener noreferrer`; https only (http source dropped with a note, edge row 05). |
 | 4 | PASS | No iframe, video or thumbnail in the DOM; greps in `app/src` (`iframe`, `<video`, `youtube`, `fetch(`) show no embed or fetch (evidence-code). |
-| 5 | **FAIL** | Stationskort, Kör passet and print have no Källa (`slice30v_B_stationskort/korpasset/print_preview.png`), **but the detail opened from Golvklart shows Källa** → B1. |
+| 5 | **PASS** (re-verify `5f7198e`; first pass FAIL) | Stationskort, Kör passet and print have no Källa (`slice30v_B_stationskort/korpasset/print_preview.png`), **but the detail opened from Golvklart shows Källa** → B1. |
 | 6 | PASS | `ShareOwn` carries `source` + new optional fields (`ownActivities.ts`, `sharePass.ts:51-87`; `sharePass.test.ts:138-200`). Drive C: share link opened in a fresh incognito profile → **Spara på den här enheten** → Formhopp/Äggrullning arrive as **Egen** with `Källa: Prime Coaching Sport · 0:30 ↗` / `· 0:50 ↗` (`slice30v_C_receive_info.png`, `slice30v_C_receive_detail.png`). |
 | 7 | PASS | Stored Formhopp after reload: `tags` (+`egen`), `progressionOf`, `source` intact; edge-01 `defaultStationEquipment` = trampett only. |
 | 8 | PASS | After Ändra and saving "Okänt redskap tas bort": tags incl. `egen` kept, `needsCoachReview` cleared. Merge of hidden fields is in `ownActivities.ts` (evidence-code). |
@@ -64,7 +88,7 @@ Violates lock **D1** ("not shown on Golvklart / stationskort / Kör passet / pri
 | 26 | PASS | `Förkortad.`: title 80, summary/watchFor/safety 240 each, step 180 (stored line is 183 including the `1. ` prefix). |
 | 27 | PASS | Badge on card + detail; detail has the hint + **Markera som granskad**. |
 | 28 | PASS | Markera som granskad → toast `Markerad som granskad.`, badge gone after reload; saving via Ändra also clears it. |
-| 29 | **FAIL** | Never blocks adding. Not on seeds (Närvaro checked; `needsCoachReview` seeds have no badge because the check requires `own`), stationskort, Kör passet or print. **Shown in the detail opened from Golvklart** → B1. |
+| 29 | **PASS** (re-verify `5f7198e`; first pass FAIL) | Never blocks adding. Not on seeds (Närvaro checked; `needsCoachReview` seeds have no badge because the check requires `own`), stationskort, Kör passet or print. **Shown in the detail opened from Golvklart** → B1. |
 | 30 | PASS | 15 pieces; Kilmatta · Skumblock · Bom · Räcke · Rockring appended after Kon with exact ids/labels. |
 | 31 | PASS-with-note (overturned) | Icons appear on every surface that has icons (compose grid, detail list, form chips); no blank tiles (`slice30v_B_compose15.png`). Förrådslista rows are text-only and stationskort use StationSketch for **all** pieces. That was already true before Slice 30 (`68b9645^`), and the new pieces show there as text rows or sketch marks. The AC assumed icon lists that don't exist; adding them would change Slice 14/15 surfaces outside this pack. |
 | 32 | PASS | Formhopp sketch draws trampett → skumblock → landningsmatta; Äggrullning draws madrass + kilmatta. |
