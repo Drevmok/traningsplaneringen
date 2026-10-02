@@ -75,7 +75,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 | Idea | Slice | Status / notes |
 |---|---|---|
-| Övningsimport | 30 | **Approved/Locked 2026-10-02**; in progress: Docs → Builder → Verifier. Pack `slice-30/`; reference input `import-trials/2DJ_oMM81mI/`. |
+| _(none — Övningsimport moved to Shipped Slice 30)_ | | |
 
 ---
 
@@ -109,6 +109,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Övningsimport | 30 | **Shipped**, live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/ (Verifier PASS 5f7198e, 2026-10-02). Pack `slice-30/`. Report `verifier/slice-30-verify-report.md`. Merged via PR #31. |
 | Home 3-question wizard — full pass + hall placements | 29 | Verifier PASS 2026-09-27; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/ (includes Slice 28). Pack `slice-29/`. Report `verifier/slice-29-verify-report.md`. |
 | Mall Samling within budget | 28 | Verifier PASS 2026-09-27; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-28/`. Report `verifier/slice-28-verify-report.md`. |
 | Soft Samling — default upprop + kort genomgång | 27 | Verifier PASS 2026-09-26 evening; live on GitHub Pages · https://drevmok.github.io/traningsplaneringen/. Pack `slice-27/`. Report `verifier/slice-27-verify-report.md`. |
