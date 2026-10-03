@@ -108,3 +108,18 @@ New check `bun verifier/slice-32-local/check-grants.ts` (18 checks):
 **Christoffer's calls:** AC40/42 accepted as deviations (env var via secure input, no env file); noted in `slice-31/verification-checklist.md`. AC45 accepted as partial; backlog «Bundle latest DB snapshot into app offline fallback» (Parked / Later). `features/README.md` now lists `delad-bank.md`.
 
 **Tests/build:** `bun test src` **115/115** (+1, C1). `bun test tools/bank` **21 pass + 5 skip** (+2, C5); with `S32_GATEWAY` on a fresh DB **26/26**. `npm run build` green (eager `index` 135.36 kB gz, +0.01; the C1 code is in the lazy admin chunks). Browser smoke `node verifier/slice-32-builder-smoke.mjs` (OFF preview on 4175 via `S32_OFF_URL`, because 4173 belonged to another agent) → **89/89 PASS** (+3: AC36c, AC36d, C5). My previews (4174, 4175) and the stand-in were stopped; ports 54340–54345 are free. I did not touch the other agent's 4173 preview; it had already stopped by the end.
+
+## Follow-up 2026-10-03 (3): 08 patched for MAINTAIN (Planner's request)
+
+`08-lock-bot-grants.sql` is now 1 634 B. The repo copy and `/workspace/setup-32/08-lock-bot-grants.sql` are cmp-identical. Changes:
+- It adds `revoke all on public.exercises, public.redskap from service_role;` before the grants.
+- The check is one plain query over `admins`, `exercises` and `redskap`. Columns: `rights` from `information_schema`, `(none)` if empty; `maintain` = `has_table_privilege('service_role', 'public.<table>', 'MAINTAIN')`, only evaluated when `server_version_num >= 170000`, otherwise `n/a`.
+
+| Scenario (stand-in, PG 17.11, env-driven scripts) | Result |
+|---|---|
+| (b) old 01 (7db7cd2) → 07 → new 08 (×3) | each 08 run: `admins\|(none)\|false` · `exercises\|INSERT, SELECT, UPDATE\|false` · `redskap\|SELECT\|false`. check-grants **18/18**, check-advisor **16/16**, 05-rls-smoke 23 PASS (10 bot) / 0 FAIL. Bot insert → 2 rows `bot:planner` · pending; `--replace` → `bot:planner` · pending |
+| (b') old 01 → 07 → OLD 08 → new 08 (×2) | after the old 08, the new check query shows `maintain = true` on exercises and redskap, and check-grants fails only on MAINTAIN. After the new 08: maintain false on all three, check-grants **18/18**, advisor **16/16**, 05 23 PASS / 0 FAIL, bot insert + `--replace` OK |
+| new 01 → new 08 ×2 | clean, same check output, 18/18 + 16/16 |
+| Guard | Forcing the threshold above 17 together with an invalid privilege name → all rows `n/a`, exit 0, so the branch is never evaluated. Control: same invalid name with the real threshold → `ERROR: unrecognized privilege type`. So on Postgres < 17 the `MAINTAIN` call is skipped, not an error |
+
+The stand-in was stopped (54340–54345 free). No preview was started for this follow-up.
