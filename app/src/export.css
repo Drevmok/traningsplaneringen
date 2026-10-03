@@ -2186,14 +2186,68 @@
   color: var(--md-on-surface-variant);
 }
 .admin-error,
-.admin-send-error,
-.admin-link-failed {
+.admin-send-error {
   margin: 6px 0 0;
   font-size: 13px;
   color: #9f1239;
 }
-.admin-link-sent {
+/* Slice 33 — login with a code. Inputs ≥ 16px so iPhone doesn't zoom on focus; no horizontal scroll at 390px. */
+.admin-login {
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.admin-login .own-field input {
+  font-size: 16px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.admin-code-status {
   line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.admin-login .own-field .admin-code-input {
+  width: 100%;
+  max-width: 14em;
+  font-size: 20px;
+  letter-spacing: 0.25em;
+  font-variant-numeric: tabular-nums;
+}
+.admin-login .own-field .admin-code-input::placeholder {
+  font-size: 16px;
+  letter-spacing: normal;
+}
+.admin-login .own-field .admin-code-input[aria-invalid='true'] {
+  border-color: #9f1239;
+}
+.admin-code-more {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 8px;
+}
+.admin-resend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 4px;
+}
+.admin-code-more .btn-text {
+  padding: 0 8px;
+  min-height: 40px;
+}
+.admin-resend-soon {
+  font-size: 13px;
+  padding: 0 8px;
+}
+.admin-code-more .btn-text:disabled {
+  color: var(--md-on-surface-variant);
+  opacity: 0.6;
+  cursor: default;
+}
+.admin-code-more .btn-text:disabled:hover {
+  background: transparent;
 }
 .admin-form-check {
   display: flex;

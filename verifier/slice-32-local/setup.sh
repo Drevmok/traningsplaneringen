@@ -51,7 +51,8 @@ GOTRUE_JWT_ADMIN_ROLES=service_role
 GOTRUE_JWT_DEFAULT_GROUP_NAME=authenticated
 GOTRUE_EXTERNAL_EMAIL_ENABLED=true
 GOTRUE_MAILER_AUTOCONFIRM=false
-GOTRUE_MAILER_OTP_EXP=3600
+GOTRUE_MAILER_OTP_EXP=${S32_OTP_EXP:-3600}
+GOTRUE_MAILER_OTP_LENGTH=${S32_OTP_LENGTH:-6}
 GOTRUE_SMTP_HOST=127.0.0.1
 GOTRUE_SMTP_PORT=$S32_SMTP_PORT
 GOTRUE_SMTP_ADMIN_EMAIL=noreply@bank-mock.local
@@ -65,6 +66,14 @@ GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE=/auth/v1/verify
 GOTRUE_RATE_LIMIT_EMAIL_SENT=100
 GOTRUE_LOG_LEVEL=warn
 ENV
+# Slice 33: optional login-mail template with {{ .Token }} (served by the gateway from <dir>/templates/).
+if [ -n "${S32_MAGIC_LINK_TEMPLATE:-}" ]; then
+  mkdir -p "$D/templates"; cp "$S32_MAGIC_LINK_TEMPLATE" "$D/templates/magic_link.html"
+  {
+    echo "GOTRUE_MAILER_TEMPLATES_MAGIC_LINK=http://127.0.0.1:$S32_GATEWAY_PORT/__templates/magic_link.html"
+    printf "GOTRUE_MAILER_SUBJECTS_MAGIC_LINK='%s'\n" "${S32_MAGIC_LINK_SUBJECT:-Din kod till Träningsplaneraren: {{ .Token }}}"
+  } >> "$D/gotrue.env"
+fi
 chmod 600 "$D/gotrue.env"
 ( cd "$(dirname "$GOTRUE")" && set -a && . "$D/gotrue.env" && set +a && "$GOTRUE" migrate >"$D/gotrue-migrate.log" 2>&1 )
 $P -d bank -f "$REPO/slice-31/content/schema-31.sql" >/dev/null

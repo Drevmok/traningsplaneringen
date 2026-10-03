@@ -1,0 +1,889 @@
+{
+  "results": [
+    {
+      "id": "AC26a",
+      "name": "Plain build footer: «Träningsplaneraren · Slice 33», no admin link (vars unset)",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 33 · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC21a",
+      "name": "Home footer: only «Logga in som admin»",
+      "ok": true,
+      "detail": "Logga in som admin · Uppdatera appen"
+    },
+    {
+      "id": "AC26b",
+      "name": "Bank build footer reads «Träningsplaneraren · Slice 33 · Logga in som admin»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 33 · Logga in som admin · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC21b",
+      "name": "No supabase-js / admin chunk downloaded on a coach visit",
+      "ok": true,
+      "detail": "index-Jw5MMy2n.js, jsx-runtime-DLNB9Qsn.js"
+    },
+    {
+      "id": "AC21c",
+      "name": "Coach requests: only the two Slice 31 GETs (publishable key, no Authorization), no auth request",
+      "ok": true,
+      "detail": "GET /rest/v1/exercises, GET /rest/v1/redskap"
+    },
+    {
+      "id": "AC21d",
+      "name": "No admin UI in Biblioteket (no chip, filter, badge)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC21e",
+      "name": "No auth / verifier / pending key in storage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-old-codea",
+      "name": "?code=abc… → Home, address cleaned to …/traningsplaneringen/",
+      "ok": true,
+      "detail": "…/"
+    },
+    {
+      "id": "AC18-old-codeb",
+      "name": "No login sheet, no message, no error",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-old-codec",
+      "name": "No supabase-js / admin chunk and no auth request",
+      "ok": true,
+      "detail": "index-Jw5MMy2n.js, jsx-runtime-DLNB9Qsn.js"
+    },
+    {
+      "id": "AC18-old-coded",
+      "name": "Footer still «Logga in som admin» (logged out)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-old-errora",
+      "name": "?error=access_denied&err… → Home, address cleaned to …/traningsplaneringen/",
+      "ok": true,
+      "detail": "…/"
+    },
+    {
+      "id": "AC18-old-errorb",
+      "name": "No login sheet, no message, no error",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-old-errorc",
+      "name": "No supabase-js / admin chunk and no auth request",
+      "ok": true,
+      "detail": "index-Jw5MMy2n.js, jsx-runtime-DLNB9Qsn.js"
+    },
+    {
+      "id": "AC18-old-errord",
+      "name": "Footer still «Logga in som admin» (logged out)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20a",
+      "name": "?code=abc#dela=<token> → shared pass opens, hash kept, code dropped",
+      "ok": true,
+      "detail": "/traningsplaneringen/#dela=z.jVPB…"
+    },
+    {
+      "id": "AC20b",
+      "name": "No admin chunk / auth request for that visit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3a",
+      "name": "Unknown address → step 2 with the same adminCodeSent text",
+      "ok": true,
+      "detail": "Om okand@test.local hör till en admin kommer en kod strax. Skriv den här. Koden gäller i en timme."
+    },
+    {
+      "id": "AC3b",
+      "name": "No user created (shouldCreateUser false)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3c",
+      "name": "No mail to the unknown address",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2a",
+      "name": "One POST /auth/v1/otp with \"create_user\": false and no redirect_to (URL or body)",
+      "ok": true,
+      "detail": "[\"email\",\"data\",\"create_user\",\"gotrue_meta_security\",\"code_challenge\",\"code_challenge_method\"] /auth/v1/otp"
+    },
+    {
+      "id": "AC26c",
+      "name": "Step 1 texts: heading, hint, label, button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26d",
+      "name": "E-mail field: type email, autocomplete email, no placeholder, hint via aria-describedby",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26e",
+      "name": "Skicka kod disabled while the field is empty",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC23a",
+      "name": "Step 1 at 390×844: heading, field, button visible; no horizontal scroll; e-mail font ≥ 16px",
+      "ok": true,
+      "detail": "scrollWidth 390, font 16"
+    },
+    {
+      "id": "AC26f",
+      "name": "Close button has adminCloseAria",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1a",
+      "name": "Mail subject «Din kod till Träningsplaneraren: ######» (12c)",
+      "ok": true,
+      "detail": "Din kod till Träningsplaneraren: ######"
+    },
+    {
+      "id": "AC1b",
+      "name": "Mail body = 12c text with exactly one 6-digit code, same as the subject",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1c",
+      "name": "Mail has no link (no <a href, no /auth/v1/verify, no URL)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2b",
+      "name": "Skicka kod → one POST /auth/v1/otp, create_user false, no redirect_to",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8a",
+      "name": "Code input: type text, inputmode numeric, autocomplete one-time-code, pattern [0-9]{6}, no maxlength",
+      "ok": true,
+      "detail": "{\"type\":\"text\",\"inputmode\":\"numeric\",\"ac\":\"one-time-code\",\"pattern\":\"[0-9]{6}\",\"maxlength\":null,\"placeholder\":\"6 siffror\",\"describedby\":\"admin-code-status\",\"label\":\"Kod från mejlet\"}"
+    },
+    {
+      "id": "AC8b",
+      "name": "Label adminCodeLabel (accessible name), placeholder adminCodePlaceholder",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8c",
+      "name": "Code input computed font size ≥ 16px",
+      "ok": true,
+      "detail": "20px"
+    },
+    {
+      "id": "AC26g",
+      "name": "aria-describedby → the adminCodeSent line (role=status)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26h",
+      "name": "Step 2 opens with adminCodeSent and the typed address",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11a",
+      "name": "Step 2 opens with focus in the code field",
+      "ok": true,
+      "detail": "admin-code-input"
+    },
+    {
+      "id": "AC16a",
+      "name": "Skicka ny kod disabled right after the send, adminResendSoon shown, aria-describedby → it",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26i",
+      "name": "No countdown numbers next to Skicka ny kod",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC23b",
+      "name": "Step 2 at 390×844: heading, field, Logga in visible; no horizontal scroll",
+      "ok": true,
+      "detail": "scrollWidth 390"
+    },
+    {
+      "id": "AC23c",
+      "name": "Short viewport (390×450, keyboard-sized): field, Logga in, Skicka ny kod, Byt e-post reachable by scrolling; no horizontal scroll",
+      "ok": true,
+      "detail": "[true,true,true,true]"
+    },
+    {
+      "id": "AC7a",
+      "name": "Logga in disabled at 5 digits, enabled at 6; a 7th digit is not added",
+      "ok": true,
+      "detail": "123456"
+    },
+    {
+      "id": "AC7b",
+      "name": "Letters and symbols typed are dropped",
+      "ok": true,
+      "detail": "123"
+    },
+    {
+      "id": "AC7c",
+      "name": "Logga in disabled with 0 digits",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9a",
+      "name": "Paste (clipboard + Ctrl/Cmd+V) of 123456, «123 456», « 123456 », 123-456 → 123456, Logga in enabled",
+      "ok": true,
+      "detail": "{\"123456\":[\"123456\",true],\"123 456\":[\"123456\",true],\" 123456 \":[\"123456\",true],\"123-456\":[\"123456\",true]}"
+    },
+    {
+      "id": "AC9b",
+      "name": "Paste «12 34» → 1234, Logga in disabled",
+      "ok": true,
+      "detail": "1234"
+    },
+    {
+      "id": "AC9c",
+      "name": "Paste full-width digits → 123456 (unit test covers it too)",
+      "ok": true,
+      "detail": "123456"
+    },
+    {
+      "id": "AC10-local",
+      "name": "Autofill-style insert (one input event with 6 digits) fills the field and enables Logga in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6a",
+      "name": "Pending entry {email, sentAt} stored after the send (no code in it)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6b",
+      "name": "Reload does not start admin or open the sheet by itself",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6c",
+      "name": "Logga in som admin after reload → step 2, same address in adminCodeSent, focus in code field, resend still cooling down",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12a",
+      "name": "Wrong code (one digit changed) → adminCodeWrong under the field (role=alert), aria-invalid=true, digits kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11b",
+      "name": "After adminCodeWrong: focus in the field with its text selected",
+      "ok": true,
+      "detail": "{\"start\":0,\"end\":6,\"len\":6}"
+    },
+    {
+      "id": "AC12b",
+      "name": "Sheet stays open, still logged out, aria-describedby includes the error line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12c",
+      "name": "aria-invalid cleared on the next change",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15c",
+      "name": "Offline on Logga in → adminVerifyFailed, digits kept, no request",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12d",
+      "name": "Back online, same button → logged in; sheet closed, error gone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2c",
+      "name": "Logga in → POST /auth/v1/verify {email, token, type:\"email\"}",
+      "ok": true,
+      "detail": "[\"email\",\"token\",\"type\",\"gotrue_meta_security\"]"
+    },
+    {
+      "id": "AC11c",
+      "name": "After success, focus is on the footer «Logga ut»",
+      "ok": true,
+      "detail": "btn-text visa-tips-igen footer-admin-logout"
+    },
+    {
+      "id": "AC24a",
+      "name": "After login: session stored; verifier + pending keys removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15a",
+      "name": "Offline on Skicka kod → adminSendFailed (role=alert), step 1 stays with the address",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15b",
+      "name": "Back online, same button → step 2 (sheet never closed)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17a",
+      "name": "Byt e-post → step 1, address still in the field, focused + selected (typing replaces it)",
+      "ok": true,
+      "detail": "{\"type\":\"email\",\"replaced\":\"z\"}"
+    },
+    {
+      "id": "AC6d",
+      "name": "Byt e-post clears the pending entry",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14a",
+      "name": "Second Skicka kod within 60 s (429) → step 2 with adminCodeSent + adminWait under Skicka ny kod",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14b",
+      "name": "Rate-limited step 2: Skicka ny kod disabled (cooldown), focus in the code field, code field empty",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17b",
+      "name": "Code and error lines cleared by Byt e-post",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14c",
+      "name": "Verify-side 429 → adminVerifyWait, not logged in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13a",
+      "name": "Code older than the expiry → adminCodeWrong, still logged out",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13b",
+      "name": "Control: the same code with a fresh send time logs in (age was the only reason)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17c",
+      "name": "Sending to another address shows that address in adminCodeSent",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6e",
+      "name": "After Byt e-post the sheet reopens on step 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6f",
+      "name": "Pending entry older than 60 min → sheet opens on step 1, entry removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22a",
+      "name": "Footer adminNotAdmin + Logga ut, focus on Logga ut",
+      "ok": true,
+      "detail": "Du är inloggad men inte admin. · Logga ut · Uppdatera appen"
+    },
+    {
+      "id": "AC22b",
+      "name": "No admin chrome for a non-admin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22c",
+      "name": "Logga ut → back to «Logga in som admin», session key removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16b",
+      "name": "After 60 s Skicka ny kod is enabled and adminResendSoon is gone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16c",
+      "name": "Resend → POST /auth/v1/otp to the same address, adminCodeResent, field cleared + focused, cooldown again",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13c",
+      "name": "Replaced code (the first one, after Skicka ny kod) → adminCodeWrong",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16d",
+      "name": "The new code logs in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11d",
+      "name": "Focus moves to the footer «Logga ut»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24b",
+      "name": "Verifier + pending keys removed after login, session stored",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4-local",
+      "name": "Footer «Träningsplaneraren · Slice 33 · Admin · Logga ut» (desktop Chrome; installed app = real device)",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 33 · Admin · Logga ut · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC4b-local",
+      "name": "Admin chip in Biblioteket",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4c-local",
+      "name": "No new page/tab opened during the whole login",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5-local",
+      "name": "Reload keeps the session (Admin · Logga ut)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20c",
+      "name": "#dela= opens the shared pass while logged in as admin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC41a",
+      "name": "Dry-run lists 2 new rows and writes nothing",
+      "ok": true,
+      "detail": "Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs."
+    },
+    {
+      "id": "S32-AC41b",
+      "name": "Push → exit 0, «Väntar på godkännande i appen»",
+      "ok": true,
+      "detail": "Nya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / "
+    },
+    {
+      "id": "S32-AC41c",
+      "name": "Rows pending, needs_coach_review true, updated_by bot:planner",
+      "ok": true,
+      "detail": "tech-test-aggrullning-kil|pending|true|bot:planner ; tech-test-formhopp-over-lagt-block|pending|true|bot:planner"
+    },
+    {
+      "id": "S32-AC41d",
+      "name": "Invisible to anon",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC42a",
+      "name": "Second push: existing ids skipped + reported, not overwritten",
+      "ok": true,
+      "detail": "Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / "
+    },
+    {
+      "id": "S32-C5",
+      "name": "All skipped → «Inget nytt …», no «Väntar på godkännande»",
+      "ok": true,
+      "detail": "Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs."
+    },
+    {
+      "id": "S32-AC42b",
+      "name": "Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC42c",
+      "name": "Key never printed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC43",
+      "name": "Bot key DELETE → permission denied, row still there",
+      "ok": true,
+      "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for tabl"
+    },
+    {
+      "id": "S32-AC40b",
+      "name": "Secret-style key refused from a browser origin (gateway emulates Supabase 401)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC29a",
+      "name": "Admin chip + «Väntar på godkännande (2)» + «Behöver granskas (16)»; no Dolda chip at 0",
+      "ok": true,
+      "detail": "Admin Väntar på godkännande (2) Behöver granskas (16)"
+    },
+    {
+      "id": "S32-AC29b",
+      "name": "Pending rows not in the normal list",
+      "ok": true,
+      "detail": "51 titles"
+    },
+    {
+      "id": "S32-AC29c",
+      "name": "Pending chip shows exactly the two bot rows with «Väntar» badge",
+      "ok": true,
+      "detail": "Test: formhopp över lågt block, Test: äggrullning nerför kil"
+    },
+    {
+      "id": "S32-AC29d",
+      "name": "Väntar chip is pressed (aria-pressed)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC29e",
+      "name": "Pending detail: not addable to a pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC29f",
+      "name": "Pending detail: Godkänn · Ändra i banken; review hint; last changed by Planner",
+      "ok": true,
+      "detail": "Godkänn|Ändra i banken"
+    },
+    {
+      "id": "S32-AC30a",
+      "name": "Godkänn → toast + status published",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC38a",
+      "name": "This device updates at once: approved row in the coach cache, pending row never",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC30b",
+      "name": "Coach sees the approved row, not the pending one",
+      "ok": true,
+      "detail": "52"
+    },
+    {
+      "id": "S32-AC33c",
+      "name": "Coach profile: no review badge on bank rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC38b",
+      "name": "Coach cache has no pending row",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC31a",
+      "name": "Validation as own form: empty Namn blocked (required, as own form), empty Varför → issue list; nothing sent",
+      "ok": true,
+      "detail": "Skriv varför ni gör den."
+    },
+    {
+      "id": "S32-AC31b",
+      "name": "Saved fields in the row",
+      "ok": true,
+      "detail": "{\"title\":\"Äggrullning (redigerad)\",\"duration_minutes_default\":9,\"summary\":\"Ny sammanfattning från admin.\",\"how_to\":\"1. Steg ett.\\n2. Steg två.\\n3. Steg tre.\",\"watch_for\":\"Nytt se upp för.\",\"safety_line\":\"Ny säkerhetsrad.\",\"source\":{\"url\":\"https://example.org/video\",\"creator\":\"Testkanal\",\"startSecond"
+    },
+    {
+      "id": "S32-AC31c",
+      "name": "Tags, difficulty, links, visual, sort order, status preserved",
+      "ok": true,
+      "detail": "{\"tags\":[\"teknik\",\"rullning\",\"kil\",\"form\",\"nybörjare\"],\"difficulty\":\"intro\",\"progression_of\":\"tech-test-formhopp-over-lagt-block\",\"regression_of\":\"tech-kullerbytta\",\"visual_key\":\"tech-test-aggrullning-kil\",\"sort_order\":380,\"status\":\"pending\"}"
+    },
+    {
+      "id": "S32-AC32a",
+      "name": "updated_by = admin e-mail; updated_at set",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC33a",
+      "name": "Saving clears needs_coach_review",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC32b",
+      "name": "Detail shows «Senast ändrad … av admin@test.local»",
+      "ok": true,
+      "detail": "Senast ändrad 3 okt av admin@test.local"
+    },
+    {
+      "id": "S32-AC32c",
+      "name": "Client-sent updated_by is overwritten with the admin e-mail",
+      "ok": true,
+      "detail": "\"admin@test.local\""
+    },
+    {
+      "id": "S32-AC23a",
+      "name": "Admin token DELETE refused by the database",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "S32-AC33b0",
+      "name": "Review chip lists the flagged published rows with the review badge (admin only)",
+      "ok": true,
+      "detail": "17"
+    },
+    {
+      "id": "S32-AC33b",
+      "name": "Markera som granskad clears it without edit (text unchanged, count −1)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC34a",
+      "name": "Published detail: Ändra i banken · Dölj för alla",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC34b",
+      "name": "Confirm shows the title and adminHideUsedIn for a mall drill",
+      "ok": true,
+      "detail": "Dölja ”Ljushopp på satsbräda” för alla tränare? Pass som redan har övningen visar den fortfarande. Övningen finns också i en mall eller i Planera pass. Där ligger den kvar tills appen ändras. Avbryt D"
+    },
+    {
+      "id": "S32-AC34c",
+      "name": "Status hidden in the DB",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC34d",
+      "name": "Saved pass still resolves the hidden drill (title shown)",
+      "ok": true,
+      "detail": "9 rows"
+    },
+    {
+      "id": "S32-AC34e",
+      "name": "Hidden drill gone from Biblioteket for the coach",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC34f",
+      "name": "Hidden detail: «Dold» badge, Visa igen · Ändra i banken",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC34g",
+      "name": "Visa igen restores published",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC35a",
+      "name": "Admin detail has no delete control",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC36a",
+      "name": "Second save → adminSaveConflict",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC36b",
+      "name": "First edit intact in the DB",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC36c",
+      "name": "Reopened form shows the other tab's saved title (row refetched)",
+      "ok": true,
+      "detail": "Kullerbytta (flik 1)"
+    },
+    {
+      "id": "S32-AC36d",
+      "name": "Close + reopen + Spara saves (no 2nd conflict, no reload)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC37a",
+      "name": "adminOffline line shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC37b",
+      "name": "All admin actions disabled",
+      "ok": true,
+      "detail": "[true,true]"
+    },
+    {
+      "id": "S32-AC37c",
+      "name": "Nothing queued: no write sent after coming back online",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC37d",
+      "name": "Buttons enabled again online",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24c",
+      "name": "Logga ut removes auth, code-verifier and pending keys; footer back to «Logga in som admin»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24d",
+      "name": "Reopening the app shows «Logga in som admin»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6g",
+      "name": "After Logga ut the sheet opens on step 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "S32-AC38c",
+      "name": "After logout the coach cache holds no pending rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC19",
+      "name": "rg for the retired link names in app/src returns nothing",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26j",
+      "name": "Login sheet never says «länk», no «!»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26k",
+      "name": "Login sheet never says Supabase / OTP / token / session / server / databas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26l",
+      "name": "Every Slice 33 key in blockMeta.ts matches microcopy.sv.md verbatim",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26m",
+      "name": "No admin UI string says Supabase / OTP / token / session; none has «!»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26n",
+      "name": "Every Slice 33 status/error line seen in the sheet is a microcopy string",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "N",
+      "name": "Every coach-context bank request was a GET with the publishable key and no Authorization",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C",
+      "name": "No login code in any request URL or the results (codes only in POST bodies to /auth/v1/verify)",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": [
+    "seed rows flagged needs_coach_review: 16; AC 33 uses gather-narvaro «Närvaro»",
+    "mall drill used for AC 34: tech-ljushopp-satsbrada «Ljushopp på satsbräda»",
+    "users: admin2@test.local, admin3@test.local, admin@test.local, nonadmin@test.local · admins: admin2@test.local, admin3@test.local, admin@test.local",
+    "waiting 52 s for the 60 s resend cooldown",
+    "review count now 17 (16 seed rows + the approved bot row)",
+    "coach draft from mall contains tech-ljushopp-satsbrada: true"
+  ],
+  "bankRequests": 130
+}
