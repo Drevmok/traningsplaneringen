@@ -223,3 +223,116 @@ Restored as owner (`copy` from a backup, then `session_replication_role=replica`
 | Verify (curl, no PKCE, consumed on purpose) | 303 → `http://127.0.0.1:4177/traningsplaneringen/` (allow list accepted, no error). Afterwards the mail file was deleted (`/tmp/s32vv/mail` empty) |
 
 Throttle note: the smoke OTP went out at 09:03:42. The UI drive's own admin@test.local request works from 09:04:42 on (60 s per address).
+
+---
+
+## cb8e0e6 re-verify (isolated stand-in `/tmp/s32vr`, 2026-10-03 09:46–10:05 CEST)
+
+### Build, tests, bundle, secrets
+- `git rev-parse HEAD origin/slice-32-admin` → both `cb8e0e6`; tree clean; `git pull --ff-only` → "Already up to date". `app/package*.json` unchanged since 45ec68f, so `npm ci` was skipped.
+- `npm run build` exit 0. Plain build eager gz: `index-b5gEXs-M.js` **135.36** + `jsx-runtime-DLNB9Qsn.js` **3.12** = **138.48 kB** (45ec68f: 138.47; Slice 31 plain: 134.59 → **+3.89**). Stand-in build (vars set): 135.47 + 3.12 = 138.59 (Slice 31 with vars: 134.73 → +3.86). `dist-DvjAMUvs.js` (supabase-js) 55.01 kB gz.
+- `bun test src` → **115 pass / 0 fail**, 17 files (was 114; +1 C1 test).
+- AC 26: `index.html` loads `index-*.js` + modulepreload `jsx-runtime` only. `index-*.js` static imports: only `./jsx-runtime`. `dist-DvjAMUvs.js` is referenced only by `adminBank-*.js` as `await import('./dist-DvjAMUvs.js')`; `adminBank` itself is reached only via `__vite__mapDeps` (lazy).
+- AC 46: `git grep -l sb_secret_` → docs/SQL comments only (14 files; same set + the verifier docs); `git grep -E 'sb_secret_[A-Za-z0-9_-]{8,}'` → 0; JWT-shaped strings in repo → 0; `app/dist`: `sb_secret_|service_role` → only `dist-*.js` (supabase-js prefix guard), `sb_secret_[A-Za-z0-9]{4,}` → 0, JWT → 0; `app/src` → 0; `.github/workflows/pages.yml` uses `vars.VITE_SUPABASE_URL` / `vars.VITE_SUPABASE_PUBLISHABLE_KEY` only. Real bot key value (compared via env, not printed): 0 tracked files, 0 in `app/dist`, 0 in `.github`.
+- AC 50: `grep -o 'Slice 3[0-9]' dist/assets/index-*.js` → `Slice 32` ×1; UI footer "Träningsplaneraren · Slice 32 · Logga in som admin · Visa tips igen · Uppdatera appen".
+
+### C6 stand-in (Builder's scripts, own dir + ports)
+```
+export S32_DIR=/tmp/s32vr S32_GATEWAY_PORT=56440 S32_PG_PORT=56441 S32_POSTGREST_PORT=56442 S32_GOTRUE_PORT=56443 S32_SMTP_PORT=56445 S32_PREVIEW_PORT=4187
+setup.sh  → setup ok (/tmp/s32vr, pg :56441, schema-32: slice-31/content/schema-32.sql): 51 published, 15 redskap
+start.sh  → started (/tmp/s32vr, gateway :56440)
+users.sh  → users: admin@test.local, nonadmin@test.local · admins: admin@test.local
+push-promote.ts fixtures/promote-2.json (stand-in bot key) → 2 × NY (pending); DB: pending | t | bot:planner ×2
+```
+- T1: `setup.sh` with `S32_DIR=/tmp/s32vr3` and gateway port 56440 (held by `/tmp/s32vr`) → "port 56440 is in use by pid … — not from /tmp/s32vr3; pick other S32_*_PORT values", exit 1, `/tmp/s32vr3/marker` still there (nothing deleted).
+- T2: second instance `/tmp/s32vr2` (56450–56455) set up and started (4 pids).
+- T3: appended `/tmp/s32vr`'s 4 pids to `/tmp/s32vr2/pids`, then `stop.sh` with `S32_DIR=/tmp/s32vr2` → `skip pid … (gone or not from /tmp/s32vr2)` ×4, "stopped (/tmp/s32vr2)". After: all 4 `/tmp/s32vr` pids alive, `/tmp/s32vr` PG answers, `/tmp/s32vr2` PG refused, 0 listeners on 5645x. `/tmp/s32vr2` removed.
+
+### C2 grants (stand-in, PostgreSQL 17.11)
+- `slice-31/content/rls-smoke.sql` == `05-rls-smoke-valfri.sql` (whitespace-normalised diff empty); `schema-32.sql` == `01-schema-32.sql` (byte-identical).
+- Full `rls-smoke.sql`: exit 0, **23 PASS / 0 FAIL** (13 + 10 `PASS bot …`: reads, INSERT+UPDATE `bot:planner`, DELETE exercises refused, SELECT/INSERT/UPDATE/DELETE admins refused, INSERT/UPDATE/DELETE redskap refused).
+- `\dp public.(admins|redskap|exercises)`:
+```
+admins    | postgres=arwdDxtm/postgres, authenticated=r/postgres
+exercises | postgres=arwdDxtm/postgres, anon=r/postgres, authenticated=arw/postgres, service_role=arw/postgres
+redskap   | postgres=arwdDxtm/postgres, anon=r/postgres, authenticated=r/postgres, service_role=r/postgres
+```
+- `has_table_privilege('service_role', …)` MAINTAIN/TRUNCATE/REFERENCES/TRIGGER → `f` on all three. `information_schema.role_table_grants` (service_role) → `exercises:INSERT exercises:SELECT exercises:UPDATE redskap:SELECT`.
+- Bot HTTP matrix (`/tmp/s32vr/tools/bot-http.ts`, stand-in bot key via gateway → service_role):
+```
+OK   bot GET    /rest/v1/admins    → 403 42501 permission denied
+OK   bot POST   /rest/v1/admins    → 403
+OK   bot PATCH  /rest/v1/admins    → 403
+OK   bot DELETE /rest/v1/admins    → 403
+OK   bot POST   /rest/v1/redskap   → 403
+OK   bot PATCH  /rest/v1/redskap   → 403
+OK   bot DELETE /rest/v1/redskap   → 403
+OK   bot DELETE /rest/v1/exercises (tech-kullerbytta, tech-test-aggrullning-kil) → 403 ×2
+OK   bot GET redskap → 200 · bot GET exercises → 200
+OK   admins count + redskap rows unchanged; exercise rows kept
+OK   bot POST exercises (tech-verifier-bot-raw) → 201 · PATCH → 200
+OK   DB row: Verifier: rå bot-rad (ändrad) | pending | true | bot:planner · anon sees [] (row deleted after)
+OK   service_role TRUNCATE exercises → ERROR: permission denied for table exercises
+OK   service_role ANALYZE exercises/redskap/admins (MAINTAIN) → WARNING: permission denied to analyze "…", skipping it
+RESULT: all OK
+```
+- Builder's `check-grants.ts` (S32_DIR=/tmp/s32vr): 18 OK, "RESULT: all OK" (incl. `--replace` PATCH keeps `bot:planner · pending`, re-push C5 line, 05 23 PASS / 10 bot).
+- Re-runs on `bank`: `schema-32.sql` again → only "skipping" notices, exit 0; `08` after the current 01 → `admins (none) · exercises INSERT, SELECT, UPDATE · redskap SELECT · maintain false ×3`, fingerprint unchanged.
+
+### 08 on an old-01 database (`bank_old`, same PG, dropped afterwards)
+- Built: `auth` schema dumped from `bank` (users included) + the Supabase-style default privileges → `schema-31.sql` → `bank-seed.sql` → **`45ec68f:tools/bank/out/setup-32/01-schema-32.sql`** → admin row.
+- Before 08 (service_role via `aclexplode`): `admins: DELETE,INSERT,MAINTAIN,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE` · `exercises: INSERT,MAINTAIN,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE` · `redskap: DELETE,INSERT,MAINTAIN,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE` (= C2 reproduced).
+- `07` not needed first: the 45ec68f 01 already has `private.stamp_updated_by`.
+- `08` run 1 → check `admins|(none)|false`, `exercises|INSERT, SELECT, UPDATE|false`, `redskap|SELECT|false`. Fingerprint (relacl of the 3 tables, service_role privileges incl. MAINTAIN, policies, `is_admin`/`stamp_updated_by` schema + secdef + proacl, triggers, RLS flags) **identical** to the fresh `bank`.
+- `08` run 2 → same check, exit 0, fingerprint identical. `07` after → "private|stamp_updated_by|exercises_stamp", fingerprint identical.
+- `05` on `bank_old` after 08 → 13 PASS + 10 PASS bot, 0 FAIL, exit 0. `drop database bank_old` → `pg_database` count 0.
+
+### Advisor fix (0028/0029)
+- `check-advisor.ts` already reads `S32_DIR` (no adaptation needed): `S32_DIR=/tmp/s32vr bun verifier/slice-32-local/check-advisor.ts` → 16 OK, "RESULT: all OK" (function only in `private`, trigger → `private.stamp_updated_by`, SECURITY DEFINER, no EXECUTE for anon/authenticated/service_role, `proacl={postgres=X/postgres}`, 6× rpc → 404 PGRST202, admin PATCH spoof → `admin@test.local`, bot push `bot:planner`, 05 23/0).
+
+### C5 push-promote (stand-in, gateway 56440)
+```
+# all rows exist, bot key
+tech-test-formhopp-over-lagt-block  FINNS REDAN — hoppas över  «Test: formhopp över lågt block»  techniques · 6 min · sort 390
+tech-test-aggrullning-kil  FINNS REDAN — hoppas över  «Test: äggrullning nerför kil»  techniques · 6 min · sort 400
+Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil
+Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.          (exit 0)
+# dry run, no key
+(torrkörning utan SUPABASE_PLANNER_BOT_KEY: jämför mot appens inbyggda bank, inte databasen)
+… 2 × NY (pending)
+Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs.                    (exit 0)
+# one new row (promote-2 + tech-verifier-c5-ny), bot key
+… 2 × FINNS REDAN, tech-verifier-c5-ny  NY (pending)
+Nya (pending): tech-verifier-c5-ny
+Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil
+Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande).   (exit 0)
+```
+DB: `tech-verifier-c5-ny | pending | t | bot:planner` (deleted afterwards). The key value appears in 0 of the three outputs.
+
+### C1 + regression (Playwright headless Chrome, 390×844, `ignoreHTTPSErrors`)
+- Target: `vite preview` 4187 serving `/tmp/s32vr/dist-standin` (cb8e0e6, `VITE_SUPABASE_URL=https://127.0.0.1:56444`); HTTPS proxy 56444 → gateway 56440 (copy of `/tmp/s32v/https-proxy.mjs`, cert `/tmp/s32v/tls-*.pem`). GoTrue site URL / allow list = `http://127.0.0.1:4187/traningsplaneringen/` (from `S32_PREVIEW_PORT`). Scripts: `/tmp/s32vr/tools/{lib,c1,regress,regress2,footshots}.mjs` (box only; print no link/token).
+- Mail links name `https://bank-mock.supabase.co/auth/v1/verify` (Builder's `API_EXTERNAL_URL`, unresolvable here); the scripts open the same path + query on `https://127.0.0.1:56444`.
+- **C1** (`c1.mjs`): footer after login "Admin · Logga ut · Uppdatera appen"; form open → external `update … set title=title` (updated_at bumped) → Varför + " [V1]" → Spara → form stays, alert "Någon annan har ändrat övningen. Stäng och öppna den igen.", DB has no [V1]. Avbryt → close → reopen: form Varför = original (fresh row) → " [V2]" → Spara → form closed, toast "Sparat i banken.", DB `<orig> [V2] · admin@test.local`, page navigations since opening = 0. Restored `summary` + `updated_by='seed-script'` by SQL (the script's UI restore step hit a still-open detail; not a product issue).
+- **Regression** (`regress.mjs`, `regress2.mjs`, `footshots.mjs`):
+```
+coach JS chunks ["index","jsx"]
+coach API requests ["GET /rest/v1/exercises apikey=yes auth=no","GET /rest/v1/redskap apikey=yes auth=no"]
+coach footer "Träningsplaneraren · Slice 32 · Logga in som admin · Visa tips igen · Uppdatera appen"
+coach admin DOM 0 · coach Biblioteket entries 51 · coach cache {"n":51,"testIds":[]}
+unknown: sheet "Om adressen hör till en admin kommer en länk strax. Öppna den i den här webbläsaren. Den gäller i en timme." · mail sent false · auth.users 2
+nonadmin url has ?code= false · footer "Träningsplaneraren · Slice 32 · Du är inloggad men inte admin. · Logga ut · Visa tips igen · Uppdatera appen" · admin UI 0
+admin (share-A): verify → redirect has ?code= true · return url ?code= false · #dela= kept true · footer "Admin · Logga ut · Uppdatera appen" · pass A offered true
+after reload: footer "Admin · Logga ut · Uppdatera appen" · session key true
+admin chips "Admin Väntar på godkännande (2) Behöver granskas (16)"
+approve toast "Godkänd. Tränarna ser den nästa gång de öppnar appen." · status published
+coach after approve: Biblioteket 52 · cache {"n":52,"testIds":["tech-test-formhopp-over-lagt-block"]}
+edit (äggrullning Minuter 6→7): toast "Sparat i banken." · DB "7 · admin@test.local · pending · review=false" · "Senast ändrad 3 okt av admin@test.local"
+hide confirm "Dölja ”Test: formhopp över lågt block” för alla tränare? Pass som redan har övningen visar den fortfarande. Avbryt Dölj" · toast "Dold för alla." · status hidden
+share-B fresh context: pass B offered true · title shown true · raw id shown false
+chips with hidden "Admin Väntar på godkännande (1) Behöver granskas (16) Dolda (1)" · Visa igen toast "Syns igen för alla." · status published
+offline (setOffline): text visible true · Ändra i banken disabled, Dölj för alla disabled · online → both enabled · writes during offline 0
+Logga ut (Home footer): auth keys before = session + 2 PKCE verifier keys; after [] · remaining ["gymnastics-planner-bank-cache-v1"] · footer "Logga in som admin · Uppdatera appen"
+coach share-A fresh: pass A offered true · «Ljushopp på satsbräda» shown true
+```
+- Proxy log (no key values), app non-GET calls over the whole run: `POST /auth/v1/otp` 200 ×10 / 422 ×3 (unknown) / 429 ×2 (throttle on re-runs = `adminWait`), `POST /auth/v1/token` 200 ×9, `POST /auth/v1/logout` 204 ×1, `PATCH /rest/v1/exercises` 200 ×6 (conflict try, reopen save, approve, edit, hide, unhide). Nothing else.
+- Note (minor, no action needed): after a successful exchange, supabase-js leaves its own `…-flow-<id>-code-verifier` / `…-flows-code-verifier` keys until Logga ut, which removes them.

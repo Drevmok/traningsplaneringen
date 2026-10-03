@@ -1,5 +1,100 @@
 # Slice 32: formal verification report (admin login + bank editing, bot writes)
 
+## Re-verify at cb8e0e6
+
+- **Date:** 2026-10-03, 09:46–10:05 CEST (Europe/Stockholm)
+- **Verifier:** Verifier
+- **Code under test:** PR #34, branch `slice-32-admin` at **`cb8e0e6`** (on top of `a709489`). The previous FAIL was at `45ec68f` (report commit `30674d0`). The working tree was clean and already at `origin/slice-32-admin` = `cb8e0e6`, so `git pull --ff-only` was a no-op. Not merged.
+- **What changed since 30674d0:** `bankWrite.ts` + `adminBank.ts` (`refreshAdminRow`) + `AdminDetailPanel.tsx` (C1); `schema-32.sql` = `01` (`revoke all on public.admins, public.redskap, public.exercises from service_role` + the exact grants) and the new `08-lock-bot-grants.sql` (C2); `rls-smoke.sql` = `05` Part 3 (10 bot checks); `push-promote.ts` `NOTHING_NEW` (C5); `verifier/slice-32-local/*` (`env.sh`, S32_* dir/ports, `S32_OWNER` marker) (C6); checklist notes AC 40/42/45; `backlog/IMPROVEMENTS.md`; `features/README.md`.
+- **Stand-in:** Builder's own scripts in `verifier/slice-32-local/` with `S32_DIR=/tmp/s32vr`, gateway 56440, PG 56441, PostgREST 56442, GoTrue 56443, SMTP 56445, preview 4187. Applied: `schema-31.sql` → `bank-seed.sql` → `schema-32.sql` from `cb8e0e6`, users `admin@test.local` (on `public.admins`) + `nonadmin@test.local`, the 2 pending rows via `push-promote.ts` (`tech-test-formhopp-over-lagt-block`, `tech-test-aggrullning-kil`). UI: own stand-in build from `cb8e0e6` (`VITE_SUPABASE_URL=https://127.0.0.1:56444`, key `sb_publishable_local_s32`) served with `vite preview` on 4187, behind a copy of `/tmp/s32v/https-proxy.mjs` on `https://127.0.0.1:56444` → 56440 (same self-signed cert). Builder's default `/tmp/s32` stack wasn't running and was not touched.
+- **Driver:** Playwright headless Chrome, 390×844, `ignoreHTTPSErrors`. The mail links name GoTrue's `API_EXTERNAL_URL` (`https://bank-mock.supabase.co`, from Builder's `setup.sh`), which doesn't resolve here, so the scripts open the same `/auth/v1/verify?…` path and query on the stand-in's HTTPS proxy (same GoTrue, same one-time PKCE token).
+- **Live:** read-only on `fhzqwbdlejzohetdoluw`: GETs plus bot PATCH/DELETE whose filter matches no row. No POST with the bot key.
+- **Secrets:** no secret key, JWT, magic link, code or password appears in this report, the evidence or the screenshots. The staged files were grepped before commit, including an env-based compare against the real bot key value.
+
+### Verdict: **PASS (stand-in + live read-only) — ready to merge; magic-link round trip and a real bot insert pending after merge**
+
+- **C1 resolved** · **C2 resolved** (stand-in, old-01 → 08 patch, and live read-only: bot refused on `admins`, refused on `redskap` writes) · **C5 resolved** · **C6 resolved**.
+- **AC 40 / 42 / 45:** PASS-by-decision. The checklist notes and `IMPROVEMENTS.md` match (quoted below).
+- **PENDING-real** (after merge, with Christoffer): the live magic-link round trip (AC 25), a real bot insert (AC 41), the Security Advisor re-run (AC 47), and the optional live `05` run in the SQL Editor, whose `08` check output shows `maintain = false`. MAINTAIN and TRUNCATE are not visible over REST, so the live checks can't prove them. The stand-in proves them, and so do the 08 file and its check query.
+
+| AC | Verdict at cb8e0e6 | Short |
+| --- | --- | --- |
+| 23 | **PASS** (stand-in) · PENDING-real | `schema-32` fresh + re-run clean (only "skipping" notices); `rls-smoke.sql` full **23 PASS / 0 FAIL** (13 + 10 bot); old-01 → `08` = fresh end state, `08` ×2 safe |
+| 24 | **PASS** (stand-in) · PENDING-real | unknown → `adminLinkSent`, no mail, `auth.users` 2 |
+| 25 | **PASS** (stand-in) · **PENDING-real** | share-A login: no `?code=`, `#dela=` kept, pass A offered, reload → still admin; Logga ut clears key |
+| 26 | **PASS** | coach: only `index` + `jsx-runtime`; 2 GETs `apikey=yes auth=no`; supabase-js `dist-*.js` only via `import()` in lazy `adminBank` |
+| 27 | **PASS** (stand-in) | "Träningsplaneraren · Slice 32 · Du är inloggad men inte admin. · Logga ut …", 0 admin UI |
+| 28 | **PASS** (stand-in) | `adminWait` seen again (2× GoTrue 429 during re-runs); `adminLinkFailed` carried from 45ec68f (session code unchanged) |
+| 29 | **PASS** | chips "Väntar på godkännande (2)", "Behöver granskas (16)"; "Dolda (1)" after a hide |
+| 30 | **PASS** | Godkänn → toast; fresh coach: Biblioteket 52 |
+| 31 | **PASS** | Minuter 6 → 7 and Varför saved ("Sparat i banken.") |
+| 32 | **PASS** | `updated_by = admin@test.local`, "Senast ändrad 3 okt av admin@test.local"; REST spoof overwritten |
+| 33 | **PASS** | save → `needs_coach_review = false`; Markera som granskad carried |
+| 34 | **PASS** | confirm text, "Dold för alla.", share-B (fresh) shows the title (not the id), Visa igen → "Syns igen för alla." |
+| 35 | **PASS** | DELETE refused for the bot (stand-in 403, live 403); no delete in the app code (unit test) |
+| 36 | **PASS — C1 resolved** | conflict text, then close + reopen (no reload) → "Sparat i banken.", DB updated, 0 page navigations |
+| 37 | **PASS** | `setOffline`: offline text, Ändra i banken + Dölj för alla disabled, 0 writes; re-enabled online |
+| 38 | **PASS** | coach cache 52 ids, only the approved `tech-test-formhopp-over-lagt-block`, no pending id |
+| 39 | **PASS** | app non-GETs on the proxy: only `/auth/v1/otp|token|logout` + 6 `PATCH /rest/v1/exercises` (the admin actions) |
+| 40 | **PASS-by-decision** | env var `SUPABASE_PLANNER_BOT_KEY` via secure input, no env file (quoted below); key value in 0 repo/dist/.github files |
+| 41 | **PASS** (stand-in) · **PENDING-real** | bot push → `pending`, review `t`, `bot:planner`; anon `[]`; Väntar (2) |
+| 42 | **PASS-by-decision** | skip/`--replace`/no print OK; env-file checks n/a by decision (quoted below) |
+| 43 | **PASS** (stand-in + live read-only) | bot DELETE `exercises` → 403 on both |
+| 44 | **PASS** (stand-in, carried) · PENDING-real | `promote-lib.ts`/`export-db.ts` unchanged since 45ec68f |
+| 45 | **PASS-by-decision** (partial accepted) | export + banner; snapshot not bundled; backlog Parked / Later (quoted below) |
+| 46 | **PASS with note** | only supabase-js's own `sb_secret_` prefix check in the lazy chunk; 0 key values |
+| 47 | **PASS** (stand-in + live parts) · **PENDING-real** | `check-advisor.ts` 16/16; live `rpc/stamp_updated_by` 404; Advisor re-run = Christoffer |
+| 48 | **PASS** | re-driven: step 2 (coach 2 GETs, `apikey` only, 51) and step 5's share part (hidden drill's title still resolves in share-B); steps 3/4/5-list carried from 45ec68f (`bank.ts` unchanged since) |
+| 49 | **PASS** | eager gz **138.48 kB** (+3.89 vs Slice 31 134.59; +0.01 vs 138.47); build green; `bun test src` **115 / 0** |
+| 50 | **PASS** | "Träningsplaneraren · Slice 32 · Logga in som admin" |
+
+### Concern results
+
+| # | Result | Evidence |
+| --- | --- | --- |
+| **C1** | **Resolved** | Form open → SQL `update public.exercises set title=title where id='strength-cirkeltraning'` → change Varför → Spara: "Någon annan har ändrat övningen. Stäng och öppna den igen." and the DB doesn't get the edit. Avbryt → close → reopen (no reload): the form shows the fresh row; edit Varför → Spara: "Sparat i banken.", the form closes, DB `summary = <orig> [V2]`, `updated_by = admin@test.local`, 0 page navigations (`s32v_F_conflict.png`, `s32v_F_reopen_saved.png`). The original text was restored by SQL afterwards. |
+| **C2** | **Resolved** (stand-in + live read-only) | `\dp`: `admins` has no `service_role` entry; `exercises` `service_role=arw`; `redskap` `service_role=r`. MAINTAIN/TRUNCATE/REFERENCES/TRIGGER false on all three (PG 17.11). Bot HTTP on the stand-in: admins GET/POST/PATCH/DELETE → 403; redskap POST/PATCH/DELETE → 403, GET 200; exercises DELETE → 403; exercises POST 201 + PATCH 200 → `pending · true · bot:planner`, anon `[]`; `TRUNCATE` → permission denied; `ANALYZE` (MAINTAIN) → "permission denied … skipping" on all three. `bank_old` (old 01 from 45ec68f → service_role had ALL incl. MAINTAIN on admins/redskap) → `08` → fingerprint **identical** to the fresh DB; `08` twice → identical; `07` after → identical; `05` on it 23/0. `bank_old` dropped. Builder's `check-grants.ts` 18/18. **Live:** bot GET/PATCH/DELETE `admins` → 403, PATCH/DELETE `redskap` → 403, DELETE `exercises` → 403, GET redskap/exercises 200 → live 08 (or the new 01) is applied (10:00:30 CEST). |
+| **C5** | **Resolved** | All-existing input with key → "Hoppades över (fanns redan): …" + «Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.», no «Väntar på godkännande». Dry run without key → "Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs." (compares to the built-in bank, as it says). One new row with key → "Nya (pending): tech-verifier-c5-ny" + «Väntar på godkännande i appen …». |
+| **C6** | **Resolved** | Ran fully on `S32_DIR=/tmp/s32vr` + 5644x ports. `setup.sh` for another dir on a port held by `/tmp/s32vr` → refused, exit 1, the other dir not deleted. A second instance `/tmp/s32vr2` (5645x) started; `/tmp/s32vr`'s 4 pids were planted into its pid file; `stop.sh` with `S32_DIR=/tmp/s32vr2` → "skip pid … (not from /tmp/s32vr2)" ×4, stopped only its own processes + its PG; all `/tmp/s32vr` processes and PG stayed alive. |
+| C3 | Unchanged (low) | Known-address 429 vs unknown "sent" still differs (accepted earlier as low). |
+
+### AC 40 / 42 / 45 decisions (quoted)
+
+- `slice-31/verification-checklist.md` AC 40: «**Accepted deviation (Christoffer 2026-10-03):** there is no env file; the key comes only from the box environment variable `SUPABASE_PLANNER_BOT_KEY`, set through the box's secure input. The file/mode-600 part is not checked; the rest still applies». The rest holds: `git grep` finds no key value (only docs mention the `sb_secret_` prefix); the live key value is in 0 tracked files, 0 in `app/dist`, 0 in `.github` (env compare); `.github` uses `vars.*` only.
+- AC 42: «**Accepted deviation (Christoffer 2026-10-03):** no env file, so the env-file checks (publishable key in the file, mode 644) don't apply. A publishable key in `SUPABASE_PLANNER_BOT_KEY` is refused; the rest still applies». The rest holds: skip + report (C5 run), `--replace` (`check-grants.ts`), the key is never printed (0 hits in the outputs), and the publishable-key refusal is unchanged code since 45ec68f.
+- AC 45: «**Accepted as partial (Christoffer 2026-10-03):** export + banner stay as they are; the snapshot is not bundled, so the offline fallback stays the bundled seeds. Backlog: «Bundle latest DB snapshot into app offline fallback» (Parked / Later)». `backlog/IMPROVEMENTS.md` has the matching row: «Bundle latest DB snapshot into app offline fallback | **Parked / Later** (Christoffer 2026-10-03). Slice 32 AC 45 accepted as partial …». `app/SLICE32-SHIPPED.md` "Deviations" says the same.
+
+### Live read-only (2026-10-03 10:00:30 CEST)
+
+| Check | Result |
+| --- | --- |
+| bot GET `admins` | **403** 42501 (refused) |
+| bot PATCH `admins?user_id=eq.<zero uuid>` `{"note":"x"}` | **403** (admins has no `id` column, so `?id=eq.verifier-nonexistent-row` gives 400 42703 and doesn't test the grant) |
+| bot DELETE `admins?user_id=eq.<zero uuid>` | **403** |
+| bot PATCH / DELETE `redskap?id=eq.verifier-nonexistent-row` | **403** / **403** |
+| bot GET `redskap` / `exercises` | 200 (15) / 200 (51) |
+| bot DELETE `exercises?id=eq.verifier-nonexistent-row` | **403** |
+| anon `exercises` published / pending+hidden | 51 / 0 |
+| anon `admins` | 401 |
+| anon `rpc/stamp_updated_by` | 404 PGRST202 |
+
+No retry was needed: live 08 is applied.
+
+### Screenshots (new, `verifier/slice-32-screenshots/`)
+
+`s32v_F_conflict.png`, `s32v_F_reopen_saved.png` (C1); `s32v_F_coach_footer.png`, `s32v_F_unknown.png`, `s32v_F_nonadmin.png`, `s32v_F_admin_shareA.png`, `s32v_F_admin_chips.png`, `s32v_F_shareB_hidden.png`, `s32v_F_offline.png`, `s32v_F_loggedout.png`, `s32v_F_coach_shareA.png`. None shows a link, token or key.
+
+### Remaining for Christoffer / after merge
+
+1. Live magic-link round trip with your mailbox (AC 25), then the PENDING-real items in AC 23/24/41/44.
+2. A real bot insert after merge (AC 41) when Planner has a real `promote.json`.
+3. Security Advisor re-run (AC 47). Optional: `05-rls-smoke-valfri.sql` in the SQL Editor (all lines PASS, incl. `PASS bot …`), and the `08` check query (`maintain` = false).
+
+---
+
+# Previous report: FAIL at 45ec68f (commit 30674d0), kept for reference
+
+
 - **Date:** 2026-10-03, 08:31–09:45 CEST (Europe/Stockholm)
 - **Verifier:** Verifier
 - **Authority:** `slice-31/verification-checklist.md` AC 23–50 (each AC graded against its own "Pass if" text), plus the locks A1 B2 C1 D1 E1 F1 in `slice-31/decisions.md`, `slice-31/screen-spec.md` and `slice-31/content/`

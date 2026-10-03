@@ -92,3 +92,29 @@ There is a newer commit, `45ec68f` (committed 2026-10-03 09:00 CEST). `git diff 
 `schema-32.sql` at `origin/slice-32-admin` (read with `git show`):
 - (a) **Yes.** It has `create or replace function private.stamp_updated_by() ... security definer set search_path = ''`, `revoke all on function private.stamp_updated_by() from public, anon, authenticated, service_role;`, the trigger now runs `private.stamp_updated_by()`, and `drop function if exists public.stamp_updated_by();`. Live behavior matches: the RPC returns 404 (check 4). `07-fix-advisor.sql` does the same move for projects that already ran the old file.
 - (b) **No.** The only service_role grants are `revoke delete on public.exercises from service_role; grant select, insert, update on public.exercises to service_role; grant select on public.redskap to service_role;`. There is **no** `revoke ... on public.admins from service_role` and no `revoke insert, update, delete on public.redskap from service_role`. (`revoke all on public.admins from anon, authenticated` covers only those two roles.) schema-31 also only revokes from anon and authenticated. **Concern C2 is not addressed.** Suggested fix: `revoke all on public.admins from service_role; revoke insert, update, delete, truncate on public.redskap from service_role;`. Note that the owner/postgres role in the SQL Editor is not affected by this.
+
+---
+
+## cb8e0e6 re-verify: live read-only (2026-10-03 10:00:30 CEST)
+
+- Project `fhzqwbdlejzohetdoluw`. Bot key read from env `SUPABASE_PLANNER_BOT_KEY` in `bash -lc` (present, `sb_secret_` prefix; value never printed). Publishable key `sb_publishable_In0_6U_HIO8NgrHyL3yoow_HF1eWWDS` (public; also in the live Pages bundle). Script: `/tmp/s32vr/tools/live.ts` (box only).
+- Only GETs and bot PATCH/DELETE whose filter matches no row. **No POST with the bot key.** The only POST was anon `rpc/stamp_updated_by` (404, function not exposed).
+
+| # | Request | Status | Body (start) |
+| --- | --- | --- | --- |
+| 1 | bot GET `/rest/v1/admins?select=user_id` | **403** | `42501` "Grant the required privileges … GRANT SELECT ON …" |
+| 2 | bot PATCH `/rest/v1/admins?user_id=eq.00000000-0000-0000-0000-000000000000` `{"note":"x"}` | **403** | `42501` "… GRANT SELECT, U…" |
+| 3 | bot DELETE `/rest/v1/admins?user_id=eq.00000000-0000-0000-0000-000000000000` | **403** | `42501` "… GRANT SELECT, D…" |
+| 3b | (info) bot PATCH `/rest/v1/admins?id=eq.verifier-nonexistent-row` | 400 | `42703` "column admins.id does not exist": `admins` has no `id` column, so this form can't test the grant; rows 2/3 use `user_id` |
+| 4 | bot PATCH `/rest/v1/redskap?id=eq.verifier-nonexistent-row` `{"label_sv":"x"}` | **403** | `42501` "… GRANT UPDATE ON …" |
+| 5 | bot DELETE `/rest/v1/redskap?id=eq.verifier-nonexistent-row` | **403** | `42501` "… GRANT DELETE ON …" |
+| 6 | bot GET `/rest/v1/redskap?select=id` (count) | 200 | content-range `0-14/15` |
+| 7 | bot GET `/rest/v1/exercises?select=id` (count) | 200 | content-range `0-50/51` (so 0 pending/hidden rows live) |
+| 8 | bot DELETE `/rest/v1/exercises?id=eq.verifier-nonexistent-row` | **403** | `42501` "… GRANT DELETE ON …" |
+| 9 | anon GET exercises `status=eq.published` (count) | 200 | `0-50/51` |
+| 10 | anon GET exercises `status=in.(pending,hidden)` (count) | 200 | `*/0` `[]` |
+| 11 | anon GET `admins` | 401 | `42501` |
+| 12 | anon POST `rpc/stamp_updated_by` | 404 | `PGRST202` |
+
+- **Reading:** at 45ec68f the bot's count on `admins` returned 206 with 1 row. Now SELECT/UPDATE/DELETE on `admins` and UPDATE/DELETE on `redskap` are refused at the grant level, while exercises/redskap reads work, so live is in the C2-fixed state (08 or the current 01 applied). No retry was needed. Not provable over REST: TRUNCATE/MAINTAIN (shown by the `08` check query `maintain = false` in the SQL Editor, for Christoffer).
+- Nothing on production was changed: every bot write attempt was refused, and its filter matched no row anyway.
