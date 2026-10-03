@@ -23,6 +23,8 @@ bash verifier/slice-32-local/stop.sh    # stop THIS dir's processes + its Postgr
 | `S32_SMTP_PORT` | `54345` | SMTP sink (mails → `$S32_DIR/mail`) |
 | `S32_PREVIEW_PORT` | `4174` | Bank-build preview the login links return to (GoTrue site URL / allow list) |
 | `S32_SCHEMA32` | `slice-31/content/schema-32.sql` | setup.sh only: the schema-32 file to apply (e.g. an older 01 to test a patch) |
+| `S32_OTP_LENGTH` / `S32_OTP_EXP` | `6` / `3600` | Slice 33: GoTrue e-mail code length and expiry (s) |
+| `S32_MAGIC_LINK_TEMPLATE` | unset | Slice 33: login-mail body file (e.g. `../slice-33-local/magic-link.html` = setup 12c with `{{ .Token }}`). Copied to `<dir>/templates/` and served by the gateway at `/__templates/magic_link.html`; also sets the 12c subject (`S32_MAGIC_LINK_SUBJECT` overrides). Unset = GoTrue's default link mail |
 | `PGBIN`, `GOTRUE`, `POSTGREST` | `/usr/lib/postgresql/17/bin`, `/tmp/gotrue/auth`, `/tmp/postgrest/postgrest` | Binaries |
 
 A second stand-in next to the default one, e.g. for the Verifier:

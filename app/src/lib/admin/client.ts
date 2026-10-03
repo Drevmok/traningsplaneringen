@@ -5,6 +5,9 @@
  * normal coach visit never downloads it (AC 26). The client only ever holds the public
  * project URL + publishable key (from the build env) and, after login, the admin's own
  * session. PKCE, never implicit: tokens must not land in `#…`, which `#dela=` share links use.
+ * Slice 33: login is `verifyOtp` with e-mail + code, a POST that returns the session in the
+ * response body; the URL is never read (`detectSessionInUrl: false`). signInWithOtp still writes a
+ * harmless `-code-verifier` key (PKCE); session.ts removes it on success and on Logga ut.
  */
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { bankConfig } from '../bankConfig'
@@ -22,7 +25,7 @@ export function getAdminClient(): Promise<SupabaseClient> | null {
       auth: {
         flowType: 'pkce',
         persistSession: true,
-        // session.ts handles ?code= / ?error_code= itself (clean URL first, keep #dela=).
+        // Never read the address: old ?code= / ?error_code= links are only cleaned (authReturn.ts).
         detectSessionInUrl: false,
         autoRefreshToken: true,
         storageKey: ADMIN_AUTH_KEY,

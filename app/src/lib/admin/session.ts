@@ -1,16 +1,22 @@
 /**
- * Slice 32 (B2 + C1, lazy chunk) — admin login with a link sent by e-mail.
+ * Slice 33 (lazy chunk) — admin login with a 6-digit code from the e-mail (replaces the
+ * Slice 32 link, which opened the browser instead of the home-screen app).
  *
- * Loaded only when the address carries a login return (`?code=` / `?error_code=`), when this
- * browser already holds an admin session (`gymnastics-planner-admin-auth-v1`), or when someone
- * opens the login sheet / logs out. State lives in state.ts (always loaded, tiny).
+ *   sendLoginCode(email)          signInWithOtp, shouldCreateUser false, no redirect
+ *   verifyLoginCode(email, code)  verifyOtp type 'email' → session in the response body
+ *
+ * Loaded only when this browser already holds an admin session (`gymnastics-planner-admin-auth-v1`),
+ * or when someone opens the login sheet / logs out. State lives in state.ts (always loaded, tiny).
  */
 import { clearAdminBank, loadAdminBank } from './adminBank'
-import { readAuthReturn } from './authReturn'
 import { getAdminClient } from './client'
+import { clearPendingLogin } from './loginCode'
 import { ADMIN_AUTH_KEY, getAdminSnapshot, setAdminSnapshot, shouldStartAdmin } from './state'
 
 export type SendResult = 'sent' | 'wait' | 'failed'
+export type VerifyResult = 'ok' | 'wrong' | 'wait' | 'failed'
+
+const CODE_VERIFIER_KEY = `${ADMIN_AUTH_KEY}-code-verifier`
 
 let started = false
 let watching = false
@@ -20,26 +26,34 @@ function offline(): boolean {
   return typeof navigator !== 'undefined' && navigator.onLine === false
 }
 
-async function settleState(linkFailed: boolean): Promise<void> {
+function removeKey(key: string): void {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    // private mode
+  }
+}
+
+async function settleState(): Promise<void> {
   const pending = getAdminClient()
-  if (!pending) return set({ state: 'none', linkFailed })
+  if (!pending) return set({ state: 'none' })
   const client = await pending
   const { data } = await client.auth.getSession()
   if (!data.session) {
     clearAdminBank()
-    return set({ state: 'none', linkFailed })
+    return set({ state: 'none' })
   }
   const { data: row, error } = await client.from('admins').select('user_id').maybeSingle()
   if (error) {
     // Could not ask (network): no admin UI, but keep the session for the next load.
     clearAdminBank()
-    return set({ state: 'none', linkFailed })
+    return set({ state: 'none' })
   }
   if (!row) {
     clearAdminBank()
-    return set({ state: 'notAdmin', linkFailed: false })
+    return set({ state: 'notAdmin' })
   }
-  set({ state: 'admin', linkFailed: false })
+  set({ state: 'admin' })
   await loadAdminBank()
 }
 
@@ -60,73 +74,90 @@ function watchAuth(): void {
   })
 }
 
-/**
- * Once per load, from main.tsx. Cleans `?code=` / error params from the address first
- * (keeping `#dela=…`), then exchanges the code with the verifier this browser saved.
- */
+/** Once per load, from main.tsx, only when a session is saved in this browser. */
 export async function startAdmin(): Promise<void> {
   if (started) return
   started = true
   if (!shouldStartAdmin()) return
   set({ state: 'checking' })
-  const ret = readAuthReturn(window.location.href)
-  if (ret.cleanUrl !== null) window.history.replaceState(window.history.state, '', ret.cleanUrl)
-  let linkFailed = ret.failed
   try {
-    const pending = getAdminClient()
-    if (!pending) return set({ state: 'none', linkFailed })
-    const client = await pending
-    if (ret.code) {
-      const { error } = await client.auth.exchangeCodeForSession(ret.code)
-      if (error) linkFailed = true
-    }
-    await settleState(linkFailed)
+    await settleState()
     watchAuth()
   } catch {
-    set({ state: 'none', linkFailed })
+    set({ state: 'none' })
   }
 }
 
-/** Where the e-mail link comes back to: the app's own address (Pages base path). */
-export function loginRedirectUrl(): string {
-  return `${window.location.origin}${import.meta.env.BASE_URL ?? '/'}`
-}
-
-interface SendError {
+interface AuthErrorLike {
   status?: number
   code?: string
   name?: string
+}
+
+function isRateLimit(error: AuthErrorLike, status: number): boolean {
+  return status === 429 || error.code === 'over_email_send_rate_limit' || error.code === 'over_request_rate_limit'
+}
+
+function isUnreachable(error: AuthErrorLike, status: number): boolean {
+  return error.name === 'AuthRetryableFetchError' || status === 0 || status >= 500
 }
 
 /**
  * Any answer about the address itself counts as sent (same text for every e-mail, so nobody
  * can test who is admin). Rate limit → wait. Never reached the login service → failed.
  */
-export function classifySendError(error: SendError | null | undefined): SendResult {
+export function classifySendError(error: AuthErrorLike | null | undefined): SendResult {
   if (!error) return 'sent'
   const status = typeof error.status === 'number' ? error.status : 0
-  if (status === 429 || error.code === 'over_email_send_rate_limit' || error.code === 'over_request_rate_limit') return 'wait'
-  if (error.name === 'AuthRetryableFetchError' || status === 0 || status >= 500) return 'failed'
+  if (isRateLimit(error, status)) return 'wait'
+  if (isUnreachable(error, status)) return 'failed'
   return 'sent'
 }
 
-export async function sendLoginLink(email: string): Promise<SendResult> {
+/** Refused code (403 otp_expired: wrong AND expired, or any other 4xx) → wrong. 429 → wait. Unreachable → failed. */
+export function classifyVerifyError(error: AuthErrorLike | null | undefined): VerifyResult {
+  if (!error) return 'ok'
+  const status = typeof error.status === 'number' ? error.status : 0
+  if (isRateLimit(error, status)) return 'wait'
+  if (isUnreachable(error, status)) return 'failed'
+  return 'wrong'
+}
+
+export async function sendLoginCode(email: string): Promise<SendResult> {
   if (offline()) return 'failed'
   try {
     const pending = getAdminClient()
     if (!pending) return 'failed'
     const client = await pending
-    const { error } = await client.auth.signInWithOtp({
-      email: email.trim(),
-      options: { shouldCreateUser: false, emailRedirectTo: loginRedirectUrl() },
-    })
+    const { error } = await client.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: false } })
     return classifySendError(error)
   } catch {
     return 'failed'
   }
 }
 
-/** Logs out at once: server sign-out if reachable, and always the local session key. */
+export async function verifyLoginCode(email: string, code: string): Promise<VerifyResult> {
+  if (offline()) return 'failed'
+  try {
+    const pending = getAdminClient()
+    if (!pending) return 'failed'
+    const client = await pending
+    const { data, error } = await client.auth.verifyOtp({ email: email.trim(), token: code, type: 'email' })
+    const result = classifyVerifyError(error)
+    if (result !== 'ok') return result
+    if (!data.session) return 'failed'
+    started = true
+    removeKey(CODE_VERIFIER_KEY)
+    clearPendingLogin()
+    await settleState()
+    watchAuth()
+    return 'ok'
+  } catch {
+    return 'failed'
+  }
+}
+
+/** Logs out at once: server sign-out if reachable, and always the local keys. */
 export async function signOutAdmin(): Promise<void> {
   const pending = getAdminClient()
   if (pending) {
@@ -137,14 +168,11 @@ export async function signOutAdmin(): Promise<void> {
       // offline: the local removal below is what matters
     }
   }
-  try {
-    localStorage.removeItem(ADMIN_AUTH_KEY)
-    localStorage.removeItem(`${ADMIN_AUTH_KEY}-code-verifier`)
-  } catch {
-    // private mode
-  }
+  removeKey(ADMIN_AUTH_KEY)
+  removeKey(CODE_VERIFIER_KEY)
+  clearPendingLogin()
   clearAdminBank()
-  set({ state: 'none', linkFailed: false })
+  set({ state: 'none' })
 }
 
 /** Tests only. */

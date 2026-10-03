@@ -1,8 +1,10 @@
 /**
- * Slice 32 — the small, always-loaded part of admin: two in-memory stores (login state and
+ * Slice 32/33 — the small, always-loaded part of admin: two in-memory stores (login state and
  * the admin's bank copy) and the "should admin start at all?" check. Everything that talks
  * to Supabase (session.ts, adminBank.ts, bankWrite.ts, supabase-js) is loaded lazily so a
  * coach's main chunk barely grows (AC 49) and never fetches supabase-js (AC 26).
+ * Slice 33: login is by a code typed into the sheet, so only a saved session starts admin
+ * on load; an address (old `?code=` link) never does.
  *
  *   'none'      nobody logged in → footer shows «Logga in som admin»
  *   'checking'  session being checked → footer shows only the slice label
@@ -12,7 +14,6 @@
 import type { Activity } from '../../types'
 import { bankEnabled } from '../bankConfig'
 import type { BankRowStatus } from '../bankRow'
-import { readAuthReturn } from './authReturn'
 
 export const ADMIN_AUTH_KEY = 'gymnastics-planner-admin-auth-v1'
 
@@ -20,12 +21,10 @@ export type AdminState = 'none' | 'checking' | 'admin' | 'notAdmin'
 
 export interface AdminSnapshot {
   state: AdminState
-  /** Expired / used / other-browser link on return → the login sheet opens with adminLinkFailed. */
-  linkFailed: boolean
 }
 
 // Plain arrays (not Sets): the admin folder has no delete call of any kind — AC 35 greps for it.
-let snapshot: AdminSnapshot = { state: 'none', linkFailed: false }
+let snapshot: AdminSnapshot = { state: 'none' }
 let listeners: Array<() => void> = []
 
 export function setAdminSnapshot(next: Partial<AdminSnapshot>): void {
@@ -57,16 +56,9 @@ function hasStoredSession(): boolean {
   }
 }
 
-/** True when this load must look at admin state (and therefore load the admin chunk). */
-export function shouldStartAdmin(href: string = window.location.href): boolean {
-  if (!bankEnabled()) return false
-  const ret = readAuthReturn(href)
-  return ret.code !== null || ret.failed || hasStoredSession()
-}
-
-/** The login sheet read the flag; don't reopen it with the same line. */
-export function acknowledgeLinkFailed(): void {
-  if (snapshot.linkFailed) setAdminSnapshot({ linkFailed: false })
+/** True when this load must look at admin state (and therefore load the admin chunk): a saved session only. */
+export function shouldStartAdmin(): boolean {
+  return bankEnabled() && hasStoredSession()
 }
 
 // ---- the admin's copy of the bank (all statuses; memory only) ----
@@ -120,7 +112,7 @@ export function adminEntry(id: string): AdminEntry | undefined {
 
 /** Tests only. */
 export function resetAdminStateForTests(): void {
-  snapshot = { state: 'none', linkFailed: false }
+  snapshot = { state: 'none' }
   listeners = []
   bank = EMPTY_ADMIN_BANK
   bankListeners = []

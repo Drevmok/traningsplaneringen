@@ -62,6 +62,17 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204, cors(req))
     return res.end()
   }
+  // Slice 33: login-mail templates for GoTrue (local files in <dir>/templates, read-only).
+  if (req.method === 'GET' && path.startsWith('/__templates/')) {
+    const name = path.slice('/__templates/'.length)
+    const file = `${cfg.dir}/templates/${name}`
+    if (/^[a-z_]+\.html$/.test(name) && fs.existsSync(file)) {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
+      return res.end(fs.readFileSync(file))
+    }
+    res.writeHead(404)
+    return res.end()
+  }
   const isRest = path.startsWith('/rest/v1/')
   const isAuth = path.startsWith('/auth/v1/')
   if (!isRest && !isAuth) {
