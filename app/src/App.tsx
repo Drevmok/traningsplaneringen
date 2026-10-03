@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
 import type { WizardFinishAnswers } from './components/HomeWizard'
@@ -29,6 +29,12 @@ import {
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
 import { useBank } from './lib/useBank'
+import { acknowledgeLinkFailed, adminAvailable } from './lib/admin/state'
+import { useAdmin } from './lib/admin/useAdmin'
+
+// Slice 32: login sheet + sign-out live in lazy chunks (coach main chunk stays small).
+const AdminLoginSheet = lazy(() => import('./components/AdminLoginSheet').then((m) => ({ default: m.AdminLoginSheet })))
+const signOutAdmin = () => import('./lib/admin/session').then((m) => m.signOutAdmin())
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
 import { applyUpdate, fetchRemoteBuild, isNewerBuild, localBuild } from './lib/appUpdate'
 import type { Session } from './types'
@@ -51,6 +57,10 @@ export default function App() {
   const [shareError, setShareError] = useState(false)
   const [runSession, setRunSession] = useState<Session | null>(null)
   const [remoteBuild, setRemoteBuild] = useState<string | null>(null)
+  // Slice 32 — footer admin link / state + the login sheet (opens by itself after a bad link).
+  const admin = useAdmin()
+  const [loginOpen, setLoginOpen] = useState(false)
+  const showLogin = loginOpen || admin.linkFailed
   const updateReady = isNewerBuild(localBuild(), remoteBuild)
 
   useEffect(() => {
@@ -319,6 +329,34 @@ export default function App() {
             <span className="app-footer-sep" aria-hidden>
               ·
             </span>
+          </>
+        )}
+        {adminAvailable() && admin.state !== 'checking' && (
+          <span className="footer-admin">
+            {admin.state === 'none' && (
+              <button type="button" className="btn-text visa-tips-igen footer-admin-login" onClick={() => setLoginOpen(true)}>
+                {UI.adminLoginLink}
+              </button>
+            )}
+            {admin.state === 'admin' && <span className="footer-admin-badge">{UI.adminBadge}</span>}
+            {admin.state === 'notAdmin' && <span className="footer-admin-not">{UI.adminNotAdmin}</span>}
+            {admin.state !== 'none' && (
+              <>
+                <span className="app-footer-sep" aria-hidden>
+                  ·
+                </span>
+                <button type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
+                  {UI.adminLogout}
+                </button>
+              </>
+            )}
+            <span className="app-footer-sep" aria-hidden>
+              ·
+            </span>
+          </span>
+        )}
+        {view !== 'home' && (
+          <>
             <button
               type="button"
               className="btn-text visa-tips-igen footer-visa-tips"
@@ -344,6 +382,17 @@ export default function App() {
           </span>
         )}
       </footer>
+      {showLogin && (
+        <Suspense fallback={null}>
+          <AdminLoginSheet
+            linkFailed={admin.linkFailed}
+            onClose={() => {
+              setLoginOpen(false)
+              acknowledgeLinkFailed()
+            }}
+          />
+        </Suspense>
+      )}
       {runSession && (
         <RunPass session={runSession} onClose={() => setRunSession(null)} />
       )}

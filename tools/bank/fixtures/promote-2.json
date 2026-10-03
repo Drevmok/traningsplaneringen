@@ -1,0 +1,102 @@
+{
+  "format": "traningsplaneraren.ovningar",
+  "schemaVersion": 1,
+  "createdAt": "2026-10-02",
+  "producedBy": "Planner",
+  "batchNote": "Testfixtur för push-promote.ts (Slice 32): två övningar från example-import.json + seedId.",
+  "exercises": [
+    {
+      "id": "own-imp-2dj-02-formhopp-over-block",
+      "title": "Test: formhopp över lågt block",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.",
+      "howTo": "1. Ställ ett lågt skumblock mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.",
+      "watchFor": "Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.",
+      "safetyLine": "Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.",
+      "difficulty": "easy",
+      "tags": [
+        "teknik",
+        "trampett",
+        "hopp",
+        "former",
+        "landning"
+      ],
+      "defaultStationEquipment": [
+        {
+          "pieceId": "eq-trampett",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-skumblock",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-landningsmatta",
+          "count": 1
+        }
+      ],
+      "progressionOf": "tech-ljushopp-trampett",
+      "needsCoachReview": true,
+      "experiencedCoachOnly": false,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=30",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 30
+      },
+      "confidence": {
+        "level": "hög",
+        "uncertain": "Exakt starttid uppskattad; blockhöjden okänd."
+      },
+      "unmappedEquipment": [],
+      "seedId": "tech-test-formhopp-over-lagt-block",
+      "newCoachOk": true
+    },
+    {
+      "id": "own-imp-2dj-03-aggrullning-kil",
+      "title": "Test: äggrullning nerför kil",
+      "blockType": "techniques",
+      "durationMinutesDefault": 6,
+      "summary": "Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.",
+      "howTo": "1. Lägg kilmattan på en madrass. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.",
+      "watchFor": "Formen som släpper (ben eller armar åker ut), hakan som åker upp.",
+      "safetyLine": "Kilen ligger stadigt på en matta. Bara en i taget i backen.",
+      "difficulty": "intro",
+      "tags": [
+        "teknik",
+        "rullning",
+        "kil",
+        "form",
+        "nybörjare"
+      ],
+      "defaultStationEquipment": [
+        {
+          "pieceId": "eq-kilmatta",
+          "count": 1
+        },
+        {
+          "pieceId": "eq-madrass",
+          "count": 1
+        }
+      ],
+      "regressionOf": "tech-kullerbytta",
+      "needsCoachReview": true,
+      "experiencedCoachOnly": false,
+      "source": {
+        "url": "https://youtu.be/2DJ_oMM81mI?t=50",
+        "creator": "Prime Coaching Sport",
+        "title": "Fun gymnastics stations",
+        "startSeconds": 50
+      },
+      "confidence": {
+        "level": "medel",
+        "uncertain": "Underlaget i videon är en tunnare matta; vi föreslår madrass."
+      },
+      "unmappedEquipment": [],
+      "seedId": "tech-test-aggrullning-kil",
+      "newCoachOk": false,
+      "progressionOf": "own-imp-2dj-02-formhopp-over-block"
+    }
+  ]
+}

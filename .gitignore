@@ -8,3 +8,6 @@ app/dist/
 tools/bank/out/*
 !tools/bank/out/bank-seed.sql
 !tools/bank/out/bank-seed.json
+# Slice 32 — the ≤16 KB seed parts and the setup pastes are committed too.
+!tools/bank/out/parts/
+!tools/bank/out/setup-32/

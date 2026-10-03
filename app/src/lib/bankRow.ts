@@ -11,6 +11,8 @@ import { parseHowLines, sanitizeLinkId } from './ownActivities'
 import { sanitizeSource } from './source'
 
 export type BankStatusValue = 'published' | 'hidden'
+/** Slice 32 — 'pending' rows reach admins only (RLS), never a coach device. */
+export type BankRowStatus = BankStatusValue | 'pending'
 
 export interface BankRow {
   id: string
@@ -81,7 +83,7 @@ const DIFFICULTIES: readonly Difficulty[] = ['intro', 'easy', 'medium', 'hard']
 
 export interface BankEntry {
   activity: Activity
-  status: BankStatusValue
+  status: BankRowStatus
   sortOrder: number
 }
 
@@ -117,13 +119,18 @@ function reject(id: unknown, why: string): null {
   return null
 }
 
-/** A valid published/hidden row → Activity, else null (+ console.warn with the id). */
-export function rowToEntry(raw: unknown): BankEntry | null {
+/**
+ * A valid published/hidden row → Activity, else null (+ console.warn with the id).
+ * `allowPending` is for the admin list only (Slice 32); the coach path never sets it.
+ */
+export function rowToEntry(raw: unknown, options?: { allowPending?: boolean }): BankEntry | null {
+  // An options object (not a bare boolean) so `rows.map(rowToEntry)` can never switch pending on via the index.
+  const allowPending = typeof options === 'object' && options !== null && options.allowPending === true
   if (!isRecord(raw)) return reject(undefined, 'not an object')
   const id = raw.id
   if (typeof id !== 'string' || !ID_RE.test(id)) return reject(id, 'id')
   const status = raw.status
-  if (status !== 'published' && status !== 'hidden') return reject(id, 'status')
+  if (status !== 'published' && status !== 'hidden' && !(allowPending && status === 'pending')) return reject(id, 'status')
   const blockType = raw.block_type as BlockType
   if (!BLOCK_ORDER.includes(blockType)) return reject(id, 'block')
   const title = text(raw.title, BANK_LIMITS.title)
@@ -186,6 +193,8 @@ export function rowToActivity(raw: unknown): Activity | null {
   return rowToEntry(raw)?.activity ?? null
 }
 
+export const BANK_ID_RE = ID_RE
+
 /**
  * Activity → row. Used by tools/bank/export-seed.ts (bank-seed.sql), the parity test,
  * and to re-check the device cache with the same guard as a fresh fetch.
@@ -194,7 +203,7 @@ export function activityToBankRow(
   a: Activity,
   index: number,
   safetyLine: string | null,
-  status: BankStatusValue = 'published',
+  status: BankRowStatus = 'published',
 ): BankRow {
   return {
     id: a.id,

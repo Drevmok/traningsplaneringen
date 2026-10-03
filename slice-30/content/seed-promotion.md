@@ -1,3 +1,5 @@
+> **Superseded (Slice 32 · E1).** New exercises no longer go into `seedActivities.ts` by PR. Planner pushes an approved `promote.json` straight into the shared bank as *pending* rows with `bun tools/bank/push-promote.ts` (see [`slice-31/content/bot-writes.md`](../../slice-31/content/bot-writes.md) and [`tools/bank/README.md`](../../tools/bank/README.md)); Christoffer approves them in the app (Logga in som admin → Biblioteket → Väntar på godkännande). Step 3 below (promote.json + `seedId`) still applies; steps 4–5 do not. Kept for history.
+
 # Seed promotion — Planner → Builder (B3 · process, no UI)
 
 How an imported drill becomes part of the shipped bank (`app/src/data/seedActivities.ts`). In-app import (own exercises) is instant and device-local; this path is curated and reaches every coach after a PR + Pages republish.

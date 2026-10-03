@@ -6,12 +6,16 @@ import {
   UI,
 } from '../data/blockMeta'
 import { useBank } from '../lib/useBank'
+import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
+import { AdminStatusBadge } from './AdminStatusBadge'
 import { seedTemplates } from '../data/seedTemplates'
 import { activityFitsOwned, loadOwnedEquipment, loadTonightFilter, ownsEveryPiece, saveTonightFilter } from '../lib/ownedEquipment'
 import type { SavedTemplate } from '../lib/savedTemplates'
 import type { Activity, BlockType, SideTab } from '../types'
 import { ActivityCard } from './ActivityCard'
 import { ActivityTip } from './ActivityTip'
+
+type AdminFilter = 'pending' | 'review' | 'hidden'
 
 interface Props {
   tab: SideTab
@@ -58,6 +62,12 @@ export function LibraryPanel({
 }: Props) {
   const [query, setQuery] = useState('')
   const bank = useBank()
+  // Slice 32 — admin mode (screen-spec §4). Coaches: admin.state is never 'admin', nothing changes.
+  const admin = useAdmin()
+  const adminBank = useAdminBank()
+  const isAdmin = admin.state === 'admin' && adminBank.loaded
+  const [adminFilter, setAdminFilter] = useState<AdminFilter | null>(null)
+  const activeAdminFilter = isAdmin && adminFilter && adminBank.counts[adminFilter] > 0 ? adminFilter : null
   const [ownedIds] = useState(() => loadOwnedEquipment())
   const [tonightOnly, setTonightOnly] = useState(() => {
     const saved = loadTonightFilter()
@@ -67,10 +77,22 @@ export function LibraryPanel({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return [...ownActivities, ...bank.activities].filter((a) => {
+    // Pending and hidden rows appear only under their own chip, never in the normal list.
+    const base = activeAdminFilter
+      ? adminBank.entries
+          .filter((e) =>
+            activeAdminFilter === 'pending'
+              ? e.status === 'pending'
+              : activeAdminFilter === 'hidden'
+                ? e.status === 'hidden'
+                : e.status === 'published' && e.needsReview,
+          )
+          .map((e) => e.activity)
+      : [...ownActivities, ...bank.activities]
+    return base.filter((a) => {
       if (filterBlockType !== 'all' && a.blockType !== filterBlockType)
         return false
-      if (tonightOnly && !activityFitsOwned(a, ownedIds)) return false
+      if (!activeAdminFilter && tonightOnly && !activityFitsOwned(a, ownedIds)) return false
       if (!q) return true
       return (
         a.title.toLowerCase().includes(q) ||
@@ -78,7 +100,19 @@ export function LibraryPanel({
         a.tags.some((t) => t.includes(q))
       )
     })
-  }, [query, filterBlockType, tonightOnly, ownedIds, ownActivities, bank.activities])
+  }, [query, filterBlockType, tonightOnly, ownedIds, ownActivities, bank.activities, activeAdminFilter, adminBank.entries])
+
+  function adminBadgesFor(a: Activity) {
+    if (!isAdmin || a.own) return undefined
+    const entry = adminBank.byId.get(a.id)
+    if (!entry) return undefined
+    return (
+      <>
+        {(entry.status === 'pending' || entry.status === 'hidden') && <AdminStatusBadge status={entry.status} />}
+        {entry.needsReview && <span className="review-badge">{UI.ownNeedsReview}</span>}
+      </>
+    )
+  }
 
   return (
     <aside className="side-panel">
@@ -105,6 +139,34 @@ export function LibraryPanel({
 
       {tab === 'library' && (
         <div className="side-body">
+          {isAdmin && (
+            <div className="admin-bar">
+              <span className="admin-chip">{UI.adminBadge}</span>
+              {(
+                [
+                  ['pending', UI.adminFilterPending],
+                  ['review', UI.adminFilterReview],
+                  ['hidden', UI.adminFilterHidden],
+                ] as const
+              ).map(([id, label]) =>
+                adminBank.counts[id] > 0 ? (
+                  <button
+                    key={id}
+                    type="button"
+                    className={`admin-filter-chip${activeAdminFilter === id ? ' active' : ''}`}
+                    aria-pressed={activeAdminFilter === id}
+                    onClick={() => {
+                      // The chip's count is for the whole bank, so show the whole bank under it.
+                      if (activeAdminFilter !== id && filterBlockType !== 'all') onFilterChange('all')
+                      setAdminFilter(activeAdminFilter === id ? null : id)
+                    }}
+                  >
+                    {label.replace('{n}', String(adminBank.counts[id]))}
+                  </button>
+                ) : null,
+              )}
+            </div>
+          )}
           {bank.status === 'stale' && <p className="bank-stale">{UI.bankStale}</p>}
           <input
             className="search-input"
@@ -166,7 +228,7 @@ export function LibraryPanel({
             )}
             {filtered.map((a) => (
               <div key={a.id} className="library-entry">
-                <ActivityCard activity={a} onSelect={onSelectActivity} />
+                <ActivityCard activity={a} onSelect={onSelectActivity} adminBadges={adminBadgesFor(a)} />
                 {a.own && (
                   <div className="own-card-actions">
                     <button type="button" className="btn-text" onClick={() => onEditOwn(a)}>

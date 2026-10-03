@@ -87,12 +87,12 @@
 
 | AC | Pass if |
 |---|---|
-| 40 | Secret key exists only at `~/.config/traningsplaneraren/bank-bot.env`, mode `600`; `git grep sb_secret_` empty; not in GitHub variables/secrets, dist, pack, reports |
+| 40 | Secret key exists only at `~/.config/traningsplaneraren/bank-bot.env`, mode `600`; `git grep sb_secret_` empty; not in GitHub variables/secrets, dist, pack, reports · **Accepted deviation (Christoffer 2026-10-03):** there is no env file; the key comes only from the box environment variable `SUPABASE_PLANNER_BOT_KEY`, set through the box's secure input. The file/mode-600 part is not checked; the rest still applies |
 | 41 | `push-promote.ts` with a checker-clean `promote.json` → rows `pending`, `needs_coach_review = true`, `updated_by = 'bot:planner'`; invisible to anon; listed under **Väntar på godkännande** for the admin |
-| 42 | Existing id → skipped + reported (no overwrite) unless `--replace`; publishable key in the env file → script refuses; file mode 644 → script refuses; key never printed |
+| 42 | Existing id → skipped + reported (no overwrite) unless `--replace`; publishable key in the env file → script refuses; file mode 644 → script refuses; key never printed · **Accepted deviation (Christoffer 2026-10-03):** no env file, so the env-file checks (publishable key in the file, mode 644) don't apply. A publishable key in `SUPABASE_PLANNER_BOT_KEY` is refused; the rest still applies |
 | 43 | Bot cannot delete (DELETE with the secret key → permission denied) |
 | 44 | Deleting the `planner-bot` key in the dashboard → script fails clearly; app unaffected |
-| 45 | `export-db.ts` regenerates the bundled snapshot; app offline-first still shows all published rows from it; `seed-promotion.md` carries the superseded banner |
+| 45 | `export-db.ts` regenerates the bundled snapshot; app offline-first still shows all published rows from it; `seed-promotion.md` carries the superseded banner · **Accepted as partial (Christoffer 2026-10-03):** export + banner stay as they are; the snapshot is not bundled, so the offline fallback stays the bundled seeds. Backlog: «Bundle latest DB snapshot into app offline fallback» (Parked / Later) |
 
 ### Security + preserve
 

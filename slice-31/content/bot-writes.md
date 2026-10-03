@@ -31,7 +31,7 @@
    - `POST {BANK_URL}/rest/v1/exercises` with headers `apikey: <secret>`, `Content-Type: application/json`, `Prefer: return=representation`; body forces `status: 'pending'`, `needs_coach_review: true`, `updated_by: 'bot:planner'`, `sort_order` = after the last row of that block;
    - an existing id → **409, skipped and reported** (no overwrite). `--replace <id>` only with Christoffer's explicit OK in chat; replace never changes `status`;
    - refuses to run if the key starts with `sb_publishable_`, the env file is not mode 600, or the file has >100 exercises;
-   - prints ids + "Väntar på godkännande i appen", never the key.
+   - prints ids + "Väntar på godkännande i appen" (when every row was skipped: "Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs."), never the key.
 4. **Christoffer** opens the app → Logga in som admin → Biblioteket → **Väntar på godkännande (n)** → reads → **Godkänn** / **Ändra i banken** / **Dölj för alla**.
 5. Coaches see approved stations on their next app start (D1).
 

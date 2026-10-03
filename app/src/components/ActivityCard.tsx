@@ -1,14 +1,17 @@
 import { UI } from '../data/blockMeta'
 import { validateActivityTip } from '../data/activityTips'
 import { VisualIcon } from '../icons'
+import type { ReactNode } from 'react'
 import type { Activity } from '../types'
 
 interface Props {
   activity: Activity
   onSelect: (activity: Activity) => void
+  /** Slice 32 — admin-only badges (Väntar / Dold / Behöver granskas on bank rows). */
+  adminBadges?: ReactNode
 }
 
-export function ActivityCard({ activity, onSelect }: Props) {
+export function ActivityCard({ activity, onSelect, adminBadges }: Props) {
   return (
     <button
       type="button"
@@ -32,6 +35,7 @@ export function ActivityCard({ activity, onSelect }: Props) {
           {activity.experiencedCoachOnly && (
             <span className="experienced-badge">{UI.experiencedCoach}</span>
           )}
+          {adminBadges}
           {validateActivityTip(activity).length > 0 && (
             <span className="tip-invalid-badge">{UI.tipIncomplete}</span>
           )}
