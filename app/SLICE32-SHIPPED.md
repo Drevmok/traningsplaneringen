@@ -143,7 +143,7 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
    - Site URL `https://drevmok.github.io/traningsplaneringen/`.
    - Redirect URLs: the same address, plus `http://localhost:5173/traningsplaneringen/`.
 3. **Email template:** no change (the default Magic Link works with PKCE).
-4. **SQL Editor:** `01-schema-32.sql` (4 430 B, identical to `slice-31/content/schema-32.sql`). Safe to run twice.
+4. **SQL Editor:** `01-schema-32.sql` (4 889 B, identical to `slice-31/content/schema-32.sql`). Safe to run twice. *(Already ran the older 01? Run `07-fix-advisor.sql` (1 702 B) instead/after.)*
 5. **SQL Editor:** `02-check-policies.sql` (321 B) → five policy names.
 6. **Authentication → Users → Create new user:** your e-mail, Auto Confirm.
 7. **SQL Editor:** `03-admin-insert.sql` (392 B). Replace `DIN-EPOST@exempel.se` with your e-mail first.
@@ -152,7 +152,7 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
 10. **Project Settings → API Keys → New secret key `planner-bot`:** paste it only into the box's secure input, so it becomes `SUPABASE_PLANNER_BOT_KEY`. No GitHub variable or secret.
 11. *(Optional)* `05-rls-smoke-valfri.sql` (4 838 B). It rolls back, and every line should say PASS.
 12. *(Optional)* `06-check-bank-after-setup.sql` (526 B), read-only.
-13. **Security Advisor:** no RLS-disabled table; `private` is not exposed.
+13. **Security Advisor:** no RLS-disabled table; `private` is not exposed; lints 0028/0029 fixed (see follow-up below). Leaked-password protection: ignore (Pro-only, magic links).
 
 ## Deviations
 
@@ -169,3 +169,7 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
 - **Recommendation (not changed):** `schema-32.sql` leaves `service_role` with full rights on `public.admins`, and a secret key can also use the Auth admin API. That is the accepted E1 trade-off; keep `planner-bot` on the box only.
 - **Slice 31 smoke:** the script was not re-run (it needs its own stand-in). Its ACs were re-covered by the Slice 32 smoke (AC48a–e) and unit tests.
 - **No Swedish login mail:** that needs custom SMTP (optional, later).
+
+## Follow-up 2026-10-03
+
+- **Security Advisor lints 0028/0029 fixed:** `stamp_updated_by()` moved to the `private` schema, EXECUTE revoked from public/anon/authenticated/service_role, trigger re-bound, and the old public copy is dropped. This is in `schema-32.sql` = `setup-32/01-schema-32.sql` (4 889 B). Already ran the old 01? Run `setup-32/07-fix-advisor.sql` (1 702 B). Verified on the stand-in: fresh, old→07, and re-runs. See `verifier/slice-32-builder-smoke.md` and `verifier/slice-32-local/check-advisor.ts`. Leaked-password protection: ignore (Pro-only, magic links).

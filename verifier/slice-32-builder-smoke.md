@@ -58,3 +58,19 @@ Status values: **pass** (holds for the shipped code regardless of project) · **
 - Seed reality: 16 seed rows carry `needs_coach_review = true`, so Christoffer will see `Behöver granskas (16)` on first login. That is expected.
 - An admin filter chip now resets the block filter to «Alla typer» when it is switched on, so the list matches the chip's count. Found in the smoke: opening Biblioteket from Teknik showed 12 of 17.
 - Supabase's built-in mailer sends ~2 login mails/hour and only to team members (the local stand-in uses 60 s/address). A non-admin test user on the real project needs a team-member address or custom SMTP.
+
+## Follow-up 2026-10-03: Security Advisor lints 0028/0029 (`stamp_updated_by`)
+
+On the real project, Security Advisor flagged the SECURITY DEFINER trigger function `public.stamp_updated_by()` as executable by `anon`/`authenticated` (PUBLIC execute by default). Fix: the function now lives in `private` (not exposed by the API), `revoke all … from public, anon, authenticated, service_role` (triggers need no EXECUTE), trigger `exercises_stamp` → `private.stamp_updated_by()`, and any leftover `public.stamp_updated_by()` is dropped. It is folded into `schema-32.sql` = `setup-32/01-schema-32.sql` (cmp identical, 4 889 B). `setup-32/07-fix-advisor.sql` (1 702 B) is the patch for projects that already ran the old 01. It is Planner's file, reviewed: the original `alter … set schema` failed with `function stamp_updated_by() already exists in schema "private"` when both copies existed (old 01 re-run after the fix). It now drops the exposed copy in that case, always re-binds the trigger, and creates `private` if missing. No app code, bot script or test calls it via rpc (`grep -rn "stamp_updated_by\|\.rpc(\|/rpc/"` → only the two schema copies).
+
+Checks: `bun verifier/slice-32-local/check-advisor.ts` (16 checks): function only in `private`, trigger bound to it, still SECURITY DEFINER, `has_function_privilege(anon|authenticated|service_role, execute)` = f (proacl `{postgres=X/postgres}`), `POST /rest/v1/rpc/stamp_updated_by` as anon, as nonadmin and as admin (signed user JWT, the sanity GET with it → 200) → 404 PGRST202 each. Admin `PATCH` via REST with `updated_by: 'spoof'` → stored `admin@test.local`. Bot `push-promote.ts fixtures/promote-2.json` (secret key → service_role) → both rows `bot:planner` · pending. `05-rls-smoke-valfri.sql` → 13 PASS, 0 FAIL.
+
+| Case | Result |
+|---|---|
+| Baseline: old 01 only | check FAILs as expected: function in `public`, `has_function_privilege(anon/authenticated)` = t (what the lint flags). Note: rpc already returned 404 before the fix, because PostgREST does not expose trigger-returning functions. The lint is about the grant |
+| (a) fresh: schema-31 + seed + new 01 | all 16 OK |
+| (b) old 01, then 07 | 07 check row `private · stamp_updated_by · exercises_stamp`; all 16 OK |
+| (c) re-runs | fresh DB: new 01 ×2, 07 ×2 → no errors, all OK. (b) DB: 07 again, new 01 ×2, 07 again → all OK. Extra: old 01 re-run on a fixed DB (both copies) → new 07 cleans it (all OK). Old 01 then new 01 → all OK |
+| Tests/build | `bun test src` 114/114 · `bun test tools/bank` 19 pass + 5 skip; with `S32_GATEWAY` on a fresh DB 24/24 · `npm run build` green (eager JS unchanged: index 135.35 kB gz) |
+
+Servers stopped (54340–54345 free). Only SQL and docs changed, so the browser smoke was not re-run. Note: `schema-31`'s `check_exercise_redskap()` / `touch_row()` are SECURITY INVOKER trigger functions and are not flagged. Leaked-password protection warning: ignore (Pro-only, we use magic links).

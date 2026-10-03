@@ -68,7 +68,9 @@ create policy exercises_admin_update on public.exercises
 -- ---------------------------------------------------------------- who changed it
 -- Admin writes: updated_by = their e-mail (cannot be faked from the client).
 -- Bot writes (secret key, no user): keeps the value the bot sends, e.g. 'bot:planner'; else 'service'.
-create or replace function public.stamp_updated_by() returns trigger
+-- Lives in the non-exposed `private` schema and nobody may call it directly (Security Advisor
+-- lints 0028/0029: no SECURITY DEFINER function reachable via /rest/v1/rpc). Triggers need no EXECUTE.
+create or replace function private.stamp_updated_by() returns trigger
 language plpgsql security definer set search_path = '' as $$
 declare uid uuid := auth.uid();
 begin
@@ -79,10 +81,14 @@ begin
   end if;
   return new;
 end $$;
+revoke all on function private.stamp_updated_by() from public, anon, authenticated, service_role;
 
 drop trigger if exists exercises_stamp on public.exercises;
 create trigger exercises_stamp before insert or update on public.exercises
-  for each row execute function public.stamp_updated_by();
+  for each row execute function private.stamp_updated_by();
+
+-- An older run of this file put the function in public: remove that exposed copy (no trigger uses it now).
+drop function if exists public.stamp_updated_by();
 
 commit;
 

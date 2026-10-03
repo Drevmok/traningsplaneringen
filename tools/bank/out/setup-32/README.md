@@ -2,12 +2,15 @@
 
 Run in this order **after** Slice 32 is merged (or when Planner says so). Full wording with screenshots-level detail: [`slice-31/content/setup-christoffer.md`](../../../../slice-31/content/setup-christoffer.md) steps 6–11. Every SQL file here is **under 16 KB** (the SQL Editor cut a ~100 KB paste at about 20 KB), so each one is a single paste. Check the paste is whole: the last line in the editor must match the file's last line.
 
+**Already ran an older `01-schema-32.sql`** (Security Advisor shows lints 0028/0029 for `stamp_updated_by`)? Then run only row **4b** (`07-fix-advisor.sql`) and check row 13 — nothing else needs redoing.
+
 | # | Where | What | File | Bytes |
 |---|---|---|---|---|
 | 1 | Authentication → Sign In / Providers | **Allow new users to sign up: OFF** · Save. **Email** provider: enabled (leave its other settings) | — | — |
 | 2 | Authentication → URL Configuration | **Site URL** `https://drevmok.github.io/traningsplaneringen/` · **Redirect URLs**: add `https://drevmok.github.io/traningsplaneringen/` and `http://localhost:5173/traningsplaneringen/` (keep the trailing slash) · Save | — | — |
 | 3 | Authentication → Emails → Templates | **Nothing to change.** The default *Magic Link* template works (the app uses the secure code flow). Swedish text needs own SMTP (optional, later) | — | — |
-| 4 | SQL Editor → new query | Paste all, Run (confirm the "destructive" warning — it only replaces its own rules). Expect *Success. No rows returned*. Safe to run twice | `01-schema-32.sql` | 4 430 |
+| 4 | SQL Editor → new query | Paste all, Run (confirm the "destructive" warning — it only replaces its own rules). Expect *Success. No rows returned*. Safe to run twice | `01-schema-32.sql` | 4 889 |
+| 4b | SQL Editor → new query | **Only if you ran an older `01-schema-32.sql` before (Advisor shows 0028/0029).** Paste all, Run. Moves `stamp_updated_by` to `private` and removes direct calls; the check at the end shows one row `private · stamp_updated_by · exercises_stamp`. Safe to run twice, and harmless after the current 01 | `07-fix-advisor.sql` | 1 702 |
 | 5 | SQL Editor → new query | Check: five policy names | `02-check-policies.sql` | 321 |
 | 6 | Authentication → Users → Add user → **Create new user** | Your e-mail · long password (password manager; not used) · **Auto Confirm User** ticked · Create | — | — |
 | 7 | SQL Editor → new query | Replace `DIN-EPOST@exempel.se` with the e-mail from row 6 (keep the quotes), Run | `03-admin-insert.sql` | 392 |
@@ -16,7 +19,7 @@ Run in this order **after** Slice 32 is merged (or when Planner says so). Full w
 | 10 | Project Settings → API Keys → Secret keys → **New secret key** | Name `planner-bot` → Create. Copy it **only** into the secure input box Planner opens on the box (it becomes the box environment variable `SUPABASE_PLANNER_BOT_KEY`). Never chat, e-mail, GitHub, the app or a file. Say "Klart" | — | — |
 | 11 | (optional) SQL Editor | Full RLS smoke test — runs inside a transaction and **rolls back** (changes nothing). Every line should say PASS | `05-rls-smoke-valfri.sql` | 4 838 |
 | 12 | (optional) SQL Editor | Read-only final check: counts, admins = 1, no table without RLS | `06-check-bank-after-setup.sql` | 526 |
-| 13 | Advisors → Security Advisor | No "RLS disabled" errors; `private` must not be listed as an exposed schema (AC 47) | — | — |
+| 13 | Advisors → Security Advisor | No "RLS disabled" errors; `private` not exposed. Lints **0028/0029** (`stamp_updated_by` callable via `/rest/v1/rpc`) are **fixed**: the function lives in `private` with no EXECUTE for anyone. **Leaked password protection**: ignore (Pro-only, and we log in with magic links, no passwords) (AC 47) | — | — |
 
 No new GitHub variables: `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` stay as they are. The secret key never goes to GitHub.
 

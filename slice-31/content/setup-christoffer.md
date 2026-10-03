@@ -145,7 +145,7 @@ The login link in the e-mail must lead back to the app, and only to the app.
 
 This file creates the admin list and the rules that say only admins can change exercises. Nobody can delete an exercise, not even you: hiding is the only way to take one away.
 
-**About file size.** Last time the SQL Editor cut off a long file at around 20 KB, so we keep every file under 16 KB. `schema-32.sql` is about 4.4 KB (4,430 bytes), so it goes in one paste. There are no part files.
+**About file size.** Last time the SQL Editor cut off a long file at around 20 KB, so we keep every file under 16 KB. `schema-32.sql` is about 4.9 KB (4,889 bytes), so it goes in one paste. There are no part files.
 
 1. Open **SQL Editor** and start a new, empty query.
 2. Open `schema-32.sql`, copy **all** of it and paste it.
