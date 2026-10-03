@@ -6,7 +6,9 @@ import { setBankEnvForTests } from '../bankConfig.ts'
 import { resetBankForTests } from '../bank.ts'
 import { setAdminClientForTests } from './client.ts'
 import { approveRow, hideRow, markRowReviewed, saveRow, writeRow } from './bankWrite.ts'
-import type { AdminEntry } from './state.ts'
+import { getAdminBank, resetAdminStateForTests, type AdminEntry } from './state.ts'
+import { refreshAdminRow, setAdminEntries } from './adminBank.ts'
+import { activityToBankRow } from '../bankRow.ts'
 
 const mem = new Map<string, string>()
 Object.defineProperty(globalThis, 'localStorage', {
@@ -135,6 +137,53 @@ describe('bankWrite (Slice 32 F1)', () => {
     for (const k of ['updated_by', 'updated_at', 'status', 'tags', 'difficulty', 'progression_of', 'visual_key', 'sort_order', 'id']) {
       assert.equal(k in u, false, k)
     }
+  })
+  it('conflict re-reads the row + its version, so a reopen saves instead of conflicting again (C1)', async () => {
+    resetAdminStateForTests()
+    setAdminEntries([entry])
+    const fresh = { ...activityToBankRow(entry.activity, 0, null, 'pending'), title: 'Ändrad av någon annan', updated_at: '2026-10-02T11:11:11.5+00:00', updated_by: 'other@test.local' }
+    const calls: string[] = []
+    let current = { at: fresh.updated_at }
+    const client = {
+      from(table: string) {
+        assert.equal(table, 'exercises')
+        let isUpdate = false
+        const eqs: [string, unknown][] = []
+        const q = {
+          update() { isUpdate = true; return q },
+          select() { return q },
+          eq(c: string, v: unknown) { eqs.push([c, v]); return q },
+          order() { return q },
+          async abortSignal() {
+            const at = eqs.find(([c]) => c === 'updated_at')?.[1]
+            if (isUpdate) {
+              calls.push(`update@${at}`)
+              return { data: at === current.at ? [{ id: entry.activity.id }] : [], error: null }
+            }
+            calls.push(eqs.some(([c]) => c === 'id') ? 'select-row' : 'select-all')
+            return { data: [fresh], error: null }
+          },
+        }
+        return q
+      },
+    }
+    setAdminClientForTests(client)
+    // 1st save with the stale version → conflict, and the row is fetched right away
+    assert.equal(await hideRow(entry), 'conflict')
+    assert.deepEqual(calls, [`update@${entry.updatedAt}`, 'select-row'])
+    const reopened = getAdminBank().byId.get(entry.activity.id) as AdminEntry
+    assert.equal(reopened.updatedAt, fresh.updated_at)
+    assert.equal(reopened.activity.title, 'Ändrad av någon annan')
+    assert.equal(reopened.updatedBy, 'other@test.local')
+    // «Stäng och öppna den igen»: the reopened entry carries the new version → saves
+    assert.equal(await hideRow(reopened), 'ok')
+    assert.equal(calls[2], `update@${fresh.updated_at}`)
+    // opening the detail refetches one row too (AdminDetailPanel) and keeps the other entries
+    current = { at: 'later' }
+    assert.equal(await refreshAdminRow(entry.activity.id), true)
+    assert.equal(calls.at(-1), 'select-row')
+    assert.equal(getAdminBank().entries.length, 1)
+    resetAdminStateForTests()
   })
   it('no delete or insert anywhere in the admin code (AC 35)', () => {
     const dir = new URL('.', import.meta.url).pathname

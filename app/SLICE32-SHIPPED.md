@@ -143,7 +143,7 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
    - Site URL `https://drevmok.github.io/traningsplaneringen/`.
    - Redirect URLs: the same address, plus `http://localhost:5173/traningsplaneringen/`.
 3. **Email template:** no change (the default Magic Link works with PKCE).
-4. **SQL Editor:** `01-schema-32.sql` (4 889 B, identical to `slice-31/content/schema-32.sql`). Safe to run twice. *(Already ran the older 01? Run `07-fix-advisor.sql` (1 702 B) instead/after.)*
+4. **SQL Editor:** `01-schema-32.sql` (5 299 B, identical to `slice-31/content/schema-32.sql`). Safe to run twice. *(Already ran an older 01? Run the patches `07-fix-advisor.sql` (1 702 B) and `08-lock-bot-grants.sql` (958 B) instead.)*
 5. **SQL Editor:** `02-check-policies.sql` (321 B) → five policy names.
 6. **Authentication → Users → Create new user:** your e-mail, Auto Confirm.
 7. **SQL Editor:** `03-admin-insert.sql` (392 B). Replace `DIN-EPOST@exempel.se` with your e-mail first.
@@ -156,9 +156,9 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
 
 ## Deviations
 
-- **Bot key location:** env var `SUPABASE_PLANNER_BOT_KEY` (per task), not `~/.config/traningsplaneraren/bank-bot.env`, so there is no file-mode check (AC40/42).
+- **Bot key location (AC40/42): accepted deviation** (Christoffer 2026-10-03). The key comes only from the env var `SUPABASE_PLANNER_BOT_KEY`, set through the box's secure input. There is no `bank-bot.env` file, so there is no file-mode check. Noted in `slice-31/verification-checklist.md`.
 - **`detectSessionInUrl: false`** (builder-notes said true). The app does the cleanup and exchange itself, so it can keep `#dela=` and show `adminLinkFailed` for both return types.
-- **`bankSnapshot.json` is not bundled** (AC45 partial). `export-db.ts` is a backup only; the offline fallback stays the bundled seeds.
+- **`bankSnapshot.json` is not bundled (AC45): accepted as partial** (Christoffer 2026-10-03). `export-db.ts` is a backup only and the banner stays; the offline fallback stays the bundled seeds. Backlog: «Bundle latest DB snapshot into app offline fallback» (Parked / Later, `backlog/IMPROVEMENTS.md`).
 - **`git grep sb_secret_` is not empty:** pre-existing `slice-31/` docs plus the verbatim schema copy (comment). No key values anywhere.
 - **Admin chip resets the block filter** to «Alla typer» when switched on, so the count matches the list (not in the spec).
 - **Footer order:** label · admin segment · Visa tips igen · Uppdatera appen (AC50 string first). On Home there is no slice label (as in Slice 31), so the admin segment comes first.
@@ -166,10 +166,11 @@ Every paste is under 16 KB. Details: `tools/bank/out/setup-32/README.md` (3 477 
 ## Gaps / for the Verifier
 
 - **Real project only:** AC47 (Advisor) and the real mailbox round trip. Also checking that Supabase's built-in mailer delivers only to team members (~2 mails/h). A non-admin test user needs a team-member address.
-- **Recommendation (not changed):** `schema-32.sql` leaves `service_role` with full rights on `public.admins`, and a secret key can also use the Auth admin API. That is the accepted E1 trade-off; keep `planner-bot` on the box only.
+- **Bot rights (C2, fixed 2026-10-03):** `service_role` now has only exercises SELECT/INSERT/UPDATE and redskap SELECT, and nothing on `public.admins`. A secret key can still use the Auth admin API; that is the accepted E1 trade-off, so keep `planner-bot` on the box only.
 - **Slice 31 smoke:** the script was not re-run (it needs its own stand-in). Its ACs were re-covered by the Slice 32 smoke (AC48a–e) and unit tests.
 - **No Swedish login mail:** that needs custom SMTP (optional, later).
 
 ## Follow-up 2026-10-03
 
 - **Security Advisor lints 0028/0029 fixed:** `stamp_updated_by()` moved to the `private` schema, EXECUTE revoked from public/anon/authenticated/service_role, trigger re-bound, and the old public copy is dropped. This is in `schema-32.sql` = `setup-32/01-schema-32.sql` (4 889 B). Already ran the old 01? Run `setup-32/07-fix-advisor.sql` (1 702 B). Verified on the stand-in: fresh, old→07, and re-runs. See `verifier/slice-32-builder-smoke.md` and `verifier/slice-32-local/check-advisor.ts`. Leaked-password protection: ignore (Pro-only, magic links).
+- **Verifier FAIL fixes (after 30674d0):** **C2** `schema-32.sql` = 01 now resets `service_role` to exactly exercises SELECT/INSERT/UPDATE + redskap SELECT, nothing on admins (5 299 B). `08-lock-bot-grants.sql` (958 B, Planner's, unchanged) patches DBs that ran an older 01. On Postgres 17 it leaves `MAINTAIN` (see smoke report); re-running the current 01 clears that. `rls-smoke.sql` = 05 has a new Part 3 for the bot (10 PASS). **C1** a conflict re-reads the row and its version, and opening the admin detail re-reads it too, so «Stäng och öppna den igen» saves without a reload (unit test + smoke AC36c/d). **C5** when every row is skipped, push-promote prints «Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.» instead of «Väntar på godkännande». This is plain Swedish; Docs has no microcopy for it. **C6** the stand-in takes its dir and ports from `S32_*` and stops only its own pids (`verifier/slice-32-local/README.md`). **AC40/42** are accepted deviations (env var via secure input, no env file). **AC45** is accepted as partial (backlog Parked / Later). `features/README.md` lists `delad-bank.md`. Tests: `bun test src` 115/115, `bun test tools/bank` 21 + 5 skip (26/26 with the gateway), build green, browser smoke 89/89.

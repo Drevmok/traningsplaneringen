@@ -25,6 +25,9 @@ const USAGE = `Användning:
   --replace <id> skriv över en befintlig rad (text) — bara med Christoffers OK; status ändras aldrig
   URL från --url eller SUPABASE_URL. Nyckeln läses bara från ${KEY_ENV}.`
 
+/** Plain Swedish (no Docs microcopy exists for this line). */
+export const NOTHING_NEW = 'Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.'
+
 export const KEY_DEAD = 'Nyckeln fungerar inte längre (borttagen eller fel). Be Christoffer skapa en ny planner-bot-nyckel och sätta den på boxen.'
 
 type Fetch = typeof fetch
@@ -181,7 +184,12 @@ export async function run(
   if (result.inserted.length) say(`Nya (pending): ${result.inserted.join(', ')}`)
   if (result.replaced.length) say(`Ersatta: ${result.replaced.join(', ')}`)
   if (result.skipped.length) say(`Hoppades över (fanns redan): ${result.skipped.join(', ')}`)
-  say('Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande).')
+  if (result.inserted.length === 0 && result.replaced.length === 0) {
+    // C5: every row was skipped → nothing new waits in the app.
+    say(NOTHING_NEW)
+  } else {
+    say('Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande).')
+  }
   return { ...result, code: 0 }
 }
 

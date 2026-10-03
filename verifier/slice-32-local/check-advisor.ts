@@ -3,12 +3,13 @@
 import { readFileSync } from 'node:fs'
 import { createHmac } from 'node:crypto'
 import { $ } from 'bun'
-const env = JSON.parse(readFileSync('/tmp/s32/env.json', 'utf8'))
-const BOT = readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n')[0].trim()
+const DIR = process.env.S32_DIR ?? '/tmp/s32' // same S32_DIR as setup.sh; ports come from its env.json
+const env = JSON.parse(readFileSync(`${DIR}/env.json`, 'utf8'))
+const BOT = readFileSync(env.botKeysFile, 'utf8').split('\n')[0].trim()
 const PUB = env.publishableKey
-const GW = 'http://127.0.0.1:54340'
+const GW = `http://127.0.0.1:${env.gatewayPort}`
 const REPO = new URL('../..', import.meta.url).pathname.replace(/\/$/, '')
-const psql = async (sql: string) => (await $`env PGOPTIONS=-cclient_min_messages=warning psql -h 127.0.0.1 -p 54341 -U postgres -d bank -v ON_ERROR_STOP=1 -qAt -c ${sql}`.text()).trim()
+const psql = async (sql: string) => (await $`env PGOPTIONS=-cclient_min_messages=warning psql -h 127.0.0.1 -p ${String(env.pgPort)} -U postgres -d bank -v ON_ERROR_STOP=1 -qAt -c ${sql}`.text()).trim()
 const b64 = (o: any) => Buffer.from(typeof o === 'string' ? o : JSON.stringify(o)).toString('base64url')
 const jwt = (sub: string, email: string) => {
   const now = Math.floor(Date.now() / 1000)
@@ -66,7 +67,7 @@ for (const [who, h] of callers) {
 }
 // RLS smoke (rolls back)
 {
-  const r = await $`psql -h 127.0.0.1 -p 54341 -U postgres -d bank -v ON_ERROR_STOP=1 -qAt -f ${REPO}/tools/bank/out/setup-32/05-rls-smoke-valfri.sql`.nothrow().quiet()
+  const r = await $`psql -h 127.0.0.1 -p ${String(env.pgPort)} -U postgres -d bank -v ON_ERROR_STOP=1 -qAt -f ${REPO}/tools/bank/out/setup-32/05-rls-smoke-valfri.sql`.nothrow().quiet()
   const txt = r.stdout.toString() + r.stderr.toString()
   const pass = (txt.match(/PASS/g) || []).length, fail = (txt.match(/FAIL/g) || []).length
   ok(r.exitCode === 0 && fail === 0 && pass > 0, `05-rls-smoke: exit ${r.exitCode}, ${pass} PASS, ${fail} FAIL`)

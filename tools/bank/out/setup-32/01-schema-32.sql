@@ -6,6 +6,7 @@
 --   * Nobody can DELETE through the API (no delete policy, no delete grant) → "Dölj" = status 'hidden'.
 --   * The admins list itself is edited only by the project owner in the SQL Editor (no write policy).
 --   * The bot's secret key (sb_secret_…) bypasses RLS by design — it lives only on the box (bot-writes.md).
+--     Its role (service_role) gets only exercises SELECT/INSERT/UPDATE and redskap SELECT, nothing on admins.
 
 begin;
 
@@ -42,8 +43,11 @@ grant execute on function private.is_admin() to authenticated;
 -- ---------------------------------------------------------------- exercises: admin policies
 grant insert, update on public.exercises to authenticated;   -- still gated by the policies below
 -- (no DELETE grant on purpose)
--- Bot (secret key → role service_role, bypasses RLS). Grant explicitly, still without DELETE.
-revoke delete on public.exercises from service_role;
+-- Bot (secret key → role service_role, bypasses RLS). Supabase's default privileges give
+-- service_role ALL on every public table (also admins, created above); schema-31 never touched it.
+-- Reset to exactly: exercises SELECT/INSERT/UPDATE · redskap SELECT · nothing on admins.
+-- (revoke all also clears TRUNCATE/REFERENCES/TRIGGER and Postgres 17's MAINTAIN.)
+revoke all on public.admins, public.redskap, public.exercises from service_role;
 grant select, insert, update on public.exercises to service_role;
 grant select on public.redskap to service_role;
 

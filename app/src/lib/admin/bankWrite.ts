@@ -1,12 +1,12 @@
 /**
  * Slice 32 (F1) — admin writes. Every write is an UPDATE of one row guarded by the
  * `updated_at` the admin loaded: 0 rows back → someone else changed it → 'conflict'
- * (nothing overwritten, nothing merged). No insert from the app, and no delete anywhere:
+ * (nothing overwritten, nothing merged; the row is re-read so a reopen starts fresh). No insert from the app, and no delete anywhere:
  * "Dölj" is status = 'hidden' (the database refuses deletes too).
  * Network needed: offline → 'offline', nothing queued.
  */
 import type { ActivitySource, BlockType, StationEquipmentSlot } from '../../types'
-import { loadAdminBank, ADMIN_TIMEOUT_MS, type AdminEntry } from './adminBank'
+import { loadAdminBank, refreshAdminRow, ADMIN_TIMEOUT_MS, type AdminEntry } from './adminBank'
 import { getAdminClient } from './client'
 
 export type WriteResult = 'ok' | 'conflict' | 'failed' | 'offline'
@@ -45,7 +45,12 @@ export async function writeRow(entry: AdminEntry, update: RowUpdate): Promise<Wr
       .select('id')
       .abortSignal(AbortSignal.timeout(ADMIN_TIMEOUT_MS))
     if (error) return 'failed'
-    if (!Array.isArray(data) || data.length === 0) return 'conflict'
+    if (!Array.isArray(data) || data.length === 0) {
+      // Someone else changed it: fetch the row and its new version now, so closing and
+      // reopening (adminSaveConflict) starts from the fresh row instead of conflicting again.
+      await refreshAdminRow(entry.activity.id)
+      return 'conflict'
+    }
     await loadAdminBank()
     return 'ok'
   } catch {

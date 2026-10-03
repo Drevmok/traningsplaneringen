@@ -61,6 +61,33 @@ export async function loadAdminBank(): Promise<boolean> {
   }
 }
 
+/**
+ * Re-reads ONE row (fresh content + its updated_at version) into the admin copy.
+ * Used after a conflict and whenever the admin detail opens, so «Stäng och öppna den igen»
+ * really works without a page reload (C1). False on any failure (the old copy stays).
+ */
+export async function refreshAdminRow(id: string): Promise<boolean> {
+  const pending = getAdminClient()
+  if (!pending) return false
+  try {
+    const client = await pending
+    const { data, error } = await client
+      .from('exercises')
+      .select(ADMIN_COLUMNS)
+      .eq('id', id)
+      .abortSignal(AbortSignal.timeout(ADMIN_TIMEOUT_MS))
+    if (error || !Array.isArray(data)) return false
+    const bank = getAdminBank()
+    if (!bank.loaded) return loadAdminBank()
+    const fresh = toAdminEntries(data)
+    const others = bank.entries.filter((e) => e.activity.id !== id)
+    setAdminEntries([...others, ...fresh].sort((a, b) => a.sortOrder - b.sortOrder))
+    return true
+  } catch {
+    return false
+  }
+}
+
 export function clearAdminBank(): void {
   if (getAdminBank() !== EMPTY_ADMIN_BANK) setAdminBankSnapshot(EMPTY_ADMIN_BANK)
 }

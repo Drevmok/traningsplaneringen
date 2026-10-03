@@ -5,18 +5,19 @@
 //   VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_local_s32) preview on :4174.
 // Browser requests to https://bank-mock.supabase.co/** are forwarded unchanged (method, headers, body,
 // no redirect following) to the local gateway → PostgREST (schema-31 + 32, real RLS) / GoTrue (real
-// magic-link + PKCE). Login mails land in /tmp/s32/mail via a local SMTP sink.
+// magic-link + PKCE). Login mails land in $S32_DIR/mail (default /tmp/s32/mail) via a local SMTP sink.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
-const OFF = 'http://127.0.0.1:4173/traningsplaneringen/'
-const ON = 'http://127.0.0.1:4174/traningsplaneringen/'
+// Override when another agent's preview holds a port: S32_OFF_URL / S32_ON_URL (ON must match the stand-in's S32_PREVIEW_PORT).
+const OFF = process.env.S32_OFF_URL ?? 'http://127.0.0.1:4173/traningsplaneringen/'
+const ON = process.env.S32_ON_URL ?? 'http://127.0.0.1:4174/traningsplaneringen/'
 const BANK_HOST = 'https://bank-mock.supabase.co'
-const GATEWAY = 'http://127.0.0.1:54340'
 const ROOT = '/workspace/gymnastics-planner'
-const S32 = '/tmp/s32'
+const S32 = process.env.S32_DIR ?? '/tmp/s32' // stand-in dir (see slice-32-local/README.md)
 const ENV = JSON.parse(readFileSync(`${S32}/env.json`, 'utf8'))
+const GATEWAY = `http://127.0.0.1:${ENV.gatewayPort}`
 const PUB = ENV.publishableKey
 const CACHE_KEY = 'gymnastics-planner-bank-cache-v1'
 const AUTH_KEY = 'gymnastics-planner-admin-auth-v1'
@@ -363,6 +364,7 @@ await attempt('AC41', 'Bot push of the 2-exercise fixture', async () => {
   check('AC41d', 'Invisible to anon', Array.isArray(anon) && anon.length === 0)
   const again = run([])
   check('AC42a', 'Second push: existing ids skipped + reported, not overwritten', again.status === 0 && again.stdout.includes('Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil'), again.stdout.split('\n').slice(-3).join(' / '))
+  check('C5', 'All skipped → «Inget nytt …», no «Väntar på godkännande»', again.stdout.trim().split('\n').at(-1).startsWith('Inget nytt:') && !again.stdout.includes('Väntar på godkännande'), again.stdout.trim().split('\n').at(-1))
   const pubRun = run([], PUB)
   check('AC42b', 'Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses', pubRun.status === 1 && pubRun.stdout.includes('publika nyckeln'))
   const all = dry.stdout + r.stdout + again.stdout + pubRun.stdout + dry.stderr + r.stderr
@@ -590,7 +592,23 @@ await attempt('AC36', 'Two tabs edit the same exercise', async () => {
   check('AC36a', 'Second save → adminSaveConflict', (await f2.locator('.admin-error').innerText()) === UI.conflict)
   check('AC36b', 'First edit intact in the DB', sql(`select title from public.exercises where id = 'tech-kullerbytta'`) === 'Kullerbytta (flik 1)')
   await shot(t2, 'admin_conflict')
+  // C1: follow the on-screen advice «Stäng och öppna den igen» — no page reload
+  await t2.evaluate(() => { window.__s32NoReload = true })
   await f2.getByRole('button', { name: 'Avbryt' }).click()
+  await closeDetail(t2)
+  const d2 = await openDetail(t2, 'Kullerbytta (flik 1)')
+  await d2.locator('.admin-detail').waitFor()
+  await t2.waitForTimeout(400) // the detail's row refetch
+  await d2.getByRole('button', { name: 'Ändra i banken' }).click()
+  const f3 = t2.locator('form.admin-bank-form')
+  const name3 = f3.locator('label.own-field').filter({ hasText: 'Namn' }).locator('input')
+  check('AC36c', 'Reopened form shows the other tab\'s saved title (row refetched)', (await name3.inputValue()) === 'Kullerbytta (flik 1)', await name3.inputValue())
+  await name3.fill('Kullerbytta (flik 2)')
+  await f3.getByRole('button', { name: 'Spara i banken' }).click()
+  await t2.getByText(UI.saved).waitFor()
+  check('AC36d', 'Close + reopen + Spara saves (no 2nd conflict, no reload)', sql(`select title from public.exercises where id = 'tech-kullerbytta'`) === 'Kullerbytta (flik 2)' && (await t2.evaluate(() => window.__s32NoReload === true)) && (await t2.locator('.admin-error').count()) === 0)
+  await shot(t2, 'admin_conflict_reopen_saved')
+  await closeDetail(t2)
   await t2.close()
 })
 
@@ -600,7 +618,7 @@ await attempt('AC37', 'Offline admin', async () => {
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
   await startBlank(adminPage)
   await openLibrary(adminPage)
-  const d = await openDetail(adminPage, 'Kullerbytta (flik 1)')
+  const d = await openDetail(adminPage, 'Kullerbytta (flik 2)')
   await d.locator('.admin-detail').waitFor()
   const before = bankLog.length
   await admin.setOffline(true)
@@ -682,7 +700,7 @@ await attempt('AC48', 'Slice 31 behaviour', async () => {
   await startBlank(page)
   await openLibrary(page)
   const ct = await libraryTitles(page)
-  check('AC48c', 'Biblioteket: cached bank (incl. approved row + flik-1 title) + stale line', ct.includes(TA) && ct.includes('Kullerbytta (flik 1)') && (await staleCount(page)) === 1)
+  check('AC48c', 'Biblioteket: cached bank (incl. approved row + flik-2 title) + stale line', ct.includes(TA) && ct.includes('Kullerbytta (flik 2)') && (await staleCount(page)) === 1)
   await shot(page, 'regress_library_stale')
   await closeLibrary(page)
   check('AC48d', 'Stale line only in Biblioteket (builder, library closed)', (await staleCount(page)) === 0)

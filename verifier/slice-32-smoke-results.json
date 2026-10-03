@@ -16,7 +16,7 @@
       "id": "AC26a",
       "name": "No supabase-js / admin chunk downloaded on a coach visit",
       "ok": true,
-      "detail": "index-B-7xzcxU.js, jsx-runtime-DLNB9Qsn.js"
+      "detail": "index-DGZLwNLN.js, jsx-runtime-DLNB9Qsn.js"
     },
     {
       "id": "AC26b",
@@ -58,7 +58,7 @@
       "id": "AC24d",
       "name": "OTP request asks never to create users and returns to the app",
       "ok": true,
-      "detail": "{\"email\":\"okand@test.local\",\"data\":{},\"create_user\":false,\"gotrue_meta_security\":{},\"code_challenge\":\"ThY0BiMoKnW-D9O2iY-4buYGQmQZDmKfmtyGNzFicIo\",\"code_challenge_method\":\"s256\"}"
+      "detail": "{\"email\":\"okand@test.local\",\"data\":{},\"create_user\":false,\"gotrue_meta_security\":{},\"code_challenge\":\"nzg8rHtE0iZdWAaYcNh2I1Rd29DSW27UdgWULuuDX3k\",\"code_challenge_method\":\"s256\"}"
     },
     {
       "id": "AC25a",
@@ -196,7 +196,13 @@
       "id": "AC42a",
       "name": "Second push: existing ids skipped + reported, not overwritten",
       "ok": true,
-      "detail": "Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / "
+      "detail": "Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / "
+    },
+    {
+      "id": "C5",
+      "name": "All skipped → «Inget nytt …», no «Väntar på godkännande»",
+      "ok": true,
+      "detail": "Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs."
     },
     {
       "id": "AC42b",
@@ -409,6 +415,18 @@
       "detail": ""
     },
     {
+      "id": "AC36c",
+      "name": "Reopened form shows the other tab's saved title (row refetched)",
+      "ok": true,
+      "detail": "Kullerbytta (flik 1)"
+    },
+    {
+      "id": "AC36d",
+      "name": "Close + reopen + Spara saves (no 2nd conflict, no reload)",
+      "ok": true,
+      "detail": ""
+    },
+    {
       "id": "AC37a",
       "name": "adminOffline line shown",
       "ok": true,
@@ -436,7 +454,7 @@
       "id": "AC39a",
       "name": "Admin writes: only auth calls + PATCH of bank columns on exercises",
       "ok": true,
-      "detail": "POST /auth/v1/otp, POST /auth/v1/token, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises"
+      "detail": "POST /auth/v1/otp, POST /auth/v1/token, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises"
     },
     {
       "id": "AC39b",
@@ -476,7 +494,7 @@
     },
     {
       "id": "AC48c",
-      "name": "Biblioteket: cached bank (incl. approved row + flik-1 title) + stale line",
+      "name": "Biblioteket: cached bank (incl. approved row + flik-2 title) + stale line",
       "ok": true,
       "detail": ""
     },
@@ -524,6 +542,6 @@
     "review count now 17 (16 seed rows + the approved bot row)",
     "coach draft from mall contains tech-ljushopp-satsbrada: true"
   ],
-  "bankRequests": 107,
+  "bankRequests": 120,
   "botOutput": "tech-test-formhopp-over-lagt-block  NY (pending)  «Test: formhopp över lågt block»  techniques · 6 min · sort 370\ntech-test-aggrullning-kil  NY (pending)  «Test: äggrullning nerför kil»  techniques · 6 min · sort 380\nNya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil\nVäntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande).\n"
 }

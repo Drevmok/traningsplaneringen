@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UI } from '../data/blockMeta'
 import { lastChangedText } from '../lib/admin/adminFormat'
+import { refreshAdminRow } from '../lib/admin/adminBank'
 import { approveRow, hideRow, markRowReviewed, unhideRow, type WriteResult } from '../lib/admin/bankWrite'
 import { useAdminBank, useOnline } from '../lib/admin/useAdmin'
 import { AdminHideConfirm } from './AdminHideConfirm'
@@ -22,6 +23,11 @@ export function AdminDetailPanel({ id, onToast, onEdit }: Props) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<'conflict' | 'failed' | null>(null)
   const [confirmHide, setConfirmHide] = useState(false)
+  // Opening the detail re-reads this row and its version (C1: reopen after a conflict works).
+  useEffect(() => {
+    if (online) void refreshAdminRow(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
   if (!entry) return null
   const disabled = !online || busy
 

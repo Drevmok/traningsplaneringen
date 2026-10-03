@@ -8,7 +8,7 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { checkKey, checkUrl, parseArgs, planPromote, replaceBody, scrub } from './promote-lib.ts'
-import { KEY_DEAD, run } from './push-promote.ts'
+import { KEY_DEAD, NOTHING_NEW, run } from './push-promote.ts'
 import { seedActivities } from '../../app/src/data/seedActivities.ts'
 
 const FIXTURE = join(import.meta.dir, 'fixtures', 'promote-2.json')
@@ -156,6 +156,26 @@ describe('run (mocked bank)', () => {
     expect(m.reqs.some((q) => q.method === 'DELETE' || q.method === 'PUT')).toBe(false)
     expect(lines.join('\n')).not.toContain(FAKE_KEY)
     expect(lines.join('\n')).toContain('Väntar på godkännande i appen')
+  })
+  it('every row already exists → «nothing new», no «Väntar på godkännande», no write (C5)', async () => {
+    const existing = [...known, { id: 'tech-test-aggrullning-kil', block_type: 'techniques', sort_order: 999 }, { id: 'tech-test-formhopp-over-lagt-block', block_type: 'techniques', sort_order: 998 }]
+    const m = mockFetch(() => json(existing))
+    const lines: string[] = []
+    const r = await run([FIXTURE], env, m.f, (l) => lines.push(l))
+    expect(r).toMatchObject({ code: 0, inserted: [], replaced: [], skipped: ['tech-test-formhopp-over-lagt-block', 'tech-test-aggrullning-kil'] })
+    expect(m.reqs.every((q) => q.method === 'GET')).toBe(true)
+    const out = lines.join('\n')
+    expect(out).not.toContain('Väntar på godkännande')
+    expect(out).toContain(NOTHING_NEW)
+    expect(lines.at(-1)).toBe(NOTHING_NEW)
+  })
+  it('all 409 on insert (race) → also «nothing new» (C5)', async () => {
+    const m = mockFetch((q) => (q.method === 'GET' ? json(known) : json({ code: '23505' }, 409)))
+    const lines: string[] = []
+    const r = await run([FIXTURE], env, m.f, (l) => lines.push(l))
+    expect(r.inserted).toEqual([])
+    expect(lines.join('\n')).not.toContain('Väntar på godkännande')
+    expect(lines.at(-1)).toBe(NOTHING_NEW)
   })
   it('--replace PATCHes by id without status', async () => {
     const existing = [...known, { id: 'tech-test-aggrullning-kil', block_type: 'techniques', sort_order: 999 }]

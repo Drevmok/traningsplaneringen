@@ -98,6 +98,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 | Accounts / cloud sync / App Store | Out of near-term scope. **Narrowly lifted 2026-10-02** by Slices 31–32: read-only shared bank + admin-only login. Coach accounts / sync stay parked | Standing product locks · `slice-31/decisions.md` |
 | Custom coach-authored redskap catalog | Fixed 10-piece library for Slice 13 | Slice 13 |
 | Förrådslista — show which stations contribute | Useful later; keep flat list for now | Christoffer / Scout 2026-09-25 |
+| Bundle latest DB snapshot into app offline fallback | **Parked / Later** (Christoffer 2026-10-03). Slice 32 AC 45 accepted as partial: `tools/bank/export-db.ts` writes a read-only backup (`out/bank-snapshot.json`) and `seed-promotion.md` has the superseded banner, but the app's offline fallback stays the bundled 51 seeds (no `app/src/data/bankSnapshot.json`; bundle budget AC 49). Later: a small "Banksnapshot <datum>" PR that bundles the snapshot as the fallback | Slice 32 verify report (AC 45) · `slice-31/content/bot-writes.md` |
 
 ---
 

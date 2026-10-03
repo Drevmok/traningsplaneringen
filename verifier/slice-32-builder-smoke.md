@@ -74,3 +74,37 @@ Checks: `bun verifier/slice-32-local/check-advisor.ts` (16 checks): function onl
 | Tests/build | `bun test src` 114/114 · `bun test tools/bank` 19 pass + 5 skip; with `S32_GATEWAY` on a fresh DB 24/24 · `npm run build` green (eager JS unchanged: index 135.35 kB gz) |
 
 Servers stopped (54340–54345 free). Only SQL and docs changed, so the browser smoke was not re-run. Note: `schema-31`'s `check_exercise_redskap()` / `touch_row()` are SECURITY INVOKER trigger functions and are not flagged. Leaked-password protection warning: ignore (Pro-only, we use magic links).
+
+## Follow-up 2026-10-03 (2): Verifier FAIL fixes at 30674d0 (C1, C2, C5, C6) + Christoffer's AC40/42/45 calls
+
+**C2: bot key (service_role) rights.** `schema-32.sql` = `01-schema-32.sql` (cmp identical, 5 299 B) now does `revoke all on public.admins, public.redskap, public.exercises from service_role`, then grants exercises SELECT/INSERT/UPDATE and redskap SELECT. Supabase's default privileges gave service_role ALL on every public table, and schema-31 never revoked it. `revoke all` also clears TRUNCATE/REFERENCES/TRIGGER/MAINTAIN. `08-lock-bot-grants.sql` (958 B) is Planner's file copied unchanged (cmp). `rls-smoke.sql` = `05-rls-smoke-valfri.sql` (8 118 B) has a new **Part 3, bot key**: it reads exercises + redskap, INSERT + UPDATE keep `bot:planner`, and these are refused: DELETE exercises; SELECT/INSERT/UPDATE/DELETE admins; INSERT/UPDATE/DELETE redskap. That is 10 `PASS bot` lines.
+
+New check `bun verifier/slice-32-local/check-grants.ts` (18 checks):
+- the service_role ACL on public tables via `aclexplode` (which shows MAINTAIN) and via `information_schema`;
+- the admins list intact;
+- with the bot key over HTTP: GET/POST/PATCH/DELETE admins, POST/PATCH/DELETE redskap and DELETE exercises → 403 `42501`, while GET redskap/exercises → 200;
+- `push-promote.ts` insert → 2 rows `bot:planner` · pending; `--replace` (PATCH) → text restored, still `bot:planner` · pending; re-push with every row skipped → C5 line;
+- `05-rls-smoke`: 23 PASS (10 bot), 0 FAIL.
+
+| Scenario | Result |
+|---|---|
+| (a) fresh: schema-31 + seed + new 01 | check-grants **18/18 OK**; check-advisor 16/16 OK |
+| (b) old 01 (7db7cd2), then 07, then 08 | Before the patches: service_role had ALL on admins, exercises and redskap (incl. DELETE on admins/redskap). After 07 + 08: **17/18 OK, 1 FAIL.** service_role keeps **`MAINTAIN`** on exercises and redskap (PG 17). 08 doesn't revoke it, and `information_schema.role_table_grants` (08's own check query) doesn't show it, so 08's check looks clean. Everything else passes, including all HTTP denials, bot insert/--replace and 05 (23 PASS/0 FAIL). check-advisor 16/16 |
+| (c) re-runs | fresh DB: new 01 ×2, 08 ×2, 07 ×2 → no errors, 18/18 + 16/16. (b) DB: 07, 08, 07, 08 again → no errors, same single MAINTAIN FAIL. Then new 01 ×2, then 08 + 07 → **18/18** + 16/16. The current 01 clears MAINTAIN |
+
+**Finding in 08 (not edited, reported):** on Postgres 17 (stand-in 17.11; new Supabase projects are on 17), `MAINTAIN` survives on exercises and redskap. It allows VACUUM/ANALYZE/REINDEX/CLUSTER/LOCK TABLE, not data changes, and it can't be reached through the REST API, so the risk is low. But it doesn't meet "exactly", and 08's check can't show it. Possible fixes: run the current `01-schema-32.sql` again (idempotent, uses `revoke all`), or add `revoke all on public.exercises, public.redskap from service_role;` before 08's grants. Live check: `select has_table_privilege('service_role','public.exercises','MAINTAIN'), has_table_privilege('service_role','public.redskap','MAINTAIN');`.
+
+**C1: conflict recovery.** `writeRow` re-reads the row and its `updated_at` as soon as a save conflicts (`refreshAdminRow`), and `AdminDetailPanel` re-reads its row when it opens. «Stäng och öppna den igen» now saves without a page reload. Unit test in `bankWrite.test.ts`: conflict → `select-row`, the reopened entry has the new version/title/author, the next save goes through. Browser smoke on the stand-in: **AC36c** the reopened form shows the other tab's title «Kullerbytta (flik 1)»; **AC36d** close + reopen + Spara → DB «Kullerbytta (flik 2)», no 2nd conflict, no reload (`window` marker kept).
+
+**C5: all rows skipped.** push-promote prints `Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.` instead of «Väntar på godkännande». This is plain Swedish; there was no Docs microcopy for it (checked `microcopy.sv.md`, `docs/delad-bank.sv.md`, `bot-writes.md`). Two unit tests: all existing, and all 409. Smoke step **C5** + check-grants.
+
+**C6: stand-in isolation.** Dir and ports come from `S32_DIR` / `S32_*_PORT` (`env.sh`, same defaults). Processes carry `S32_OWNER=<dir>`; `stop.sh` kills only pids whose environ matches. `setup.sh` / `start.sh` refuse if a port is taken by anything else. `start.sh` / `users.sh` refuse if the env doesn't match `<dir>/env.json`. Tested with a second stand-in `/tmp/s32c6` on 54440–54445:
+- its own setup/start/users ran, check-advisor 16/16;
+- its gateway pid planted in `/tmp/s32/pids` → default `stop.sh` printed `skip pid … (not from /tmp/s32)`, and the c6 gateway stayed up;
+- `setup.sh` on a port held by c6's Postgres → exit 1, dir not created;
+- `start.sh` while running → exit 1; `start.sh` with mismatched env → exit 1;
+- c6 `stop.sh` → its ports free. Documented in `verifier/slice-32-local/README.md`.
+
+**Christoffer's calls:** AC40/42 accepted as deviations (env var via secure input, no env file); noted in `slice-31/verification-checklist.md`. AC45 accepted as partial; backlog «Bundle latest DB snapshot into app offline fallback» (Parked / Later). `features/README.md` now lists `delad-bank.md`.
+
+**Tests/build:** `bun test src` **115/115** (+1, C1). `bun test tools/bank` **21 pass + 5 skip** (+2, C5); with `S32_GATEWAY` on a fresh DB **26/26**. `npm run build` green (eager `index` 135.36 kB gz, +0.01; the C1 code is in the lazy admin chunks). Browser smoke `node verifier/slice-32-builder-smoke.mjs` (OFF preview on 4175 via `S32_OFF_URL`, because 4173 belonged to another agent) → **89/89 PASS** (+3: AC36c, AC36d, C5). My previews (4174, 4175) and the stand-in were stopped; ports 54340–54345 are free. I did not touch the other agent's 4173 preview; it had already stopped by the end.
