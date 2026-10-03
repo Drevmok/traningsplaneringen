@@ -20,7 +20,22 @@
 
 ---
 
-## Overall verdict: **PASS for AC 6–22 · AC 1–5 PENDING real project**
+## Live re-check 2026-10-03, about 06:55 CEST: **PASS, AC 1–6** (Slice 31 now PASS on AC 1–22)
+
+**Project:** `https://fhzqwbdlejzohetdoluw.supabase.co` with publishable key `sb_publishable_In0_…` (public by design). Branch `slice-31-shared-bank` at `d75c160`, which has the same app code as `c5e048d`. Not merged. Verifier has no SQL Editor or dashboard access, so the checks below go over HTTP with the publishable key.
+
+| AC | Verdict | Evidence (live project) |
+| --- | --- | --- |
+| 1 | **PASS (inferred)** | Both tables exist with the expected columns, anon has SELECT only, and the anon GETs return 200. Verifier didn't see the schema run twice; that part was proven on the stand-in (2026-10-02). |
+| 2 | **PASS** | `exercises`: 51 rows, all `published` (Content-Range `0-50/51`). `redskap`: 15 rows. 11 rows have `source`. 0 non-Samling rows lack `safety_line` (blocks: gathering 5, warmup 7, techniques 24, strength 5, fun_and_games 10). Comparing all live rows with `tools/bank/out/bank-seed.json` field by field, in `sort_order`: **0 differences**, same order. Re-seed idempotence and keeping `hidden` were proven on the stand-in only. |
+| 3 | **PASS (HTTP equivalent)** | Anon reads both tables. `status=neq.published` returns `[]`, so anon sees no pending or hidden rows. Anon writes are refused (AC 4). `rls-smoke.sql` itself wasn't run on the live project because there's no SQL Editor access; it passed 7/7 on the stand-in. Note: no pending row exists yet, so "pending invisible" is shown by policy and grant, not by an existing pending row. |
+| 4 | **PASS** | POST, PATCH (`id=not.is.null`) and DELETE (`id=not.is.null`) on **both** `exercises` and `redskap` → **401** `42501 permission denied` (anon has no INSERT/UPDATE/DELETE grant). Counts are unchanged afterwards (51 / 15). Without `apikey` → 401. The OpenAPI root is not readable by anon (401). |
+| 5 | **PASS** (Christoffer's confirmation) | Christoffer checked Supabase Advisors → Security on 2026-10-03 at 06:46 (relayed by Planner): no warnings. Verifier has no dashboard access. The grant-level refusals above are consistent with this. |
+| 6 | **PASS** | Local build with both `VITE_` vars set, previewed on 4176, at 390×844, fresh profile, Disable cache on. Exactly **one GET `exercises`** and **one GET `redskap`**, both 200, plus 2 CORS preflights (OPTIONS 200). Each GET has `apikey` and **no `Authorization`**. A second reload made one of each again. Biblioteket shows **51 övningar** with no stale line. "Ljushopp i rockringar" shows `Källa: Prime Coaching Sport · 3:47 ↗`. `gymnastics-planner-bank-cache-v1` is written (`{"v":1,"fetchedAt":"2026-10-03T04:49:29.279Z",…`). The built bundle contains the project URL and no `sb_secret_` / `service_role` (`s31live_network.png`, `s31live_headers.png`, `s31live_bibliotek.png`, `s31live_detail.png`). |
+
+---
+
+## First-pass verdict (2026-10-02): **PASS for AC 6–22 · AC 1–5 PENDING real project**
 
 Nothing blocks the merge for the app side. AC 1–5 (database on the real project, plus Advisors) need a short re-check once Christoffer's project and the two vars exist.
 
