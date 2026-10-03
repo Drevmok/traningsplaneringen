@@ -886,6 +886,14 @@
   gap: 10px;
 }
 
+/* Slice 31 (D1) — quiet note in Biblioteket when the bank could not be reached. */
+.bank-stale {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--md-on-surface-variant);
+}
+
 .search-input {
   width: 100%;
   box-sizing: border-box;

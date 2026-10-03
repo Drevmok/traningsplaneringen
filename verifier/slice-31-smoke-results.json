@@ -1,0 +1,297 @@
+{
+  "results": [
+    {
+      "id": "A2",
+      "name": "Home: no stale line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "A1",
+      "name": "Footer reads Träningsplaneraren · Slice 31 (AC 22)",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 31 · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "A3",
+      "name": "Biblioteket: bundled 51 in bundled order (AC 12)",
+      "ok": true,
+      "detail": "51 titles"
+    },
+    {
+      "id": "A4",
+      "name": "Old cache ignored when bank is off",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "A5",
+      "name": "No stale line in Biblioteket (AC 12)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "A6",
+      "name": "No request to Supabase / rest/v1 (AC 12)",
+      "ok": true,
+      "detail": "0 requests"
+    },
+    {
+      "id": "R1",
+      "name": "Planera pass wizard → five blocks, Teknik pre-placed (AC 21)",
+      "ok": true,
+      "detail": "filled=5 zones=trampett,trampett,open"
+    },
+    {
+      "id": "R2",
+      "name": "Från mall → Nybörjare fills the pass (AC 21)",
+      "ok": true,
+      "detail": "items=9"
+    },
+    {
+      "id": "B1",
+      "name": "Home: no stale line (AC 9/10)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "B2",
+      "name": "Bundled 51 shown at once, same order (AC 10)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "B3",
+      "name": "Stale line in Biblioteket with the exact text, plain text (no role/aria-live)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "B4",
+      "name": "No error dialog",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "B5",
+      "name": "Nothing cached after a failed fetch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "B6",
+      "name": "HTTP 500 → bundled 51 + stale line (AC 11)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1a",
+      "name": "Startup: exactly one GET exercises + one GET redskap (AC 6)",
+      "ok": true,
+      "detail": "/rest/v1/exercises,/rest/v1/redskap"
+    },
+    {
+      "id": "C1b",
+      "name": "Header apikey = publishable key, no Authorization (AC 6)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1c",
+      "name": "Query asks for published+hidden in sort order",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1d",
+      "name": "Cache written (v 1, 51 exercises, 15 redskap labels)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1e",
+      "name": "Biblioteket: 51 from the bank, same order and wording as before (AC 6/7)",
+      "ok": true,
+      "detail": "51"
+    },
+    {
+      "id": "C1f",
+      "name": "No stale line after a fresh fetch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1g",
+      "name": "Two Teknik drills in the pass",
+      "ok": true,
+      "detail": "Närvaro × | Dagens pass — snabb genomgång × | Kullerbytta framåt × | Hjul ×"
+    },
+    {
+      "id": "C2a",
+      "name": "Reload makes one new pair of GETs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C2b",
+      "name": "Pass row shows the edited title Kullerbytta TEST (AC 8)",
+      "ok": true,
+      "detail": "Närvaro × | Dagens pass — snabb genomgång × | Kullerbytta TEST × | Hjul (dold) ×"
+    },
+    {
+      "id": "C2c",
+      "name": "Hidden drill still renders in the old pass, with bank text (AC 13)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C2d",
+      "name": "Biblioteket: edited title, new row, hidden gone (51 = 50 + 1 new) (AC 8/13/15)",
+      "ok": true,
+      "detail": "51"
+    },
+    {
+      "id": "C2e",
+      "name": "Search \"hjul\" → only Minihjul (hidden not searchable) (AC 13)",
+      "ok": true,
+      "detail": "Minihjul (krabbhjul)"
+    },
+    {
+      "id": "C2f",
+      "name": "Teknik filter: no hidden drill (AC 13)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C2g",
+      "name": "Info panel of the edited drill opens (title row)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C3a",
+      "name": "New bank row is addable; detail shows its Säkerhet line (AC 15)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C3b",
+      "name": "New row auto-zones to Trampett (AC 15)",
+      "ok": true,
+      "detail": "zone=trampett"
+    },
+    {
+      "id": "C3c",
+      "name": "Hall chips show bank titles incl. the hidden drill (AC 8/13)",
+      "ok": true,
+      "detail": "Station 1: Kullerbytta TEST. Tryck för detaljer. | Ta bort från hall | Station 2: Hjul (dold). Tryck för detaljer. | Ta bort från hall | Station 3: Banktest trampett. Tryck för detaljer. | Ta bort från hall"
+    },
+    {
+      "id": "C3d",
+      "name": "Förrådslista counts the new row's redskap (AC 15)",
+      "ok": true,
+      "detail": "Trampett · Landningsmatta · Madrass"
+    },
+    {
+      "id": "C4a",
+      "name": "Golvklart shows Kullerbytta TEST + Hjul (dold) (AC 8/13)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C4b",
+      "name": "Stationskort show the bank titles (AC 8/13)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C4c",
+      "name": "Kör passet steps use the bank titles, incl. the hidden drill (AC 8/13)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C5a",
+      "name": "Home: no stale line (AC 9)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C5b",
+      "name": "Cached bank shown (edited title, new row, hidden still hidden) (AC 9)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C5c",
+      "name": "Stale line in Biblioteket (AC 9)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C5d",
+      "name": "Golvklart: no stale line (AC 9)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C5e",
+      "name": "Kör passet: no stale line, cached title (AC 9)",
+      "ok": true,
+      "detail": "stale=0 run=true"
+    },
+    {
+      "id": "C6a",
+      "name": "Before the answer: cached title",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C6c",
+      "name": "List updated in place to Kullerbytta LIVE (AC 16)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C6d",
+      "name": "Library scroll position kept across the update (AC 16)",
+      "ok": true,
+      "detail": "600 → 600"
+    },
+    {
+      "id": "C6b",
+      "name": "Open Ny egen övning form keeps its input across the update (AC 16)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "D1",
+      "name": "Corrupt cache ignored, then refreshed and rewritten (AC 17)",
+      "ok": true,
+      "detail": "52 exercises (51 published + 1 hidden)"
+    },
+    {
+      "id": "N1",
+      "name": "Every bank request was a GET without a body (AC 18)",
+      "ok": true,
+      "detail": "24 requests"
+    },
+    {
+      "id": "N2",
+      "name": "Bank requests carry only select/status/order params (nothing from coach storage)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": [
+    "DB: published=51 hidden=1",
+    "Kör passet: stale line nodes in DOM (inside Biblioteket side-body?) = [true]"
+  ],
+  "bankRequests": 24
+}

@@ -471,8 +471,10 @@ export const UI = {
   wizardQ3Label: 'Hallayout',
   wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
   wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
-  // Slice 10 — distribution; Slice 30 footer (slice-30/content/microcopy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 30',
+  // Slice 10 — distribution; Slice 31 footer (slice-31/content/microcopy.sv.md)
+  footerSliceLabel: 'Träningsplaneraren · Slice 31',
+  // Slice 31 — shared bank (slice-31/content/microcopy.sv.md, Docs final). Biblioteket only.
+  bankStale: 'Visar sparade övningar. Du kan planera som vanligt.',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
