@@ -4,6 +4,7 @@ import { floorTip } from '../data/activityTips.ts'
 import { activitiesForBlock, getActivityById, seedActivities } from '../data/seedActivities.ts'
 import type { Activity, Session } from '../types.ts'
 import {
+  applyBankEntries,
   BANK_CACHE_KEY,
   bankStatus,
   initBank,
@@ -12,7 +13,7 @@ import {
   resetBankForTests,
 } from './bank.ts'
 import { setBankEnvForTests } from './bankConfig.ts'
-import { activityToBankRow, type BankRow } from './bankRow.ts'
+import { activityToBankRow, rowToEntry, type BankEntry, type BankRow } from './bankRow.ts'
 import { clearOwnActivities, saveOwnActivity, setEphemeralOwn } from './ownActivities.ts'
 import { EXERCISE_FORMAT, EXERCISE_SCHEMA_VERSION, parseExerciseFile } from './ownImport.ts'
 import { runSteps } from './runPass.ts'
@@ -365,5 +366,38 @@ describe('lookup order own → bank → bundled (AC 14)', () => {
     const ownLike: Activity = { ...(getActivityById('tech-hjul') as Activity), title: 'Hjul (egen)', own: true }
     setEphemeralOwn([ownLike])
     assert.equal(getActivityById('tech-hjul')?.title, 'Hjul (egen)')
+  })
+})
+
+describe('admin writes update this device without pending rows (Slice 32 AC 38)', () => {
+  it('applyBankEntries keeps pending out of the store and the cache key', () => {
+    setBankEnvForTests(ENV)
+    initBank()
+    const rows = bankRows((r) =>
+      r.map((row, i) => (i === 0 ? { ...row, status: 'pending' } : i === 1 ? { ...row, status: 'hidden' } : row)),
+    )
+    const entries = rows
+      .map((r) => rowToEntry(r, { allowPending: true }))
+      .filter((e): e is BankEntry => e !== null)
+    assert.equal(entries[0].status, 'pending')
+    assert.equal(applyBankEntries(entries), true)
+    const pendingId = rows[0].id
+    const hiddenId = rows[1].id
+    assert.equal(listBankActivities().some((a) => a.id === pendingId), false)
+    assert.equal(listBankActivities().some((a) => a.id === hiddenId), false)
+    assert.equal(bankStatus(), 'fresh')
+    const cache = mem.get(BANK_CACHE_KEY) ?? ''
+    assert.equal(cache.includes(`"${pendingId}"`), false)
+    assert.equal(cache.includes(`"${hiddenId}"`), true)
+  })
+  it('the coach path never accepts pending rows', () => {
+    const row = { ...bankRows()[0], status: 'pending' }
+    assert.equal(rowToEntry(row), null)
+  })
+  it('refuses to apply when the bank is off or nothing is published', () => {
+    setBankEnvForTests({})
+    assert.equal(applyBankEntries([]), false)
+    setBankEnvForTests(ENV)
+    assert.equal(applyBankEntries([]), false)
   })
 })

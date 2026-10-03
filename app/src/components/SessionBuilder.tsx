@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { ownImportDoneText, PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
 import {
   isTipDismissed,
@@ -50,6 +50,12 @@ import { OwnActivityForm } from './OwnActivityForm'
 import { OwnImportSheet } from './OwnImportSheet'
 import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from './StationDeck'
+import { AdminStatusBadge } from './AdminStatusBadge'
+import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
+
+// Slice 32 — the bank form is admin-only: its own chunk, loaded when «Ändra i banken» is tapped.
+const AdminBankForm = lazy(() => import('./AdminBankForm'))
+const AdminDetailPanel = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.AdminDetailPanel })))
 
 interface Props {
   session: Session
@@ -107,6 +113,17 @@ export function SessionBuilder({
   const [showSaveTemplate, setShowSaveTemplate] = useState(false)
   const [showNewWeek, setShowNewWeek] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
+  const [bankEditId, setBankEditId] = useState<string | null>(null)
+  const admin = useAdmin()
+  const adminBank = useAdminBank()
+  // Admin mode, bank rows only: the detail shows the admin copy (live after a write), and only
+  // published rows may be added to a pass — pending and hidden never.
+  const detailEntry =
+    admin.state === 'admin' && detailActivity && !detailActivity.own
+      ? adminBank.byId.get(detailActivity.id)
+      : undefined
+  const detailShown = detailEntry ? detailEntry.activity : detailActivity
+  const detailCanAdd = !detailEntry || detailEntry.status === 'published'
 
   const selectedBlock = useMemo(
     () => session.blocks.find((b) => b.id === selectedBlockId) ?? null,
@@ -170,6 +187,7 @@ export function SessionBuilder({
   }
 
   function handleAddFromDetail(duration: number) {
+    if (!detailCanAdd) return
     if (!detailActivity || !selectedBlock) {
       showToast('Välj ett block först')
       setDetailActivity(null)
@@ -543,10 +561,31 @@ export function SessionBuilder({
         </div>
       </div>
 
-      {detailActivity && (
+      {detailActivity && detailShown && (
         <ActivityDetail
-          activity={detailActivity}
-          onAdd={detailReadOnly ? undefined : handleAddFromDetail}
+          activity={detailShown}
+          onAdd={detailReadOnly || !detailCanAdd ? undefined : handleAddFromDetail}
+          adminBadges={
+            detailEntry ? (
+              <>
+                {(detailEntry.status === 'pending' || detailEntry.status === 'hidden') && (
+                  <AdminStatusBadge status={detailEntry.status} />
+                )}
+                {detailEntry.needsReview && <span className="review-badge">{UI.ownNeedsReview}</span>}
+              </>
+            ) : undefined
+          }
+          adminSlot={
+            detailEntry && !detailReadOnly ? (
+              <Suspense fallback={null}>
+                <AdminDetailPanel
+                  id={detailEntry.activity.id}
+                  onToast={showToast}
+                  onEdit={() => setBankEditId(detailEntry.activity.id)}
+                />
+              </Suspense>
+            ) : undefined
+          }
           readOnly={detailReadOnly}
           onClose={() => setDetailActivity(null)}
           tips={tips}
@@ -611,6 +650,18 @@ export function SessionBuilder({
             showToast(UI.ownSaved)
           }}
         />
+      )}
+      {bankEditId && admin.state === 'admin' && (
+        <Suspense fallback={null}>
+          <AdminBankForm
+            id={bankEditId}
+            onCancel={() => setBankEditId(null)}
+            onSaved={() => {
+              setBankEditId(null)
+              showToast(UI.adminSaved)
+            }}
+          />
+        </Suspense>
       )}
       {ownImportOpen && (
         <OwnImportSheet

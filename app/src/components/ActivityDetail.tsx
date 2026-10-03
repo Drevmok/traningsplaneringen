@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import {
   BLOCK_LABELS,
   stationEquipmentLabelText,
@@ -48,6 +48,9 @@ interface Props {
   onMarkReviewed?: () => void
   /** Slice 30 (D1) — Golvklart: hide Källa + Behöver granskas. */
   floor?: boolean
+  /** Slice 32 — admin mode, bank rows only: badges in the heading + the admin actions. */
+  adminBadges?: ReactNode
+  adminSlot?: ReactNode
 }
 
 export function ActivityDetail({
@@ -63,6 +66,8 @@ export function ActivityDetail({
   onUseSuggestedEquipment,
   onMarkReviewed,
   floor = false,
+  adminBadges,
+  adminSlot,
 }: Props) {
   const [editingDuration, setEditingDuration] = useState(false)
   const [duration, setDuration] = useState(activity.durationMinutesDefault)
@@ -129,6 +134,7 @@ export function ActivityDetail({
             <span className="experienced-badge">{UI.experiencedCoach}</span>
           )}
           {needsReview && <span className="review-badge">{UI.ownNeedsReview}</span>}
+          {adminBadges}
         </h2>
         <p className="detail-meta">
           {BLOCK_LABELS[activity.blockType]} · {activity.durationMinutesDefault}{' '}
@@ -210,6 +216,7 @@ export function ActivityDetail({
           </div>
         )}
         {coachMeta.showSource && <SourceLine source={activity.source} />}
+        {adminSlot}
 
         {showStationEquipment && (
           <section className="station-equipment-section">

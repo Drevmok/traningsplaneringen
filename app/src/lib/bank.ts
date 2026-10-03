@@ -9,6 +9,8 @@
  *
  * Lists use published rows; findBankActivity also sees hidden rows so old passes,
  * drafts and share links keep their text. Pending rows never reach a coach's device.
+ * Slice 32: an admin's read can refresh the store in place (applyBankEntries), still
+ * without pending rows.
  */
 import { seedActivities } from '../data/seedActivities'
 import type { Activity } from '../types'
@@ -41,7 +43,8 @@ interface CacheV1 {
 let snapshot: BankSnapshot | null = null
 let byId = new Map<string, Activity>()
 let refreshed = false
-const listeners = new Set<() => void>()
+// Plain array (Slice 32): no delete call anywhere in src, so AC 35's grep finds nothing to explain.
+let listeners: Array<() => void> = []
 
 let bundledSnapshot: BankSnapshot | null = null
 function bundled(): BankSnapshot {
@@ -68,7 +71,7 @@ function setSnapshot(next: BankSnapshot, all: readonly Activity[]): void {
   for (const fn of listeners) fn()
 }
 
-function split(entries: BankEntry[]): { published: Activity[]; hidden: Activity[]; all: Activity[] } {
+function split(entries: readonly BankEntry[]): { published: Activity[]; hidden: Activity[]; all: Activity[] } {
   const sorted = [...entries].sort((a, b) => a.sortOrder - b.sortOrder)
   const all = sorted.map((e) => e.activity)
   return {
@@ -185,7 +188,7 @@ export async function refreshBank(options: RefreshOptions = {}): Promise<BankSta
       getJson(`${config.url}/rest/v1/redskap?select=id,label_sv,visual_key,sort_order&order=sort_order.asc`, config.key, controller.signal),
     ])
     if (!Array.isArray(rows) || !Array.isArray(redskap)) throw new Error('shape')
-    const entries = rows.map(rowToEntry).filter((e): e is BankEntry => e !== null)
+    const entries = rows.map((r) => rowToEntry(r)).filter((e): e is BankEntry => e !== null)
     const { all, published, hidden } = split(entries)
     if (published.length === 0) throw new Error('no valid exercises')
     const labels: Record<string, string> = {}
@@ -204,14 +207,32 @@ export async function refreshBank(options: RefreshOptions = {}): Promise<BankSta
   }
 }
 
+/**
+ * Slice 32 — an admin's own read (all statuses, through the session) updates this device at
+ * once. Only published + hidden rows are applied and cached; pending rows are dropped here
+ * so they can never reach `gymnastics-planner-bank-cache-v1`, a pass, a share link or print.
+ * Returns false (and changes nothing) when there is no valid published row.
+ */
+export function applyBankEntries(entries: readonly BankEntry[]): boolean {
+  if (!bankEnabled()) return false
+  const coachRows = entries.filter((e) => e.status === 'published' || e.status === 'hidden')
+  const { all, published, hidden } = split(coachRows)
+  if (published.length === 0) return false
+  const labels = { ...getBankSnapshot().redskapLabels }
+  const hiddenIds = hidden.map((a) => a.id)
+  writeCache(all, hiddenIds, labels)
+  setSnapshot({ status: 'fresh', activities: published, hiddenIds: new Set(hiddenIds), redskapLabels: labels }, all)
+  return true
+}
+
 export function getBankSnapshot(): BankSnapshot {
   return snapshot ?? bundled()
 }
 
 export function subscribeBank(fn: () => void): () => void {
-  listeners.add(fn)
+  if (!listeners.includes(fn)) listeners = [...listeners, fn]
   return () => {
-    listeners.delete(fn)
+    listeners = listeners.filter((f) => f !== fn)
   }
 }
 
@@ -244,5 +265,5 @@ export function resetBankForTests(): void {
   snapshot = null
   byId = new Map()
   refreshed = false
-  listeners.clear()
+  listeners = []
 }

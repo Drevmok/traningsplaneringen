@@ -2115,3 +2115,98 @@
 }
 
 
+
+/* Slice 32 — admin mode (admins only; coaches never see these). Quiet chrome. */
+.admin-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.admin-chip,
+.footer-admin-badge {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--md-on-surface-variant);
+}
+.admin-chip {
+  border: 1px solid var(--md-outline-variant, #cbd5e1);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+.admin-filter-chip {
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--md-outline-variant, #cbd5e1);
+  background: transparent;
+  color: var(--md-on-surface);
+  border-radius: 999px;
+  padding: 4px 10px;
+  min-height: 32px;
+  cursor: pointer;
+}
+.admin-filter-chip.active {
+  background: var(--md-secondary-container, #ede9fe);
+  border-color: transparent;
+  font-weight: 600;
+}
+.admin-badge {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  padding: 1px 6px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+.admin-badge-pending {
+  color: #1e3a8a;
+  background: #dbeafe;
+}
+.admin-badge-hidden {
+  color: #374151;
+  background: #e5e7eb;
+}
+.admin-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.admin-detail .admin-actions {
+  margin-top: 0;
+}
+.admin-offline,
+.admin-last-changed,
+.admin-form-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--md-on-surface-variant);
+}
+.admin-error,
+.admin-send-error,
+.admin-link-failed {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #9f1239;
+}
+.admin-link-sent {
+  line-height: 1.5;
+}
+.admin-form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.footer-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.footer-admin-not {
+  color: var(--md-on-surface-variant);
+}
