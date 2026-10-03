@@ -68,15 +68,18 @@ Full click-by-click: [`content/setup-christoffer.md`](./content/setup-christoffe
 1. Create a free **Supabase** account (supabase.com — "Continue with GitHub" is easiest).
 2. **New project** `traningsplaneraren`, region **EU (Stockholm or Frankfurt)**, choose a database password → save it in your password manager (nobody else needs it).
 3. **SQL Editor** → paste `slice-31/content/schema-31.sql` → Run. Then paste the seed file Builder hands you (`tools/bank/out/bank-seed.sql`) → Run.
-4. **Settings → API Keys**: copy the **Project URL** and the **Publishable key** (`sb_publishable_…`). These two are public — paste them to Planner in chat, or put them yourself in GitHub → repo → Settings → Secrets and variables → Actions → **Variables**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
+4. Copy the **Project URL** (**Connect** button) and the **Publishable key** (`sb_publishable_…`, **Project Settings → API Keys**). These two are public — paste them to Planner in chat, or put them yourself in GitHub → repo → Settings → Secrets and variables → Actions → **Variables**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
 5. Say "merge" when Verifier passes (merging to `main` publishes the app).
 
 **Before Slice 32 ships (~15 min)**
-6. **Authentication → Sign In / Providers → Email**: on; **Allow new users to sign up: off**.
-7. **Authentication → URL Configuration**: Site URL `https://drevmok.github.io/traningsplaneringen/`; add the same under Redirect URLs.
-8. **Authentication → Users → Add user** with your e-mail; then SQL Editor → run the one-line "make me admin" snippet at the bottom of `schema-32.sql` (with your e-mail).
-9. **(E1 only)** **Settings → API Keys → Secret keys → New secret key**, name it `planner-bot` → give it to Planner **only through the secure input box on the box** — never in chat, mail or GitHub. Switching it off later = delete that key in the same screen.
-10. *(Optional, only for a 2nd admin or Swedish login e-mails)* set up an own e-mail sender (custom SMTP) — see setup file.
+6. **Authentication → Sign In / Providers**: **Allow new users to sign up: off**; **Email** provider enabled.
+7. **Authentication → URL Configuration**: Site URL `https://drevmok.github.io/traningsplaneringen/`; add the same under Redirect URLs (plus the localhost URL for testing).
+8. **SQL Editor** → paste all of `slice-31/content/schema-32.sql` (4.4 KB, one paste) → Run.
+9. **Authentication → Users → Add user → Create new user** with your e-mail (Auto Confirm User); then SQL Editor → run the "make me admin" snippet at the bottom of `schema-32.sql` (with your e-mail).
+10. **Project Settings → API Keys → Secret keys → New secret key**, name it `planner-bot` → paste it **only into the secure input box on the box**, never in chat, mail or GitHub. Switching it off later = delete that key in the same screen.
+11. Say "merge" when Verifier passes Slice 32.
+
+*(Optional, only for a 2nd admin or Swedish login e-mails)* set up an own e-mail sender (custom SMTP) — see setup file.
 
 **Good to know:** the free plan **pauses a project after 7 days with no use** (e.g. summer break). You get a warning e-mail; one click on **Restore** fixes it. Meanwhile the app keeps working on its saved/built-in exercises (D1).
 
