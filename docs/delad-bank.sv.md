@@ -73,6 +73,8 @@ Längst ner i appen står det **Logga in som admin**. Den länken är bara för 
 
 Kort guide för den som står på admin-listan.
 
+> **Slice 33 (utkast):** du loggar in med en kod från mejlet i stället för en länk. Skriv din e-post, tryck **Skicka kod**, skriv de sex siffrorna från mejlet och tryck **Logga in**. Det fungerar också i appen på hemskärmen. Se [`slice-33/`](../slice-33/README.md).
+
 1. **Logga in.** Tryck **Logga in som admin** längst ner, skriv din e-post och tryck **Skicka länk**. Öppna länken i mejlet i samma webbläsare. Den gäller i en timme. På iPhone: gör adminjobbet i Safari, inte i appen på hemskärmen.
 2. **Godkänn nya stationer.** I Biblioteket finns filtret **Väntar på godkännande**. Öppna övningen, läs igenom den och tryck **Godkänn**. Då ser alla tränare den nästa gång de öppnar appen.
 3. **Rätta en text.** Tryck **Ändra i banken**, ändra och tryck **Spara i banken**. Ändringen syns för alla tränare.

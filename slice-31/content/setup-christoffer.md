@@ -230,6 +230,8 @@ When Planner tells you Verifier passed Slice 32, say **merge**. Merging to `main
 
 Your first real use: Planner pushes the next video's stations. In the app, tap **Logga in som admin** at the bottom, open the link in the e-mail in the same browser, go to Biblioteket → **Väntar på godkännande**, read each one and tap **Godkänn**. On iPhone, do this in Safari, not from the home-screen icon.
 
+> **Slice 33:** login changes to a 6-digit code typed in the app, which also works from the home-screen icon. One more step (step 12) is in [`slice-33/content/setup-christoffer.md`](../../slice-33/content/setup-christoffer.md).
+
 ## Optional: own e-mail sender (custom SMTP)
 
 Only needed if you want a **second admin** who isn't in your Supabase team, **Swedish** text in the login mail, a **6-digit code** in the mail (handy for the iPhone home-screen app), or more than ~2 login mails/hour. Free senders: Resend, Brevo. Supabase → **Authentication → Emails → SMTP Settings** (look for the closest match). Planner can walk you through it; not part of either slice.

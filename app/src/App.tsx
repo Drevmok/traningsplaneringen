@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
 import type { WizardFinishAnswers } from './components/HomeWizard'
@@ -29,7 +29,7 @@ import {
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
 import { useBank } from './lib/useBank'
-import { acknowledgeLinkFailed, adminAvailable } from './lib/admin/state'
+import { adminAvailable } from './lib/admin/state'
 import { useAdmin } from './lib/admin/useAdmin'
 
 // Slice 32: login sheet + sign-out live in lazy chunks (coach main chunk stays small).
@@ -57,10 +57,18 @@ export default function App() {
   const [shareError, setShareError] = useState(false)
   const [runSession, setRunSession] = useState<Session | null>(null)
   const [remoteBuild, setRemoteBuild] = useState<string | null>(null)
-  // Slice 32 — footer admin link / state + the login sheet (opens by itself after a bad link).
+  // Slice 32/33 — footer admin link / state + the login sheet (opened only from the footer link).
   const admin = useAdmin()
   const [loginOpen, setLoginOpen] = useState(false)
-  const showLogin = loginOpen || admin.linkFailed
+  const showLogin = loginOpen
+  // Slice 33 — after a code login, focus moves to the footer «Logga ut» (screen readers hear the new state).
+  const focusLogoutRef = useRef(false)
+  const logoutRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (!focusLogoutRef.current || loginOpen || admin.state === 'none' || admin.state === 'checking') return
+    logoutRef.current?.focus()
+    focusLogoutRef.current = false
+  }, [loginOpen, admin.state])
   const updateReady = isNewerBuild(localBuild(), remoteBuild)
 
   useEffect(() => {
@@ -345,7 +353,7 @@ export default function App() {
                 <span className="app-footer-sep" aria-hidden>
                   ·
                 </span>
-                <button type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
+                <button ref={logoutRef} type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
                   {UI.adminLogout}
                 </button>
               </>
@@ -385,10 +393,10 @@ export default function App() {
       {showLogin && (
         <Suspense fallback={null}>
           <AdminLoginSheet
-            linkFailed={admin.linkFailed}
-            onClose={() => {
+            onClose={() => setLoginOpen(false)}
+            onLoggedIn={() => {
               setLoginOpen(false)
-              acknowledgeLinkFailed()
+              focusLogoutRef.current = true
             }}
           />
         </Suspense>

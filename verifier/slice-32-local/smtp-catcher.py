@@ -61,7 +61,7 @@ class Handler(socketserver.StreamRequestHandler):
         links = sorted(set(m.replace('&amp;', '&') for m in re.findall(r'https?://[^\s"\'<>]+', body)))
         name = f"{time.time():.6f}-{(rcpt or ['x'])[0].replace('@', '_at_')}.json"
         with open(os.path.join(OUT, name), 'w') as f:
-            json.dump({'to': rcpt, 'subject': str(msg.get('subject', '')), 'links': links}, f)
+            json.dump({'to': rcpt, 'subject': str(msg.get('subject', '')), 'links': links, 'body': body}, f)
 
 
 class Server(socketserver.ThreadingTCPServer):
