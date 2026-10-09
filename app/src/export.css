@@ -905,6 +905,17 @@
   font-weight: 700;
 }
 
+/* Slice 34: «Nästa: …» / «Sista aktiviteten» — one quiet line under the timer. */
+.run-next {
+  margin: 0;
+  max-width: 100%;
+  color: #d6d3d1;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .run-script {
   flex: 1;
   min-height: 0;

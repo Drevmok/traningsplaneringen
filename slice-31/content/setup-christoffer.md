@@ -234,7 +234,7 @@ Your first real use: Planner pushes the next video's stations. In the app, tap *
 
 ## Optional: own e-mail sender (custom SMTP)
 
-Only needed if you want a **second admin** who isn't in your Supabase team, **Swedish** text in the login mail, a **6-digit code** in the mail (handy for the iPhone home-screen app), or more than ~2 login mails/hour. Free senders: Resend, Brevo. Supabase → **Authentication → Emails → SMTP Settings** (look for the closest match). Planner can walk you through it; not part of either slice.
+**Done (2026-10-03):** custom SMTP runs through Christoffer's Gmail (app password, sender name «Träningsplaneringen»). The login mail template is editable and the limit is about 30 login mails/hour. Nothing to do here; Slice 33 uses this for the 6-digit code.
 
 ## Turning things off
 

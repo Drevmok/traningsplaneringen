@@ -6,10 +6,12 @@ import {
   formatRunClock,
   pauseClock,
   resumeClock,
+  runNextText,
   runSteps,
   startClock,
   type RunClock,
 } from '../lib/runPass'
+import { playRunSignal, shouldSignal, unlockRunSignal } from '../lib/runSignal'
 import type { Session } from '../types'
 
 interface Props {
@@ -34,6 +36,16 @@ export function RunPass({ session, onClose }: Props) {
   const last = index >= steps.length - 1
 
   useBodyScrollLock(true)
+
+  // Slice 34: one tone per clock run at 0 (never loops, never advances). After backgrounding past
+  // the deadline it fires once on return (the first tick back), never several.
+  const firedFor = useRef<string | null>(null)
+  const startSeconds = step?.seconds ?? 0
+  useEffect(() => {
+    if (!shouldSignal(firedFor.current, clock.run, left, paused, startSeconds)) return
+    firedFor.current = clock.run
+    playRunSignal()
+  }, [clock.run, left, paused, startSeconds])
 
   useEffect(() => {
     rootRef.current?.focus()
@@ -115,6 +127,7 @@ export function RunPass({ session, onClose }: Props) {
   }, [])
 
   function go(nextIndex: number) {
+    unlockRunSignal()
     const i = Math.max(0, Math.min(steps.length - 1, nextIndex))
     const t = Date.now()
     setNow(t)
@@ -122,6 +135,7 @@ export function RunPass({ session, onClose }: Props) {
   }
 
   function toggleClock() {
+    unlockRunSignal()
     const t = Date.now()
     setNow(t)
     setClock((c) => (c.paused ? resumeClock(c, t) : pauseClock(c, t)))
@@ -177,6 +191,7 @@ export function RunPass({ session, onClose }: Props) {
           {UI.runTimeUp}
         </p>
       )}
+      <p className="run-next">{runNextText(steps, index, UI.runNextLabel, UI.runLastActivity)}</p>
 
       <div className="run-script">
         {step.why && (
