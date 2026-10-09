@@ -25,6 +25,8 @@ First monthly **outside** sweep (2026-10-09): what similar coaching / session-pl
 
 #### 1. Kör passet — hörbar signal när tiden är ute + ”Nästa: …”
 
+**Approved 2026-10-09** (Christoffer) → **Slice 34** (pack LOCKED 2026-10-09, `slice-34/`).
+
 - **Title:** Kör passet tells you when time is up (short tone + vibration) and shows what comes next.
 - **Source:** [Seconds Pro – Interval Timer (Google Play)](https://play.google.com/store/apps/details?id=com.runloop.seconds&hl=en_US) · [Seconds Interval Timer (App Store)](https://apps.apple.com/us/app/seconds-interval-timer/id475816966) · [Gymnastikförbundet – Passets uppbyggnad](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/passets-uppbyggnad)
 - **Coach benefit / real problem:** A new coach is watching and spotting gymnasts, not the phone — today the clock reaches 00:00 silently (`runTimeUp` text only), so stations overrun and the pass drifts; a tone/buzz plus “Nästa: Hjulning” lets them call the switch and prep the next redskap without reading the screen.
@@ -35,6 +37,8 @@ First monthly **outside** sweep (2026-10-09): what similar coaching / session-pl
 - **Suggested slice shape:** In Kör passet, when a step’s clock first reaches 0 (not when paused, not on manual Nästa) play one short Web Audio tone (no audio file) and `navigator.vibrate(…)` where supported; silently skip where not (iOS Safari has no vibrate). Add a muted line under the clock: “Nästa: <next title>” (hidden on the last step). Docs: 2 strings. Verifier: run a 1-min pass on phone; tone fires once per step, never while paused.
 
 #### 2. Föreningens mallar — färdiga pass från banken i ”Starta från mall”
+
+**Approved 2026-10-09** (Christoffer) → next slice after Slice 34. Effort L: Christoffer locks its A–F before a pack is written.
 
 - **Title:** Club passes from the shared bank show up in the existing **Starta från mall** list (admin publishes, coaches just pick).
 - **Source:** [Lime Sportadmin – Guide: Träningsplanering (Passbank)](https://www.lime-sportadmin.com/sv/hjalp/planeringsverktyg/guide-traningsplanering/) · [Gymnastikförbundet – Lektionsförslag](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/lektionsforslag)
