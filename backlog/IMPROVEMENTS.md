@@ -19,6 +19,44 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 ## Proposed
 
+### Scout outside sweep 2026-10 (similar apps)
+
+First monthly **outside** sweep (2026-10-09): what similar coaching / session-planning tools do, filtered hard for **simplicity** (no new screens, settings, coach accounts or social features). Checked against all backlog sections and shipped Slices 01–33 plus the post-28 main-branch work (Kör passet timer + cue, Exportera/dela + QR, Egna mallar, Ny vecka, Planera pass wizard, delad övningsbank + admin). Two ideas only — the rest were dropped (see end of this run).
+
+#### 1. Kör passet — hörbar signal när tiden är ute + ”Nästa: …”
+
+- **Title:** Kör passet tells you when time is up (short tone + vibration) and shows what comes next.
+- **Source:** [Seconds Pro – Interval Timer (Google Play)](https://play.google.com/store/apps/details?id=com.runloop.seconds&hl=en_US) · [Seconds Interval Timer (App Store)](https://apps.apple.com/us/app/seconds-interval-timer/id475816966) · [Gymnastikförbundet – Passets uppbyggnad](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/passets-uppbyggnad)
+- **Coach benefit / real problem:** A new coach is watching and spotting gymnasts, not the phone — today the clock reaches 00:00 silently (`runTimeUp` text only), so stations overrun and the pass drifts; a tone/buzz plus “Nästa: Hjulning” lets them call the switch and prep the next redskap without reading the screen.
+- **Evidence:** Seconds’ gym-floor timer: “The current interval and next interval are displayed so you can see also what's up now and next” and “Loud or soothing alerts”; the App Store copy is literally titled “HEAR IT, DON’T WATCH IT”. Gymnastikförbundet’s recommended truppgymnastik pass runs stations on a clock (“Varje övning körs under 1 minut … Tiden och vilan mellan övningarna är lika lång som det tar för deltagarna att byta station”) — the coach has to call each switch. In our app `RunPass.tsx` already has the clock, wake lock and full screen, but no `vibrate`/audio and no next-step preview (`runSteps` already knows the next title).
+- **Effort:** S
+- **Simplicity check:** No new screen, button or setting — one short tone + `navigator.vibrate` fired once at 00:00, and one small grey line under the clock; the phone’s own volume/silent switch is the only control.
+- **Standing lock?** No fight (Kör passet only; no hall, redskap, drafts or cloud change).
+- **Suggested slice shape:** In Kör passet, when a step’s clock first reaches 0 (not when paused, not on manual Nästa) play one short Web Audio tone (no audio file) and `navigator.vibrate(…)` where supported; silently skip where not (iOS Safari has no vibrate). Add a muted line under the clock: “Nästa: <next title>” (hidden on the last step). Docs: 2 strings. Verifier: run a 1-min pass on phone; tone fires once per step, never while paused.
+
+#### 2. Föreningens mallar — färdiga pass från banken i ”Starta från mall”
+
+- **Title:** Club passes from the shared bank show up in the existing **Starta från mall** list (admin publishes, coaches just pick).
+- **Source:** [Lime Sportadmin – Guide: Träningsplanering (Passbank)](https://www.lime-sportadmin.com/sv/hjalp/planeringsverktyg/guide-traningsplanering/) · [Gymnastikförbundet – Lektionsförslag](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/lektionsforslag)
+- **Coach benefit / real problem:** A brand-new coach’s hardest moment is the blank pass; a few club-tested, ready passes (made by an experienced leader) that appear where they already look — Starta från mall — let them start from something proven instead of the two built-in templates.
+- **Evidence:** Sportadmin sells exactly this to Swedish clubs: “Passbank … färdiga träningspass redo för föreningens ledare”, only admins manage it, all leaders see it in their app, and the stated benefit is “sänker tröskeln för nya ledare då de enkelt i sin app hittar färdiga mallar och pass redo att användas.” Gymnastikförbundet itself publishes ready lektionsförslag (“Skriv ut lektionsförslaget och ta med till hallen”) — passes, not just drills, are what new leaders ask for. We already have the plumbing: Slice 31 read-only shared bank (offline-first, cached) + Slice 32/33 admin login; passes are already serialisable (`sharePass.ts`), and `SaveTemplateDialog` already turns a pass into a local mall.
+- **Effort:** L (new table + RLS, admin “publish as club mall” action, bank fetch/cache for mallar, Verifier on offline fallback).
+- **Simplicity check:** Coaches get zero new screens, settings or logins — just a few more cards (tagged “Föreningens”) in the Starta från mall list they already use; all publishing happens behind the existing admin login.
+- **Standing lock?** **Note:** stretches the 2026-10-02 narrow lift of “Accounts / cloud” (Slices 31–32: read-only *exercise* bank + admin-only login) from exercises to whole passes. Still no coach accounts or sync; coach drafts stay device-local. Needs Christoffer’s explicit OK on that scope. Hall placements in a club mall: suggest dropping them (template apply already clears placements, `clearHallPlacements`) so hall/Teknik locks are untouched.
+- **Suggested slice shape:** Admin-only: on a pass, **Publicera som föreningsmall** writes the same `SharePass` v1 payload that local Egna mallar already store (`savedTemplates.ts`) to a `club_templates` table (anon read-only, admin write, Dölj instead of delete — same F1 pattern as the bank). Coaches: Starta från mall lists bundled templates + cached club templates (same D1 “show cache, refresh in background”); applying one uses today’s replace-draft confirm. No editing of club mallar by coaches (they can still Spara som mall locally). Do after the parked banksnapshot item if Christoffer prefers offline parity first.
+
+**Dropped for simplicity / locks (this sweep):**
+
+- Station rotation timer with groups/roster and “två varv” ([TPT Station Rotation Timer](https://www.teacherspayteachers.com/Product/Station-Rotation-Timer-Group-Maker-Editable-Station-Signs-Center-Rotation-17131354), [Gymnastikförbundet cirkelträning](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/lektionsforslag)) — needs a group/varv model and settings; idea #1 covers the core “call the switch” need.
+- Attendance / availability tracking ([TeamSnap](https://www.teamsnap.com/teams/features/member-availability), IdrottOnline / Laget.se) — rosters + accounts; that’s the club system’s job.
+- Video analysis, athlete Spaces and messaging ([CoachNow](https://coachnow.com/coach-features)) — accounts, uploads, social.
+- Per-gymnast skill assessment / progress tracking (GymAssessor-style) — rosters, personal data on minors, new screens.
+- Session archive / history and a Sportplan-style “purpose” field ([Sportplan Session Planner](https://www.sportplan.net/drills/planner/index.jsp)) — new screen; the wizard focus already lands in the pass title.
+- Intensity spread hint (“två tuffa övningar inte direkt efter varandra”, [Passets uppbyggnad](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/passets-uppbyggnad)) — needs intensity tagging of every drill + a new warning.
+- Equipment checklist / practice plans with timing (TeamSnap ONE) — already shipped (Förrådslista, Slice 15; timings per item).
+
+---
+
 ### Scout run 2026-09-26 (post Slice 22 PASS · Slice 23 candidates) — **status moves**
 
 Christoffer (2026-09-26) approved all three ideas. Per `SCOUT-PLAYBOOK.md` bundle rule:
