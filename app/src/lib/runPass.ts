@@ -64,11 +64,13 @@ export interface RunClock {
   paused: boolean
   /** Seconds left when paused. Ignored while running. */
   frozen: number
+  /** Slice 34: identity of this clock run (new on every start; kept by pause/resume). */
+  run: string
 }
 
 export function startClock(index: number, seconds: number, now: number): RunClock {
   const s = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0))
-  return { index, deadline: now + s * 1000, paused: false, frozen: s }
+  return { index, deadline: now + s * 1000, paused: false, frozen: s, run: `${index}@${now}` }
 }
 
 export function clockRemaining(clock: RunClock, now: number): number {
@@ -89,4 +91,10 @@ export function resumeClock(clock: RunClock, now: number): RunClock {
     paused: false,
     deadline: now + Math.max(0, clock.frozen) * 1000,
   }
+}
+
+/** Slice 34: the grey line under the timer — next step's title (across blocks) or the last-step text. */
+export function runNextText(steps: Pick<RunStep, 'title'>[], index: number, nextLabel: string, lastLabel: string): string {
+  const next = steps[index + 1]
+  return next ? nextLabel.replace('{title}', next.title) : lastLabel
 }

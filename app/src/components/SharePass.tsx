@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { BLOCK_LABELS, BLOCK_ORDER, UI } from '../data/blockMeta'
 import { getActivityById } from '../data/seedActivities'
 import { useBodyPrint } from '../lib/bodyPrint'
+import { unlockRunSignal } from '../lib/runSignal'
 import { hasDraft } from '../lib/session'
 import { countSessionItems } from '../lib/hall'
 import { stationCards } from '../lib/stationCards'
@@ -51,6 +52,7 @@ export function SharePass({ session, onSave, onRun }: Props) {
           disabled={countSessionItems(session) < 1}
           aria-label={UI.runPassAria}
           onClick={() => {
+            unlockRunSignal()
             enterPresentation()
             onRun()
           }}

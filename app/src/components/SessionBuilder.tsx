@@ -50,6 +50,7 @@ import { OwnActivityForm } from './OwnActivityForm'
 import { OwnImportSheet } from './OwnImportSheet'
 import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from './StationDeck'
+import { unlockRunSignal } from '../lib/runSignal'
 import { AdminStatusBadge } from './AdminStatusBadge'
 import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
 
@@ -410,6 +411,7 @@ export function SessionBuilder({
               className="btn-primary"
               aria-label={UI.runPassAria}
               onClick={() => {
+                unlockRunSignal()
                 enterPresentation()
                 onRun()
               }}

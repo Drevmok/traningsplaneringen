@@ -472,7 +472,7 @@ export const UI = {
   wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
   wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
   // Slice 10 — distribution; Slice 33 footer (slice-33/content/microcopy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 33',
+  footerSliceLabel: 'Träningsplaneraren · Slice 34',
   // Slice 31 — shared bank (slice-31/content/microcopy.sv.md, Docs final). Biblioteket only.
   bankStale: 'Visar sparade övningar. Du kan planera som vanligt.',
   // Slice 32 — admins (slice-31/content/microcopy.sv.md § Slice 32, Docs final 2026-10-03). Admin-only except adminLoginLink.
@@ -543,6 +543,8 @@ export const UI = {
   runExit: 'Avsluta',
   runLast: 'Sista övningen',
   runTimeUp: 'Tiden är ute',
+  runNextLabel: 'Nästa: {title}',
+  runLastActivity: 'Sista aktiviteten',
   runPaused: 'Pausad',
   runPause: 'Pausa timern',
   runResume: 'Fortsätt timern',
