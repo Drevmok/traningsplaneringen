@@ -4,6 +4,7 @@ import { Home } from './components/Home'
 import type { WizardFinishAnswers } from './components/HomeWizard'
 import { SessionBuilder } from './components/SessionBuilder'
 import { SharePass } from './components/SharePass'
+import { FooterFeedback } from './components/FooterFeedback'
 import { RunPass } from './components/RunPass'
 import { UI } from './data/blockMeta'
 import {
@@ -363,6 +364,7 @@ export default function App() {
             </span>
           </span>
         )}
+        <FooterFeedback />
         {view !== 'home' && (
           <>
             <button

@@ -107,6 +107,9 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
+/** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
+export const SLICE_NUMBER = '35'
+
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
   appName: 'Träningsplaneraren',
@@ -472,7 +475,31 @@ export const UI = {
   wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
   wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
   // Slice 10 — distribution; Slice 33 footer (slice-33/content/microcopy.sv.md)
-  footerSliceLabel: 'Träningsplaneraren · Slice 34',
+  footerSliceLabel: `Träningsplaneraren · Slice ${SLICE_NUMBER}`,
+  // Slice 35 — «Tyck till» (slice-35/content/microcopy.sv.md)
+  feedbackLink: 'Tyck till',
+  feedbackLinkAria: 'Tyck till om appen via e-post',
+  feedbackMailSubject: 'Tyck till om Träningsplaneraren',
+  feedbackMailBodyLines: [
+    'Hej,',
+    '',
+    'Här är vad jag tycker om Träningsplaneraren.',
+    '',
+    'Vad fungerade bra?',
+    '',
+    '',
+    'Vad var krångligt?',
+    '',
+    '',
+    'Vad saknade du?',
+    '',
+    '',
+    'Tack för att du tar dig tid.',
+  ],
+  feedbackMailVersion: 'Version: Slice {n}',
+  feedbackFallback: 'Hittar du ingen e-postapp? Skriv till {email}',
+  feedbackCopy: 'Kopiera adressen',
+  feedbackCopied: 'Kopierad',
   // Slice 31 — shared bank (slice-31/content/microcopy.sv.md, Docs final). Biblioteket only.
   bankStale: 'Visar sparade övningar. Du kan planera som vanligt.',
   // Slice 32 — admins (slice-31/content/microcopy.sv.md § Slice 32, Docs final 2026-10-03). Admin-only except adminLoginLink.

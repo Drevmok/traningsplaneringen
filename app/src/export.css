@@ -1517,6 +1517,20 @@
   opacity: 1;
 }
 
+/* Slice 35 — «Tyck till» + the one fallback line (address selectable, own row under the footer). */
+.app-footer > * {
+  white-space: nowrap;
+}
+.app-footer > p {
+  order: 9;
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 13px;
+  color: #78716c;
+  white-space: normal;
+  user-select: text;
+}
+
 .btn-text.footer-visa-tips,
 .btn-text.footer-update,
 .btn-text.visa-tips-igen {
