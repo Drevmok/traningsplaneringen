@@ -22,7 +22,7 @@ const BODY = [
   '',
   'Tack för att du tar dig tid.',
   '',
-  'Version: Slice 35',
+  'Version: Slice 36',
 ].join('\r\n')
 
 describe('feedbackHref (Slice 35)', () => {
@@ -42,8 +42,8 @@ describe('feedbackHref (Slice 35)', () => {
     assert.equal(feedbackBody(), BODY)
   })
   it('version line and footer label share SLICE_NUMBER', () => {
-    assert.equal(SLICE_NUMBER, '35')
-    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 35')
+    assert.equal(SLICE_NUMBER, '36')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 36')
     assert.ok(feedbackBody().endsWith(`Version: Slice ${UI.footerSliceLabel.match(/Slice (\d+)/)?.[1]}`))
   })
 })

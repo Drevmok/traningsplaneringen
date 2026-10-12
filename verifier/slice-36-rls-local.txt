@@ -1,0 +1,19 @@
+ok   anon select hidden=is.true → []
+ok   anon insert refused → refused
+ok   anon update refused/0 rows → refused
+ok   anon delete refused → refused
+ok   nonadmin select hidden=is.true → []
+ok   nonadmin insert refused → refused
+ok   nonadmin update refused/0 rows → refused
+ok   nonadmin delete refused → refused
+ok   admin insert ok → 201
+ok   admin same name → 23505 → 23505
+ok   admin payload with hallPlacements refused (AC19) → 23514
+ok   admin hide ok → 200
+ok   anon cannot see the hidden row → []
+ok   admin sees the hidden row → [{"hidden":true}]
+ok   updated_by stamped with the admin e-mail → admin@test.local
+ok   admin delete refused → refused
+ok   service_role select refused (no grant) → refused
+rows left: 3
+rls: 17 ok, 0 failed

@@ -6,11 +6,13 @@ interface Props {
   title: string
   onConfirm: () => void
   onCancel: () => void
+  /** Slice 36: club mallar pass their own confirm text (clubHideConfirm). */
+  text?: string
 }
 
 /** Slice 32 — screen-spec §6. */
-export function AdminHideConfirm({ id, title, onConfirm, onCancel }: Props) {
-  const usedInCode = idsUsedByMallsOrWizard().has(id)
+export function AdminHideConfirm({ id, title, onConfirm, onCancel, text }: Props) {
+  const usedInCode = !text && idsUsedByMallsOrWizard().has(id)
   return (
     <div
       className="modal-backdrop replace-draft-backdrop admin-hide-backdrop"
@@ -22,7 +24,7 @@ export function AdminHideConfirm({ id, title, onConfirm, onCancel }: Props) {
       }}
     >
       <div className="modal admin-hide-confirm">
-        <p>{UI.adminHideConfirm.replace('{title}', title)}</p>
+        <p>{(text ?? UI.adminHideConfirm).replace('{title}', title)}</p>
         {usedInCode && <p className="muted">{UI.adminHideUsedIn}</p>}
         <div className="modal-actions">
           <button type="button" className="btn-secondary" onClick={onCancel}>
