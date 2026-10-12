@@ -31,6 +31,7 @@ import {
   startNewWeek,
 } from '../lib/savedTemplates'
 import { copyText, encodeShare, shareUrl } from '../lib/sharePass'
+import { clubPayload, clubTemplateToSession, type ClubTemplate } from '../lib/clubTemplates'
 import type {
   Activity,
   BlockType,
@@ -56,6 +57,14 @@ import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
 
 // Slice 32 — the bank form is admin-only: its own chunk, loaded when «Ändra i banken» is tapped.
 const AdminBankForm = lazy(() => import('./AdminBankForm'))
+/**
+ * Slice 36: a new pass gets a new id, and App keys the builder by session id, so the builder
+ * remounts right after a mall is applied. A toast for that moment rides across the remount here.
+ */
+let carriedToast: string | null = null
+
+const ClubAdminSection = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubAdminSection })))
+const ClubPublishDialog = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubPublishDialog })))
 const AdminDetailPanel = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.AdminDetailPanel })))
 
 interface Props {
@@ -103,10 +112,20 @@ export function SessionBuilder({
     null,
   )
   const [mismatch, setMismatch] = useState<MismatchWarning | null>(null)
-  const [toast, setToast] = useState<string | null>(null)
+  const [toast, setToast] = useState<string | null>(() => carriedToast)
+  useEffect(() => {
+    carriedToast = null
+  }, [])
+  useEffect(() => {
+    if (!toast) return
+    const timer = window.setTimeout(() => setToast(null), 2200)
+    return () => window.clearTimeout(timer)
+  }, [toast])
   const [showExport, setShowExport] = useState(false)
   const [savedTemplates, setSavedTemplates] = useState(() => loadSavedTemplates())
   const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
+  const [pendingClub, setPendingClub] = useState<ClubTemplate | null>(null)
+  const [showClubPublish, setShowClubPublish] = useState(false)
   const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
   const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
   const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
@@ -154,7 +173,6 @@ export function SessionBuilder({
 
   function showToast(msg: string) {
     setToast(msg)
-    window.setTimeout(() => setToast(null), 2200)
   }
 
   function openPanel(tab: SideTab) {
@@ -291,6 +309,19 @@ export function SessionBuilder({
     closePanel()
   }
 
+  // Slice 36 (E1): the coach's own pass — no placements, fresh ids, no link back to the row.
+  function handleConfirmClub() {
+    if (!pendingClub) return
+    const next = adoptAsDraft(clubTemplateToSession(pendingClub))
+    setSelectedBlockId(next.blocks[0]?.id ?? null)
+    setPendingClub(null)
+    setMismatch(null)
+    carriedToast = UI.clubTemplateApplied
+    onInitialTemplateConsumed?.()
+    onChange(next)
+    closePanel()
+  }
+
   function handleDeleteSaved(id: string) {
     setSavedTemplates(deleteSavedTemplate(id))
   }
@@ -330,6 +361,17 @@ export function SessionBuilder({
         >
           {UI.saveOwnTemplate}
         </button>
+        {admin.state === 'admin' && (
+          <button
+            type="button"
+            className="btn-secondary"
+            disabled={!hasItems}
+            title={!hasItems ? UI.runPassDisabled : undefined}
+            onClick={() => setShowClubPublish(true)}
+          >
+            {UI.clubPublish}
+          </button>
+        )}
         <button
           type="button"
           className="btn-secondary"
@@ -552,6 +594,14 @@ export function SessionBuilder({
               onPickSaved={(id) => setPendingSavedId(id)}
               onCopySaved={(id) => void handleCopySaved(id)}
               onDeleteSaved={handleDeleteSaved}
+              onPickClub={setPendingClub}
+              clubAdminSlot={
+                admin.state === 'admin' ? (
+                  <Suspense fallback={null}>
+                    <ClubAdminSection onPick={setPendingClub} onToast={showToast} />
+                  </Suspense>
+                ) : undefined
+              }
               ownActivities={ownActivities}
               onCreateOwn={() => setOwnEdit('new')}
               onImportOwn={() => setOwnImportOpen(true)}
@@ -621,6 +671,36 @@ export function SessionBuilder({
           onConfirm={handleConfirmSaved}
           onCancel={() => setPendingSavedId(null)}
         />
+      )}
+
+      {pendingClub && (
+        <TemplateConfirm
+          template={{
+            id: pendingClub.id,
+            title: pendingClub.title,
+            description: '',
+            targetLevel: 'beginner',
+            totalMinutes: pendingClub.totalMinutes,
+            blocks: [],
+          }}
+          note={UI.clubTemplatePlacementsNote}
+          onConfirm={handleConfirmClub}
+          onCancel={() => setPendingClub(null)}
+        />
+      )}
+
+      {showClubPublish && admin.state === 'admin' && (
+        <Suspense fallback={null}>
+          <ClubPublishDialog
+            initialTitle={session.title}
+            draft={{ totalMinutes: session.totalMinutes, payload: (title) => clubPayload(session, title) }}
+            onCancel={() => setShowClubPublish(false)}
+            onDone={(msg) => {
+              setShowClubPublish(false)
+              showToast(msg)
+            }}
+          />
+        </Suspense>
       )}
 
       {toast && (

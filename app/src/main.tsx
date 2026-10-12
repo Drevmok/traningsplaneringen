@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { initBank, refreshBank } from './lib/bank'
+import { initClubTemplates, refreshClubTemplates } from './lib/clubTemplates'
 import { shouldStartAdmin } from './lib/admin/state'
 import { cleanAuthLeftovers } from './lib/admin/authReturn'
 
@@ -13,6 +14,8 @@ if (cleanUrl) window.history.replaceState(window.history.state, '', cleanUrl)
 
 // Slice 31 (D1): start from the saved copy (or the bundled seeds) before first render.
 initBank()
+// Slice 36 (D1): Föreningens mallar from the device copy, same rule.
+initClubTemplates()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -23,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
 // …then ask the shared bank for news once, in the background. Bank off → no request.
 setTimeout(() => {
   void refreshBank()
+  void refreshClubTemplates()
 }, 0)
 
 // Slice 32/33: admin code (and supabase-js) loads only for a saved admin session in this

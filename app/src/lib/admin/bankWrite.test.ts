@@ -191,7 +191,13 @@ describe('bankWrite (Slice 32 F1)', () => {
     for (const n of files) {
       const src = readFileSync(dir + n, 'utf8')
       assert.equal(/\.delete\(/.test(src), false, n)
-      assert.equal(/\.insert\(|\.upsert\(/.test(src), false, n)
+      // Slice 36: the one insert in admin code is «Publicera som föreningsmall» (club_templates only).
+      const inserts = src.match(/\.insert\(|\.upsert\(/g) ?? []
+      if (n === 'clubWrite.ts') {
+        assert.equal(inserts.length, 1, n)
+        assert.equal(/\.upsert\(/.test(src), false, n)
+        assert.equal(/from\('exercises'\)/.test(src), false, n)
+      } else assert.equal(inserts.length, 0, n)
     }
   })
 })

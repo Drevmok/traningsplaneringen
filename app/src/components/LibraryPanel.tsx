@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import {
   BLOCK_LABELS,
   BLOCK_ORDER,
@@ -8,6 +8,8 @@ import {
 import { useBank } from '../lib/useBank'
 import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
 import { AdminStatusBadge } from './AdminStatusBadge'
+import { useClubTemplates, type ClubTemplate } from '../lib/clubTemplates'
+import { ClubTemplatesSection } from './ClubTemplates'
 import { seedTemplates } from '../data/seedTemplates'
 import { activityFitsOwned, loadOwnedEquipment, loadTonightFilter, ownsEveryPiece, saveTonightFilter } from '../lib/ownedEquipment'
 import type { SavedTemplate } from '../lib/savedTemplates'
@@ -31,6 +33,9 @@ interface Props {
   onPickSaved: (id: string) => void
   onCopySaved: (id: string) => void
   onDeleteSaved: (id: string) => void
+  onPickClub: (template: ClubTemplate) => void
+  /** Slice 36: the lazy admin club section (SessionBuilder owns the lazy import). */
+  clubAdminSlot?: ReactNode
   ownActivities: Activity[]
   onCreateOwn: () => void
   onImportOwn: () => void
@@ -53,6 +58,8 @@ export function LibraryPanel({
   onPickSaved,
   onCopySaved,
   onDeleteSaved,
+  onPickClub,
+  clubAdminSlot,
   ownActivities,
   onCreateOwn,
   onImportOwn,
@@ -62,6 +69,7 @@ export function LibraryPanel({
 }: Props) {
   const [query, setQuery] = useState('')
   const bank = useBank()
+  const club = useClubTemplates()
   // Slice 32 — admin mode (screen-spec §4). Coaches: admin.state is never 'admin', nothing changes.
   const admin = useAdmin()
   const adminBank = useAdminBank()
@@ -283,6 +291,11 @@ export function LibraryPanel({
 
       {tab === 'templates' && (
         <div className="side-body">
+          {admin.state === 'admin' && clubAdminSlot ? (
+            clubAdminSlot
+          ) : (
+            <ClubTemplatesSection club={club} onPick={onPickClub} />
+          )}
           {savedTemplates.length > 0 && (
             <>
               <h3 className="template-group">{UI.myTemplates}</h3>

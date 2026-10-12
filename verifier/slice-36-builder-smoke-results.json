@@ -1,0 +1,288 @@
+{
+  "at": "2026-10-12T13:10:39.473Z",
+  "pass": 46,
+  "fail": 0,
+  "results": [
+    {
+      "id": "AC1a",
+      "name": "Admin: «Publicera som föreningsmall» in the pass menu next to «Spara som egen mall»",
+      "ok": true,
+      "detail": "Hallöversikt | Spara som egen mall | Publicera som föreningsmall | Ny vecka | Använd mall | Exportera / dela"
+    },
+    {
+      "id": "AC2a",
+      "name": "Publish dialog: heading, «Namn på mallen» prefilled with the pass title, body verbatim, Avbryt + Publicera",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2b",
+      "name": "Publicera → toast verbatim",
+      "ok": true,
+      "detail": "Publicerad. Tränarna ser den nästa gång de öppnar appen."
+    },
+    {
+      "id": "AC2c",
+      "name": "Row exists with updated_by = admin e-mail",
+      "ok": true,
+      "detail": "[[\"Pass — trampett\",\"admin@test.local\"]]"
+    },
+    {
+      "id": "AC3",
+      "name": "Payload SharePass v1 (v, blocks), NO hallPlacements key; blocks/minutes/notes/station redskap = the pass",
+      "ok": true,
+      "detail": "placements in pass: 3"
+    },
+    {
+      "id": "AC4a",
+      "name": "Same name (other case + spaces) → «Det finns redan en mall som heter ”…”» + body + «Ersätt mallen»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4b",
+      "name": "«Avbryt» changes nothing",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4c",
+      "name": "«Ersätt mallen» → toast verbatim",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4d",
+      "name": "Same row (same id, new updated_at), no second row",
+      "ok": true,
+      "detail": "title now «pass — trampett»"
+    },
+    {
+      "id": "AC2d",
+      "name": "Second mall (80-char name) published",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7a",
+      "name": "Admin cards show «Senast ändrad {datum} av admin@test.local»",
+      "ok": true,
+      "detail": "Senast ändrad 12 okt av admin@test.local | Senast ändrad 12 okt av admin@test.local"
+    },
+    {
+      "id": "AC5a",
+      "name": "Hide confirm verbatim + Avbryt/Dölj",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5b",
+      "name": "Dölj → toast «Dold för alla.»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5c",
+      "name": "Collapsed group «Dolda föreningsmallar (1)»; row hidden = true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5d",
+      "name": "Hidden card has tag «Dold»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6a",
+      "name": "Visa igen → toast «Syns igen för alla.», hidden = false, card back",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8",
+      "name": "Offline: Dölj and Publicera show «Du behöver nät …»; DB unchanged",
+      "ok": true,
+      "detail": "Du behöver nät för att ändra föreningens mallar. / Du behöver nät för att ändra föreningens mallar."
+    },
+    {
+      "id": "§8.4",
+      "name": "Publishing the name of a hidden mall → overwrite confirm → row shown again (hidden = false)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6b",
+      "name": "Nothing is ever deleted (row count never drops)",
+      "ok": true,
+      "detail": "2→2→2"
+    },
+    {
+      "id": "AC21b",
+      "name": "Admin writes are POST/PATCH to club_templates only, never DELETE",
+      "ok": true,
+      "detail": "POST /rest/v1/club_templates, PATCH /rest/v1/club_templates"
+    },
+    {
+      "id": "AC10",
+      "name": "One GET to club_templates after render: apikey, no Authorization, hidden=is.false",
+      "ok": true,
+      "detail": "select=id,title,total_minutes,payload,updated_at&hidden=is.false&order=sort_order,title"
+    },
+    {
+      "id": "AC9a",
+      "name": "Starta från mall: «Föreningens mallar» heading + hint first, then savedTemplatesHint, then built-in mallar",
+      "ok": true,
+      "detail": "Föreningens mallar | Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t | pass — trampett | Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen. | Nybörjare — ca 55 min"
+    },
+    {
+      "id": "AC9b",
+      "name": "Each club card: title, minutes, tag «Föreningens», aria «Föreningens mall {title}, {n} min»",
+      "ok": true,
+      "detail": "Föreningens mall Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t, 53 min | Föreningens mall pass — trampett, 53 min"
+    },
+    {
+      "id": "AC9c",
+      "name": "No Ta bort / Kopiera delningskod / admin words on club cards for coaches",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC21a",
+      "name": "Coach visit downloads no admin chunk and no supabase-js",
+      "ok": true,
+      "detail": "index-Cx75-Hot.js"
+    },
+    {
+      "id": "AC22a",
+      "name": "390 wide: no horizontal scroll; 80-char title wraps inside the card; cards ≥ 44 px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22b",
+      "name": "Keyboard reaches a club card with a visible focus style",
+      "ok": true,
+      "detail": "{\"cls\":\"template-card\",\"aria\":\"Föreningens mall Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t, 53 min\",\"ring\":true}"
+    },
+    {
+      "id": "AC16a",
+      "name": "Ersätta-confirm shows «Stationerna placerar du själv i Hallöversikt.»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16b",
+      "name": "Applied: toast verbatim, pass in Passbyggaren with the mall blocks/timings, sheet closed",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. Placera stationerna i Hallöversikt när du vill."
+    },
+    {
+      "id": "AC17a",
+      "name": "After apply: no hall placements; fresh item ids (≠ payload ids); body not scroll-locked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17b",
+      "name": "Hallöversikt opens with the stations unplaced (tray / unplaced banner), hall chip unchanged",
+      "ok": true,
+      "detail": "Placerade övningar flyttas till samma zon i den nya layouten när det går."
+    },
+    {
+      "id": "AC20",
+      "name": "Coach edit + Spara som egen mall: saved locally, DB row unchanged, no POST/PATCH/DELETE from the coach",
+      "ok": true,
+      "detail": "Sparad som egen mall."
+    },
+    {
+      "id": "AC9d",
+      "name": "Tab order: Föreningens mallar → Mina mallar → savedTemplatesHint → built-in",
+      "ok": true,
+      "detail": "Föreningens mallar | Mina mallar | Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen."
+    },
+    {
+      "id": "AC27a",
+      "name": "Built-in mall still applies (no club note on its confirm)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13-local",
+      "name": "Refresh fails → cards still listed from the device copy + «Visar sparade mallar. …»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13-apply",
+      "name": "Applying from the cached list works without nät to the list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11",
+      "name": "Hidden by admin → gone after reload (cache too)",
+      "ok": true,
+      "detail": "pass — trampett"
+    },
+    {
+      "id": "AC12",
+      "name": "All hidden → «Föreningen har inga mallar än.»; cache key removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24",
+      "name": "Footer «Träningsplaneraren · Slice 36»; «Tyck till» mail ends «Version: Slice 36»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 36 · Logga in som admin · Tyck till · Visa tips igen "
+    },
+    {
+      "id": "AC21c",
+      "name": "Whole coach session: still no admin chunk, no Authorization header to the bank",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14a",
+      "name": "First ever load, list unreachable, no cache: no club section, no empty text, no error; built-in mallar listed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14b",
+      "name": "DB slower than 8 s → stale line after the timeout, list kept",
+      "ok": true,
+      "detail": "stale after ~8.3 s from opening the sheet"
+    },
+    {
+      "id": "AC15",
+      "name": "Plain build (no VITE_SUPABASE_*): no request, no club section, no stale line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC23",
+      "name": "All Slice 36 strings verbatim in blockMeta.ts, no «!», SLICE_NUMBER = 36",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC21d",
+      "name": "rg \"\\.delete\\(\" app/src (non-test) finds nothing",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "errors",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": [
+    "admin pass «Pass — trampett», 9 items, 3 hall placements before publish",
+    "overwrite stores the typed name (F1: title is part of the update), so the row is now «pass — trampett»",
+    "coach draft after reload: «pass — trampett»"
+  ]
+}

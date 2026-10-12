@@ -6,9 +6,11 @@ interface Props {
   template: SessionTemplate
   onConfirm: () => void
   onCancel: () => void
+  /** Slice 36: extra muted line (club mallar only). */
+  note?: string
 }
 
-export function TemplateConfirm({ template, onConfirm, onCancel }: Props) {
+export function TemplateConfirm({ template, onConfirm, onCancel, note }: Props) {
   useBodyScrollLock(true)
 
   return (
@@ -25,6 +27,7 @@ export function TemplateConfirm({ template, onConfirm, onCancel }: Props) {
         <p>
           {UI.templateBody} ({template.title})
         </p>
+        {note && <p className="muted">{note}</p>}
         <div className="modal-actions">
           <button type="button" className="btn-secondary" onClick={onCancel}>
             {UI.templateCancel}

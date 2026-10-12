@@ -108,7 +108,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '35'
+export const SLICE_NUMBER = '36'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -558,6 +558,31 @@ export const UI = {
   adminSaved: 'Sparat i banken.',
   adminSaveConflict: 'Någon annan har ändrat övningen. Stäng och öppna den igen.',
   adminSaveFailed: 'Kunde inte spara. Kolla nätet och försök igen.',
+  // Slice 36 — club templates
+  clubTemplatesTitle: 'Föreningens mallar',
+  clubTemplatesHint: 'Pass som föreningen har provat. Du gör dem till dina när du använder dem.',
+  clubTemplateBadge: 'Föreningens',
+  clubTemplateCardAria: 'Föreningens mall {title}, {n} min',
+  clubTemplatesEmpty: 'Föreningen har inga mallar än.',
+  clubTemplatesStale: 'Visar sparade mallar. Du kan planera som vanligt.',
+  clubTemplatePlacementsNote: 'Stationerna placerar du själv i Hallöversikt.',
+  clubTemplateApplied: 'Mallen är i Passbyggaren. Placera stationerna i Hallöversikt när du vill.',
+  clubPublish: 'Publicera som föreningsmall',
+  clubPublishTitle: 'Publicera som föreningsmall',
+  clubPublishNameLabel: 'Namn på mallen',
+  clubPublishBody: 'Alla tränare ser mallen under Starta från mall nästa gång de öppnar appen. Placeringarna i hallen följer inte med.',
+  clubPublishConfirm: 'Publicera',
+  clubOverwriteTitle: 'Det finns redan en mall som heter ”{title}”',
+  clubOverwriteBody: 'Vill du ersätta den med det här passet? Tränare som redan har använt den behåller sitt pass.',
+  clubOverwriteConfirm: 'Ersätt mallen',
+  clubPublished: 'Publicerad. Tränarna ser den nästa gång de öppnar appen.',
+  clubOverwritten: 'Mallen är ersatt. Tränarna ser den nya nästa gång de öppnar appen.',
+  clubHideAria: 'Dölj för alla: {title}',
+  clubHideConfirm: 'Dölja ”{title}” för alla tränare? Pass som redan har gjorts från mallen ligger kvar.',
+  clubHiddenTitle: 'Dolda föreningsmallar ({n})',
+  clubUnhideAria: 'Visa igen: {title}',
+  clubOffline: 'Du behöver nät för att ändra föreningens mallar.',
+  clubWriteFailed: 'Det gick inte att spara. Försök igen om en stund.',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',

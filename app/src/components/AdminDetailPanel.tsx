@@ -112,3 +112,7 @@ export function AdminDetailPanel({ id, onToast, onEdit }: Props) {
     </div>
   )
 }
+
+// Slice 36: the club-mall admin UI rides in this lazy admin chunk (one chunk fewer).
+export { default as ClubAdminSection } from './ClubAdminSection'
+export { default as ClubPublishDialog } from './ClubPublishDialog'
