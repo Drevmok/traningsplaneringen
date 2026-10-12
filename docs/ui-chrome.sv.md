@@ -390,3 +390,5 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 | Footer | Träningsplaneraren · Slice 31 |
 
 **Slice 34 (2026-10-09):** Kör passet — kort ton vid 00:00 och raden «Nästa: …» / «Sista aktiviteten» under klockan. Se [`slice-34/`](../slice-34/README.md).
+
+**Slice 35 (2026-10-11):** Sidfoten — länken «Tyck till» öppnar ett förifyllt mejl till drevmok@gmail.com. Se [`slice-35/`](../slice-35/README.md).

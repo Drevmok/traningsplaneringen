@@ -1,0 +1,250 @@
+{
+  "results": [
+    {
+      "id": "AC1a",
+      "name": "Home: «Tyck till» in the footer, before «Uppdatera appen»",
+      "ok": true,
+      "detail": "[\"Tyck till\",\"Uppdatera appen\"]"
+    },
+    {
+      "id": "AC1b",
+      "name": "Exactly one a[href^=\"mailto:\"] in the DOM, inside footer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2a",
+      "name": "href: To drevmok@gmail.com, subject, %0D%0A, no \"+\", åäö as UTF-8 escapes",
+      "ok": true,
+      "detail": "mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D"
+    },
+    {
+      "id": "AC2b",
+      "name": "Body decodes to the microcopy body exactly (blank lines, åäö, CRLF)",
+      "ok": true,
+      "detail": "\"att du tar dig tid.\\r\\n\\r\\nVersion: Slice 35\""
+    },
+    {
+      "id": "AC3",
+      "name": "Last body line «Version: Slice 35» = footer label number",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13a",
+      "name": "Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11a",
+      "name": "No feedback popup / banner / prompt on load",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13b",
+      "name": "Tab reaches «Tyck till» with a visible focus ring",
+      "ok": true,
+      "detail": "tabs 4"
+    },
+    {
+      "id": "AC13c",
+      "name": "Enter follows the mailto (same href)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6a",
+      "name": "After the tap: one grey line «Hittar du ingen e-postapp? Skriv till drevmok@gmail.com» + «Kopiera adressen»",
+      "ok": true,
+      "detail": "Hittar du ingen e-postapp? Skriv till drevmok@gmail.com Kopiera adressen"
+    },
+    {
+      "id": "AC6b",
+      "name": "Address is selectable text (user-select text, selection = the address); grey",
+      "ok": true,
+      "detail": "{\"us\":\"text\",\"txt\":\"drevmok@gmail.com\",\"color\":\"rgb(120, 113, 108)\"}"
+    },
+    {
+      "id": "AC6c",
+      "name": "Fallback line is plain text (no live region); sits on its own row under the footer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7a",
+      "name": "Kopiera adressen → clipboard = address, «Kopierad» in role=status",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7b",
+      "name": "«Kopierad» reverts to «Kopiera adressen» after ~2 s",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6d",
+      "name": "A second tap: still exactly one line (not stacked)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10a",
+      "name": "Tapping made no network request (only the blocked mailto navigation)",
+      "ok": true,
+      "detail": "mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D%0A%0D%0AH%C3%A4r%20%C3%A4r%20vad%20jag%20tycker%20om%20Tr%C3%A4ningsplaneraren.%0D%0A%0D%0AVad%20fungerade%20bra%3F%0D%0A%0D%0A%0D%0AVad%20var%20kr%C3%A5ngligt%3F%0D%0A%0D%0A%0D%0AVad%20saknade%20du%3F%0D%0A%0"
+    },
+    {
+      "id": "AC10b",
+      "name": "No new localStorage / sessionStorage / IndexedDB / cookie keys",
+      "ok": true,
+      "detail": "{\"ls\":[],\"ss\":[],\"cookie\":\"\",\"idb\":[]}"
+    },
+    {
+      "id": "AC8",
+      "name": "Reload → fallback line gone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1c",
+      "name": "Passbyggaren footer order: label · Tyck till · Visa tips igen · Uppdatera appen",
+      "ok": true,
+      "detail": "[\"Träningsplaneraren · Slice 35\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+    },
+    {
+      "id": "AC16a",
+      "name": "Footer reads «Träningsplaneraren · Slice 35»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1e",
+      "name": "Hallöversikt: link in the footer",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 35 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC1d",
+      "name": "Bibliotek open: link still in the footer, still one mailto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1f",
+      "name": "Kör passet open: footer (with the one mailto) still in the DOM, nothing new in the overlay",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16b",
+      "name": "Kör passet still shows «Nästa: …» (Slice 34)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16c",
+      "name": "Print: footer hidden",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12a",
+      "name": "Builder footer at 390: no horizontal scroll, no item split mid-word",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":324.21875}"
+    },
+    {
+      "id": "AC11b",
+      "name": "Still no feedback popup/banner anywhere",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7c",
+      "name": "Clipboard API missing: no error, button unchanged, line + address still there",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7d",
+      "name": "Clipboard denied (rejects): nothing visible, no error",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9-local",
+      "name": "Offline: tap still follows the mailto + shows the line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12-admina",
+      "name": "admin: order label · Admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen",
+      "ok": true,
+      "detail": "[\"Träningsplaneraren · Slice 35\",\"Admin · Logga ut ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+    },
+    {
+      "id": "AC12-adminb",
+      "name": "admin footer at 390: no horizontal scroll, nothing split mid-word",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+    },
+    {
+      "id": "AC12-adminc",
+      "name": "admin with the fallback line: still no horizontal scroll",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+    },
+    {
+      "id": "AC12-notadmina",
+      "name": "notadmin: order label · inte admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen",
+      "ok": true,
+      "detail": "[\"Träningsplaneraren · Slice 35\",\"Du är inloggad men inte admin. · Logga ut ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+    },
+    {
+      "id": "AC12-notadminb",
+      "name": "notadmin footer at 390: no horizontal scroll, nothing split mid-word",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":362.265625}"
+    },
+    {
+      "id": "AC12-notadminc",
+      "name": "notadmin with the fallback line: still no horizontal scroll",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":362.265625}"
+    },
+    {
+      "id": "AC1g",
+      "name": "Bank build logged out: label · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen",
+      "ok": true,
+      "detail": "[\"Träningsplaneraren · Slice 35\",\"Logga in som admin ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+    },
+    {
+      "id": "AC12d",
+      "name": "Logged out at 390: «Logga in som admin» visible, no horizontal scroll, no split",
+      "ok": true,
+      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+    },
+    {
+      "id": "AC16d",
+      "name": "Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10c",
+      "name": "No fetch / beacon / storage / window.open / location in the feedback code",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
