@@ -12,6 +12,8 @@ Coach-facing help, activity library copy, empty-state guidance, and internal pro
 | `slice-01-seed-activities.md` | Interim seed library (~30 stubs) for Slice 01 (EN) |
 | `slice-01-seed-activities.sv.md` | Swedish interim seed library (~30 stubs); safer technique rewrites for held ids |
 | `ui-chrome.sv.md` | Swedish UI chrome glossary for Builder (Träningsplaneraren) |
+| `delad-bank.sv.md` | Coach doc: shared exercise bank (Slice 31–32) |
+| `foreningens-mallar.sv.md` | Coach doc: Föreningens mallar in Starta från mall (Slice 36) |
 
 Swedish copies also live under `/workspace/gymnastics-planner/slice-01/content/` (same filenames).
 
