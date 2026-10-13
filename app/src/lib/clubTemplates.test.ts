@@ -303,7 +303,7 @@ describe('UI keys (Slice 36)', () => {
   it('exist verbatim and have no exclamation mark', () => {
     const keys = [
       'clubTemplatesTitle', 'clubTemplatesHint', 'clubTemplateBadge', 'clubTemplateCardAria', 'clubTemplatesEmpty',
-      'clubTemplatesStale', 'clubTemplatePlacementsNote', 'clubTemplateApplied', 'clubPublish', 'clubPublishTitle',
+      'clubTemplatesStale', 'clubTemplateApplied', 'clubPublish', 'clubPublishTitle',
       'clubPublishNameLabel', 'clubPublishBody', 'clubPublishConfirm', 'clubOverwriteTitle', 'clubOverwriteBody',
       'clubOverwriteConfirm', 'clubPublished', 'clubOverwritten', 'clubHideAria', 'clubHideConfirm', 'clubHiddenTitle',
       'clubUnhideAria', 'clubOffline', 'clubWriteFailed',
@@ -313,7 +313,7 @@ describe('UI keys (Slice 36)', () => {
       assert.equal(typeof ui[k], 'string', k)
       assert.equal(ui[k].includes('!'), false, k)
     }
-    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 36')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 37')
     assert.equal(UI.clubTemplatesTitle, 'Föreningens mallar')
     assert.equal(UI.clubOverwriteTitle, 'Det finns redan en mall som heter ”{title}”')
   })

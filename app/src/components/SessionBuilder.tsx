@@ -7,7 +7,7 @@ import {
 } from '../lib/coachTips'
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
-import { autoPlaceItems } from '../lib/hallSuggest'
+import { autoPlaceItems, autoPlaceUnplaced } from '../lib/hallSuggest'
 import { loadOwnActivities, deleteOwnActivity, markOwnReviewed } from '../lib/ownActivities'
 import {
   addItemToBlock,
@@ -289,7 +289,7 @@ export function SessionBuilder({
 
   function handleConfirmTemplate() {
     if (!pendingTemplate) return
-    const cloned = cloneTemplate(pendingTemplate)
+    const cloned = autoPlaceUnplaced(cloneTemplate(pendingTemplate))
     setSelectedBlockId(cloned.blocks[0]?.id ?? null)
     setPendingTemplateId(null)
     setMismatch(null)
@@ -301,7 +301,7 @@ export function SessionBuilder({
 
   function handleConfirmSaved() {
     if (!pendingSaved) return
-    const next = adoptAsDraft(savedTemplateToSession(pendingSaved))
+    const next = adoptAsDraft(autoPlaceUnplaced(savedTemplateToSession(pendingSaved)))
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingSavedId(null)
     setMismatch(null)
@@ -309,10 +309,11 @@ export function SessionBuilder({
     closePanel()
   }
 
-  // Slice 36 (E1): the coach's own pass — no placements, fresh ids, no link back to the row.
+  // Slice 36 (E1): the coach's own pass — fresh ids, no link back to the row. Slice 37 (A1):
+  // Teknik is placed on apply (club data itself still carries no placements).
   function handleConfirmClub() {
     if (!pendingClub) return
-    const next = adoptAsDraft(clubTemplateToSession(pendingClub))
+    const next = adoptAsDraft(autoPlaceUnplaced(clubTemplateToSession(pendingClub)))
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingClub(null)
     setMismatch(null)
@@ -683,7 +684,6 @@ export function SessionBuilder({
             totalMinutes: pendingClub.totalMinutes,
             blocks: [],
           }}
-          note={UI.clubTemplatePlacementsNote}
           onConfirm={handleConfirmClub}
           onCancel={() => setPendingClub(null)}
         />
