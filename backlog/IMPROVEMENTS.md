@@ -23,31 +23,31 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 Walked https://drevmok.github.io/traningsplaneringen/ (footer «Slice 37») at 390×844, fresh localStorage, headless Chrome, as a brand-new coach. Screenshots: `/workspace/screenshots/polish-2026-10/` (box). Ranked by impact on feel. Bundle headroom ~43 B (+3 029 / 3 072 B) — anything beyond copy/CSS needs a byte trim elsewhere. Not re-proposing Parked/Declined/Shipped.
 
-#### 1. **Polish** — Spara passet automatiskt (no silent loss on ←)
+#### 1. **Polish** — Spara passet automatiskt (no silent loss on ←) — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
 - **Effort:** S–M · bundle ~+80–150 B (persist draft on change instead of only via «Spara utkast»; hide/rename the button to «Sparat ✓»). Over cap → needs a trim.
 - **Evidence:** Passbyggaren → apply Nybörjare mall → Hallöversikt → back → ← to Home: no prompt, localStorage has no session (only bank cache + tips) — the pass is gone. Verifier known item: built-in mall not saved until «Spara utkast». `16-mall-applied.png`, `18-leave.png`.
 - **Simplicity test:** removes a step (remember to tap «Spara utkast») and the worst new-coach dead end.
 - **Standing lock?** No — still local-only storage.
 
-#### 2. **Polish** — Teknik markers stack in Blå/Vit hall
+#### 2. **Polish** — Teknik markers stack in Blå/Vit hall — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
 - **Effort:** S · bundle ~+40–80 B (fan out auto-placed markers in a small grid/offset inside the open area).
 - **Evidence:** Wizard (7–9 år · Blandat · Blå hall) → Mer → Hallöversikt: 3 stations auto-placed on one spot; only «3» visible, 1–2 hidden under it (Verifier known item; same after mall apply in Slice 37). `09-hall.png`, `17-hall-from-mall.png`.
 - **Simplicity test:** coach no longer has to drag markers apart to find them — shortens the place step.
 - **Standing lock?** No — one marker per station kept.
 
-#### 3. **Polish** — Ångra after ×-remove (and after «Använd mall»)
+#### 3. **Polish** — Ångra after ×-remove (and after «Använd mall») — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
 - **Effort:** S · bundle ~+90–120 B (toast «Borttagen · Ångra» holding last session snapshot ~5 s).
 - **Evidence:** Passbyggaren → tap × on «Ljushopp på satsbräda»: removed instantly, no confirm, no undo (53→47 min). × sits next to ⓘ on every row — easy mis-tap on phone. Verifier known item: no undo. `19-after-delete.png`.
 - **Simplicity test:** replaces fear/re-adding from Bibliotek with one tap; no confirm dialog added.
 - **Standing lock?** No.
 
-#### 4. **Polish** — Right tip for the moment: drop «Tomt pass?» on full passes; skip «Ersätta det här passet?» on a fresh pass
+#### 4. **Polish** — Right tip for the moment: drop «Tomt pass?» on full passes; skip «Ersätta det här passet?» on a fresh pass — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
 - **Effort:** S · bundle ~+10–30 B (condition on session pristine/empty).
 - **Evidence:** Wizard → Skapa pass shows «Tomt pass? Börja från en mall…» above a full 53-min pass (`07-passbyggaren.png`). Home → «Från mall» → pick Nybörjare asks «Ersätta det här passet?» although the coach just started (only default Samling) (`14-mall-confirm.png`).
 - **Simplicity test:** removes one confirm tap and one confusing message from the first-pass path.
 - **Standing lock?** No.
 
-#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag»
+#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
 - **Effort:** S · CSS/markup only, ~0 to −30 B (drop duplicate button; fold layout notes into the select helper; hide «Inga förslag att spara» once done).
 - **Evidence:** Hallöversikt at 390×844: the hall canvas starts ~y 570 under toolbar, layout select, two notes, saknar-banner with a 2nd «Använd alla förslag», «Tips om placering» and tip card (`09-hall.png`). After applying, a dead «Inga förslag att spara» button stays in the toolbar (`10b-forrad-after.png`).
 - **Simplicity test:** fewer things to read before placing; one button instead of two.
@@ -70,7 +70,7 @@ Ranked by new-coach impact vs build cost after Slice 35 «Tyck till» + Slice 36
 - **Size risk:** Tiny (one function call + short copy tweak). Comfortable under current bundle headroom.
 - **Suggested slice shape:** Pipe `clubTemplateToSession` and `cloneTemplate` (and saved-template apply if it shares the clear path) through `autoPlaceUnplaced` before `adoptAsDraft`. Update Slice 36 toast/note strings. Leave «Använd alla förslag» manual. Docs: 2–3 strings. Verifier: apply a Föreningsmall and a built-in mall → markers present, hall template unchanged, redskap still via saknar / Använd alla förslag.
 
-#### 2. Kör passet — redskap line on the current step
+#### 2. Kör passet — redskap line on the current step — **Parked (2026-10-13)**
 
 - **Title:** Kör passet shows the station's redskap under the title when the step has any (saved slots or drill default).
 - **Coach benefit:** On the floor you often run from the phone without a printed Golvklart — seeing «2 madrasser · 1 satsbräda» on the active step avoids a trip back to Hallöversikt mid-pass.
@@ -82,7 +82,7 @@ Ranked by new-coach impact vs build cost after Slice 35 «Tyck till» + Slice 36
 - **Suggested slice shape:** Extend `RunStep` with optional equipment text (same rules as `stationCards`); render a grey `.run-equipment` line under the title. Docs: 1 string. Verifier: Teknik step with defaults shows the line; step without redskap shows none; tone/Nästa (Slice 34) unchanged.
 - **Bundle candidate with #3** (same Kör passet surface).
 
-#### 3. Kör passet — «Kvar: …» for the rest of the pass
+#### 3. Kör passet — «Kvar: …» for the rest of the pass — **In progress (Slice 38)**
 
 - **Title:** Under the timer, a muted remaining-pass time (current left + later steps) so the coach can see if the booked hall slot still fits.
 - **Coach benefit:** Spotting gymnasts, you cannot sum the remaining stations in your head — a single «Kvar: 24:00» line tells you whether to shorten the next Lek or wrap up.
@@ -192,14 +192,20 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## In flight
 
-_(none — Slices 31–36 shipped; see **Shipped**)_
+- **Slice 38** — Kör passet — «Kvar: …» for the rest of the pass (Scout run 2026-10-13 idea #3) · Effort: S
 
 
 ---
 
 ## Approved (ready for a slice pack)
 
-_(none — waiting on Christoffer Approve/Park/Decline for Scout run 2026-10-13)_
+Christoffer **Approved** 2026-10-13 — do in rank order **1→5**:
+
+1. **Polish** — Spara passet automatiskt (no silent loss on ←) · Effort: S–M
+2. **Polish** — Teknik markers stack in Blå/Vit hall · Effort: S
+3. **Polish** — Ångra after ×-remove (and after «Använd mall») · Effort: S
+4. **Polish** — Right tip for the moment: drop «Tomt pass?» on full passes; skip «Ersätta det här passet?» on a fresh pass · Effort: S
+5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» · Effort: S
 
 
 ---
@@ -216,6 +222,7 @@ _(none — waiting on Christoffer Approve/Park/Decline for Scout run 2026-10-13)
 | Custom coach-authored redskap catalog | Fixed 10-piece library for Slice 13 | Slice 13 |
 | Förrådslista — show which stations contribute | Useful later; keep flat list for now | Christoffer / Scout 2026-09-25 |
 | Bundle latest DB snapshot into app offline fallback | **Parked / Later** (Christoffer 2026-10-03). Slice 32 AC 45 accepted as partial: `tools/bank/export-db.ts` writes a read-only backup (`out/bank-snapshot.json`) and `seed-promotion.md` has the superseded banner, but the app's offline fallback stays the bundled 51 seeds (no `app/src/data/bankSnapshot.json`; bundle budget AC 49). Later: a small "Banksnapshot <datum>" PR that bundles the snapshot as the fallback | Slice 32 verify report (AC 45) · `slice-31/content/bot-writes.md` |
+| Kör passet — redskap line on the current step | Parked by Christoffer 2026-10-13 | Scout run 2026-10-13 idea #2 |
 
 ---
 
