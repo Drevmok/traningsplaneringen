@@ -108,7 +108,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '38'
+export const SLICE_NUMBER = '39'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -138,7 +138,6 @@ export const UI = {
   newSessionDesc: 'Börja tomt med Samling.',
   startFromTemplateDesc: 'Välj Nybörjare eller Kort.',
   sessionBuilder: 'Passbyggaren',
-  saveDraft: 'Spara utkast',
   useTemplate: 'Använd mall',
   more: 'Mer',
   moreAria: 'Fler saker med passet',
@@ -211,11 +210,15 @@ export const UI = {
   addAndEditDuration: 'Lägg till och ändra tid',
   templateTitle: 'Ersätta det här passet?',
   templateBody:
-    'Om du börjar från en mall ersätts blocken och övningarna du har nu. Dina sparade utkast finns kvar.',
+    'Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar.',
   templateConfirm: 'Använd mall',
   templateCancel: 'Fortsätt redigera',
   blankTitle: 'Nytt pass',
-  savedToast: 'Utkast sparat',
+  autosaveSaved: 'Sparat',
+  autosaveFailed: 'Inte sparat',
+  autosaveFailedToast:
+    'Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.',
+  untitledPass: 'Nytt pass',
   moveUp: 'Flytta upp',
   moveDown: 'Flytta ner',
   moveTo: 'Flytta till',
@@ -716,7 +719,7 @@ export const UI = {
   oppnaPaTelefonBookmark:
     'Spara länken som bokmärke så hittar du tillbaka till passet.',
   oppnaPaTelefonHonesty:
-    'Appen på telefonen är tom tills du skickar passet dit. Det sparas bara i den webbläsare där du trycker Spara.',
+    'Appen på telefonen är tom tills du skickar passet dit. Passet sparas bara i den webbläsare där du planerar det.',
   oppnaPaTelefonAddHome:
     'På iPhone: Dela → Lägg till på hemskärmen. På Android: menyn → Installera app / Lägg till på startsidan.',
   updateReady: 'En ny version finns. Utkastet ligger kvar på den här enheten.',

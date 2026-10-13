@@ -29,6 +29,7 @@ import {
   withComputedTotal,
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
+import { useAutosave } from './lib/useAutosave'
 import { useBank } from './lib/useBank'
 import { adminAvailable } from './lib/admin/state'
 import { useAdmin } from './lib/admin/useAdmin'
@@ -58,6 +59,8 @@ export default function App() {
   const [shareError, setShareError] = useState(false)
   const [runSession, setRunSession] = useState<Session | null>(null)
   const [remoteBuild, setRemoteBuild] = useState<string | null>(null)
+  // Slice 39 A1: autosave while the pass is on screen (builder / hall).
+  const autosave = useAutosave(session, !shared && (view === 'builder' || view === 'hall'))
   // Slice 32/33 — footer admin link / state + the login sheet (opened only from the footer link).
   const admin = useAdmin()
   const [loginOpen, setLoginOpen] = useState(false)
@@ -196,6 +199,7 @@ export default function App() {
 
   function openRunFromBuilder() {
     if (countSessionItems(session) < 1) return
+    autosave.flush()
     setRunSession(session)
   }
 
@@ -229,6 +233,7 @@ export default function App() {
   }, [])
 
   function handleOpenHallFromBuilder() {
+    autosave.flush()
     patchTips(markOpenedHall)
     setHallStartFloor(false)
     setView('hall')
@@ -321,7 +326,11 @@ export default function App() {
           key={session.id + (openTemplates ? '-tmpl' : '')}
           session={session}
           onChange={setSession}
-          onHome={() => setView('home')}
+          onHome={() => {
+            autosave.flush()
+            setView('home')
+          }}
+          saveStatus={autosave.status}
           onOpenHall={handleOpenHallFromBuilder}
           onRun={openRunFromBuilder}
           initialTemplatePicker={openTemplates}

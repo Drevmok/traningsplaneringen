@@ -1,4 +1,4 @@
-import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES, ITEM_MINUTES_MAX, type PassLength } from '../data/blockMeta'
+import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER, DEFAULT_TARGET_MINUTES, ITEM_MINUTES_MAX, UI, type PassLength } from '../data/blockMeta'
 import { orderedTemplateBlocks, seedTemplates } from '../data/seedTemplates'
 import { sanitizeStationEquipment } from '../data/equipmentPieces'
 import type {
@@ -49,7 +49,7 @@ export function createBlankSession(): Session {
   }
   return withComputedTotal({
     id: uid('session'),
-    title: 'Nytt pass',
+    title: UI.untitledPass,
     totalMinutes: 0,
     notes: '',
     targetMinutes: DEFAULT_TARGET_MINUTES,
@@ -114,7 +114,14 @@ export function blockFilledMinutes(block: SessionBlock): number {
   return block.items.reduce((s, i) => s + i.durationMinutes, 0)
 }
 
+/** Slice 39: runs before every draft write (the replaced-pass guard in lib/autosave.ts). */
+let beforeDraftWrite: ((next: Session) => unknown) | null = null
+export function setBeforeDraftWrite(fn: ((next: Session) => unknown) | null): void {
+  beforeDraftWrite = fn
+}
+
 export function saveDraft(session: Session): void {
+  beforeDraftWrite?.(session)
   persistEphemeralOwn(session)
   const toSave = withComputedTotal(session)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))

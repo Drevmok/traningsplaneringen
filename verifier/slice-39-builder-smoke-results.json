@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-13T16:37:46.841Z",
+  "results": [
+    {
+      "id": "AC13a",
+      "name": "Seeded main draft shows on Home: Fortsätt passet · title · min",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Tisdag gammalt pass · 21 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC13b",
+      "name": "Open → «Sparat» shown, no write until a change; stored pass byte-identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1",
+      "name": "No «Spara utkast» anywhere (row + Fler)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3",
+      "name": "Title typing + 5 taps → exactly one write after ~800 ms; «Sparat» never disappears",
+      "ok": true,
+      "detail": "writes 1"
+    },
+    {
+      "id": "AC13c",
+      "name": "First edit overwrites in place (same id)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2a",
+      "name": "Add station → saved within ~1 s, «Sparat» muted in the action row",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17",
+      "name": "«Sparat» is plain text: no role / aria-live",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2b",
+      "name": "Reload → Home Fortsätt passet shows the change",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Onsdag pass · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC4",
+      "name": "Edit → Till startsidan at once → Home shows new title (flush)",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Snabb hem · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC5",
+      "name": "Edit → close tab at once → reopen → kept (pagehide flush)",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC10",
+      "name": "Editing one pass many times → Mina mallar still empty; one pass on Home",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8a",
+      "name": "Tomt pass (title edit only): «Sparat» not shown, nothing written",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8b",
+      "name": "Back Home → old pass still on Home",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC9a",
+      "name": "First station → «Sparat»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9b",
+      "name": "Home shows the new pass; old pass is in Mina mallar under its title",
+      "ok": true,
+      "detail": "Stängd flik"
+    },
+    {
+      "id": "AC6a",
+      "name": "Built-in mall → apply → Home at once → Fortsätt passet shows that pass",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min / Nybörjare — ca 55 min"
+    },
+    {
+      "id": "AC6b",
+      "name": "Reload keeps it, Teknik placements included",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9c/guard",
+      "name": "Replaced «Torsdag nytt» landed in Mina mallar",
+      "ok": true,
+      "detail": "Torsdag nytt,Stängd flik"
+    },
+    {
+      "id": "AC7a/AC11",
+      "name": "Mina mallar apply saves at once; replacing the same contents twice → one archived copy each",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min,Torsdag nytt,Stängd flik"
+    },
+    {
+      "id": "AC7b",
+      "name": "Wizard pass saved at create; «Sparat» shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7c",
+      "name": "Wizard → Home at once → Fortsätt passet shows it",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22a",
+      "name": "Footer «Träningsplaneraren · Slice 39»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 39 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC12a",
+      "name": "Empty title → Home meta «Nytt pass · N min»",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 53 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "AC12b",
+      "name": "Replaced untitled pass archived as «Nytt pass»",
+      "ok": true,
+      "detail": "Nytt pass,Nybörjare — ca 55 min,Torsdag nytt,Stängd flik"
+    },
+    {
+      "id": "AC14a",
+      "name": "«Inte sparat» in the row + the exact toast once",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14b",
+      "name": "Further failing edits: no second toast, still «Inte sparat»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14c",
+      "name": "Un-stub → next edit «Sparat»; no crash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16",
+      "name": "Removing the last station still saves (0 min pass)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18",
+      "name": "Action row: «Sparat» does not overlap Kör passet / Hallöversikt / Fler; no horizontal scroll",
+      "ok": true,
+      "detail": "{\"hit\":false,\"right\":378,\"sw\":390}"
+    },
+    {
+      "id": "AC19",
+      "name": "Hallöversikt opens; «Använd alla förslag» still a button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22b",
+      "name": "Keys verbatim; saveDraft / savedToast gone; no «!»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

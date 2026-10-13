@@ -313,7 +313,7 @@ describe('UI keys (Slice 36)', () => {
       assert.equal(typeof ui[k], 'string', k)
       assert.equal(ui[k].includes('!'), false, k)
     }
-    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 38')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 39')
     assert.equal(UI.clubTemplatesTitle, 'Föreningens mallar')
     assert.equal(UI.clubOverwriteTitle, 'Det finns redan en mall som heter ”{title}”')
   })
