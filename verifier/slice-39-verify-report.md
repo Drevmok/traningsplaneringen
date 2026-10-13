@@ -88,3 +88,92 @@ s39v_01_builder_sparat_390, 02_anvand_mall_confirm, 03_home_club_saved, 04_mina_
 ## Ready to merge?
 
 **Not yet: fix F1 first** (one-line timer cancel/flush on id change, plus a test), then merge. Planner should also accept the +171 B overrun (AC20) and F2 (cap eviction now more likely). F3 and F4 are known or acceptable. Not merged by Verifier.
+
+---
+
+# Re-verify at 4b92442 (f081896 race fix + 4b92442 cap rule) — 2026-10-13
+
+**Method:** same as above, with a fresh detached worktree `/tmp/s39r/wt` @ 4b92442 and main `/tmp/s39r/main` @ 4b056c8. My own stand-in `S32_DIR=/tmp/s39r/sb` (gateway :56890, PG :56891; 36-03 = 8 × t). Previews :56901 (branch plain), :56900 (branch bank), :56902 (main plain), :56903 (main bank). No live requests (route log: 0 live hosts).
+- `verifier/slice-39-verify.mjs` is extended. Race section H now uses measured gaps of 0/100/400/790 ms. New section **J** covers the eviction matrix. Section E's expectations are updated to the new rule.
+- Result: **72 / 0** (`slice-39-verify-results.json`, `slice-39-checks/reverify-run.txt`). Screenshots are prefixed `s39vr_`.
+
+| AC | Verdict at 4b92442 | Change vs b0f9eab |
+| --- | --- | --- |
+| 1–14, 16, 18, 19, 21, 22 | **PASS** | All re-run green (A–I sections). AC19: the Builder smoke now uses the real Använd alla förslag button |
+| 5 | PASS (Chrome) / iOS **PENDING-real** | — |
+| 15 | **PENDING-real** | — |
+| 17 | PASS structural / VoiceOver **PENDING-real** | — |
+| 20 | **FAIL (soft)** | **+889 B** total / +882 eager (was +683) vs the ≤ +512 soft cap |
+| 21 | **PASS** | `bun test src` **187 / 0** (24 files), lint exit 0, 0 errors / 15 warnings, `tsc -b` 0, build 0 |
+
+## Race (old F1): **FIXED**
+
+| Path | Gap (measured edit → confirm) | Home | Slot | Mina mallar |
+| --- | --- | --- | --- | --- |
+| Ny vecka → Skapa kopia | 138 / 123 / 441 / 818 ms | the copy | the copy (new id) | «Nyvecka gammal» (with the edit) |
+| Använd mall (Kort) | 153 / 147 / 438 / 818 ms | Kort pass | Kort pass (new id) | «Anvandmall gammal» (with the edit, auto) |
+| Använd mall, 900 ms | ≥ 900 ms | Kort pass | Kort pass | «Anvandmall gammal» |
+
+8/8 + 1 control correct (`s39vr_08_race_fixed_home`). The fix has `beforeDraftWrite` flush the pending write of a *different* id before the replacing write, plus a flush on id change in the hook. The old pass's last edit is stored, then archived, and no late timer can put it back.
+
+## Eviction matrix (cap 8, `auto: true`)
+
+| # | Start list (newest → oldest, * = auto) | Action | Result | Verdict |
+| --- | --- | --- | --- | --- |
+| J1 | H1 A1* H2 A2* H3 A3* H4 A4* | auto-copy (replace pass) | J1-gammal* H1 A1* H2 A2* H3 A3* H4 (A4 out) | PASS |
+| J2 | H1…H8 | auto-copy | list unchanged; new pass saved, «Sparat», Home = new pass | PASS (see F2) |
+| J3 | mixed as J1 | hand-save | J3-hand H1 A1* … A3* H4 (A4 out) | PASS |
+| J4 | H1…H8 | hand-save | J4-hand H1…H7 (H8 out) | PASS |
+| J5 | mixed | reload + hand-save + reload | `auto` flags intact | PASS |
+| J5b | empty | 9+ UI auto-copies | 8 entries, all *, newest first | PASS |
+| J6 | L1…L8 written by the **main** build (no `auto` key) | auto-copy / then hand-save | skipped, list unchanged / L1 (oldest) out | PASS |
+| E | 1 hand-saved + 9 UI replacements | — | hand-saved mall kept, 7 auto + 1 hand | PASS (old F2 fixed) |
+| F4a | hand-saved «Dubbel hand» = same contents as the replaced pass | auto-copy | none (dedupe by contents across flags) | PASS |
+
+## Findings (re-verify)
+
+1. **Old F1 (race) is fixed.** See the table above. No regression in the other flush paths (A-section edges, F hall interplay, I storage-full all green).
+2. **New, by design, data-loss path:** when all 8 Mina mallar entries are hand-saved or legacy, the auto-copy is skipped. The replaced pass then exists nowhere: not in the slot, not in Mina mallar (J2, J6b, `s39vr_09_j2_all_hand_skipped`). No message is shown. This is Christoffer's rule, so it is not a fail. It is worth knowing that *every existing user with 8 legacy mallar* gets this from day one, because legacy entries count as hand-saved.
+3. **Old F2 (hand-saved mall evicted) is fixed.** Hand-saved entries are now only pushed out by another hand-save into a list with no auto-copies (J4, J6c).
+4. **Old F3 (two tabs, last write wins) is unchanged.** It is out of scope; section G is green with the same observations.
+5. **F4 dedupe** still ignores titles and works across flags (F4a). A hand-save of contents that are already an auto-copy adds a second entry, because hand-save does not dedupe (unchanged from main).
+6. **Ny vecka** archives the old pass through `startNewWeek` → `saveSessionAsTemplate`, so it is stored as **hand-saved** (no `auto`). That is consistent with it being an explicit coach action, but it means Ny vecka copies can push out auto-copies and are never skipped.
+7. **Secrets:** `git grep` 4b92442 hits only the prose in the two verify reports (pattern names). Both dists: 0. Stand-in keys in worktree: 0.
+
+## Bundle (gzip -9, `dist/assets/*.js` + `*.css`)
+
+| | main 4b056c8 | 4b92442 | Δ |
+| --- | --- | --- | --- |
+| Total | 216 969 | 217 858 | **+889** (soft cap +512, b0f9eab was +683) |
+| Eager (index js + css) | 153 079 | 153 961 | **+882** |
+
+This matches Builder's +889. AC20: «Bundle delta ≤ +512 B gz (soft): … numbers in PR, overrun explained». Lock F1: «Builder explains any overrun in the PR». **FAIL-soft:** Planner can waive it if the PR explains the extra +206 B (race fix + cap rule).
+
+## Smokes at 4b92442 (branch vs main 4b056c8, same stand-in)
+
+| Script | Branch | Main | Classification |
+| --- | --- | --- | --- |
+| slice-39-builder-smoke | 37/0 | — | — |
+| slice-39-verify (ours) | 72/0 | — | — |
+| slice-38-builder-smoke | 25/1 | 26/0 | footer «Slice 38» (expected) |
+| slice-38-verify | 66/5 | — | button count −1 ×2 («Spara utkast» removal), footer, 2 × main-now-has-Kvar (baseline moved). Expected |
+| slice-37-verify | 41/4 | 42/3 | M0, C6, F12 as main; A8b = intended C1 change. Expected |
+| slice-37-builder-smoke (Builder-updated) | 23/1 | crashes (waits for «Sparat», which main lacks) | footer only; the script is now branch-specific. Expected |
+| slice-36-verify | 15/2 | 15/2 | identical |
+| slice-36-builder-smoke | 39/46 → re-run alone **40/46** | 40/46 | `§8.4` fail did not reproduce when re-run alone (stand-in/load flake); otherwise identical |
+| slice-35-verify | 37/10 | 38/10 (earlier run) | identical fail set |
+| slice-35-builder-smoke | 33/9 → re-run alone **33/8** | 34/8 | `D-notadmin` = screenshot timeout under load, did not reproduce; otherwise identical |
+| slice-34-verify | 29/3 | — | «Spara utkast» controls diff + footer. Expected |
+| slice-34-builder-smoke | 29/2 | 30/2 | identical |
+| slice-33-builder-smoke (Builder-updated) | 141/5 | 133/7 | branch no longer has S32-AC34/35 fails; the rest are strings/requests as main. No regression |
+| slice-32-builder-smoke (Builder-updated) | 26/17 | 26/17 | same count. Admin login flows (magic link replaced by code in Slice 33) + strings. Pre-existing |
+
+**No regressions.** Main baselines for scripts unchanged since b0f9eab (34/35/36, 37-verify, 38-builder) come from the first run (`slice-39-checks/main-baseline/`). 32/33/37-builder were re-run on main with the updated scripts (`slice-39-checks/reverify/main-baseline/`). Raw branch output is in `slice-39-checks/reverify/`.
+
+## Re-verify verdict
+
+**PASS.** AC1–14, 16, 18, 19, 21, 22 PASS. AC20 FAIL-soft (+889 B, needs the PR explanation and Planner's waiver). AC5 (iOS), 15 and 17 (VoiceOver) are PENDING-real. Old F1 race and old F2 hand-saved eviction are fixed. New F2 (skip when all hand-saved) is by design.
+
+## Ready to merge?
+
+**Yes, conditionally:** once Planner accepts the +889 B soft overrun (AC20) and the by-design skip-when-full path (F2). Then the real-device checks (iOS pagehide, Safari private mode, VoiceOver) remain. Not merged by Verifier.

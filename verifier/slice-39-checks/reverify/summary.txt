@@ -1,0 +1,45 @@
+== smk slice-39-builder-smoke
+exit 0 PASS 37 / FAIL 0
+== smk slice-38-builder-smoke
+exit 0 PASS 25 / FAIL 1
+== smk slice-38-verify
+exit 0 PASS 66 / FAIL 5
+== smk slice-34-builder-smoke
+exit 0 PASS 29 / FAIL 2
+== smk slice-34-verify
+exit 0 PASS 29 / FAIL 3
+== smk slice-35-builder-smoke
+exit 0 PASS 33 / FAIL 9
+== smk slice-35-verify
+exit 0 PASS 37 / FAIL 10
+== smk slice-36-builder-smoke
+exit 0 39/46 pass
+== smk slice-36-verify
+exit 0 15/17 pass
+== smk slice-37-builder-smoke
+exit 0 23/24 pass
+== smk slice-37-verify
+exit 0 41/45 pass
+== smk slice-33-builder-smoke
+exit 0 PASS 141 / FAIL 5
+== smk slice-32-builder-smoke
+exit 0 PASS 26 / FAIL 17
+== smkm slice-38-builder-smoke
+exit 0 PASS 26 / FAIL 0
+== smkm slice-34-builder-smoke
+exit 0 PASS 29 / FAIL 2
+== smkm slice-35-builder-smoke
+exit 0 PASS 33 / FAIL 8
+== smkm slice-35-verify
+exit 0 PASS 37 / FAIL 10
+== smkm slice-36-builder-smoke
+exit 0 9/13 pass
+== smkm slice-36-verify
+exit 0 4/9 pass
+== smkm slice-37-builder-smoke
+exit 1 
+== smkm slice-37-verify
+exit 0 42/45 pass
+== smkm slice-33-builder-smoke
+exit 0 PASS 133 / FAIL 7
+== smkm slice-32-builder-smoke

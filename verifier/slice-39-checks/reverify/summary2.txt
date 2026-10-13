@@ -1,0 +1,7 @@
+== smkm slice-37-builder-smoke
+exit 1 
+== smkm slice-33-builder-smoke
+exit 0 PASS 133 / FAIL 7
+== smkm slice-32-builder-smoke
+exit 0 PASS 26 / FAIL 17
+ALLDONE

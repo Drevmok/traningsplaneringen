@@ -5,13 +5,13 @@
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
-const BR = process.env.BR ?? 'http://127.0.0.1:56881/traningsplaneringen/'
-const MAIN = process.env.MAIN ?? 'http://127.0.0.1:56882/traningsplaneringen/'
-const ON = process.env.ON ?? 'http://127.0.0.1:56880/traningsplaneringen/'
+const BR = process.env.BR ?? 'http://127.0.0.1:56901/traningsplaneringen/'
+const MAIN = process.env.MAIN ?? 'http://127.0.0.1:56902/traningsplaneringen/'
+const ON = process.env.ON ?? 'http://127.0.0.1:56900/traningsplaneringen/'
 const ROOT = process.env.S39_ROOT ?? new URL('..', import.meta.url).pathname.replace(/\/$/, '')
-const S32 = process.env.S32_DIR ?? '/tmp/s39v/sb'
+const S32 = process.env.S32_DIR ?? '/tmp/s39r/sb'
 const ONLY = (process.env.ONLY ?? '').split(',').filter(Boolean)
-const SS = '/workspace/screenshots/s39v_'
+const SS = process.env.SS ?? '/workspace/screenshots/s39vr_'
 const DK = 'gymnastics-planner-draft-v1', TK = 'gymnastics-planner-templates-v1'
 const MD = readFileSync(`${ROOT}/slice-39/content/microcopy.sv.md`, 'utf8')
 const md = (k) => MD.match(new RegExp('^\\| `' + k + '`(?: \\*\\*[^*]+\\*\\*)?(?: \\([^)]*\\))? \\| ([^|]+?) \\|', 'm'))[1].trim()
@@ -318,11 +318,11 @@ await section('E', async () => {
   }
   note('E.after_each_replace', log)
   const t = await tmpls(p)
-  check('E-archive-names', 'Each replaced pass is archived under its own title (Pass 0 … Pass 8), newest first', t[0].title === 'Pass 8' && t.slice(0, 7).map((x) => x.title).join() === ['Pass 8', 'Pass 7', 'Pass 6', 'Pass 5', 'Pass 4', 'Pass 3', 'Pass 2'].join(), t.map((x) => x.title).join(' | '))
+  check('E-archive-names', 'Replaced passes archived under their own titles, newest first (Pass 8 … Pass 2) + the hand-saved one', t.map((x) => x.title).join() === ['Pass 8', 'Pass 7', 'Pass 6', 'Pass 5', 'Pass 4', 'Pass 3', 'Pass 2', 'Min handsparade mall'].join(), t.map((x) => x.title + (x.auto ? '*' : '')).join(' | '))
   check('E-cap', 'Cap 8 holds: list length 8 after 10 entries', t.length === 8, t.length)
   const handGone = !t.some((x) => x.title === 'Min handsparade mall')
   note('E.cap_drop', `oldest dropped first; hand-saved «Min handsparade mall» ${handGone ? 'SILENTLY EVICTED' : 'kept'}; «Pass 0» ${t.some((x) => x.title === 'Pass 0') ? 'kept' : 'evicted'}; no message shown`)
-  check('E-cap-known', 'HANDOFF Open 1 (accepted): archive can push out the oldest mall incl. a hand-saved one (recorded, not an AC fail)', true, note && notes['E.cap_drop'])
+  check('E-cap-hand-kept', '4b92442 rule: auto-copies push out only auto-copies; the hand-saved mall survives 9 replacements', !handGone && t.filter((x) => x.auto).length === 7, notes['E.cap_drop'])
   await fromMall(p); await p.waitForTimeout(300); await shot(p, '04_mina_mallar_cap8'); await p.keyboard.press('Escape')
   // Dedupe by contents ignores the title: a different-titled pass with identical contents is not archived again
   await p.goto(p.base); await p.locator('.home').waitFor()
@@ -448,22 +448,26 @@ await section('H', async () => {
     note(`H.${label}.${gap}`, r)
     return r
   }
-  for (const gap of [0, 250]) {
+  for (const gap of [0, 100, 400, 790]) {
     const r = await race('Nyvecka', gap, async (g) => {
-      await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.waitForTimeout(g)
-      await p.locator('.more-menu-panel').getByRole('button', { name: 'Ny vecka från det här passet' }).click(); await p.waitForTimeout(g)
-      await p.getByRole('button', { name: 'Skapa kopia', exact: true }).click()
+      const t0 = Date.now()
+      await p.getByRole('button', { name: 'Fler saker med passet' }).click()
+      await p.locator('.more-menu-panel').getByRole('button', { name: 'Ny vecka från det här passet' }).click()
+      const left = g - (Date.now() - t0); if (left > 0) await p.waitForTimeout(left)
+      await p.getByRole('button', { name: 'Skapa kopia', exact: true }).click(); notes[`H.Nyvecka.${g}.ms`] = Date.now() - t0
     })
-    check(`H-nyvecka-${gap}`, `Edit → Ny vecka → Skapa kopia within ${gap ? '~0.6 s' : '~0.2 s'}: Home shows the pass on screen (the copy)`, r.home === r.onScreen && !r.storedIsOld, JSON.stringify(r))
+    check(`H-nyvecka-${gap}`, `Edit → Ny vecka → Skapa kopia at ~${gap} ms (measured ${notes[`H.Nyvecka.${gap}.ms`]} ms): Home = copy on screen; old pass with its edit in Mina mallar`, r.home === r.onScreen && !r.storedIsOld && r.mallar.includes('Nyvecka gammal'), JSON.stringify(r))
   }
-  for (const gap of [0, 250]) {
+  for (const gap of [0, 100, 400, 790]) {
     const r = await race('Anvandmall', gap, async (g) => {
-      await menu(p, 'Använd mall'); await p.waitForTimeout(g)
-      await p.locator('.template-card').filter({ hasText: /Kort/ }).first().click(); await p.waitForTimeout(g)
-      await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click()
+      const t0 = Date.now()
+      await menu(p, 'Använd mall')
+      await p.locator('.template-card').filter({ hasText: /Kort/ }).first().click()
+      const left = g - (Date.now() - t0); if (left > 0) await p.waitForTimeout(left)
+      await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click(); notes[`H.Anvandmall.${g}.ms`] = Date.now() - t0
     })
-    check(`H-mall-${gap}`, `Edit → Använd mall (Kort) within ${gap ? '~0.6 s' : '~0.2 s'}: Home shows the mall pass that is on screen`, r.home === r.onScreen && !r.storedIsOld, JSON.stringify(r))
-    if (gap === 0) await shot(p, '08_race_mall_home')
+    check(`H-mall-${gap}`, `Edit → Använd mall (Kort) at ~${gap} ms (measured ${notes[`H.Anvandmall.${gap}.ms`]} ms): Home = mall on screen; old pass with its edit in Mina mallar`, r.home === r.onScreen && !r.storedIsOld && r.mallar.includes('Anvandmall gammal'), JSON.stringify(r))
+    if (gap === 0) await shot(p, '08_race_fixed_home')
   }
   // Human pace (> 800 ms between edit and the confirm) for contrast
   const r = await race('Anvandmall', 900, async (g) => {
@@ -508,6 +512,89 @@ await section('I', async () => {
   const d16 = await draft(p)
   check('AC16', 'Remove last station of the stored pass → saved; Home shows «… · 0 min»', nItems(d16) === 0 && (await homeText(p)).includes('Fungerar igen · 0 min'), (await homeText(p)).slice(0, 100))
   await shot(p, '10_home_0min')
+  await ctx.close()
+})
+
+// ═══ J. Re-verify 4b92442: cap / eviction matrix (auto: true flag) ═══
+await section('J', async () => {
+  const ctx = await newCtx(); const p = await newPage(ctx, BR)
+  await fresh(p)
+  // One real entry shape from the app (hand-save), used as the template for seeded lists
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await addTeknik(p, 0); await title(p).fill('Bas')
+  await menu(p, 'Spara som egen mall'); await p.locator('.modal input').fill('Bas'); await p.locator('.modal').getByRole('button', { name: 'Spara som egen mall' }).click(); await p.waitForTimeout(300)
+  const base = (await tmpls(p))[0]; await toHome(p)
+  const mk = (label, auto, i) => ({ ...base, id: `mall-seed-${label}`, title: label, savedAt: new Date(Date.UTC(2026, 9, 1, 0, 8 - i)).toISOString(), ...(auto ? { auto: true } : {}) })
+  const seed = async (list) => { await p.evaluate(([k, v]) => localStorage.setItem(k, JSON.stringify(v)), [TK, list]); await p.reload(); await p.locator('.home, .builder').first().waitFor(); if (await builder(p).count()) await toHome(p) }
+  const view = async () => (await tmpls(p)).map((x) => x.title + (x.auto ? '*' : ''))
+  // newest first; * = auto
+  const mixed = () => ['H1', 'A1', 'H2', 'A2', 'H3', 'A3', 'H4', 'A4'].map((l, i) => mk(l, l.startsWith('A'), i))
+  const hands = () => ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8'].map((l, i) => mk(l, false, i))
+  let n = 1
+  async function autoCopy(newTitle) { // stored pass «Gammal k» (unique contents) replaced by a Tomt pass + station
+    await p.evaluate((k) => localStorage.removeItem(k), DK); await p.reload(); await p.locator('.home').waitFor()
+    await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill(newTitle); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+    await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill(newTitle + ' ny'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  }
+  async function handSave(name) { await cont(p); await menu(p, 'Spara som egen mall'); await p.locator('.modal input').fill(name); await p.locator('.modal').getByRole('button', { name: 'Spara som egen mall' }).click(); await p.waitForTimeout(300); await toHome(p) }
+  const M = {}
+  // J1 auto-copy into a full mixed list (seed after the old pass is stored, so the seed is the list the copy meets)
+  await p.evaluate((k) => localStorage.removeItem(k), DK); await p.reload(); await p.locator('.home').waitFor()
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J1 gammal'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  await seed(mixed())
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J1 ny'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  M.J1 = await view()
+  check('J1', 'Auto-copy into full mixed list → oldest auto-copy (A4) out, all H kept, copy on top flagged', M.J1.join() === ['J1 gammal*', 'H1', 'A1*', 'H2', 'A2*', 'H3', 'A3*', 'H4'].join() && (await draft(p)).title === 'J1 ny', M.J1.join(' | '))
+  // J2 all 8 hand-saved → auto-copy skipped, new pass still saved
+  await p.evaluate((k) => localStorage.removeItem(k), DK); await p.reload(); await p.locator('.home').waitFor()
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J2 gammal'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  await seed(hands())
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J2 ny'); await addTeknik(p, n++); await p.waitForTimeout(950)
+  const st2 = await status(p).innerText(); await toHome(p)
+  M.J2 = await view()
+  check('J2', '8 hand-saved → auto-copy skipped (list unchanged), new pass saved, «Sparat», Home = new pass', M.J2.join() === hands().map((x) => x.title).join() && (await draft(p)).title === 'J2 ny' && st2 === S.saved && (await homeText(p)).includes('J2 ny ·'), `${M.J2.join(' | ')} / ${st2}`)
+  note('J2.lost', 'Consequence: «J2 gammal» is no longer anywhere (slot = J2 ny, not in Mina mallar). Intended by the rule; no message shown')
+  await shot(p, '09_j2_all_hand_skipped')
+  // J3 hand-save into full mixed list → oldest auto out
+  await seed(mixed()); await handSave('J3 hand')
+  M.J3 = await view()
+  check('J3', 'Hand-save into full mixed list → oldest auto-copy (A4) out', M.J3.join() === ['J3 hand', 'H1', 'A1*', 'H2', 'A2*', 'H3', 'A3*', 'H4'].join(), M.J3.join(' | '))
+  // J4 hand-save into 8 hand-saved → oldest hand (H8) out
+  await seed(hands()); await handSave('J4 hand')
+  M.J4 = await view()
+  check('J4', 'Hand-save into 8 hand-saved → oldest hand-saved (H8) out', M.J4.join() === ['J4 hand', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7'].join(), M.J4.join(' | '))
+  // J5 flag survives reload and later writes
+  await seed(mixed()); await p.reload(); await p.locator('.home').waitFor(); await handSave('J5 hand'); await p.reload(); await p.locator('.home').waitFor()
+  M.J5 = await view()
+  check('J5', 'auto flag survives reload + a later write (A1–A3 still *, new hand entry not *)', M.J5.join() === ['J5 hand', 'H1', 'A1*', 'H2', 'A2*', 'H3', 'A3*', 'H4'].join(), M.J5.join(' | '))
+  // J5b auto-copy only ever pushes out the auto-copy flagged entries, also through the UI-made copies
+  await fresh(p); n = 0
+  for (let k = 0; k < 9; k++) await autoCopy(`U${k}`)
+  M.J5b = await view()
+  check('J5b', 'UI only: 9+ auto-copies → list of 8 auto (*), newest first, no throw', M.J5b.length === 8 && M.J5b.every((x) => x.endsWith('*')), M.J5b.join(' | '))
+  // J6 legacy entries saved by a MAIN build (no flag) = hand-saved
+  const ctxM = await newCtx(); const pm = await newPage(ctxM, MAIN); await fresh(pm)
+  await pm.getByRole('button', { name: 'Tomt pass' }).click(); await builder(pm).waitFor()
+  for (let k = 1; k <= 8; k++) { await addTeknik(pm, k); await menu(pm, 'Spara som egen mall'); await pm.locator('.modal input').fill(`L${k}`); await pm.locator('.modal').getByRole('button', { name: 'Spara som egen mall' }).click(); await pm.waitForTimeout(250) }
+  const legacy = await tmpls(pm); await ctxM.close()
+  check('J6a', 'Main build wrote 8 entries with no auto key', legacy.length === 8 && legacy.every((x) => !('auto' in x)), legacy.map((x) => x.title).join(' | '))
+  await p.evaluate((k) => localStorage.removeItem(k), DK); await p.reload(); await p.locator('.home').waitFor()
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J6 gammal'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  await seed(legacy)
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J6 ny'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  M.J6b = await view()
+  check('J6b', 'Legacy (main) entries treated as hand-saved: auto-copy skipped, list unchanged, new pass saved', M.J6b.join() === legacy.map((x) => x.title).join() && (await draft(p)).title === 'J6 ny', M.J6b.join(' | '))
+  await handSave('J6 hand'); M.J6c = await view()
+  check('J6c', 'Hand-save into 8 legacy → oldest legacy (L1) out', M.J6c[0] === 'J6 hand' && !M.J6c.includes('L1') && M.J6c.length === 8, M.J6c.join(' | '))
+  // F4 vs flags: replaced pass with the same contents as a HAND-saved entry → no auto-copy (dedupe); hand-save of an auto-copied pass → second entry
+  await fresh(p); await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('Dubbel'); await addTeknik(p, 3); await p.waitForTimeout(950)
+  await menu(p, 'Spara som egen mall'); await p.locator('.modal input').fill('Dubbel hand'); await p.locator('.modal').getByRole('button', { name: 'Spara som egen mall' }).click(); await p.waitForTimeout(300); await toHome(p)
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await addTeknik(p, 4); await p.waitForTimeout(950); await toHome(p)
+  M.F4a = await view()
+  check('F4a', 'Dedupe vs flags: replaced «Dubbel» = same contents as hand-saved «Dubbel hand» → no auto-copy', M.F4a.join() === 'Dubbel hand', M.F4a.join(' | '))
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await addTeknik(p, 5); await p.waitForTimeout(950); await toHome(p)
+  await fresh(p).catch(() => {})
+  note('J.matrix', M)
+  await fromMall(p).catch(() => {})
   await ctx.close()
 })
 

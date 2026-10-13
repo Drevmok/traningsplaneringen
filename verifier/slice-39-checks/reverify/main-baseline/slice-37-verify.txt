@@ -1,0 +1,148 @@
+PASS [A0] Built-in «Nybörjare — ca 55 min» apply: no toast
+PASS [A1] Built-in: one marker per Teknik item before Hallöversikt is opened — 3/3; blocks gathering,warmup,techniques,strength,fun_and_games
+PASS [A4] Built-in: no Samling/Uppvärmning/Styrka/Lek marker; hall = standard-trupp — standard-trupp
+PASS [A5] Built-in: no station redskap saved (Använd alla förslag not run); no «Sparade redskap» toast seen
+PASS [A6] Built-in: no stacked chips; all inside hall
+PASS [A8] Built-in: placements survive reload (after «Spara utkast»)
+PASS [A1b] Hallöversikt: canvas chips = Teknik count, tray empty, draft unchanged by opening — canvas 3, tray 0; 1 × / 2 × / 3 ×
+PASS [G1] Golvklart after auto-placed built-in: one chip per Teknik, no remove buttons, caption kept — {"chips":3,"rm":0,"cap":1}
+PASS [G2] Förrådslista after apply: redskap still unsaved → «osparade förslag» point, Använd alla förslag still offered — Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla förslag på hallen Vad finns i hallen ikv
+PASS [A5b] Still no redskap saved after opening Hallöversikt/Golvklart/Förrådslista
+PASS [G3] Manual Använd alla förslag → Förrådslista rows = sum of saved station redskap; Golvklart chips unchanged — rows Satsbräda · Plint · Landningsmatta · 2× Madrass | pieces {"eq-satsbrada":1,"eq-landningsmatta":1,"eq-madrass":2,"eq-plint":1}
+FAIL [M0] Main «Nybörjare — ca 55 min»: no placements on apply (the gap this slice closes)
+PASS [M6] AC6: branch apply-time spots = main's Hallöversikt-fallback spots (same helper) for the same mall — {"tech-ljushopp-satsbrada#0":"vault@0.7700,0.6100","tech-handstaende-falla-rygg#1":"mats@0.8600,0.8000","tech-falla-bakat-hojd#2":"open@0.2056,0.3184"}
+PASS [M5] AC5: saknar-banner and Förrådslista text identical to main — main «3 stationer saknar redskap Använd alla förslag» / branch «3 stationer saknar redskap Använd alla förslag»
+PASS [M7] Golvklart identical to main (chip texts) — 1 Ljushopp på satsbräda / 2 Handstående falla till rygg / 3 Falla bakåt från höjd till rygg
+PASS [A8b] Built-in reload-without-save behaviour same on main and branch (pre-existing) — main: no draft (pass lost on reload unless saved) / branch: no draft (pass lost on reload unless saved)
+PASS [C9a] Club confirm: no «Stationerna placerar du själv i Hallöversikt.»
+PASS [C9b] Club toast exactly «Mallen är i Passbyggaren.» — Mallen är i Passbyggaren.
+PASS [C2] Club: all Teknik (≥ 2) placed on apply, hall = forening-bla (the mall's), only Teknik — 4/4 forening-bla; blocks gathering,warmup,techniques,strength,fun_and_games
+PASS [C5] Club: no redskap saved; no «Sparade redskap» toast
+FAIL [C6] Club (Blå hall, only an «open» zone): no stacking, in bounds [known: helper stacks when the preset lacks the zone; main identical, see helper-parity.ts] — [["open",0.2784,0.3152],["open",0.2784,0.3152],["open",0.2784,0.3152],["open",0.3134,0.3152]]
+PASS [C10] AC10: «Hjul» (no redskap, no förslag) placed like the helper does (tag floor → open), no error — {"sessionItemId":"item-6rao91n1-mv71307f","x":0.3134,"y":0.31520000000000004,"zoneId":"open"}
+PASS [C11] Club row in local DB still has no hallPlacements
+PASS [C8] Club: placements survive reload
+PASS [C10b] AC10: Hallöversikt shows all chips incl. Hjul, no alert/message — chips 4, alerts []
+PASS [C10c] AC10: Golvklart shows Hjul station; Förrådslista opens without error — Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla 
+PASS [C7a] Drag an auto-placed marker → it moves (1 placement changed), others untouched — [{"sessionItemId":"item-6rao91n1-mv71307f","x":0.14804469273743018,"y":0.8491090984431421,"zoneId":"open"}]
+PASS [C7b] Remove one marker → back in tray, draft has one placement fewer
+PASS [C7c] Reopen Hallöversikt: the removed marker does not come back
+PASS [C7d] Reload + reopen: still removed
+PASS [C7e] «Placera här»: tap tray chip → hint shown → tap hall → placed again ("undo" path; the app has no Ångra control)
+PASS [E9] Egen mall apply: no toast
+PASS [E3a] Egen with placements: every saved marker keeps its exact spot (incl. 0.123/0.456); only the unplaced Teknik (incl. Hjul) got new ones — saved 2, now 4/4
+PASS [E4] Egen: hall template kept from the mall (forening-vit) — forening-vit
+PASS [E5] Egen: no redskap saved; no «Sparade redskap» toast; no stacking
+PASS [E10] AC10 Egen: Hjul placed (open), no error
+PASS [E8] Egen: placements survive reload
+PASS [E-G] Egen: Golvklart chips = Teknik count
+PASS [E3b] Egen without placements: all Teknik placed, nothing else, standard-trupp kept
+FAIL [F12] Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37» — Träningsplaneraren · Slice 38 · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen
+PASS [F14a] Planera pass still places all Teknik
+PASS [F14b] Tomt pass: empty hall (Slice 39 E1: an untouched Tomt pass is not written, so no draft = empty)
+PASS [F22] 390 wide: no horizontal scroll
+PASS [P1] Plain build (no bank): built-in «Nybörjare — ca 55 min» also auto-places Teknik only
+PASS [errors] No page errors (all pages)
+
+42/45 pass
+{
+ "builtInAutoSaved": false,
+ "builtInReloadNoSave": "no draft (pass lost on reload unless saved)",
+ "builtInNonTeknik": [
+  "gather-narvaro",
+  "gather-dagens-teknik",
+  "warm-hall-varv",
+  "strength-styrkelatar",
+  "strength-burpee-emom",
+  "fun-rundpingis-medicinboll"
+ ],
+ "branchBuiltIn": {
+  "saknar": "3 stationer saknar redskap Använd alla förslag",
+  "applyAllBtn": 2,
+  "forradText": "Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla förslag på hallen Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta Tumblingmatta Madrass Mattberg Flickiskudde Airtrack Kon Kilmatta Skumblock Bom Räcke Rockring",
+  "forradRows": [],
+  "floorChips": 3,
+  "floorTexts": [
+   "1 Ljushopp på satsbräda",
+   "2 Handstående falla till rygg",
+   "3 Falla bakåt från höjd till rygg"
+  ],
+  "floorRemoveBtns": 0,
+  "caption": 1
+ },
+ "branchAfterApplyAll": {
+  "saknar": "",
+  "applyAllBtn": 0,
+  "forradText": "Förrådslista Summerat från Teknik-stationernas redskap Stäng Satsbräda Plint Landningsmatta 2× Madrass Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta Tumblingmatta Madrass Mattberg Flickiskudde Airtrack Kon Kilmatta Skumblock Bom Räcke Rockring",
+  "forradRows": [
+   "Satsbräda",
+   "Plint",
+   "Landningsmatta",
+   "2× Madrass"
+  ],
+  "floorChips": 3,
+  "floorTexts": [
+   "1 Ljushopp på satsbräda Satsbräda Landningsmatta",
+   "2 Handstående falla till rygg Madrass",
+   "3 Falla bakåt från höjd till rygg Plint Madrass"
+  ],
+  "floorRemoveBtns": 0,
+  "caption": 1
+ },
+ "mainBuiltInAutoSaved": false,
+ "mainBuiltIn": {
+  "saknar": "3 stationer saknar redskap Använd alla förslag",
+  "applyAllBtn": 2,
+  "forradText": "Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla förslag på hallen Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta Tumblingmatta Madrass Mattberg Flickiskudde Airtrack Kon Kilmatta Skumblock Bom Räcke Rockring",
+  "forradRows": [],
+  "floorChips": 3,
+  "floorTexts": [
+   "1 Ljushopp på satsbräda",
+   "2 Handstående falla till rygg",
+   "3 Falla bakåt från höjd till rygg"
+  ],
+  "floorRemoveBtns": 0,
+  "caption": 1
+ },
+ "mainBuiltInReloadNoSave": "no draft (pass lost on reload unless saved)",
+ "clubToastMs": 2310,
+ "clubGF": {
+  "saknar": "4 stationer saknar redskap Använd alla förslag",
+  "applyAllBtn": 2,
+  "forradText": "Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla förslag på hallen Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta Tumblingmatta Madrass Mattberg Flickiskudde Airtrack Kon Kilmatta Skumblock Bom Räcke Rockring",
+  "forradRows": [],
+  "floorChips": 4,
+  "floorTexts": [
+   "1 Ljushopp på satsbräda",
+   "2 Handstående falla till rygg",
+   "3 Falla bakåt från höjd till rygg",
+   "4 Hjul"
+  ],
+  "floorRemoveBtns": 0,
+  "caption": 1
+ },
+ "hallButtonsBranch": [
+  "← Tillbaka till Passbyggaren",
+  "Dölj flöde",
+  "Förrådslista",
+  "Använd alla förslag",
+  "Golvklart",
+  "Använd alla förslag",
+  "Tips om placering",
+  "×\nDölj tips",
+  "−",
+  "+",
+  "×",
+  "×",
+  "×",
+  "×",
+  "Dölj bricka",
+  "×\nDölj tips",
+  "Logga in som admin",
+  "Visa tips igen",
+  "Uppdatera appen"
+ ],
+ "egenGF": {
+  "saknar": "4 stationer saknar redskap Använd alla förslag",
+  "applyAllBtn": 2,
+  "forradText": "Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrå
