@@ -1,0 +1,461 @@
+{
+  "at": "2026-10-13T16:55:16.220Z",
+  "pass": 54,
+  "fail": 4,
+  "results": [
+    {
+      "id": "A-title",
+      "name": "title: exactly one write ~800 ms after the edit, change stored, same id",
+      "ok": true,
+      "detail": "{\"writes\":1,\"msAfterEdit\":799}"
+    },
+    {
+      "id": "A-passlength",
+      "name": "passlength: exactly one write ~800 ms after the edit, change stored, same id",
+      "ok": true,
+      "detail": "{\"writes\":1,\"msAfterEdit\":798}"
+    },
+    {
+      "id": "A-add-station",
+      "name": "add-station: exactly one write ~800 ms after the edit, change stored, same id",
+      "ok": true,
+      "detail": "{\"writes\":1,\"msAfterEdit\":746}"
+    },
+    {
+      "id": "A-item-minutes",
+      "name": "item-minutes: exactly one write ~800 ms after the edit, change stored, same id",
+      "ok": true,
+      "detail": "{\"writes\":1,\"msAfterEdit\":777}"
+    },
+    {
+      "id": "A-remove-station",
+      "name": "remove-station: exactly one write ~800 ms after the edit, change stored, same id",
+      "ok": true,
+      "detail": "{\"writes\":1,\"msAfterEdit\":797}"
+    },
+    {
+      "id": "A-burst",
+      "name": "Burst (12 keys + 5 taps over ~2 s) → 1 write ~800 ms after the last change; «Sparat» visible throughout",
+      "ok": true,
+      "detail": "writes 1, +798 ms"
+    },
+    {
+      "id": "A-reload",
+      "name": "Edit → reload at once (0 ms) → change kept",
+      "ok": true,
+      "detail": "Reload direkt"
+    },
+    {
+      "id": "A-vis",
+      "name": "visibilitychange:hidden → write within the same task (no 800 ms wait)",
+      "ok": true,
+      "detail": "writes 1 +1 ms"
+    },
+    {
+      "id": "A-nav",
+      "name": "Edit → navigate away at once → kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "A-close1",
+      "name": "Edit → close tab at once (runBeforeUnload) → reopen → kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4",
+      "name": "Edit → Till startsidan at once → Home shows new title / minutes",
+      "ok": true,
+      "detail": "59 ms; Träningsplaneraren Ett pass på några minuter. Fortsätt passet Hem snabbt · 60 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+    },
+    {
+      "id": "A-run",
+      "name": "Edit → Kör passet at once → stored (flush)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1",
+      "name": "No «Spara utkast» on branch (row, Fler, Använd mall sheet, Spara som egen mall, Hallöversikt, Golvklart, Home); main has it",
+      "ok": true,
+      "detail": "{\"branch\":[],\"main\":[\"builder row\",\"Fler\",\"Använd mall sheet\",\"Spara som egen mall\"]}"
+    },
+    {
+      "id": "AC2/B1",
+      "name": "«Sparat» exact text, muted rgb(120,113,108), in .builder-actions, plain text (no role / aria-live / live ancestor)",
+      "ok": true,
+      "detail": "{\"text\":\"Sparat\",\"color\":\"rgb(120, 113, 108)\",\"inRow\":true,\"role\":null,\"live\":null,\"liveAnc\":false,\"ariaHidden\":null}"
+    },
+    {
+      "id": "AC3/AC17",
+      "name": "Five saved edits: 0 toasts; live-region mutations same as main (no extra announcements); «Sparat» stays (no «Sparar…»)",
+      "ok": true,
+      "detail": "branch {\"toasts\":[],\"live\":0} main {\"toasts\":[],\"live\":0}"
+    },
+    {
+      "id": "AC18",
+      "name": "390 px: «Sparat» overlaps nothing, inside viewport, no horizontal scroll",
+      "ok": true,
+      "detail": "{\"hit\":[],\"s\":[339,120,378,140],\"kids\":[\"Kör passet\",\"Mer\",\"Mer\"],\"tops\":[120,108],\"sw\":390}"
+    },
+    {
+      "id": "AC22a",
+      "name": "Footer «Träningsplaneraren · Slice 39»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 39 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC22b",
+      "name": "Använd mall confirm shows the new templateBody verbatim",
+      "ok": true,
+      "detail": "Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Kort pass — ca 45 min) Fortsätt redigera Använd mall"
+    },
+    {
+      "id": "AC6",
+      "name": "Built-in mall → apply → reload at once → stored = that mall, Teknik placements kept",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min tek 3 placed 3"
+    },
+    {
+      "id": "AC6-home",
+      "name": "Home shows Fortsätt passet · that mall",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7-egen",
+      "name": "Mina mallar «V39 egen» → apply → reload at once → stored (fresh id, mall contents; pass keeps its own title)",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min, items 9"
+    },
+    {
+      "id": "AC7-wizard",
+      "name": "Planera pass wizard → reload at once → stored, «Sparat» after reopen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7-wizard-sparat",
+      "name": "Reopened wizard pass shows «Sparat»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8",
+      "name": "Tomt pass + title only → no «Sparat», reload → old pass still on Home (not replaced)",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Pass — trampett · 53 min Tomt pass Från mall Rensa passet "
+    },
+    {
+      "id": "AC9",
+      "name": "Tomt pass + first station → reload at once → Home = new pass; old pass in Mina mallar under its title",
+      "ok": true,
+      "detail": "Pass — trampett | Mellanpass | V39 egen"
+    },
+    {
+      "id": "AC9-sparat",
+      "name": "«Sparat» shown on the new pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E1-remove",
+      "name": "Tomt pass: removing a starter row (no station added) does not write",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7-club",
+      "name": "Föreningsmall (stand-in) → apply → reload at once → stored, Teknik placed",
+      "ok": true,
+      "detail": "V39 klubbmall placements 2"
+    },
+    {
+      "id": "AC10",
+      "name": "20 edits + 3 reopen cycles → same id, Mina mallar empty, one Fortsätt passet, no new storage keys",
+      "ok": true,
+      "detail": "gymnastics-planner-draft-v1,gymnastics-planner-tips-v1"
+    },
+    {
+      "id": "E-archive-names",
+      "name": "Each replaced pass is archived under its own title (Pass 0 … Pass 8), newest first",
+      "ok": true,
+      "detail": "Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1"
+    },
+    {
+      "id": "E-cap",
+      "name": "Cap 8 holds: list length 8 after 10 entries",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "id": "E-cap-known",
+      "name": "HANDOFF Open 1 (accepted): archive can push out the oldest mall incl. a hand-saved one (recorded, not an AC fail)",
+      "ok": true,
+      "detail": "oldest dropped first; hand-saved «Min handsparade mall» SILENTLY EVICTED; «Pass 0» evicted; no message shown"
+    },
+    {
+      "id": "AC11-title",
+      "name": "Dedupe is by contents only: «Kopia av 5» is NOT archived under its own title because «Pass 5» has the same contents (recorded)",
+      "ok": true,
+      "detail": "8 → 8"
+    },
+    {
+      "id": "AC11",
+      "name": "Same old pass contents replaced twice → one archived copy («Pass 5» once)",
+      "ok": true,
+      "detail": "Nytt pass | Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3"
+    },
+    {
+      "id": "AC12",
+      "name": "Empty title → Home «Fortsätt passet Nytt pass · N min»; archived as «Nytt pass»",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 12 min Tomt pass / Nytt pass"
+    },
+    {
+      "id": "F1",
+      "name": "Edit → Hallöversikt at once → title flushed before the hall shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "F2",
+      "name": "«Ta bort från hall» is written at once (HallBoard saveDraft), title kept",
+      "ok": true,
+      "detail": "3 → 2"
+    },
+    {
+      "id": "F3",
+      "name": "«Placera här» (tray chip → tap canvas) written at once",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "id": "AC19-manual",
+      "name": "Använd alla förslag still manual: no redskap stored by autosave before the tap",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "F4",
+      "name": "Använd alla förslag (one tap) → redskap written at once",
+      "ok": true,
+      "detail": "disabled false, items with redskap 3"
+    },
+    {
+      "id": "F5",
+      "name": "After 1.5 s (autosave timer): hall data intact (placements + redskap + title)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "F6",
+      "name": "Hall → builder → edit → Home at once: edit and all hall changes kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "F7",
+      "name": "Hall remove → back → Home → reload within ~300 ms → removal kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC19-golv",
+      "name": "Golvklart opens from Hallöversikt; no write on entering",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "G1",
+      "name": "Tab B is not updated from A (no storage listener): B still shows the old title",
+      "ok": true,
+      "detail": "B shows «Pass — trampett», storage events 1"
+    },
+    {
+      "id": "G2",
+      "name": "Last write wins: B's autosave overwrites A's title silently (A's change lost from storage; same id, no archive)",
+      "ok": true,
+      "detail": "stored title «Pass — trampett»"
+    },
+    {
+      "id": "G3",
+      "name": "A edits again → overwrites B's added station (B's change lost from storage)",
+      "ok": true,
+      "detail": "items 9 vs B 10"
+    },
+    {
+      "id": "G4",
+      "name": "Two tabs on different passes ping-pong the slot but each replaced pass lands in Mina mallar (no silent total loss)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "H-nyvecka-0",
+      "name": "Edit → Ny vecka → Skapa kopia within ~0.2 s: Home shows the pass on screen (the copy)",
+      "ok": false,
+      "detail": "{\"gapMs\":0,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Nyvecka gammal\",\"storedIsOld\":true,\"home\":\"Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
+    },
+    {
+      "id": "H-nyvecka-250",
+      "name": "Edit → Ny vecka → Skapa kopia within ~0.6 s: Home shows the pass on screen (the copy)",
+      "ok": false,
+      "detail": "{\"gapMs\":250,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Nyvecka gammal\",\"storedIsOld\":true,\"home\":\"Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
+    },
+    {
+      "id": "H-mall-0",
+      "name": "Edit → Använd mall (Kort) within ~0.2 s: Home shows the mall pass that is on screen",
+      "ok": false,
+      "detail": "{\"gapMs\":0,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Anvandmall gammal\",\"storedIsOld\":true,\"home\":\"Anvandmall gammal\",\"mallar\":[\"Kort pass — ca 45 min\",\"Pass — trampett\"]}"
+    },
+    {
+      "id": "H-mall-250",
+      "name": "Edit → Använd mall (Kort) within ~0.6 s: Home shows the mall pass that is on screen",
+      "ok": false,
+      "detail": "{\"gapMs\":250,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Anvandmall gammal\",\"storedIsOld\":true,\"home\":\"Anvandmall gammal\",\"mallar\":[\"Kort pass — ca 45 min\",\"Pass — trampett\"]}"
+    },
+    {
+      "id": "H-mall-900",
+      "name": "Same at ≥ 0.9 s: Home shows the mall pass; the edited old pass is in Mina mallar with its edit",
+      "ok": true,
+      "detail": "{\"gapMs\":900,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Anvandmall gammal\"]}"
+    },
+    {
+      "id": "AC13",
+      "name": "Draft written by main (Spara utkast) → Fortsätt passet · title · min; opening writes nothing (byte-identical); first edit overwrites in place (same id), nothing archived",
+      "ok": true,
+      "detail": "untouched true"
+    },
+    {
+      "id": "AC14a",
+      "name": "«Inte sparat» + exactly one toast with the exact text (role=status); more failing edits → no second toast",
+      "ok": true,
+      "detail": "Inte sparat / toasts 1"
+    },
+    {
+      "id": "AC14b",
+      "name": "Storage failing: Till startsidan works, no crash, Home shows last stored pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14c",
+      "name": "Un-stub → next edit «Sparat», stored",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16",
+      "name": "Remove last station of the stored pass → saved; Home shows «… · 0 min»",
+      "ok": true,
+      "detail": "Träningsplaneraren Ett pass på några minuter. Fortsätt passet Fungerar igen · 0 min Tomt pass Från m"
+    }
+  ],
+  "notes": {
+    "A.timing": {
+      "title": {
+        "writes": 1,
+        "msAfterEdit": 799
+      },
+      "passlength": {
+        "writes": 1,
+        "msAfterEdit": 798
+      },
+      "add-station": {
+        "writes": 1,
+        "msAfterEdit": 746
+      },
+      "item-minutes": {
+        "writes": 1,
+        "msAfterEdit": 777
+      },
+      "remove-station": {
+        "writes": 1,
+        "msAfterEdit": 797
+      }
+    },
+    "A.noUI": "Passbyggaren has no station reorder (Flytta upp/ner keys exist but are unused in components) and no pass-notes field, so those edit kinds cannot be driven",
+    "A.closeNoUnload": "page.close() without unload handlers (Playwright skips pagehide) → stored title «Stängd B»",
+    "D.keys": [
+      "gymnastics-planner-draft-v1",
+      "gymnastics-planner-tips-v1"
+    ],
+    "E.after_each_replace": [
+      "Min handsparade mall",
+      "Pass 1 | Min handsparade mall",
+      "Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 3 | Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall",
+      "Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1"
+    ],
+    "E.cap_drop": "oldest dropped first; hand-saved «Min handsparade mall» SILENTLY EVICTED; «Pass 0» evicted; no message shown",
+    "E.dedupe_title": "«Kopia av 5» (same stations as «Pass 5», other title) replaced → Mina mallar: Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2",
+    "G.tabs": {
+      "afterA_title": "Ändrat i A",
+      "tabB_title_shown_after_A": "Pass — trampett",
+      "storageEventsInB": 1,
+      "afterB_title": "Pass — trampett",
+      "afterB_items": 10,
+      "sameId": true
+    },
+    "G.tabB_newpass": "B starts a new pass: slot = «Nytt pass», Mina mallar = A igen; A still edits «A igen»",
+    "G.tabA_after": "A edits again: slot = «Nytt pass», Mina mallar = A igen",
+    "H.Nyvecka.0": {
+      "gapMs": 0,
+      "onScreen": "Ny vecka — Nyvecka gammal",
+      "storedTitle": "Nyvecka gammal",
+      "storedIsOld": true,
+      "home": "Nyvecka gammal",
+      "mallar": [
+        "Nyvecka gammal"
+      ]
+    },
+    "H.Nyvecka.250": {
+      "gapMs": 250,
+      "onScreen": "Ny vecka — Nyvecka gammal",
+      "storedTitle": "Nyvecka gammal",
+      "storedIsOld": true,
+      "home": "Nyvecka gammal",
+      "mallar": [
+        "Nyvecka gammal"
+      ]
+    },
+    "H.Anvandmall.0": {
+      "gapMs": 0,
+      "onScreen": "Kort pass — ca 45 min",
+      "storedTitle": "Anvandmall gammal",
+      "storedIsOld": true,
+      "home": "Anvandmall gammal",
+      "mallar": [
+        "Kort pass — ca 45 min",
+        "Pass — trampett"
+      ]
+    },
+    "H.Anvandmall.250": {
+      "gapMs": 250,
+      "onScreen": "Kort pass — ca 45 min",
+      "storedTitle": "Anvandmall gammal",
+      "storedIsOld": true,
+      "home": "Anvandmall gammal",
+      "mallar": [
+        "Kort pass — ca 45 min",
+        "Pass — trampett"
+      ]
+    },
+    "H.Anvandmall.900": {
+      "gapMs": 900,
+      "onScreen": "Kort pass — ca 45 min",
+      "storedTitle": "Kort pass — ca 45 min",
+      "storedIsOld": false,
+      "home": "Kort pass — ca 45 min",
+      "mallar": [
+        "Anvandmall gammal"
+      ]
+    }
+  },
+  "errors": []
+}

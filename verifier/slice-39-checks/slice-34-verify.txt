@@ -1,0 +1,34 @@
+PASS AC16-noctx-on-load ctx on share view load = 0
+PASS S1-no-tone-before-0 00:01
+PASS S1-one-tone-at-0 [{"t":1791568860269,"h1":"Uppvärmningsvarv (hallen runt)"}] vib [{"t":1791568860269,"h1":"Uppvärmningsvarv (hallen runt)","p":200}]
+PASS S1-no-loop-150s osc 1
+PASS S1-no-auto-advance Uppvärmningsvarv (hallen runt)
+PASS S2-nav-no-tone 
+PASS S2-paused-past-remaining-no-tone clock 00:10
+PASS S2-resumed-before-0-no-tone 00:01
+PASS S2-resumed-one-tone-at-0 00:00
+PASS S2-no-loop-150s 
+PASS Back-to-finished-step-no-immediate-tone clock on return 01:00
+PASS Back-rerun-at-most-one {"clockOnReturn":"01:00","toneImmediately":0,"toneAfterRerunTo0":1,"after2minMore":1}
+PASS S3-0min-no-tone 
+PASS S4-one-tone-at-0 
+PASS S4-no-loop 
+PASS Reenter-run-once {"immediate":0,"at0":1,"after150s":1,"ctxTotal":1}
+PASS Run1-no-errors 
+PASS Missing-noAudio {"api":{"AC":"undefined","wAC":"undefined","vib":"function"},"clocks":["01:00","00:30","00:00","01:00","00:55"],"timeUp":1,"buttons":4,"errs":[],"sig":null}
+PASS Missing-noVibrate {"api":{"AC":"function","wAC":"undefined","vib":"undefined"},"clocks":["01:00","00:30","00:00","01:00","00:55"],"timeUp":1,"buttons":4,"errs":[],"sig":{"osc":1,"vib":0}}
+PASS Missing-none {"api":{"AC":"undefined","wAC":"undefined","vib":"undefined"},"clocks":["01:00","00:30","00:00","01:00","00:55"],"timeUp":1,"buttons":4,"errs":[],"sig":null}
+PASS Same-controls-home 5 controls
+FAIL Same-controls-builder main ["BUTTON:Till startsidan","INPUT:Passets titel","BUTTON:60","BUTTON:90","BUTTON:120","BUTTON:Dölj det här tipset","BUTTON:Kör passet, en övning i taget","BUTTON:Spara utkast","BUTTON:Fler saker med passet","BUTTON:Se beskrivning","BUTTON:×","BUT
+PASS Same-controls-homeDraft 6 controls
+PASS Same-controls-menu 7 controls
+FAIL Same-controls-bibliotek main ["BUTTON:Till startsidan","INPUT:Passets titel","BUTTON:60","BUTTON:90","BUTTON:120","BUTTON:Dölj det här tipset","BUTTON:Kör passet, en övning i taget","BUTTON:Spara utkast","BUTTON:Fler saker med passet","BUTTON:Se beskrivning","BUTTON:×","BUT
+PASS Same-controls-hall 17 controls
+PASS Same-controls-golvklart 9 controls
+PASS Same-controls-share 8 controls
+PASS Same-controls-run 4 controls
+FAIL Footer-branch Träningsplaneraren · Slice 39 · Tyck till · Visa tips igen · Uppdatera appen || home: Tyck till · Uppdatera appen
+PASS No-ctx-outside-run 0/0
+PASS Surfaces-no-errors branch  main 
+
+PASS 29 / FAIL 3

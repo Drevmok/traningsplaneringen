@@ -1,0 +1,26 @@
+PASS [note] Built-in apply is not auto-saved (pre-existing): draft before «Spara utkast» was absent
+PASS [AC1a] Built-in «Nybörjare — ca 55 min»: draft has one marker per Teknik item right after apply (hall not opened) — 3/3
+PASS [AC4a] Built-in: no non-Teknik markers; hall template = default (standard-trupp) — standard-trupp
+PASS [AC5] Använd alla förslag not triggered: no station redskap saved on Teknik items
+PASS [AC9a] Built-in apply shows no toast
+PASS [AC6a] Markers do not stack (distinct spots)
+PASS [AC8a] Reload: built-in placements still in the draft
+PASS [AC1b] Open Hallöversikt: same markers, no extra or duplicate — canvas chips 3
+PASS [AC9b] Club confirm has no «Stationerna placerar du själv i Hallöversikt.» line
+PASS [AC9c] Club toast reads exactly «Mallen är i Passbyggaren.»
+PASS [AC2] Club mall (≥ 2 Teknik): all Teknik placed on apply, in the pass hall template; only Teknik — 3/3
+PASS [AC11] Club row in the DB still has no hallPlacements
+PASS [AC9d] Toast disappears after ~2 s — 2321 ms after seen
+PASS [AC8b] Reload: club placements still in the draft
+PASS [AC9e] Egen mall apply shows no toast
+PASS [AC3a] Egen mall with placements: the saved marker keeps its exact spot; the unplaced Teknik item gets one; all Teknik placed once — kept 1, placed 3/3, first teknik item-lp5szara-mv6xr9za
+PASS [AC8c] Reload: Egen mall placements still in the draft
+PASS [AC3b] Egen mall saved without placements: all Teknik placed, nothing else
+PASS [AC7] Remove one marker → reopen Hallöversikt: it stays removed (no re-placement) — before 3, after reopen 2
+FAIL [AC12] Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37»
+PASS [AC14a] Planera pass still places all Teknik
+PASS [AC14b] Tomt pass (saved via «Spara utkast»): empty hall — items 0
+PASS [AC22] 390 wide: no horizontal scroll
+PASS [errors] No page errors
+
+23/24 pass

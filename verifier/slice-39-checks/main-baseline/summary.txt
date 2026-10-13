@@ -1,0 +1,20 @@
+== slice-38-builder-smoke
+exit 0 pass 27 fail 0
+== slice-34-builder-smoke
+exit 0 pass 30 fail 2
+== slice-35-builder-smoke
+exit 0 pass 34 fail 8
+== slice-35-verify
+exit 0 pass 38 fail 10
+== slice-36-builder-smoke
+exit 0 pass 40 fail 6
+== slice-36-verify
+exit 0 pass 15 fail 2
+== slice-37-builder-smoke
+exit 0 pass 23 fail 1
+== slice-37-verify
+exit 0 pass 42 fail 3
+== slice-33-builder-smoke
+exit 0 pass 140 fail 7
+== slice-32-builder-smoke
+exit 0 pass 27 fail 17

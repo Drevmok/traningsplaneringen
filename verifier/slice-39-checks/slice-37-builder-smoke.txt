@@ -1,0 +1,14 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Spara utkast' })
+
+    at /tmp/s39v/smk/slice-37-builder-smoke.mjs:95:55 {
+  log: [ "  - waiting for getByRole('button', { name: 'Spara utkast' })" ],
+  name: 'TimeoutError'
+}
+
+Node.js v20.19.2
