@@ -1,6 +1,6 @@
 {
-  "at": "2026-10-13T17:55:46.193Z",
-  "pass": 72,
+  "at": "2026-10-13T19:07:45.707Z",
+  "pass": 76,
   "fail": 0,
   "results": [
     {
@@ -19,7 +19,7 @@
       "id": "A-add-station",
       "name": "add-station: exactly one write ~800 ms after the edit, change stored, same id",
       "ok": true,
-      "detail": "{\"writes\":1,\"msAfterEdit\":750}"
+      "detail": "{\"writes\":1,\"msAfterEdit\":746}"
     },
     {
       "id": "A-item-minutes",
@@ -31,13 +31,13 @@
       "id": "A-remove-station",
       "name": "remove-station: exactly one write ~800 ms after the edit, change stored, same id",
       "ok": true,
-      "detail": "{\"writes\":1,\"msAfterEdit\":797}"
+      "detail": "{\"writes\":1,\"msAfterEdit\":796}"
     },
     {
       "id": "A-burst",
       "name": "Burst (12 keys + 5 taps over ~2 s) → 1 write ~800 ms after the last change; «Sparat» visible throughout",
       "ok": true,
-      "detail": "writes 1, +797 ms"
+      "detail": "writes 1, +798 ms"
     },
     {
       "id": "A-reload",
@@ -67,7 +67,7 @@
       "id": "AC4",
       "name": "Edit → Till startsidan at once → Home shows new title / minutes",
       "ok": true,
-      "detail": "52 ms; Träningsplaneraren Ett pass på några minuter. Fortsätt passet Hem snabbt · 60 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
+      "detail": "37 ms; Träningsplaneraren Ett pass på några minuter. Fortsätt passet Hem snabbt · 60 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass"
     },
     {
       "id": "A-run",
@@ -293,31 +293,31 @@
     },
     {
       "id": "H-nyvecka-0",
-      "name": "Edit → Ny vecka → Skapa kopia at ~0 ms (measured 142 ms): Home = copy on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Ny vecka → Skapa kopia at ~0 ms (measured 161 ms): Home = copy on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":0,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Ny vecka — Nyvecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
     },
     {
       "id": "H-nyvecka-100",
-      "name": "Edit → Ny vecka → Skapa kopia at ~100 ms (measured 147 ms): Home = copy on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Ny vecka → Skapa kopia at ~100 ms (measured 142 ms): Home = copy on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":100,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Ny vecka — Nyvecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
     },
     {
       "id": "H-nyvecka-400",
-      "name": "Edit → Ny vecka → Skapa kopia at ~400 ms (measured 427 ms): Home = copy on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Ny vecka → Skapa kopia at ~400 ms (measured 441 ms): Home = copy on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":400,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Ny vecka — Nyvecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
     },
     {
       "id": "H-nyvecka-790",
-      "name": "Edit → Ny vecka → Skapa kopia at ~790 ms (measured 842 ms): Home = copy on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Ny vecka → Skapa kopia at ~790 ms (measured 816 ms): Home = copy on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":790,\"onScreen\":\"Ny vecka — Nyvecka gammal\",\"storedTitle\":\"Ny vecka — Nyvecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Nyvecka gammal\",\"mallar\":[\"Nyvecka gammal\"]}"
     },
     {
       "id": "H-mall-0",
-      "name": "Edit → Använd mall (Kort) at ~0 ms (measured 183 ms): Home = mall on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Använd mall (Kort) at ~0 ms (measured 148 ms): Home = mall on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":0,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Anvandmall gammal\"]}"
     },
@@ -329,13 +329,13 @@
     },
     {
       "id": "H-mall-400",
-      "name": "Edit → Använd mall (Kort) at ~400 ms (measured 428 ms): Home = mall on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Använd mall (Kort) at ~400 ms (measured 427 ms): Home = mall on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":400,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Anvandmall gammal\"]}"
     },
     {
       "id": "H-mall-790",
-      "name": "Edit → Använd mall (Kort) at ~790 ms (measured 830 ms): Home = mall on screen; old pass with its edit in Mina mallar",
+      "name": "Edit → Använd mall (Kort) at ~790 ms (measured 829 ms): Home = mall on screen; old pass with its edit in Mina mallar",
       "ok": true,
       "detail": "{\"gapMs\":790,\"onScreen\":\"Kort pass — ca 45 min\",\"storedTitle\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Anvandmall gammal\"]}"
     },
@@ -383,9 +383,33 @@
     },
     {
       "id": "J2",
-      "name": "8 hand-saved → auto-copy skipped (list unchanged), new pass saved, «Sparat», Home = new pass",
+      "name": "2b21629: 8 hand-saved → replaced pass takes the spare slot (9 entries, J2 gammal* on top); new pass saved, «Sparat»",
       "ok": true,
-      "detail": "H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8 / Sparat"
+      "detail": "J2 gammal* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8 / Sparat"
+    },
+    {
+      "id": "J2r",
+      "name": "Spare entry + auto flag survive reload (9 entries)",
+      "ok": true,
+      "detail": "J2 gammal* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8"
+    },
+    {
+      "id": "J2s",
+      "name": "9 Mina mallar cards render at 390: all 9 visible cards, none overflow, no page horizontal scroll (Från mall + Använd mall)",
+      "ok": true,
+      "detail": "{\"r1\":{\"cards\":9,\"over\":0,\"sw\":390,\"sheetScroll\":false},\"r2\":{\"cards\":9,\"over\":0,\"sw\":390,\"sheetScroll\":false}}"
+    },
+    {
+      "id": "J2b",
+      "name": "Newer auto-copy replaces the spare: 9 entries, «J2 ny*» in, «J2 gammal*» out, all 8 H kept",
+      "ok": true,
+      "detail": "J2 ny* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8"
+    },
+    {
+      "id": "J2c",
+      "name": "Hand-save into 8 H + spare → 8 entries: spare (J2 ny*) AND oldest hand-saved (H8) dropped",
+      "ok": true,
+      "detail": "J2 hand | H1 | H2 | H3 | H4 | H5 | H6 | H7"
     },
     {
       "id": "J3",
@@ -407,7 +431,7 @@
     },
     {
       "id": "J5b",
-      "name": "UI only: 9+ auto-copies → list of 8 auto (*), newest first, no throw",
+      "name": "UI only: 9+ auto-copies → list of 8 auto (*), newest first (spare not used: auto-copies evict auto-copies)",
       "ok": true,
       "detail": "U8* | U7* | U6* | U5* | U4* | U3* | U2* | U1*"
     },
@@ -419,13 +443,13 @@
     },
     {
       "id": "J6b",
-      "name": "Legacy (main) entries treated as hand-saved: auto-copy skipped, list unchanged, new pass saved",
+      "name": "Legacy (main) = hand-saved: replaced pass takes the spare (9), new pass saved",
       "ok": true,
-      "detail": "L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1"
+      "detail": "J6 gammal* | L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1"
     },
     {
       "id": "J6c",
-      "name": "Hand-save into 8 legacy → oldest legacy (L1) out",
+      "name": "Hand-save into 8 legacy + spare → 8: spare and oldest legacy (L1) dropped",
       "ok": true,
       "detail": "J6 hand | L8 | L7 | L6 | L5 | L4 | L3 | L2"
     },
@@ -448,7 +472,7 @@
       },
       "add-station": {
         "writes": 1,
-        "msAfterEdit": 750
+        "msAfterEdit": 746
       },
       "item-minutes": {
         "writes": 1,
@@ -456,7 +480,7 @@
       },
       "remove-station": {
         "writes": 1,
-        "msAfterEdit": 797
+        "msAfterEdit": 796
       }
     },
     "A.noUI": "Passbyggaren has no station reorder (Flytta upp/ner keys exist but are unused in components) and no pass-notes field, so those edit kinds cannot be driven",
@@ -488,7 +512,7 @@
     },
     "G.tabB_newpass": "B starts a new pass: slot = «Nytt pass», Mina mallar = A igen; A still edits «A igen»",
     "G.tabA_after": "A edits again: slot = «Nytt pass», Mina mallar = A igen",
-    "H.Nyvecka.0.ms": 142,
+    "H.Nyvecka.0.ms": 161,
     "H.Nyvecka.0": {
       "gapMs": 0,
       "onScreen": "Ny vecka — Nyvecka gammal",
@@ -499,7 +523,7 @@
         "Nyvecka gammal"
       ]
     },
-    "H.Nyvecka.100.ms": 147,
+    "H.Nyvecka.100.ms": 142,
     "H.Nyvecka.100": {
       "gapMs": 100,
       "onScreen": "Ny vecka — Nyvecka gammal",
@@ -510,7 +534,7 @@
         "Nyvecka gammal"
       ]
     },
-    "H.Nyvecka.400.ms": 427,
+    "H.Nyvecka.400.ms": 441,
     "H.Nyvecka.400": {
       "gapMs": 400,
       "onScreen": "Ny vecka — Nyvecka gammal",
@@ -521,7 +545,7 @@
         "Nyvecka gammal"
       ]
     },
-    "H.Nyvecka.790.ms": 842,
+    "H.Nyvecka.790.ms": 816,
     "H.Nyvecka.790": {
       "gapMs": 790,
       "onScreen": "Ny vecka — Nyvecka gammal",
@@ -532,7 +556,7 @@
         "Nyvecka gammal"
       ]
     },
-    "H.Anvandmall.0.ms": 183,
+    "H.Anvandmall.0.ms": 148,
     "H.Anvandmall.0": {
       "gapMs": 0,
       "onScreen": "Kort pass — ca 45 min",
@@ -554,7 +578,7 @@
         "Anvandmall gammal"
       ]
     },
-    "H.Anvandmall.400.ms": 428,
+    "H.Anvandmall.400.ms": 427,
     "H.Anvandmall.400": {
       "gapMs": 400,
       "onScreen": "Kort pass — ca 45 min",
@@ -565,7 +589,7 @@
         "Anvandmall gammal"
       ]
     },
-    "H.Anvandmall.790.ms": 830,
+    "H.Anvandmall.790.ms": 829,
     "H.Anvandmall.790": {
       "gapMs": 790,
       "onScreen": "Kort pass — ca 45 min",
@@ -586,7 +610,6 @@
         "Anvandmall gammal"
       ]
     },
-    "J2.lost": "Consequence: «J2 gammal» is no longer anywhere (slot = J2 ny, not in Mina mallar). Intended by the rule; no message shown",
     "J.matrix": {
       "J1": [
         "J1 gammal*",
@@ -599,6 +622,7 @@
         "H4"
       ],
       "J2": [
+        "J2 gammal*",
         "H1",
         "H2",
         "H3",
@@ -607,6 +631,38 @@
         "H6",
         "H7",
         "H8"
+      ],
+      "J2r": [
+        "J2 gammal*",
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "H5",
+        "H6",
+        "H7",
+        "H8"
+      ],
+      "J2b": [
+        "J2 ny*",
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "H5",
+        "H6",
+        "H7",
+        "H8"
+      ],
+      "J2c": [
+        "J2 hand",
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "H5",
+        "H6",
+        "H7"
       ],
       "J3": [
         "J3 hand",
@@ -649,6 +705,7 @@
         "U1*"
       ],
       "J6b": [
+        "J6 gammal*",
         "L8",
         "L7",
         "L6",

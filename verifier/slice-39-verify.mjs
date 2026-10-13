@@ -5,13 +5,13 @@
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
-const BR = process.env.BR ?? 'http://127.0.0.1:56901/traningsplaneringen/'
-const MAIN = process.env.MAIN ?? 'http://127.0.0.1:56902/traningsplaneringen/'
-const ON = process.env.ON ?? 'http://127.0.0.1:56900/traningsplaneringen/'
+const BR = process.env.BR ?? 'http://127.0.0.1:56921/traningsplaneringen/'
+const MAIN = process.env.MAIN ?? 'http://127.0.0.1:56922/traningsplaneringen/'
+const ON = process.env.ON ?? 'http://127.0.0.1:56920/traningsplaneringen/'
 const ROOT = process.env.S39_ROOT ?? new URL('..', import.meta.url).pathname.replace(/\/$/, '')
-const S32 = process.env.S32_DIR ?? '/tmp/s39r/sb'
+const S32 = process.env.S32_DIR ?? '/tmp/s39s/sb'
 const ONLY = (process.env.ONLY ?? '').split(',').filter(Boolean)
-const SS = process.env.SS ?? '/workspace/screenshots/s39vr_'
+const SS = process.env.SS ?? '/workspace/screenshots/s39vs_'
 const DK = 'gymnastics-planner-draft-v1', TK = 'gymnastics-planner-templates-v1'
 const MD = readFileSync(`${ROOT}/slice-39/content/microcopy.sv.md`, 'utf8')
 const md = (k) => MD.match(new RegExp('^\\| `' + k + '`(?: \\*\\*[^*]+\\*\\*)?(?: \\([^)]*\\))? \\| ([^|]+?) \\|', 'm'))[1].trim()
@@ -551,9 +551,36 @@ await section('J', async () => {
   await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J2 ny'); await addTeknik(p, n++); await p.waitForTimeout(950)
   const st2 = await status(p).innerText(); await toHome(p)
   M.J2 = await view()
-  check('J2', '8 hand-saved → auto-copy skipped (list unchanged), new pass saved, «Sparat», Home = new pass', M.J2.join() === hands().map((x) => x.title).join() && (await draft(p)).title === 'J2 ny' && st2 === S.saved && (await homeText(p)).includes('J2 ny ·'), `${M.J2.join(' | ')} / ${st2}`)
-  note('J2.lost', 'Consequence: «J2 gammal» is no longer anywhere (slot = J2 ny, not in Mina mallar). Intended by the rule; no message shown')
-  await shot(p, '09_j2_all_hand_skipped')
+  check('J2', '2b21629: 8 hand-saved → replaced pass takes the spare slot (9 entries, J2 gammal* on top); new pass saved, «Sparat»', M.J2.join() === ['J2 gammal*', ...hands().map((x) => x.title)].join() && (await draft(p)).title === 'J2 ny' && st2 === S.saved && (await homeText(p)).includes('J2 ny ·'), `${M.J2.join(' | ')} / ${st2}`)
+  // J2r: spare survives reload
+  await p.reload(); await p.locator('.home').waitFor()
+  M.J2r = await view()
+  check('J2r', 'Spare entry + auto flag survive reload (9 entries)', M.J2r.join() === M.J2.join(), M.J2r.join(' | '))
+  // J2s: 9 entries render cleanly at 390 (Home Från mall sheet + builder Använd mall sheet)
+  async function sheetCheck(tag) {
+    await p.waitForTimeout(500)
+    const r = await p.evaluate(() => {
+      const cards = [...document.querySelectorAll('.template-saved')].filter((e) => e.offsetParent)
+      const over = cards.filter((c) => c.getBoundingClientRect().right > innerWidth + 0.5 || c.scrollWidth > c.clientWidth + 1).length
+      const sheet = document.querySelector('.side-panel-slot.is-open, .sheet, [role=dialog]')
+      return { cards: cards.length, over, sw: document.documentElement.scrollWidth, sheetScroll: sheet ? sheet.scrollHeight > sheet.clientHeight : null }
+    })
+    const last = p.locator('.template-saved').last(); await last.scrollIntoViewIfNeeded().catch(() => {})
+    await shot(p, `${tag}`)
+    return r
+  }
+  await fromMall(p); const r1 = await sheetCheck('11_spare9_home_franmall')
+  await p.keyboard.press('Escape'); await p.goto(p.base); await p.locator('.home, .builder').first().waitFor(); if (await builder(p).count()) await toHome(p)
+  await cont(p); await menu(p, 'Använd mall'); const r2 = await sheetCheck('12_spare9_anvandmall_sheet')
+  check('J2s', '9 Mina mallar cards render at 390: all 9 visible cards, none overflow, no page horizontal scroll (Från mall + Använd mall)', r1.cards === 9 && r1.over === 0 && r1.sw <= 390 && r2.cards === 9 && r2.over === 0 && r2.sw <= 390, JSON.stringify({ r1, r2 }))
+  await p.goto(p.base); await p.locator('.home, .builder').first().waitFor(); if (await builder(p).count()) await toHome(p)
+  // J2b: a newer auto-copy replaces the spare
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J2 nyare'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
+  M.J2b = await view()
+  check('J2b', 'Newer auto-copy replaces the spare: 9 entries, «J2 ny*» in, «J2 gammal*» out, all 8 H kept', M.J2b.join() === ['J2 ny*', ...hands().map((x) => x.title)].join(), M.J2b.join(' | '))
+  // J2c: hand-save with 8 H + spare → 8
+  await handSave('J2 hand'); M.J2c = await view()
+  check('J2c', 'Hand-save into 8 H + spare → 8 entries: spare (J2 ny*) AND oldest hand-saved (H8) dropped', M.J2c.join() === ['J2 hand', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7'].join(), M.J2c.join(' | '))
   // J3 hand-save into full mixed list → oldest auto out
   await seed(mixed()); await handSave('J3 hand')
   M.J3 = await view()
@@ -570,7 +597,7 @@ await section('J', async () => {
   await fresh(p); n = 0
   for (let k = 0; k < 9; k++) await autoCopy(`U${k}`)
   M.J5b = await view()
-  check('J5b', 'UI only: 9+ auto-copies → list of 8 auto (*), newest first, no throw', M.J5b.length === 8 && M.J5b.every((x) => x.endsWith('*')), M.J5b.join(' | '))
+  check('J5b', 'UI only: 9+ auto-copies → list of 8 auto (*), newest first (spare not used: auto-copies evict auto-copies)', M.J5b.length === 8 && M.J5b.every((x) => x.endsWith('*')), M.J5b.join(' | '))
   // J6 legacy entries saved by a MAIN build (no flag) = hand-saved
   const ctxM = await newCtx(); const pm = await newPage(ctxM, MAIN); await fresh(pm)
   await pm.getByRole('button', { name: 'Tomt pass' }).click(); await builder(pm).waitFor()
@@ -582,9 +609,9 @@ await section('J', async () => {
   await seed(legacy)
   await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('J6 ny'); await addTeknik(p, n++); await p.waitForTimeout(950); await toHome(p)
   M.J6b = await view()
-  check('J6b', 'Legacy (main) entries treated as hand-saved: auto-copy skipped, list unchanged, new pass saved', M.J6b.join() === legacy.map((x) => x.title).join() && (await draft(p)).title === 'J6 ny', M.J6b.join(' | '))
+  check('J6b', 'Legacy (main) = hand-saved: replaced pass takes the spare (9), new pass saved', M.J6b.join() === ['J6 gammal*', ...legacy.map((x) => x.title)].join() && (await draft(p)).title === 'J6 ny', M.J6b.join(' | '))
   await handSave('J6 hand'); M.J6c = await view()
-  check('J6c', 'Hand-save into 8 legacy → oldest legacy (L1) out', M.J6c[0] === 'J6 hand' && !M.J6c.includes('L1') && M.J6c.length === 8, M.J6c.join(' | '))
+  check('J6c', 'Hand-save into 8 legacy + spare → 8: spare and oldest legacy (L1) dropped', M.J6c.join() === ['J6 hand', 'L8', 'L7', 'L6', 'L5', 'L4', 'L3', 'L2'].join(), M.J6c.join(' | '))
   // F4 vs flags: replaced pass with the same contents as a HAND-saved entry → no auto-copy (dedupe); hand-save of an auto-copied pass → second entry
   await fresh(p); await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder(p).waitFor(); await title(p).fill('Dubbel'); await addTeknik(p, 3); await p.waitForTimeout(950)
   await menu(p, 'Spara som egen mall'); await p.locator('.modal input').fill('Dubbel hand'); await p.locator('.modal').getByRole('button', { name: 'Spara som egen mall' }).click(); await p.waitForTimeout(300); await toHome(p)

@@ -177,3 +177,72 @@ This matches Builder's +889. AC20: «Bundle delta ≤ +512 B gz (soft): … numb
 ## Ready to merge?
 
 **Yes, conditionally:** once Planner accepts the +889 B soft overrun (AC20) and the by-design skip-when-full path (F2). Then the real-device checks (iOS pagehide, Safari private mode, VoiceOver) remain. Not merged by Verifier.
+
+---
+
+# Re-verify at 2b21629 (spare auto slot, max 9) — 2026-10-13
+
+**Method:** fresh detached worktree `/tmp/s39s/wt` @ 2b21629 and main `/tmp/s39s/main` @ 4b056c8. My own stand-in `S32_DIR=/tmp/s39s/sb` (gateway :56910; 36-03 = 8 × t). Previews :56921 (branch plain), :56920 (branch bank), :56922 (main plain). No live requests.
+- `verifier/slice-39-verify.mjs`: section J is updated to the spare-slot rule, plus spare/reload/render cases (J2, J2r, J2s, J2b, J2c, J6b, J6c). Result: **76 / 0** (`slice-39-checks/reverify2-run.txt`). Screenshots are prefixed `s39vs_`.
+- The only code change since 4b92442 is `addWithCap` / `saveAutoCopy` in `lib/savedTemplates.ts` and the call in `lib/autosave.ts`.
+
+## Eviction matrix (8 + 1 spare for auto-copies; * = auto)
+
+| # | Start (newest → oldest) | Action | Result | Verdict |
+| --- | --- | --- | --- | --- |
+| J2 | H1…H8 | replace pass (auto-copy) | **J2 gammal*** + H1…H8 = **9**; new pass saved, «Sparat» | PASS (never lost) |
+| J2r | 9 as J2 | reload | identical 9, flag kept | PASS |
+| J2s | 9 as J2 | Från mall (Home) + Använd mall (builder) at 390×844 | 9 cards, 0 overflow, scrollWidth 390 (`s39vs_11`, `s39vs_12`) | PASS |
+| J2b | J2 gammal* + H1…H8 | newer auto-copy | **J2 ny*** + H1…H8 = 9; J2 gammal out | PASS |
+| J2c | J2 ny* + H1…H8 | hand-save | J2 hand + H1…H7 = **8**; spare (J2 ny*) **and** H8 dropped | PASS (per rule, see F1) |
+| J6b | L1…L8 from the **main** build (no flag) | auto-copy | J6 gammal* + L8…L1 = 9 | PASS |
+| J6c | J6 gammal* + 8 legacy | hand-save | J6 hand + L8…L2 = 8 (spare + L1 out) | PASS |
+| J1 | H1 A1* H2 A2* H3 A3* H4 A4* | auto-copy | J1 gammal* … H4 (A4 out), 8 | PASS |
+| J3 | mixed | hand-save | A4 out, 8 | PASS |
+| J4 | H1…H8 | hand-save | H8 out, 8 | PASS |
+| J5 | mixed | reload + hand-save + reload | flags intact | PASS |
+| J5b | empty | 9+ UI auto-copies | 8, all * (spare unused, as expected) | PASS |
+| E | 1 hand + 9 UI replacements | — | 7 auto + hand-saved kept, 8 | PASS |
+| F4a | hand-saved with the same contents | replace | no auto-copy (dedupe) | PASS |
+
+## Race: still fixed
+
+Ny vecka → Skapa kopia at 125/135/439/819 ms and Använd mall at 149/147/435/826 ms (+ the 900 ms control): Home and slot show the new pass, and the old pass with its edit is in Mina mallar. 9/9.
+
+## Findings (2b21629)
+
+1. **The spare is the next thing a hand-save deletes.** In a list of 8 hand-saved + spare, one «Spara som egen mall» drops the spare auto-copy (the most recently replaced pass) *and* the oldest hand-saved (J2c). This is exactly the stated rule («a hand-save … never leaves more than 8»). It means the replaced pass is safe only until the next hand-save, with no message. It is a much narrower loss path than at 4b92442 (where the pass was skipped immediately). It needs Planner's/Christoffer's acceptance, not a fix.
+2. **No skip path is left.** An auto-copy is never dropped on write (J2, J6b). The old «all hand-saved → skipped» loss is gone.
+3. **9 entries render cleanly** in both mall lists at 390 (no overflow, no horizontal scroll).
+4. **Main reading a 9-entry list** works (main's loader has no length check). Main's next hand-save trims to 8 (`slice(0, 8)` drops the oldest). Harmless.
+5. **Secrets:** `git grep` 2b21629 hits only the pattern names in the two verify reports. Dists 0, stand-in keys 0.
+
+## Bundle
+
+| | main 4b056c8 | 2b21629 | Δ |
+| --- | --- | --- | --- |
+| Total | 216 969 | 217 831 | **+862** (soft cap +512) |
+| Eager | 153 079 | 153 946 | **+867** |
+
+This matches Builder's +862. AC20 is still **FAIL-soft** («≤ +512 B gz (soft) … overrun explained»).
+
+## Tests / smokes
+
+`bun test src` **189 / 0**, lint 0 errors / 15 warnings, `tsc -b` 0, build 0.
+
+| Script | 2b21629 | 4b92442 | Δ |
+| --- | --- | --- | --- |
+| slice-39-verify (ours) | 76/0 | 72/0 | +4 new checks |
+| slice-39-builder-smoke | 38/0 | 37/0 | +1 Builder check |
+| slice-38-builder-smoke | 25/1 | 25/1 | same (footer) |
+| slice-38-verify | 66/5 | 66/5 | same fail set |
+| slice-37-builder-smoke | 23/1 | 23/1 | same (footer) |
+| slice-37-verify | 41/4 | 41/4 | same fail set |
+| slice-34-builder-smoke | 29/2 | 29/2 | same |
+| slice-34-verify | 29/3 | 29/3 | same |
+
+## Verdict (2b21629)
+
+**PASS.** AC1–14, 16, 18, 19, 21, 22 PASS. AC20 FAIL-soft (+862 B). AC5 (iOS), 15 and 17 (VoiceOver) are PENDING-real. The spare-slot rule behaves exactly as specified, and the replaced pass is never dropped on write.
+
+**Ready to merge:** yes, once Planner accepts AC20 (+862 B) and F1 (a hand-save can delete the spare auto-copy). The device checks remain. Not merged by Verifier.
