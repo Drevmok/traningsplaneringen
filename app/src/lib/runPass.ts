@@ -98,3 +98,15 @@ export function runNextText(steps: Pick<RunStep, 'title'>[], index: number, next
   const next = steps[index + 1]
   return next ? nextLabel.replace('{title}', next.title) : lastLabel
 }
+
+/** Slice 38: rest of the current step + every later step, in seconds. */
+export function runRemainingSeconds(steps: Pick<RunStep, 'seconds'>[], index: number, left: number): number {
+  let total = Math.max(0, left)
+  for (let i = index + 1; i < steps.length; i++) total += steps[i].seconds
+  return total
+}
+
+/** Slice 38: «Kvar: X min», whole minutes rounded up (1–60 s → 1, 0 → 0). */
+export function runLeftText(steps: Pick<RunStep, 'seconds'>[], index: number, left: number, label: string): string {
+  return label.replace('{n}', String(Math.ceil(runRemainingSeconds(steps, index, left) / 60)))
+}

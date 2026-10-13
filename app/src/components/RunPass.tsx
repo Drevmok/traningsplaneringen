@@ -7,6 +7,7 @@ import {
   pauseClock,
   resumeClock,
   runNextText,
+  runLeftText,
   runSteps,
   startClock,
   type RunClock,
@@ -192,6 +193,7 @@ export function RunPass({ session, onClose }: Props) {
         </p>
       )}
       <p className="run-next">{runNextText(steps, index, UI.runNextLabel, UI.runLastActivity)}</p>
+      <p className="run-left">{runLeftText(steps, index, left, UI.runLeftLabel)}</p>
 
       <div className="run-script">
         {step.why && (
