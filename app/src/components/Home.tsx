@@ -73,7 +73,7 @@ export function Home({
             >
               <span>{UI.continuePass}</span>
               <span className="home-start-meta">
-                {draft.title} · {draft.totalMinutes} min
+                {draft.title.trim() || UI.untitledPass} · {draft.totalMinutes} min
               </span>
             </button>
           ) : (

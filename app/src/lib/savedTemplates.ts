@@ -12,6 +12,31 @@ export interface SavedTemplate {
   totalMinutes: number
   savedAt: string
   pass: SharePass
+  /** Slice 39: true = copy made by the autosave replace guard. Missing (all older entries) = hand-saved. */
+  auto?: true
+}
+
+/**
+ * Slice 39 cap rule (Christoffer 2026-10-13). Newest first, so the oldest entry is the last one.
+ * Hand-saved = no `auto` flag (all older entries too). Cap 8, plus ONE spare slot for an auto-copy.
+ * - Auto-copy: added; if that makes more than 8, the oldest *other* auto-copy goes. If there is none
+ *   (8 hand-saved), it takes the spare slot → 9. A newer auto-copy later replaces the spare.
+ *   A replaced pass is never dropped.
+ * - Hand-save: added; while more than 8, the oldest auto-copy goes first (spare included), then the
+ *   oldest entry (as on main). So a hand-save never leaves more than 8.
+ */
+export function addWithCap(list: SavedTemplate[], next: SavedTemplate): SavedTemplate[] {
+  const out = [next, ...list]
+  while (out.length > MAX_TEMPLATES) {
+    let victim = -1
+    for (let i = out.length - 1; i > 0; i--) if (out[i].auto) { victim = i; break }
+    if (victim < 0) {
+      if (next.auto && out.length <= MAX_TEMPLATES + 1) break
+      victim = out.length - 1
+    }
+    out.splice(victim, 1)
+  }
+  return out
 }
 
 export function loadSavedTemplates(): SavedTemplate[] {
@@ -32,16 +57,26 @@ function writeTemplates(list: SavedTemplate[]): void {
   localStorage.setItem(KEY, JSON.stringify(list))
 }
 
-export function saveSessionAsTemplate(session: Session, title?: string): SavedTemplate {
-  const name = (title ?? session.title).trim().slice(0, 80) || 'Mall'
-  const next: SavedTemplate = {
+function makeTemplate(session: Session, title?: string): SavedTemplate {
+  return {
     id: `mall-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
-    title: name,
+    title: (title ?? session.title).trim().slice(0, 80) || 'Mall',
     totalMinutes: session.totalMinutes,
     savedAt: new Date().toISOString(),
     pass: sessionToShare(session),
   }
-  writeTemplates([next, ...loadSavedTemplates()].slice(0, MAX_TEMPLATES))
+}
+
+export function saveSessionAsTemplate(session: Session, title?: string): SavedTemplate {
+  const next = makeTemplate(session, title)
+  writeTemplates(addWithCap(loadSavedTemplates(), next))
+  return next
+}
+
+/** Slice 39: auto-copy of a replaced pass (never skipped; may use the one spare slot). */
+export function saveAutoCopy(session: Session, title?: string): SavedTemplate {
+  const next: SavedTemplate = { ...makeTemplate(session, title), auto: true }
+  writeTemplates(addWithCap(loadSavedTemplates(), next))
   return next
 }
 

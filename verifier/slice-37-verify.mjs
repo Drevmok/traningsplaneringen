@@ -61,6 +61,11 @@ const inBounds = (d) => (d.hallPlacements ?? []).every((x) => x.x >= 0 && x.x <=
 const noRedskapSaved = (d) => items(d).every((i) => !i.stationEquipment || i.stationEquipment.length === 0)
 const types = (d) => [...new Set(items(d).map((i) => i.type))].join(',')
 const dump = (name, d) => writeFileSync(`${OUT}/drafts/${name}.json`, JSON.stringify(d, null, 1))
+// Slice 39: «Spara utkast» is gone on branches ≥ 39 (autosave ~800 ms). Click it where it exists (main ≤ 38), else wait for autosave.
+async function saveUi(p) {
+  const b = p.getByRole('button', { name: 'Spara utkast' })
+  if (await b.count()) { await b.click(); await p.waitForTimeout(300) } else await p.waitForTimeout(1100)
+}
 const confirmDlg = (p) => p.locator('.modal-backdrop[role=dialog]').filter({ hasText: 'Ersätta det här passet?' })
 const toast = (p) => p.locator('.toast[role=status]')
 async function menu(p, name) {
@@ -141,7 +146,7 @@ await attempt('A', 'built-in', async () => {
   notes.builtInReloadNoSave = (await draft(pA)) ? 'draft present' : 'no draft (pass lost on reload unless saved)'
   builtTitle = await applyBuiltIn(pA, 0)
   check('A0', `Built-in «${builtTitle}» apply: no toast`, (await toast(pA).count()) === 0)
-  await pA.getByRole('button', { name: 'Spara utkast' }).click(); await pA.waitForTimeout(300)
+  await saveUi(pA)
   builtD = await draft(pA); dump('builtin', builtD)
   check('A1', 'Built-in: one marker per Teknik item before Hallöversikt is opened', teknik(builtD).length >= 1 && JSON.stringify(placedIds(builtD)) === JSON.stringify(teknik(builtD)), `${placedIds(builtD).length}/${teknik(builtD).length}; blocks ${types(builtD)}`)
   check('A4', 'Built-in: no Samling/Uppvärmning/Styrka/Lek marker; hall = standard-trupp', nonTeknikPlaced(builtD) === 0 && builtD.hallTemplateId === 'standard-trupp', builtD.hallTemplateId)
@@ -185,7 +190,7 @@ await attempt('M', 'main built-in compare', async () => {
   await pM.goto(MAIN); await pM.waitForTimeout(600)
   const t = await applyBuiltIn(pM, 0)
   notes.mainBuiltInAutoSaved = !!(await draft(pM))
-  await pM.getByRole('button', { name: 'Spara utkast' }).click(); await pM.waitForTimeout(300)
+  await saveUi(pM)
   const d0 = await draft(pM)
   check('M0', `Main «${t}»: no placements on apply (the gap this slice closes)`, t === builtTitle && (d0.hallPlacements ?? []).length === 0)
   await openHall(pM)
@@ -297,7 +302,7 @@ const pE = await newPage(ON)
 await attempt('E', 'egen', async () => {
   await pE.goto(ON); await pE.waitForTimeout(600)
   await applyBuiltIn(pE, 0)
-  await pE.getByRole('button', { name: 'Spara utkast' }).click(); await pE.waitForTimeout(200)
+  await saveUi(pE)
   await menu(pE, 'Spara som egen mall')
   await pE.locator('.modal-backdrop[role=dialog] input').first().fill('V37 egen')
   await pE.locator('.modal-backdrop[role=dialog] button[type=submit]').click()
@@ -364,15 +369,15 @@ await attempt('F', 'footer + earlier flows', async () => {
   check('F14a', 'Planera pass still places all Teknik', teknik(w).length > 0 && JSON.stringify(placedIds(w)) === JSON.stringify(teknik(w)))
   await pE.evaluate((k) => localStorage.removeItem(k), DRAFT)
   await home(pE); await pE.getByRole('button', { name: 'Tomt pass' }).click(); await pE.locator('.builder').waitFor()
-  await pE.getByRole('button', { name: 'Spara utkast' }).click(); await pE.waitForTimeout(300)
-  check('F14b', 'Tomt pass: empty hall', ((await draft(pE)).hallPlacements ?? []).length === 0)
+  await saveUi(pE)
+  check('F14b', 'Tomt pass: empty hall (Slice 39 E1: an untouched Tomt pass is not written, so no draft = empty)', ((await draft(pE))?.hallPlacements ?? []).length === 0)
   check('F22', '390 wide: no horizontal scroll', (await pE.evaluate(() => document.documentElement.scrollWidth)) <= 390)
 })
 const pP = await newPage(PLAIN)
 await attempt('P', 'plain build', async () => {
   await pP.goto(PLAIN); await pP.waitForTimeout(600)
   const t = await applyBuiltIn(pP, 0)
-  await pP.getByRole('button', { name: 'Spara utkast' }).click(); await pP.waitForTimeout(300)
+  await saveUi(pP)
   const d = await draft(pP)
   check('P1', `Plain build (no bank): built-in «${t}» also auto-places Teknik only`, JSON.stringify(placedIds(d)) === JSON.stringify(teknik(d)) && nonTeknikPlaced(d) === 0)
 })

@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const ON = process.env.S37_URL ?? 'http://127.0.0.1:4200/traningsplaneringen/'
-const ROOT = '/workspace/gymnastics-planner'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner'
 const S32 = process.env.S32_DIR ?? '/tmp/s36'
 const ENV = JSON.parse(readFileSync(`${S32}/env.json`, 'utf8'))
 const GATEWAY = `http://127.0.0.1:${ENV.gatewayPort}`
@@ -88,14 +88,11 @@ await p.locator('.side-panel-slot.is-open .template-list').last().locator('.temp
 await confirmDlg().getByRole('button', { name: 'Använd mall', exact: true }).click()
 await p.locator('.builder').waitFor()
 await p.waitForTimeout(400)
-// Built-in apply goes through onChange only (as before this slice): the draft is written by «Spara utkast».
-// Saving does not place anything, so the stored placements are the ones made on apply.
+// Slice 39: the built-in mall is saved the moment it is applied (no Spara utkast); wait for «Sparat».
 const toastAfterApply = await toast.count()
-const draftBeforeSave = await draft()
-await p.getByRole('button', { name: 'Spara utkast' }).click()
-await p.waitForTimeout(300)
+await p.locator('.builder-actions .save-status', { hasText: 'Sparat' }).waitFor({ timeout: 5000 })
 let d = await draft()
-check('note', 'Built-in apply is not auto-saved (pre-existing): draft before «Spara utkast» was ' + (draftBeforeSave ? 'present' : 'absent'), true)
+check('note', 'Built-in apply is saved at once (Slice 39 C1): draft present right after apply', !!d)
 check('AC1a', `Built-in «${builtTitle}»: draft has one marker per Teknik item right after apply (hall not opened)`, JSON.stringify(placedIds(d)) === JSON.stringify(teknik(d)) && teknik(d).length >= 1, `${placedIds(d).length}/${teknik(d).length}`)
 check('AC4a', 'Built-in: no non-Teknik markers; hall template = default (standard-trupp)', nonTeknikPlaced(d) === 0 && d.hallTemplateId === 'standard-trupp', d.hallTemplateId)
 check('AC5', 'Använd alla förslag not triggered: no station redskap saved on Teknik items', d.blocks.flatMap((b) => b.items).every((i) => !i.stationEquipment))
@@ -227,10 +224,10 @@ await p.evaluate(() => localStorage.removeItem('gymnastics-planner-draft-v1'))
 await home()
 await p.getByRole('button', { name: 'Tomt pass' }).click()
 await p.locator('.builder').waitFor()
-await p.getByRole('button', { name: 'Spara utkast' }).click()
-await p.waitForTimeout(300)
+// Slice 39 E1: a Tomt pass is not written until a station is added, so it cannot carry placements.
+await p.waitForTimeout(1200)
 d = await draft()
-check('AC14b', 'Tomt pass (saved via «Spara utkast»): empty hall', !!d && (d.hallPlacements ?? []).length === 0, `items ${(d?.items ?? []).length}`)
+check('AC14b', 'Tomt pass: nothing stored yet (Slice 39 E1), so no hall placements; «Sparat» hidden', d === null && (await p.locator('.save-status').count()) === 0, d ? `stored, placements ${(d.hallPlacements ?? []).length}` : 'no draft')
 check('AC22', '390 wide: no horizontal scroll', (await p.evaluate(() => document.documentElement.scrollWidth)) <= 390)
 check('errors', 'No page errors', errors.length === 0, errors.join(' | '))
 await browser.close()

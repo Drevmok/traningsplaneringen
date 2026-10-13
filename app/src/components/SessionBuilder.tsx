@@ -8,6 +8,8 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { autoPlaceItems, autoPlaceUnplaced } from '../lib/hallSuggest'
+import { trySaveDraft } from '../lib/autosave'
+import type { SaveStatus } from '../lib/useAutosave'
 import { loadOwnActivities, deleteOwnActivity, markOwnReviewed } from '../lib/ownActivities'
 import {
   addItemToBlock,
@@ -62,6 +64,8 @@ const AdminBankForm = lazy(() => import('./AdminBankForm'))
  * remounts right after a mall is applied. A toast for that moment rides across the remount here.
  */
 let carriedToast: string | null = null
+/** Slice 39: pass ids that already got the «kunde inte sparas» toast (once per pass). */
+const failToasted = new Set<string>()
 
 const ClubAdminSection = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubAdminSection })))
 const ClubPublishDialog = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubPublishDialog })))
@@ -79,6 +83,8 @@ interface Props {
   tips: CoachTipsStateV1
   onDismissTip: (tipId: string) => void
   onBuilderMounted?: () => void
+  /** Slice 39: autosave state from App. */
+  saveStatus?: SaveStatus
 }
 
 const NARROW_MQ = '(max-width: 768px)'
@@ -94,6 +100,7 @@ export function SessionBuilder({
   tips,
   onDismissTip,
   onBuilderMounted,
+  saveStatus = 'idle',
 }: Props) {
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(
     session.blocks[0]?.id ?? null,
@@ -171,6 +178,14 @@ export function SessionBuilder({
 
   useBodyScrollLock(panelOpen && isNarrow)
 
+  useEffect(() => {
+    if (saveStatus !== 'failed' || failToasted.has(session.id)) return
+    failToasted.add(session.id)
+    showToast(UI.autosaveFailedToast)
+    // showToast is stable enough for a once-per-pass toast; session.id gates it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saveStatus, session.id])
+
   function showToast(msg: string) {
     setToast(msg)
   }
@@ -237,11 +252,6 @@ export function SessionBuilder({
     setDetailActivity(null)
   }
 
-  function handleSave() {
-    saveDraft(session)
-    showToast(UI.savedToast)
-  }
-
   function handleSaveTemplate(title: string) {
     saveSessionAsTemplate(session, title)
     setSavedTemplates(loadSavedTemplates())
@@ -295,6 +305,8 @@ export function SessionBuilder({
     setMismatch(null)
     // Slice 20 C1 — clear one-shot flag before remount key; close sheet (not library).
     onInitialTemplateConsumed?.()
+    // Slice 39 C1: a built-in mall is saved the moment it is applied.
+    trySaveDraft(cloned)
     onChange(cloned)
     closePanel()
   }
@@ -462,9 +474,6 @@ export function SessionBuilder({
               {UI.runPass}
             </button>
           )}
-          <button type="button" className="btn-secondary" onClick={handleSave}>
-            {UI.saveDraft}
-          </button>
           <button
             type="button"
             className="btn-secondary builder-hall"
@@ -518,6 +527,11 @@ export function SessionBuilder({
               </>
             )}
           </div>
+          {saveStatus !== 'idle' && (
+            <span className={`save-status${saveStatus === 'failed' ? ' save-status-failed' : ''}`}>
+              {saveStatus === 'failed' ? UI.autosaveFailed : UI.autosaveSaved}
+            </span>
+          )}
         </div>
       </header>
 

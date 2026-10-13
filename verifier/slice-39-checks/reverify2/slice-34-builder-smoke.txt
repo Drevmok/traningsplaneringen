@@ -1,0 +1,33 @@
+PASS [AC16a] No AudioContext created on load / share view
+PASS [AC6-local] Kör passet tap creates + resumes the AudioContext and plays the silent prime inside the tap — {"ctx":1,"prime":1,"resume":1,"osc":0,"start":0,"stops":[],"loops":0,"vib":[]}
+PASS [AC11a] Step 1: «Nästa: <step 2 title>» — Nästa: Uppvärmningsdans
+PASS [AC11b] Nästa line is plain text (no role / aria-live)
+PASS [AC1a] No tone before 0
+PASS [AC1b] At 00:00: exactly one tone (one oscillator, started once, stop scheduled ~0.3 s later) — {"ctx":1,"prime":1,"resume":1,"osc":1,"start":1,"stops":[60.096999999999994],"loops":0,"vib":[200]}
+PASS [AC8-sim] navigator.vibrate(200) called once with the tone
+PASS [AC3] No auto-advance: same step, «Tiden är ute» shown, clock 00:00
+PASS [C-placement] Order: clock → «Tiden är ute» → Nästa line → script — run-top > H1 > run-clock > run-status > run-next > run-left > run-script > run-nav
+PASS [AC2] Still one tone after 35 s more at 00:00; no loop ever set; step unchanged
+PASS [AC5a] Manual Nästa övning: no tone
+PASS [AC11c] Block boundary: last warm-up step shows the first Teknik step — Nästa: Landningar upp på och ner från plint
+PASS [AC4a] Paused at ~00:05: no tone while paused
+PASS [AC4b] Resumed: no tone before 0
+PASS [AC4c] Resumed → exactly one tone at 0
+PASS [AC4d] Pause after 0 + resume → no second tone
+PASS [AC5b] 0-minute step: no tone on open or after
+PASS [AC11d] Step 3 → «Nästa: <step 4 title>»
+PASS [AC12] Last step: «Sista aktiviteten»; nav shows «Sista övningen» (disabled)
+PASS [AC5c] Föregående + arrow keys: no tone
+PASS [AC14] Overlay controls unchanged: Avsluta, clock, Föregående, Nästa/Sista övningen only — Avsluta | 01:00 | Föregående | Sista övningen
+PASS [AC13] Long title: one line, ellipsis, no horizontal scroll, no overlap with clock or nav — {"ws":"nowrap","to":"ellipsis","oneLine":true,"overflowing":true,"sw":390,"overlapClock":false,"overlapNav":false,"right":374}
+PASS [AC5d] Avsluta: no tone (also not later)
+PASS [AC10-sim] Wall clock jumps 10 min past the deadline (backgrounded) → exactly one tone on return — {"osc":3,"ctx":1}
+FAIL [AC20a] Footer «Träningsplaneraren · Slice 34» — Träningsplaneraren · Slice 39 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC16b] Home → Planera pass → Passbyggaren: no AudioContext
+PASS [AC6b-local] Passbyggaren Kör passet tap creates + resumes the context
+PASS [AC19a] Clock starts automatically as before (counts down)
+PASS [AC9-sim] No AudioContext / no vibrate: time-up still shows, no error, no extra UI
+FAIL [AC20b] Strings verbatim in blockMeta.ts; no «!»
+PASS [E] No page or console errors
+
+PASS 29 / FAIL 2

@@ -980,6 +980,10 @@
   cursor: not-allowed;
 }
 
+/* Slice 39: quiet «Sparat» where Spara utkast was. */
+.save-status { align-self: center; color: #78716c; font-size: 0.85rem; white-space: nowrap; }
+.save-status-failed { color: #9a3412; }
+
 
 .template-saved-actions .btn-text {
   min-height: 44px;

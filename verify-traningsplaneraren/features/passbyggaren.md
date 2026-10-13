@@ -9,4 +9,4 @@
 2. Scroll the full builder on ~390px width.  
 3. Edit pass title if exposed (`aria-label` pass title).
 
-**Prove:** Blocks visible in Swedish; scroll works; changes persist in draft for the session; no stuck overlay blocking scroll (`body` overflow not left `hidden`).
+**Prove:** Blocks visible in Swedish; scroll works; changes autosave to the draft within ~1 s (Slice 39: no Spara utkast button; muted «Sparat» in the action row; reload keeps the pass); no stuck overlay blocking scroll (`body` overflow not left `hidden`).

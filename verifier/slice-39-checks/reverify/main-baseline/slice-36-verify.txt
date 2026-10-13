@@ -1,0 +1,11 @@
+FAIL [V-admin-publish] phase crashed — error: no mail for admin@test.local
+PASS [V-req] Coach: exactly one GET club_templates (apikey only, no Authorization); every coach bank request is a GET without Authorization — GET /rest/v1/exercises ; GET /rest/v1/redskap ; GET /rest/v1/club_templates
+PASS [V-chunks] Coach loads no supabase-js / admin chunk — index-CNaQkeKF.js
+PASS [F1-noedit] Coach: club section has only the card buttons (no edit/rename/Dölj/Ta bort/Publicera)
+FAIL [V-coach] phase crashed — error: Cannot read properties of undefined (reading 'title')
+FAIL [V-overwrite] phase crashed — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.builder') to be visible
+FAIL [V-hide] phase crashed — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.builder') to be visible
+FAIL [V-dela] phase crashed — error: Cannot read properties of undefined (reading 'payload')
+PASS [errors] No page errors
+
+4/9 pass

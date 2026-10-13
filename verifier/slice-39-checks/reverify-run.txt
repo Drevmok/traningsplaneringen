@@ -1,0 +1,95 @@
+PASS [A-title] title: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":798}
+PASS [A-passlength] passlength: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":798}
+PASS [A-add-station] add-station: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":750}
+PASS [A-item-minutes] item-minutes: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":799}
+PASS [A-remove-station] remove-station: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":797}
+NOTE A.timing: {"title":{"writes":1,"msAfterEdit":798},"passlength":{"writes":1,"msAfterEdit":798},"add-station":{"writes":1,"msAfterEdit":750},"item-minutes":{"writes":1,"msAfterEdit":799},"remove-station":{"writes":1,"msAfterEdit":797}}
+NOTE A.noUI: Passbyggaren has no station reorder (Flytta upp/ner keys exist but are unused in components) and no pass-notes field, so those edit kinds cannot be driven
+PASS [A-burst] Burst (12 keys + 5 taps over ~2 s) → 1 write ~800 ms after the last change; «Sparat» visible throughout — writes 1, +797 ms
+PASS [A-reload] Edit → reload at once (0 ms) → change kept — Reload direkt
+PASS [A-vis] visibilitychange:hidden → write within the same task (no 800 ms wait) — writes 1 +2 ms
+PASS [A-nav] Edit → navigate away at once → kept
+PASS [A-close1] Edit → close tab at once (runBeforeUnload) → reopen → kept
+NOTE A.closeNoUnload: page.close() without unload handlers (Playwright skips pagehide) → stored title «Stängd B»
+PASS [AC4] Edit → Till startsidan at once → Home shows new title / minutes — 52 ms; Träningsplaneraren Ett pass på några minuter. Fortsätt passet Hem snabbt · 60 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [A-run] Edit → Kör passet at once → stored (flush)
+PASS [AC1] No «Spara utkast» on branch (row, Fler, Använd mall sheet, Spara som egen mall, Hallöversikt, Golvklart, Home); main has it — {"branch":[],"main":["builder row","Fler","Använd mall sheet","Spara som egen mall"]}
+PASS [AC2/B1] «Sparat» exact text, muted rgb(120,113,108), in .builder-actions, plain text (no role / aria-live / live ancestor) — {"text":"Sparat","color":"rgb(120, 113, 108)","inRow":true,"role":null,"live":null,"liveAnc":false,"ariaHidden":null}
+PASS [AC3/AC17] Five saved edits: 0 toasts; live-region mutations same as main (no extra announcements); «Sparat» stays (no «Sparar…») — branch {"toasts":[],"live":0} main {"toasts":[],"live":0}
+PASS [AC18] 390 px: «Sparat» overlaps nothing, inside viewport, no horizontal scroll — {"hit":[],"s":[339,120,378,140],"kids":["Kör passet","Mer","Mer"],"tops":[120,108],"sw":390}
+PASS [AC22a] Footer «Träningsplaneraren · Slice 39» — Träningsplaneraren · Slice 39 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC22b] Använd mall confirm shows the new templateBody verbatim — Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Kort pass — ca 45 min) Fortsätt redigera Använd mall
+PASS [AC6] Built-in mall → apply → reload at once → stored = that mall, Teknik placements kept — Nybörjare — ca 55 min tek 3 placed 3
+PASS [AC6-home] Home shows Fortsätt passet · that mall
+PASS [AC7-egen] Mina mallar «V39 egen» → apply → reload at once → stored (fresh id, mall contents; pass keeps its own title) — Nybörjare — ca 55 min, items 9
+PASS [AC7-wizard] Planera pass wizard → reload at once → stored, «Sparat» after reopen
+PASS [AC7-wizard-sparat] Reopened wizard pass shows «Sparat»
+PASS [AC8] Tomt pass + title only → no «Sparat», reload → old pass still on Home (not replaced) — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Pass — trampett · 53 min Tomt pass Från mall Rensa passet 
+PASS [AC9] Tomt pass + first station → reload at once → Home = new pass; old pass in Mina mallar under its title — Pass — trampett | Mellanpass | V39 egen
+PASS [AC9-sparat] «Sparat» shown on the new pass
+PASS [E1-remove] Tomt pass: removing a starter row (no station added) does not write
+PASS [AC7-club] Föreningsmall (stand-in) → apply → reload at once → stored, Teknik placed — V39 klubbmall placements 2
+PASS [AC10] 20 edits + 3 reopen cycles → same id, Mina mallar empty, one Fortsätt passet, no new storage keys — gymnastics-planner-draft-v1,gymnastics-planner-tips-v1
+NOTE D.keys: ["gymnastics-planner-draft-v1","gymnastics-planner-tips-v1"]
+NOTE E.after_each_replace: ["Min handsparade mall","Pass 1 | Min handsparade mall","Pass 2 | Pass 1 | Min handsparade mall","Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Min handsparade mall"]
+PASS [E-archive-names] Replaced passes archived under their own titles, newest first (Pass 8 … Pass 2) + the hand-saved one — Pass 8* | Pass 7* | Pass 6* | Pass 5* | Pass 4* | Pass 3* | Pass 2* | Min handsparade mall
+PASS [E-cap] Cap 8 holds: list length 8 after 10 entries — 8
+NOTE E.cap_drop: oldest dropped first; hand-saved «Min handsparade mall» kept; «Pass 0» evicted; no message shown
+PASS [E-cap-hand-kept] 4b92442 rule: auto-copies push out only auto-copies; the hand-saved mall survives 9 replacements — oldest dropped first; hand-saved «Min handsparade mall» kept; «Pass 0» evicted; no message shown
+NOTE E.dedupe_title: «Kopia av 5» (same stations as «Pass 5», other title) replaced → Mina mallar: Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Min handsparade mall
+PASS [AC11-title] Dedupe is by contents only: «Kopia av 5» is NOT archived under its own title because «Pass 5» has the same contents (recorded) — 8 → 8
+PASS [AC11] Same old pass contents replaced twice → one archived copy («Pass 5» once) — Nytt pass | Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Min handsparade mall
+PASS [AC12] Empty title → Home «Fortsätt passet Nytt pass · N min»; archived as «Nytt pass» — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 12 min Tomt pass / Nytt pass
+PASS [F1] Edit → Hallöversikt at once → title flushed before the hall shows
+PASS [F2] «Ta bort från hall» is written at once (HallBoard saveDraft), title kept — 3 → 2
+PASS [F3] «Placera här» (tray chip → tap canvas) written at once — 3
+PASS [AC19-manual] Använd alla förslag still manual: no redskap stored by autosave before the tap — 0
+PASS [F4] Använd alla förslag (one tap) → redskap written at once — disabled false, items with redskap 3
+PASS [F5] After 1.5 s (autosave timer): hall data intact (placements + redskap + title)
+PASS [F6] Hall → builder → edit → Home at once: edit and all hall changes kept
+PASS [F7] Hall remove → back → Home → reload within ~300 ms → removal kept
+PASS [AC19-golv] Golvklart opens from Hallöversikt; no write on entering
+NOTE G.tabs: {"afterA_title":"Ändrat i A","tabB_title_shown_after_A":"Pass — trampett","storageEventsInB":1,"afterB_title":"Pass — trampett","afterB_items":10,"sameId":true}
+PASS [G1] Tab B is not updated from A (no storage listener): B still shows the old title — B shows «Pass — trampett», storage events 1
+PASS [G2] Last write wins: B's autosave overwrites A's title silently (A's change lost from storage; same id, no archive) — stored title «Pass — trampett»
+PASS [G3] A edits again → overwrites B's added station (B's change lost from storage) — items 9 vs B 10
+NOTE G.tabB_newpass: B starts a new pass: slot = «Nytt pass», Mina mallar = A igen; A still edits «A igen»
+NOTE G.tabA_after: A edits again: slot = «Nytt pass», Mina mallar = A igen
+PASS [G4] Two tabs on different passes ping-pong the slot but each replaced pass lands in Mina mallar (no silent total loss)
+NOTE H.Nyvecka.0: {"gapMs":0,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+PASS [H-nyvecka-0] Edit → Ny vecka → Skapa kopia at ~0 ms (measured 142 ms): Home = copy on screen; old pass with its edit in Mina mallar — {"gapMs":0,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+NOTE H.Nyvecka.100: {"gapMs":100,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+PASS [H-nyvecka-100] Edit → Ny vecka → Skapa kopia at ~100 ms (measured 147 ms): Home = copy on screen; old pass with its edit in Mina mallar — {"gapMs":100,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+NOTE H.Nyvecka.400: {"gapMs":400,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+PASS [H-nyvecka-400] Edit → Ny vecka → Skapa kopia at ~400 ms (measured 427 ms): Home = copy on screen; old pass with its edit in Mina mallar — {"gapMs":400,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+NOTE H.Nyvecka.790: {"gapMs":790,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+PASS [H-nyvecka-790] Edit → Ny vecka → Skapa kopia at ~790 ms (measured 842 ms): Home = copy on screen; old pass with its edit in Mina mallar — {"gapMs":790,"onScreen":"Ny vecka — Nyvecka gammal","storedTitle":"Ny vecka — Nyvecka gammal","storedIsOld":false,"home":"Ny vecka — Nyvecka gammal","mallar":["Nyvecka gammal"]}
+NOTE H.Anvandmall.0: {"gapMs":0,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [H-mall-0] Edit → Använd mall (Kort) at ~0 ms (measured 183 ms): Home = mall on screen; old pass with its edit in Mina mallar — {"gapMs":0,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+NOTE H.Anvandmall.100: {"gapMs":100,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [H-mall-100] Edit → Använd mall (Kort) at ~100 ms (measured 146 ms): Home = mall on screen; old pass with its edit in Mina mallar — {"gapMs":100,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+NOTE H.Anvandmall.400: {"gapMs":400,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [H-mall-400] Edit → Använd mall (Kort) at ~400 ms (measured 428 ms): Home = mall on screen; old pass with its edit in Mina mallar — {"gapMs":400,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+NOTE H.Anvandmall.790: {"gapMs":790,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [H-mall-790] Edit → Använd mall (Kort) at ~790 ms (measured 830 ms): Home = mall on screen; old pass with its edit in Mina mallar — {"gapMs":790,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+NOTE H.Anvandmall.900: {"gapMs":900,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [H-mall-900] Same at ≥ 0.9 s: Home shows the mall pass; the edited old pass is in Mina mallar with its edit — {"gapMs":900,"onScreen":"Kort pass — ca 45 min","storedTitle":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Anvandmall gammal"]}
+PASS [AC13] Draft written by main (Spara utkast) → Fortsätt passet · title · min; opening writes nothing (byte-identical); first edit overwrites in place (same id), nothing archived — untouched true
+PASS [AC14a] «Inte sparat» + exactly one toast with the exact text (role=status); more failing edits → no second toast — Inte sparat / toasts 1
+PASS [AC14b] Storage failing: Till startsidan works, no crash, Home shows last stored pass
+PASS [AC14c] Un-stub → next edit «Sparat», stored
+PASS [AC16] Remove last station of the stored pass → saved; Home shows «… · 0 min» — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Fungerar igen · 0 min Tomt pass Från m
+PASS [J1] Auto-copy into full mixed list → oldest auto-copy (A4) out, all H kept, copy on top flagged — J1 gammal* | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J2] 8 hand-saved → auto-copy skipped (list unchanged), new pass saved, «Sparat», Home = new pass — H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8 / Sparat
+NOTE J2.lost: Consequence: «J2 gammal» is no longer anywhere (slot = J2 ny, not in Mina mallar). Intended by the rule; no message shown
+PASS [J3] Hand-save into full mixed list → oldest auto-copy (A4) out — J3 hand | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J4] Hand-save into 8 hand-saved → oldest hand-saved (H8) out — J4 hand | H1 | H2 | H3 | H4 | H5 | H6 | H7
+PASS [J5] auto flag survives reload + a later write (A1–A3 still *, new hand entry not *) — J5 hand | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J5b] UI only: 9+ auto-copies → list of 8 auto (*), newest first, no throw — U8* | U7* | U6* | U5* | U4* | U3* | U2* | U1*
+PASS [J6a] Main build wrote 8 entries with no auto key — L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1
+PASS [J6b] Legacy (main) entries treated as hand-saved: auto-copy skipped, list unchanged, new pass saved — L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1
+PASS [J6c] Hand-save into 8 legacy → oldest legacy (L1) out — J6 hand | L8 | L7 | L6 | L5 | L4 | L3 | L2
+PASS [F4a] Dedupe vs flags: replaced «Dubbel» = same contents as hand-saved «Dubbel hand» → no auto-copy — Dubbel hand
+NOTE J.matrix: {"J1":["J1 gammal*","H1","A1*","H2","A2*","H3","A3*","H4"],"J2":["H1","H2","H3","H4","H5","H6","H7","H8"],"J3":["J3 hand","H1","A1*","H2","A2*","H3","A3*","H4"],"J4":["J4 hand","H1","H2","H3","H4","H5","H6","H7"],"J5":["J5 hand","H1","A1*","H2","A2*","H3","A3*","H4"],"J5b":["U8*","U7*","U6*","U5*","U4*","U3*","U2*","U1*"],"J6b":["L8","L7","L6","L5","L4","L3","L2","L1"],"J6c":["J6 hand","L8","L7","L6","L5","L4","L3","L2"],"F4a":["Dubbel hand"]}
+
+PASS 72 / FAIL 0 · page errors 0 · bank requests 9 (live: 0)
