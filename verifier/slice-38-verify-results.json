@@ -1,0 +1,656 @@
+{
+  "label": "Kvar: {n} min",
+  "checks": [
+    {
+      "id": "AC1",
+      "ok": true,
+      "d": "Kvar: 4 min · run-top > H1 > run-clock > run-next > run-left > run-script > run-nav"
+    },
+    {
+      "id": "AC12-struct",
+      "ok": true,
+      "d": "{\"tag\":\"P\",\"role\":null,\"live\":null,\"al\":null,\"hidden\":null,\"color\":\"rgb(168, 162, 158)\",\"nextColor\":\"rgb(214, 211, 209)\",\"fs\":\"14.4px\",\"liveAncestor\":false}"
+    },
+    {
+      "id": "AC1-muted",
+      "ok": true,
+      "d": "{\"tag\":\"P\",\"role\":null,\"live\":null,\"al\":null,\"hidden\":null,\"color\":\"rgb(168, 162, 158)\",\"nextColor\":\"rgb(214, 211, 209)\",\"fs\":\"14.4px\",\"liveAncestor\":false}"
+    },
+    {
+      "id": "AC12-clocklabel",
+      "ok": true,
+      "d": "02:00. Pausa timern"
+    },
+    {
+      "id": "AC2a",
+      "ok": true,
+      "d": "01:30 Kvar: 4 min"
+    },
+    {
+      "id": "AC2b",
+      "ok": true,
+      "d": "00:59 Kvar: 3 min"
+    },
+    {
+      "id": "AC7-pre",
+      "ok": true,
+      "d": "00:01 Kvar: 3 min"
+    },
+    {
+      "id": "AC4-live-1s-samples",
+      "ok": true,
+      "d": "125 samples, mismatches: "
+    },
+    {
+      "id": "AC7",
+      "ok": true,
+      "d": "00:00 Kvar: 2 min"
+    },
+    {
+      "id": "AC7-still",
+      "ok": true,
+      "d": "00:00 Kvar: 2 min"
+    },
+    {
+      "id": "AC17-tone-once-step1",
+      "ok": true,
+      "d": "[{\"t\":1791907320220,\"h1\":\"Uppvärmningsvarv (hallen runt)\",\"left\":\"Kvar: 2 min\"}]"
+    },
+    {
+      "id": "AC5-next",
+      "ok": true,
+      "d": "01:00 Kvar: 2 min"
+    },
+    {
+      "id": "AC5-step2-01:30-left",
+      "ok": true,
+      "d": "00:30 Kvar: 2 min"
+    },
+    {
+      "id": "AC5-arrowright-skip",
+      "ok": true,
+      "d": "skipped 30 s of step 2 dropped: 01:00 Kvar: 1 min"
+    },
+    {
+      "id": "AC10",
+      "ok": true,
+      "d": "Sista aktiviteten"
+    },
+    {
+      "id": "AC5-arrowleft-raises",
+      "ok": true,
+      "d": "01:00 Kvar: 2 min"
+    },
+    {
+      "id": "AC5-foregaende-raises",
+      "ok": true,
+      "d": "02:00 Kvar: 4 min"
+    },
+    {
+      "id": "AC6-frozen",
+      "ok": true,
+      "d": "01:05 Kvar: 4 min → 01:05 Kvar: 4 min"
+    },
+    {
+      "id": "AC6-resume-same",
+      "ok": true,
+      "d": "01:05 Kvar: 4 min"
+    },
+    {
+      "id": "AC6-resume-continues",
+      "ok": true,
+      "d": "01:00 Kvar: 3 min / 00:59 Kvar: 3 min paused label 01:05. Fortsätt timern"
+    },
+    {
+      "id": "AC3-0:01→1",
+      "ok": true,
+      "d": "00:01 Kvar: 1 min"
+    },
+    {
+      "id": "AC3-0:00→0",
+      "ok": true,
+      "d": "00:00 Kvar: 0 min"
+    },
+    {
+      "id": "AC8",
+      "ok": true,
+      "d": "{\"seen\":[\"Kvar: 0 min\"],\"after\":{\"vis\":true,\"color\":\"rgb(168, 162, 158)\",\"text\":\"Kvar: 0 min\"},\"tones\":1}"
+    },
+    {
+      "id": "AC8-no-negative",
+      "ok": true,
+      "d": "Kvar: 0 min"
+    },
+    {
+      "id": "AC17-wakelock-acquired",
+      "ok": true,
+      "d": "{\"req\":1,\"rel\":0,\"active\":1,\"type\":\"screen\"}"
+    },
+    {
+      "id": "AC17-wakelock-reacquire-on-visible",
+      "ok": true,
+      "d": "{\"req\":2,\"rel\":0,\"active\":2,\"type\":\"screen\"}"
+    },
+    {
+      "id": "AC17-wakelock-released-on-exit",
+      "ok": true,
+      "d": "{\"req\":2,\"rel\":1,\"active\":1,\"type\":\"screen\"}"
+    },
+    {
+      "id": "B-start-5:00→5",
+      "ok": true,
+      "d": "03:00 Kvar: 5 min"
+    },
+    {
+      "id": "AC3-4:01→5",
+      "ok": true,
+      "d": "total 4:01 02:01 Kvar: 5 min"
+    },
+    {
+      "id": "AC3-4:00→4",
+      "ok": true,
+      "d": "total 4:00 02:00 Kvar: 4 min"
+    },
+    {
+      "id": "AC3-3:59→4",
+      "ok": true,
+      "d": "01:59 Kvar: 4 min"
+    },
+    {
+      "id": "B-0min-step",
+      "ok": true,
+      "d": "0-min step adds nothing, skipped 1:59 dropped: 00:00 Kvar: 2 min"
+    },
+    {
+      "id": "B-2:59→3?",
+      "ok": true,
+      "d": "00:59 Kvar: 2 min"
+    },
+    {
+      "id": "AC3-last-0:01→1",
+      "ok": true,
+      "d": "00:01 Kvar: 1 min"
+    },
+    {
+      "id": "AC3-last-0:00→0",
+      "ok": true,
+      "d": "00:00 Kvar: 0 min"
+    },
+    {
+      "id": "AC9-320-step1",
+      "ok": true,
+      "d": "{\"next\":{\"t\":206.5,\"b\":229.7,\"l\":16,\"r\":304,\"h\":23.2},\"left\":{\"t\":237.7,\"b\":258.6,\"l\":16,\"r\":304,\"h\":20.9},\"clock\":{\"t\":129.3,\"b\":198.5,\"l\":66.5,\"r\":253.5,\"h\":69.2},\"script\":{\"t\":270.6,\"b\":768,\"l\":16,\"r\":304,\"h\":497.4},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":304,\"h\":52},\"nextLines\":1,\"leftLines\":1,\"nextTrunc\":true,\"leftOverflow\":false,\"sw\":320,\"vw\":320,\"vh\":844,\"overlayScroll\":0,\"scriptScrolls\":false,\"text\":\"Kvar: 121 min\",\"nextText\":\"Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på"
+    },
+    {
+      "id": "AC9-320-paused",
+      "ok": true,
+      "d": "{\"left\":{\"t\":268.9,\"b\":289.8,\"l\":16,\"r\":304,\"h\":20.9},\"next\":{\"t\":237.7,\"b\":260.9,\"l\":16,\"r\":304,\"h\":23.2},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":304,\"h\":52}}"
+    },
+    {
+      "id": "AC11-320-long-h1",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":304,\"h\":52},\"vh\":844,\"left\":{\"t\":291.1,\"b\":311.9,\"l\":16,\"r\":304,\"h\":20.9},\"script\":{\"t\":323.9,\"b\":768,\"l\":16,\"r\":304,\"h\":444.1},\"scroll\":false}"
+    },
+    {
+      "id": "AC11-320-long-script",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":304,\"h\":52},\"script\":{\"t\":323.9,\"b\":768,\"l\":16,\"r\":304,\"h\":444.1},\"scrolls\":true,\"overlay\":0}"
+    },
+    {
+      "id": "AC9-320-timeup-status",
+      "ok": true,
+      "d": "{\"text\":\"Kvar: 1 min\",\"next\":{\"t\":291.1,\"b\":314.3,\"l\":16,\"r\":304,\"h\":23.2},\"left\":{\"t\":322.3,\"b\":343.1,\"l\":16,\"r\":304,\"h\":20.9},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":304,\"h\":52}}"
+    },
+    {
+      "id": "AC10-320",
+      "ok": true,
+      "d": "{\"n\":\"Sista aktiviteten\",\"t\":\"Kvar: 1 min\"}"
+    },
+    {
+      "id": "AC9-360-step1",
+      "ok": true,
+      "d": "{\"next\":{\"t\":206.5,\"b\":229.7,\"l\":16,\"r\":344,\"h\":23.2},\"left\":{\"t\":237.7,\"b\":258.6,\"l\":16,\"r\":344,\"h\":20.9},\"clock\":{\"t\":129.3,\"b\":198.5,\"l\":86.5,\"r\":273.5,\"h\":69.2},\"script\":{\"t\":270.6,\"b\":768,\"l\":16,\"r\":344,\"h\":497.4},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":344,\"h\":52},\"nextLines\":1,\"leftLines\":1,\"nextTrunc\":true,\"leftOverflow\":false,\"sw\":360,\"vw\":360,\"vh\":844,\"overlayScroll\":0,\"scriptScrolls\":false,\"text\":\"Kvar: 121 min\",\"nextText\":\"Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på"
+    },
+    {
+      "id": "AC9-360-paused",
+      "ok": true,
+      "d": "{\"left\":{\"t\":268.9,\"b\":289.8,\"l\":16,\"r\":344,\"h\":20.9},\"next\":{\"t\":237.7,\"b\":260.9,\"l\":16,\"r\":344,\"h\":23.2},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":344,\"h\":52}}"
+    },
+    {
+      "id": "AC11-360-long-h1",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":344,\"h\":52},\"vh\":844,\"left\":{\"t\":291.1,\"b\":311.9,\"l\":16,\"r\":344,\"h\":20.9},\"script\":{\"t\":323.9,\"b\":768,\"l\":16,\"r\":344,\"h\":444.1},\"scroll\":false}"
+    },
+    {
+      "id": "AC11-360-long-script",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":344,\"h\":52},\"script\":{\"t\":323.9,\"b\":768,\"l\":16,\"r\":344,\"h\":444.1},\"scrolls\":true,\"overlay\":0}"
+    },
+    {
+      "id": "AC9-360-timeup-status",
+      "ok": true,
+      "d": "{\"text\":\"Kvar: 1 min\",\"next\":{\"t\":291.1,\"b\":314.3,\"l\":16,\"r\":344,\"h\":23.2},\"left\":{\"t\":322.3,\"b\":343.1,\"l\":16,\"r\":344,\"h\":20.9},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":344,\"h\":52}}"
+    },
+    {
+      "id": "AC10-360",
+      "ok": true,
+      "d": "{\"n\":\"Sista aktiviteten\",\"t\":\"Kvar: 1 min\"}"
+    },
+    {
+      "id": "AC9-390-step1",
+      "ok": true,
+      "d": "{\"next\":{\"t\":208.5,\"b\":231.7,\"l\":16,\"r\":374,\"h\":23.2},\"left\":{\"t\":239.7,\"b\":260.6,\"l\":16,\"r\":374,\"h\":20.9},\"clock\":{\"t\":129.3,\"b\":200.5,\"l\":98.8,\"r\":291.1,\"h\":71.2},\"script\":{\"t\":272.6,\"b\":768,\"l\":16,\"r\":374,\"h\":495.4},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":374,\"h\":52},\"nextLines\":1,\"leftLines\":1,\"nextTrunc\":true,\"leftOverflow\":false,\"sw\":390,\"vw\":390,\"vh\":844,\"overlayScroll\":0,\"scriptScrolls\":false,\"text\":\"Kvar: 121 min\",\"nextText\":\"Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på"
+    },
+    {
+      "id": "AC9-390-paused",
+      "ok": true,
+      "d": "{\"left\":{\"t\":270.9,\"b\":291.8,\"l\":16,\"r\":374,\"h\":20.9},\"next\":{\"t\":239.7,\"b\":262.9,\"l\":16,\"r\":374,\"h\":23.2},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":374,\"h\":52}}"
+    },
+    {
+      "id": "AC11-390-long-h1",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":374,\"h\":52},\"vh\":844,\"left\":{\"t\":293,\"b\":313.9,\"l\":16,\"r\":374,\"h\":20.9},\"script\":{\"t\":325.9,\"b\":768,\"l\":16,\"r\":374,\"h\":442.1},\"scroll\":false}"
+    },
+    {
+      "id": "AC11-390-long-script",
+      "ok": true,
+      "d": "{\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":374,\"h\":52},\"script\":{\"t\":325.9,\"b\":768,\"l\":16,\"r\":374,\"h\":442.1},\"scrolls\":true,\"overlay\":0}"
+    },
+    {
+      "id": "AC9-390-timeup-status",
+      "ok": true,
+      "d": "{\"text\":\"Kvar: 1 min\",\"next\":{\"t\":293,\"b\":316.2,\"l\":16,\"r\":374,\"h\":23.2},\"left\":{\"t\":324.2,\"b\":345.1,\"l\":16,\"r\":374,\"h\":20.9},\"nav\":{\"t\":776,\"b\":828,\"l\":16,\"r\":374,\"h\":52}}"
+    },
+    {
+      "id": "AC10-390",
+      "ok": true,
+      "d": "{\"n\":\"Sista aktiviteten\",\"t\":\"Kvar: 1 min\"}"
+    },
+    {
+      "id": "AC14-home",
+      "ok": true,
+      "d": "br buttons=5 main=5 textLen 166/166"
+    },
+    {
+      "id": "AC14-passbyggaren",
+      "ok": true,
+      "d": "br buttons=30 main=30 textLen 686/686"
+    },
+    {
+      "id": "AC14-bibliotek",
+      "ok": true,
+      "d": "br buttons=42 main=42 textLen 1433/1433"
+    },
+    {
+      "id": "AC14-hall",
+      "ok": true,
+      "d": "br buttons=16 main=16 textLen 828/828"
+    },
+    {
+      "id": "AC14-golvklart",
+      "ok": true,
+      "d": "br buttons=9 main=9 textLen 375/375"
+    },
+    {
+      "id": "AC14-share-page",
+      "ok": true,
+      "d": "{\"kvar\":false,\"runLeft\":0}"
+    },
+    {
+      "id": "AC14-entry-builder",
+      "ok": true,
+      "d": "Kvar: 53 min"
+    },
+    {
+      "id": "AC18-footer",
+      "ok": true,
+      "d": "Träningsplaneraren · Slice 38 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC14-entry-share",
+      "ok": true,
+      "d": "Kvar: 4 min"
+    },
+    {
+      "id": "AC14-entry-saved-pass",
+      "ok": true,
+      "d": "Kvar: 4 min main none"
+    },
+    {
+      "id": "AC14-main-has-no-kvar",
+      "ok": true,
+      "d": "[\"none\",\"none\",\"none\"]"
+    },
+    {
+      "id": "AC14-entry-pasted-link",
+      "ok": true,
+      "d": "other Kvar: 4 min"
+    },
+    {
+      "id": "AC13",
+      "ok": true,
+      "d": "[\"btn-secondary run-exit:Avsluta\",\"run-clock:mm:ss. Pausa timern\",\"btn-secondary:Föregående\",\"btn-primary:Nästa övning\"]"
+    },
+    {
+      "id": "AC17-tone-parity",
+      "ok": true,
+      "d": "{\"br\":[0,1,1,2,2],\"main\":[0,1,1,2,2]}"
+    },
+    {
+      "id": "AC17-sista-parity",
+      "ok": true,
+      "d": ""
+    },
+    {
+      "id": "AC17-wakelock-parity",
+      "ok": true,
+      "d": "{\"br\":{\"req\":1,\"rel\":0,\"active\":1,\"type\":\"screen\"},\"main\":{\"req\":1,\"rel\":0,\"active\":1,\"type\":\"screen\"}}"
+    },
+    {
+      "id": "AC18-label",
+      "ok": true,
+      "d": "Kvar: {n} min"
+    },
+    {
+      "id": "no-page-errors",
+      "ok": true,
+      "d": ""
+    }
+  ],
+  "notes": {
+    "runButtons": [
+      "Avsluta",
+      "00:00. Tiden är ute. Pausa timern",
+      "Föregående",
+      "Sista övningen"
+    ],
+    "wlBranch": {
+      "req": 2,
+      "rel": 1,
+      "active": 1,
+      "type": "screen"
+    },
+    "layout320": {
+      "next": {
+        "t": 206.5,
+        "b": 229.7,
+        "l": 16,
+        "r": 304,
+        "h": 23.2
+      },
+      "left": {
+        "t": 237.7,
+        "b": 258.6,
+        "l": 16,
+        "r": 304,
+        "h": 20.9
+      },
+      "clock": {
+        "t": 129.3,
+        "b": 198.5,
+        "l": 66.5,
+        "r": 253.5,
+        "h": 69.2
+      },
+      "script": {
+        "t": 270.6,
+        "b": 768,
+        "l": 16,
+        "r": 304,
+        "h": 497.4
+      },
+      "nav": {
+        "t": 776,
+        "b": 828,
+        "l": 16,
+        "r": 304,
+        "h": 52
+      },
+      "nextLines": 1,
+      "leftLines": 1,
+      "nextTrunc": true,
+      "leftOverflow": false,
+      "sw": 320,
+      "vw": 320,
+      "vh": 844,
+      "overlayScroll": 0,
+      "scriptScrolls": false,
+      "text": "Kvar: 121 min",
+      "nextText": "Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på tumblingbanan till landningsmattan"
+    },
+    "layout360": {
+      "next": {
+        "t": 206.5,
+        "b": 229.7,
+        "l": 16,
+        "r": 344,
+        "h": 23.2
+      },
+      "left": {
+        "t": 237.7,
+        "b": 258.6,
+        "l": 16,
+        "r": 344,
+        "h": 20.9
+      },
+      "clock": {
+        "t": 129.3,
+        "b": 198.5,
+        "l": 86.5,
+        "r": 273.5,
+        "h": 69.2
+      },
+      "script": {
+        "t": 270.6,
+        "b": 768,
+        "l": 16,
+        "r": 344,
+        "h": 497.4
+      },
+      "nav": {
+        "t": 776,
+        "b": 828,
+        "l": 16,
+        "r": 344,
+        "h": 52
+      },
+      "nextLines": 1,
+      "leftLines": 1,
+      "nextTrunc": true,
+      "leftOverflow": false,
+      "sw": 360,
+      "vw": 360,
+      "vh": 844,
+      "overlayScroll": 0,
+      "scriptScrolls": false,
+      "text": "Kvar: 121 min",
+      "nextText": "Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på tumblingbanan till landningsmattan"
+    },
+    "layout390": {
+      "next": {
+        "t": 208.5,
+        "b": 231.7,
+        "l": 16,
+        "r": 374,
+        "h": 23.2
+      },
+      "left": {
+        "t": 239.7,
+        "b": 260.6,
+        "l": 16,
+        "r": 374,
+        "h": 20.9
+      },
+      "clock": {
+        "t": 129.3,
+        "b": 200.5,
+        "l": 98.8,
+        "r": 291.1,
+        "h": 71.2
+      },
+      "script": {
+        "t": 272.6,
+        "b": 768,
+        "l": 16,
+        "r": 374,
+        "h": 495.4
+      },
+      "nav": {
+        "t": 776,
+        "b": 828,
+        "l": 16,
+        "r": 374,
+        "h": 52
+      },
+      "nextLines": 1,
+      "leftLines": 1,
+      "nextTrunc": true,
+      "leftOverflow": false,
+      "sw": 390,
+      "vw": 390,
+      "vh": 844,
+      "overlayScroll": 0,
+      "scriptScrolls": false,
+      "text": "Kvar: 121 min",
+      "nextText": "Nästa: Mycket lång övningstitel med hjulning, rondat och flickis på tumblingbanan till landningsmattan"
+    },
+    "screens": {
+      "br": {
+        "home": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Planera pass|Tomt pass|Från mall|Hämta ett pass|Uppdatera appen",
+          "text": 166
+        },
+        "passbyggaren": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Till startsidan|Dölj det här tipset|Kör passet, en övning i taget|Spara utkast|Fler saker med passet|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Visa tips igen|Uppdatera appen",
+          "text": 686
+        },
+        "footer": "Träningsplaneraren · Slice 38 · Tyck till · Visa tips igen · Uppdatera appen",
+        "mail": "mailto:drevmok@gmail.com?subject=Tyck till om Träningsplaneraren&body=Hej,\r\n\r\nHär är vad jag tycker om Träningsplaneraren.\r\n\r\nVad fungerade bra?\r\n\r\n\r\nVad var krångligt?\r\n\r\n\r\nVad saknade du?\r\n\r\n\r\nTack för att du tar dig tid.\r\n\r\nVersion: Slice 38",
+        "bibliotek": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Till startsidan|Dölj det här tipset|Kör passet, en övning i taget|Spara utkast|Fler saker med passet|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Stäng|Stäng|Bibliotek|Tips|Mallar|Ny egen övning|Importera övningar från en fil eller en kod|Välkomstcheck-in5 minVälkomna gruppen och kolla hur veckan har varit — kort, inkluderande start på passet.|Närvaro3 minBocka av listan så att alla som ska vara där är på plats.|Dagens pass — snabb genomgång3 minKort genomgång av vad ni ska göra på passet — så alla vet planen innan ni börjar.|Dagens regler3 minTre regler för hallen, innan gruppen sprider sig.|Hög fem i cirkel3 minKort start så alla är med, innan ni går till uppvärmningen.|Visa tips igen|Uppdatera appen",
+          "text": 1433
+        },
+        "runFromBuilder": "Kvar: 53 min",
+        "hall": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "← Tillbaka till Passbyggaren|Dölj flöde|Visa förrådslista för passet|Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap|Golvklart|Visa Använd alla förslag. Sparar inte automatiskt.|Visa tips om hur du placerar Teknik-stationer|Dölj det här tipset|Zooma ut|Zooma in|Ta bort från hall|Ta bort från hall|Ta bort från hall|Visa brickan med ej placerade stationer|Visa tips igen|Uppdatera appen",
+          "text": 828
+        },
+        "golvklart": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Avsluta golvklart|Helskär|Skriv ut kort|Visa förrådslista för passet|Skriv ut passet|Zooma ut|Zooma in|Visa tips igen|Uppdatera appen",
+          "text": 375
+        },
+        "homeAfterSave": "Fortsätt passetPass — trampett · 53 min|Tomt pass|Från mall|Rensa passet|Hämta ett pass|Uppdatera appen",
+        "share": {
+          "kvar": false,
+          "runLeft": 0
+        },
+        "runFromShare": "Kvar: 4 min",
+        "savedBuilderTitle": true,
+        "savedAfterReload": true,
+        "runFromSaved": "Kvar: 4 min",
+        "pasted": "other",
+        "runFromPasted": "Kvar: 4 min"
+      },
+      "main": {
+        "home": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Planera pass|Tomt pass|Från mall|Hämta ett pass|Uppdatera appen",
+          "text": 166
+        },
+        "passbyggaren": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Till startsidan|Dölj det här tipset|Kör passet, en övning i taget|Spara utkast|Fler saker med passet|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Visa tips igen|Uppdatera appen",
+          "text": 686
+        },
+        "footer": "Träningsplaneraren · Slice 37 · Tyck till · Visa tips igen · Uppdatera appen",
+        "mail": "mailto:drevmok@gmail.com?subject=Tyck till om Träningsplaneraren&body=Hej,\r\n\r\nHär är vad jag tycker om Träningsplaneraren.\r\n\r\nVad fungerade bra?\r\n\r\n\r\nVad var krångligt?\r\n\r\n\r\nVad saknade du?\r\n\r\n\r\nTack för att du tar dig tid.\r\n\r\nVersion: Slice 37",
+        "bibliotek": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Till startsidan|Dölj det här tipset|Kör passet, en övning i taget|Spara utkast|Fler saker med passet|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|Se beskrivning|×|+ Lägg till övning|Se beskrivning|×|+ Lägg till övning|Stäng|Stäng|Bibliotek|Tips|Mallar|Ny egen övning|Importera övningar från en fil eller en kod|Välkomstcheck-in5 minVälkomna gruppen och kolla hur veckan har varit — kort, inkluderande start på passet.|Närvaro3 minBocka av listan så att alla som ska vara där är på plats.|Dagens pass — snabb genomgång3 minKort genomgång av vad ni ska göra på passet — så alla vet planen innan ni börjar.|Dagens regler3 minTre regler för hallen, innan gruppen sprider sig.|Hög fem i cirkel3 minKort start så alla är med, innan ni går till uppvärmningen.|Visa tips igen|Uppdatera appen",
+          "text": 1433
+        },
+        "runFromBuilder": "none",
+        "hall": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "← Tillbaka till Passbyggaren|Dölj flöde|Visa förrådslista för passet|Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap|Golvklart|Visa Använd alla förslag. Sparar inte automatiskt.|Visa tips om hur du placerar Teknik-stationer|Dölj det här tipset|Zooma ut|Zooma in|Ta bort från hall|Ta bort från hall|Ta bort från hall|Visa brickan med ej placerade stationer|Visa tips igen|Uppdatera appen",
+          "text": 828
+        },
+        "golvklart": {
+          "kvar": false,
+          "runLeft": 0,
+          "buttons": "Avsluta golvklart|Helskär|Skriv ut kort|Visa förrådslista för passet|Skriv ut passet|Zooma ut|Zooma in|Visa tips igen|Uppdatera appen",
+          "text": 375
+        },
+        "homeAfterSave": "Fortsätt passetPass — trampett · 53 min|Tomt pass|Från mall|Rensa passet|Hämta ett pass|Uppdatera appen",
+        "share": {
+          "kvar": false,
+          "runLeft": 0
+        },
+        "runFromShare": "none",
+        "savedBuilderTitle": true,
+        "savedAfterReload": true,
+        "runFromSaved": "none",
+        "pasted": "other",
+        "runFromPasted": "none"
+      }
+    },
+    "parity": {
+      "br": {
+        "btns": [
+          "btn-secondary run-exit:Avsluta",
+          "run-clock:mm:ss. Pausa timern",
+          "btn-secondary:Föregående",
+          "btn-primary:Nästa övning"
+        ],
+        "ps": [],
+        "before": 0,
+        "at0": 1,
+        "later": 1,
+        "total": 2,
+        "vib": 2,
+        "next": "Sista aktiviteten",
+        "wl": {
+          "req": 1,
+          "rel": 0,
+          "active": 1,
+          "type": "screen"
+        }
+      },
+      "main": {
+        "btns": [
+          "btn-secondary run-exit:Avsluta",
+          "run-clock:mm:ss. Pausa timern",
+          "btn-secondary:Föregående",
+          "btn-primary:Nästa övning"
+        ],
+        "ps": [],
+        "before": 0,
+        "at0": 1,
+        "later": 1,
+        "total": 2,
+        "vib": 2,
+        "next": "Sista aktiviteten",
+        "wl": {
+          "req": 1,
+          "rel": 0,
+          "active": 1,
+          "type": "screen"
+        }
+      }
+    }
+  }
+}
