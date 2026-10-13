@@ -1,0 +1,151 @@
+{
+  "at": "2026-10-13T09:46:38.524Z",
+  "pass": 24,
+  "fail": 0,
+  "results": [
+    {
+      "id": "note",
+      "name": "Built-in apply is not auto-saved (pre-existing): draft before «Spara utkast» was absent",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1a",
+      "name": "Built-in «Nybörjare — ca 55 min»: draft has one marker per Teknik item right after apply (hall not opened)",
+      "ok": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "AC4a",
+      "name": "Built-in: no non-Teknik markers; hall template = default (standard-trupp)",
+      "ok": true,
+      "detail": "standard-trupp"
+    },
+    {
+      "id": "AC5",
+      "name": "Använd alla förslag not triggered: no station redskap saved on Teknik items",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9a",
+      "name": "Built-in apply shows no toast",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6a",
+      "name": "Markers do not stack (distinct spots)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8a",
+      "name": "Reload: built-in placements still in the draft",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC1b",
+      "name": "Open Hallöversikt: same markers, no extra or duplicate",
+      "ok": true,
+      "detail": "canvas chips 3"
+    },
+    {
+      "id": "AC9b",
+      "name": "Club confirm has no «Stationerna placerar du själv i Hallöversikt.» line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9c",
+      "name": "Club toast reads exactly «Mallen är i Passbyggaren.»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2",
+      "name": "Club mall (≥ 2 Teknik): all Teknik placed on apply, in the pass hall template; only Teknik",
+      "ok": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "AC11",
+      "name": "Club row in the DB still has no hallPlacements",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9d",
+      "name": "Toast disappears after ~2 s",
+      "ok": true,
+      "detail": "2312 ms after seen"
+    },
+    {
+      "id": "AC8b",
+      "name": "Reload: club placements still in the draft",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9e",
+      "name": "Egen mall apply shows no toast",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3a",
+      "name": "Egen mall with placements: the saved marker keeps its exact spot; the unplaced Teknik item gets one; all Teknik placed once",
+      "ok": true,
+      "detail": "kept 1, placed 3/3, first teknik item-ot4j9xf6-mv6hxptp"
+    },
+    {
+      "id": "AC8c",
+      "name": "Reload: Egen mall placements still in the draft",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3b",
+      "name": "Egen mall saved without placements: all Teknik placed, nothing else",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "Remove one marker → reopen Hallöversikt: it stays removed (no re-placement)",
+      "ok": true,
+      "detail": "before 3, after reopen 2"
+    },
+    {
+      "id": "AC12",
+      "name": "Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14a",
+      "name": "Planera pass still places all Teknik",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14b",
+      "name": "Tomt pass (saved via «Spara utkast»): empty hall",
+      "ok": true,
+      "detail": "items 0"
+    },
+    {
+      "id": "AC22",
+      "name": "390 wide: no horizontal scroll",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "errors",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
