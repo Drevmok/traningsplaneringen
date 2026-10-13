@@ -4,7 +4,7 @@
 import { UI } from '../data/blockMeta'
 import type { Session } from '../types'
 import { countSessionItems } from './hall'
-import { saveSessionAsTemplate, sessionAlreadyArchived } from './savedTemplates'
+import { saveAutoCopy, sessionAlreadyArchived } from './savedTemplates'
 import { loadDraft, saveDraft, setBeforeDraftWrite } from './session'
 
 export const AUTOSAVE_DELAY = 800
@@ -14,8 +14,7 @@ export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
   try {
     const old = loadDraft()
     if (!old || old.id === next.id || countSessionItems(old) < 1 || sessionAlreadyArchived(old)) return false
-    saveSessionAsTemplate(old, old.title.trim() || UI.untitledPass)
-    return true
+    return saveAutoCopy(old, old.title.trim() || UI.untitledPass) !== null
   } catch {
     // A full Mina mallar write must never block the pass write.
     return false

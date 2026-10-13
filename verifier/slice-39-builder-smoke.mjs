@@ -286,6 +286,33 @@ await attempt('F', async () => {
   check('F1-nyvecka', 'Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once', r2.ms < 800 && r2.home === r2.onScreen && !r2.storedIsOld && r2.mallar.filter((t) => t === 'Vecka gammal').length === 1, JSON.stringify(r2))
 })
 
+// ── Mina mallar cap of 8 (Christoffer's rule): auto-copies only push out auto-copies.
+await attempt('G', async () => {
+  await race('Cap0', async () => {})  // clean slot + Mina mallar, a built-in pass on Home
+  const base = (await tmpls())[0] ?? null
+  const seed = await p.evaluate(() => JSON.parse(localStorage.getItem('gymnastics-planner-draft-v1')))
+  const one = base ?? { id: 'x', title: 'x', totalMinutes: 0, savedAt: new Date().toISOString(), pass: { v: 1, blocks: [] } }
+  // 8 hand-saved (legacy shape: no flag), each a distinct signature
+  const hand = Array.from({ length: 8 }, (_, i) => ({ ...one, id: `mall-h${i}`, title: `Hand ${i}`, auto: undefined, pass: { ...one.pass, hallTemplateId: `h${i}` } }))
+  await p.evaluate(([k, v]) => localStorage.setItem(k, v), [TK, JSON.stringify(hand)])
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor()
+  await addTeknik(3); await p.waitForTimeout(1100)
+  await toHome()
+  const t1 = await tmpls()
+  check('CAP-a', 'All 8 hand-saved (no flag): replaced pass is not copied, nothing evicted, no new UI; new pass on Home', t1.length === 8 && t1.every((t, i) => t.title === `Hand ${i}` && !t.auto) && (await p.locator('.toast').count()) === 0 && !(await homeMeta()).includes(`${seed.title} ·`), t1.map((t) => t.title).join(','))
+  // make one an auto-copy → the next replace evicts exactly that one
+  const withAuto = hand.map((t, i) => (i === 5 ? { ...t, title: 'Auto 5', auto: true } : t))
+  await p.evaluate(([k, v]) => localStorage.setItem(k, v), [TK, JSON.stringify(withAuto)])
+  const replaced = (await draft()).title
+  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor()
+  await addTeknik(4); await p.waitForTimeout(1100)
+  await toHome()
+  const t2 = await tmpls()
+  check('CAP-b', 'Full list with one auto-copy: the replaced pass (flag auto) pushes out that auto-copy only; hand-saved all kept', t2.length === 8 && t2[0].title === replaced && t2[0].auto === true && !t2.some((t) => t.title === 'Auto 5') && [0, 1, 2, 3, 4, 6, 7].every((i) => t2.some((t) => t.title === `Hand ${i}`)), t2.map((t) => `${t.title}${t.auto ? '*' : ''}`).join(','))
+  await p.reload(); await p.locator('.home').waitFor()
+  check('CAP-c', 'Flag survives a reload', (await tmpls())[0].auto === true)
+})
+
 const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')
 check('AC22b', 'Keys verbatim; saveDraft / savedToast gone; no «!»', meta.includes(`autosaveSaved: '${S.saved}'`) && meta.includes(`autosaveFailed: '${S.failed}'`) && meta.includes(S.toast) && !/^\s+(saveDraft|savedToast):/m.test(meta) && !/!/.test(Object.values(S).join('')))
 check('E', 'No page errors', errors.length === 0, errors.join(' | '))

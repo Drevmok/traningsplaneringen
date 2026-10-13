@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-13T17:36:55.798Z",
+  "at": "2026-10-13T17:47:39.042Z",
   "results": [
     {
       "id": "AC13a",
@@ -185,13 +185,31 @@
       "id": "F1-mall",
       "name": "Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar",
       "ok": true,
-      "detail": "{\"ms\":142,\"onScreen\":\"Kort pass — ca 45 min\",\"stored\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Mall gammal\"]}"
+      "detail": "{\"ms\":144,\"onScreen\":\"Kort pass — ca 45 min\",\"stored\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Mall gammal\"]}"
     },
     {
       "id": "F1-nyvecka",
       "name": "Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once",
       "ok": true,
-      "detail": "{\"ms\":135,\"onScreen\":\"Ny vecka — Vecka gammal\",\"stored\":\"Ny vecka — Vecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Vecka gammal\",\"mallar\":[\"Vecka gammal\"]}"
+      "detail": "{\"ms\":149,\"onScreen\":\"Ny vecka — Vecka gammal\",\"stored\":\"Ny vecka — Vecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Vecka gammal\",\"mallar\":[\"Vecka gammal\"]}"
+    },
+    {
+      "id": "CAP-a",
+      "name": "All 8 hand-saved (no flag): replaced pass is not copied, nothing evicted, no new UI; new pass on Home",
+      "ok": true,
+      "detail": "Hand 0,Hand 1,Hand 2,Hand 3,Hand 4,Hand 5,Hand 6,Hand 7"
+    },
+    {
+      "id": "CAP-b",
+      "name": "Full list with one auto-copy: the replaced pass (flag auto) pushes out that auto-copy only; hand-saved all kept",
+      "ok": true,
+      "detail": "Nytt pass*,Hand 0,Hand 1,Hand 2,Hand 3,Hand 4,Hand 6,Hand 7"
+    },
+    {
+      "id": "CAP-c",
+      "name": "Flag survives a reload",
+      "ok": true,
+      "detail": ""
     },
     {
       "id": "AC22b",

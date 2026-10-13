@@ -12,6 +12,25 @@ export interface SavedTemplate {
   totalMinutes: number
   savedAt: string
   pass: SharePass
+  /** Slice 39: true = copy made by the autosave replace guard. Missing (all older entries) = hand-saved. */
+  auto?: true
+}
+
+/**
+ * Slice 39 cap rule (8). Newest first, so the oldest entry is the last one.
+ * - Room left: just add.
+ * - Full, auto-copy: push out the oldest other auto-copy; if all 8 are hand-saved, skip (null).
+ * - Full, hand-saved: push out the oldest auto-copy if there is one, else the oldest entry (as before).
+ */
+export function addWithCap(list: SavedTemplate[], next: SavedTemplate): SavedTemplate[] | null {
+  if (list.length < MAX_TEMPLATES) return [next, ...list]
+  let victim = -1
+  for (let i = list.length - 1; i >= 0; i--) if (list[i].auto) { victim = i; break }
+  if (victim < 0) {
+    if (next.auto) return null
+    victim = list.length - 1
+  }
+  return [next, ...list.filter((_, i) => i !== victim)].slice(0, MAX_TEMPLATES)
 }
 
 export function loadSavedTemplates(): SavedTemplate[] {
@@ -32,17 +51,28 @@ function writeTemplates(list: SavedTemplate[]): void {
   localStorage.setItem(KEY, JSON.stringify(list))
 }
 
-export function saveSessionAsTemplate(session: Session, title?: string): SavedTemplate {
-  const name = (title ?? session.title).trim().slice(0, 80) || 'Mall'
-  const next: SavedTemplate = {
+function makeTemplate(session: Session, title?: string): SavedTemplate {
+  return {
     id: `mall-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
-    title: name,
+    title: (title ?? session.title).trim().slice(0, 80) || 'Mall',
     totalMinutes: session.totalMinutes,
     savedAt: new Date().toISOString(),
     pass: sessionToShare(session),
   }
-  writeTemplates([next, ...loadSavedTemplates()].slice(0, MAX_TEMPLATES))
+}
+
+export function saveSessionAsTemplate(session: Session, title?: string): SavedTemplate {
+  const next = makeTemplate(session, title)
+  writeTemplates(addWithCap(loadSavedTemplates(), next)!)
   return next
+}
+
+/** Slice 39: auto-copy of a replaced pass. null = skipped (list full of hand-saved mallar). */
+export function saveAutoCopy(session: Session, title?: string): SavedTemplate | null {
+  const next: SavedTemplate = { ...makeTemplate(session, title), auto: true }
+  const list = addWithCap(loadSavedTemplates(), next)
+  if (list) writeTemplates(list)
+  return list ? next : null
 }
 
 /** Same drills and placements, ignoring ids and the title. */

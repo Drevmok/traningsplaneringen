@@ -164,3 +164,81 @@ describe('Slice 39 autosave', () => {
     pendingWrite.current = null
   })
 })
+
+describe('Slice 39 Mina mallar cap: auto-copies vs hand-saved', async () => {
+  const st = await import('./savedTemplates.ts')
+  const TK = 'gymnastics-planner-templates-v1'
+  const mk = (title: string, n: number, auto = false) => {
+    const t = { ...st.saveSessionAsTemplate(pass(title, [tech[n % tech.length], tech[(n + 1) % tech.length]])) }
+    return auto ? { ...t, auto: true as const } : t
+  }
+  beforeEach(() => { mem.clear(); failWrites = false; pendingWrite.current = null })
+
+  it('auto-copy into a full list evicts the oldest other auto-copy, never a hand-saved one', () => {
+    const list = [mk('H1', 1), mk('A-ny', 2, true), mk('H2', 3), mk('H3', 4), mk('H4', 5), mk('A-gammal', 6, true), mk('H5', 7), mk('H6', 8)]
+    mem.set(TK, JSON.stringify(list))
+    const old = pass('Ersatt', [tech[9], tech[10]])
+    saveDraft(old)
+    saveDraft(pass('Ny', [tech[11]]))
+    const titles = st.loadSavedTemplates().map((t) => t.title)
+    assert.equal(titles.length, 8)
+    assert.equal(titles[0], 'Ersatt')
+    assert.ok(!titles.includes('A-gammal'))
+    assert.ok(titles.includes('A-ny'))
+    for (const h of ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) assert.ok(titles.includes(h), h)
+  })
+
+  it('all 8 hand-saved → the auto-copy is skipped, nothing evicted, the new pass still saves', () => {
+    const list = Array.from({ length: 8 }, (_, i) => mk(`H${i}`, i))
+    mem.set(TK, JSON.stringify(list))
+    saveDraft(pass('Ersatt', [tech[9], tech[10]]))
+    const next = pass('Ny', [tech[11]])
+    assert.equal(trySaveDraft(next), true)
+    assert.equal(loadDraft()!.id, next.id)
+    assert.deepEqual(st.loadSavedTemplates().map((t) => t.title), list.map((t) => t.title))
+  })
+
+  it('legacy entries without the flag count as hand-saved', () => {
+    const legacy = Array.from({ length: 8 }, (_, i) => {
+      const t = mk(`L${i}`, i) as Record<string, unknown>
+      delete t.auto
+      return t
+    })
+    mem.set(TK, JSON.stringify(legacy))
+    assert.ok(st.loadSavedTemplates().every((t) => !t.auto))
+    saveDraft(pass('Ersatt', [tech[9]]))
+    saveDraft(pass('Ny', [tech[11]]))
+    assert.equal(st.loadSavedTemplates().length, 8)
+    assert.ok(!st.loadSavedTemplates().some((t) => t.title === 'Ersatt'))
+  })
+
+  it('the auto flag survives a reload (storage round trip); hand-saves are unflagged', () => {
+    saveDraft(pass('Ersatt', [tech[9]]))
+    saveDraft(pass('Ny', [tech[11]]))
+    st.saveSessionAsTemplate(pass('Hand', [tech[12]]))
+    const raw = JSON.parse(mem.get(TK)!) as { title: string; auto?: boolean }[]
+    assert.equal(raw.find((t) => t.title === 'Ersatt')!.auto, true)
+    assert.equal(raw.find((t) => t.title === 'Hand')!.auto, undefined)
+    const reloaded = st.loadSavedTemplates()
+    assert.equal(reloaded.find((t) => t.title === 'Ersatt')!.auto, true)
+  })
+
+  it('hand-save into a full list evicts the oldest auto-copy first, else the oldest entry (as before)', () => {
+    const list = [mk('A1', 1, true), ...Array.from({ length: 7 }, (_, i) => mk(`H${i}`, i + 2))]
+    mem.set(TK, JSON.stringify(list))
+    st.saveSessionAsTemplate(pass('Hand ny', [tech[12]]))
+    let titles = st.loadSavedTemplates().map((t) => t.title)
+    assert.ok(!titles.includes('A1') && titles.includes('H6') && titles[0] === 'Hand ny')
+    st.saveSessionAsTemplate(pass('Hand 2', [tech[13]]))
+    titles = st.loadSavedTemplates().map((t) => t.title)
+    assert.equal(titles.length, 8)
+    assert.ok(!titles.includes('H6'), 'no auto left → oldest entry goes, as on main')
+  })
+
+  it('dedupe stays: an identical replaced pass is not copied twice', () => {
+    const old = pass('Samma', [tech[1], tech[2]])
+    saveDraft(old); saveDraft(pass('X', [tech[3]]))
+    saveDraft({ ...old, id: 'other-id' }); saveDraft(pass('Y', [tech[4]]))
+    assert.equal(st.loadSavedTemplates().filter((t) => t.title === 'Samma').length, 1)
+  })
+})
