@@ -20,9 +20,9 @@ Object.defineProperty(globalThis, 'localStorage', {
   },
 })
 
-const { archiveReplacedDraft, shouldAutosave, trySaveDraft } = await import('./autosave.ts')
+const { archiveReplacedDraft, pendingWrite, shouldAutosave, trySaveDraft } = await import('./autosave.ts')
 const { adoptAsDraft, createBlankSession, createEmptyBlocks, createSessionItem, loadDraft, saveDraft } = await import('./session.ts')
-const { loadSavedTemplates } = await import('./savedTemplates.ts')
+const { loadSavedTemplates, startNewWeek } = await import('./savedTemplates.ts')
 const { seedActivities } = await import('../data/seedActivities.ts')
 
 function pass(title: string, ids: string[]): Session {
@@ -125,5 +125,42 @@ describe('Slice 39 autosave', () => {
     assert.equal(u.oppnaPaTelefonHonesty, 'Appen på telefonen är tom tills du skickar passet dit. Passet sparas bara i den webbläsare där du planerar det.')
     assert.equal(u.saveDraft, undefined)
     assert.equal(u.savedToast, undefined)
+  })
+
+  it('F1 race (Använd mall): a pending write of the old pass is flushed before the new pass is saved', () => {
+    const old = pass('Måndag', [tech[0]])
+    saveDraft(old)
+    const edited = { ...old, title: 'Måndag ändrad' }
+    let runs = 0
+    pendingWrite.current = { id: old.id, run: () => { runs++; trySaveDraft(edited) } }
+    const mall = pass('Mall', [tech[1], tech[2]])
+    adoptAsDraft(mall)
+    assert.equal(runs, 1)
+    assert.equal(pendingWrite.current, null)
+    const slot = loadDraft()!
+    assert.equal(slot.title, 'Mall')
+    assert.deepEqual(loadSavedTemplates().map((t) => t.title), ['Måndag ändrad'])
+  })
+
+  it('F1 race (Ny vecka → Skapa kopia): old edit flushed, copy stays in the slot, one archive', () => {
+    const old = pass('Vecka 1', [tech[0], tech[1]])
+    saveDraft(old)
+    const edited = { ...old, title: 'Vecka 1 ändrad' }
+    pendingWrite.current = { id: old.id, run: () => { trySaveDraft(edited) } }
+    const started = startNewWeek(edited)
+    saveDraft(started.session)
+    assert.equal(loadDraft()!.id, started.session.id)
+    assert.deepEqual(loadSavedTemplates().map((t) => t.title), ['Vecka 1 ändrad'])
+    assert.equal(pendingWrite.current, null)
+  })
+
+  it('a pending write of the same pass is not flushed by its own save', () => {
+    const s = pass('Samma', [tech[0]])
+    saveDraft(s)
+    let runs = 0
+    pendingWrite.current = { id: s.id, run: () => { runs++ } }
+    saveDraft({ ...s, title: 'Samma 2' })
+    assert.equal(runs, 0)
+    pendingWrite.current = null
   })
 })

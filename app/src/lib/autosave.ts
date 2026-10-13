@@ -22,8 +22,25 @@ export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
   }
 }
 
+/**
+ * Slice 39 fix (Verifier F1): the debounced write still waiting for the pass on screen.
+ * Set by useAutosave. Any write of a *different* pass flushes it first, so the old pass's
+ * last edit is stored (and then copied to Mina mallar) before the new pass takes the slot,
+ * and a late timer can never put the old pass back.
+ */
+export const pendingWrite: { current: { id: string; run: () => void } | null } = { current: null }
+
+export function beforeDraftWrite(next: Pick<Session, 'id'>): void {
+  const p = pendingWrite.current
+  if (p && p.id !== next.id) {
+    pendingWrite.current = null
+    p.run()
+  }
+  archiveReplacedDraft(next)
+}
+
 // Every draft write (saveDraft, adoptAsDraft, HallBoard, Ny vecka, wizard) goes through the guard.
-setBeforeDraftWrite(archiveReplacedDraft)
+setBeforeDraftWrite(beforeDraftWrite)
 
 /** Never throws. false = storage full, blocked or private mode. */
 export function trySaveDraft(session: Session): boolean {

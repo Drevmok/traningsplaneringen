@@ -235,8 +235,55 @@ await attempt('D', async () => {
   if (await hallBtn.isVisible()) await hallBtn.click()
   else { await p.locator('.more-menu > button').click(); await p.locator('.more-menu-panel').getByRole('button', { name: 'Hallöversikt' }).click() }
   await p.locator('.hall-canvas, .hall-board').first().waitFor()
-  check('AC19', 'Hallöversikt opens; «Använd alla förslag» still a button', (await p.getByRole('button', { name: /Använd alla förslag/ }).count()) > 0)
+  // The real apply-all button (exact aria), not the «Saknar» hint button that shares the visible text.
+  await p.waitForTimeout(1200)
+  const eqCount = (d) => d.blocks.flatMap((b) => b.items).filter((i) => i.stationEquipment?.length).length
+  const pre = eqCount(await draft())
+  const aa = p.getByRole('button', { name: 'Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap', exact: true })
+  const dis = await aa.isDisabled()
   await shot('06_hall')
+  if (!dis) await aa.click()
+  await p.waitForTimeout(200)
+  const post = eqCount(await draft())
+  check('AC19', 'Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them', pre === 0 && !dis && post > 0, `before ${pre}, disabled ${dis}, after ${post}`)
+  await p.getByRole('button', { name: '← Tillbaka till Passbyggaren' }).click()
+  await builder().waitFor()
+})
+
+// ── F1 race (Verifier): edit, then replace the pass within the 800 ms debounce.
+async function moreBtn(name) { await p.locator('.more-menu > button').click(); await p.locator('.more-menu-panel').getByRole('button', { name, exact: true }).click() }
+async function race(label, act) {
+  await p.evaluate(([dk, tk]) => { localStorage.removeItem(dk); localStorage.removeItem(tk) }, [DK, TK])
+  await p.goto(URL0); await p.locator('.home').waitFor()
+  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click()
+  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click()
+  await p.getByRole('dialog').getByRole('button', { name: 'Använd mall', exact: true }).click()
+  await builder().waitFor()
+  const oldId = (await draft()).id
+  await p.getByRole('textbox', { name: 'Passets titel' }).fill(`${label} gammal`)
+  const t0 = Date.now()
+  await act()
+  const ms = Date.now() - t0
+  await builder().waitFor(); await p.waitForTimeout(1500)
+  const onScreen = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue()
+  const d = await draft()
+  await toHome()
+  const home = (await homeMeta()).match(/Fortsätt passet (.*?) · \d+ min/)?.[1]
+  return { ms, onScreen, stored: d.title, storedIsOld: d.id === oldId, home, mallar: (await tmpls()).map((x) => x.title) }
+}
+await attempt('F', async () => {
+  const r1 = await race('Mall', async () => {
+    await moreBtn('Använd mall')
+    await p.locator('.template-card').filter({ hasText: /Kort/ }).first().click()
+    await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click()
+  })
+  check('F1-mall', 'Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar', r1.ms < 800 && r1.home === r1.onScreen && r1.stored === r1.onScreen && !r1.storedIsOld && r1.mallar.includes('Mall gammal'), JSON.stringify(r1))
+  await shot('07_race_mall_home')
+  const r2 = await race('Vecka', async () => {
+    await moreBtn('Ny vecka från det här passet')
+    await p.getByRole('button', { name: 'Skapa kopia', exact: true }).click()
+  })
+  check('F1-nyvecka', 'Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once', r2.ms < 800 && r2.home === r2.onScreen && !r2.storedIsOld && r2.mallar.filter((t) => t === 'Vecka gammal').length === 1, JSON.stringify(r2))
 })
 
 const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')

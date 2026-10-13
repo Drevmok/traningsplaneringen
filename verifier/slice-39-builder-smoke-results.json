@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-13T16:37:46.841Z",
+  "at": "2026-10-13T17:36:55.798Z",
   "results": [
     {
       "id": "AC13a",
@@ -177,9 +177,21 @@
     },
     {
       "id": "AC19",
-      "name": "Hallöversikt opens; «Använd alla förslag» still a button",
+      "name": "Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them",
       "ok": true,
-      "detail": ""
+      "detail": "before 0, disabled false, after 1"
+    },
+    {
+      "id": "F1-mall",
+      "name": "Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar",
+      "ok": true,
+      "detail": "{\"ms\":142,\"onScreen\":\"Kort pass — ca 45 min\",\"stored\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Mall gammal\"]}"
+    },
+    {
+      "id": "F1-nyvecka",
+      "name": "Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once",
+      "ok": true,
+      "detail": "{\"ms\":135,\"onScreen\":\"Ny vecka — Vecka gammal\",\"stored\":\"Ny vecka — Vecka gammal\",\"storedIsOld\":false,\"home\":\"Ny vecka — Vecka gammal\",\"mallar\":[\"Vecka gammal\"]}"
     },
     {
       "id": "AC22b",

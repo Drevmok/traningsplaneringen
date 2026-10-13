@@ -15,7 +15,7 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 const OFF = process.env.S33_OFF_URL ?? 'http://127.0.0.1:4195/traningsplaneringen/'
 const ON = process.env.S33_ON_URL ?? 'http://127.0.0.1:4196/traningsplaneringen/'
 const BANK_HOST = 'https://bank-mock.supabase.co'
-const ROOT = '/workspace/gymnastics-planner'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner'
 const S32 = process.env.S32_DIR ?? '/tmp/s33'
 const ENV = JSON.parse(readFileSync(`${S32}/env.json`, 'utf8'))
 const GATEWAY = `http://127.0.0.1:${ENV.gatewayPort}`
@@ -827,7 +827,8 @@ await attempt('S32-AC34', 'Dölj för alla + Visa igen', async () => {
   await cp.getByRole('button', { name: /Nybörjare/ }).first().click()
   const use = cp.getByRole('button', { name: 'Använd mall' })
   if (await use.isVisible().catch(() => false)) await use.click()
-  await builderAction(cp, 'Spara utkast')
+  // Slice 39: no Spara utkast; the mall pass is saved on apply and «Sparat» shows.
+  await cp.locator('.builder-actions .save-status', { hasText: 'Sparat' }).waitFor({ timeout: 5000 })
   await cp.waitForFunction(() => localStorage.getItem('gymnastics-planner-draft-v1') !== null, null, { timeout: 5000 })
   const draft = JSON.parse(await store(cp, 'gymnastics-planner-draft-v1'))
   const hasMall = draft.blocks.some((b) => b.items.some((i) => i.activityId === MALL_ID))

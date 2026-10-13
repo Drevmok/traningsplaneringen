@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Session } from '../types'
-import { AUTOSAVE_DELAY, shouldAutosave, storedDraftId, trySaveDraft } from './autosave'
+import { AUTOSAVE_DELAY, pendingWrite, shouldAutosave, storedDraftId, trySaveDraft } from './autosave'
 import { countSessionItems } from './hall'
 import { withComputedTotal } from './session'
 
@@ -16,6 +16,7 @@ export function useAutosave(session: Session, active: boolean): { status: SaveSt
 
   const write = useCallback((s: Session) => {
     pending.current = null
+    if (pendingWrite.current?.id === s.id) pendingWrite.current = null
     if (timer.current !== null) window.clearTimeout(timer.current)
     timer.current = null
     const stored = storedDraftId()
@@ -35,6 +36,9 @@ export function useAutosave(session: Session, active: boolean): { status: SaveSt
     if (!active) return
     const json = JSON.stringify(withComputedTotal(session))
     if (start.current?.id !== session.id) {
+      // Id changed: a still-pending write of the previous pass goes out now (normally the
+      // replacing write already flushed it via beforeDraftWrite; this covers any other path).
+      if (pending.current && pending.current.id !== session.id) write(pending.current)
       // New pass on screen: one that is already the stored draft (Fortsätt passet, C1 save on create)
       // starts as «Sparat» without a write; a fresh Tomt pass starts hidden and unwritten.
       const stored = storedDraftId() === session.id
@@ -45,6 +49,7 @@ export function useAutosave(session: Session, active: boolean): { status: SaveSt
     }
     if (last.current?.json === json) return
     pending.current = session
+    pendingWrite.current = { id: session.id, run: () => write(session) }
     if (timer.current !== null) window.clearTimeout(timer.current)
     timer.current = window.setTimeout(() => write(session), AUTOSAVE_DELAY)
   }, [session, active, write])
