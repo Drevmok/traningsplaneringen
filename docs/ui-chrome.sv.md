@@ -26,7 +26,7 @@ Kort ordlista för Träningsplanerarens gränssnitt. Inga nya funktioner — bar
 | Strength (block) | Styrka |
 | Fun and games (block) | Lek och spel |
 | Session builder | Passbyggaren |
-| Save draft | Spara utkast |
+| Save status (Slice 39, replaces Spara utkast) | Sparat · Inte sparat |
 | Use template | Använd mall |
 | Export / share (stub) | Exportera / dela |
 | Coming soon | Kommer snart |
