@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-13T12:18:54.195Z",
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Under the timer, below «Nästa: …»: «Kvar: 4 min»",
+      "ok": true,
+      "detail": "Kvar: 4 min · run-top > H1 > run-clock > run-next > run-left > run-script > run-nav"
+    },
+    {
+      "id": "AC12",
+      "name": "Plain text: no role / aria-live / aria-label",
+      "ok": true,
+      "detail": "{\"role\":null,\"live\":null,\"al\":null,\"color\":\"rgb(168, 162, 158)\",\"fs\":\"14.4px\"}"
+    },
+    {
+      "id": "muted",
+      "name": "Muted colour #a8a29e, 0.9rem",
+      "ok": true,
+      "detail": "{\"role\":null,\"live\":null,\"al\":null,\"color\":\"rgb(168, 162, 158)\",\"fs\":\"14.4px\"}"
+    },
+    {
+      "id": "AC2a",
+      "name": "Step 1 at 01:30 → «Kvar: 4 min»",
+      "ok": true,
+      "detail": "01:30 Kvar: 4 min"
+    },
+    {
+      "id": "AC2b/AC4",
+      "name": "Step 1 at 00:59 → «Kvar: 3 min» (live, no tap)",
+      "ok": true,
+      "detail": "00:59 Kvar: 3 min"
+    },
+    {
+      "id": "AC12b",
+      "name": "Clock aria-label format unchanged (time first)",
+      "ok": true,
+      "detail": "02:00. Pausa timern"
+    },
+    {
+      "id": "AC6a",
+      "name": "Paused: line frozen with the timer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6b",
+      "name": "Resume continues from same value",
+      "ok": true,
+      "detail": "00:58"
+    },
+    {
+      "id": "AC7a",
+      "name": "Earlier step at 00:00 → later steps only («Kvar: 2 min»)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7b",
+      "name": "…and stays still",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5a",
+      "name": "Nästa övning → recalculates at once («Kvar: 2 min»)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5b",
+      "name": "ArrowRight → last step «Kvar: 1 min»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10",
+      "name": "Last step: «Sista aktiviteten» and «Kvar: 1 min» both show",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5c",
+      "name": "ArrowLeft → back to 2",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5d",
+      "name": "Föregående → raises again to 4 (step clock restarts)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3a",
+      "name": "1 s left in total → «Kvar: 1 min»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3b/AC8",
+      "name": "Last step 00:00 → «Kvar: 0 min», still visible, same colour",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8b",
+      "name": "Stays «Kvar: 0 min» over time; no new banners",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13",
+      "name": "No new controls: 4 buttons as Slice 34",
+      "ok": true,
+      "detail": "Avsluta | 00:00 | Föregående | Sista övningen"
+    },
+    {
+      "id": "AC9",
+      "name": "Long «Nästa» (ellipsis) and «Kvar» are separate single lines, no overlap, no horizontal scroll",
+      "ok": true,
+      "detail": "{\"nBottom\":231.703125,\"lTop\":239.703125,\"lH\":20.875,\"lBottom\":260.578125,\"sTop\":272.578125,\"navTop\":776,\"navBottom\":828,\"vh\":844,\"scrolls\":true,\"pageH\":1123,\"overlayScroll\":0,\"sw\":390,\"ellipsis\":\"ellipsis\"}"
+    },
+    {
+      "id": "AC11",
+      "name": "Long text: nav buttons stay on screen; only .run-script scrolls",
+      "ok": true,
+      "detail": "{\"nBottom\":231.703125,\"lTop\":239.703125,\"lH\":20.875,\"lBottom\":260.578125,\"sTop\":272.578125,\"navTop\":776,\"navBottom\":828,\"vh\":844,\"scrolls\":true,\"pageH\":1123,\"overlayScroll\":0,\"sw\":390,\"ellipsis\":\"ellipsis\"}"
+    },
+    {
+      "id": "AC18a",
+      "name": "Footer «Träningsplaneraren · Slice 38»; mail «Version: Slice 38»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 38 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC14",
+      "name": "Passbyggaren has no «Kvar:» line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17",
+      "name": "Builder Kör passet: «Nästa: …» and «Kvar» both present; clock runs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18b",
+      "name": "runLeftLabel verbatim in blockMeta.ts; no «!»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "E",
+      "name": "No page or console errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

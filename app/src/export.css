@@ -916,6 +916,15 @@
   text-overflow: ellipsis;
 }
 
+/* Slice 38: «Kvar: X min» — quiet line under «Nästa: …». */
+.run-left {
+  margin: 0;
+  color: #a8a29e;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .run-script {
   flex: 1;
   min-height: 0;
