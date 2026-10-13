@@ -11,7 +11,7 @@ Worktree `/workspace/gp-s39`, branch `slice-39-code` off `origin/slice-39-docs` 
 - `Home.tsx`: `{draft.title.trim() || UI.untitledPass}`.
 - `blockMeta.ts`: `SLICE_NUMBER='39'`; new `autosaveSaved`, `autosaveFailed`, `autosaveFailedToast`, `untitledPass`; `templateBody`, `oppnaPaTelefonHonesty` rewritten; `saveDraft`, `savedToast` removed (all verbatim from microcopy).
 - `export.css`: `.save-status`, `.save-status-failed`.
-- Tests: Slice 39 asserts (feedback.test.ts 25/45/46, clubTemplates.test.ts:316); new `lib/autosave.test.ts` (17 tests).
+- Tests: Slice 39 asserts (feedback.test.ts 25/45/46, clubTemplates.test.ts:316); new `lib/autosave.test.ts` (19 tests).
 
 ## Open items
 1. **Mina mallar cap (8): decided by Christoffer, see «Cap rule» below.**
@@ -21,17 +21,31 @@ Worktree `/workspace/gp-s39`, branch `slice-39-code` off `origin/slice-39-docs` 
 5. **E1 with Slice 27 Soft Samling:** Tomt pass starts with Närvaro + Dagens pass (2 items), so «< 1 station» never fires. Decision: a pass that is not the stored one is written only once it has more stations than it started with (= first station added). A title edit alone does not save it (AC8). The stored pass always saves, including at 0 stations (AC16).
 6. **Action row at 390 px:** one line: Kör passet · Mer · «Sparat» (Hallöversikt sits in Mer at this width, as before). No overlap; `.more-menu` placement unchanged.
 
-## Cap rule (Mina mallar, 8), per Christoffer 2026-10-13
-- Cap stays 8. Copies made by the autosave replace guard are stored with `auto: true` (`SavedTemplate.auto`, `lib/savedTemplates.ts`). Entries without the flag (all existing ones, and every hand-save, Ny vecka included) count as hand-saved. Same key, no migration.
-- `addWithCap(list, next)` (newest first):
-  - Room left: add.
-  - **Auto-copy into a full list:** push out the **oldest other auto-copy**. If all 8 are hand-saved, the copy is **skipped** (`saveAutoCopy` returns null, nothing written, nothing evicted, no new UI; the new pass still saves).
-  - **Hand-save into a full list:** push out the **oldest auto-copy** if there is one; only if all 8 are hand-saved does it drop the oldest entry, exactly as before. Decision: blocking or asking on a hand-save would need new UI and copy, so main's behaviour is kept for that one case.
-- Dedupe by `passSignature` is unchanged (checked before the copy).
-- Tests (autosave.test.ts): auto evicts the oldest auto; full hand-saved list skips the copy; legacy no-flag entries are hand-saved; flag survives a storage round trip; hand-save prefers an auto victim; dedupe stays. Smoke section G: CAP-a/b/c.
+## Cap rule (Mina mallar), per Christoffer 2026-10-13 (second decision, replaces «skip»)
+- Copies made by the autosave replace guard are stored with `auto: true` (`SavedTemplate.auto`). Entries without the flag (all existing ones, every hand-save, Ny vecka) are hand-saved. Same key, no migration.
+- Cap 8 plus **one spare slot for an auto-copy** (max 9). `addWithCap` (newest first) adds the new entry, then while the list is over 8:
+  - **Auto-copy:** the oldest *other* auto-copy goes. If there is none (all 8 hand-saved or legacy), the copy keeps the spare slot → 9. Never skipped, so a replaced pass is never silently lost.
+  - **Hand-save:** the oldest auto-copy goes first (spare included), then the oldest entry, as on main. A hand-save never leaves more than 8.
+- No new UI. Dedupe by `passSignature` unchanged.
+
+### Edge cases
+| Before | Action | After |
+|---|---|---|
+| < 8 entries | any save | added, nothing evicted |
+| 7 hand + 1 auto (8) | auto-copy | old auto goes → 7 hand + new auto (8), normal rule |
+| 8 hand (incl. legacy) | auto-copy | spare used → 8 hand + auto (9) |
+| 8 hand + spare auto (9) | auto-copy | spare replaced → 8 hand + newer auto (9) |
+| 8 hand + spare auto (9) | hand-save | spare goes first, then the oldest hand-saved (still over 8) → 8 hand. Hand-save capacity stays 8, as on main |
+| 6 hand + 2 auto (8) | hand-save | oldest auto goes → 7 hand + 1 auto (8) |
+
+### Readers of Mina mallar (9 entries)
+Only `SessionBuilder` (state) → `LibraryPanel` Mallar tab (`savedTemplates.map`, no cap or slice) reads the list for display; `sessionAlreadyArchived` / `activityIdInTemplates` / delete / apply iterate it. Home and the wizard do not read Mina mallar. No `slice(0, 8)` or 8-assumption outside `savedTemplates.ts`. Smoke CAP-d: 9 cards in the Mallar tab at 390×844, no overlap, no horizontal scroll (screenshot slice39_08_mina_mallar_9).
+
+### Tests
+autosave.test.ts: 8 hand + auto → 9; a newer auto replaces the spare; a hand-save evicts the spare first (back to 8); 7 hand + 1 auto stays 8; legacy entries count as hand-saved; flag survives a storage round trip; hand-save prefers an auto victim; auto evicts the oldest auto; dedupe stays. Smoke section G: CAP-a (9 with spare), CAP-b (spare replaced), CAP-c (flag after reload), CAP-d (9-entry list renders).
 
 ## Bundle (gzip -9, dist/assets JS+CSS; main 4b056c8 → branch)
-After the F1 fix and the cap rule: total 216 969 → 217 858 (**+889 B**) · coach-facing eager 153 079 → 153 961 (+882 B). **Over the soft +512 B limit by ~377 B.** (First ship +683 B; race fix ~+75 B; cap rule ~+131 B.) Why: about 230 B of new or longer Swedish text (the 107-char failure toast, two rewritten sentences, three short keys), the hook (timer, two listeners, status), the guard + try/catch, and the per-pass toast gate, all in the eager chunk because the builder is eager. Removed: one button + `handleSave`. One trim already done (single archive path). Further cuts would mean dropping the identical-JSON skip or the once-per-pass toast, both required by HANDOFF.
+After the F1 fix and the spare-slot cap rule: total 216 969 → 217 831 (**+862 B**) · coach-facing eager 153 079 → 153 946 (+867 B). **Over the soft +512 B limit by ~350 B.** (First ship +683 B; race fix ~+75 B; cap rule ~+104 B.) Why: about 230 B of new or longer Swedish text (the 107-char failure toast, two rewritten sentences, three short keys), the hook (timer, two listeners, status), the guard + try/catch, and the per-pass toast gate, all in the eager chunk because the builder is eager. Removed: one button + `handleSave`. One trim already done (single archive path). Further cuts would mean dropping the identical-JSON skip or the once-per-pass toast, both required by HANDOFF.
 
 ## Verifier F1 fix (race on pass replacement)
 Verifier (927c23a) found that an edit followed within the 800 ms debounce by «Använd mall» or «Ny vecka» → «Skapa kopia» let the old pass's pending timer fire after the new pass was saved, putting the old pass back in the slot.
@@ -42,8 +56,8 @@ Verifier (927c23a) found that an edit followed within the 800 ms debounce by «A
 - Slice 32/33/37 builder smokes no longer click «Spara utkast»: 32/33 wait for «Sparat» after the mall apply; 37 waits for «Sparat» after the built-in apply and checks AC14b as «Tomt pass not stored yet (E1)». `ROOT` is overridable via `SMOKE_ROOT`. Re-runs on the local stand-in (outputs in `verifier/slice-39-checks/builder-fix/`): 32 → 26/17, 33 → 139/7, 37 → 23/1, the same pass/fail sets as Verifier's main baseline (remaining fails: hard-coded old slice footers, 32's pre-Slice-33 magic-link flow, 33's two flaky login checks).
 
 ## Verification
-bun test src 187/0 (24 files) · bun test tools/bank 21 pass/5 skip/0 fail · tsc OK · lint 0 errors · npm run build OK.
-Smoke `verifier/slice-39-builder-smoke.mjs` (plain preview :4199, real clock, draft-write spy, 390×844): **37/37 PASS** (with the race and cap steps); screenshots /workspace/screenshots/slice39_01…06.
+bun test src 189/0 (24 files) · bun test tools/bank 21 pass/5 skip/0 fail · tsc OK · lint 0 errors · npm run build OK.
+Smoke `verifier/slice-39-builder-smoke.mjs` (plain preview :4199, real clock, draft-write spy, 390×844): **38/38 PASS** (with the race and spare-slot cap steps); screenshots /workspace/screenshots/slice39_01…06.
 
 ## Deviations
 - AC7 Föreningsmall not driven (needs the bank stand-in); its apply goes through `adoptAsDraft`, the same guarded path as Mina mallar (driven) and covered by a unit test.

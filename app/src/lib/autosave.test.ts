@@ -188,28 +188,54 @@ describe('Slice 39 Mina mallar cap: auto-copies vs hand-saved', async () => {
     for (const h of ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) assert.ok(titles.includes(h), h)
   })
 
-  it('all 8 hand-saved → the auto-copy is skipped, nothing evicted, the new pass still saves', () => {
+  it('8 hand-saved + an auto-copy → 9 (the spare slot); nothing hand-saved is lost', () => {
     const list = Array.from({ length: 8 }, (_, i) => mk(`H${i}`, i))
     mem.set(TK, JSON.stringify(list))
     saveDraft(pass('Ersatt', [tech[9], tech[10]]))
     const next = pass('Ny', [tech[11]])
     assert.equal(trySaveDraft(next), true)
     assert.equal(loadDraft()!.id, next.id)
-    assert.deepEqual(st.loadSavedTemplates().map((t) => t.title), list.map((t) => t.title))
+    const t = st.loadSavedTemplates()
+    assert.equal(t.length, 9)
+    assert.equal(t[0].title, 'Ersatt')
+    assert.equal(t[0].auto, true)
+    assert.deepEqual(t.slice(1).map((x) => x.title), list.map((x) => x.title))
   })
 
-  it('legacy entries without the flag count as hand-saved', () => {
-    const legacy = Array.from({ length: 8 }, (_, i) => {
-      const t = mk(`L${i}`, i) as Record<string, unknown>
-      delete t.auto
-      return t
-    })
-    mem.set(TK, JSON.stringify(legacy))
-    assert.ok(st.loadSavedTemplates().every((t) => !t.auto))
-    saveDraft(pass('Ersatt', [tech[9]]))
+  it('a newer auto-copy replaces the spare (still 9, one auto)', () => {
+    const list = Array.from({ length: 8 }, (_, i) => mk(`H${i}`, i))
+    mem.set(TK, JSON.stringify(list))
+    saveDraft(pass('Ersatt 1', [tech[9], tech[10]]))
+    saveDraft(pass('Ersatt 2', [tech[11], tech[12]]))
+    saveDraft(pass('Ny', [tech[13]]))
+    const t = st.loadSavedTemplates()
+    assert.equal(t.length, 9)
+    assert.deepEqual(t.filter((x) => x.auto).map((x) => x.title), ['Ersatt 2'])
+    assert.ok(!t.some((x) => x.title === 'Ersatt 1'))
+  })
+
+  it('a hand-save into 8 hand-saved + spare evicts the spare first, then the oldest entry (back to 8)', () => {
+    const list = Array.from({ length: 8 }, (_, i) => mk(`H${i}`, i))
+    mem.set(TK, JSON.stringify(list))
+    saveDraft(pass('Ersatt', [tech[9], tech[10]]))
     saveDraft(pass('Ny', [tech[11]]))
-    assert.equal(st.loadSavedTemplates().length, 8)
-    assert.ok(!st.loadSavedTemplates().some((t) => t.title === 'Ersatt'))
+    assert.equal(st.loadSavedTemplates().length, 9)
+    st.saveSessionAsTemplate(pass('Hand ny', [tech[12]]))
+    const t = st.loadSavedTemplates()
+    assert.equal(t.length, 8)
+    assert.equal(t[0].title, 'Hand ny')
+    assert.ok(!t.some((x) => x.auto), 'spare auto went first')
+    assert.ok(!t.some((x) => x.title === 'H7'), 'then the oldest hand-saved, as on main')
+  })
+
+  it('7 hand-saved + 1 auto (full) → a new auto-copy replaces the old auto (normal rule, stays 8)', () => {
+    const list = [...Array.from({ length: 7 }, (_, i) => mk(`H${i}`, i)), mk('A-gammal', 8, true)]
+    mem.set(TK, JSON.stringify(list))
+    saveDraft(pass('Ersatt', [tech[9], tech[10]]))
+    saveDraft(pass('Ny', [tech[11]]))
+    const t = st.loadSavedTemplates()
+    assert.equal(t.length, 8)
+    assert.deepEqual(t.filter((x) => x.auto).map((x) => x.title), ['Ersatt'])
   })
 
   it('the auto flag survives a reload (storage round trip); hand-saves are unflagged', () => {

@@ -286,31 +286,43 @@ await attempt('F', async () => {
   check('F1-nyvecka', 'Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once', r2.ms < 800 && r2.home === r2.onScreen && !r2.storedIsOld && r2.mallar.filter((t) => t === 'Vecka gammal').length === 1, JSON.stringify(r2))
 })
 
-// ── Mina mallar cap of 8 (Christoffer's rule): auto-copies only push out auto-copies.
+// ── Mina mallar cap (Christoffer's rule): 8 + ONE spare slot for an auto-copy; hand-saved never dropped by an auto-copy.
 await attempt('G', async () => {
   await race('Cap0', async () => {})  // clean slot + Mina mallar, a built-in pass on Home
-  const base = (await tmpls())[0] ?? null
-  const seed = await p.evaluate(() => JSON.parse(localStorage.getItem('gymnastics-planner-draft-v1')))
-  const one = base ?? { id: 'x', title: 'x', totalMinutes: 0, savedAt: new Date().toISOString(), pass: { v: 1, blocks: [] } }
-  // 8 hand-saved (legacy shape: no flag), each a distinct signature
+  const one = (await tmpls())[0] ?? { id: 'x', title: 'x', totalMinutes: 0, savedAt: new Date().toISOString(), pass: { v: 1, blocks: [] } }
+  // 8 hand-saved in the legacy shape (no flag), distinct signatures
   const hand = Array.from({ length: 8 }, (_, i) => ({ ...one, id: `mall-h${i}`, title: `Hand ${i}`, auto: undefined, pass: { ...one.pass, hallTemplateId: `h${i}` } }))
   await p.evaluate(([k, v]) => localStorage.setItem(k, v), [TK, JSON.stringify(hand)])
+  const first = (await draft()).title
   await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor()
   await addTeknik(3); await p.waitForTimeout(1100)
   await toHome()
   const t1 = await tmpls()
-  check('CAP-a', 'All 8 hand-saved (no flag): replaced pass is not copied, nothing evicted, no new UI; new pass on Home', t1.length === 8 && t1.every((t, i) => t.title === `Hand ${i}` && !t.auto) && (await p.locator('.toast').count()) === 0 && !(await homeMeta()).includes(`${seed.title} ·`), t1.map((t) => t.title).join(','))
-  // make one an auto-copy → the next replace evicts exactly that one
-  const withAuto = hand.map((t, i) => (i === 5 ? { ...t, title: 'Auto 5', auto: true } : t))
-  await p.evaluate(([k, v]) => localStorage.setItem(k, v), [TK, JSON.stringify(withAuto)])
-  const replaced = (await draft()).title
+  check('CAP-a', '8 hand-saved (legacy, no flag) + replaced pass → 9: the copy takes the spare slot (auto), all 8 kept, no toast', t1.length === 9 && t1[0].title === first && t1[0].auto === true && hand.every((h, i) => t1[i + 1].title === h.title && !t1[i + 1].auto) && (await p.locator('.toast').count()) === 0, t1.map((t) => `${t.title}${t.auto ? '*' : ''}`).join(','))
+  // a newer auto-copy replaces the spare
+  const second = (await draft()).title
   await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor()
+  await p.getByRole('textbox', { name: 'Passets titel' }).fill('Cap tredje')
   await addTeknik(4); await p.waitForTimeout(1100)
   await toHome()
   const t2 = await tmpls()
-  check('CAP-b', 'Full list with one auto-copy: the replaced pass (flag auto) pushes out that auto-copy only; hand-saved all kept', t2.length === 8 && t2[0].title === replaced && t2[0].auto === true && !t2.some((t) => t.title === 'Auto 5') && [0, 1, 2, 3, 4, 6, 7].every((i) => t2.some((t) => t.title === `Hand ${i}`)), t2.map((t) => `${t.title}${t.auto ? '*' : ''}`).join(','))
+  check('CAP-b', 'Another replace → still 9; the newer auto-copy replaced the spare; hand-saved all kept', t2.length === 9 && t2.filter((t) => t.auto).length === 1 && t2[0].title === second && t2[0].auto === true && second !== first && hand.every((h) => t2.some((t) => t.title === h.title)), t2.map((t) => `${t.title}${t.auto ? '*' : ''}`).join(','))
   await p.reload(); await p.locator('.home').waitFor()
   check('CAP-c', 'Flag survives a reload', (await tmpls())[0].auto === true)
+  // 9 entries render in Mina mallar at 390×844
+  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click()
+  const cards = p.locator('.template-saved:not(.template-club) .template-card')
+  await cards.first().waitFor()
+  const lay = await p.evaluate(() => {
+    const cs = [...document.querySelectorAll('.template-saved:not(.template-club) .template-card')]
+    const r = cs.map((c) => c.getBoundingClientRect())
+    const overlap = r.some((a, i) => r.some((b, j) => j > i && !(a.bottom <= b.top + 0.5 || b.bottom <= a.top + 0.5 || a.right <= b.left + 0.5 || b.right <= a.left + 0.5)))
+    return { n: cs.length, overlap, maxRight: Math.max(...r.map((x) => x.right)), sw: document.documentElement.scrollWidth, sheetSw: (() => { const sh = document.querySelector('.side-panel-slot.is-open'); return sh ? sh.scrollWidth - sh.clientWidth : 0 })() }
+  })
+  check('CAP-d', 'Mina mallar lists all 9 at 390×844: no overlap, no horizontal scroll', lay.n === 9 && !lay.overlap && lay.maxRight <= 390 && lay.sw <= 390 && lay.sheetSw <= 0, JSON.stringify(lay))
+  await cards.nth(8).scrollIntoViewIfNeeded()
+  await shot('08_mina_mallar_9')
+  await p.keyboard.press('Escape')
 })
 
 const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')

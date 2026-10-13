@@ -14,7 +14,8 @@ export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
   try {
     const old = loadDraft()
     if (!old || old.id === next.id || countSessionItems(old) < 1 || sessionAlreadyArchived(old)) return false
-    return saveAutoCopy(old, old.title.trim() || UI.untitledPass) !== null
+    saveAutoCopy(old, old.title.trim() || UI.untitledPass)
+    return true
   } catch {
     // A full Mina mallar write must never block the pass write.
     return false
