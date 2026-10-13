@@ -1,10 +1,10 @@
 # Föreningens mallar — för dig som tränare (Slice 36)
 
-**Status:** Levande dokument. Slice 36 Docs lock 2026-10-12 (A1–F1).  
+**Status:** Levande dokument. Slice 36 Docs lock 2026-10-12 (A1–F1). Slice 37 (2026-10-13): stationerna placeras direkt när du använder en mall.  
 **Ton:** Varm, kort, tränare till tränare. *Du*. Lugn chrome.  
 **Låsta termer:** gymnaster · pass · Passbyggaren · Hallöversikt · Golvklart · Förrådslista · Starta från mall · Kom igång · Biblioteket · Dölj för alla · Visa igen · Logga in som admin · Logga ut
 
-Pack: [`slice-36/`](../slice-36/README.md) · nycklar: [`slice-36/content/microcopy.sv.md`](../slice-36/content/microcopy.sv.md).  
+Pack: [`slice-36/`](../slice-36/README.md) · [`slice-37/`](../slice-37/README.md) · nycklar: [`slice-36/content/microcopy.sv.md`](../slice-36/content/microcopy.sv.md).  
 Närliggande: [`delad-bank.sv.md`](./delad-bank.sv.md) · [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md).
 
 ---
@@ -20,15 +20,15 @@ Du loggar inte in. Du väljer bara en mall, som vanligt.
 1. Tryck **Starta från mall**.
 2. Välj en mall med märket **Föreningens**.
 3. Tryck **Använd mall**. Passet hamnar i Passbyggaren.
-4. Öppna Hallöversikt och placera stationerna i din hall.
+4. Teknikstationerna står redan i Hallöversikt. Flytta dem om din hall ser annorlunda ut.
 
 Passet är ditt nu. Ändra det hur du vill. Föreningens mall ändras inte av det.
 
 Vill du spara din version? Använd **Spara som egen mall**. Den hamnar under Mina mallar på den här enheten.
 
-## Varför följer inte placeringarna med?
+## Var hamnar stationerna?
 
-Hallarna ser olika ut. Därför tar mallen med övningar, tider och redskap, men inte var stationerna står. Det gör du själv i Hallöversikt, på några sekunder.
+Hallarna ser olika ut. Därför sparar föreningens mall inte var stationerna stod. När du använder mallen ställer appen ut Teknikstationerna i din hall, på samma sätt som **Planera pass**. Flytta dem om du vill.
 
 ## Utan nät
 
@@ -52,5 +52,5 @@ Ett pass du redan har gjort från en mall ligger kvar som det är, även om mall
 
 - Samma namn igen ersätter mallen. Appen frågar först.
 - **Dölj för alla** gömmer mallen för alla tränare. **Visa igen** tar tillbaka den. Inget raderas.
-- Placeringarna i hallen följer aldrig med.
+- Placeringarna i hallen sparas aldrig i mallen. Appen ställer ut stationerna på nytt hos varje tränare.
 - Du behöver nät för att ändra föreningens mallar.
