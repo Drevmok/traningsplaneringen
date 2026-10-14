@@ -1,0 +1,659 @@
+{
+  "at": "2026-10-14T08:11:43.706Z",
+  "pass": 63,
+  "fail": 1,
+  "results": [
+    {
+      "id": "AC3-first",
+      "name": "× Teknik #1 → Ångra → whole stored pass deep-equal to before (order, minutes, note, redskap, every block); toast «Ångrat.» no button",
+      "ok": true,
+      "detail": "4→4→4; toast «Ångrat.»"
+    },
+    {
+      "id": "AC4-first",
+      "name": "hallPlacements entry back with exact x/y (+zoneId) and in the same array position",
+      "ok": true,
+      "detail": "[[0.18,0.33,\"-\"],[0.35,0.4,\"open\"],[0.52,0.47,\"-\"],[0.69,0.54,\"open\"]]"
+    },
+    {
+      "id": "AC1",
+      "name": "× on middle of ≥ 3 → gone at once, no dialog, toast «Borttagen · Ångra»",
+      "ok": true,
+      "detail": "Borttagen · Ångra"
+    },
+    {
+      "id": "AC3-middle",
+      "name": "× Teknik #2 → Ångra → whole stored pass deep-equal to before (order, minutes, note, redskap, every block); toast «Ångrat.» no button",
+      "ok": true,
+      "detail": "4→4→4; toast «Ångrat.»"
+    },
+    {
+      "id": "AC4-middle",
+      "name": "hallPlacements entry back with exact x/y (+zoneId) and in the same array position",
+      "ok": true,
+      "detail": "[[0.18,0.33,\"-\"],[0.35,0.4,\"open\"],[0.52,0.47,\"-\"],[0.69,0.54,\"open\"]]"
+    },
+    {
+      "id": "AC5",
+      "name": "Reload right after Ångra (< 1 s) → restored station stored",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3-last",
+      "name": "× Teknik #4 → Ångra → whole stored pass deep-equal to before (order, minutes, note, redskap, every block); toast «Ångrat.» no button",
+      "ok": true,
+      "detail": "4→4→4; toast «Ångrat.»"
+    },
+    {
+      "id": "AC4-last",
+      "name": "hallPlacements entry back with exact x/y (+zoneId) and in the same array position",
+      "ok": true,
+      "detail": "[[0.18,0.33,\"-\"],[0.35,0.4,\"open\"],[0.52,0.47,\"-\"],[0.69,0.54,\"open\"]]"
+    },
+    {
+      "id": "AC3-uv-middle",
+      "name": "× Uppvärmning #2 → Ångra → whole stored pass deep-equal to before (order, minutes, note, redskap, every block); toast «Ångrat.» no button",
+      "ok": true,
+      "detail": "3→3→3; toast «Ångrat.»"
+    },
+    {
+      "id": "AC4-dragged",
+      "name": "Dragged marker (Blå) → × → Ångra → stored placement equal (dragged x/y), marker drawn there",
+      "ok": true,
+      "detail": "stored 0.6117,0.7733 drawn 0.6105,0.7692"
+    },
+    {
+      "id": "AC2",
+      "name": "Toast closes by itself after about 5 s (±0.5); station stays removed in storage",
+      "ok": true,
+      "detail": "visible 4999 ms"
+    },
+    {
+      "id": "race-x-0",
+      "name": "× → Ångra after 0 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":0,\"tx\":2,\"tu\":11,\"removedStateStored\":\"never\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-x-100",
+      "name": "× → Ångra after 100 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":100,\"tx\":2,\"tu\":103,\"removedStateStored\":\"never\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-x-400",
+      "name": "× → Ångra after 400 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":400,\"tx\":2,\"tu\":403,\"removedStateStored\":\"never\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-x-790",
+      "name": "× → Ångra after 790 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":790,\"tx\":1,\"tu\":792,\"removedStateStored\":\"never\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-x-900",
+      "name": "× → Ångra after 900 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":900,\"tx\":2,\"tu\":903,\"removedStateStored\":\"820–900 ms\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-x-1500",
+      "name": "× → Ångra after 1500 ms: no stale removed-state write after Ångra; final + after reload = before",
+      "ok": true,
+      "detail": "{\"gapMs\":1500,\"tx\":1,\"tu\":1502,\"removedStateStored\":\"820–1500 ms\",\"staleAfterUndo\":0,\"finalOk\":true,\"reloadOk\":true}"
+    },
+    {
+      "id": "race-edit-x",
+      "name": "Minutes edit still pending → × within 800 ms → Ångra at 100 ms → after reload: edit kept (11 min) and all 4 stations",
+      "ok": true,
+      "detail": "11,5,6,7"
+    },
+    {
+      "id": "race-mall-builtin-0",
+      "name": "builtin mall → Ångra after 0 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"builtin\",\"gapMs\":0,\"storedIds\":[\"mv7twdd7\",\"mv7twev3\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":0,\"mallarAfter\":1,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-builtin-100",
+      "name": "builtin mall → Ångra after 100 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"builtin\",\"gapMs\":100,\"storedIds\":[\"mv7twgwm\",\"mv7twidy\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":0,\"mallarAfter\":1,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-builtin-400",
+      "name": "builtin mall → Ångra after 400 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"builtin\",\"gapMs\":400,\"storedIds\":[\"mv7twkil\",\"mv7twlzz\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":0,\"mallarAfter\":1,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-builtin-790",
+      "name": "builtin mall → Ångra after 790 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"builtin\",\"gapMs\":790,\"storedIds\":[\"mv7twocw\",\"mv7twpth\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":0,\"mallarAfter\":1,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-builtin-900",
+      "name": "builtin mall → Ångra after 900 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"builtin\",\"gapMs\":900,\"storedIds\":[\"mv7twsh1\",\"mv7twty3\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":0,\"mallarAfter\":1,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-saved-0",
+      "name": "saved mall → Ångra after 0 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"saved\",\"gapMs\":0,\"storedIds\":[\"mv7twwow\",\"mv7twy6v\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":1,\"mallarAfter\":2,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-saved-100",
+      "name": "saved mall → Ångra after 100 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"saved\",\"gapMs\":100,\"storedIds\":[\"mv7tx08m\",\"mv7tx1r4\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":1,\"mallarAfter\":2,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-saved-400",
+      "name": "saved mall → Ångra after 400 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"saved\",\"gapMs\":400,\"storedIds\":[\"mv7tx3vx\",\"mv7tx5el\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":1,\"mallarAfter\":2,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-saved-790",
+      "name": "saved mall → Ångra after 790 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"saved\",\"gapMs\":790,\"storedIds\":[\"mv7tx7s4\",\"mv7tx9ae\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":1,\"mallarAfter\":2,\"mallCopy\":false}"
+    },
+    {
+      "id": "race-mall-saved-900",
+      "name": "saved mall → Ångra after 900 ms: no mall-pass write after Ångra; stored + reload = previous pass (same id); Mina mallar = before + 1, no mall copy",
+      "ok": true,
+      "detail": "{\"kind\":\"saved\",\"gapMs\":900,\"storedIds\":[\"mv7txbym\",\"mv7txdgu\"],\"lateMallWrites\":0,\"finalOk\":true,\"reloadOk\":true,\"mallarBefore\":1,\"mallarAfter\":2,\"mallCopy\":false}"
+    },
+    {
+      "id": "AC9-toast",
+      "name": "Built-in Använd mall → toast «Mallen är i Passbyggaren. · Ångra», focus on Ångra",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra / focus Ångra"
+    },
+    {
+      "id": "AC9",
+      "name": "Ångra → previous pass back: same id, title, blocks, hall",
+      "ok": true,
+      "detail": "true S41V eget Blå forening-bla"
+    },
+    {
+      "id": "AC12",
+      "name": "Mall had Teknik auto-placed → after Ångra placements = old pass only (stored), Hallöversikt shows only those",
+      "ok": true,
+      "detail": "old 4, mall 3"
+    },
+    {
+      "id": "AC12-hall",
+      "name": "Hallöversikt shows the old pass markers (4) in Blå",
+      "ok": true,
+      "detail": "4"
+    },
+    {
+      "id": "AC14",
+      "name": "Mina mallar: auto-copy of previous pass still there, no copy of the mall pass, count = before + 1",
+      "ok": true,
+      "detail": "S41V eget Blå(auto)"
+    },
+    {
+      "id": "AC13",
+      "name": "Reload → stored pass = previous (same id); Fortsätt passet opens it",
+      "ok": true,
+      "detail": "S41V eget Blå"
+    },
+    {
+      "id": "AC15",
+      "name": "Använd mall again over the restored pass → no second identical auto-copy",
+      "ok": true,
+      "detail": "S41V eget Blå"
+    },
+    {
+      "id": "AC10",
+      "name": "Mina mallar mall → «Mallen är i Passbyggaren. · Ångra» → Ångra → previous pass (same id, blocks, hall, placements); Mina mallar = before + 1",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra; mallar 1→2"
+    },
+    {
+      "id": "AC11",
+      "name": "Föreningsmall (stand-in) → one toast «Mallen är i Passbyggaren. · Ångra» → Ångra → previous pass; mall text not shown twice or after Ångra",
+      "ok": true,
+      "detail": "[\"1037:Mallen är i Passbyggaren. · Ångra\",\"1685:Ångrat.\"]"
+    },
+    {
+      "id": "AC16",
+      "name": "Mall over a blank pass → Ångra → blank pass back (same id, title, rows), Mina mallar unchanged (0)",
+      "ok": true,
+      "detail": "stored before no (blank pass unwritten); after id same -; rows 2"
+    },
+    {
+      "id": "AC17",
+      "name": "Edit the mall pass before Ångra → toast gone, mall pass stays with the edit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14-spare-8 hand-saved",
+      "name": "8 hand-saved: Ångra leaves Mina mallar exactly as after the mall (no removal, no duplicate); mall again → no 2nd copy",
+      "ok": true,
+      "detail": "8→9→9→9; lost "
+    },
+    {
+      "id": "AC14-spare-8 hand + 1 auto (old copy)",
+      "name": "8 hand + 1 auto (old copy): Ångra leaves Mina mallar exactly as after the mall (no removal, no duplicate); mall again → no 2nd copy",
+      "ok": true,
+      "detail": "9→9→9→9; lost Gammal auto"
+    },
+    {
+      "id": "AC6",
+      "name": "× A, × B within 5 s → one toast, fresh 5 s (still there 6.5 s after A); Ångra → B back, A stays removed",
+      "ok": true,
+      "detail": "ids 3, B first true"
+    },
+    {
+      "id": "C1-mall-then-x",
+      "name": "× (pass) → mall → × (mall pass) → Ångra restores only the last × (mall pass back, not the old pass)",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "C1-no-second",
+      "name": "After that Ångra no further undo offered (toast «Ångrat.» without button)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "C1-x-then-mall",
+      "name": "× then Använd mall → Ångra restores the pre-mall pass (with the × still applied), station not back",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "× → change minutes on another station → toast closes, no Ångra left; edit saved, station still removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7-title",
+      "name": "× → title edit → toast closes, no Ångra",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8-Hallöversikt",
+      "name": "Hallöversikt within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": true,
+      "detail": "toast «»; teknik 3"
+    },
+    {
+      "id": "AC8-Golvklart",
+      "name": "Golvklart within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": true,
+      "detail": "toast «»; teknik 3"
+    },
+    {
+      "id": "AC8-Hem",
+      "name": "Hem within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": true,
+      "detail": "toast «»; teknik 3"
+    },
+    {
+      "id": "AC8-Kör passet",
+      "name": "Kör passet within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": false,
+      "detail": "toast «Borttagen · Ångra»; teknik 3"
+    },
+    {
+      "id": "AC8-reload",
+      "name": "reload within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": true,
+      "detail": "toast «»; teknik 3"
+    },
+    {
+      "id": "AC8-mall-toast→Hem",
+      "name": "mall-toast→Hem within 5 s and back → no toast / no Ångra, change still in place",
+      "ok": true,
+      "detail": "toast «»; teknik 3"
+    },
+    {
+      "id": "AC18-desk",
+      "name": "desk: Tab-focus × + Enter → focus on Ångra; still open after 6.5 s while focused; Enter undoes",
+      "ok": true,
+      "detail": "focus=Ångra held=1 n=4; focus after undo=BODY."
+    },
+    {
+      "id": "AC18-esc-desk",
+      "name": "desk: Escape closes without undo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-390",
+      "name": "390: Tab-focus × + Enter → focus on Ångra; still open after 6.5 s while focused; Enter undoes",
+      "ok": true,
+      "detail": "focus=Ångra held=1 n=4; focus after undo=BODY."
+    },
+    {
+      "id": "AC18-esc-390",
+      "name": "390: Escape closes without undo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20-tap",
+      "name": "Ångra tap target ≥ 44 px tall; toast inside the 390 viewport; role=status; real button «Ångra»; separator aria-hidden",
+      "ok": true,
+      "detail": "{\"role\":\"status\",\"live\":null,\"btnName\":\"Ångra\",\"btnType\":\"button\",\"sepHidden\":\"true\",\"toast\":[116,756,159,64],\"btnH\":44,\"btnW\":53,\"inViewport\":true,\"oneLine\":false,\"focus\":\"toast-action\",\"color\":\"rgb(253, 230, 138)\",\"bg\":\"rgb(28, 25, 23)\",\"bar\":[-423,-379]}"
+    },
+    {
+      "id": "AC20-after",
+      "name": "After the toast closes nothing of it remains over the page (no .toast, point under it hits page content)",
+      "ok": true,
+      "detail": "BUTTON.btn-primary"
+    },
+    {
+      "id": "AC20-mall390",
+      "name": "Mall toast «Mallen är i Passbyggaren. · Ångra» fits inside 390 px",
+      "ok": true,
+      "detail": "{\"w\":195,\"h\":64,\"left\":98,\"right\":293}"
+    },
+    {
+      "id": "AC20-E1",
+      "name": "Använd mall confirm text identical to main",
+      "ok": true,
+      "detail": "Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min)"
+    },
+    {
+      "id": "AC20-plain",
+      "name": "Other toast (Sparad som egen mall) 2.2 s, no button",
+      "ok": true,
+      "detail": "Sparad som egen mall. 2180 ms"
+    },
+    {
+      "id": "AC3-done-2.2",
+      "name": "«Ångrat.» shows ~2.2 s, no button",
+      "ok": true,
+      "detail": "2179 ms"
+    },
+    {
+      "id": "AC22-footer",
+      "name": "Footer «Träningsplaneraren · Slice 41»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 41 · Tyck till · Visa tips igen · Uppdatera"
+    }
+  ],
+  "notes": {
+    "B.race_x": [
+      {
+        "gapMs": 0,
+        "tx": 2,
+        "tu": 11,
+        "removedStateStored": "never",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      },
+      {
+        "gapMs": 100,
+        "tx": 2,
+        "tu": 103,
+        "removedStateStored": "never",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      },
+      {
+        "gapMs": 400,
+        "tx": 2,
+        "tu": 403,
+        "removedStateStored": "never",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      },
+      {
+        "gapMs": 790,
+        "tx": 1,
+        "tu": 792,
+        "removedStateStored": "never",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      },
+      {
+        "gapMs": 900,
+        "tx": 2,
+        "tu": 903,
+        "removedStateStored": "820–900 ms",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      },
+      {
+        "gapMs": 1500,
+        "tx": 1,
+        "tu": 1502,
+        "removedStateStored": "820–1500 ms",
+        "staleAfterUndo": 0,
+        "finalOk": true,
+        "reloadOk": true
+      }
+    ],
+    "B.race_mall": [
+      {
+        "kind": "builtin",
+        "gapMs": 0,
+        "storedIds": [
+          "mv7twdd7",
+          "mv7twev3"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 0,
+        "mallarAfter": 1,
+        "mallCopy": false
+      },
+      {
+        "kind": "builtin",
+        "gapMs": 100,
+        "storedIds": [
+          "mv7twgwm",
+          "mv7twidy"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 0,
+        "mallarAfter": 1,
+        "mallCopy": false
+      },
+      {
+        "kind": "builtin",
+        "gapMs": 400,
+        "storedIds": [
+          "mv7twkil",
+          "mv7twlzz"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 0,
+        "mallarAfter": 1,
+        "mallCopy": false
+      },
+      {
+        "kind": "builtin",
+        "gapMs": 790,
+        "storedIds": [
+          "mv7twocw",
+          "mv7twpth"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 0,
+        "mallarAfter": 1,
+        "mallCopy": false
+      },
+      {
+        "kind": "builtin",
+        "gapMs": 900,
+        "storedIds": [
+          "mv7twsh1",
+          "mv7twty3"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 0,
+        "mallarAfter": 1,
+        "mallCopy": false
+      },
+      {
+        "kind": "saved",
+        "gapMs": 0,
+        "storedIds": [
+          "mv7twwow",
+          "mv7twy6v"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 1,
+        "mallarAfter": 2,
+        "mallCopy": false
+      },
+      {
+        "kind": "saved",
+        "gapMs": 100,
+        "storedIds": [
+          "mv7tx08m",
+          "mv7tx1r4"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 1,
+        "mallarAfter": 2,
+        "mallCopy": false
+      },
+      {
+        "kind": "saved",
+        "gapMs": 400,
+        "storedIds": [
+          "mv7tx3vx",
+          "mv7tx5el"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 1,
+        "mallarAfter": 2,
+        "mallCopy": false
+      },
+      {
+        "kind": "saved",
+        "gapMs": 790,
+        "storedIds": [
+          "mv7tx7s4",
+          "mv7tx9ae"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 1,
+        "mallarAfter": 2,
+        "mallCopy": false
+      },
+      {
+        "kind": "saved",
+        "gapMs": 900,
+        "storedIds": [
+          "mv7txbym",
+          "mv7txdgu"
+        ],
+        "lateMallWrites": 0,
+        "finalOk": true,
+        "reloadOk": true,
+        "mallarBefore": 1,
+        "mallarAfter": 2,
+        "mallCopy": false
+      }
+    ],
+    "C.mid": {
+      "midHall": "standard-trupp",
+      "midPlaced": 3,
+      "midTitle": "Nybörjare — ca 55 min"
+    },
+    "D.8 hand-saved": {
+      "before": 8,
+      "afterMall": 9,
+      "afterUndo": 9,
+      "afterMallAgain": 9,
+      "lost": [],
+      "added": [
+        "S41V spare"
+      ]
+    },
+    "D.8 hand + 1 auto (old copy)": {
+      "before": 9,
+      "afterMall": 9,
+      "afterUndo": 9,
+      "afterMallAgain": 9,
+      "lost": [
+        "Gammal auto"
+      ],
+      "added": [
+        "S41V spare"
+      ]
+    },
+    "G.focusAfterEsc.desk": "BODY.",
+    "G.focusAfterEsc.390": "BODY.",
+    "G.a11y390": {
+      "role": "status",
+      "live": null,
+      "btnName": "Ångra",
+      "btnType": "button",
+      "sepHidden": "true",
+      "toast": [
+        116,
+        756,
+        159,
+        64
+      ],
+      "btnH": 44,
+      "btnW": 53,
+      "inViewport": true,
+      "oneLine": false,
+      "focus": "toast-action",
+      "color": "rgb(253, 230, 138)",
+      "bg": "rgb(28, 25, 23)",
+      "bar": [
+        -423,
+        -379
+      ]
+    },
+    "G.contrast": "Ångra rgb(253, 230, 138) on rgb(28, 25, 23): 14.0:1",
+    "G.mallToast390": {
+      "w": 195,
+      "h": 64,
+      "left": 98,
+      "right": 293
+    },
+    "G.mallToastLines": {
+      "rects": 1,
+      "h": 41,
+      "lh": 20.3,
+      "maxW": "none",
+      "ws": "normal"
+    }
+  },
+  "errors": []
+}

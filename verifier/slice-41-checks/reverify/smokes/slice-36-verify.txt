@@ -1,0 +1,19 @@
+PASS [E1-pre] Admin pass has placed hall stations before publish (localStorage draft) — hallPlacements 3
+PASS [V-pub] Publish toast verbatim
+PASS [E1-db] Stored payload: v=1, blocks, NO hallPlacements key (publish drops them) — v,notes,title,blocks,hallTemplateId
+PASS [V-req] Coach: exactly one GET club_templates (apikey only, no Authorization); every coach bank request is a GET without Authorization — GET /rest/v1/exercises ; GET /rest/v1/redskap ; GET /rest/v1/club_templates
+PASS [V-chunks] Coach loads no supabase-js / admin chunk — index-WSCW63WB.js
+PASS [F1-noedit] Coach: club section has only the card buttons (no edit/rename/Dölj/Ta bort/Publicera) — Föreningens mall V36 Testmall, 53 min
+FAIL [E1-apply] Coach applied club mall: localStorage draft hallPlacements empty, blocks = payload — hallPlacements [{"sessionItemId":"item-1z1wn30q-mv7v99eq","x":0.77,"y":0.18,"zoneId":"trampett"},{"sessionItemId":"item-7ps13spx-mv7v99eq","x":0.805,"y":0.18,"zoneId":"trampett"},{"sessionItemId":"item-2gvnw55i-mv7v99eq"
+FAIL [AC24-v] Footer (builder view; home hides the label by design) reads «Träningsplaneraren · Slice 36» — Träningsplaneraren · Slice 41 · Logga in som admin · Tyck ti
+PASS [F1-write] Coach-key POST/PATCH/DELETE to club_templates refused by the DB — 401/401/401
+PASS [F1-overwrite] Overwrite toast; same id, new payload, one row
+PASS [AC11-overwrite] Coach reload after overwrite → applied pass has the NEW blocks
+PASS [F1-hide-db] «Dölj för alla» = admin-global: row hidden = true, row kept
+PASS [F1-hide-coach] Coach reload: hidden mall gone, and stays gone on a second reload — [[],[]]
+PASS [F1-unhide] «Visa igen» toast; hidden = false
+PASS [F1-back-coach] Coach reload after «Visa igen»: mall back — V36 TESTMALL
+PASS [V-dela] #dela= share link (plain build) still renders the shared pass
+PASS [errors] No page errors
+
+15/17 pass

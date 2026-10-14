@@ -1,0 +1,30 @@
+PASS [note] Built-in apply is saved at once (Slice 39 C1): draft present right after apply
+PASS [AC1a] Built-in «Nybörjare — ca 55 min»: draft has one marker per Teknik item right after apply (hall not opened) — 3/3
+PASS [AC4a] Built-in: no non-Teknik markers; hall template = default (standard-trupp) — standard-trupp
+PASS [AC5] Använd alla förslag not triggered: no station redskap saved on Teknik items
+FAIL [AC9a] Built-in apply shows no toast
+PASS [AC6a] Markers do not stack (distinct spots)
+PASS [AC8a] Reload: built-in placements still in the draft
+PASS [AC1b] Open Hallöversikt: same markers, no extra or duplicate — canvas chips 3
+PASS [AC9b] Club confirm has no «Stationerna placerar du själv i Hallöversikt.» line
+FAIL [AC9c] Club toast reads exactly «Mallen är i Passbyggaren.»
+PASS [AC2] Club mall (≥ 2 Teknik): all Teknik placed on apply, in the pass hall template; only Teknik — 3/3
+PASS [AC11] Club row in the DB still has no hallPlacements
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('.toast[role=status]') to be detached
+    14 × locator resolved to visible <div class="toast" role="status">…</div>
+
+    at /tmp/s41r/smk/verifier/slice-37-builder-smoke.mjs:133:13 {
+  log: [
+    "  - waiting for locator('.toast[role=status]') to be detached",
+    '    14 × locator resolved to visible <div class="toast" role="status">…</div>'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v20.19.2

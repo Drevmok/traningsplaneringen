@@ -1,0 +1,266 @@
+bun test v1.4.2 (744846f84)
+
+src/data/activityTips.test.ts:
+(pass) validateActivityTip > accepts a complete technique tip [1.42ms]
+(pass) validateActivityTip > does not require safety on gathering [0.08ms]
+(pass) validateActivityTip > flags a technique without a safety line [0.05ms]
+(pass) validateActivityTip > flags empty why, how, and required watch [0.04ms]
+(pass) validateActivityTip > flags more than four floor steps [0.04ms]
+(pass) validateTipCatalog > accepts the seeded library [0.64ms]
+
+src/data/seedActivities.test.ts:
+(pass) seed bank > has unique ids [0.14ms]
+(pass) seed bank > only uses redskap from the fixed library [0.23ms]
+(pass) seed bank > links resolve to seeds [0.08ms]
+(pass) seed promotion 2DJ_oMM81mI > adds all 11 and not Spindelmannen (#4) [0.22ms]
+(pass) seed promotion 2DJ_oMM81mI > Teknik, 6 min, ≤4 steps, beginner-friendly, own icon key [0.17ms]
+(pass) seed promotion 2DJ_oMM81mI > keeps a valid Källa source and stays flagged for review [0.24ms]
+(pass) seed promotion 2DJ_oMM81mI > uses the Slice 30 redskap agreed for the batch [0.11ms]
+(pass) seed promotion 2DJ_oMM81mI > tip catalog stays valid (safety lines live in ACTIVITY_SAFETY) [0.38ms]
+
+src/lib/appUpdate.test.ts:
+(pass) isNewerBuild > ignores dev and missing remote builds [0.08ms]
+(pass) isNewerBuild > notices a published build that is not the one on screen [0.03ms]
+(pass) withUpdateParam > keeps a shared pass in the hash and replaces an old stamp [0.14ms]
+
+src/lib/autosave.test.ts:
+(pass) Slice 39 autosave > trySaveDraft: true on success, false (never throws) when storage is full [1.84ms]
+(pass) Slice 39 autosave > replacing a stored pass with stations and another id archives it once [0.44ms]
+(pass) Slice 39 autosave > same id (editing) → no archive; empty old → no archive [0.18ms]
+(pass) Slice 39 autosave > adoptAsDraft (mall, import, receive) runs the guard too [0.22ms]
+(pass) Slice 39 autosave > archive title falls back to «Nytt pass» [0.17ms]
+(pass) Slice 39 autosave > archive failure never blocks the pass write [0.21ms]
+(pass) Slice 39 autosave > E1 skip rule: empty fresh pass waits; stored pass always saves [0.13ms]
+(pass) Slice 39 autosave > strings verbatim; removed keys gone [0.04ms]
+(pass) Slice 39 autosave > F1 race (Använd mall): a pending write of the old pass is flushed before the new pass is saved [0.27ms]
+(pass) Slice 39 autosave > F1 race (Ny vecka → Skapa kopia): old edit flushed, copy stays in the slot, one archive [0.43ms]
+(pass) Slice 39 autosave > a pending write of the same pass is not flushed by its own save [0.09ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > auto-copy into a full list evicts the oldest other auto-copy, never a hand-saved one [0.64ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > 8 hand-saved + an auto-copy → 9 (the spare slot); nothing hand-saved is lost [0.78ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > a newer auto-copy replaces the spare (still 9, one auto) [0.71ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > a hand-save into 8 hand-saved + spare evicts the spare first, then the oldest entry (back to 8) [0.57ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > 7 hand-saved + 1 auto (full) → a new auto-copy replaces the old auto (normal rule, stays 8) [0.44ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > the auto flag survives a reload (storage round trip); hand-saves are unflagged [0.25ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > hand-save into a full list evicts the oldest auto-copy first, else the oldest entry (as before) [0.45ms]
+(pass) Slice 39 Mina mallar cap: auto-copies vs hand-saved > dedupe stays: an identical replaced pass is not copied twice [0.26ms]
+(pass) Slice 41 restoreDraft > mall undo: stored draft is the old pass again; only the Slice 39 copy of it in Mina mallar [0.24ms]
+(pass) Slice 41 restoreDraft > drops a pending write of another pass, keeps none of the mall pass [0.06ms]
+(pass) Slice 41 restoreDraft > × undo: restoring the snapshot brings back the item, order and hall placement [0.33ms]
+
+src/lib/bank.test.ts:
+(pass) bank off — no repo variables (AC 12) > uses the bundled seeds, makes no request and never goes stale [0.89ms]
+(pass) bank off — no repo variables (AC 12) > a half-set config (URL only), http, or a non-public key also means off [0.61ms]
+(pass) bank config > accepts the publishable key or a legacy anon JWT [0.18ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > first visit: bundled seeds before any fetch [0.17ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > a good fetch replaces the store, writes the cache, sends apikey only [3.08ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > next load starts from the cache; a failed fetch keeps it and goes stale [2.27ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > first visit + failed fetch → bundled seeds, stale [0.25ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > 0 valid rows counts as a failure (AC 11) [0.66ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > bad rows are dropped, the rest shown (AC 11) [0.99ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > timeout → stale [20.50ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > offline → stale without a request [0.19ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > a corrupt or future-shaped cache is ignored (AC 17) [1.31ms]
+(pass) start from cache or seeds (D1, AC 9, 10, 17) > one fetch per load [0.82ms]
+(pass) hidden exercises (AC 13) > are not listed, not in block lists or the import duplicate check [2.21ms]
+(pass) hidden exercises (AC 13) > still render in an old pass / draft (title, Kör passet, stationskort) [5.26ms]
+(pass) hidden exercises (AC 13) > survive a reload from the cache, still hidden [1.22ms]
+(pass) lookup order own → bank → bundled (AC 14) > bank wins over bundled; bundled-only ids still resolve; own wins over both [1.20ms]
+(pass) admin writes update this device without pending rows (Slice 32 AC 38) > applyBankEntries keeps pending out of the store and the cache key [0.78ms]
+(pass) admin writes update this device without pending rows (Slice 32 AC 38) > the coach path never accepts pending rows [0.13ms]
+(pass) admin writes update this device without pending rows (Slice 32 AC 38) > refuses to apply when the bank is off or nothing is published [0.04ms]
+
+src/lib/bankRow.test.ts:
+(pass) rowToActivity — parity with the bundled seeds (AC 7) > maps every seed row back to the same Activity, plus safetyLine [0.59ms]
+(pass) rowToActivity — parity with the bundled seeds (AC 7) > keeps redskap, tags, links and Källa verbatim [0.07ms]
+(pass) rowToActivity — guards (AC 11) > drops rows with 6 steps, missing Säkerhet off Samling, an unknown block, or a pending status [0.14ms]
+(pass) rowToActivity — guards (AC 11) > Samling may have no Säkerhet [0.05ms]
+(pass) rowToActivity — guards (AC 11) > drops unknown redskap ids, a non-https Källa and redskap off Teknik — keeps the row [0.07ms]
+(pass) rowToActivity — guards (AC 11) > reads status and sort order [0.03ms]
+
+src/lib/clubTemplates.test.ts:
+(pass) cache (D1) > round-trips a valid list and starts from it before any fetch [0.90ms]
+(pass) cache (D1) > ignores a bad or partial cache, drops tampered items, never throws [0.20ms]
+(pass) cache (D1) > swallows a quota error [0.20ms]
+(pass) refresh (D1) > fresh replaces; one GET with apikey, no Authorization, hidden=is.false [0.20ms]
+(pass) refresh (D1) > an empty array clears the list and the cache (fresh, n = 0) [0.13ms]
+(pass) refresh (D1) > 500 → stale, list kept [0.14ms]
+(pass) refresh (D1) > bad JSON → stale, list kept [0.12ms]
+(pass) refresh (D1) > not an array → stale, list kept [0.06ms]
+(pass) refresh (D1) > network error → stale, list kept [0.05ms]
+(pass) refresh (D1) > timeout → stale, list kept [10.35ms]
+(pass) refresh (D1) > offline → stale without a request; first load offline keeps "no list" [0.15ms]
+(pass) refresh (D1) > bank off → no fetch, no list, never stale [0.13ms]
+(pass) refresh (D1) > applyClubTemplates (admin re-read) never caches hidden rows [0.10ms]
+(pass) publish payload (C1, E1) > has no hallPlacements key, v = 1, own drills kept, title trimmed to 80 [0.26ms]
+(pass) publish payload (C1, E1) > refuses a payload over 64 kB or minutes outside 1–240 before any request (§8.7) [0.28ms]
+(pass) apply (E1) > clears placements, gives fresh ids, keeps blocks/timings/stationEquipment [0.46ms]
+(pass) overwrite lookup (F1) > matches by name, case- and outer-whitespace-insensitive, hidden rows too [0.14ms]
+(pass) UI keys (Slice 36) > exist verbatim and have no exclamation mark [0.09ms]
+
+src/lib/feedback.test.ts:
+(pass) feedbackHref (Slice 35) > mailto to the address, subject first, CRLF encoded, no + for spaces [0.05ms]
+(pass) feedbackHref (Slice 35) > decodes to the exact subject and body (åäö, blank lines, version line) [0.08ms]
+(pass) feedbackHref (Slice 35) > version line and footer label share SLICE_NUMBER [0.05ms]
+(pass) FooterFeedback render (Slice 35) > one real mailto anchor with the aria name; no fallback line before a tap [5.43ms]
+
+src/lib/hallGrid.test.ts:
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > covers all 5 templates [0.07ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > forening-bla [3.94ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > forening-vit [0.27ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > standard-trupp [0.13ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > tavling-linjer [0.14ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > liten-hall [0.13ms]
+(pass) Slice 40 golden: autoPlaceUnplaced over every hall template > Standard, Tävling, Liten equal the committed main snapshot file [0.43ms]
+(pass) Slice 40 fixed open grid > cell values: Blå 4 × 3 = 12, Vit 3 × 3 = 9 [0.17ms]
+(pass) Slice 40 fixed open grid > cells never overlap each other and keep the marker inside Öppen yta [0.09ms]
+(pass) Slice 40 fixed open grid > first marker goes to the first cell (row order) [0.18ms]
+(pass) Slice 40 fixed open grid > fallback: all cells taken → least-overlapping cell, ties → row order [0.03ms]
+(pass) Slice 40 placing in Blå / Vit > forening-bla: 1-by-1 adds up to 16 — 0 overlapping pairs up to capacity 12, then least-overlap fallback [0.85ms]
+(pass) Slice 40 placing in Blå / Vit > forening-bla: batch place of N = 1-by-1 result (N = 1…16) [3.53ms]
+(pass) Slice 40 placing in Blå / Vit > forening-vit: 1-by-1 adds up to 16 — 0 overlapping pairs up to capacity 9, then least-overlap fallback [0.30ms]
+(pass) Slice 40 placing in Blå / Vit > forening-vit: batch place of N = 1-by-1 result (N = 1…16) [2.32ms]
+(pass) Slice 40 placing in Blå / Vit > mix: pre-placed (one dragged onto a cell) + new → old never move, new take the free cells in row order [0.24ms]
+(pass) Slice 40 placing in Blå / Vit > AC11 case: 3 placed (one dragged) + add from bank → the 3 stay, new one on the first free cell [0.07ms]
+(pass) Slice 40 placing in Blå / Vit > placements of non-Teknik items are not counted as taken [0.05ms]
+
+src/lib/hallSuggest.test.ts:
+(pass) suggestZoneId > puts satsbräda drills in the vault zone, trampett ahead of mattberg [0.09ms]
+(pass) autoPlaceUnplaced > places every teknik station and separates two in the same zone [0.21ms]
+(pass) autoPlaceUnplaced > does not move a station the coach already placed [0.06ms]
+(pass) activityFitsOwned > hides a drill that needs redskap the hall does not have [0.06ms]
+(pass) suggestZoneId — Slice 30 redskap (AC 33) > places the five new pieces by the strongest apparatus [0.06ms]
+
+src/lib/mallApply.test.ts:
+(pass) Slice 37 — Teknik placed on mall apply > built-in mall: every Teknik item placed, nothing else, default hall kept [0.35ms]
+(pass) Slice 37 — Teknik placed on mall apply > club mall: placed after clubTemplateToSession; clubPayload still has no hallPlacements [0.19ms]
+(pass) Slice 37 — Teknik placed on mall apply > Egen mall with one saved placement keeps its x/y; only the rest are added [0.16ms]
+(pass) Slice 37 — Teknik placed on mall apply > Egen mall without placements: all Teknik placed; the helper returns the same object when nothing is missing [0.11ms]
+
+src/lib/ownActivities.test.ts:
+(pass) own activities > requires a floor cue, and safety off the gathering block [0.10ms]
+(pass) own activities > keeps the coach safety line and does not write it until the pass is saved [1.98ms]
+(pass) own activities — Slice 30 fields > keeps redskap, tags, links, review, experienced and source through a reload (AC 7) [0.41ms]
+(pass) own activities — Slice 30 fields > drops redskap off Teknik and http sources [0.04ms]
+(pass) own activities — Slice 30 fields > Ändra keeps hidden fields, saves redskap and clears the review flag (AC 8, 9, 28) [0.18ms]
+(pass) own activities — Slice 30 fields > Markera som granskad clears the flag and persists (AC 28) [0.13ms]
+(pass) own activities — Slice 30 fields > caps own drills at 100 and keeps the four-step rule (AC 11) [1.21ms]
+(pass) own activities — Slice 30 fields > old stored drills without the new fields still load [0.08ms]
+
+src/lib/ownImport.test.ts:
+(pass) parseExerciseFile — envelope (AC 17) > tells bad, newer, empty and pass files apart [0.28ms]
+(pass) parseExerciseFile — envelope (AC 17) > accepts a fenced ```json block from a chat [0.35ms]
+(pass) example import (AC 14, 15, 7, 24) > previews two rows, default Ta med, with the batch note — and writes nothing [0.22ms]
+(pass) example import (AC 14, 15, 7, 24) > keeps redskap, tags, links, review flag and source after the write [0.48ms]
+(pass) example import (AC 14, 15, 7, 24) > re-import → Finns redan, Hoppa över; Ersätt replaces in place with the same id [0.36ms]
+(pass) edge fixture (AC 19–23, 26) > handles one rule per row [0.41ms]
+(pass) edge fixture (AC 19–23, 26) > clips long fields with Förkortad [0.17ms]
+(pass) room (AC 25) > with 99 own drills only the first new row fits [0.35ms]
+
+src/lib/ownedEquipment.test.ts:
+(pass) redskap library (AC 30) > has 15 pieces with the five new ones after Kon [0.06ms]
+(pass) owned redskap migration (AC 35) > a saved list of the old ten owns all 15 after upgrade; later unticks stick [0.29ms]
+(pass) owned redskap migration (AC 35) > an old list where something was unticked keeps it unticked [0.05ms]
+(pass) owned redskap migration (AC 35) > no saved list means the whole catalog, without writing anything [0.04ms]
+
+src/lib/runLeft.test.ts:
+(pass) Slice 38 runRemainingSeconds / runLeftText > label is verbatim [0.02ms]
+(pass) Slice 38 runRemainingSeconds / runLeftText > middle step: left + later steps [0.11ms]
+(pass) Slice 38 runRemainingSeconds / runLeftText > rounds up [0.03ms]
+(pass) Slice 38 runRemainingSeconds / runLeftText > last step at 0 → 0; earlier step at 0 → later steps only [0.02ms]
+(pass) Slice 38 runRemainingSeconds / runLeftText > 0-second steps add nothing; empty tail and negative left work [0.02ms]
+
+src/lib/runPass.test.ts:
+(pass) runSteps > walks the pass, not the map, and keeps the cue to the first step [0.24ms]
+(pass) runSteps > marks experienced-only drills [0.08ms]
+(pass) formatRunClock > pads minutes and seconds [0.06ms]
+(pass) clock > pauses and resumes without giving time back [0.08ms]
+
+src/lib/runSignal.test.ts:
+(pass) shouldSignal (Slice 34, fire once at 0) > fires once at 0 and never again while it stays at 0 [0.21ms]
+(pass) shouldSignal (Slice 34, fire once at 0) > pause before 0 → silent while paused, once after resume at 0 [0.04ms]
+(pass) shouldSignal (Slice 34, fire once at 0) > pause after 0 and resume → no second tone [0.02ms]
+(pass) shouldSignal (Slice 34, fire once at 0) > 0-second step never fires on open [0.01ms]
+(pass) shouldSignal (Slice 34, fire once at 0) > manual navigation starts a new clock (no tone); a re-run of a step may fire again [0.02ms]
+(pass) shouldSignal (Slice 34, fire once at 0) > backgrounded past the deadline → one tone on return, not several [0.03ms]
+(pass) runNextText (Slice 34) > middle and block-boundary step → next title; last → Sista aktiviteten [0.04ms]
+(pass) runSignal without / with audio (Slice 34) > no window / AudioContext / vibrate → no throw [0.18ms]
+(pass) runSignal without / with audio (Slice 34) > unlock makes one context (+ silent prime); play makes one non-looping oscillator [0.25ms]
+
+src/lib/sharePass.test.ts:
+(pass) stationCards > numbers every teknik station in pass order, not only placed ones [0.24ms]
+(pass) sharePass > roundtrips title, item ids and hall placements without the draft id [0.11ms]
+(pass) sharePass > reads the hash token and rejects junk [0.60ms]
+(pass) sharePass > reads a file and a pasted link without keeping the draft id [0.62ms]
+(pass) sharePass — own drills carry Slice 30 fields (AC 6, 39) > encodes source + redskap and the receiver sees them [2.23ms]
+(pass) sharePass — own drills carry Slice 30 fields (AC 6, 39) > an old pass file without the new fields still opens [0.21ms]
+
+src/lib/source.test.ts:
+(pass) detailCoachMeta (Slice 30 D1) > Golvklart hides Källa and the review badge [0.08ms]
+(pass) detailCoachMeta (Slice 30 D1) > Hallöversikt edit / Bibliotek keep both [0.02ms]
+(pass) detailCoachMeta (Slice 30 D1) > badge is own-only; invalid source shows nothing [0.02ms]
+
+src/lib/weekCopy.test.ts:
+(pass) new week > copies the pass, keeps the chip on the new item, and archives once [0.43ms]
+(pass) new week > swaps the drill and drops the old redskap recipe [0.09ms]
+
+src/lib/admin/adminFormat.test.ts:
+(pass) adminFormat (Slice 32) > formats dates in Stockholm, year only when not this year [6.68ms]
+(pass) adminFormat (Slice 32) > last changed line by who [0.35ms]
+(pass) adminFormat (Slice 32) > knows ids used by malls and Planera pass paths [0.32ms]
+(pass) adminFormat (Slice 32) > parses start times [0.11ms]
+
+src/lib/admin/authReturn.test.ts:
+(pass) cleanAuthLeftovers (Slice 33) > leaves a normal address alone [0.16ms]
+(pass) cleanAuthLeftovers (Slice 33) > strips ?code= (never returns it), keeps other params and the #dela= hash [0.06ms]
+(pass) cleanAuthLeftovers (Slice 33) > strips ?error_code= query and the mirrored error hash [0.02ms]
+(pass) cleanAuthLeftovers (Slice 33) > strips an error only in the hash [0.03ms]
+(pass) cleanAuthLeftovers (Slice 33) > code + error together → both gone [0.02ms]
+(pass) cleanAuthLeftovers (Slice 33) > survives garbage [0.04ms]
+
+src/lib/admin/bankWrite.test.ts:
+(pass) bankWrite (Slice 32 F1) > guards every write by id + the loaded updated_at [0.68ms]
+(pass) bankWrite (Slice 32 F1) > 0 rows back → conflict (nothing overwritten) [0.20ms]
+(pass) bankWrite (Slice 32 F1) > error or network failure → failed [0.11ms]
+(pass) bankWrite (Slice 32 F1) > offline → offline, no request at all [0.08ms]
+(pass) bankWrite (Slice 32 F1) > save clears needs_coach_review and never sends updated_by / status / tags [0.12ms]
+(pass) bankWrite (Slice 32 F1) > conflict re-reads the row + its version, so a reopen saves instead of conflicting again (C1) [0.40ms]
+(pass) bankWrite (Slice 32 F1) > no delete or insert anywhere in the admin code (AC 35) [0.35ms]
+
+src/lib/admin/loginCode.test.ts:
+(pass) normalizeCode (Slice 33, AC 11) > keeps digits only, max 6 [0.12ms]
+(pass) normalizeCode (Slice 33, AC 11) > full-width digits (paste from some keyboards) → ASCII [0.11ms]
+(pass) pending login (Slice 33, AC 6) > write → read within 60 min [0.15ms]
+(pass) pending login (Slice 33, AC 6) > older than 60 min → null and removed [0.08ms]
+(pass) pending login (Slice 33, AC 6) > broken or future entry → null and removed [0.07ms]
+(pass) pending login (Slice 33, AC 6) > clear removes it; nothing stored → null [0.02ms]
+
+src/lib/admin/session.test.ts:
+(pass) classifySendError (Slice 32/33) > no error → sent [0.09ms]
+(pass) classifySendError (Slice 32/33) > rate limit → wait [0.05ms]
+(pass) classifySendError (Slice 32/33) > network / 5xx → failed [0.03ms]
+(pass) classifySendError (Slice 32/33) > unknown address / sign-ups off → sent (no account guessing, AC 8) [0.02ms]
+(pass) classifyVerifyError (Slice 33) > no error → ok [0.02ms]
+(pass) classifyVerifyError (Slice 33) > refused code (wrong or expired, 403 otp_expired) → wrong [0.02ms]
+(pass) classifyVerifyError (Slice 33) > rate limit → wait [0.02ms]
+(pass) classifyVerifyError (Slice 33) > network / 5xx → failed [0.02ms]
+(pass) shouldStartAdmin (Slice 33) > bank off → never [0.03ms]
+(pass) shouldStartAdmin (Slice 33) > plain coach visit, old ?code= / ?error_code= address → no [0.05ms]
+(pass) shouldStartAdmin (Slice 33) > a pending code login alone does not start admin [0.03ms]
+(pass) shouldStartAdmin (Slice 33) > stored session → yes [0.01ms]
+(pass) startAdmin (Slice 32/33: stored session only) > stored session + on admins → admin, admin bank loaded, address untouched [0.55ms]
+(pass) startAdmin (Slice 32/33: stored session only) > no stored session → nothing (no client call) [0.08ms]
+(pass) startAdmin (Slice 32/33: stored session only) > session but not on admins → notAdmin, no admin bank [0.09ms]
+(pass) startAdmin (Slice 32/33: stored session only) > admins check fails (network) → none, session kept [0.06ms]
+(pass) startAdmin (Slice 32/33: stored session only) > Logga ut removes the session, verifier and pending keys and the admin bank [0.27ms]
+(pass) sendLoginCode (Slice 33) > never creates users and sends no return address [0.15ms]
+(pass) sendLoginCode (Slice 33) > maps rate limit and server errors [0.07ms]
+(pass) sendLoginCode (Slice 33) > bank off → failed [0.04ms]
+(pass) verifyLoginCode (Slice 33) > right code + on admins → admin; verifier and pending keys removed [0.26ms]
+(pass) verifyLoginCode (Slice 33) > right code, not on admins → notAdmin [0.06ms]
+(pass) verifyLoginCode (Slice 33) > wrong / expired code → wrong, pending kept, still none [0.06ms]
+(pass) verifyLoginCode (Slice 33) > 429 → wait; 5xx → failed; no session in answer → failed [0.08ms]
+
+ 210 pass
+ 0 fail
+ 4 expect() calls
+Ran 210 tests across 25 files. [197.00ms]

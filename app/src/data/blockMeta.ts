@@ -108,7 +108,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '40'
+export const SLICE_NUMBER = '41'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -569,6 +569,10 @@ export const UI = {
   clubTemplatesEmpty: 'Föreningen har inga mallar än.',
   clubTemplatesStale: 'Visar sparade mallar. Du kan planera som vanligt.',
   clubTemplateApplied: 'Mallen är i Passbyggaren.',
+  // Slice 41 — Ångra
+  undoRemoved: 'Borttagen',
+  undoAction: 'Ångra',
+  undoDone: 'Ångrat.',
   clubPublish: 'Publicera som föreningsmall',
   clubPublishTitle: 'Publicera som föreningsmall',
   clubPublishNameLabel: 'Namn på mallen',

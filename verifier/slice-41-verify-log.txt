@@ -1,0 +1,68 @@
+PASS [Doctor] base http://127.0.0.1:4173/traningsplaneringen/ loads; footer (Passbyggaren) «Träningsplaneraren · Slice 41» — Träningsplaneraren · Slice 41 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC1] tap × on middle → gone at once, no dialog, toast «Borttagen · Ångra» at bottom — titles ["Ljushopp på satsbräda","Satsbräda volt till rygg"] dialogs=0 toast="Borttagen · Ångra" toastBox y=756 h=64
+PASS [AC20-tap] Ångra tap target ≥ 44 px tall — 53×44
+PASS [AC2] toast closes by itself after ~5 s (±0.5); station stays removed; stored pass has no such station — lifetime=5001 ms; stored items=2
+PASS [AC3] × → Ångra (1.5 s) → same block, same order, same minutes/redskap/text (deep-equal); stored at once — titles ["Ljushopp på satsbräda","Ljushopp på trampett","Satsbräda volt till rygg"]
+PASS [AC3-toast] «Ångrat.» shows briefly (~2.2 s), no button — "Ångrat." buttons=0 lifetime=2202 ms
+PASS [AC4] hall placement back: stored hallPlacements equal; Hallöversikt markers at same x/y — before [{"rank":"1","cx":0.203,"cy":0.401},{"rank":"2","cx":0.352,"cy":0.401},{"rank":"3","cx":0.5,"cy":0.401}] after [{"rank":"1","cx":0.203,"cy":0.401},{"rank":"2","cx":0.352,"cy":0.401},{"rank":"3","cx":0.5,"cy":0.401}]
+PASS [AC5] Ångra then reload at once (<1 s) → restored station stored — reload issued 43 ms after Ångra; stored items=3
+PASS [AC5-race] × → Ångra inside the 800 ms autosave debounce → after 1.5 s + reload the station is still there (debounced removal write did not land) — stored items=3
+PASS [B-autosave] after Ångra + reload, header save status reads «Sparat» (Slice 39 unaffected) — Sparat
+PASS [AC2-reX] × → (1.5 s) Ångra → × the same station again → after 6 s the stored pass has no such station; Hem + reload keeps it removed — stored after ×=2, after Ångra=3; after 2nd × screen=2 stored=2 status="Sparat"; after Hem+reload screen=2
+PASS [AC2-reX-control] control: × → Ångra → × a different station → stored correctly (2 items)
+PASS [AC2-reX-reload] × → Ångra → × same → 1.2 s → hard reload (no Hem flush) → station stays removed — stored=2 after reload screen=2 status="Sparat"
+PASS [AC2-reX-race] race: × → Ångra inside the debounce → × same → stored removed; reload keeps it removed — stored=2 after reload screen=2
+PASS [AC2-reX-double] × → Ångra → × same → Ångra → reload → all 3 stations back, items deep-equal original — stored=3 deepEq=true after reload screen=3
+PASS [AC2-reX-chain] × → Ångra → × same → (toast ends) → × another → stored 1 Teknik; reload keeps 1 — stored=1 after reload screen=1
+PASS [AC6] × A then × B within 5 s → one toast, fresh 5 s (still there 7 s after A); Ångra brings back B only, A stays removed — toasts=1 at7s=1 ids=8rcb,7k9o
+PASS [AC6-timer] toast after the second × lives ~5 s from the second × (re-armed) — lifetime from 2nd × = 5041 ms
+PASS [AC7] × → change minutes on another station → toast closes, no Ångra left; edit stored, station still removed — undo before edit=1 after=0 toasts=0 mins=3,9
+PASS [AC7-title] × → edit pass title → toast closes, no Ångra left
+PASS [AC8-hall] × → Hallöversikt → back (<5 s) → no toast, station still removed
+PASS [AC8-home] × → Hem → Fortsätt passet (<5 s) → no toast, station still removed
+PASS [AC8-golvklart] × → Hallöversikt → Golvklart → Avsluta → back (<5 s) → no toast, station still removed — golvklart reached=true
+PASS [AC8-korpasset-stored] after Kör passet → Avsluta: station still removed on screen and in storage — screen=2 stored=2
+PASS [AC8-korpasset] × → Kör passet → Avsluta (<5 s) → no toast, undo expired, station still removed — back after 1221 ms; toast during run (DOM)=0; toast after run="null"; Ångra still tappable=0
+NOTE confirmText.branch: Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min) Fortsätt redigera Använd mall
+PASS [AC9-geom] 390: mall undo toast on one line (≤ 64 px tall), inside viewport with ≥ 12 px margins, Ångra ≥ 44 px (ccd3c31 CSS fix) — {"l":67,"r":323,"w":257,"h":64,"vw":390,"btnTop":766,"btnH":44,"tTop":756}
+PASS [AC9-toast] built-in mall: Använd mall → one toast «Mallen är i Passbyggaren. · Ångra» — "Mallen är i Passbyggaren. · Ångra" mall pass "Nybörjare — ca 55 min" placed=3
+PASS [AC9] Ångra → previous pass back (id, title, blocks, stations, hall) on screen and stored — V41 eget / same id / toast "Ångrat."
+PASS [AC12] mall had Teknik auto-placed; after Ångra Hallöversikt shows the old pass markers only (stored equal, DOM same x/y) — mall auto-placed=3; markers before 3 after 3
+PASS [AC14] Mina mallar after mall undo = before + 1 (Slice 39 auto-copy of the old pass, left); no copy of the mall pass — 0 → 1: V41 eget
+PASS [AC13] reload → stored pass = previous pass (same id); Fortsätt passet on Hem opens it — stored id same=true; opened "V41 eget"
+PASS [AC15] Använd mall again over the restored pass → no second identical auto-copy — 1: V41 eget
+NOTE A9h: {"confirmShown":1,"toast":"Mallen är i Passbyggaren. · Ångra","mid":"Nybörjare — ca 55 min","afterUndo":{"title":"Nytt pass","items":[2,0,0,0,0],"sameIdAsOld":false},"mallar":["V41 hem"],"toastAfter":"Ångrat.","panelOpen":0}
+PASS [AC9-home] Hem «Från mall» → mall → «… · Ångra» → Ångra → the pass that was on screen (the new blank pass App created) comes back; old pass with stations kept as Slice 39 copy in Mina mallar; picker does not reopen — confirm=1 after Ångra title="Nytt pass" items=[2,0,0,0,0] sameIdAsOldPass=false
+PASS [AC10] Mina mallar → toast «… · Ångra» → Ångra → previous pass back (id, title, blocks, hall) — "Mallen är i Passbyggaren. · Ångra" mid="V41 egen mall" same id=true
+PASS [AC10-mallar] Mina mallar = before + 1 (auto-copy of old pass), source mall untouched — V41 före egen | V41 egen mall
+PASS [AC11] föreningsmall → one toast «… · Ångra»; Ångra → previous pass back; «Mallen är i Passbyggaren.» not shown twice nor after Ångra — toast seq ["Mallen är i Passbyggaren. · Ångra","Ångrat."]; mid="V41 klubbmall"; same id=true
+PASS [AC11-mallar] club mall undo: Mina mallar = before + 1, no copy of the club pass — V41 före klubb
+NOTE bankLog: ["/rest/v1/exercises","/rest/v1/redskap","/rest/v1/club_templates"]
+NOTE A16.blank: {"storedBeforeMall":false,"rows":["Närvaro","Dagens pass — snabb genomgång"]}
+PASS [AC16] Tomt pass (only soft Samling rows) → mall → Ångra → blank pass back (title, rows; stored), Mina mallar unchanged — rows ["Närvaro","Dagens pass — snabb genomgång"]; stored before mall=false; Mina mallar 0 → 0
+PASS [AC16-zero] pass with 0 stations → mall → Ångra → that pass back, Mina mallar unchanged (0) — Mina mallar 0
+PASS [AC17] mall → add a station before Ångra → toast gone; mall pass stays with the edit (stored) — undo before=1, items 9 → 10, same mall id=true
+PASS [AC18-390-enter] 390: Tab to × (17 Tabs) + Enter → focus on Ångra (focus-visible); toast held 7 s while focused; Enter undoes — focus=toast-action/Ångra fv=true held@7s=1 restored=true
+NOTE A18.390.focusAfterUndo: {"tag":"BODY","cls":""}
+PASS [AC18-390-esc] 390: Escape closes the toast without undo (on screen) — {"toasts":0,"rows":2}
+NOTE A18.390.escStored: same station × again after an Ångra → stored Teknik items 2 (screen 2) — see AC2-reX
+PASS [AC18-390-blur] 390: focus out of the toast → timer runs again, toast closes ~5 s later — 3 s after blur toast=1
+PASS [AC18-390-mall] 390: keyboard Använd mall → focus on Ångra, held while focused, Enter undoes — focus=toast-action fv=true held@6s=1
+PASS [AC18-desktop-enter] desktop: Tab to × (25 Tabs) + Enter → focus on Ångra (focus-visible); toast held 7 s while focused; Enter undoes — focus=toast-action/Ångra fv=true held@7s=1 restored=true
+NOTE A18.desktop.focusAfterUndo: {"tag":"BODY","cls":""}
+PASS [AC18-desktop-esc] desktop: Escape closes the toast without undo (on screen) — {"toasts":0,"rows":2}
+NOTE A18.desktop.escStored: same station × again after an Ångra → stored Teknik items 2 (screen 2) — see AC2-reX
+PASS [AC18-desktop-blur] desktop: focus out of the toast → timer runs again, toast closes ~5 s later — 3 s after blur toast=1
+PASS [AC18-desktop-mall] desktop: keyboard Använd mall → focus on Ångra, held while focused, Enter undoes — focus=toast-action fv=true held@6s=1
+PASS [AC18-touch-mall] tap Använd mall: focus moved to Ångra but not :focus-visible → timer not held, toast closes after ~5 s (Chrome emulation) — focus=toast-action focus-visible=false closed by 6 s=true
+PASS [AC18-touch-x] tap ×: toast not held, closes after ~5 s — focus=toast-action fv=false
+PASS [AC19-proxy] live region role=status mounted per toast; separator aria-hidden; Ångra is a <button>; no toast DOM changes during the 5 s (no repeat/tick); «Ångrat.» in role=status — {"role":"status","ariaLive":null,"liveRegions":1,"sepHidden":" · ","btnTag":"BUTTON","btnType":"button"} mutations during life=0 aria="- status:\n  - text: Borttagen\n  - button \"Ångra\"" after="- status: Ångrat."
+PASS [AC20-E1] Använd mall confirm (TemplateConfirm) markup identical on main ce799ca and branch — len main=365 branch=365
+NOTE A20.otherToasts: {"save":{"text":"Sparad som egen mall.","btn":0,"life":2202},"copy":{"text":"Delningskoden är kopierad.","btn":0,"life":2202},"import":{"main":{"seen":[]},"branch":{"seen":[]}},"fail":{"text":"Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.","btn":0,"life":2204}}
+PASS [AC20-plain] other toasts (Sparad som mall, Kopierat, failure) ~2.2 s, no button; import toast behaves as on main — {"save":{"text":"Sparad som egen mall.","btn":0,"life":2202},"copy":{"text":"Delningskoden är kopierad.","btn":0,"life":2202},"import":{"main":{"seen":[]},"branch":{"seen":[]}},"fail":{"text":"Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.","btn":0,"life":2204}}
+PASS [AC20-bottom] after the toast closes, the controls it covered are hittable again (nothing left over them) — toast box [116,756,159,64] over: ["Bläddra bland idéer"]; after close hit: [["Bläddra bland idéer",true]]
+NOTE BR.mall: {"main":{"blocks":[["gathering",[["gather-narvaro",3,0],["gather-dagens-teknik",3,1]]],["warmup",[["warm-hall-varv",10,0]]],["techniques",[["tech-ljushopp-satsbrada",6,0],["tech-handstaende-falla-rygg",6,1],["tech-falla-bakat-hojd",6,2]]],["strength",[["strength-styrkelatar",5,0],["strength-burpee-emom",8,1]]],["fun_and_games",[["fun-rundpingis-medicinboll",6,0]]]],"hall":"standard-trupp","placed":[["tech-ljushopp-satsbrada",0.77,0.61],["tech-handstaende-falla-rygg",0.86,0.8],["tech-falla-bakat-hojd",0.2056,0.3184]],"mallar":["V41 eget"],"toast":null},"branch":{"blocks":[["gathering",[["gather-narvaro",3,0],["gather-dagens-teknik",3,1]]],["warmup",[["warm-hall-varv",10,0]]],["techniques",[["tech-ljushopp-satsbrada",6,0],["tech-handstaende-falla-rygg",6,1],["tech-falla-bakat-hojd",6,2]]],["strength",[["strength-styrkelatar",5,0],["strength-burpee-emom",8,1]]],["fun_and_games",[["fun-rundpingis-medicinboll",6,0]]]],"hall":"standard-trupp","placed":[["tech-ljushopp-satsbrada",0.77,0.61],["tech-handstaende-falla-rygg",0.86,0.8],["tech-falla-bakat-hojd",0.2056,0.3184]],"mallar":["V41 eget"],"toast":"Mallen är i Passbyggaren. · Ångra"}}
+PASS [BR-mall] built-in mall result (blocks, Slice 37 placements, Slice 39 Mina mallar copy) identical main vs branch; only the toast differs — toast main="null" branch="Mallen är i Passbyggaren. · Ångra"
+PASS [no-errors] no page errors in any run
+PASS [no-live] no request to a live Supabase host
+57/57 pass

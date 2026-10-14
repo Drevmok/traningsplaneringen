@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { ownImportDoneText, PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
 import {
   isTipDismissed,
@@ -8,7 +8,7 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { autoPlaceItems, autoPlaceUnplaced } from '../lib/hallSuggest'
-import { trySaveDraft } from '../lib/autosave'
+import { restoreDraft, trySaveDraft } from '../lib/autosave'
 import type { SaveStatus } from '../lib/useAutosave'
 import { loadOwnActivities, deleteOwnActivity, markOwnReviewed } from '../lib/ownActivities'
 import {
@@ -63,7 +63,11 @@ const AdminBankForm = lazy(() => import('./AdminBankForm'))
  * Slice 36: a new pass gets a new id, and App keys the builder by session id, so the builder
  * remounts right after a mall is applied. A toast for that moment rides across the remount here.
  */
-let carriedToast: string | null = null
+type Toast = { text: string; undo?: boolean; focus?: boolean }
+let carriedToast: Toast | null = null
+/** Slice 41 (C1): one undo level — the pass before × / Använd mall and the pass that action produced. */
+let pendingUndo: { before: Session; after: Session; blockId: string | null } | null = null
+const samePass = (a: Session, b: Session) => JSON.stringify(a) === JSON.stringify(b)
 /** Slice 39: pass ids that already got the «kunde inte sparas» toast (once per pass). */
 const failToasted = new Set<string>()
 
@@ -119,15 +123,31 @@ export function SessionBuilder({
     null,
   )
   const [mismatch, setMismatch] = useState<MismatchWarning | null>(null)
-  const [toast, setToast] = useState<string | null>(() => carriedToast)
+  const [toast, setToast] = useState<Toast | null>(() => {
+    // Slice 41: an undo only survives the mall remount (it rides on the carried toast).
+    if (!carriedToast?.undo) pendingUndo = null
+    return carriedToast
+  })
+  const [toastHeld, setToastHeld] = useState(false)
+  const undoBtn = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     carriedToast = null
   }, [])
   useEffect(() => {
-    if (!toast) return
-    const timer = window.setTimeout(() => setToast(null), 2200)
+    if (!toast || toastHeld) return
+    const timer = window.setTimeout(() => closeToast(), toast.undo ? 5000 : 2200)
     return () => window.clearTimeout(timer)
+  }, [toast, toastHeld])
+  useEffect(() => {
+    if (toast?.focus) undoBtn.current?.focus()
   }, [toast])
+  // Slice 41: any other change to the pass ends the undo.
+  useEffect(() => {
+    if (pendingUndo && session !== pendingUndo.after && !samePass(session, pendingUndo.after)) {
+      pendingUndo = null
+      setToast((t) => (t?.undo ? null : t))
+    }
+  }, [session])
   const [showExport, setShowExport] = useState(false)
   const [savedTemplates, setSavedTemplates] = useState(() => loadSavedTemplates())
   const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
@@ -187,7 +207,48 @@ export function SessionBuilder({
   }, [saveStatus, session.id])
 
   function showToast(msg: string) {
-    setToast(msg)
+    setToast({ text: msg })
+  }
+
+  function closeToast() {
+    setToast((t) => {
+      if (t?.undo) pendingUndo = null
+      return null
+    })
+    setToastHeld(false)
+  }
+
+  function undoToast(focus: boolean, text: string = UI.clubTemplateApplied): Toast {
+    return { text, undo: true, focus }
+  }
+
+  /** Slice 41 (A1/B1): put the whole pass back as it was before × or Använd mall. */
+  function runUndo() {
+    const u = pendingUndo
+    pendingUndo = null
+    setToastHeld(false)
+    if (!u || (session !== u.after && !samePass(session, u.after))) {
+      setToast(null)
+      return
+    }
+    const saved = restoreDraft(u.before)
+    setSelectedBlockId(u.blockId ?? u.before.blocks[0]?.id ?? null)
+    const done = saved ? { text: UI.undoDone } : null
+    if (u.before.id !== session.id) carriedToast = done
+    setToast(done)
+    onChange(u.before)
+  }
+
+  function armUndo(after: Session, blockId: string | null) {
+    pendingUndo = { before: session, after, blockId }
+  }
+
+  function handleRemoveItem(blockId: string, itemId: string) {
+    const focus = !!document.activeElement?.classList.contains('item-remove')
+    const after = removeItem(session, blockId, itemId)
+    armUndo(after, blockId)
+    onChange(after)
+    setToast(undoToast(focus, UI.undoRemoved))
   }
 
   function openPanel(tab: SideTab) {
@@ -307,6 +368,8 @@ export function SessionBuilder({
     onInitialTemplateConsumed?.()
     // Slice 39 C1: a built-in mall is saved the moment it is applied.
     trySaveDraft(cloned)
+    armUndo(cloned, null)
+    carriedToast = undoToast(true)
     onChange(cloned)
     closePanel()
   }
@@ -317,6 +380,8 @@ export function SessionBuilder({
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingSavedId(null)
     setMismatch(null)
+    armUndo(next, null)
+    carriedToast = undoToast(true)
     onChange(next)
     closePanel()
   }
@@ -329,7 +394,8 @@ export function SessionBuilder({
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingClub(null)
     setMismatch(null)
-    carriedToast = UI.clubTemplateApplied
+    armUndo(next, null)
+    carriedToast = undoToast(true)
     onInitialTemplateConsumed?.()
     onChange(next)
     closePanel()
@@ -466,6 +532,10 @@ export function SessionBuilder({
               className="btn-primary"
               aria-label={UI.runPassAria}
               onClick={() => {
+                // Slice 41 AC8: Kör passet is an overlay — builder stays mounted, so expire undo here.
+                pendingUndo = null
+                setToast((t) => (t?.undo ? null : t))
+                setToastHeld(false)
                 unlockRunSignal()
                 enterPresentation()
                 onRun()
@@ -546,9 +616,7 @@ export function SessionBuilder({
               onAdd={() => openAddForBlock(block.id)}
               onBrowse={() => openAddForBlock(block.id)}
               onDismissMismatch={() => setMismatch(null)}
-              onRemoveItem={(itemId) =>
-                onChange(removeItem(session, block.id, itemId))
-              }
+              onRemoveItem={(itemId) => handleRemoveItem(block.id, itemId)}
               onDurationChange={(itemId, minutes) =>
                 onChange(
                   updateItemDuration(session, block.id, itemId, minutes),
@@ -718,8 +786,22 @@ export function SessionBuilder({
       )}
 
       {toast && (
-        <div className="toast" role="status">
-          {toast}
+        <div
+          className="toast"
+          role="status"
+          onFocus={(e) => setToastHeld(e.target.matches(':focus-visible'))}
+          onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setToastHeld(false) }}
+          onKeyDown={(e) => { if (e.key === 'Escape') closeToast() }}
+        >
+          <span>{toast.text}</span>
+          {toast.undo && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <button ref={undoBtn} type="button" className="toast-action" onClick={runUndo}>
+                {UI.undoAction}
+              </button>
+            </>
+          )}
         </div>
       )}
       {showSaveTemplate && (

@@ -5,12 +5,14 @@ import { UI } from '../data/blockMeta'
 import type { Session } from '../types'
 import { countSessionItems } from './hall'
 import { saveAutoCopy, sessionAlreadyArchived } from './savedTemplates'
-import { loadDraft, saveDraft, setBeforeDraftWrite } from './session'
+import { loadDraft, saveDraft, setBeforeDraftWrite, withComputedTotal } from './session'
 
 export const AUTOSAVE_DELAY = 800
+let skipArchiveOnce = false
 
 /** Keep a stored pass with ≥ 1 station in Mina mallar before another pass takes the slot. */
 export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
+  if (skipArchiveOnce) return false
   try {
     const old = loadDraft()
     if (!old || old.id === next.id || countSessionItems(old) < 1 || sessionAlreadyArchived(old)) return false
@@ -29,6 +31,9 @@ export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
  * and a late timer can never put the old pass back.
  */
 export const pendingWrite: { current: { id: string; run: () => void } | null } = { current: null }
+
+/** Last draft JSON successfully written — shared so restoreDraft (Ångra) and useAutosave agree. */
+export const lastWritten: { current: { id: string; json: string } | null } = { current: null }
 
 export function beforeDraftWrite(next: Pick<Session, 'id'>): void {
   const p = pendingWrite.current
@@ -63,4 +68,17 @@ export function shouldAutosave(session: Pick<Session, 'id' | 'blocks'>, storedId
 
 export function storedDraftId(): string | null {
   return loadDraft()?.id ?? null
+}
+
+/** Slice 41: put back the pass from before × or Använd mall. Saved at once, no auto-copy of the pass it replaces. */
+export function restoreDraft(before: Session): boolean {
+  if (pendingWrite.current?.id !== before.id) pendingWrite.current = null
+  skipArchiveOnce = true
+  try {
+    const ok = trySaveDraft(before)
+    if (ok) lastWritten.current = { id: before.id, json: JSON.stringify(withComputedTotal(before)) }
+    return ok
+  } finally {
+    skipArchiveOnce = false
+  }
 }
