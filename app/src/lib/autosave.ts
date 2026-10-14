@@ -8,9 +8,11 @@ import { saveAutoCopy, sessionAlreadyArchived } from './savedTemplates'
 import { loadDraft, saveDraft, setBeforeDraftWrite } from './session'
 
 export const AUTOSAVE_DELAY = 800
+let skipArchiveOnce = false
 
 /** Keep a stored pass with ≥ 1 station in Mina mallar before another pass takes the slot. */
 export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
+  if (skipArchiveOnce) return false
   try {
     const old = loadDraft()
     if (!old || old.id === next.id || countSessionItems(old) < 1 || sessionAlreadyArchived(old)) return false
@@ -63,4 +65,15 @@ export function shouldAutosave(session: Pick<Session, 'id' | 'blocks'>, storedId
 
 export function storedDraftId(): string | null {
   return loadDraft()?.id ?? null
+}
+
+/** Slice 41: put back the pass from before × or Använd mall. Saved at once, no auto-copy of the pass it replaces. */
+export function restoreDraft(before: Session): boolean {
+  if (pendingWrite.current?.id !== before.id) pendingWrite.current = null
+  skipArchiveOnce = true
+  try {
+    return trySaveDraft(before)
+  } finally {
+    skipArchiveOnce = false
+  }
 }

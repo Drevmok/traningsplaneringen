@@ -47,7 +47,14 @@ export function useAutosave(session: Session, active: boolean): { status: SaveSt
       setStatus(stored ? 'saved' : 'idle')
       return
     }
-    if (last.current?.json === json) return
+    if (last.current?.json === json) {
+      // Slice 41: back to the written state (Ångra) — a still-waiting write of the undone edit must not land.
+      if (timer.current !== null) window.clearTimeout(timer.current)
+      timer.current = null
+      pending.current = null
+      if (pendingWrite.current?.id === session.id) pendingWrite.current = null
+      return
+    }
     pending.current = session
     pendingWrite.current = { id: session.id, run: () => write(session) }
     if (timer.current !== null) window.clearTimeout(timer.current)

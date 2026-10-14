@@ -1,0 +1,167 @@
+{
+  "when": "2026-10-14T06:58:35.016Z",
+  "results": [
+    {
+      "id": "AC1",
+      "name": "× removes at once, no dialog, toast «Borttagen · Ångra»",
+      "ok": true,
+      "detail": "Borttagen\n·\nÅngra"
+    },
+    {
+      "id": "AC20-tap",
+      "name": "Ångra tap target ≥ 44 px tall",
+      "ok": true,
+      "detail": "44"
+    },
+    {
+      "id": "AC3",
+      "name": "Ångra → station back at same place with same fields; stored at once",
+      "ok": true,
+      "detail": "[0,1,2]"
+    },
+    {
+      "id": "AC3-toast",
+      "name": "toast «Ångrat.» without button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4",
+      "name": "hallPlacements entry back, same x/y",
+      "ok": true,
+      "detail": "[{\"sessionItemId\":\"item-uqz2cbh9-mv7rczi8\",\"x\":0.2,\"y\":0.4},{\"sessionItemId\":\"item-pwm531hb-mv7rczi8\",\"x\":0.35,\"y\":0.4},{\"sessionItemId\":\"item-4k03i8uk-mv7rczi8\",\"x\":0.5,\"y\":0.4}]"
+    },
+    {
+      "id": "AC5",
+      "name": "reload right after Ångra → restored station stored",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2",
+      "name": "toast still at 3.5 s, gone after ~5 s; station stays removed (stored)",
+      "ok": true,
+      "detail": "at3.5=1"
+    },
+    {
+      "id": "AC6",
+      "name": "second × gives fresh 5 s; Ångra brings back B only",
+      "ok": true,
+      "detail": "tech-ljushopp-trampett,tech-satsbrada-volt-rygg"
+    },
+    {
+      "id": "AC7",
+      "name": "change minutes on another station closes the toast; no Ångra left",
+      "ok": true,
+      "detail": "undo=0 mins=3,9"
+    },
+    {
+      "id": "AC8-hall",
+      "name": "Hallöversikt and back → no toast, station removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8-home",
+      "name": "Hem and back → no toast, station removed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9-toast",
+      "name": "built-in mall → «Mallen är i Passbyggaren. · Ångra», focus on Ångra",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra / toast-action"
+    },
+    {
+      "id": "AC9",
+      "name": "Ångra → previous pass back (id, title, blocks, hall)",
+      "ok": true,
+      "detail": "S41 eget mall=Nybörjare — ca 55 min"
+    },
+    {
+      "id": "AC12",
+      "name": "placements = old pass only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11-like",
+      "name": "after Ångra only «Ångrat.» (mall text not shown again)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14",
+      "name": "Mina mallar = before + 1 (auto-copy of old pass), no copy of the mall pass",
+      "ok": true,
+      "detail": "S41 eget"
+    },
+    {
+      "id": "AC13",
+      "name": "reload → stored pass is the old one (same id)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13-open",
+      "name": "Fortsätt passet opens it",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15",
+      "name": "Använd mall again over restored pass → no second identical auto-copy",
+      "ok": true,
+      "detail": "S41 eget"
+    },
+    {
+      "id": "AC10",
+      "name": "Mina mallar mall → toast with Ångra → previous pass back",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra"
+    },
+    {
+      "id": "AC16",
+      "name": "mall over blank (Tomt pass, only its Samling rows) → Ångra → blank pass back, Mina mallar unchanged",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17",
+      "name": "edit the mall pass → toast gone, edit stays",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-enter",
+      "name": "Enter on × → focus on Ångra; timer paused while focused; Enter undoes",
+      "ok": true,
+      "detail": "focus=Ångra held=1"
+    },
+    {
+      "id": "AC18-esc",
+      "name": "Escape closes without undo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22-footer",
+      "name": "footer «Träningsplaneraren · Slice 41»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20-plain",
+      "name": "other toast (Spara som mall) has no button and closes in ~2.2 s",
+      "ok": true,
+      "detail": "Sparad som egen mall."
+    },
+    {
+      "id": "no-errors",
+      "name": "no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

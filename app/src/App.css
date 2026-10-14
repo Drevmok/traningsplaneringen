@@ -1360,6 +1360,24 @@
   border-radius: 999px;
   font-size: 14px;
   z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toast-action {
+  background: none;
+  border: 0;
+  color: #fde68a;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  min-height: 44px;
+  padding: 0 8px;
+}
+
+.toast-action:focus-visible {
+  outline: 2px solid #fde68a;
 }
 
 
