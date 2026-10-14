@@ -27,11 +27,18 @@ async function back() { await p.getByRole('button', { name: /Tillbaka till Passb
 async function load(json, tmpl) { await p.goto(BR); await p.evaluate(([k, v, t, tv]) => { localStorage.clear(); localStorage.setItem(k, v); if (tv) localStorage.setItem(t, tv) }, [DK, json, TK, tmpl ?? null]); await p.reload(); await p.locator('.home').waitFor(); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await builder().waitFor() }
 const removeBtn = (i) => tekCard().locator('.item-remove').nth(i)
 const undo = () => toast().getByRole('button', { name: 'Ångra' })
+// One line = text span is a single line box and the pill is no taller than the 44 px button + padding; inside 390 px.
+const toastGeo = () => p.locator('.toast').evaluate((t) => {
+  const r = t.getBoundingClientRect(), sp = t.querySelector('span'), lh = parseFloat(getComputedStyle(sp).lineHeight) || 20
+  return { h: Math.round(r.height), lines: Math.round(sp.getBoundingClientRect().height / lh), l: r.left, r: r.right, vw: innerWidth, sw: document.documentElement.scrollWidth }
+})
+const oneLine = (g) => g.lines === 1 && g.h <= 66 && g.l >= 0 && g.r <= g.vw && g.sw <= g.vw
 
 await attempt('AC1-3', async () => {
   const orig = JSON.parse(seed('S41 tre', 3)); await load(JSON.stringify(orig))
   await removeBtn(1).click(); await p.waitForTimeout(150)
   check('AC1', '× removes at once, no dialog, toast «Borttagen · Ångra»', (await tekCard().locator('.item-remove').count()) === 2 && (await p.locator('[role=dialog]').count()) === 0 && (await toast().innerText()).replace(/\s+/g, ' ').trim() === 'Borttagen · Ångra', await toast().innerText())
+  const g1 = await toastGeo(); check('AC1-oneline', '× toast «Borttagen · Ångra» one line, inside 390 px', oneLine(g1), JSON.stringify(g1))
   const h = await undo().boundingBox(); check('AC20-tap', 'Ångra tap target ≥ 44 px tall', h.height >= 44, h.height)
   await shot('01_removed_toast')
   await undo().click(); await p.waitForTimeout(150)
@@ -78,7 +85,10 @@ await attempt('AC9/12/13/14/15', async () => {
   await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click(); await p.waitForTimeout(400)
   const t = (await toast().innerText()).replace(/\s+/g, ' ').trim()
   const focused = await p.evaluate(() => document.activeElement?.className)
+  const g = await toastGeo()
+  check('AC9-oneline', 'mall toast «Mallen är i Passbyggaren. · Ångra» on one line at 390 px, no overflow', oneLine(g), JSON.stringify(g))
   await shot('03_mall_toast')
+  await shot('05_mall_toast_oneline')
   check('AC9-toast', 'built-in mall → «Mallen är i Passbyggaren. · Ångra», focus on Ångra', t === 'Mallen är i Passbyggaren. · Ångra' && focused === 'toast-action', `${t} / ${focused}`)
   const mid = await draft()
   await undo().click(); await p.waitForTimeout(400)
@@ -140,6 +150,7 @@ await attempt('AC20/22', async () => {
   await p.locator('.modal-actions .btn-primary').last().click(); await p.waitForTimeout(200)
   const t = await toast().count() ? await toast().innerText() : ''
   const btns = await toast().locator('button').count()
+  const g2 = await toastGeo(); check('AC20-plain-fit', 'plain toast inside 390 px', g2.l >= 0 && g2.r <= g2.vw && g2.sw <= g2.vw, JSON.stringify(g2)); await shot('06_plain_toast')
   await p.waitForTimeout(2500)
   check('AC20-plain', 'other toast (Spara som mall) has no button and closes in ~2.2 s', t.length > 0 && btns === 0 && (await toast().count()) === 0, t)
 })

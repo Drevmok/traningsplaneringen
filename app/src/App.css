@@ -1363,6 +1363,9 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
 }
 
 .toast-action {
@@ -1374,6 +1377,7 @@
   text-decoration: underline;
   min-height: 44px;
   padding: 0 8px;
+  white-space: nowrap;
 }
 
 .toast-action:focus-visible {
