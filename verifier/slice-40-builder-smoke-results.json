@@ -1,0 +1,113 @@
+{
+  "at": "2026-10-14T04:15:12.213Z",
+  "results": [
+    {
+      "id": "AC1-main",
+      "name": "Blå hall wizard on main: markers overlap (the bug)",
+      "ok": true,
+      "detail": "3 chips"
+    },
+    {
+      "id": "AC1",
+      "name": "Blå hall wizard on branch: 3 Teknik markers, each separate, none on top of another",
+      "ok": true,
+      "detail": "3 chips / 3 Teknik"
+    },
+    {
+      "id": "AC2-main",
+      "name": "Vit hall wizard on main: markers overlap (the bug)",
+      "ok": true,
+      "detail": "3 chips"
+    },
+    {
+      "id": "AC2",
+      "name": "Vit hall wizard on branch: 3 Teknik markers, each separate, none on top of another",
+      "ok": true,
+      "detail": "3 chips / 3 Teknik"
+    },
+    {
+      "id": "AC3/AC10",
+      "name": "Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = worked values (4 + 1)",
+      "ok": true,
+      "detail": "[[0.21,0.38],[0.37,0.38],[0.53,0.38],[0.69,0.38],[0.21,0.62]]"
+    },
+    {
+      "id": "AC8",
+      "name": "Mixed redskap (satsbräda, trampett, tumbling, open) in Blå → no shared spot",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5",
+      "name": "Rank numbers read 1, 2, 3… left→right, top→bottom",
+      "ok": true,
+      "detail": "1,2,3,4,5"
+    },
+    {
+      "id": "AC8-main",
+      "name": "Same pass on main: markers stack",
+      "ok": true,
+      "detail": "[[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004],[0.3134,0.31520000000000004]]"
+    },
+    {
+      "id": "AC4",
+      "name": "Vit, 4 Teknik: stored positions = worked values (3 + 1)",
+      "ok": true,
+      "detail": "[[0.135,0.29],[0.295,0.29],[0.455,0.29],[0.135,0.53]]"
+    },
+    {
+      "id": "AC6",
+      "name": "Blå and Vit, n = 1/4/8: every marker fully inside the hall canvas; no overlap where the grid has room",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "Vit, 12 Teknik: all inside, order kept (y non-decreasing), no hang, overlap only vertical",
+      "ok": true,
+      "detail": "983 ms"
+    },
+    {
+      "id": "AC9",
+      "name": "Standard trupp, Tävling / linjer, Liten hall: same seeded pass gives the same positions on main and branch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11",
+      "name": "Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one is grid slot 3 of 4 (0.69, 0.50)",
+      "ok": true,
+      "detail": "[[0.29,0.5],[0.45,0.5],[0.7,0.83],[0.69,0.5]]"
+    },
+    {
+      "id": "AC12-mina",
+      "name": "Mina mallar (Blå, 5 Teknik) applied → grid spread at once",
+      "ok": true,
+      "detail": "[[0.21,0.38],[0.37,0.38],[0.53,0.38],[0.69,0.38],[0.21,0.62]]"
+    },
+    {
+      "id": "AC13",
+      "name": "Stacked pass saved on main → opens with the stored positions, nothing re-laid out",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14",
+      "name": "No new buttons or text in Hallöversikt (same visible buttons as main)",
+      "ok": true,
+      "detail": "15 buttons"
+    },
+    {
+      "id": "AC16-footer",
+      "name": "Footer «Träningsplaneraren · Slice 40»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 40 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "E",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

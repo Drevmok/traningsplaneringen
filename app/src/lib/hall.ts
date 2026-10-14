@@ -263,6 +263,33 @@ function offsetFromSlot(
   return { x: clamp01(ox), y: clamp01(oy) }
 }
 
+/** Slice 40: grid for halls with only Öppen yta (Blå, Vit). See slice-40/HANDOFF.md §2. */
+const GRID_MARGIN_X = 0.08
+const GRID_MARGIN_Y = 0.11
+const GRID_STEP_X = 0.16
+const GRID_STEP_Y = 0.24
+
+/** Slice 40: center of marker `index` of `total`, row-major, block centered in the zone's inner box. */
+export function gridPointInOpen(
+  b: { x: number; y: number; w: number; h: number },
+  index: number,
+  total: number,
+): { x: number; y: number } {
+  const ix = b.x + GRID_MARGIN_X
+  const iy = b.y + GRID_MARGIN_Y
+  const iw = Math.max(0, b.w - 2 * GRID_MARGIN_X)
+  const ih = Math.max(0, b.h - 2 * GRID_MARGIN_Y)
+  const n = Math.max(1, total)
+  const cols = Math.min(n, Math.floor(iw / GRID_STEP_X + 1e-9) + 1)
+  const rows = Math.ceil(n / cols)
+  const stepX = cols > 1 ? Math.min(GRID_STEP_X, iw / (cols - 1)) : 0
+  const stepY = rows > 1 ? Math.min(GRID_STEP_Y, ih / (rows - 1)) : 0
+  const x0 = ix + (iw - stepX * (cols - 1)) / 2
+  const y0 = iy + (ih - stepY * (rows - 1)) / 2
+  const r4 = (v: number) => clamp01(Math.round(v * 1e4) / 1e4)
+  return { x: r4(x0 + (index % cols) * stepX), y: r4(y0 + Math.floor(index / cols) * stepY) }
+}
+
 /** Suggested chip center in a zone. Later indexes step aside so they don't stack. */
 export function pointInZone(
   preset: HallPreset,

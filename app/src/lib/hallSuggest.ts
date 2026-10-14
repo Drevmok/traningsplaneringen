@@ -1,6 +1,6 @@
 import { getActivityById } from '../data/seedActivities'
 import type { HallZoneId, Session, SessionItem, StationEquipmentSlot } from '../types'
-import { getPreset, normalizeTemplateId, placeableItems, pointInZone } from './hall'
+import { getPreset, gridPointInOpen, normalizeTemplateId, placeableItems, pointInZone } from './hall'
 
 /** Strongest apparatus wins. Landing mats alone are not a vault. */
 const PIECE_ZONE: ReadonlyArray<readonly [string, HallZoneId]> = [
@@ -83,6 +83,15 @@ export function autoPlaceItems(session: Session, itemIds: ReadonlySet<string>): 
     additions.push({ sessionItemId: item.id, ...point })
   }
   if (additions.length === 0) return session
+  // Slice 40: a hall with no snap zone (Blå, Vit) lays the new markers out in a grid over Öppen yta,
+  // after the Teknik markers already placed (those never move). Other halls: unchanged path above.
+  const open = preset.zones.some((z) => z.snaps) ? undefined : preset.zones.find((z) => z.id === 'open')
+  if (open) {
+    const teknik = new Set(placeableItems(session).map((item) => item.id))
+    const existing = (session.hallPlacements ?? []).filter((p) => teknik.has(p.sessionItemId)).length
+    const total = existing + additions.length
+    additions.forEach((a, k) => Object.assign(a, gridPointInOpen(open.bbox, existing + k, total), { zoneId: 'open' as HallZoneId }))
+  }
   return {
     ...session,
     hallTemplateId: normalizeTemplateId(session.hallTemplateId),
