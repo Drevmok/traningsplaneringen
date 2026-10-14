@@ -1,0 +1,40 @@
+PASS [AC13a] Seeded main draft shows on Home: Fortsätt passet · title · min — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Tisdag gammalt pass · 21 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC13b] Open → «Sparat» shown, no write until a change; stored pass byte-identical
+PASS [AC1] No «Spara utkast» anywhere (row + Fler)
+PASS [AC3] Title typing + 5 taps → exactly one write after ~800 ms; «Sparat» never disappears — writes 1
+PASS [AC13c] First edit overwrites in place (same id)
+PASS [AC2a] Add station → saved within ~1 s, «Sparat» muted in the action row
+PASS [AC17] «Sparat» is plain text: no role / aria-live
+PASS [AC2b] Reload → Home Fortsätt passet shows the change — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Onsdag pass · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC4] Edit → Till startsidan at once → Home shows new title (flush) — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Snabb hem · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC5] Edit → close tab at once → reopen → kept (pagehide flush) — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC10] Editing one pass many times → Mina mallar still empty; one pass on Home
+PASS [AC8a] Tomt pass (title edit only): «Sparat» not shown, nothing written
+PASS [AC8b] Back Home → old pass still on Home — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC9a] First station → «Sparat»
+PASS [AC9b] Home shows the new pass; old pass is in Mina mallar under its title — Stängd flik
+PASS [AC6a] Built-in mall → apply → Home at once → Fortsätt passet shows that pass — Nybörjare — ca 55 min / Nybörjare — ca 55 min
+PASS [AC6b] Reload keeps it, Teknik placements included
+PASS [AC9c/guard] Replaced «Torsdag nytt» landed in Mina mallar — Torsdag nytt,Stängd flik
+PASS [AC7a/AC11] Mina mallar apply saves at once; replacing the same contents twice → one archived copy each — Nybörjare — ca 55 min,Torsdag nytt,Stängd flik
+PASS [AC7b] Wizard pass saved at create; «Sparat» shown
+PASS [AC7c] Wizard → Home at once → Fortsätt passet shows it
+FAIL [AC22a] Footer «Träningsplaneraren · Slice 39» — Träningsplaneraren · Slice 41 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC12a] Empty title → Home meta «Nytt pass · N min» — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 53 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC12b] Replaced untitled pass archived as «Nytt pass» — Nytt pass,Nybörjare — ca 55 min,Torsdag nytt,Stängd flik
+PASS [AC14a] «Inte sparat» in the row + the exact toast once
+PASS [AC14b] Further failing edits: no second toast, still «Inte sparat»
+PASS [AC14c] Un-stub → next edit «Sparat»; no crash
+PASS [AC16] Removing the last station still saves (0 min pass)
+PASS [AC18] Action row: «Sparat» does not overlap Kör passet / Hallöversikt / Fler; no horizontal scroll — {"hit":false,"right":378,"sw":390}
+PASS [AC19] Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them — before 0, disabled false, after 1
+PASS [F1-mall] Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar — {"ms":146,"onScreen":"Kort pass — ca 45 min","stored":"Kort pass — ca 45 min","storedIsOld":false,"home":"Kort pass — ca 45 min","mallar":["Mall gammal"]}
+PASS [F1-nyvecka] Edit → Ny vecka → Skapa kopia within the debounce: Home = the copy on screen; old pass (with the edit) in Mina mallar once — {"ms":108,"onScreen":"Ny vecka — Vecka gammal","stored":"Ny vecka — Vecka gammal","storedIsOld":false,"home":"Ny vecka — Vecka gammal","mallar":["Vecka gammal"]}
+PASS [CAP-a] 8 hand-saved (legacy, no flag) + replaced pass → 9: the copy takes the spare slot (auto), all 8 kept, no toast — Cap0 gammal*,Hand 0,Hand 1,Hand 2,Hand 3,Hand 4,Hand 5,Hand 6,Hand 7
+PASS [CAP-b] Another replace → still 9; the newer auto-copy replaced the spare; hand-saved all kept — Nytt pass*,Hand 0,Hand 1,Hand 2,Hand 3,Hand 4,Hand 5,Hand 6,Hand 7
+PASS [CAP-c] Flag survives a reload
+PASS [CAP-d] Mina mallar lists all 9 at 390×844: no overlap, no horizontal scroll — {"n":9,"overlap":false,"maxRight":378,"sw":390,"sheetSw":0}
+PASS [AC22b] Keys verbatim; saveDraft / savedToast gone; no «!»
+PASS [E] No page errors
+
+PASS 37 / FAIL 1

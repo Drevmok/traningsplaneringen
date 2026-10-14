@@ -1,0 +1,20 @@
+const { chromium } = await import('/tmp/pw/node_modules/playwright-core/index.mjs')
+import { execFileSync } from 'node:child_process'
+const b = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true }); const p = await ctx.newPage()
+const BR = 'http://127.0.0.1:57141/traningsplaneringen/'
+const js = execFileSync('bun', ['/tmp/s41v/wt/verifier/slice-41-checks/seed.ts', 'KP', 'standard-trupp', '4'], { encoding: 'utf8' }).trim()
+await p.goto(BR); await p.evaluate((v) => { localStorage.clear(); localStorage.setItem('gymnastics-planner-draft-v1', v) }, js); await p.reload(); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(900)
+const card = p.locator('.block-card').filter({ has: p.locator('h3', { hasText: /^Teknik$/ }) }).first()
+await card.locator('.item-remove').nth(1).click(); await p.waitForTimeout(300)
+const t0 = Date.now()
+await p.getByRole('button', { name: 'Kör passet, en övning i taget' }).click(); await p.locator('.run-pass').waitFor()
+const inRun = await p.locator('.toast').count(); const builderMounted = await p.locator('.builder').count()
+await p.screenshot({ path: '/workspace/screenshots/s41v_09_korpasset_toast_in_run.png' })
+await p.waitForTimeout(2000); await p.getByRole('button', { name: 'Avsluta' }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(100)
+const back = await p.locator('.toast').innerText().catch(() => ''); const dt = Date.now() - t0
+await p.screenshot({ path: '/workspace/screenshots/s41v_10_korpasset_back_undo_still_offered.png' })
+await p.locator('.toast .toast-action').click(); await p.waitForTimeout(400)
+const d = JSON.parse(await p.evaluate(() => localStorage.getItem('gymnastics-planner-draft-v1')))
+console.log(JSON.stringify({ toastVisibleInRun: inRun, builderMountedDuringRun: builderMounted, backAfterMs: dt, toastOnBack: back.replace(/\s+/g, ' '), teknikAfterUndo: d.blocks.find((x) => x.type === 'techniques').items.length }))
+await b.close()

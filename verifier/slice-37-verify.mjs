@@ -288,8 +288,19 @@ await attempt('C', 'club', async () => {
   await pC.locator('.hall-tray-list .hall-chip').first().click()
   await pC.waitForTimeout(200)
   const hint = await pC.locator('.hall-place-mode-hint').count()
+  // R2 (Slice 40 re-verify): tap a free spot of the hall, never a marker (the Slice 40 grid fills the top row).
+  await canvas.evaluate((e) => e.scrollIntoView({ block: 'center' })); await pC.waitForTimeout(150)
   const cb = await canvas.boundingBox()
-  await canvas.click({ position: { x: cb.width * 0.5, y: Math.min(cb.height * 0.3, 120) } })
+  const free = await canvas.evaluate((cv) => {
+    const r = cv.getBoundingClientRect()
+    for (const fy of [0.3, 0.5, 0.7, 0.85, 0.15]) for (const fx of [0.5, 0.3, 0.7, 0.85, 0.15]) {
+      const x = r.left + r.width * fx, y = r.top + r.height * fy
+      const hit = [-30, 0, 30].every((dx) => [-30, 0, 30].every((dy) => { const el = document.elementFromPoint(x + dx, y + dy); return el && cv.contains(el) && !el.closest('.hall-chip, button') }))
+      if (hit) return { x: r.width * fx, y: r.height * fy }
+    }
+    return { x: r.width * 0.5, y: r.height * 0.85 }
+  })
+  await canvas.click({ position: free })
   await pC.waitForTimeout(400)
   check('C7e', '«Placera här»: tap tray chip → hint shown → tap hall → placed again ("undo" path; the app has no Ångra control)', hint === 1 && (await canvasChips(pC).count()) === n0 && (await draft(pC)).hallPlacements.length === n0)
   const hallBtns = (await pC.locator('button:visible').allInnerTexts()).map((t) => t.trim()).filter(Boolean)
