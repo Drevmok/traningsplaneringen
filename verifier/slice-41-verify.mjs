@@ -1,4 +1,4 @@
-// Slice 41 — Verifier formal drive (12fb874): «Ångra» after × and Använd mall. 390×844 headless Chrome (+1280×800 for AC18 desktop).
+// Slice 41 — Verifier formal drive (12fb874; re-verify ccd3c31 adds A2y, AC8 stored check, toast one-line geometry): «Ångra» after × and Använd mall. 390×844 headless Chrome (+1280×800 for AC18 desktop).
 // Local only: BR = branch plain build (:4173), MAIN = ce799ca plain build, ON = branch bank build → MY local stand-in (S32_DIR).
 // Independent of verifier/slice-41-builder-smoke.mjs; reuses only verifier/slice-41-seed.ts for deterministic passes.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
@@ -143,6 +143,36 @@ await section('A2x', async () => {
   await p.ctx.close()
 })
 
+// ═══ Re-verify (0836eb6): AC2-reX without the Hem flush, race inside the debounce, double Ångra cycle ═══
+await section('A2y', async () => {
+  const fresh3 = async () => { const p = await newPage(BR); const orig = JSON.parse(seed('V41 tre', 3)); await load(p, JSON.stringify(orig)); return [p, tek(orig).items[1].id] }
+  const reloadBuilder = async (p) => { await p.reload(); await p.locator('.home').waitFor(); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await builder(p).waitFor(); await p.waitForTimeout(300) }
+  // (a) × → 1.5 s → Ångra → × same → 1.2 s (debounce) → hard reload, no Hem
+  { const [p, midId] = await fresh3()
+    await removeBtn(p, 1).tap(); await p.waitForTimeout(1500); await undo(p).tap(); await p.waitForTimeout(300); await removeBtn(p, 1).tap(); await p.waitForTimeout(1200)
+    const d = await draft(p); await reloadBuilder(p); const back = await tekCard(p).locator('.item-remove').count(); const st = await p.locator('.save-status').innerText().catch(() => '')
+    check('AC2-reX-reload', '× → Ångra → × same → 1.2 s → hard reload (no Hem flush) → station stays removed', tek(d).items.length === 2 && !tek(d).items.some((i) => i.id === midId) && back === 2, `stored=${tek(d).items.length} after reload screen=${back} status="${st}"`)
+    await p.ctx.close() }
+  // (b) race: × → 250 ms Ångra (inside 800 ms debounce) → 300 ms × same → 1.2 s → reload
+  { const [p, midId] = await fresh3()
+    await removeBtn(p, 1).tap(); await p.waitForTimeout(250); await undo(p).tap(); await p.waitForTimeout(300); await removeBtn(p, 1).tap(); await p.waitForTimeout(1200)
+    const d = await draft(p); await reloadBuilder(p); const back = await tekCard(p).locator('.item-remove').count()
+    check('AC2-reX-race', 'race: × → Ångra inside the debounce → × same → stored removed; reload keeps it removed', tek(d).items.length === 2 && !tek(d).items.some((i) => i.id === midId) && back === 2, `stored=${tek(d).items.length} after reload screen=${back}`)
+    await p.ctx.close() }
+  // (c) double cycle: × → Ångra → × same → Ångra → reload → station back (3), and in original order
+  { const p = await newPage(BR); const orig = JSON.parse(seed('V41 tre', 3)); await load(p, JSON.stringify(orig))
+    await removeBtn(p, 1).tap(); await p.waitForTimeout(1500); await undo(p).tap(); await p.waitForTimeout(300); await removeBtn(p, 1).tap(); await p.waitForTimeout(1500); await undo(p).tap(); await p.waitForTimeout(1200)
+    const d = await draft(p); await reloadBuilder(p); const back = await tekCard(p).locator('.item-remove').count()
+    check('AC2-reX-double', '× → Ångra → × same → Ångra → reload → all 3 stations back, items deep-equal original', tek(d).items.length === 3 && eq(tek(d).items, tek(orig).items) && back === 3, `stored=${tek(d).items.length} deepEq=${eq(tek(d).items, tek(orig).items)} after reload screen=${back}`)
+    await p.ctx.close() }
+  // (d) × → Ångra → × same → wait past toast (6 s) → re-× another → reload: 1 left (autosave keeps tracking)
+  { const p = await newPage(BR); const orig = JSON.parse(seed('V41 tre', 3)); await load(p, JSON.stringify(orig))
+    await removeBtn(p, 1).tap(); await p.waitForTimeout(1500); await undo(p).tap(); await p.waitForTimeout(300); await removeBtn(p, 1).tap(); await p.waitForTimeout(6000); await removeBtn(p, 0).tap(); await p.waitForTimeout(1200)
+    const d = await draft(p); await reloadBuilder(p); const back = await tekCard(p).locator('.item-remove').count()
+    check('AC2-reX-chain', '× → Ångra → × same → (toast ends) → × another → stored 1 Teknik; reload keeps 1', tek(d).items.length === 1 && back === 1, `stored=${tek(d).items.length} after reload screen=${back}`)
+    await p.ctx.close() }
+})
+
 // ═══ AC6 ═══
 await section('A6', async () => {
   const p = await newPage(BR); const orig = JSON.parse(seed('V41 tre', 3)); await load(p, JSON.stringify(orig))
@@ -202,7 +232,9 @@ await section('A8', async () => {
   await p.waitForTimeout(150); const afterRun = await toastText(p), undoLeft = await undo(p).count(); await shot(p, '09_ac8_back_from_kor_passet')
   let restoredByUndo = null
   if (undoLeft) { await undo(p).tap(); await p.waitForTimeout(250); restoredByUndo = tek(await draft(p)).items.length }
-  check('AC8-korpasset', '× → Kör passet → Avsluta (<5 s) → no toast, undo expired, station still removed', afterRun === null && undoLeft === 0, `back after ${tback} ms; toast during run (DOM)=${inRunToast}; toast after run="${afterRun}"; Ångra still tappable=${undoLeft}${restoredByUndo !== null ? `; tapping it restored the station (stored items=${restoredByUndo})` : ''}`)
+  const dRun = await draft(p), scrRun = await tekCard(p).locator('.item-remove').count()
+  check('AC8-korpasset-stored', 'after Kör passet → Avsluta: station still removed on screen and in storage', scrRun === 2 && tek(dRun).items.length === 2, `screen=${scrRun} stored=${tek(dRun).items.length}`)
+  check('AC8-korpasset', '× → Kör passet → Avsluta (<5 s) → no toast, undo expired, station still removed', afterRun === null && undoLeft === 0 && inRunToast === 0, `back after ${tback} ms; toast during run (DOM)=${inRunToast}; toast after run="${afterRun}"; Ångra still tappable=${undoLeft}${restoredByUndo !== null ? `; tapping it restored the station (stored items=${restoredByUndo})` : ''}`)
   await p.ctx.close()
 })
 
@@ -216,6 +248,8 @@ await section('A9', async () => {
   await tlMark(p); await confirmBtn(p).click(); await p.waitForTimeout(400)
   const tt = await toastText(p), nT = await toast(p).count(), mid = await draft(p)
   await shot(p, '10_ac9_mall_toast')
+  const tg = await p.evaluate(() => { const t = document.querySelector('.toast'); const r = t.getBoundingClientRect(); const b = t.querySelector('.toast-action').getBoundingClientRect(); return { l: Math.round(r.left), r: Math.round(r.right), w: Math.round(r.width), h: Math.round(r.height), vw: innerWidth, btnTop: Math.round(b.top), btnH: Math.round(b.height), tTop: Math.round(r.top) } })
+  check('AC9-geom', '390: mall undo toast on one line (≤ 64 px tall), inside viewport with ≥ 12 px margins, Ångra ≥ 44 px (ccd3c31 CSS fix)', tg.h <= 64 && tg.l >= 12 && tg.r <= tg.vw - 12 && tg.btnH >= 44, JSON.stringify(tg))
   check('AC9-toast', 'built-in mall: Använd mall → one toast «Mallen är i Passbyggaren. · Ångra»', tt === 'Mallen är i Passbyggaren. · Ångra' && nT === 1 && mid.id !== orig.id, `"${tt}" mall pass "${mid.title}" placed=${(mid.hallPlacements ?? []).length}`)
   await undo(p).tap(); await p.waitForTimeout(400)
   const d = await draft(p), title = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue(), t2 = await toastText(p)

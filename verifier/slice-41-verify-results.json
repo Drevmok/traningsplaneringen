@@ -1,6 +1,6 @@
 {
-  "when": "2026-10-14T08:19:22.179Z",
-  "sha": "12fb8749eed90760d7da0e67039d04cc57c1a573",
+  "when": "2026-10-14T08:38:45.851Z",
+  "sha": "ccd3c310a37af6705ac9107bed89136612ff54bf",
   "results": [
     {
       "id": "Doctor",
@@ -36,7 +36,7 @@
       "id": "AC3-toast",
       "name": "«Ångrat.» shows briefly (~2.2 s), no button",
       "ok": true,
-      "detail": "\"Ångrat.\" buttons=0 lifetime=2203 ms"
+      "detail": "\"Ångrat.\" buttons=0 lifetime=2202 ms"
     },
     {
       "id": "AC4",
@@ -48,7 +48,7 @@
       "id": "AC5",
       "name": "Ångra then reload at once (<1 s) → restored station stored",
       "ok": true,
-      "detail": "reload issued 40 ms after Ångra; stored items=3"
+      "detail": "reload issued 43 ms after Ångra; stored items=3"
     },
     {
       "id": "AC5-race",
@@ -65,8 +65,8 @@
     {
       "id": "AC2-reX",
       "name": "× → (1.5 s) Ångra → × the same station again → after 6 s the stored pass has no such station; Hem + reload keeps it removed",
-      "ok": false,
-      "detail": "stored after ×=2, after Ångra=3; after 2nd × screen=2 stored=3 status=\"Sparat\"; after Hem+reload screen=3"
+      "ok": true,
+      "detail": "stored after ×=2, after Ångra=3; after 2nd × screen=2 stored=2 status=\"Sparat\"; after Hem+reload screen=2"
     },
     {
       "id": "AC2-reX-control",
@@ -75,10 +75,34 @@
       "detail": ""
     },
     {
+      "id": "AC2-reX-reload",
+      "name": "× → Ångra → × same → 1.2 s → hard reload (no Hem flush) → station stays removed",
+      "ok": true,
+      "detail": "stored=2 after reload screen=2 status=\"Sparat\""
+    },
+    {
+      "id": "AC2-reX-race",
+      "name": "race: × → Ångra inside the debounce → × same → stored removed; reload keeps it removed",
+      "ok": true,
+      "detail": "stored=2 after reload screen=2"
+    },
+    {
+      "id": "AC2-reX-double",
+      "name": "× → Ångra → × same → Ångra → reload → all 3 stations back, items deep-equal original",
+      "ok": true,
+      "detail": "stored=3 deepEq=true after reload screen=3"
+    },
+    {
+      "id": "AC2-reX-chain",
+      "name": "× → Ångra → × same → (toast ends) → × another → stored 1 Teknik; reload keeps 1",
+      "ok": true,
+      "detail": "stored=1 after reload screen=1"
+    },
+    {
       "id": "AC6",
       "name": "× A then × B within 5 s → one toast, fresh 5 s (still there 7 s after A); Ångra brings back B only, A stays removed",
       "ok": true,
-      "detail": "toasts=1 at7s=1 ids=ctsv,rgc8"
+      "detail": "toasts=1 at7s=1 ids=8rcb,7k9o"
     },
     {
       "id": "AC6-timer",
@@ -117,10 +141,22 @@
       "detail": "golvklart reached=true"
     },
     {
+      "id": "AC8-korpasset-stored",
+      "name": "after Kör passet → Avsluta: station still removed on screen and in storage",
+      "ok": true,
+      "detail": "screen=2 stored=2"
+    },
+    {
       "id": "AC8-korpasset",
       "name": "× → Kör passet → Avsluta (<5 s) → no toast, undo expired, station still removed",
-      "ok": false,
-      "detail": "back after 1237 ms; toast during run (DOM)=1; toast after run=\"Borttagen · Ångra\"; Ångra still tappable=1; tapping it restored the station (stored items=3)"
+      "ok": true,
+      "detail": "back after 1221 ms; toast during run (DOM)=0; toast after run=\"null\"; Ångra still tappable=0"
+    },
+    {
+      "id": "AC9-geom",
+      "name": "390: mall undo toast on one line (≤ 64 px tall), inside viewport with ≥ 12 px margins, Ångra ≥ 44 px (ccd3c31 CSS fix)",
+      "ok": true,
+      "detail": "{\"l\":67,\"r\":323,\"w\":257,\"h\":64,\"vw\":390,\"btnTop\":766,\"btnH\":44,\"tTop\":756}"
     },
     {
       "id": "AC9-toast",
@@ -282,7 +318,7 @@
       "id": "AC20-plain",
       "name": "other toasts (Sparad som mall, Kopierat, failure) ~2.2 s, no button; import toast behaves as on main",
       "ok": true,
-      "detail": "{\"save\":{\"text\":\"Sparad som egen mall.\",\"btn\":0,\"life\":2202},\"copy\":{\"text\":\"Delningskoden är kopierad.\",\"btn\":0,\"life\":2203},\"import\":{\"main\":{\"seen\":[]},\"branch\":{\"seen\":[]}},\"fail\":{\"text\":\"Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.\",\"btn\":0,\"life\":2203}}"
+      "detail": "{\"save\":{\"text\":\"Sparad som egen mall.\",\"btn\":0,\"life\":2202},\"copy\":{\"text\":\"Delningskoden är kopierad.\",\"btn\":0,\"life\":2202},\"import\":{\"main\":{\"seen\":[]},\"branch\":{\"seen\":[]}},\"fail\":{\"text\":\"Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.\",\"btn\":0,\"life\":2204}}"
     },
     {
       "id": "AC20-bottom",
@@ -348,12 +384,12 @@
       "tag": "BODY",
       "cls": ""
     },
-    "A18.390.escStored": "same station × again after an Ångra → stored Teknik items 3 (screen 2) — see AC2-reX",
+    "A18.390.escStored": "same station × again after an Ångra → stored Teknik items 2 (screen 2) — see AC2-reX",
     "A18.desktop.focusAfterUndo": {
       "tag": "BODY",
       "cls": ""
     },
-    "A18.desktop.escStored": "same station × again after an Ångra → stored Teknik items 3 (screen 2) — see AC2-reX",
+    "A18.desktop.escStored": "same station × again after an Ångra → stored Teknik items 2 (screen 2) — see AC2-reX",
     "A20.otherToasts": {
       "save": {
         "text": "Sparad som egen mall.",
@@ -363,7 +399,7 @@
       "copy": {
         "text": "Delningskoden är kopierad.",
         "btn": 0,
-        "life": 2203
+        "life": 2202
       },
       "import": {
         "main": {
@@ -376,7 +412,7 @@
       "fail": {
         "text": "Passet kunde inte sparas här. Skicka det till telefonen eller ladda ner en fil, så finns det kvar.",
         "btn": 0,
-        "life": 2203
+        "life": 2204
       }
     },
     "BR.mall": {
