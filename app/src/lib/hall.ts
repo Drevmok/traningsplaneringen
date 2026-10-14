@@ -263,6 +263,54 @@ function offsetFromSlot(
   return { x: clamp01(ox), y: clamp01(oy) }
 }
 
+/**
+ * Slice 40 (Planner ruling on Verifier F1; supersedes the count-based grid of HANDOFF §2).
+ * Halls with only Öppen yta (Blå, Vit) get a FIXED grid of cells sized from the marker, not from
+ * the number of stations. A new marker takes the first free cell in row order; placed markers never move.
+ * Marker = 52 px on a ~358 × 239 px phone canvas → 0.145 × 0.218 of the hall (HANDOFF §2).
+ */
+export const OPEN_MARKER_W = 0.145
+export const OPEN_MARKER_H = 0.218
+const OPEN_CELL_W = 0.16 // marker + small gap
+const OPEN_CELL_H = 0.22
+const OPEN_MARGIN_X = 0.08 // > half a marker, so a marker never sticks out of Öppen yta
+const OPEN_MARGIN_Y = 0.11
+
+/** Cell centers in row order, the block centered in the zone's inner box. Stable for a hall. */
+export function openGridCells(b: { x: number; y: number; w: number; h: number }): { x: number; y: number }[] {
+  const iw = Math.max(0, b.w - 2 * OPEN_MARGIN_X)
+  const ih = Math.max(0, b.h - 2 * OPEN_MARGIN_Y)
+  const cols = Math.floor(iw / OPEN_CELL_W + 1e-9) + 1
+  const rows = Math.floor(ih / OPEN_CELL_H + 1e-9) + 1
+  const x0 = b.x + OPEN_MARGIN_X + (iw - OPEN_CELL_W * (cols - 1)) / 2
+  const y0 = b.y + OPEN_MARGIN_Y + (ih - OPEN_CELL_H * (rows - 1)) / 2
+  const r4 = (v: number) => clamp01(Math.round(v * 1e4) / 1e4)
+  const cells = []
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) cells.push({ x: r4(x0 + c * OPEN_CELL_W), y: r4(y0 + r * OPEN_CELL_H) })
+  return cells
+}
+
+/** Overlap area of two marker boxes centered at a and b (0 = no overlap). */
+export function markerOverlap(a: { x: number; y: number }, b: { x: number; y: number }): number {
+  return Math.max(0, OPEN_MARKER_W - Math.abs(a.x - b.x)) * Math.max(0, OPEN_MARKER_H - Math.abs(a.y - b.y))
+}
+
+/** First cell (row order) that overlaps no placed marker; if none, the least-overlapping (ties → row order). */
+export function pickOpenCell(
+  cells: { x: number; y: number }[],
+  placed: { x: number; y: number }[],
+): { x: number; y: number } {
+  let best = cells[0]
+  let bestScore = Infinity
+  for (const cell of cells) {
+    let score = 0
+    for (const p of placed) score += markerOverlap(cell, p)
+    if (score === 0) return cell
+    if (score < bestScore - 1e-12) { best = cell; bestScore = score }
+  }
+  return best
+}
+
 /** Suggested chip center in a zone. Later indexes step aside so they don't stack. */
 export function pointInZone(
   preset: HallPreset,
