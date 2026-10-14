@@ -1,0 +1,836 @@
+{
+  "at": "2026-10-14T04:57:43.278Z",
+  "pass": 39,
+  "fail": 0,
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Planera pass → Blå hall: every Teknik marker separate (no overlapping boxes), inside the hall, row-major",
+      "ok": true,
+      "detail": "teknik 3, [[0.21,0.28],[0.37,0.28],[0.53,0.28]], canvas 358,264, chip 52,52"
+    },
+    {
+      "id": "AC2",
+      "name": "Planera pass → Vit hall: every Teknik marker separate (no overlapping boxes), inside the hall, row-major",
+      "ok": true,
+      "detail": "teknik 3, [[0.135,0.19],[0.295,0.19],[0.455,0.19]], canvas 358,374, chip 52,52"
+    },
+    {
+      "id": "AC6-forening-bla-1",
+      "name": "forening-bla n=1 → one marker, inside",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6-forening-bla-4",
+      "name": "forening-bla n=4: all inside the hall drawing, no overlap, rank order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,264],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":100,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC3/AC10",
+      "name": "Blå, 5 Teknik, empty hall opened → stored = worked values ±0.001 (4 + 1)",
+      "ok": true,
+      "detail": "[[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]"
+    },
+    {
+      "id": "AC6-forening-bla-8",
+      "name": "forening-bla n=8: all inside the hall drawing, no overlap, rank order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,264],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":94,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-bla-12",
+      "name": "forening-bla n=12 (cap 12): inside, no hang; NO overlap up to capacity, order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,264],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":94,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-bla-13",
+      "name": "forening-bla n=13 (cap 12): inside, no hang; past capacity overlap allowed (Planner ruling) = 1 stacked pair(s)",
+      "ok": true,
+      "detail": "{\"canvas\":[358,264],\"chip\":[52,52],\"overlapPairs\":1,\"maxOverlapX\":52,\"maxOverlapY\":52,\"minVisiblePct\":0,\"ranksVisible\":false,\"centerTaps\":false,\"inside\":true,\"rowMajor\":false,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-bla-16",
+      "name": "forening-bla n=16 (cap 12): inside, no hang; past capacity overlap allowed (Planner ruling) = 4 stacked pair(s)",
+      "ok": true,
+      "detail": "{\"canvas\":[358,264],\"chip\":[52,52],\"overlapPairs\":4,\"maxOverlapX\":52,\"maxOverlapY\":52,\"minVisiblePct\":0,\"ranksVisible\":false,\"centerTaps\":false,\"inside\":true,\"rowMajor\":false,\"sw\":390}"
+    },
+    {
+      "id": "AC6-forening-vit-1",
+      "name": "forening-vit n=1 → one marker, inside",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4",
+      "name": "Vit, 4 Teknik → stored = worked values ±0.001 (3 + 1)",
+      "ok": true,
+      "detail": "[[0.135,0.19],[0.295,0.19],[0.455,0.19],[0.135,0.41]]"
+    },
+    {
+      "id": "AC6-forening-vit-4",
+      "name": "forening-vit n=4: all inside the hall drawing, no overlap, rank order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":100,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC6-forening-vit-6",
+      "name": "forening-vit n=6: all inside the hall drawing, no overlap, rank order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":100,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC6-forening-vit-8",
+      "name": "forening-vit n=8: all inside the hall drawing, no overlap, rank order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":100,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-vit-9",
+      "name": "forening-vit n=9 (cap 9): inside, no hang; NO overlap up to capacity, order row-major",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":0,\"maxOverlapX\":0,\"maxOverlapY\":0,\"minVisiblePct\":100,\"ranksVisible\":true,\"centerTaps\":true,\"inside\":true,\"rowMajor\":true,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-vit-10",
+      "name": "forening-vit n=10 (cap 9): inside, no hang; past capacity overlap allowed (Planner ruling) = 1 stacked pair(s)",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":1,\"maxOverlapX\":52,\"maxOverlapY\":52,\"minVisiblePct\":0,\"ranksVisible\":false,\"centerTaps\":false,\"inside\":true,\"rowMajor\":false,\"sw\":390}"
+    },
+    {
+      "id": "AC7-forening-vit-12",
+      "name": "forening-vit n=12 (cap 9): inside, no hang; past capacity overlap allowed (Planner ruling) = 3 stacked pair(s)",
+      "ok": true,
+      "detail": "{\"canvas\":[358,374],\"chip\":[52,52],\"overlapPairs\":3,\"maxOverlapX\":52,\"maxOverlapY\":52,\"minVisiblePct\":0,\"ranksVisible\":false,\"centerTaps\":false,\"inside\":true,\"rowMajor\":false,\"sw\":390}"
+    },
+    {
+      "id": "AC8",
+      "name": "Blå, 4 stations with satsbräda / trampett / tumbling / kon → 4 distinct spots, no overlap",
+      "ok": true,
+      "detail": "[[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28]]"
+    },
+    {
+      "id": "AC12-egen",
+      "name": "Mina mallar (Blå, no placements) applied → hall Blå, grid as AC3",
+      "ok": true,
+      "detail": "forening-bla [[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]"
+    },
+    {
+      "id": "AC12-club",
+      "name": "Föreningsmall (stand-in, Vit, 4 Teknik) applied → grid as AC4",
+      "ok": true,
+      "detail": "forening-vit [[0.135,0.19],[0.295,0.19],[0.455,0.19],[0.135,0.41]]"
+    },
+    {
+      "id": "AC12-builtin",
+      "name": "Built-in mall: placed in its own hall (Standard trupp, Slice 37 E1) — never reaches Blå/Vit, so standard path (byte-identical, see parity)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14-drag",
+      "name": "Drag (app DnD events) moves marker 1 to the drop point; the others stay",
+      "ok": true,
+      "detail": "[[0.2988826815642458,0.7468182087255076],[0.37,0.28],[0.53,0.28]]"
+    },
+    {
+      "id": "AC11",
+      "name": "Add station: the 3 (incl. the dragged one) do not move; the new one lands on the first free cell (dragged marker 1 left cell 1 → 0.21, 0.28)",
+      "ok": true,
+      "detail": "[[0.2988826815642458,0.7468182087255076],[0.37,0.28],[0.53,0.28],[0.21,0.28]]"
+    },
+    {
+      "id": "D-add-overlap",
+      "name": "F1 fix: new marker after an add does not overlap the existing ones (grid of 3 was centred for 3, slot 3 of 4 is computed for 4)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "AC14-remove",
+      "name": "«Ta bort från hall» → one placement fewer, marker in tray",
+      "ok": true,
+      "detail": "placed 3/4 tray 1 canvas 3"
+    },
+    {
+      "id": "AC14-placera",
+      "name": "«Placera här» puts it where tapped (snapPlacement unchanged: Blå has no snap)",
+      "ok": true,
+      "detail": "4/4 {\"sessionItemId\":\"item-rwoywymy-mv7n0v4o\",\"x\":0.8491620111731844,\"y\":0.2997691351447345}"
+    },
+    {
+      "id": "F1-bla",
+      "name": "forening-bla: 12 stations added one by one from the bank → 0 overlapping markers, all inside (stored and on screen)",
+      "ok": true,
+      "detail": "{\"n\":12,\"pairs\":[],\"minVisiblePct\":94,\"inside\":true}"
+    },
+    {
+      "id": "F1-bla-past",
+      "name": "forening-bla: station 13 → least-overlap cell (1 pair), inside",
+      "ok": true,
+      "detail": "[{\"a\":\"1\",\"b\":\"13\",\"ox\":52,\"oy\":52}]"
+    },
+    {
+      "id": "F1-vit",
+      "name": "forening-vit: 9 stations added one by one from the bank → 0 overlapping markers, all inside (stored and on screen)",
+      "ok": true,
+      "detail": "{\"n\":9,\"pairs\":[],\"minVisiblePct\":100,\"inside\":true}"
+    },
+    {
+      "id": "F1-vit-past",
+      "name": "forening-vit: station 10 → least-overlap cell (1 pair), inside",
+      "ok": true,
+      "detail": "[{\"a\":\"1\",\"b\":\"10\",\"ox\":52,\"oy\":52}]"
+    },
+    {
+      "id": "AC13",
+      "name": "Main-made stacked Blå pass → opens with the stored positions, untouched by open + Hallöversikt (D1)",
+      "ok": true,
+      "detail": "stored [[0.27840000000000004,0.31520000000000004],[0.3134,0.31520000000000004],[0.27840000000000004,0.31520000000000004]]"
+    },
+    {
+      "id": "AC13-egen",
+      "name": "Egen mall saved on main (with its stacked spots) applied on the branch → spots kept as saved (no re-layout)",
+      "ok": true,
+      "detail": "[[0.27840000000000004,0.31520000000000004],[0.3134,0.31520000000000004],[0.27840000000000004,0.31520000000000004]] vs [[0.27840000000000004,0.31520000000000004],[0.3134,0.31520000000000004],[0.27840000000000004,0.31520000000000004]]"
+    },
+    {
+      "id": "AC14-controls",
+      "name": "Hallöversikt (Vit, 5 mixed): visible buttons, hall options and text identical to main (slice no. normalised)",
+      "ok": true,
+      "detail": "22/22 buttons; text 755/755"
+    },
+    {
+      "id": "AC14-teknik",
+      "name": "Only Teknik stations get markers (0 non-Teknik placements)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "GK",
+      "name": "Golvklart: same markers as the hall, none overlapping, inside; Förrådslista text identical to main",
+      "ok": true,
+      "detail": "golvklart n=5; förråd «Förrådslista Summerat från Teknik-stationernas redskap Stäng Trampett 2× Satsbräda Tumblingmatta Kon Vad finns i hallen »"
+    },
+    {
+      "id": "AC16-footer",
+      "name": "Footer «Träningsplaneraren · Slice 40»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 40 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "AC9-standard-trupp",
+      "name": "standard-trupp, 5 mixed Teknik, empty hall opened: placements identical to main",
+      "ok": true,
+      "detail": "[[0.77,0.61],[0.77,0.18],[0.77,0.4],[0.2056,0.3184],[0.805,0.61]]"
+    },
+    {
+      "id": "AC9-tavling-linjer",
+      "name": "tavling-linjer, 5 mixed Teknik, empty hall opened: placements identical to main",
+      "ok": true,
+      "detail": "[[0.7,0.55],[0.7,0.17],[0.7,0.36],[0.1564,0.32720000000000005],[0.735,0.55]]"
+    },
+    {
+      "id": "AC9-liten-hall",
+      "name": "liten-hall, 5 mixed Teknik, empty hall opened: placements identical to main",
+      "ok": true,
+      "detail": "[[0.83,0.56],[0.83,0.19],[0.83,0.38],[0.2336,0.3184],[0.865,0.56]]"
+    }
+  ],
+  "notes": {
+    "A.bla.br": {
+      "hall": "forening-bla",
+      "teknik": 3,
+      "coords": [
+        [
+          0.21,
+          0.28
+        ],
+        [
+          0.37,
+          0.28
+        ],
+        [
+          0.53,
+          0.28
+        ]
+      ],
+      "pairs": [],
+      "minVisiblePct": 100
+    },
+    "A.bla.main": "3 markers, overlapping pairs 3, min visible 0 %",
+    "A.vit.br": {
+      "hall": "forening-vit",
+      "teknik": 3,
+      "coords": [
+        [
+          0.135,
+          0.19
+        ],
+        [
+          0.295,
+          0.19
+        ],
+        [
+          0.455,
+          0.19
+        ]
+      ],
+      "pairs": [],
+      "minVisiblePct": 100
+    },
+    "A.vit.main": "3 markers, overlapping pairs 3, min visible 0 %",
+    "A.wizardTeknik": "Planera pass (7–9, Trampett) gives 3 Teknik stations; the ≥ 4 case is driven via seeded drafts (B) and add station (D)",
+    "B.geometry_390": {
+      "forening-bla n=1": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-bla n=4": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-bla n=5": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 94,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-bla n=8": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 94,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-bla n=12": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 94,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-bla n=13": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 1,
+        "maxOverlapX": 52,
+        "maxOverlapY": 52,
+        "minVisiblePct": 0,
+        "ranksVisible": false,
+        "centerTaps": false,
+        "inside": true,
+        "rowMajor": false,
+        "sw": 390
+      },
+      "forening-bla n=16": {
+        "canvas": [
+          358,
+          264
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 4,
+        "maxOverlapX": 52,
+        "maxOverlapY": 52,
+        "minVisiblePct": 0,
+        "ranksVisible": false,
+        "centerTaps": false,
+        "inside": true,
+        "rowMajor": false,
+        "sw": 390
+      },
+      "forening-vit n=1": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-vit n=4": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-vit n=6": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-vit n=8": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-vit n=9": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 0,
+        "maxOverlapX": 0,
+        "maxOverlapY": 0,
+        "minVisiblePct": 100,
+        "ranksVisible": true,
+        "centerTaps": true,
+        "inside": true,
+        "rowMajor": true,
+        "sw": 390
+      },
+      "forening-vit n=10": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 1,
+        "maxOverlapX": 52,
+        "maxOverlapY": 52,
+        "minVisiblePct": 0,
+        "ranksVisible": false,
+        "centerTaps": false,
+        "inside": true,
+        "rowMajor": false,
+        "sw": 390
+      },
+      "forening-vit n=12": {
+        "canvas": [
+          358,
+          374
+        ],
+        "chip": [
+          52,
+          52
+        ],
+        "overlapPairs": 3,
+        "maxOverlapX": 52,
+        "maxOverlapY": 52,
+        "minVisiblePct": 0,
+        "ranksVisible": false,
+        "centerTaps": false,
+        "inside": true,
+        "rowMajor": false,
+        "sw": 390
+      }
+    },
+    "B.main_mixed": "main: 1 distinct spots of 4: [[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004],[0.27840000000000004,0.31520000000000004]]",
+    "C.builtin": "Built-in Nybörjare applied over a Blå pass → hallTemplateId standard-trupp, 3 placed: [[0.77,0.61],[0.86,0.8],[0.2056,0.3184]]",
+    "D.dbg": {
+      "teknik": 4,
+      "placed": 4
+    },
+    "D.add_overlap": {
+      "before": [
+        [
+          0.2988826815642458,
+          0.7468182087255076
+        ],
+        [
+          0.37,
+          0.28
+        ],
+        [
+          0.53,
+          0.28
+        ]
+      ],
+      "after": [
+        [
+          0.2988826815642458,
+          0.7468182087255076
+        ],
+        [
+          0.37,
+          0.28
+        ],
+        [
+          0.53,
+          0.28
+        ],
+        [
+          0.21,
+          0.28
+        ]
+      ],
+      "pairs": [],
+      "minVisiblePct": 96
+    },
+    "D.onebyone.bla": {
+      "coords": [
+        [
+          0.21,
+          0.28
+        ],
+        [
+          0.37,
+          0.28
+        ],
+        [
+          0.53,
+          0.28
+        ],
+        [
+          0.69,
+          0.28
+        ],
+        [
+          0.21,
+          0.5
+        ],
+        [
+          0.37,
+          0.5
+        ],
+        [
+          0.53,
+          0.5
+        ],
+        [
+          0.69,
+          0.5
+        ],
+        [
+          0.21,
+          0.72
+        ],
+        [
+          0.37,
+          0.72
+        ],
+        [
+          0.53,
+          0.72
+        ],
+        [
+          0.69,
+          0.72
+        ],
+        [
+          0.21,
+          0.28
+        ]
+      ],
+      "per": [
+        {
+          "n": 7,
+          "pairs": [],
+          "minVisiblePct": 94,
+          "inside": true
+        },
+        {
+          "n": 12,
+          "pairs": [],
+          "minVisiblePct": 94,
+          "inside": true
+        },
+        {
+          "n": 13,
+          "pairs": [
+            {
+              "a": "1",
+              "b": "13",
+              "ox": 52,
+              "oy": 52
+            }
+          ],
+          "minVisiblePct": 0,
+          "inside": true
+        }
+      ]
+    },
+    "D.onebyone.vit": {
+      "coords": [
+        [
+          0.135,
+          0.19
+        ],
+        [
+          0.295,
+          0.19
+        ],
+        [
+          0.455,
+          0.19
+        ],
+        [
+          0.135,
+          0.41
+        ],
+        [
+          0.295,
+          0.41
+        ],
+        [
+          0.455,
+          0.41
+        ],
+        [
+          0.135,
+          0.63
+        ],
+        [
+          0.295,
+          0.63
+        ],
+        [
+          0.455,
+          0.63
+        ],
+        [
+          0.135,
+          0.19
+        ]
+      ],
+      "per": [
+        {
+          "n": 5,
+          "pairs": [],
+          "minVisiblePct": 100,
+          "inside": true
+        },
+        {
+          "n": 9,
+          "pairs": [],
+          "minVisiblePct": 100,
+          "inside": true
+        },
+        {
+          "n": 10,
+          "pairs": [
+            {
+              "a": "1",
+              "b": "10",
+              "ox": 52,
+              "oy": 52
+            }
+          ],
+          "minVisiblePct": 0,
+          "inside": true
+        }
+      ]
+    },
+    "D.onebyone.vit_drag": {
+      "coords": [
+        [
+          0.2122905027932961,
+          0.18769603947973737
+        ],
+        [
+          0.455,
+          0.19
+        ],
+        [
+          0.135,
+          0.41
+        ],
+        [
+          0.295,
+          0.41
+        ],
+        [
+          0.455,
+          0.41
+        ],
+        [
+          0.135,
+          0.63
+        ],
+        [
+          0.295,
+          0.63
+        ],
+        [
+          0.455,
+          0.63
+        ],
+        [
+          0.295,
+          0.19
+        ],
+        [
+          0.135,
+          0.19
+        ]
+      ],
+      "per": [
+        {
+          "n": 5,
+          "pairs": [],
+          "minVisiblePct": 100,
+          "inside": true
+        },
+        {
+          "n": 9,
+          "pairs": [
+            {
+              "a": "1",
+              "b": "9",
+              "ox": 22.7,
+              "oy": 51.1
+            }
+          ],
+          "minVisiblePct": 55,
+          "inside": true
+        },
+        {
+          "n": 10,
+          "pairs": [
+            {
+              "a": "1",
+              "b": "9",
+              "ox": 22.7,
+              "oy": 51.1
+            },
+            {
+              "a": "1",
+              "b": "10",
+              "ox": 24.6,
+              "oy": 51.1
+            }
+          ],
+          "minVisiblePct": 6,
+          "inside": true
+        }
+      ]
+    },
+    "F1-vit_drag": "Vit with marker 1 dragged between cells 1|2: at n=9 pairs [{\"a\":\"1\",\"b\":\"9\",\"ox\":22.7,\"oy\":51.1}]; n=10 [{\"a\":\"1\",\"b\":\"9\",\"ox\":22.7,\"oy\":51.1},{\"a\":\"1\",\"b\":\"10\",\"ox\":24.6,\"oy\":51.1}]; dragged [0.2122905027932961,0.18769603947973737]"
+  },
+  "errors": []
+}

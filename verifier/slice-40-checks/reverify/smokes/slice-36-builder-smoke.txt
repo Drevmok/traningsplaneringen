@@ -1,0 +1,51 @@
+  · admin pass «Pass — trampett», 9 items, 3 hall placements before publish
+PASS [AC1a] Admin: «Publicera som föreningsmall» in the pass menu next to «Spara som egen mall» — Hallöversikt | Spara som egen mall | Publicera som föreningsmall | Ny vecka | Använd mall | Exportera / dela
+PASS [AC2a] Publish dialog: heading, «Namn på mallen» prefilled with the pass title, body verbatim, Avbryt + Publicera
+PASS [AC2b] Publicera → toast verbatim — Publicerad. Tränarna ser den nästa gång de öppnar appen.
+PASS [AC2c] Row exists with updated_by = admin e-mail — [["Pass — trampett","admin@test.local"]]
+PASS [AC3] Payload SharePass v1 (v, blocks), NO hallPlacements key; blocks/minutes/notes/station redskap = the pass — placements in pass: 3
+PASS [AC4a] Same name (other case + spaces) → «Det finns redan en mall som heter ”…”» + body + «Ersätt mallen»
+PASS [AC4b] «Avbryt» changes nothing
+PASS [AC4c] «Ersätt mallen» → toast verbatim
+PASS [AC4d] Same row (same id, new updated_at), no second row — title now «pass — trampett»
+  · overwrite stores the typed name (F1: title is part of the update), so the row is now «pass — trampett»
+PASS [AC2d] Second mall (80-char name) published
+PASS [AC7a] Admin cards show «Senast ändrad {datum} av admin@test.local» — Senast ändrad 14 okt av admin@test.local | Senast ändrad 14 okt av admin@test.local
+PASS [AC5a] Hide confirm verbatim + Avbryt/Dölj
+PASS [AC5b] Dölj → toast «Dold för alla.»
+PASS [AC5c] Collapsed group «Dolda föreningsmallar (1)»; row hidden = true
+PASS [AC5d] Hidden card has tag «Dold»
+PASS [AC6a] Visa igen → toast «Syns igen för alla.», hidden = false, card back
+PASS [AC8] Offline: Dölj and Publicera show «Du behöver nät …»; DB unchanged — Du behöver nät för att ändra föreningens mallar. / Du behöver nät för att ändra föreningens mallar.
+PASS [§8.4] Publishing the name of a hidden mall → overwrite confirm → row shown again (hidden = false)
+PASS [AC6b] Nothing is ever deleted (row count never drops) — 2→2→2
+PASS [AC21b] Admin writes are POST/PATCH to club_templates only, never DELETE — POST /rest/v1/club_templates, PATCH /rest/v1/club_templates
+PASS [AC10] One GET to club_templates after render: apikey, no Authorization, hidden=is.false — select=id,title,total_minutes,payload,updated_at&hidden=is.false&order=sort_order,title
+PASS [AC9a] Starta från mall: «Föreningens mallar» heading + hint first, then savedTemplatesHint, then built-in mallar — Föreningens mallar | Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t | pass — trampett | Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen. | Nybörj
+PASS [AC9b] Each club card: title, minutes, tag «Föreningens», aria «Föreningens mall {title}, {n} min» — Föreningens mall Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t, 53 min | Föreningens mall pass — trampett, 53 min
+PASS [AC9c] No Ta bort / Kopiera delningskod / admin words on club cards for coaches
+PASS [AC21a] Coach visit downloads no admin chunk and no supabase-js — index-BI3CWQap.js
+PASS [AC22a] 390 wide: no horizontal scroll; 80-char title wraps inside the card; cards ≥ 44 px
+PASS [AC22b] Keyboard reaches a club card with a visible focus style — {"cls":"template-card","aria":"Föreningens mall Lång föreningsmall med många ord för att testa radbrytning i kortet på en smal t, 53 min","ring":true}
+FAIL [AC16a] Ersätta-confirm shows «Stationerna placerar du själv i Hallöversikt.»
+FAIL [AC16b] Applied: toast verbatim, pass in Passbyggaren with the mall blocks/timings, sheet closed — Mallen är i Passbyggaren.
+FAIL [AC17a] After apply: no hall placements; fresh item ids (≠ payload ids); body not scroll-locked
+PASS [AC17b] Hallöversikt opens with the stations unplaced (tray / unplaced banner), hall chip unchanged — Placerade övningar flyttas till samma zon i den nya layouten när det går.
+  · coach draft after reload: «pass — trampett»
+PASS [AC20] Coach edit + Spara som egen mall: saved locally, DB row unchanged, no POST/PATCH/DELETE from the coach — Sparad som egen mall.
+PASS [AC9d] Tab order: Föreningens mallar → Mina mallar → savedTemplatesHint → built-in — Föreningens mallar | Mina mallar | Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen.
+PASS [AC27a] Built-in mall still applies (no club note on its confirm)
+PASS [AC13-local] Refresh fails → cards still listed from the device copy + «Visar sparade mallar. …»
+FAIL [AC13-apply] Applying from the cached list works without nät to the list
+PASS [AC11] Hidden by admin → gone after reload (cache too) — pass — trampett
+PASS [AC12] All hidden → «Föreningen har inga mallar än.»; cache key removed
+FAIL [AC24] Footer «Träningsplaneraren · Slice 36»; «Tyck till» mail ends «Version: Slice 36» — Träningsplaneraren · Slice 40 · Logga in som admin · Tyck till · Visa tips igen 
+PASS [AC21c] Whole coach session: still no admin chunk, no Authorization header to the bank
+PASS [AC14a] First ever load, list unreachable, no cache: no club section, no empty text, no error; built-in mallar listed
+PASS [AC14b] DB slower than 8 s → stale line after the timeout, list kept — stale after ~8.3 s from opening the sheet
+PASS [AC15] Plain build (no VITE_SUPABASE_*): no request, no club section, no stale line
+FAIL [AC23] All Slice 36 strings verbatim in blockMeta.ts, no «!», SLICE_NUMBER = 36
+PASS [AC21d] rg "\.delete\(" app/src (non-test) finds nothing
+PASS [errors] No page errors
+
+40/46 pass

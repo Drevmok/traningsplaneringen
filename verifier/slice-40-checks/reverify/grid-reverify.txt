@@ -1,0 +1,54 @@
+
+== forening-bla: open bbox {"x":0.06,"y":0.08,"w":0.78,"h":0.84}; 12 cells [{"x":0.21,"y":0.28},{"x":0.37,"y":0.28},{"x":0.53,"y":0.28},{"x":0.69,"y":0.28},{"x":0.21,"y":0.5},{"x":0.37,"y":0.5},{"x":0.53,"y":0.5},{"x":0.69,"y":0.5},{"x":0.21,"y":0.72},{"x":0.37,"y":0.72},{"x":0.53,"y":0.72},{"x":0.69,"y":0.72}]
+   cells px [[75,74],[132,74],[190,74],[247,74],[75,132],[132,132],[190,132],[247,132],[75,190],[132,190],[190,190],[247,190]]
+PASS forening-bla N=1: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=2: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=3: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=4: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=5: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=6: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=7: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=8: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=9: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=10: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=11: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=12: batch == one-by-one, 0 overlap, inside
+PASS forening-bla N=13 (> cap 12): batch == one-by-one, inside, 1 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1
+PASS forening-bla N=14 (> cap 12): batch == one-by-one, inside, 2 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1,2
+PASS forening-bla N=15 (> cap 12): batch == one-by-one, inside, 3 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1,2,3
+forening-bla drag into cell 3: blocks 1 cell(s) → no overlap up to n=12 (cap 12); placed never moved: true; inside all: true; at n=12: {"n":12,"pairs":0,"fullStack":0,"maxOverlapPx":"0×0","maxAreaPct":0,"inside":true}; at n=15: {"n":15,"pairs":3,"fullStack":3,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-bla drag into cell 3: placed markers never move, all inside
+forening-bla drag between cells 1|2 (h-mid): blocks 2 cell(s) → no overlap up to n=11 (cap 12); placed never moved: true; inside all: true; at n=12: {"n":12,"pairs":1,"fullStack":0,"maxOverlapPx":"23.4×52","maxAreaPct":45,"inside":true}; at n=15: {"n":15,"pairs":4,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-bla drag between cells 1|2 (h-mid): placed markers never move, all inside
+forening-bla drag between 4 cells (1,2,c+1,c+2 centre): blocks 4 cell(s) → no overlap up to n=9 (cap 12); placed never moved: true; inside all: true; at n=12: {"n":12,"pairs":3,"fullStack":0,"maxOverlapPx":"23.4×23","maxAreaPct":20,"inside":true}; at n=15: {"n":15,"pairs":6,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-bla drag between 4 cells (1,2,c+1,c+2 centre): placed markers never move, all inside
+forening-bla drag off-grid, inside canvas corner (0.9,0.85): blocks 0 cell(s) → no overlap up to n=13 (cap 12); placed never moved: true; inside all: true; at n=12: {"n":12,"pairs":0,"fullStack":0,"maxOverlapPx":"0×0","maxAreaPct":0,"inside":true}; at n=15: {"n":15,"pairs":2,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-bla drag off-grid, inside canvas corner (0.9,0.85): placed markers never move, all inside
+PASS forening-bla marker cap+1 goes to least-overlap cell (cell 1, score 0.0316 = min 0.0316; all cells equal: true)
+forening-bla capacity FYI {"openPx":[279,222],"cellStepPx":[57.3,58.1],"grid":[{"gapPx":4,"cols":5,"rows":4,"cells":20},{"gapPx":8,"cols":4,"rows":3,"cells":12},{"gapPx":12,"cols":4,"rows":3,"cells":12}]}
+
+== forening-vit: open bbox {"x":0.05,"y":0.08,"w":0.49,"h":0.66}; 9 cells [{"x":0.135,"y":0.19},{"x":0.295,"y":0.19},{"x":0.455,"y":0.19},{"x":0.135,"y":0.41},{"x":0.295,"y":0.41},{"x":0.455,"y":0.41},{"x":0.135,"y":0.63},{"x":0.295,"y":0.63},{"x":0.455,"y":0.63}]
+   cells px [[48,71],[106,71],[163,71],[48,153],[106,153],[163,153],[48,236],[106,236],[163,236]]
+PASS forening-vit N=1: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=2: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=3: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=4: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=5: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=6: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=7: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=8: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=9: batch == one-by-one, 0 overlap, inside
+PASS forening-vit N=10 (> cap 9): batch == one-by-one, inside, 1 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1
+PASS forening-vit N=11 (> cap 9): batch == one-by-one, inside, 2 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1,2
+PASS forening-vit N=12 (> cap 9): batch == one-by-one, inside, 3 overlapping pair(s) = N−cap, max 52×52px (100 %), extra on cell 1,2,3
+forening-vit drag into cell 3: blocks 1 cell(s) → no overlap up to n=9 (cap 9); placed never moved: true; inside all: true; at n=9: {"n":9,"pairs":0,"fullStack":0,"maxOverlapPx":"0×0","maxAreaPct":0,"inside":true}; at n=12: {"n":12,"pairs":3,"fullStack":3,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-vit drag into cell 3: placed markers never move, all inside
+forening-vit drag between cells 1|2 (h-mid): blocks 2 cell(s) → no overlap up to n=8 (cap 9); placed never moved: true; inside all: true; at n=9: {"n":9,"pairs":1,"fullStack":0,"maxOverlapPx":"23.4×52","maxAreaPct":45,"inside":true}; at n=12: {"n":12,"pairs":4,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-vit drag between cells 1|2 (h-mid): placed markers never move, all inside
+forening-vit drag between 4 cells (1,2,c+1,c+2 centre): blocks 4 cell(s) → no overlap up to n=6 (cap 9); placed never moved: true; inside all: true; at n=9: {"n":9,"pairs":3,"fullStack":0,"maxOverlapPx":"23.4×10.9","maxAreaPct":9,"inside":true}; at n=12: {"n":12,"pairs":6,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-vit drag between 4 cells (1,2,c+1,c+2 centre): placed markers never move, all inside
+forening-vit drag off-grid, inside canvas corner (0.9,0.85): blocks 0 cell(s) → no overlap up to n=10 (cap 9); placed never moved: true; inside all: true; at n=9: {"n":9,"pairs":0,"fullStack":0,"maxOverlapPx":"0×0","maxAreaPct":0,"inside":true}; at n=12: {"n":12,"pairs":2,"fullStack":2,"maxOverlapPx":"52×52","maxAreaPct":100,"inside":true}
+PASS forening-vit drag off-grid, inside canvas corner (0.9,0.85): placed markers never move, all inside
+PASS forening-vit marker cap+1 goes to least-overlap cell (cell 1, score 0.0316 = min 0.0316; all cells equal: true)
+forening-vit capacity FYI {"openPx":[175,247],"cellStepPx":[57.3,82.3],"grid":[{"gapPx":4,"cols":3,"rows":4,"cells":12},{"gapPx":8,"cols":3,"rows":4,"cells":12},{"gapPx":12,"cols":2,"rows":4,"cells":8}]}
+grid all PASS

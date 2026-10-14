@@ -50,3 +50,45 @@ Verifier, 2026-10-13. Own worktree (`/tmp/s40v/wt`, main at `/tmp/s40v/main` @ 4
 **PASS against AC1–AC16** (AC12 built-in leg N/A by design). Spread works in Blå and Vit for every apply path, other halls are byte-identical to main, nothing already placed moves, bundle +244 B.
 
 **Ready to merge: yes on the ACs, but Planner should rule on F1 first.** Building a pass station by station still stacks markers (23.7 × 52 px overlap), and that is the coach's main path. If F1 is accepted as a follow-up, merge. Not merged by Verifier.
+
+---
+
+# Re-verify at 0cba89e (fixed-cell grid, Planner F1 ruling) — 2026-10-14
+
+Own worktree `/tmp/s40r/wt` (main `/tmp/s40r/main` @ 45cce9b), own stand-in `/tmp/s40r/sb` (36-03: 8 × t). Nothing against live (0 live hosts). Scripts: `verifier/slice-40-reverify.mjs` (browser, 39 PASS / 0 FAIL → `slice-40-reverify-results.json`), `verifier/slice-40-checks/grid-reverify.ts` (helper, all PASS → `reverify/grid-reverify.{txt,json}`), `helper-parity.ts` re-run. Screenshots `s40vr_*` (repo + `/workspace/screenshots`). Expected values taken from SLICE40-SHIPPED «Algorithm» (supersedes HANDOFF §2 / AC3 / AC4 / AC11 numbers; checklist itself not changed).
+
+Cells: **Blå 12** (x 0.21/0.37/0.53/0.69 × y 0.28/0.50/0.72 → px step 57.3 × 58.1, gap 5.3 / 6.1 px); **Vit 9** (x 0.135/0.295/0.455 × y 0.19/0.41/0.63 → px step 57.3 × 82.3, gap 5.3 / 30.3 px).
+
+## Re-check results
+
+1. **One-by-one repro (bank «Lägg till», browser):** Blå 12 adds → **0 overlap**, all inside (`s40vr_12_bla_onebyone_n12`); 13th → cell 1, **52 × 52 px (100 %) on marker 1** (`…_n13`). Vit 9 adds → 0 overlap; 10th → cell 1, 52 × 52. Placed markers never moved.
+   **With drags (helper, N up to cap+3, + browser Vit):**
+   | Drag of marker 1 | cells blocked | no overlap up to | overlap at cap |
+   |---|---|---|---|
+   | into cell 3 | 1 | Blå 12 / Vit 9 (= cap) | 0 |
+   | between cells 1|2 | 2 | Blå 11 / Vit 8 | 23.4 × 52 px (45 %) |
+   | between 4 cells | 4 | Blå 9 / Vit 6 | Blå 23.4 × 23 px (20 %), Vit 23.4 × 10.9 (9 %) |
+   | off-grid corner (0.9, 0.85) | 0 | Blå 13 / Vit 10 (cap + 1) | 0 |
+   Browser Vit, marker 1 dragged to (0.212, 0.188) between cells 1|2: n=9 → marker 9 on cell 2 overlapping marker 1 by **22.7 × 51.1 px** (`s40vr_12_vit_drag_onebyone_n9`); n=10 adds a second 24.6 × 51.1 px pair. All inside. Past capacity the picked cell is always a least-overlap one (verified score = min; with no drags all cells tie → wraps to cell 1, 2, 3 = full stack).
+2. **N at once vs one by one, N = 1 … cap+3:** final positions **identical** for every N in both halls (`autoPlaceUnplaced`, one `autoPlaceItems` call, N single calls). Both paths 0 overlap up to cap (Blå 12, Vit 9); past cap exactly N−cap fully stacked pairs on cells 1, 2, 3.
+3. **AC script (new values):** AC1/AC2 wizard (3) → cells 1–3, 0 overlap; AC3 Blå 5 = (0.21/0.37/0.53/0.69, 0.28) + (0.21, 0.50) ✓; AC4 Vit 4 = (0.135/0.295/0.455, 0.19) + (0.135, 0.41) ✓; AC6 n=1/4/8 ✓; AC7 per ruling: Blå 12 & Vit 9 0 overlap, Blå 13/16 and Vit 10/12 overlap = N−cap pairs, inside, no hang ✓; AC8 ✓; AC10 ✓; AC11: 3 placed with marker 1 dragged → new one on first free cell (0.21, 0.28), others unmoved ✓; AC12 Egen (Blå) / föreningsmall (stand-in, Vit) ✓.
+4. **Parity:** standard-trupp, tavling-linjer, liten-hall byte-identical to main 400/400 random + 400/400 two-step (each); browser spot check per hall identical; golden test (hallGrid.test.ts 18/18) green.
+5. **No movement:** main-made stacked Blå draft opened on branch — localStorage byte-identical after open + Hallöversikt; main-saved Egen mall applied → same spots ✓.
+6. **Locks / drag / Placera här / Ta bort från hall:** Hallöversikt buttons (22) / options / text identical to main; only Teknik get markers; drag, «Placera här», «Ta bort från hall» ✓.
+7. **Golvklart / Förrådslista:** Vit 5 mixed → 5 separate markers, inside; Förrådslista text = main ✓.
+8. **Bundle:** total 217 831 → **218 201 (+370 B)**, eager 153 946 → 154 314 (+368 B). Matches Builder; ≤ +512 B.
+9. **Smokes:** Slice 40 Builder **20/20**. Fail counts vs last run (a0ca4fe): 39 B 1/1, 39 V 3/3, 38 B 1/1, 38 V 3 (was 4; the one-off AC14-hall flake gone), 37 B 1/1, **37 V 3 (was 2)**, 36 B 6/6, 36 V 2/2, 35 B 8/8, 35 V 10/10, 34 B 2/2, 34 V 1/1, 33 B 5/5, 32 B 17/17. Only new one: **37 V C7e** — reproducible; its «Placera här» tap at (0.5 w, 0.30 h) in the forening-bla club mall now lands on a marker sitting in the new top grid row and opens that station's detail (`s40vr_17_smoke37_C7e_tap_hits_marker`). Harness collision with the new layout, not an app regression (my own AC14-placera passes). All others = footer number / moved main baseline as before.
+10. **Tests / lint / secrets:** build 0; `bun test src` **207 pass / 0 fail** (25 files); lint 0 errors / 15 warnings (dist-bank excluded from lint run); tsc 0. git grep 0cba89e: no key values; dists: only supabase-js `"sb_secret_"` prefix check; committed outputs clean.
+11. **Vit capacity FYI:** Vit Öppen yta at 390×844 = **175 × 247 px**. With 52 px markers fully inside it: width fits 3 columns (3·52 + 2·8 = 172 px; 4 columns would need 220 px), height fits **4 rows** with an 8 px gap (4·52 + 3·8 = 232 px; even 12 px gaps: 244 px). So **12 cells (3 × 4) fit comfortably** vs the current 9 (3 × 3, which leaves 30 px vertical gaps because the cell height 0.22 is sized for a 239 px canvas). A Vit-specific cell height of ~0.17 (≈ 64 px) would give 12. Blå: 4 × 3 = 12 matches the space with 8 px gaps (5 × 4 = 20 only with 4 px gaps).
+
+## Findings (re-verify)
+
+- **R1 (Planner, minor):** a marker dragged *between* cells blocks 2–4 cells, so overlap can start before the nominal capacity (Vit: from n=8 or n=6; Blå: from n=11 or n=9; max partial overlap 23.4 × 52 px). The algorithm does what it says (first non-overlapping cell, else least overlap); the ruling's "no overlap up to capacity" holds for untouched grids and drags onto a cell. Whether the drag case counts as "up to capacity" is Planner's call.
+- **R2 (info):** past capacity (no drags) every cell ties, so the fallback wraps to cell 1, 2, 3… with **100 % overlap** (exact stack). Allowed by the ruling. Rank badge of the covered marker is hidden.
+- **R3 (info):** Vit could hold 12 non-overlapping cells on the measured canvas (see 11).
+- **R4 (harness):** smoke 37 Verifier C7e needs a tap point clear of the new grid row; not an app issue.
+- Original F1 **resolved**: one-by-one now = batch, 0 overlap up to capacity.
+
+## Verdict (0cba89e)
+
+**PASS.** F1 is fixed. Every AC passes under the ruling and the updated values. The other halls are byte-identical to main, nothing already placed moves, and the bundle is +370 B. **Ready to merge** (Verifier does not merge). R1 and R3 are optional Planner follow-ups.
