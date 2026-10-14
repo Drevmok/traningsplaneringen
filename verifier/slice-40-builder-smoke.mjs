@@ -94,16 +94,16 @@ await attempt('W', async () => {
 // ── AC3 / AC4 / AC10 (HallBoard empty-hall auto-place on seeded drafts) + AC5 order + AC8 mixed redskap
 await attempt('G', async () => {
   const bla = await hallFromSeed(BR, 'forening-bla', 5, 'mixed', '05_bla5_after')
-  const want3 = [[0.21, 0.38], [0.37, 0.38], [0.53, 0.38], [0.69, 0.38], [0.21, 0.62]]
-  check('AC3/AC10', 'Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = worked values (4 + 1)', bla.pts.every((pt, i) => pt && near(pt.x, want3[i][0]) && near(pt.y, want3[i][1])), JSON.stringify(bla.pts.map((x) => [x?.x, x?.y])))
+  const want3 = [[0.21, 0.28], [0.37, 0.28], [0.53, 0.28], [0.69, 0.28], [0.21, 0.5]] // fixed cells (Planner F1 ruling)
+  check('AC3/AC10', 'Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = first 5 fixed cells (4 + 1)', bla.pts.every((pt, i) => pt && near(pt.x, want3[i][0]) && near(pt.y, want3[i][1])), JSON.stringify(bla.pts.map((x) => [x?.x, x?.y])))
   check('AC8', 'Mixed redskap (satsbräda, trampett, tumbling, open) in Blå → no shared spot', new Set(bla.pts.map((x) => `${x.x},${x.y}`)).size === 5 && !overlaps(bla.cs))
   const ranks = [...bla.cs].sort((a, b) => (Math.abs(a.cy - b.cy) > 5 ? a.cy - b.cy : a.cx - b.cx)).map((c) => c.rank)
   check('AC5', 'Rank numbers read 1, 2, 3… left→right, top→bottom', ranks.join(',') === '1,2,3,4,5', ranks.join(','))
   const blaMain = await hallFromSeed(MAIN, 'forening-bla', 5, 'mixed', '06_bla5_before_main')
   check('AC8-main', 'Same pass on main: markers stack', new Set(blaMain.pts.map((x) => `${x.x},${x.y}`)).size < 5, JSON.stringify(blaMain.pts.map((x) => [x.x, x.y])))
   const vit = await hallFromSeed(BR, 'forening-vit', 4, '', '07_vit4_after')
-  const want4 = [[0.135, 0.29], [0.295, 0.29], [0.455, 0.29], [0.135, 0.53]]
-  check('AC4', 'Vit, 4 Teknik: stored positions = worked values (3 + 1)', vit.pts.every((pt, i) => pt && near(pt.x, want4[i][0]) && near(pt.y, want4[i][1])), JSON.stringify(vit.pts.map((x) => [x?.x, x?.y])))
+  const want4 = [[0.135, 0.19], [0.295, 0.19], [0.455, 0.19], [0.135, 0.41]]
+  check('AC4', 'Vit, 4 Teknik: stored positions = first 4 fixed cells (3 + 1)', vit.pts.every((pt, i) => pt && near(pt.x, want4[i][0]) && near(pt.y, want4[i][1])), JSON.stringify(vit.pts.map((x) => [x?.x, x?.y])))
   await hallFromSeed(MAIN, 'forening-vit', 4, '', '08_vit4_before_main')
 })
 
@@ -118,9 +118,8 @@ await attempt('E', async () => {
   const t0 = Date.now()
   const big = await hallFromSeed(BR, 'forening-vit', 12, '', '09_vit12_after')
   const ms = Date.now() - t0
-  const ys = big.pts.map((x) => x.y)
-  const sameRowNoX = big.cs.every((a, i) => big.cs.every((b, j) => j <= i || Math.abs(a.cy - b.cy) > 1 || Math.abs(a.cx - b.cx) >= 52))
-  check('AC7', 'Vit, 12 Teknik: all inside, order kept (y non-decreasing), no hang, overlap only vertical', big.cs.length === 12 && big.cs.every((c) => c.inside) && ys.every((y, i) => i === 0 || y >= ys[i - 1]) && sameRowNoX && ms < 15000, `${ms} ms`)
+  const first9 = big.cs.slice(0, 9)
+  check('AC7', 'Vit, 12 Teknik: all inside, no hang; the 9 free cells (capacity) do not overlap; markers 10–12 use the least-overlap fallback', big.cs.length === 12 && big.cs.every((c) => c.inside) && !overlaps(first9) && ms < 15000, `${ms} ms`)
 })
 
 // ── AC9: standard halls, manual spot check = main
@@ -156,7 +155,7 @@ await attempt('D', async () => {
   await p.waitForTimeout(1200)
   const d = await draft()
   const pts = placed(d)
-  check('AC11', 'Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one is grid slot 3 of 4 (0.69, 0.50)', JSON.stringify(pts.slice(0, 3)) === JSON.stringify(s.hallPlacements) && pts.length === 4 && near(pts[3].x, 0.69) && near(pts[3].y, 0.5), JSON.stringify(pts.map((x) => [x?.x, x?.y])))
+  check('AC11', 'Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one takes the first free cell (0.21, 0.28), no overlap', JSON.stringify(pts.slice(0, 3)) === JSON.stringify(s.hallPlacements) && pts.length === 4 && near(pts[3].x, 0.21) && near(pts[3].y, 0.28), JSON.stringify(pts.map((x) => [x?.x, x?.y])))
   await openHall(); await shot('11_bla_add_station')
 })
 
@@ -170,7 +169,7 @@ await attempt('M', async () => {
   await p.getByRole('dialog').getByRole('button', { name: 'Använd mall', exact: true }).click()
   await builder().waitFor(); await p.waitForTimeout(300)
   const d = await draft()
-  const want = [[0.21, 0.38], [0.37, 0.38], [0.53, 0.38], [0.69, 0.38], [0.21, 0.62]]
+  const want = [[0.21, 0.28], [0.37, 0.28], [0.53, 0.28], [0.69, 0.28], [0.21, 0.5]]
   check('AC12-mina', 'Mina mallar (Blå, 5 Teknik) applied → grid spread at once', d.hallTemplateId === 'forening-bla' && placed(d).every((pt, i) => pt && near(pt.x, want[i][0]) && near(pt.y, want[i][1])), JSON.stringify(placed(d).map((x) => [x?.x, x?.y])))
 })
 
@@ -193,6 +192,41 @@ await attempt('L', async () => {
   await loadDraftAndOpen(BR, json)
   const f = (await p.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
   check('AC16-footer', 'Footer «Träningsplaneraren · Slice 40»', f.includes('Träningsplaneraren · Slice 40'), f)
+})
+
+// ── F1: add stations one at a time from the bank (the coach's main path) — Blå up to 12, Vit up to 9
+async function addFromBank(n) {
+  const teknik = p.locator('.block-card').filter({ has: p.locator('h3', { hasText: /^Teknik$/ }) })
+  const empty = teknik.getByRole('button', { name: 'Lägg till övning', exact: true })
+  if (await empty.count()) await empty.first().click()
+  else await teknik.locator('.btn-add-inline').click()
+  await p.locator('.side-panel-slot.is-open').waitFor()
+  await p.locator('.filter-row select').selectOption('techniques')
+  await p.locator('.library-entry .activity-card').nth(n).click()
+  await p.locator('.activity-detail').getByRole('button', { name: 'Lägg till i valt block' }).click()
+  const c = p.locator('.sheet-close'); if (await c.isVisible()) await c.click()
+}
+await attempt('O', async () => {
+  for (const [hall, cap, tag] of [['forening-bla', 12, '13_bla_one_by_one_12'], ['forening-vit', 9, '14_vit_one_by_one_9']]) {
+    await loadDraftAndOpen(BR, seed(hall, 0))
+    const bad = []
+    for (let k = 0; k < cap; k++) {
+      await addFromBank(k)
+      if (k === 4 || k === cap - 1) {
+        await openHall()
+        const cs = await chips()
+        if (cs.length !== k + 1 || overlaps(cs) || !cs.every((c) => c.inside)) bad.push(`after ${k + 1}: ${cs.length} chips, overlap ${overlaps(cs)}`)
+        if (k === 4) await shot(`${tag.slice(0, 3)}${hall === 'forening-bla' ? 'bla' : 'vit'}_one_by_one_5`)
+        else await shot(tag)
+        await backToBuilder()
+      }
+    }
+    const d = await draft()
+    const pts = placed(d)
+    let pairs = 0
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) if (Math.abs(pts[i].x - pts[j].x) < 0.145 && Math.abs(pts[i].y - pts[j].y) < 0.218) pairs++
+    check(`F1-${hall}`, `${hall}: ${cap} stations added one by one from the bank → 0 overlapping markers (stored + on screen), all inside`, bad.length === 0 && pts.length === cap && pairs === 0, bad.join(' | ') || `${pts.length} placed, ${pairs} overlapping pairs`)
+  }
 })
 
 check('E', 'No page errors', errors.length === 0, errors.join(' | '))

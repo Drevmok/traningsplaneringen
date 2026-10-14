@@ -1,6 +1,6 @@
 import { getActivityById } from '../data/seedActivities'
 import type { HallZoneId, Session, SessionItem, StationEquipmentSlot } from '../types'
-import { getPreset, gridPointInOpen, normalizeTemplateId, placeableItems, pointInZone } from './hall'
+import { getPreset, normalizeTemplateId, openGridCells, pickOpenCell, placeableItems, pointInZone } from './hall'
 
 /** Strongest apparatus wins. Landing mats alone are not a vault. */
 const PIECE_ZONE: ReadonlyArray<readonly [string, HallZoneId]> = [
@@ -83,14 +83,18 @@ export function autoPlaceItems(session: Session, itemIds: ReadonlySet<string>): 
     additions.push({ sessionItemId: item.id, ...point })
   }
   if (additions.length === 0) return session
-  // Slice 40: a hall with no snap zone (Blå, Vit) lays the new markers out in a grid over Öppen yta,
-  // after the Teknik markers already placed (those never move). Other halls: unchanged path above.
+  // Slice 40: a hall with no snap zone (Blå, Vit): each new marker takes the first free cell of a fixed
+  // grid over Öppen yta, in pass order; placed Teknik markers (incl. dragged ones) never move.
   const open = preset.zones.some((z) => z.snaps) ? undefined : preset.zones.find((z) => z.id === 'open')
   if (open) {
+    const cells = openGridCells(open.bbox)
     const teknik = new Set(placeableItems(session).map((item) => item.id))
-    const existing = (session.hallPlacements ?? []).filter((p) => teknik.has(p.sessionItemId)).length
-    const total = existing + additions.length
-    additions.forEach((a, k) => Object.assign(a, gridPointInOpen(open.bbox, existing + k, total), { zoneId: 'open' as HallZoneId }))
+    const taken = (session.hallPlacements ?? []).filter((p) => teknik.has(p.sessionItemId)).map((p) => ({ x: p.x, y: p.y }))
+    for (const a of additions) {
+      const cell = pickOpenCell(cells, taken)
+      Object.assign(a, cell, { zoneId: 'open' as HallZoneId })
+      taken.push(cell)
+    }
   }
   return {
     ...session,

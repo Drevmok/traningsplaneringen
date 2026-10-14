@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-14T04:15:12.213Z",
+  "at": "2026-10-14T04:51:11.305Z",
   "results": [
     {
       "id": "AC1-main",
@@ -27,9 +27,9 @@
     },
     {
       "id": "AC3/AC10",
-      "name": "Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = worked values (4 + 1)",
+      "name": "Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = first 5 fixed cells (4 + 1)",
       "ok": true,
-      "detail": "[[0.21,0.38],[0.37,0.38],[0.53,0.38],[0.69,0.38],[0.21,0.62]]"
+      "detail": "[[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]"
     },
     {
       "id": "AC8",
@@ -51,9 +51,9 @@
     },
     {
       "id": "AC4",
-      "name": "Vit, 4 Teknik: stored positions = worked values (3 + 1)",
+      "name": "Vit, 4 Teknik: stored positions = first 4 fixed cells (3 + 1)",
       "ok": true,
-      "detail": "[[0.135,0.29],[0.295,0.29],[0.455,0.29],[0.135,0.53]]"
+      "detail": "[[0.135,0.19],[0.295,0.19],[0.455,0.19],[0.135,0.41]]"
     },
     {
       "id": "AC6",
@@ -63,9 +63,9 @@
     },
     {
       "id": "AC7",
-      "name": "Vit, 12 Teknik: all inside, order kept (y non-decreasing), no hang, overlap only vertical",
+      "name": "Vit, 12 Teknik: all inside, no hang; the 9 free cells (capacity) do not overlap; markers 10–12 use the least-overlap fallback",
       "ok": true,
-      "detail": "983 ms"
+      "detail": "934 ms"
     },
     {
       "id": "AC9",
@@ -75,15 +75,15 @@
     },
     {
       "id": "AC11",
-      "name": "Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one is grid slot 3 of 4 (0.69, 0.50)",
+      "name": "Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one takes the first free cell (0.21, 0.28), no overlap",
       "ok": true,
-      "detail": "[[0.29,0.5],[0.45,0.5],[0.7,0.83],[0.69,0.5]]"
+      "detail": "[[0.29,0.5],[0.45,0.5],[0.7,0.83],[0.21,0.28]]"
     },
     {
       "id": "AC12-mina",
       "name": "Mina mallar (Blå, 5 Teknik) applied → grid spread at once",
       "ok": true,
-      "detail": "[[0.21,0.38],[0.37,0.38],[0.53,0.38],[0.69,0.38],[0.21,0.62]]"
+      "detail": "[[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]"
     },
     {
       "id": "AC13",
@@ -102,6 +102,18 @@
       "name": "Footer «Träningsplaneraren · Slice 40»",
       "ok": true,
       "detail": "Träningsplaneraren · Slice 40 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "F1-forening-bla",
+      "name": "forening-bla: 12 stations added one by one from the bank → 0 overlapping markers (stored + on screen), all inside",
+      "ok": true,
+      "detail": "12 placed, 0 overlapping pairs"
+    },
+    {
+      "id": "F1-forening-vit",
+      "name": "forening-vit: 9 stations added one by one from the bank → 0 overlapping markers (stored + on screen), all inside",
+      "ok": true,
+      "detail": "9 placed, 0 overlapping pairs"
     },
     {
       "id": "E",
