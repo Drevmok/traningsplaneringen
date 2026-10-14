@@ -5,7 +5,7 @@ import { UI } from '../data/blockMeta'
 import type { Session } from '../types'
 import { countSessionItems } from './hall'
 import { saveAutoCopy, sessionAlreadyArchived } from './savedTemplates'
-import { loadDraft, saveDraft, setBeforeDraftWrite } from './session'
+import { loadDraft, saveDraft, setBeforeDraftWrite, withComputedTotal } from './session'
 
 export const AUTOSAVE_DELAY = 800
 let skipArchiveOnce = false
@@ -31,6 +31,9 @@ export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
  * and a late timer can never put the old pass back.
  */
 export const pendingWrite: { current: { id: string; run: () => void } | null } = { current: null }
+
+/** Last draft JSON successfully written — shared so restoreDraft (Ångra) and useAutosave agree. */
+export const lastWritten: { current: { id: string; json: string } | null } = { current: null }
 
 export function beforeDraftWrite(next: Pick<Session, 'id'>): void {
   const p = pendingWrite.current
@@ -72,7 +75,9 @@ export function restoreDraft(before: Session): boolean {
   if (pendingWrite.current?.id !== before.id) pendingWrite.current = null
   skipArchiveOnce = true
   try {
-    return trySaveDraft(before)
+    const ok = trySaveDraft(before)
+    if (ok) lastWritten.current = { id: before.id, json: JSON.stringify(withComputedTotal(before)) }
+    return ok
   } finally {
     skipArchiveOnce = false
   }

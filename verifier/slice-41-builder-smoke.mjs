@@ -143,6 +143,30 @@ await attempt('AC20/22', async () => {
   await p.waitForTimeout(2500)
   check('AC20-plain', 'other toast (Spara som mall) has no button and closes in ~2.2 s', t.length > 0 && btns === 0 && (await toast().count()) === 0, t)
 })
+await attempt('AC2-reX', async () => {
+  const orig = JSON.parse(seed('S41 tre', 3)); await load(JSON.stringify(orig))
+  const midId = tek(orig).items[1].id
+  await removeBtn(1).click(); await p.waitForTimeout(1500) // let autosave land
+  await undo().click(); await p.waitForTimeout(200)
+  await removeBtn(1).click(); await p.waitForTimeout(1000) // debounce + write
+  const d = await draft()
+  const gone = !tek(d).items.some((i) => i.id === midId)
+  check('AC2-reX', '× → Ångra → × same station → stored without that station', gone && tek(d).items.length === 2, `stored=${tek(d).items.length} midGone=${gone}`)
+  await p.getByRole('button', { name: 'Till startsidan' }).click(); await p.locator('.home').waitFor()
+  await p.reload(); await p.locator('.home').waitFor()
+  const r = await draft()
+  check('AC2-reX-reload', 'Hem + reload keeps same station removed', !tek(r).items.some((i) => i.id === midId) && tek(r).items.length === 2, tek(r).items.length)
+})
+await attempt('AC8-kor', async () => {
+  await load(seed('S41 tre', 3)); await removeBtn(1).click(); await p.waitForTimeout(200)
+  await p.getByRole('button', { name: 'Kör passet, en övning i taget' }).click()
+  await p.locator('.run-pass').waitFor(); await p.waitForTimeout(400)
+  await p.getByRole('button', { name: /Avsluta/ }).click(); await builder().waitFor(); await p.waitForTimeout(200)
+  const t = await toast().count()
+  const u = await undo().count()
+  check('AC8-kor', '× → Kör passet → Avsluta → no undo toast', t === 0 && u === 0, `toast=${t} undo=${u}`)
+  check('AC8-kor-gone', 'station still removed after Kör passet', (await tekCard().locator('.item-remove').count()) === 2)
+})
 check('no-errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-41-builder-smoke-results.json`, JSON.stringify({ when: new Date().toISOString(), results }, null, 2))
 console.log(`${results.filter((r) => r.ok).length}/${results.length} pass`)

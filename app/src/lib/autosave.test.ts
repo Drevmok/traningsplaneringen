@@ -20,8 +20,8 @@ Object.defineProperty(globalThis, 'localStorage', {
   },
 })
 
-const { archiveReplacedDraft, pendingWrite, restoreDraft, shouldAutosave, trySaveDraft } = await import('./autosave.ts')
-const { adoptAsDraft, createBlankSession, createEmptyBlocks, createSessionItem, loadDraft, removeItem, saveDraft } = await import('./session.ts')
+const { archiveReplacedDraft, lastWritten, pendingWrite, restoreDraft, shouldAutosave, trySaveDraft } = await import('./autosave.ts')
+const { adoptAsDraft, createBlankSession, createEmptyBlocks, createSessionItem, loadDraft, removeItem, saveDraft, withComputedTotal } = await import('./session.ts')
 const { loadSavedTemplates, startNewWeek } = await import('./savedTemplates.ts')
 const { seedActivities } = await import('../data/seedActivities.ts')
 
@@ -270,7 +270,7 @@ describe('Slice 39 Mina mallar cap: auto-copies vs hand-saved', async () => {
 })
 
 describe('Slice 41 restoreDraft', () => {
-  beforeEach(() => { mem.clear(); failWrites = false; pendingWrite.current = null })
+  beforeEach(() => { mem.clear(); failWrites = false; pendingWrite.current = null; lastWritten.current = null })
 
   it('mall undo: stored draft is the old pass again; only the Slice 39 copy of it in Mina mallar', () => {
     const before = pass('Tisdag', [tech[0], tech[1]])
@@ -305,5 +305,29 @@ describe('Slice 41 restoreDraft', () => {
     restoreDraft(s)
     assert.deepEqual(loadDraft()?.blocks, s.blocks)
     assert.deepEqual(loadDraft()?.hallPlacements, s.hallPlacements)
+  })
+
+  it('remove → write → restoreDraft → same remove: lastWritten tracks restore so re-remove persists', () => {
+    const s = pass('A', [tech[0], tech[1], tech[2]])
+    const block = s.blocks.find((b) => b.type === 'techniques')!
+    const mid = block.items[1]
+    saveDraft(s)
+    lastWritten.current = { id: s.id, json: JSON.stringify(withComputedTotal(s)) }
+
+    const after = removeItem(s, block.id, mid.id)
+    assert.equal(trySaveDraft(after), true)
+    lastWritten.current = { id: after.id, json: JSON.stringify(withComputedTotal(after)) }
+
+    // Ångra writes behind autosave's old last — must update lastWritten
+    assert.equal(restoreDraft(s), true)
+    assert.equal(lastWritten.current?.json, JSON.stringify(withComputedTotal(s)))
+    assert.notEqual(lastWritten.current?.json, JSON.stringify(withComputedTotal(after)))
+
+    // Same remove again: autosave equal-JSON skip must not fire (lastWritten ≠ after)
+    assert.equal(trySaveDraft(after), true)
+    lastWritten.current = { id: after.id, json: JSON.stringify(withComputedTotal(after)) }
+    const stored = loadDraft()
+    assert.equal(stored?.blocks.find((b) => b.type === 'techniques')?.items.length, 2)
+    assert.ok(!stored?.blocks.find((b) => b.type === 'techniques')?.items.some((i) => i.id === mid.id))
   })
 })

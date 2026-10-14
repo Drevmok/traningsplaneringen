@@ -532,6 +532,10 @@ export function SessionBuilder({
               className="btn-primary"
               aria-label={UI.runPassAria}
               onClick={() => {
+                // Slice 41 AC8: Kör passet is an overlay — builder stays mounted, so expire undo here.
+                pendingUndo = null
+                setToast((t) => (t?.undo ? null : t))
+                setToastHeld(false)
                 unlockRunSignal()
                 enterPresentation()
                 onRun()
