@@ -7,6 +7,7 @@ import {
 } from '../lib/coachTips'
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
+import { coachStationCount, isFreshPass, markFresh } from '../lib/freshPass'
 import { autoPlaceItems, autoPlaceUnplaced } from '../lib/hallSuggest'
 import { restoreDraft, trySaveDraft } from '../lib/autosave'
 import type { SaveStatus } from '../lib/useAutosave'
@@ -153,7 +154,6 @@ export function SessionBuilder({
   const [pendingSavedId, setPendingSavedId] = useState<string | null>(null)
   const [pendingClub, setPendingClub] = useState<ClubTemplate | null>(null)
   const [showClubPublish, setShowClubPublish] = useState(false)
-  const [showFirstVisitTip] = useState(() => !tips.builderFirstVisitSeen)
   const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
   const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
   const [ownImportOpen, setOwnImportOpen] = useState(false)
@@ -358,9 +358,14 @@ export function SessionBuilder({
     showToast(ownImportDoneText(count))
   }
 
-  function handleConfirmTemplate() {
-    if (!pendingTemplate) return
-    const cloned = autoPlaceUnplaced(cloneTemplate(pendingTemplate))
+  /** Slice 42 B1: a fresh pass is replaced at once (Ångra is the safety net); otherwise ask. */
+  function pick<T>(set: (v: T) => void, v: T | undefined, run: (v: T) => void) {
+    if (v) (isFreshPass(session) ? run : set)(v)
+  }
+
+  function handleConfirmTemplate(tpl = pendingTemplate) {
+    if (!tpl) return
+    const cloned = autoPlaceUnplaced(cloneTemplate(tpl))
     setSelectedBlockId(cloned.blocks[0]?.id ?? null)
     setPendingTemplateId(null)
     setMismatch(null)
@@ -368,15 +373,17 @@ export function SessionBuilder({
     onInitialTemplateConsumed?.()
     // Slice 39 C1: a built-in mall is saved the moment it is applied.
     trySaveDraft(cloned)
+    markFresh(cloned)
     armUndo(cloned, null)
     carriedToast = undoToast(true)
     onChange(cloned)
     closePanel()
   }
 
-  function handleConfirmSaved() {
-    if (!pendingSaved) return
-    const next = adoptAsDraft(autoPlaceUnplaced(savedTemplateToSession(pendingSaved)))
+  function handleConfirmSaved(tpl = pendingSaved) {
+    if (!tpl) return
+    const next = adoptAsDraft(autoPlaceUnplaced(savedTemplateToSession(tpl)))
+    markFresh(next)
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingSavedId(null)
     setMismatch(null)
@@ -388,9 +395,10 @@ export function SessionBuilder({
 
   // Slice 36 (E1): the coach's own pass — fresh ids, no link back to the row. Slice 37 (A1):
   // Teknik is placed on apply (club data itself still carries no placements).
-  function handleConfirmClub() {
-    if (!pendingClub) return
-    const next = adoptAsDraft(autoPlaceUnplaced(clubTemplateToSession(pendingClub)))
+  function handleConfirmClub(tpl = pendingClub) {
+    if (!tpl) return
+    const next = adoptAsDraft(autoPlaceUnplaced(clubTemplateToSession(tpl)))
+    markFresh(next)
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingClub(null)
     setMismatch(null)
@@ -517,7 +525,7 @@ export function SessionBuilder({
         </div>
         <p className="topbar-help">{UI.topBarHelp}</p>
         {!isTipDismissed(tips, TIP_BUILDER_EMPTY) &&
-          (countSessionItems(session) < 1 || showFirstVisitTip) && (
+          coachStationCount(session) < 1 && (
             <CoachTipStrip
               tipId={TIP_BUILDER_EMPTY}
               className="builder-coach-tip"
@@ -672,16 +680,16 @@ export function SessionBuilder({
                 .filter((activity): activity is Activity => Boolean(activity))}
               onSelectActivity={handleSelectActivity}
               onReadActivity={handleOpenInPass}
-              onPickTemplate={(id) => setPendingTemplateId(id)}
+              onPickTemplate={(id) => pick(setPendingTemplateId, id, (v) => handleConfirmTemplate(getTemplateById(v)))}
               savedTemplates={savedTemplates}
-              onPickSaved={(id) => setPendingSavedId(id)}
+              onPickSaved={(id) => pick(setPendingSavedId, id, (v) => handleConfirmSaved(savedTemplates.find((t) => t.id === v)))}
               onCopySaved={(id) => void handleCopySaved(id)}
               onDeleteSaved={handleDeleteSaved}
-              onPickClub={setPendingClub}
+              onPickClub={(c) => pick(setPendingClub, c, handleConfirmClub)}
               clubAdminSlot={
                 admin.state === 'admin' ? (
                   <Suspense fallback={null}>
-                    <ClubAdminSection onPick={setPendingClub} onToast={showToast} />
+                    <ClubAdminSection onPick={(c) => pick(setPendingClub, c, handleConfirmClub)} onToast={showToast} />
                   </Suspense>
                 ) : undefined
               }
@@ -736,7 +744,7 @@ export function SessionBuilder({
       {pendingTemplate && (
         <TemplateConfirm
           template={pendingTemplate}
-          onConfirm={handleConfirmTemplate}
+          onConfirm={() => handleConfirmTemplate()}
           onCancel={() => setPendingTemplateId(null)}
         />
       )}
@@ -751,7 +759,7 @@ export function SessionBuilder({
             totalMinutes: pendingSaved.totalMinutes,
             blocks: [],
           }}
-          onConfirm={handleConfirmSaved}
+          onConfirm={() => handleConfirmSaved()}
           onCancel={() => setPendingSavedId(null)}
         />
       )}
@@ -766,7 +774,7 @@ export function SessionBuilder({
             totalMinutes: pendingClub.totalMinutes,
             blocks: [],
           }}
-          onConfirm={handleConfirmClub}
+          onConfirm={() => handleConfirmClub()}
           onCancel={() => setPendingClub(null)}
         />
       )}

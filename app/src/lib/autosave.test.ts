@@ -68,7 +68,8 @@ describe('Slice 39 autosave', () => {
     saveDraft(s)
     assert.equal(loadSavedTemplates().length, 0)
     mem.clear()
-    const empty = pass('Tom', [])
+    // Slice 42 D1: «empty» = no coach station and no title/notes; a titled 0-station pass is coach work.
+    const empty = pass('', [])
     saveDraft(empty)
     saveDraft(pass('Annat', [tech[1]]))
     assert.equal(loadSavedTemplates().length, 0)
@@ -329,5 +330,27 @@ describe('Slice 41 restoreDraft', () => {
     const stored = loadDraft()
     assert.equal(stored?.blocks.find((b) => b.type === 'techniques')?.items.length, 2)
     assert.ok(!stored?.blocks.find((b) => b.type === 'techniques')?.items.some((i) => i.id === mid.id))
+  })
+})
+
+describe('Slice 42 D1 auto-copy', () => {
+  beforeEach(() => { mem.clear(); failWrites = false; pendingWrite.current = null })
+
+  it('stored blank Tomt pass replaced by a mall → no copy', () => {
+    saveDraft(createBlankSession())
+    adoptAsDraft(pass('Mall', [tech[0]]))
+    assert.equal(loadSavedTemplates().length, 0)
+  })
+  it('stored edited pass → +1 (Slice 39 kept)', () => {
+    saveDraft(pass('Tisdag', [tech[0]]))
+    adoptAsDraft(pass('Mall', [tech[1]]))
+    assert.equal(loadSavedTemplates().length, 1)
+  })
+  it('stored untouched mall pass (marked fresh) → no copy', async () => {
+    const { markFresh } = await import('./freshPass.ts')
+    const m = adoptAsDraft(pass('Mall A', [tech[0]]))
+    markFresh(m)
+    adoptAsDraft(pass('Mall B', [tech[1]]))
+    assert.equal(loadSavedTemplates().length, 0)
   })
 })

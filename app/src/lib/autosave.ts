@@ -4,18 +4,19 @@
 import { UI } from '../data/blockMeta'
 import type { Session } from '../types'
 import { countSessionItems } from './hall'
+import { isFreshPass } from './freshPass'
 import { saveAutoCopy, sessionAlreadyArchived } from './savedTemplates'
 import { loadDraft, saveDraft, setBeforeDraftWrite, withComputedTotal } from './session'
 
 export const AUTOSAVE_DELAY = 800
 let skipArchiveOnce = false
 
-/** Keep a stored pass with ≥ 1 station in Mina mallar before another pass takes the slot. */
+/** Keep a stored pass that is not fresh (Slice 42 D1) in Mina mallar before another pass takes the slot. */
 export function archiveReplacedDraft(next: Pick<Session, 'id'>): boolean {
   if (skipArchiveOnce) return false
   try {
     const old = loadDraft()
-    if (!old || old.id === next.id || countSessionItems(old) < 1 || sessionAlreadyArchived(old)) return false
+    if (!old || old.id === next.id || isFreshPass(old) || sessionAlreadyArchived(old)) return false
     saveAutoCopy(old, old.title.trim() || UI.untitledPass)
     return true
   } catch {

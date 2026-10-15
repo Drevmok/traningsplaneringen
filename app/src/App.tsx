@@ -43,6 +43,8 @@ import type { Session } from './types'
 import './App.css'
 import './tips.css'
 import './export.css'
+import { markFresh, noteChange } from './lib/freshPass'
+const markFreshed = <T extends Parameters<typeof markFresh>[0]>(s: T): T => (markFresh(s), s)
 
 type View = 'home' | 'builder' | 'hall'
 
@@ -51,6 +53,8 @@ export default function App() {
   useBank()
   const [view, setView] = useState<View>('home')
   const [session, setSession] = useState<Session>(() => createBlankSession())
+  // Slice 42: the first edit of a mall / wizard / Tomt pass ends «fresh» (also Hallöversikt edits).
+  useEffect(() => noteChange(session), [session])
   const [openTemplates, setOpenTemplates] = useState(false)
   const [hallStartFloor, setHallStartFloor] = useState(false)
   const [tips, setTips] = useState<CoachTipsStateV1>(() => loadCoachTips())
@@ -163,7 +167,7 @@ export default function App() {
 
   function goNew() {
     patchTips(markChooseOrBuild)
-    setSession(createBlankSession())
+    setSession(markFreshed(createBlankSession()))
     setOpenTemplates(false)
     setHallStartFloor(false)
     setView('builder')
@@ -171,7 +175,7 @@ export default function App() {
 
   function goTemplate() {
     patchTips(markChooseOrBuild)
-    setSession(createBlankSession())
+    setSession(markFreshed(createBlankSession()))
     setOpenTemplates(true)
     setHallStartFloor(false)
     setView('builder')
@@ -182,6 +186,7 @@ export default function App() {
     const next = composeWizardSession(answers)
     setSession(next)
     saveDraft(next)
+    markFresh(next)
     setOpenTemplates(false)
     setHallStartFloor(false)
     setView('builder')
