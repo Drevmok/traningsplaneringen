@@ -43,7 +43,8 @@ Kort ordlista för Träningsplanerarens gränssnitt. Inga nya funktioner — bar
 | Stub label | Utkast |
 | needsCoachReview (internal UI label) | Behöver tränargranskning |
 | Replace session — title | Ersätta det här passet? |
-| Replace session — body | Om du börjar från en mall ersätts blocken och övningarna du har nu. Dina sparade utkast finns kvar. |
+| Replace session — body | Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. |
+| Replace session — when (Slice 42) | Only when real coach work would be replaced. Skipped for a fresh pass (empty, or untouched since mall/wizard/Tomt pass); Ångra in the toast is the safety net. |
 | Replace session — confirm | Använd mall |
 | Replace session — cancel | Fortsätt redigera |
 | Summary (section) | Sammanfattning |
