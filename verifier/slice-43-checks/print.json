@@ -1,0 +1,165 @@
+{
+ "out": {
+  "br": {
+   "390-forening-bla": {
+    "w": 244,
+    "h": 180,
+    "ratio": 1.356,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-forening-vit": {
+    "w": 244,
+    "h": 254,
+    "ratio": 0.958,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-standard-trupp": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-tavling-linjer": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-liten-hall": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "1280-forening-bla": {
+    "w": 244,
+    "h": 180,
+    "ratio": 1.356,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-forening-vit": {
+    "w": 244,
+    "h": 254,
+    "ratio": 0.958,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-standard-trupp": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-tavling-linjer": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-liten-hall": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   }
+  },
+  "main": {
+   "390-forening-bla": {
+    "w": 244,
+    "h": 180,
+    "ratio": 1.356,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-forening-vit": {
+    "w": 244,
+    "h": 254,
+    "ratio": 0.958,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-standard-trupp": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-tavling-linjer": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "390-liten-hall": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true,
+    "pages": 1
+   },
+   "1280-forening-bla": {
+    "w": 244,
+    "h": 180,
+    "ratio": 1.356,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-forening-vit": {
+    "w": 244,
+    "h": 254,
+    "ratio": 0.958,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-standard-trupp": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-tavling-linjer": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   },
+   "1280-liten-hall": {
+    "w": 244,
+    "h": 152,
+    "ratio": 1.6,
+    "chromeVisible": [],
+    "printTitle": true
+   }
+  }
+ },
+ "diffs": {
+  "forening-bla": "0 242604",
+  "forening-vit": "0 242604",
+  "standard-trupp": "0 242604",
+  "tavling-linjer": "0 242604",
+  "liten-hall": "0 242604"
+ }
+}

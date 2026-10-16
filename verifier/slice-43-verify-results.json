@@ -1,0 +1,1840 @@
+{
+  "when": "2026-10-16T04:41:46.238Z",
+  "commit": "e7de022",
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Blå: bottom ≤ 739 with banner (short title)",
+      "ok": true,
+      "detail": "min margin 135"
+    },
+    {
+      "id": "AC2",
+      "name": "Vit: bottom ≤ 739 with banner (short title)",
+      "ok": true,
+      "detail": "[{\"build\":\"br\",\"hall\":\"forening-vit\",\"title\":\"kort\",\"banner\":\"visas\",\"bannerShown\":true,\"top\":340,\"bottom\":714,\"h\":374,\"margin\":25,\"metaLines\":2,\"sw\":390},{\"build\":\"br\",\"hall\":\"forening-vit\",\"title\":\"kort\",\"banner\":\"dold\",\"bannerShown\":false,\"top\":288,\"bottom\":662,\"h\":374,\"margin\":77,\"metaLines\":2,\"sw\":390}]"
+    },
+    {
+      "id": "AC3",
+      "name": "Standard / Tävling / Liten: bottom ≤ 739; height ≈ 358×2/3 (239)",
+      "ok": true,
+      "detail": "heights 239"
+    },
+    {
+      "id": "LONG-2rad",
+      "name": "All halls, title wrapping to 2 lines, banner shown and hidden: bottom ≤ 739",
+      "ok": true,
+      "detail": "min margin 3, meta lines 3"
+    },
+    {
+      "id": "LONG-3rad",
+      "name": "All halls, title wrapping to 3 lines, banner shown and hidden: bottom ≤ 739",
+      "ok": false,
+      "detail": "Vit visas 758 (margin -19), Vit dold 706 (margin 33) meta lines 4"
+    },
+    {
+      "id": "LONG-lång",
+      "name": "All halls, very long title (3+ lines), banner shown and hidden: bottom ≤ 739",
+      "ok": false,
+      "detail": "min margin -63, meta lines 6"
+    },
+    {
+      "id": "AC9",
+      "name": "No saknar banner (Använd alla förslag), checklist pass (short title): banner gone, every hall ≤ 739, hall moved up 52 px (no empty gap)",
+      "ok": true,
+      "detail": "forening-bla 340→288, forening-vit 340→288, standard-trupp 340→288, tavling-linjer 340→288, liten-hall 340→288"
+    },
+    {
+      "id": "H-sw",
+      "name": "No horizontal scroll in any of the 30 branch states",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC4",
+      "name": "Vit at scrollY 0: canvas top ≥ 0, bottom < viewport, no element (tray, toast, banner) covers any of 81 canvas sample points",
+      "ok": true,
+      "detail": "canvas 340,714,374,16,374 cover "
+    },
+    {
+      "id": "AC5",
+      "name": "Back, Hallöversikt, meta, 4 actions, layout select, zoom −/+ above the hall; all ≥ 44×44",
+      "ok": true,
+      "detail": "[[\"← Tillbaka till Passbyggaren\",234,48,60],[\"Dölj flöde\",109,44,172],[\"Visa förrådslista för passet\",124,44,172],[\"Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap\",171,44,224],[\"Golvklart\",106,44,224],[\"Hallayout\",166,44,276],[\"Zooma ut\",48,44,276],[\"Zooma in\",48,44,276],[\"Visa Använd alla förslag. Sparar inte automatiskt.\",147,44,328]]"
+    },
+    {
+      "id": "AC6-390",
+      "name": "390 px: saknar banner one line, full text readable (not ellipsized), title = same text",
+      "ok": true,
+      "detail": "{\"text\":\"3 stationer saknar redskap\",\"title\":\"3 stationer saknar redskap\",\"cut\":false,\"h\":39,\"banner\":44}"
+    },
+    {
+      "id": "AC6-320",
+      "name": "320 px: saknar banner one line, full text readable (not ellipsized), title = same text",
+      "ok": false,
+      "detail": "{\"text\":\"3 stationer saknar redskap\",\"title\":\"3 stationer saknar redskap\",\"cut\":true,\"h\":39,\"banner\":44}"
+    },
+    {
+      "id": "AC6-cta",
+      "name": "Saknar CTA «Använd alla förslag» works (moves focus/points at the header action, Slice 37)",
+      "ok": true,
+      "detail": "Använd alla förslag|btn-secondary hall-tap-target hall-apply-all--point"
+    },
+    {
+      "id": "AC7",
+      "name": "Migrate note, Blå/Vit coach tip, Visa tips and flow tip strip are under the hall (.hall-below), same text as main",
+      "ok": true,
+      "detail": "[\"Placerade övningar flyttas till samma zon i den nya layouten när det går.\",\"Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.\",\"Tips om placering\",\"Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklar"
+    },
+    {
+      "id": "AC7-dismiss",
+      "name": "Flow tip dismiss still works (strip gone, stays gone after reload)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10",
+      "name": "Tray expands (taller, not compact) and collapses again; hall unchanged",
+      "ok": true,
+      "detail": "tray 58→215→58 canvas 340,714,374,16,374/340,714,374,16,374"
+    },
+    {
+      "id": "AC11",
+      "name": "Golvklart: every hall bottom ≤ 739; floor header and controls identical to main (Vit was 715 in the docs)",
+      "ok": true,
+      "detail": "forening-bla 293–557 (main 293–557); forening-vit 293–667 (main 293–667); standard-trupp 293–532 (main 293–715); tavling-linjer 293–532 (main 293–715); liten-hall 293–532 (main 293–715)"
+    },
+    {
+      "id": "AC12",
+      "name": "Every template: zoom + / − changes and restores the hall width, pan scrolls when zoomed, marker tap selects/opens, drag (app DnD events) moves the stored placement, «Ta bort från hall» removes one marker",
+      "ok": true,
+      "detail": "{\"forening-bla\":{\"zoom\":[358,448,358],\"pan\":[true,80],\"pinch\":[358,537,430],\"tap\":{\"sel\":0,\"dialog\":1,\"sheet\":0},\"escCloses\":false,\"drag\":true,\"dlgAfterDrag\":0,\"rmN\":3,\"rmIdx\":0,\"remove\":[3,2,2]},\"forening-vit\":{\"zoom\":[430,519,430],\"pan\":[true,80],\"pinch\":[430,644,516],\"tap\":{\"sel\":0,\"dialog\":1,\"sheet\":0},\"escCloses\":false,\"drag\":true,\"dlgAfterDrag\":0,\"rmN\":2,\"rmIdx\":1,\"remove\":[2,1,1]},\"standard-trupp\":{\"zoom\":[516,605,516],\"pan\":[true,80],\"pinch\":[516,716,573],\"tap\":{\"sel\":0,\"dialog\":1,\"sheet\":0},\"escCloses\":false,\"drag\":true,\"dlgAfterDrag\":0,\"rmN\":1,\"rmIdx\":0,\"remove\":[1,0,3]},\"tavling-lin"
+    },
+    {
+      "id": "AC12-pinch",
+      "name": "Simulated two-finger pinch (CDP touch events) zooms in and out on every template (real-device feel PENDING-real)",
+      "ok": true,
+      "detail": "forening-bla 358,537,430; forening-vit 430,644,516; standard-trupp 516,716,573; tavling-linjer 573,716,573; liten-hall 573,716,573"
+    },
+    {
+      "id": "V-320",
+      "name": "320 px (2-line title): no horizontal scroll, nothing clipped, every hall bottom reported",
+      "ok": true,
+      "detail": "forening-bla 596 clip ; forening-vit 685 clip ; standard-trupp 576 clip ; tavling-linjer 576 clip ; liten-hall 576 clip "
+    },
+    {
+      "id": "AC13",
+      "name": "Landscape 844×390: hall top ≤ 507 (main), page scrolls, no h-scroll/clip, hall size same as main",
+      "ok": true,
+      "detail": "forening-bla 313–723 (main 507–918); forening-vit 313–894 (main 507–1089); standard-trupp 313–661 (main 507–855); tavling-linjer 313–661 (main 507–855); liten-hall 313–661 (main 507–855)"
+    },
+    {
+      "id": "AC14",
+      "name": "Desktop 1280×800: same hall size as main, hall higher (moved items below), same controls, no h-scroll/clip",
+      "ok": true,
+      "detail": "forening-bla 313–907 (main 507–1102); forening-vit 313–1154 (main 507–1349); standard-trupp 313–817 (main 507–1011); tavling-linjer 313–817 (main 507–1011); liten-hall 313–817 (main 507–1011)"
+    },
+    {
+      "id": "AC15",
+      "name": "Print (emulateMedia print, 390 + 1280): hall ratio/size identical to main on every template (Blå/Vit drawing ratios, generic 16:10), same chrome hidden; PDF page count equal",
+      "ok": true,
+      "detail": "390-forening-bla 1.356/1.356; 390-forening-vit 0.958/0.958; 390-standard-trupp 1.6/1.6; 390-tavling-linjer 1.6/1.6; 390-liten-hall 1.6/1.6; 1280-forening-bla 1.356/1.356; 1280-forening-vit 0.958/0.958; 1280-standard-trupp 1.6/1.6; 1280-tavling-linjer 1.6/1.6; 1280-liten-hall 1.6/1.6"
+    },
+    {
+      "id": "AC15-pdf",
+      "name": "PDF page 1 rendered (50 dpi): branch vs main pixel diff ≤ 0.5 % per template",
+      "ok": true,
+      "detail": "{\"forening-bla\":\"0 242604\",\"forening-vit\":\"0 242604\",\"standard-trupp\":\"0 242604\",\"tavling-linjer\":\"0 242604\",\"liten-hall\":\"0 242604\"}"
+    },
+    {
+      "id": "AC8",
+      "name": "Hallöversikt (5 halls, hints open, Golvklart): no new or removed controls, no new or changed text vs main",
+      "ok": true,
+      "detail": "{\"forening-bla\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"forening-vit\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"standard-trupp\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"tavling-linjer\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"liten-hall\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"hints\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}},\"floor\":{\"ctl\":{\"add\":[],\"gone\":[]},\"text\":{\"add\":[],\"gone\":[]}}}"
+    },
+    {
+      "id": "AC8-terms",
+      "name": "Locked terms present as on main",
+      "ok": true,
+      "detail": "Hallöversikt:true Golvklart:true Förrådslista:true Visa flöde:false Använd alla förslag:true Schematisk hall — inte exakt mått:true"
+    },
+    {
+      "id": "AC16-footer",
+      "name": "Footer «Träningsplaneraren · Slice 43»",
+      "ok": true,
+      "detail": "Träningsplaneraren · Slice 43 · Tyck till · Visa tips igen · Uppdatera appen"
+    },
+    {
+      "id": "no-errors",
+      "name": "No page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": {
+    "geoVit": {
+      "canvas": [
+        340,
+        714,
+        374,
+        16,
+        374
+      ],
+      "back": [
+        12,
+        60,
+        48,
+        16,
+        250
+      ],
+      "title": [
+        20,
+        52,
+        31,
+        258,
+        374
+      ],
+      "meta": [
+        68,
+        120,
+        52,
+        16,
+        250
+      ],
+      "metaLines": 2,
+      "actions": [
+        128,
+        224,
+        96,
+        16,
+        374
+      ],
+      "preset": [
+        232,
+        276,
+        44,
+        16,
+        374
+      ],
+      "zoom": [
+        232,
+        276,
+        44,
+        270,
+        374
+      ],
+      "saknar": [
+        284,
+        328,
+        44,
+        16,
+        374
+      ],
+      "below": [
+        830,
+        1071,
+        240,
+        16,
+        374
+      ],
+      "tray": [
+        1087,
+        1145,
+        58,
+        12,
+        378
+      ],
+      "vw": 390,
+      "vh": 844,
+      "sw": 390
+    },
+    "AC6-390": {
+      "text": "3 stationer saknar redskap",
+      "title": "3 stationer saknar redskap",
+      "cut": false,
+      "h": 39,
+      "banner": 44
+    },
+    "AC6-320": {
+      "text": "3 stationer saknar redskap",
+      "title": "3 stationer saknar redskap",
+      "cut": true,
+      "h": 39,
+      "banner": 44
+    },
+    "AC6-cta": {
+      "ctaN": 1,
+      "focused": "Använd alla förslag|btn-secondary hall-tap-target hall-apply-all--point"
+    },
+    "AC7": {
+      "mainSecondary": [
+        "Placerade övningar flyttas till samma zon i den nya layouten när det går.",
+        "Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.",
+        "Tips om placering",
+        "Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa gruppen — skriv ut eller håll upp skärmen. × Dölj tips"
+      ],
+      "brSecondary": [
+        "Placerade övningar flyttas till samma zon i den nya layouten när det går.",
+        "Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.",
+        "Tips om placering",
+        "Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa gruppen — skriv ut eller håll upp skärmen. × Dölj tips"
+      ],
+      "inBelow": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "bTop": 830,
+      "canvasBottom": 714
+    },
+    "AC11": {
+      "forening-bla": {
+        "br": [
+          293,
+          557,
+          264,
+          16,
+          374
+        ],
+        "main": [
+          293,
+          557,
+          264,
+          16,
+          374
+        ]
+      },
+      "forening-vit": {
+        "br": [
+          293,
+          667,
+          374,
+          16,
+          374
+        ],
+        "main": [
+          293,
+          667,
+          374,
+          16,
+          374
+        ]
+      },
+      "standard-trupp": {
+        "br": [
+          293,
+          532,
+          239,
+          16,
+          374
+        ],
+        "main": [
+          293,
+          715,
+          422,
+          16,
+          374
+        ]
+      },
+      "tavling-linjer": {
+        "br": [
+          293,
+          532,
+          239,
+          16,
+          374
+        ],
+        "main": [
+          293,
+          715,
+          422,
+          16,
+          374
+        ]
+      },
+      "liten-hall": {
+        "br": [
+          293,
+          532,
+          239,
+          16,
+          374
+        ],
+        "main": [
+          293,
+          715,
+          422,
+          16,
+          374
+        ]
+      }
+    },
+    "AC12": {
+      "forening-bla": {
+        "zoom": [
+          358,
+          448,
+          358
+        ],
+        "pan": [
+          true,
+          80
+        ],
+        "pinch": [
+          358,
+          537,
+          430
+        ],
+        "tap": {
+          "sel": 0,
+          "dialog": 1,
+          "sheet": 0
+        },
+        "escCloses": false,
+        "drag": true,
+        "dlgAfterDrag": 0,
+        "rmN": 3,
+        "rmIdx": 0,
+        "remove": [
+          3,
+          2,
+          2
+        ]
+      },
+      "forening-vit": {
+        "zoom": [
+          430,
+          519,
+          430
+        ],
+        "pan": [
+          true,
+          80
+        ],
+        "pinch": [
+          430,
+          644,
+          516
+        ],
+        "tap": {
+          "sel": 0,
+          "dialog": 1,
+          "sheet": 0
+        },
+        "escCloses": false,
+        "drag": true,
+        "dlgAfterDrag": 0,
+        "rmN": 2,
+        "rmIdx": 1,
+        "remove": [
+          2,
+          1,
+          1
+        ]
+      },
+      "standard-trupp": {
+        "zoom": [
+          516,
+          605,
+          516
+        ],
+        "pan": [
+          true,
+          80
+        ],
+        "pinch": [
+          516,
+          716,
+          573
+        ],
+        "tap": {
+          "sel": 0,
+          "dialog": 1,
+          "sheet": 0
+        },
+        "escCloses": false,
+        "drag": true,
+        "dlgAfterDrag": 0,
+        "rmN": 1,
+        "rmIdx": 0,
+        "remove": [
+          1,
+          0,
+          3
+        ]
+      },
+      "tavling-linjer": {
+        "zoom": [
+          573,
+          662,
+          573
+        ],
+        "pan": [
+          true,
+          80
+        ],
+        "pinch": [
+          573,
+          716,
+          573
+        ],
+        "tap": {
+          "sel": 0,
+          "dialog": 1,
+          "sheet": 0
+        },
+        "escCloses": false,
+        "drag": true,
+        "dlgAfterDrag": 0,
+        "rmN": 3,
+        "rmIdx": 0,
+        "remove": [
+          3,
+          2,
+          2
+        ]
+      },
+      "liten-hall": {
+        "zoom": [
+          573,
+          662,
+          573
+        ],
+        "pan": [
+          true,
+          80
+        ],
+        "pinch": [
+          573,
+          716,
+          573
+        ],
+        "tap": {
+          "sel": 0,
+          "dialog": 1,
+          "sheet": 0
+        },
+        "escCloses": false,
+        "drag": true,
+        "dlgAfterDrag": 0,
+        "rmN": 2,
+        "rmIdx": 0,
+        "remove": [
+          2,
+          1,
+          1
+        ]
+      }
+    },
+    "V": {
+      "320": [
+        "forening-bla br 384,596,212 main 836,1048,212",
+        "forening-vit br 384,685,301 main 836,1137,301",
+        "standard-trupp br 384,576,192 main 836,1258,422",
+        "tavling-linjer br 384,576,192 main 836,1258,422",
+        "liten-hall br 384,576,192 main 836,1258,422"
+      ],
+      "land": [
+        "forening-bla br 313,723,411 main 507,918,411",
+        "forening-vit br 313,894,582 main 507,1089,582",
+        "standard-trupp br 313,661,348 main 507,855,348",
+        "tavling-linjer br 313,661,348 main 507,855,348",
+        "liten-hall br 313,661,348 main 507,855,348"
+      ],
+      "desk": [
+        "forening-bla br 313,907,595 main 507,1102,595",
+        "forening-vit br 313,1154,842 main 507,1349,842",
+        "standard-trupp br 313,817,504 main 507,1011,504",
+        "tavling-linjer br 313,817,504 main 507,1011,504",
+        "liten-hall br 313,817,504 main 507,1011,504"
+      ]
+    },
+    "V-320-fold": [
+      "forening-bla bottom 596 (margin 143)",
+      "forening-vit bottom 685 (margin 54)",
+      "standard-trupp bottom 576 (margin 163)",
+      "tavling-linjer bottom 576 (margin 163)",
+      "liten-hall bottom 576 (margin 163)"
+    ],
+    "AC15": {
+      "out": {
+        "br": {
+          "390-forening-bla": {
+            "w": 244,
+            "h": 180,
+            "ratio": 1.356,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-forening-vit": {
+            "w": 244,
+            "h": 254,
+            "ratio": 0.958,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-standard-trupp": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-tavling-linjer": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-liten-hall": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "1280-forening-bla": {
+            "w": 244,
+            "h": 180,
+            "ratio": 1.356,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-forening-vit": {
+            "w": 244,
+            "h": 254,
+            "ratio": 0.958,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-standard-trupp": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-tavling-linjer": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-liten-hall": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          }
+        },
+        "main": {
+          "390-forening-bla": {
+            "w": 244,
+            "h": 180,
+            "ratio": 1.356,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-forening-vit": {
+            "w": 244,
+            "h": 254,
+            "ratio": 0.958,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-standard-trupp": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-tavling-linjer": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "390-liten-hall": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true,
+            "pages": 1
+          },
+          "1280-forening-bla": {
+            "w": 244,
+            "h": 180,
+            "ratio": 1.356,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-forening-vit": {
+            "w": 244,
+            "h": 254,
+            "ratio": 0.958,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-standard-trupp": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-tavling-linjer": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          },
+          "1280-liten-hall": {
+            "w": 244,
+            "h": 152,
+            "ratio": 1.6,
+            "chromeVisible": [],
+            "printTitle": true
+          }
+        }
+      },
+      "diffs": {
+        "forening-bla": "0 242604",
+        "forening-vit": "0 242604",
+        "standard-trupp": "0 242604",
+        "tavling-linjer": "0 242604",
+        "liten-hall": "0 242604"
+      }
+    },
+    "AC8-diff": {
+      "forening-bla": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "forening-vit": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "standard-trupp": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "tavling-linjer": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "liten-hall": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "hints": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      },
+      "floor": {
+        "ctl": {
+          "add": [],
+          "gone": []
+        },
+        "text": {
+          "add": [],
+          "gone": []
+        }
+      }
+    }
+  },
+  "table": [
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 340,
+      "bottom": 604,
+      "h": 264,
+      "margin": 135,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 340,
+      "bottom": 714,
+      "h": 374,
+      "margin": 25,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 340,
+      "bottom": 579,
+      "h": 239,
+      "margin": 160,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 340,
+      "bottom": 579,
+      "h": 239,
+      "margin": 160,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 340,
+      "bottom": 579,
+      "h": 239,
+      "margin": 160,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 288,
+      "bottom": 552,
+      "h": 264,
+      "margin": 187,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 288,
+      "bottom": 662,
+      "h": 374,
+      "margin": 77,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 288,
+      "bottom": 527,
+      "h": 239,
+      "margin": 212,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 288,
+      "bottom": 527,
+      "h": 239,
+      "margin": 212,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 288,
+      "bottom": 527,
+      "h": 239,
+      "margin": 212,
+      "metaLines": 2,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 362,
+      "bottom": 626,
+      "h": 264,
+      "margin": 113,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 362,
+      "bottom": 736,
+      "h": 374,
+      "margin": 3,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 362,
+      "bottom": 601,
+      "h": 239,
+      "margin": 138,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 362,
+      "bottom": 601,
+      "h": 239,
+      "margin": 138,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 362,
+      "bottom": 601,
+      "h": 239,
+      "margin": 138,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 310,
+      "bottom": 574,
+      "h": 264,
+      "margin": 165,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 310,
+      "bottom": 684,
+      "h": 374,
+      "margin": 55,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 310,
+      "bottom": 549,
+      "h": 239,
+      "margin": 190,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 310,
+      "bottom": 549,
+      "h": 239,
+      "margin": 190,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 310,
+      "bottom": 549,
+      "h": 239,
+      "margin": 190,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 384,
+      "bottom": 648,
+      "h": 264,
+      "margin": 91,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 384,
+      "bottom": 758,
+      "h": 374,
+      "margin": -19,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 384,
+      "bottom": 623,
+      "h": 239,
+      "margin": 116,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 384,
+      "bottom": 623,
+      "h": 239,
+      "margin": 116,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 384,
+      "bottom": 623,
+      "h": 239,
+      "margin": 116,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 332,
+      "bottom": 596,
+      "h": 264,
+      "margin": 143,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 332,
+      "bottom": 706,
+      "h": 374,
+      "margin": 33,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 332,
+      "bottom": 571,
+      "h": 239,
+      "margin": 168,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 332,
+      "bottom": 571,
+      "h": 239,
+      "margin": 168,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 332,
+      "bottom": 571,
+      "h": 239,
+      "margin": 168,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 428,
+      "bottom": 692,
+      "h": 264,
+      "margin": 47,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 428,
+      "bottom": 802,
+      "h": 374,
+      "margin": -63,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 428,
+      "bottom": 667,
+      "h": 239,
+      "margin": 72,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 428,
+      "bottom": 667,
+      "h": 239,
+      "margin": 72,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 428,
+      "bottom": 667,
+      "h": 239,
+      "margin": 72,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-bla",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 376,
+      "bottom": 640,
+      "h": 264,
+      "margin": 99,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "forening-vit",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 376,
+      "bottom": 750,
+      "h": 374,
+      "margin": -11,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "standard-trupp",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 376,
+      "bottom": 615,
+      "h": 239,
+      "margin": 124,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "tavling-linjer",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 376,
+      "bottom": 615,
+      "h": 239,
+      "margin": 124,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "br",
+      "hall": "liten-hall",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 376,
+      "bottom": 615,
+      "h": 239,
+      "margin": 124,
+      "metaLines": 6,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 765,
+      "bottom": 1029,
+      "h": 264,
+      "margin": -290,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 765,
+      "bottom": 1139,
+      "h": 374,
+      "margin": -400,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 765,
+      "bottom": 1187,
+      "h": 422,
+      "margin": -448,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 765,
+      "bottom": 1187,
+      "h": 422,
+      "margin": -448,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "kort",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 765,
+      "bottom": 1187,
+      "h": 422,
+      "margin": -448,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 660,
+      "bottom": 924,
+      "h": 264,
+      "margin": -185,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 660,
+      "bottom": 1033,
+      "h": 374,
+      "margin": -294,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 660,
+      "bottom": 1082,
+      "h": 422,
+      "margin": -343,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 660,
+      "bottom": 1082,
+      "h": 422,
+      "margin": -343,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "kort",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 660,
+      "bottom": 1082,
+      "h": 422,
+      "margin": -343,
+      "metaLines": 1,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1081,
+      "h": 264,
+      "margin": -342,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1191,
+      "h": 374,
+      "margin": -452,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "2rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 976,
+      "h": 264,
+      "margin": -237,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1085,
+      "h": 374,
+      "margin": -346,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "2rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1081,
+      "h": 264,
+      "margin": -342,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1191,
+      "h": 374,
+      "margin": -452,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "3rad",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 817,
+      "bottom": 1239,
+      "h": 422,
+      "margin": -500,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 976,
+      "h": 264,
+      "margin": -237,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1085,
+      "h": 374,
+      "margin": -346,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "3rad",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 712,
+      "bottom": 1134,
+      "h": 422,
+      "margin": -395,
+      "metaLines": 3,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 839,
+      "bottom": 1103,
+      "h": 264,
+      "margin": -364,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 839,
+      "bottom": 1213,
+      "h": 374,
+      "margin": -474,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 839,
+      "bottom": 1261,
+      "h": 422,
+      "margin": -522,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 839,
+      "bottom": 1261,
+      "h": 422,
+      "margin": -522,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "lång",
+      "banner": "visas",
+      "bannerShown": true,
+      "top": 839,
+      "bottom": 1261,
+      "h": 422,
+      "margin": -522,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-bla",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 734,
+      "bottom": 998,
+      "h": 264,
+      "margin": -259,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "forening-vit",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 734,
+      "bottom": 1107,
+      "h": 374,
+      "margin": -368,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "standard-trupp",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 734,
+      "bottom": 1156,
+      "h": 422,
+      "margin": -417,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "tavling-linjer",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 734,
+      "bottom": 1156,
+      "h": 422,
+      "margin": -417,
+      "metaLines": 4,
+      "sw": 390
+    },
+    {
+      "build": "main",
+      "hall": "liten-hall",
+      "title": "lång",
+      "banner": "dold",
+      "bannerShown": false,
+      "top": 734,
+      "bottom": 1156,
+      "h": 422,
+      "margin": -417,
+      "metaLines": 4,
+      "sw": 390
+    }
+  ]
+}

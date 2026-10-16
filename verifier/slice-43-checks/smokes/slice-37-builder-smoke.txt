@@ -1,0 +1,13 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('.modal-backdrop[role=dialog]').filter({ hasText: 'Ersätta det här passet?' }).getByRole('button', { name: 'Använd mall', exact: true })
+
+    at /tmp/s43v/smk/verifier/slice-37-builder-smoke.mjs:88:78 {
+  name: 'TimeoutError'
+}
+
+Node.js v20.19.2

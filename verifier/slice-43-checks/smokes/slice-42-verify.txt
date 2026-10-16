@@ -1,0 +1,74 @@
+PASS [AC1] Hem → Tomt pass (Närvaro + Dagens pass) → tip shows — soft items 2
+PASS [TIP-text] Tip text verbatim (microcopy), no «!» — Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Varje övning visar varför, hur och vad du ska se upp för.
+NOTE TIP-a11y: {"role":"note","live":null,"liveAnc":false,"dismiss":"Dölj det här tipset","n":1}
+PASS [TIP-a11y] Tip is role=note, not inside a live region (no announce), dismiss has aria-label, one strip only — {"role":"note","live":null,"liveAnc":false,"dismiss":"Dölj det här tipset","n":1}
+PASS [AC2-hide] Add one bank station → tip hides at once
+PASS [AC2-back] × it → tip shows again
+PASS [AC2-undo] × → Ångra brings the station back → tip hides again
+PASS [AC5-soft] Närvaro and Dagens pass removed → tip still shows
+PASS [AC5-title] Title only → tip still shows
+NOTE AC5-stored-after-soft-removed: {"stored":false}
+PASS [AC5-reload] Titled Tomt pass (soft pair kept) after reload → tip still shows — Bara titel
+PASS [AC3] First visit (clean) via Från mall → mall pass with stations, no tip — tip=false items=9 confirm=false
+PASS [AC3-cont] First visit (clean tips) via Fortsätt passet on a 3-station pass → no tip — tip=false
+NOTE AC3-main: {"tip":false,"items":9,"confirm":false}
+NOTE AC3-cont-main: {"tip":false}
+PASS [AC4] Wizard pass → no tip — items 9
+PASS [AC6] Dismiss → hidden at once, stays hidden on a later empty pass after reload and after 0→1→0 stations
+PASS [TIP-spam] No tip flash while a pass with stations loads; tip appears once at 0 stations and stays put over minute/title edits; one tip strip on screen — [[20,false],[1200,true]]
+PASS [L-320] 320 px: tip inside the viewport, no horizontal scroll; confirm (title only) inside viewport, buttons reachable — {"lt":{"vw":320,"sw":320,"tip":[12,308,117],"dlg":null},"lc":{"vw":320,"sw":320,"tip":[12,308,117],"dlg":[0,320,776]},"dlgBox":{"x":197.0625,"y":172.640625,"width":106.9375,"height":44.296875}}
+PASS [L-390] 390 px: tip inside the viewport, no horizontal scroll; confirm (title only) inside viewport, buttons reachable — {"lt":{"vw":390,"sw":390,"tip":[12,378,98],"dlg":null},"lc":{"vw":390,"sw":390,"tip":[12,378,98],"dlg":[0,390,776]},"dlgBox":{"x":267.0625,"y":149.453125,"width":106.9375,"height":44.296875}}
+PASS [AC7] Untouched Tomt pass → built-in mall applied at once, no confirm; toast «Mallen är i Passbyggaren. · Ångra», focus on Ångra — confirm=false toast=Mallen är i Passbyggaren. · Ångra focus=Ångra
+PASS [AC14] AC7 → Ångra → the Tomt pass is back (tip, 2 soft items, same default title; stored = blank pass) — tip=true items=2 title=«Nytt pass» stored="Nytt pass"
+PASS [ANG-1] Restored Tomt pass (empty) → pick a mall → still no confirm (empty is fresh by definition)
+PASS [AC9] Untouched mall pass → pick another mall → no confirm
+PASS [AC15] Mina mallar after AC7 + AC9: no auto-copy of the blank or untouched pass (0)
+PASS [ANG-2] Mall A → mall B (no confirm) → Ångra → A back → pick a mall → confirm shows (Ångra does not re-mark fresh) — back=Nybörjare — ca 55 min confirm=true
+PASS [ANG-3] Untouched mall pass → × → Ångra (pass identical again) → pick a mall → confirm shows
+PASS [ANG-3-reload] … and after reload → confirm shows
+PASS [AC9-wizard] Untouched wizard pass → pick a mall → no confirm; toast with Ångra; no auto-copy — Mallen är i Passbyggaren. · Ångra mallar 0
+PASS [AC8-mina] Untouched Tomt pass → Mina mallar → no confirm, toast «Mallen är i Passbyggaren. · Ångra», Mina mallar still 2 — Mallen är i Passbyggaren. · Ångra 2
+PASS [AC9-mina] Untouched Mina mallar pass → another Mina mallar → no confirm, no auto-copy
+PASS [AC8-club] Untouched Tomt pass → Föreningsmall (stand-in) → no confirm, same toast, mall applied (Vit, 3 Teknik) — confirm=false toast=Mallen är i Passbyggaren. · Ångra
+PASS [AC9-club] Untouched föreningsmall pass → another föreningsmall → no confirm; Mina mallar 0
+PASS [AC11-club] Edited föreningsmall pass → föreningsmall → confirm shows
+PASS [AC10-title] Tomt pass with a typed title → pick a mall → confirm shows — Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min) Fortsätt redigera Använd mall
+PASS [AC10-keep] Fortsätt redigera keeps the titled pass
+PASS [AC10-passnote] 0-station pass with pass note only (stored state; no editor for it in the UI) → pick a mall → confirm shows; tip still shows — confirm=true
+PASS [AC10-passnote-tip] notes: tip shows (0 coach stations)
+PASS [AC10-blocknote] 0-station pass with block coachNote only (stored state; no editor for it in the UI) → pick a mall → confirm shows; tip still shows — confirm=true
+PASS [AC10-blocknote-tip] blocknote: tip shows (0 coach stations)
+PASS [AC10-control] Control: stored untitled blank pass (after reload) → no confirm (empty counts over reload)
+PASS [AC11-minutes] Mall pass, minutes edit → pick a mall → confirm shows; Fortsätt redigera keeps the pass — confirm=true kept=true
+PASS [AC16] Edited pass → confirm → Använd mall → Mina mallar +1 auto-copy of the edited pass; body text true — 0→1 Nybörjare — ca 55 min
+NOTE confirm-body: Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Kort pass — ca 45 min) Fortsätt redigera Använd mall
+PASS [AC11-add] Mall pass, add edit → pick a mall → confirm shows; Fortsätt redigera keeps the pass — confirm=true kept=true
+PASS [AC11-remove] Mall pass, remove edit → pick a mall → confirm shows; Fortsätt redigera keeps the pass — confirm=true kept=true
+PASS [AC11-hall] Mall pass, hall edit → pick a mall → confirm shows; Fortsätt redigera keeps the pass — confirm=true kept=true
+PASS [AC11-title] Mall pass, title edit → pick a mall → confirm shows; Fortsätt redigera keeps the pass — confirm=true kept=true
+PASS [AC12-minutes] Mall pass, minutes then put back by hand → confirm still shows; and after reload — confirm=true reload=true identical=true
+PASS [AC12-add-remove] Mall pass, add-remove then put back by hand → confirm still shows; and after reload — confirm=true reload=true identical=true
+PASS [AC12-title] Mall pass, title then put back by hand → confirm still shows; and after reload — confirm=true reload=true identical=true
+PASS [AC12-hall] Mall pass, hall then put back by hand (drag only; exact put-back not possible by drag) → confirm still shows; and after reload — confirm=true reload=true identical=true
+PASS [AC13] Untouched mall pass → reload → pick a mall → confirm shows
+PASS [AC13-copy] … Använd mall → the untouched-but-reloaded mall pass is auto-copied (+1, conservative) — Nybörjare — ca 55 min
+PASS [AC12-tomt] Tomt pass add + remove a station (empty again) → no confirm (empty is fresh by definition, not a noteChange case); tip was back
+PASS [S39-titled] Titled empty Tomt pass (stored) → mall → confirm → Använd mall → Mina mallar +1 auto-copy «Tomt med titel» — confirm=true Tomt med titel*
+PASS [S39-untitled] Untitled empty pass (station added + removed, stored) → mall → no confirm, Mina mallar 0 — stored=true confirm=false 0
+NOTE S39-titled-main: {"confirm":true,"mallar":["Tomt med titel"]}
+NOTE S39-untitled-main: {"stored":true,"confirm":false,"mallar":0}
+PASS [S39-cap-spare] 8 hand-saved + titled empty pass replaced → copy takes the spare slot (9), no hand-saved lost — Tom A*|Hand 1|Hand 2|Hand 3|Hand 4|Hand 5|Hand 6|Hand 7|Hand 8
+PASS [S39-cap-replace] Again with «Tom B» → newer auto-copy replaces the spare (still 9, 8 hand + Tom B) — Tom B*|Hand 1|Hand 2|Hand 3|Hand 4|Hand 5|Hand 6|Hand 7|Hand 8
+PASS [S39-cap-auto] 7 hand + 1 old auto + titled empty replaced → oldest auto goes, 8 total, 7 hand kept — Tom C*|Hand 1|Hand 2|Hand 3|Hand 4|Hand 5|Hand 6|Hand 7
+NOTE S39-unsaved-br: {"stored":"Gammalt pass X","confirm":true,"mallar":["Gammalt pass X*"]}
+FAIL [S39-unsaved] Titled Tomt pass never stored (older pass X stored) → confirm promises «Passet du hade finns kvar under Mina mallar» → is «Osparad titel» in Mina mallar? — {"stored":"Gammalt pass X","mallar":["Gammalt pass X"]}
+NOTE S39-unsaved-main: {"stored":"Gammalt pass X","confirm":true,"mallar":["Gammalt pass X*"]}
+NOTE D1-hem-edge: {"mallar":["Nybörjare — ca 55 min*"]}
+NOTE X-br: {"homeBtns":["Planera pass","Tomt pass","Från mall","Hämta ett pass"],"btns":["←","60","90","120","× Dölj tips","Kör passet","Mer","","×","","×","+ Lägg till övning","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer"],"tip":"Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Varje övning visar varför, hur och vad du ska se upp för. × Dölj tips","dlg":"Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min) Fortsätt redigera Använd mall","dlgBtns":["Fortsätt r
+NOTE X-main: {"homeBtns":["Planera pass","Tomt pass","Från mall","Hämta ett pass"],"btns":["←","60","90","120","× Dölj tips","Kör passet","Mer","","×","","×","+ Lägg till övning","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer","Lägg till övning","Bläddra bland idéer"],"tip":"Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Varje övning visar varför, hur och vad du ska se upp för. × Dölj tips","dlg":"Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min) Fortsätt redigera Använd mall","dlgBtns":["Fortsätt r
+PASS [AC17-buttons] Same buttons as main (Hem, Passbyggaren on a Tomt pass, confirm)
+PASS [AC17-text] Tip, confirm and mall toast text identical to main — Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min) Fortsätt redigera Använd mall
+FAIL [AC18-footer] Footer «Träningsplaneraren · Slice 42» (main: Slice 41) — Träningsplaneraren · Slice 43 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [no-errors] No page errors
+PASS [no-live] No request to any host but the bank-mock (→ local stand-in) — 6 bank requests
+PASS 59 / FAIL 2 · page errors 0 · bank requests 6 (live: 0)

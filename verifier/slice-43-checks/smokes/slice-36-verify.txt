@@ -1,0 +1,17 @@
+PASS [E1-pre] Admin pass has placed hall stations before publish (localStorage draft) — hallPlacements 3
+PASS [V-pub] Publish toast verbatim
+PASS [E1-db] Stored payload: v=1, blocks, NO hallPlacements key (publish drops them) — v,notes,title,blocks,hallTemplateId
+PASS [V-req] Coach: exactly one GET club_templates (apikey only, no Authorization); every coach bank request is a GET without Authorization — GET /rest/v1/exercises ; GET /rest/v1/redskap ; GET /rest/v1/club_templates
+PASS [V-chunks] Coach loads no supabase-js / admin chunk — index-CkCLr5nA.js
+PASS [F1-noedit] Coach: club section has only the card buttons (no edit/rename/Dölj/Ta bort/Publicera) — Föreningens mall V36 Testmall, 53 min
+FAIL [V-coach] phase crashed — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.modal-backdrop[role=dialog]').filter({ hasText: 'Ersätta det här passet?' }) to be visible
+PASS [F1-overwrite] Overwrite toast; same id, new payload, one row
+FAIL [V-overwrite] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true })
+PASS [F1-hide-db] «Dölj för alla» = admin-global: row hidden = true, row kept
+PASS [F1-hide-coach] Coach reload: hidden mall gone, and stays gone on a second reload — [[],[]]
+PASS [F1-unhide] «Visa igen» toast; hidden = false
+PASS [F1-back-coach] Coach reload after «Visa igen»: mall back — V36 TESTMALL
+PASS [V-dela] #dela= share link (plain build) still renders the shared pass
+PASS [errors] No page errors
+
+13/15 pass
