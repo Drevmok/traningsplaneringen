@@ -86,3 +86,9 @@ Tray **collapse** (this file: **Visa stationsbricka** / **Dölj bricka**) is unc
 - Golvklart tray collapse chrome (tray stays hidden)  
 - Renaming floor **markör** to bricka  
 - Caption / Netlify / konton  
+
+---
+
+## Slice 43 note (PROPOSED 2026-10-16, not locked)
+
+Polish #5 «hela hallen syns direkt» proposes, on phone portrait only: hall height from its ratio (no 50vh floor for generic halls), layout notes / Visa tips / flow tip moved under the hall, back + title on one row, select + zoom on one row, saknar-redskap banner on one line. **No new or changed strings.** See `slice-43/`.
