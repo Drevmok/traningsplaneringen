@@ -1,0 +1,32 @@
+FAIL [A-E] built-in threw — locator.click: Timeout 10000ms exceeded.
+FAIL [M0] Main «Nybörjare — ca 55 min»: no placements on apply (the gap this slice closes)
+FAIL [M-E] main built-in compare threw — Cannot read properties of undefined (reading 'blocks')
+FAIL [A8b] Built-in reload-without-save behaviour same on main and branch (pre-existing) — main: draft present / branch: undefined
+FAIL [C-E] club threw — Cannot read properties of undefined (reading 'blocks')
+FAIL [E-E] egen threw — locator.click: Timeout 10000ms exceeded.
+FAIL [F12] Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37» — Träningsplaneraren · Slice 42 · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen
+PASS [F14a] Planera pass still places all Teknik
+PASS [F14b] Tomt pass: empty hall (Slice 39 E1: an untouched Tomt pass is not written, so no draft = empty)
+PASS [F22] 390 wide: no horizontal scroll
+FAIL [P-E] plain build threw — locator.click: Timeout 10000ms exceeded.
+PASS [errors] No page errors (all pages)
+
+4/12 pass
+{
+ "mainBuiltInAutoSaved": true,
+ "mainBuiltIn": {
+  "saknar": "3 stationer saknar redskap Använd alla förslag",
+  "applyAllBtn": 2,
+  "forradText": "Förrådslista Stäng Inga redskap summerade ännu. Det finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista. Använd alla förslag på hallen Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta Tumblingmatta Madrass Mattberg Flickiskudde Airtrack Kon Kilmatta Skumblock Bom Räcke Rockring",
+  "forradRows": [],
+  "floorChips": 3,
+  "floorTexts": [
+   "1 Ljushopp på satsbräda",
+   "2 Handstående falla till rygg",
+   "3 Falla bakåt från höjd till rygg"
+  ],
+  "floorRemoveBtns": 0,
+  "caption": 1
+ },
+ "mainBuiltInReloadNoSave": "draft present"
+}

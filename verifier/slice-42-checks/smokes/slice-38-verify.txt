@@ -1,0 +1,73 @@
+PASS AC1 Kvar: 4 min · run-top > H1 > run-clock > run-next > run-left > run-script > run-nav
+PASS AC12-struct {"tag":"P","role":null,"live":null,"al":null,"hidden":null,"color":"rgb(168, 162, 158)","nextColor":"rgb(214, 211, 209)","fs":"14.4px","liveAncestor":false}
+PASS AC1-muted {"tag":"P","role":null,"live":null,"al":null,"hidden":null,"color":"rgb(168, 162, 158)","nextColor":"rgb(214, 211, 209)","fs":"14.4px","liveAncestor":false}
+PASS AC12-clocklabel 02:00. Pausa timern
+PASS AC2a 01:30 Kvar: 4 min
+PASS AC2b 00:59 Kvar: 3 min
+PASS AC7-pre 00:01 Kvar: 3 min
+PASS AC4-live-1s-samples 125 samples, mismatches: 
+PASS AC7 00:00 Kvar: 2 min
+PASS AC7-still 00:00 Kvar: 2 min
+PASS AC17-tone-once-step1 [{"t":1791907320221,"h1":"Uppvärmningsvarv (hallen runt)","left":"Kvar: 2 min"}]
+PASS AC5-next 01:00 Kvar: 2 min
+PASS AC5-step2-01:30-left 00:30 Kvar: 2 min
+PASS AC5-arrowright-skip skipped 30 s of step 2 dropped: 01:00 Kvar: 1 min
+PASS AC10 Sista aktiviteten
+PASS AC5-arrowleft-raises 01:00 Kvar: 2 min
+PASS AC5-foregaende-raises 02:00 Kvar: 4 min
+PASS AC6-frozen 01:05 Kvar: 4 min → 01:05 Kvar: 4 min
+PASS AC6-resume-same 01:05 Kvar: 4 min
+PASS AC6-resume-continues 01:00 Kvar: 3 min / 00:59 Kvar: 3 min paused label 01:05. Fortsätt timern
+PASS AC3-0:01→1 00:01 Kvar: 1 min
+PASS AC3-0:00→0 00:00 Kvar: 0 min
+PASS AC8 {"seen":["Kvar: 0 min"],"after":{"vis":true,"color":"rgb(168, 162, 158)","text":"Kvar: 0 min"},"tones":1}
+PASS AC8-no-negative Kvar: 0 min
+PASS AC17-wakelock-acquired {"req":1,"rel":0,"active":1,"type":"screen"}
+PASS AC17-wakelock-reacquire-on-visible {"req":2,"rel":0,"active":2,"type":"screen"}
+PASS AC17-wakelock-released-on-exit {"req":2,"rel":1,"active":1,"type":"screen"}
+PASS B-start-5:00→5 03:00 Kvar: 5 min
+PASS AC3-4:01→5 total 4:01 02:01 Kvar: 5 min
+PASS AC3-4:00→4 total 4:00 02:00 Kvar: 4 min
+PASS AC3-3:59→4 01:59 Kvar: 4 min
+PASS B-0min-step 0-min step adds nothing, skipped 1:59 dropped: 00:00 Kvar: 2 min
+PASS B-2:59→3? 00:59 Kvar: 2 min
+PASS AC3-last-0:01→1 00:01 Kvar: 1 min
+PASS AC3-last-0:00→0 00:00 Kvar: 0 min
+PASS AC9-320-step1 {"next":{"t":206.5,"b":229.7,"l":16,"r":304,"h":23.2},"left":{"t":237.7,"b":258.6,"l":16,"r":304,"h":20.9},"clock":{"t":129.3,"b":198.5,"l":66.5,"r":253.5,"h":69.2},"script":{"t":270.6,"b":768,"l":16,"r":304,"h":497.4},"nav":{"t":776,"b":828,"l":16,"
+PASS AC9-320-paused {"left":{"t":268.9,"b":289.8,"l":16,"r":304,"h":20.9},"next":{"t":237.7,"b":260.9,"l":16,"r":304,"h":23.2},"nav":{"t":776,"b":828,"l":16,"r":304,"h":52}}
+PASS AC11-320-long-h1 {"nav":{"t":776,"b":828,"l":16,"r":304,"h":52},"vh":844,"left":{"t":291.1,"b":311.9,"l":16,"r":304,"h":20.9},"script":{"t":323.9,"b":768,"l":16,"r":304,"h":444.1},"scroll":false}
+PASS AC11-320-long-script {"nav":{"t":776,"b":828,"l":16,"r":304,"h":52},"script":{"t":323.9,"b":768,"l":16,"r":304,"h":444.1},"scrolls":true,"overlay":0}
+PASS AC9-320-timeup-status {"text":"Kvar: 1 min","next":{"t":291.1,"b":314.3,"l":16,"r":304,"h":23.2},"left":{"t":322.3,"b":343.1,"l":16,"r":304,"h":20.9},"nav":{"t":776,"b":828,"l":16,"r":304,"h":52}}
+PASS AC10-320 {"n":"Sista aktiviteten","t":"Kvar: 1 min"}
+PASS AC9-360-step1 {"next":{"t":206.5,"b":229.7,"l":16,"r":344,"h":23.2},"left":{"t":237.7,"b":258.6,"l":16,"r":344,"h":20.9},"clock":{"t":129.3,"b":198.5,"l":86.5,"r":273.5,"h":69.2},"script":{"t":270.6,"b":768,"l":16,"r":344,"h":497.4},"nav":{"t":776,"b":828,"l":16,"
+PASS AC9-360-paused {"left":{"t":268.9,"b":289.8,"l":16,"r":344,"h":20.9},"next":{"t":237.7,"b":260.9,"l":16,"r":344,"h":23.2},"nav":{"t":776,"b":828,"l":16,"r":344,"h":52}}
+PASS AC11-360-long-h1 {"nav":{"t":776,"b":828,"l":16,"r":344,"h":52},"vh":844,"left":{"t":291.1,"b":311.9,"l":16,"r":344,"h":20.9},"script":{"t":323.9,"b":768,"l":16,"r":344,"h":444.1},"scroll":false}
+PASS AC11-360-long-script {"nav":{"t":776,"b":828,"l":16,"r":344,"h":52},"script":{"t":323.9,"b":768,"l":16,"r":344,"h":444.1},"scrolls":true,"overlay":0}
+PASS AC9-360-timeup-status {"text":"Kvar: 1 min","next":{"t":291.1,"b":314.3,"l":16,"r":344,"h":23.2},"left":{"t":322.3,"b":343.1,"l":16,"r":344,"h":20.9},"nav":{"t":776,"b":828,"l":16,"r":344,"h":52}}
+PASS AC10-360 {"n":"Sista aktiviteten","t":"Kvar: 1 min"}
+PASS AC9-390-step1 {"next":{"t":208.5,"b":231.7,"l":16,"r":374,"h":23.2},"left":{"t":239.7,"b":260.6,"l":16,"r":374,"h":20.9},"clock":{"t":129.3,"b":200.5,"l":98.8,"r":291.1,"h":71.2},"script":{"t":272.6,"b":768,"l":16,"r":374,"h":495.4},"nav":{"t":776,"b":828,"l":16,"
+PASS AC9-390-paused {"left":{"t":270.9,"b":291.8,"l":16,"r":374,"h":20.9},"next":{"t":239.7,"b":262.9,"l":16,"r":374,"h":23.2},"nav":{"t":776,"b":828,"l":16,"r":374,"h":52}}
+PASS AC11-390-long-h1 {"nav":{"t":776,"b":828,"l":16,"r":374,"h":52},"vh":844,"left":{"t":293,"b":313.9,"l":16,"r":374,"h":20.9},"script":{"t":325.9,"b":768,"l":16,"r":374,"h":442.1},"scroll":false}
+PASS AC11-390-long-script {"nav":{"t":776,"b":828,"l":16,"r":374,"h":52},"script":{"t":325.9,"b":768,"l":16,"r":374,"h":442.1},"scrolls":true,"overlay":0}
+PASS AC9-390-timeup-status {"text":"Kvar: 1 min","next":{"t":293,"b":316.2,"l":16,"r":374,"h":23.2},"left":{"t":324.2,"b":345.1,"l":16,"r":374,"h":20.9},"nav":{"t":776,"b":828,"l":16,"r":374,"h":52}}
+PASS AC10-390 {"n":"Sista aktiviteten","t":"Kvar: 1 min"}
+PASS AC14-home br buttons=5 main=5 textLen 166/166
+FAIL AC14-passbyggaren br buttons=28 main=29 textLen 540/680
+FAIL AC14-bibliotek br buttons=40 main=41 textLen 1287/1427
+FAIL AC14-hall br buttons=16 main=14 textLen 828/965
+PASS AC14-golvklart br buttons=9 main=9 textLen 375/375
+PASS AC14-share-page {"kvar":false,"runLeft":0}
+PASS AC14-entry-builder Kvar: 53 min
+FAIL AC18-footer Träningsplaneraren · Slice 42 · Tyck till · Visa tips igen · Uppdatera appen
+PASS AC14-entry-share Kvar: 4 min
+FAIL AC14-entry-saved-pass Kvar: 4 min main Kvar: 4 min
+FAIL AC14-main-has-no-kvar ["Kvar: 53 min","Kvar: 4 min","Kvar: 4 min"]
+PASS AC14-entry-pasted-link builder Kvar: 4 min
+PASS AC13 ["btn-secondary run-exit:Avsluta","run-clock:mm:ss. Pausa timern","btn-secondary:Föregående","btn-primary:Nästa övning"]
+PASS AC17-tone-parity {"br":[0,1,1,2,2],"main":[0,1,1,2,2]}
+PASS AC17-sista-parity 
+PASS AC17-wakelock-parity {"br":{"req":1,"rel":0,"active":1,"type":"screen"},"main":{"req":1,"rel":0,"active":1,"type":"screen"}}
+PASS AC18-label Kvar: {n} min
+PASS no-page-errors 
+
+PASS 65 / FAIL 6

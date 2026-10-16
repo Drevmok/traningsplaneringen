@@ -1,0 +1,30 @@
+PASS [AC13a] Seeded main draft shows on Home: Fortsätt passet · title · min — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Tisdag gammalt pass · 21 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC13b] Open → «Sparat» shown, no write until a change; stored pass byte-identical
+PASS [AC1] No «Spara utkast» anywhere (row + Fler)
+PASS [AC3] Title typing + 5 taps → exactly one write after ~800 ms; «Sparat» never disappears — writes 1
+PASS [AC13c] First edit overwrites in place (same id)
+PASS [AC2a] Add station → saved within ~1 s, «Sparat» muted in the action row
+PASS [AC17] «Sparat» is plain text: no role / aria-live
+PASS [AC2b] Reload → Home Fortsätt passet shows the change — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Onsdag pass · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC4] Edit → Till startsidan at once → Home shows new title (flush) — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Snabb hem · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC5] Edit → close tab at once → reopen → kept (pagehide flush) — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC10] Editing one pass many times → Mina mallar still empty; one pass on Home
+PASS [AC8a] Tomt pass (title edit only): «Sparat» not shown, nothing written
+PASS [AC8b] Back Home → old pass still on Home — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Stängd flik · 30 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC9a] First station → «Sparat»
+PASS [AC9b] Home shows the new pass; old pass is in Mina mallar under its title — Stängd flik
+FAIL [C] error — locator.click: Timeout 10000ms exceeded.
+PASS [AC12a] Empty title → Home meta «Nytt pass · N min» — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 53 min Tomt pass Från mall Rensa passet Sparas lokalt i webbläsaren — inte i molnet. Hämta ett pass
+PASS [AC12b] Replaced untitled pass archived as «Nytt pass» — Nytt pass,Torsdag nytt,Stängd flik
+PASS [AC14a] «Inte sparat» in the row + the exact toast once
+PASS [AC14b] Further failing edits: no second toast, still «Inte sparat»
+PASS [AC14c] Un-stub → next edit «Sparat»; no crash
+PASS [AC16] Removing the last station still saves (0 min pass)
+PASS [AC18] Action row: «Sparat» does not overlap Kör passet / Hallöversikt / Fler; no horizontal scroll — {"hit":false,"right":378,"sw":390}
+PASS [AC19] Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them — before 0, disabled false, after 1
+FAIL [F] error — locator.click: Timeout 10000ms exceeded.
+FAIL [G] error — locator.click: Timeout 10000ms exceeded.
+PASS [AC22b] Keys verbatim; saveDraft / savedToast gone; no «!»
+PASS [E] No page errors
+
+PASS 25 / FAIL 3

@@ -1,0 +1,149 @@
+{
+  "when": "2026-10-15T23:44:36.861Z",
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Tomt pass (Närvaro + Dagens pass) → tip shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2-hide",
+      "name": "add one bank station → tip hides",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "id": "AC2-back",
+      "name": "× it → tip shows again",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC3",
+      "name": "first visit via Från mall → mall pass with stations and no tip",
+      "ok": true,
+      "detail": "confirm=false"
+    },
+    {
+      "id": "AC7-firstvisit",
+      "name": "that pick over the untouched Tomt pass had no confirm; toast with Ångra",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra"
+    },
+    {
+      "id": "AC4",
+      "name": "wizard pass → no tip",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9-wizard",
+      "name": "untouched wizard pass → pick a mall → no confirm",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15-wizard",
+      "name": "no auto-copy of the untouched wizard pass",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "AC5-soft",
+      "name": "Närvaro and Dagens pass removed → tip still shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC5-title",
+      "name": "title only → tip still shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10-title",
+      "name": "Tomt pass with typed title → pick a mall → confirm shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6",
+      "name": "dismissed tip stays hidden on a later empty pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "untouched Tomt pass → built-in mall applied at once, no confirm, toast with Ångra",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra"
+    },
+    {
+      "id": "AC14",
+      "name": "Ångra → Tomt pass back",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC9",
+      "name": "untouched mall pass → pick another mall → no confirm",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC15",
+      "name": "Mina mallar: no auto-copy of the blank or untouched pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8-egen",
+      "name": "Mina mallar over untouched Tomt pass → no confirm, same toast",
+      "ok": true,
+      "detail": "Mallen är i Passbyggaren. · Ångra"
+    },
+    {
+      "id": "AC11",
+      "name": "mall pass with a minute changed → confirm shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC11-keep",
+      "name": "Fortsätt redigera keeps the pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12",
+      "name": "value put back by hand → confirm still shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC16",
+      "name": "confirm → Använd mall → Mina mallar +1 auto-copy",
+      "ok": true,
+      "detail": "0 → 1"
+    },
+    {
+      "id": "AC13",
+      "name": "untouched mall pass after reload → confirm shows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-footer",
+      "name": "footer «Träningsplaneraren · Slice 42»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "no-errors",
+      "name": "no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

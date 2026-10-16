@@ -75,6 +75,8 @@ Quiet link on Home or near app footer — not a settings page.
 | `tipBuilderEmpty` | Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Under **Tips** finns korta råd per block. |
 | `tipBuilderEmptyShort` | Börja från mall eller lägg till en övning. Mer råd under Tips. |
 
+**When (Slice 42):** only while the pass has 0 coach stations (Närvaro + Dagens pass do not count) and the tip is not dismissed. Never on a pass with stations, also not on the first visit.
+
 Keep existing (do not replace):
 
 - Top bar: `Ny som tränare? Börja från en mall`
