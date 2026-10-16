@@ -1,0 +1,1043 @@
+{
+  "when": "2026-10-16T02:10:41.102Z",
+  "results": [
+    {
+      "id": "AC1-forening-bla",
+      "name": "forening-bla: canvas bottom ≤ 739 with saknar banner",
+      "ok": true,
+      "detail": "canvas 340/604/264 saknar 284,328,44"
+    },
+    {
+      "id": "AC2-forening-vit",
+      "name": "forening-vit: canvas bottom ≤ 739 with saknar banner",
+      "ok": true,
+      "detail": "canvas 340/714/374 saknar 284,328,44"
+    },
+    {
+      "id": "AC3-standard-trupp",
+      "name": "standard-trupp: canvas bottom ≤ 739 with saknar banner, height ≈ 239",
+      "ok": true,
+      "detail": "canvas 340/579/239 saknar 284,328,44"
+    },
+    {
+      "id": "AC3-tavling-linjer",
+      "name": "tavling-linjer: canvas bottom ≤ 739 with saknar banner, height ≈ 239",
+      "ok": true,
+      "detail": "canvas 340/579/239 saknar 284,328,44"
+    },
+    {
+      "id": "AC3-liten-hall",
+      "name": "liten-hall: canvas bottom ≤ 739 with saknar banner, height ≈ 239",
+      "ok": true,
+      "detail": "canvas 340/579/239 saknar 284,328,44"
+    },
+    {
+      "id": "AC4",
+      "name": "canvas top ≥ 0, tray (collapsed) does not cover the canvas, no horizontal overflow",
+      "ok": true,
+      "detail": "tray 1087,1145,58 sw 390"
+    },
+    {
+      "id": "AC5",
+      "name": "back, title, meta, 4 actions, layout select and zoom −/+ above the hall; all ≥ 44×44",
+      "ok": true,
+      "detail": "small="
+    },
+    {
+      "id": "AC6-oneline",
+      "name": "saknar banner one line; title holds the full text",
+      "ok": true,
+      "detail": "{\"text\":\"3 stationer saknar redskap\",\"title\":\"3 stationer saknar redskap\",\"cut\":false,\"lines\":1}"
+    },
+    {
+      "id": "AC6-notcut",
+      "name": "saknar text not cut at 390",
+      "ok": true,
+      "detail": "{\"text\":\"3 stationer saknar redskap\",\"title\":\"3 stationer saknar redskap\",\"cut\":false,\"lines\":1}"
+    },
+    {
+      "id": "AC6-cta",
+      "name": "CTA «Använd alla förslag» still points at the action (Slice 37)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "migrate note, Blå/Vit coach tip, Visa tips, flow tip under the hall",
+      "ok": true,
+      "detail": "[[\".hall-preset-note\",true],[\".hall-preset-coach-tip\",true],[\".hall-hints-info\",true],[\".hall-flow-coach-tip\",true]]"
+    },
+    {
+      "id": "AC7-dismiss",
+      "name": "flow tip dismiss still works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC12-zoom",
+      "name": "zoom + grows the hall, − shrinks back",
+      "ok": true,
+      "detail": "w after + 447.5"
+    },
+    {
+      "id": "AC10",
+      "name": "tray expands and collapses; hall unchanged",
+      "ok": true,
+      "detail": "340,579,239 → 340,579,239"
+    },
+    {
+      "id": "AC11",
+      "name": "Golvklart: hall bottom ≤ 739",
+      "ok": true,
+      "detail": "293,667,374"
+    },
+    {
+      "id": "AC16-footer",
+      "name": "footer «Träningsplaneraren · Slice 43»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13",
+      "name": "landscape 844×390: hall top ≤ main (507)",
+      "ok": true,
+      "detail": "main 507,918,411 branch 313,723,411"
+    },
+    {
+      "id": "AC14",
+      "name": "desktop 1280×800: header and hall geometry unchanged except moved items (hall moves up by their height only)",
+      "ok": true,
+      "detail": "main [507,1102,595] branch [313,907,595]"
+    },
+    {
+      "id": "no-errors",
+      "name": "no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "measure": {
+    "main": {
+      "forening-bla": {
+        "canvas": [
+          765,
+          1029,
+          264
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          68,
+          99,
+          31
+        ],
+        "meta": [
+          107,
+          129,
+          22
+        ],
+        "actions": [
+          137,
+          233,
+          96
+        ],
+        "preset": [
+          245,
+          402,
+          157
+        ],
+        "zoom": [
+          717,
+          757,
+          40
+        ],
+        "saknar": [
+          416,
+          504,
+          87
+        ],
+        "tray": [
+          1146,
+          1204,
+          58
+        ],
+        "note": [
+          1109,
+          1130,
+          21
+        ],
+        "below": null,
+        "tip": [
+          588,
+          705,
+          117
+        ],
+        "hints": [
+          522,
+          562,
+          40
+        ],
+        "sw": 390
+      },
+      "forening-vit": {
+        "canvas": [
+          765,
+          1139,
+          374
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          68,
+          99,
+          31
+        ],
+        "meta": [
+          107,
+          129,
+          22
+        ],
+        "actions": [
+          137,
+          233,
+          96
+        ],
+        "preset": [
+          245,
+          402,
+          157
+        ],
+        "zoom": [
+          717,
+          757,
+          40
+        ],
+        "saknar": [
+          416,
+          504,
+          87
+        ],
+        "tray": [
+          1255,
+          1313,
+          58
+        ],
+        "note": [
+          1219,
+          1239,
+          21
+        ],
+        "below": null,
+        "tip": [
+          588,
+          705,
+          117
+        ],
+        "hints": [
+          522,
+          562,
+          40
+        ],
+        "sw": 390
+      },
+      "standard-trupp": {
+        "canvas": [
+          765,
+          1187,
+          422
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          68,
+          99,
+          31
+        ],
+        "meta": [
+          107,
+          129,
+          22
+        ],
+        "actions": [
+          137,
+          233,
+          96
+        ],
+        "preset": [
+          245,
+          402,
+          157
+        ],
+        "zoom": [
+          717,
+          757,
+          40
+        ],
+        "saknar": [
+          416,
+          504,
+          87
+        ],
+        "tray": [
+          1304,
+          1362,
+          58
+        ],
+        "note": [
+          1267,
+          1288,
+          21
+        ],
+        "below": null,
+        "tip": [
+          588,
+          705,
+          117
+        ],
+        "hints": [
+          522,
+          562,
+          40
+        ],
+        "sw": 390
+      },
+      "tavling-linjer": {
+        "canvas": [
+          765,
+          1187,
+          422
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          68,
+          99,
+          31
+        ],
+        "meta": [
+          107,
+          129,
+          22
+        ],
+        "actions": [
+          137,
+          233,
+          96
+        ],
+        "preset": [
+          245,
+          402,
+          157
+        ],
+        "zoom": [
+          717,
+          757,
+          40
+        ],
+        "saknar": [
+          416,
+          504,
+          87
+        ],
+        "tray": [
+          1304,
+          1362,
+          58
+        ],
+        "note": [
+          1267,
+          1288,
+          21
+        ],
+        "below": null,
+        "tip": [
+          588,
+          705,
+          117
+        ],
+        "hints": [
+          522,
+          562,
+          40
+        ],
+        "sw": 390
+      },
+      "liten-hall": {
+        "canvas": [
+          765,
+          1187,
+          422
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          68,
+          99,
+          31
+        ],
+        "meta": [
+          107,
+          129,
+          22
+        ],
+        "actions": [
+          137,
+          233,
+          96
+        ],
+        "preset": [
+          245,
+          402,
+          157
+        ],
+        "zoom": [
+          717,
+          757,
+          40
+        ],
+        "saknar": [
+          416,
+          504,
+          87
+        ],
+        "tray": [
+          1304,
+          1362,
+          58
+        ],
+        "note": [
+          1267,
+          1288,
+          21
+        ],
+        "below": null,
+        "tip": [
+          588,
+          705,
+          117
+        ],
+        "hints": [
+          522,
+          562,
+          40
+        ],
+        "sw": 390
+      },
+      "golvklart": [
+        293,
+        667,
+        374
+      ],
+      "landscape": {
+        "canvas": [
+          507,
+          918,
+          411
+        ],
+        "back": [
+          12,
+          52,
+          40
+        ],
+        "title": [
+          60,
+          91,
+          31
+        ],
+        "meta": [
+          66,
+          88,
+          22
+        ],
+        "actions": [
+          99,
+          139,
+          40
+        ],
+        "preset": [
+          151,
+          244,
+          93
+        ],
+        "zoom": null,
+        "saknar": [
+          258,
+          345,
+          87
+        ],
+        "tray": [
+          934,
+          1134,
+          200
+        ],
+        "note": [
+          513,
+          534,
+          21
+        ],
+        "below": null,
+        "tip": [
+          429,
+          495,
+          66
+        ],
+        "hints": [
+          363,
+          403,
+          40
+        ],
+        "sw": 844
+      },
+      "desktop": {
+        "canvas": [
+          507,
+          1102,
+          595
+        ],
+        "back": [
+          12,
+          52,
+          40
+        ],
+        "title": [
+          60,
+          91,
+          31
+        ],
+        "meta": [
+          66,
+          88,
+          22
+        ],
+        "actions": [
+          99,
+          139,
+          40
+        ],
+        "preset": [
+          151,
+          244,
+          93
+        ],
+        "zoom": null,
+        "saknar": [
+          258,
+          345,
+          87
+        ],
+        "tray": [
+          1118,
+          1318,
+          200
+        ],
+        "note": [
+          513,
+          534,
+          21
+        ],
+        "below": null,
+        "tip": [
+          429,
+          495,
+          66
+        ],
+        "hints": [
+          363,
+          403,
+          40
+        ],
+        "sw": 1280
+      }
+    },
+    "branch": {
+      "forening-bla": {
+        "canvas": [
+          340,
+          604,
+          264
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          20,
+          52,
+          31
+        ],
+        "meta": [
+          68,
+          120,
+          52
+        ],
+        "actions": [
+          128,
+          224,
+          96
+        ],
+        "preset": [
+          232,
+          276,
+          44
+        ],
+        "zoom": [
+          232,
+          276,
+          44
+        ],
+        "saknar": [
+          284,
+          328,
+          44
+        ],
+        "tray": [
+          977,
+          1035,
+          58
+        ],
+        "note": [
+          684,
+          705,
+          21
+        ],
+        "below": [
+          721,
+          961,
+          240
+        ],
+        "tip": [
+          844,
+          961,
+          117
+        ],
+        "hints": [
+          794,
+          834,
+          40
+        ],
+        "sw": 390
+      },
+      "forening-vit": {
+        "canvas": [
+          340,
+          714,
+          374
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          20,
+          52,
+          31
+        ],
+        "meta": [
+          68,
+          120,
+          52
+        ],
+        "actions": [
+          128,
+          224,
+          96
+        ],
+        "preset": [
+          232,
+          276,
+          44
+        ],
+        "zoom": [
+          232,
+          276,
+          44
+        ],
+        "saknar": [
+          284,
+          328,
+          44
+        ],
+        "tray": [
+          1087,
+          1145,
+          58
+        ],
+        "note": [
+          794,
+          814,
+          21
+        ],
+        "below": [
+          830,
+          1071,
+          240
+        ],
+        "tip": [
+          953,
+          1071,
+          117
+        ],
+        "hints": [
+          903,
+          943,
+          40
+        ],
+        "sw": 390
+      },
+      "standard-trupp": {
+        "canvas": [
+          340,
+          579,
+          239
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          20,
+          52,
+          31
+        ],
+        "meta": [
+          68,
+          120,
+          52
+        ],
+        "actions": [
+          128,
+          224,
+          96
+        ],
+        "preset": [
+          232,
+          276,
+          44
+        ],
+        "zoom": [
+          232,
+          276,
+          44
+        ],
+        "saknar": [
+          284,
+          328,
+          44
+        ],
+        "tray": [
+          952,
+          1010,
+          58
+        ],
+        "note": [
+          659,
+          679,
+          21
+        ],
+        "below": [
+          695,
+          936,
+          240
+        ],
+        "tip": [
+          818,
+          936,
+          117
+        ],
+        "hints": [
+          768,
+          808,
+          40
+        ],
+        "sw": 390
+      },
+      "tavling-linjer": {
+        "canvas": [
+          340,
+          579,
+          239
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          20,
+          52,
+          31
+        ],
+        "meta": [
+          68,
+          120,
+          52
+        ],
+        "actions": [
+          128,
+          224,
+          96
+        ],
+        "preset": [
+          232,
+          276,
+          44
+        ],
+        "zoom": [
+          232,
+          276,
+          44
+        ],
+        "saknar": [
+          284,
+          328,
+          44
+        ],
+        "tray": [
+          952,
+          1010,
+          58
+        ],
+        "note": [
+          659,
+          679,
+          21
+        ],
+        "below": [
+          695,
+          936,
+          240
+        ],
+        "tip": [
+          818,
+          936,
+          117
+        ],
+        "hints": [
+          768,
+          808,
+          40
+        ],
+        "sw": 390
+      },
+      "liten-hall": {
+        "canvas": [
+          340,
+          579,
+          239
+        ],
+        "back": [
+          12,
+          60,
+          48
+        ],
+        "title": [
+          20,
+          52,
+          31
+        ],
+        "meta": [
+          68,
+          120,
+          52
+        ],
+        "actions": [
+          128,
+          224,
+          96
+        ],
+        "preset": [
+          232,
+          276,
+          44
+        ],
+        "zoom": [
+          232,
+          276,
+          44
+        ],
+        "saknar": [
+          284,
+          328,
+          44
+        ],
+        "tray": [
+          952,
+          1010,
+          58
+        ],
+        "note": [
+          659,
+          679,
+          21
+        ],
+        "below": [
+          695,
+          936,
+          240
+        ],
+        "tip": [
+          818,
+          936,
+          117
+        ],
+        "hints": [
+          768,
+          808,
+          40
+        ],
+        "sw": 390
+      },
+      "golvklart": [
+        293,
+        667,
+        374
+      ],
+      "landscape": {
+        "canvas": [
+          313,
+          723,
+          411
+        ],
+        "back": [
+          12,
+          52,
+          40
+        ],
+        "title": [
+          60,
+          91,
+          31
+        ],
+        "meta": [
+          66,
+          88,
+          22
+        ],
+        "actions": [
+          99,
+          139,
+          40
+        ],
+        "preset": [
+          151,
+          195,
+          44
+        ],
+        "zoom": null,
+        "saknar": [
+          209,
+          297,
+          87
+        ],
+        "tray": [
+          739,
+          1023,
+          283
+        ],
+        "note": [
+          319,
+          339,
+          21
+        ],
+        "below": [
+          739,
+          907,
+          168
+        ],
+        "tip": [
+          828,
+          907,
+          79
+        ],
+        "hints": [
+          778,
+          818,
+          40
+        ],
+        "sw": 844
+      },
+      "desktop": {
+        "canvas": [
+          313,
+          907,
+          595
+        ],
+        "back": [
+          12,
+          52,
+          40
+        ],
+        "title": [
+          60,
+          91,
+          31
+        ],
+        "meta": [
+          66,
+          88,
+          22
+        ],
+        "actions": [
+          99,
+          139,
+          40
+        ],
+        "preset": [
+          151,
+          195,
+          44
+        ],
+        "zoom": null,
+        "saknar": [
+          209,
+          297,
+          87
+        ],
+        "tray": [
+          923,
+          1123,
+          200
+        ],
+        "note": [
+          319,
+          339,
+          21
+        ],
+        "below": [
+          923,
+          1078,
+          155
+        ],
+        "tip": [
+          1012,
+          1078,
+          66
+        ],
+        "hints": [
+          962,
+          1002,
+          40
+        ],
+        "sw": 1280
+      }
+    }
+  }
+}

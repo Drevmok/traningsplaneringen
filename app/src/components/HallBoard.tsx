@@ -393,6 +393,30 @@ export function HallBoard({
     )
   }
 
+  // Slice 43 D1b: in edit mode the zoom − / + sits in the layout row; Golvklart keeps it above the hall.
+  const zoomBar = isNarrow && (
+    <div className="hall-zoom-bar no-print" role="group" aria-label={UI.hallZoom}>
+            <button
+              type="button"
+              className="btn-secondary hall-zoom-btn hall-tap-target"
+              aria-label={UI.hallZoomOut}
+              disabled={viewZoom <= HALL_ZOOM_MIN}
+              onClick={zoomOut}
+            >
+              −
+            </button>
+            <button
+              type="button"
+              className="btn-secondary hall-zoom-btn hall-tap-target"
+              aria-label={UI.hallZoomIn}
+              disabled={viewZoom >= HALL_ZOOM_MAX}
+              onClick={zoomIn}
+            >
+              +
+            </button>
+          </div>
+  )
+
   return (
     <div className={`hall-board${isFloor ? ' hall-board--floor' : ''}`}>
       {isFloor ? (
@@ -535,12 +559,15 @@ export function HallBoard({
                 </option>
               ))}
             </select>
-            <p className="hall-preset-note">{UI.hallPresetMigrateNote}</p>
-            <p className="hall-preset-coach-tip">{UI.hallPresetCoachTip}</p>
+            {zoomBar}
           </div>
           {missingSavedCompositionCount >= 1 && (
             <div className="hall-saknar-banner no-print">
-              <p className="hall-unplaced-banner" role="status">
+              <p
+                className="hall-unplaced-banner"
+                role="status"
+                title={hallSaknarRedskapBannerText(missingSavedCompositionCount)}
+              >
                 {hallSaknarRedskapBannerText(missingSavedCompositionCount)}
               </p>
               {eligibleSuggestedCount >= 1 && (
@@ -555,47 +582,6 @@ export function HallBoard({
               )}
             </div>
           )}
-          {showMultiLineHints && (
-            <>
-              <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
-              <p className="hall-stations-only-hint">{UI.hallStationsOnlyHint}</p>
-              <p className="hall-tile-hint">{UI.hallTileHint}</p>
-            </>
-          )}
-          {!showMultiLineHints && showHintsInfo && (
-            <div className="hall-hints-info no-print">
-              <button
-                type="button"
-                className="btn-secondary hall-tap-target hall-hints-info-btn"
-                aria-label={
-                  hintsInfoOpen ? UI.hallHintsHideAria : UI.hallHintsInfoAria
-                }
-                aria-expanded={hintsInfoOpen}
-                onClick={() => setHintsInfoOpen((o) => !o)}
-              >
-                {hintsInfoOpen ? UI.hallHintsHide : UI.hallHintsInfo}
-              </button>
-              {hintsInfoOpen && (
-                <div className="hall-hints-info-panel" role="region">
-                  <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
-                  <p className="hall-stations-only-hint">
-                    {UI.hallStationsOnlyHint}
-                  </p>
-                  <p className="hall-tile-hint">{UI.hallTileHint}</p>
-                  <p className="hall-tray-hint">{UI.hallDragHint}</p>
-                  <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
-                </div>
-              )}
-            </div>
-          )}
-          {headerTipVisible && (
-            <CoachTipStrip
-              tipId={TIP_HALL_FLOW_GOLVKLART}
-              className="hall-flow-coach-tip"
-              text={UI.tipHallFlowGolvklart}
-              onDismiss={onDismissTip}
-            />
-          )}
         </header>
       )}
 
@@ -606,28 +592,7 @@ export function HallBoard({
         {session.date && <span> · {session.date}</span>}
       </div>
 
-      {isNarrow && (
-        <div className="hall-zoom-bar no-print" role="group" aria-label={UI.hallZoom}>
-          <button
-            type="button"
-            className="btn-secondary hall-zoom-btn hall-tap-target"
-            aria-label={UI.hallZoomOut}
-            disabled={viewZoom <= HALL_ZOOM_MIN}
-            onClick={zoomOut}
-          >
-            −
-          </button>
-          <button
-            type="button"
-            className="btn-secondary hall-zoom-btn hall-tap-target"
-            aria-label={UI.hallZoomIn}
-            disabled={viewZoom >= HALL_ZOOM_MAX}
-            onClick={zoomIn}
-          >
-            +
-          </button>
-        </div>
-      )}
+      {isFloor && zoomBar}
 
       <div
         className={`hall-layout${isFloor ? ' hall-layout--floor' : ''}`}
@@ -666,6 +631,53 @@ export function HallBoard({
           setDraggingId={setDraggingId}
         />
         <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
+        {!isFloor && (
+          <div className="hall-below no-print">
+              <p className="hall-preset-note">{UI.hallPresetMigrateNote}</p>
+              <p className="hall-preset-coach-tip">{UI.hallPresetCoachTip}</p>
+              {showMultiLineHints && (
+                <>
+                  <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
+                  <p className="hall-stations-only-hint">{UI.hallStationsOnlyHint}</p>
+                  <p className="hall-tile-hint">{UI.hallTileHint}</p>
+                </>
+              )}
+              {!showMultiLineHints && showHintsInfo && (
+                <div className="hall-hints-info no-print">
+                  <button
+                    type="button"
+                    className="btn-secondary hall-tap-target hall-hints-info-btn"
+                    aria-label={
+                      hintsInfoOpen ? UI.hallHintsHideAria : UI.hallHintsInfoAria
+                    }
+                    aria-expanded={hintsInfoOpen}
+                    onClick={() => setHintsInfoOpen((o) => !o)}
+                  >
+                    {hintsInfoOpen ? UI.hallHintsHide : UI.hallHintsInfo}
+                  </button>
+                  {hintsInfoOpen && (
+                    <div className="hall-hints-info-panel" role="region">
+                      <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
+                      <p className="hall-stations-only-hint">
+                        {UI.hallStationsOnlyHint}
+                      </p>
+                      <p className="hall-tile-hint">{UI.hallTileHint}</p>
+                      <p className="hall-tray-hint">{UI.hallDragHint}</p>
+                      <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+              {headerTipVisible && (
+                <CoachTipStrip
+                  tipId={TIP_HALL_FLOW_GOLVKLART}
+                  className="hall-flow-coach-tip"
+                  text={UI.tipHallFlowGolvklart}
+                  onDismiss={onDismissTip}
+                />
+              )}
+          </div>
+        )}
 
         {!isFloor && (
           <aside
