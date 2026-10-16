@@ -1,0 +1,121 @@
+bun test v1.4.2 (744846f84)
+
+../tools/bank/export-seed.test.ts:
+(pass) export-seed --chunked > committed parts equal a fresh run, each ≤ 16 000 bytes, own begin/commit [21.63ms]
+(pass) export-seed --chunked > --new-only never updates existing rows and fills only empty links [18.73ms]
+(pass) export-seed --chunked > single-file output is unchanged by the chunked mode [16.51ms]
+
+../tools/bank/push-promote.test.ts:
+(pass) args, url, key > parses flags [0.14ms]
+(pass) args, url, key > url: https, or http only for localhost [0.13ms]
+(pass) args, url, key > key: refuses missing, publishable and anon/authenticated JWTs; message never contains the key [0.36ms]
+(pass) args, url, key > scrub removes the key from any text [0.03ms]
+(pass) planPromote > maps to pending bot rows with bank rules [2.67ms]
+(pass) planPromote > drops links to ids that are not in the bank [0.45ms]
+(pass) planPromote > all-or-nothing: bad seedId, wrong prefix, duplicate, invalid row, >100 [1.92ms]
+(pass) planPromote > marks existing ids; replace body never carries status / id / sort order [0.57ms]
+(pass) run (mocked bank) > dry-run: reads ids, writes nothing [2.00ms]
+(pass) run (mocked bank) > dry-run works without a key (offline check against the bundled bank) [0.58ms]
+(pass) run (mocked bank) > real run without a key refuses [0.18ms]
+(pass) run (mocked bank) > refuses the publishable key [0.10ms]
+(pass) run (mocked bank) > POSTs new rows with apikey only, skips existing, never DELETE, never prints the key [0.86ms]
+(pass) run (mocked bank) > every row already exists → «nothing new», no «Väntar på godkännande», no write (C5) [0.66ms]
+(pass) run (mocked bank) > all 409 on insert (race) → also «nothing new» (C5) [0.64ms]
+(pass) run (mocked bank) > --replace PATCHes by id without status [0.95ms]
+(pass) run (mocked bank) > 409 on insert → skipped, not overwritten [0.77ms]
+(pass) run (mocked bank) > revoked key (401) → clear message, no key in output [0.31ms]
+204 | 
+205 | // ---------------------------------------------------------------- live: local stand-in only
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+                               ^
+ENOENT: no such file or directory, open '/tmp/s32/bot-keys.txt'
+    path: "/tmp/s32/bot-keys.txt",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at localKey (/tmp/s42v/wt/tools/bank/push-promote.test.ts:209:26)
+      at <anonymous> (/tmp/s42v/wt/tools/bank/push-promote.test.ts:216:61)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > dry-run against the DB writes nothing [0.54ms]
+204 | 
+205 | // ---------------------------------------------------------------- live: local stand-in only
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+                               ^
+ENOENT: no such file or directory, open '/tmp/s32/bot-keys.txt'
+    path: "/tmp/s32/bot-keys.txt",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at localKey (/tmp/s42v/wt/tools/bank/push-promote.test.ts:209:26)
+      at envLocal (/tmp/s42v/wt/tools/bank/push-promote.test.ts:210:55)
+      at <anonymous> (/tmp/s42v/wt/tools/bank/push-promote.test.ts:223:37)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > inserts pending rows; second run skips (no overwrite); anon cannot see them [0.25ms]
+204 | 
+205 | // ---------------------------------------------------------------- live: local stand-in only
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+                               ^
+ENOENT: no such file or directory, open '/tmp/s32/bot-keys.txt'
+    path: "/tmp/s32/bot-keys.txt",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at localKey (/tmp/s42v/wt/tools/bank/push-promote.test.ts:209:26)
+      at envLocal (/tmp/s42v/wt/tools/bank/push-promote.test.ts:210:55)
+      at <anonymous> (/tmp/s42v/wt/tools/bank/push-promote.test.ts:239:74)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > --replace changes text but not status [6.64ms]
+204 | 
+205 | // ---------------------------------------------------------------- live: local stand-in only
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+                               ^
+ENOENT: no such file or directory, open '/tmp/s32/bot-keys.txt'
+    path: "/tmp/s32/bot-keys.txt",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at localKey (/tmp/s42v/wt/tools/bank/push-promote.test.ts:209:26)
+      at <anonymous> (/tmp/s42v/wt/tools/bank/push-promote.test.ts:245:73)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > the bot key cannot DELETE (permission denied, row still there) [0.34ms]
+204 | 
+205 | // ---------------------------------------------------------------- live: local stand-in only
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+                               ^
+ENOENT: no such file or directory, open '/tmp/s32/bot-keys.txt'
+    path: "/tmp/s32/bot-keys.txt",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at localKey (/tmp/s42v/wt/tools/bank/push-promote.test.ts:209:26)
+      at envLocal (/tmp/s42v/wt/tools/bank/push-promote.test.ts:210:55)
+      at <anonymous> (/tmp/s42v/wt/tools/bank/push-promote.test.ts:253:41)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > a revoked key fails clearly [0.29ms]
+
+5 tests failed:
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > dry-run against the DB writes nothing [0.54ms]
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > inserts pending rows; second run skips (no overwrite); anon cannot see them [0.25ms]
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > --replace changes text but not status [6.64ms]
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > the bot key cannot DELETE (permission denied, row still there) [0.34ms]
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > a revoked key fails clearly [0.29ms]
+
+ 21 pass
+ 5 fail
+ 127 expect() calls
+Ran 26 tests across 2 files. [89.00ms]

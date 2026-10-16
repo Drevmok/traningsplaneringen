@@ -1,0 +1,25 @@
+PASS [AC1] Tomt pass (Närvaro + Dagens pass) → tip shows
+PASS [AC2-hide] add one bank station → tip hides — 1
+PASS [AC2-back] × it → tip shows again
+PASS [AC3] first visit via Från mall → mall pass with stations and no tip — confirm=false
+PASS [AC7-firstvisit] that pick over the untouched Tomt pass had no confirm; toast with Ångra — Mallen är i Passbyggaren. · Ångra
+PASS [AC4] wizard pass → no tip
+PASS [AC9-wizard] untouched wizard pass → pick a mall → no confirm
+PASS [AC15-wizard] no auto-copy of the untouched wizard pass
+PASS [AC5-soft] Närvaro and Dagens pass removed → tip still shows
+PASS [AC5-title] title only → tip still shows
+PASS [AC10-title] Tomt pass with typed title → pick a mall → confirm shows
+PASS [AC6] dismissed tip stays hidden on a later empty pass
+PASS [AC7] untouched Tomt pass → built-in mall applied at once, no confirm, toast with Ångra — Mallen är i Passbyggaren. · Ångra
+PASS [AC14] Ångra → Tomt pass back
+PASS [AC9] untouched mall pass → pick another mall → no confirm
+PASS [AC15] Mina mallar: no auto-copy of the blank or untouched pass
+PASS [AC8-egen] Mina mallar over untouched Tomt pass → no confirm, same toast — Mallen är i Passbyggaren. · Ångra
+PASS [AC11] mall pass with a minute changed → confirm shows
+PASS [AC11-keep] Fortsätt redigera keeps the pass
+PASS [AC12] value put back by hand → confirm still shows
+PASS [AC16] confirm → Använd mall → Mina mallar +1 auto-copy — 0 → 1
+PASS [AC13] untouched mall pass after reload → confirm shows
+PASS [AC18-footer] footer «Träningsplaneraren · Slice 42»
+PASS [no-errors] no page errors
+24/24 pass
