@@ -101,6 +101,23 @@ await attempt('AC13/14', async () => {
   const dm = measure.main.desktop, db = measure.branch.desktop
   check('AC14', 'desktop 1280×800: header and hall geometry unchanged except moved items (hall moves up by their height only)', db.canvas[2] === dm.canvas[2] && db.actions[0] === dm.actions[0] && db.canvas[0] <= dm.canvas[0], `main ${JSON.stringify(dm.canvas)} branch ${JSON.stringify(db.canvas)}`)
 })
+await attempt('F1-longtitle', async () => {
+  const LONG = 'Mycket långt passnamn för att testa att titeln inte trycker ned hallen förbi vecket på en telefon i porträttläge, med extra ord så att det blir minst fem rader långt i Hallöversikt'
+  const p = await page(); await toHall(p, BR)
+  await p.getByRole('button', { name: /Tillbaka till Passbyggaren/ }).first().click(); await p.locator('.builder').waitFor()
+  await p.getByRole('textbox', { name: 'Passets titel' }).fill(LONG); await p.waitForTimeout(300)
+  const field = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue()
+  const b = p.locator('.builder-actions .builder-hall')
+  if (await b.isVisible()) await b.click(); else { await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel').getByRole('button', { name: 'Hallöversikt', exact: true }).click() }
+  await p.locator('.hall-canvas').first().waitFor(); await p.locator('#hall-layout-select').selectOption('forening-vit'); await p.waitForTimeout(500)
+  const t = await p.evaluate(() => { const e = document.querySelector('.hall-session-title'); const lh = parseFloat(getComputedStyle(e).lineHeight) || 1.2 * parseFloat(getComputedStyle(e).fontSize); return { lines: Math.round(e.getBoundingClientRect().height / lh), full: e.scrollHeight > e.clientHeight, text: e.textContent } })
+  const g = await geo(p); measure.branch.longTitleVit = g.canvas
+  await shot(p, 'branch_longtitle_vit')
+  check('F1-lines', 'long title shows ≤ 2 lines in Hallöversikt (clamped, full text in DOM)', t.lines <= 2 && t.text === LONG, JSON.stringify({ lines: t.lines, clamped: t.full }))
+  check('F1-fold', 'Vit hall bottom ≤ 739 with the long title', g.canvas[1] <= FOLD, g.canvas)
+  check('F1-field', 'Passets titel field holds the full title', field === LONG, field.length)
+  await p.context().close()
+})
 check('no-errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-43-builder-smoke-results.json`, JSON.stringify({ when: new Date().toISOString(), results, measure }, null, 2))
 console.log(JSON.stringify(Object.fromEntries(Object.entries(measure).map(([k, v]) => [k, Object.fromEntries(Object.entries(v).map(([h, g]) => [h, Array.isArray(g) ? g : g.canvas]))]))))

@@ -1,5 +1,5 @@
 {
-  "when": "2026-10-16T02:10:41.102Z",
+  "when": "2026-10-16T05:34:55.262Z",
   "results": [
     {
       "id": "AC1-forening-bla",
@@ -108,6 +108,24 @@
       "name": "desktop 1280×800: header and hall geometry unchanged except moved items (hall moves up by their height only)",
       "ok": true,
       "detail": "main [507,1102,595] branch [313,907,595]"
+    },
+    {
+      "id": "F1-lines",
+      "name": "long title shows ≤ 2 lines in Hallöversikt (clamped, full text in DOM)",
+      "ok": true,
+      "detail": "{\"lines\":2,\"clamped\":true}"
+    },
+    {
+      "id": "F1-fold",
+      "name": "Vit hall bottom ≤ 739 with the long title",
+      "ok": true,
+      "detail": "362,736,374"
+    },
+    {
+      "id": "F1-field",
+      "name": "Passets titel field holds the full title",
+      "ok": true,
+      "detail": "180"
     },
     {
       "id": "no-errors",
@@ -1037,7 +1055,12 @@
           40
         ],
         "sw": 1280
-      }
+      },
+      "longTitleVit": [
+        362,
+        736,
+        374
+      ]
     }
   }
 }

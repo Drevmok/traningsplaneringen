@@ -3368,5 +3368,13 @@
   }
   .hall-saknar-banner .hall-saknar-point-cta {
     padding: 0 12px;
+  }  /* Verifier F1: a long pass title shows at most 2 lines (full title stays in Passbyggaren's field). */
+  .hall-header:not(.hall-header--floor) .hall-session-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
   }
 }
