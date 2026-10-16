@@ -1,0 +1,860 @@
+{
+ "320-2rad-new": {
+  "forening-bla": {
+   "top": 362,
+   "bottom": 574,
+   "h": 212,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 362,
+   "bottom": 663,
+   "h": 301,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  }
+ },
+ "320-2rad-e7de022": {
+  "forening-bla": {
+   "top": 384,
+   "bottom": 596,
+   "h": 212,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 3,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 384,
+   "bottom": 685,
+   "h": 301,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 3,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 384,
+   "bottom": 576,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 3,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 384,
+   "bottom": 576,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 3,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 384,
+   "bottom": 576,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 3,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  }
+ },
+ "320-180-new": {
+  "forening-bla": {
+   "top": 362,
+   "bottom": 574,
+   "h": 212,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 362,
+   "bottom": 663,
+   "h": 301,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 362,
+   "bottom": 554,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": true,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  }
+ },
+ "320-180-e7de022": {
+  "forening-bla": {
+   "top": 538,
+   "bottom": 751,
+   "h": 212,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 10,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 538,
+   "bottom": 839,
+   "h": 301,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 10,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 538,
+   "bottom": 730,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 10,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 538,
+   "bottom": 730,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 10,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 538,
+   "bottom": 730,
+   "h": 192,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 10,
+   "titleClamped": false,
+   "titleRight": 180,
+   "bannerShown": true,
+   "sw": 320,
+   "vw": 320,
+   "clip": 0
+  }
+ },
+ "land-2rad-new": {
+  "forening-bla": {
+   "top": 313,
+   "bottom": 723,
+   "h": 411,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 313,
+   "bottom": 894,
+   "h": 582,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  }
+ },
+ "land-2rad-e7de022": {
+  "forening-bla": {
+   "top": 313,
+   "bottom": 723,
+   "h": 411,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 313,
+   "bottom": 894,
+   "h": 582,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 313,
+   "bottom": 661,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 536,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  }
+ },
+ "land-180-new": {
+  "forening-bla": {
+   "top": 395,
+   "bottom": 806,
+   "h": 411,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 395,
+   "bottom": 976,
+   "h": 582,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  }
+ },
+ "land-180-e7de022": {
+  "forening-bla": {
+   "top": 395,
+   "bottom": 806,
+   "h": 411,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 395,
+   "bottom": 976,
+   "h": 582,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 395,
+   "bottom": 743,
+   "h": 348,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 828,
+   "bannerShown": true,
+   "sw": 844,
+   "vw": 844,
+   "clip": 0
+  }
+ },
+ "desk-2rad-new": {
+  "forening-bla": {
+   "top": 313,
+   "bottom": 907,
+   "h": 595,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 313,
+   "bottom": 1154,
+   "h": 842,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  }
+ },
+ "desk-2rad-e7de022": {
+  "forening-bla": {
+   "top": 313,
+   "bottom": 907,
+   "h": 595,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 313,
+   "bottom": 1154,
+   "h": 842,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 313,
+   "bottom": 817,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett och volter för gruppen 10–12 år",
+   "titleLines": 1,
+   "titleClamped": false,
+   "titleRight": 576,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  }
+ },
+ "desk-180-new": {
+  "forening-bla": {
+   "top": 395,
+   "bottom": 989,
+   "h": 595,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 395,
+   "bottom": 1236,
+   "h": 842,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  }
+ },
+ "desk-180-e7de022": {
+  "forening-bla": {
+   "top": 395,
+   "bottom": 989,
+   "h": 595,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "forening-vit": {
+   "top": 395,
+   "bottom": 1236,
+   "h": 842,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "standard-trupp": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "tavling-linjer": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  },
+  "liten-hall": {
+   "top": 395,
+   "bottom": 899,
+   "h": 504,
+   "titleText": "Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall",
+   "titleLines": 2,
+   "titleClamped": false,
+   "titleRight": 1224,
+   "bannerShown": true,
+   "sw": 1280,
+   "vw": 1280,
+   "clip": 0
+  }
+ },
+ "golv-new": {
+  "forening-bla": {
+   "top": 388,
+   "bottom": 652,
+   "header": 328
+  },
+  "forening-vit": {
+   "top": 388,
+   "bottom": 762,
+   "header": 328
+  },
+  "standard-trupp": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  },
+  "tavling-linjer": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  },
+  "liten-hall": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  }
+ },
+ "golv-e7de022": {
+  "forening-bla": {
+   "top": 388,
+   "bottom": 652,
+   "header": 328
+  },
+  "forening-vit": {
+   "top": 388,
+   "bottom": 762,
+   "header": 328
+  },
+  "standard-trupp": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  },
+  "tavling-linjer": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  },
+  "liten-hall": {
+   "top": 388,
+   "bottom": 627,
+   "header": 328
+  }
+ }
+}

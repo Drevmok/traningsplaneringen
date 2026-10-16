@@ -1,0 +1,24 @@
+PASS [AC1-forening-bla] forening-bla: canvas bottom ≤ 739 with saknar banner — canvas 340/604/264 saknar 284,328,44
+PASS [AC2-forening-vit] forening-vit: canvas bottom ≤ 739 with saknar banner — canvas 340/714/374 saknar 284,328,44
+PASS [AC3-standard-trupp] standard-trupp: canvas bottom ≤ 739 with saknar banner, height ≈ 239 — canvas 340/579/239 saknar 284,328,44
+PASS [AC3-tavling-linjer] tavling-linjer: canvas bottom ≤ 739 with saknar banner, height ≈ 239 — canvas 340/579/239 saknar 284,328,44
+PASS [AC3-liten-hall] liten-hall: canvas bottom ≤ 739 with saknar banner, height ≈ 239 — canvas 340/579/239 saknar 284,328,44
+PASS [AC4] canvas top ≥ 0, tray (collapsed) does not cover the canvas, no horizontal overflow — tray 1087,1145,58 sw 390
+PASS [AC5] back, title, meta, 4 actions, layout select and zoom −/+ above the hall; all ≥ 44×44 — small=
+PASS [AC6-oneline] saknar banner one line; title holds the full text — {"text":"3 stationer saknar redskap","title":"3 stationer saknar redskap","cut":false,"lines":1}
+PASS [AC6-notcut] saknar text not cut at 390 — {"text":"3 stationer saknar redskap","title":"3 stationer saknar redskap","cut":false,"lines":1}
+PASS [AC6-cta] CTA «Använd alla förslag» still points at the action (Slice 37)
+PASS [AC7] migrate note, Blå/Vit coach tip, Visa tips, flow tip under the hall — [[".hall-preset-note",true],[".hall-preset-coach-tip",true],[".hall-hints-info",true],[".hall-flow-coach-tip",true]]
+PASS [AC7-dismiss] flow tip dismiss still works
+PASS [AC12-zoom] zoom + grows the hall, − shrinks back — w after + 447.5
+PASS [AC10] tray expands and collapses; hall unchanged — 340,579,239 → 340,579,239
+PASS [AC11] Golvklart: hall bottom ≤ 739 — 293,667,374
+PASS [AC16-footer] footer «Träningsplaneraren · Slice 43»
+PASS [AC13] landscape 844×390: hall top ≤ main (507) — main 507,918,411 branch 313,723,411
+PASS [AC14] desktop 1280×800: header and hall geometry unchanged except moved items (hall moves up by their height only) — main [507,1102,595] branch [313,907,595]
+PASS [F1-lines] long title shows ≤ 2 lines in Hallöversikt (clamped, full text in DOM) — {"lines":2,"clamped":true}
+PASS [F1-fold] Vit hall bottom ≤ 739 with the long title — 362,736,374
+PASS [F1-field] Passets titel field holds the full title — 180
+PASS [no-errors] no page errors
+{"main":{"forening-bla":[765,1029,264],"forening-vit":[765,1139,374],"standard-trupp":[765,1187,422],"tavling-linjer":[765,1187,422],"liten-hall":[765,1187,422],"golvklart":[293,667,374],"landscape":[507,918,411],"desktop":[507,1102,595]},"branch":{"forening-bla":[340,604,264],"forening-vit":[340,714,374],"standard-trupp":[340,579,239],"tavling-linjer":[340,579,239],"liten-hall":[340,579,239],"golvklart":[293,667,374],"landscape":[313,723,411],"desktop":[313,907,595],"longTitleVit":[362,736,374]}}
+22/22 pass

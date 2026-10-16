@@ -1,0 +1,412 @@
+{
+ "320": {
+  "br": {
+   "forening-bla": {
+    "canvas": [
+     384,
+     596,
+     212,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 353
+   },
+   "forening-vit": {
+    "canvas": [
+     384,
+     685,
+     301,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     384,
+     576,
+     192,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 333
+   },
+   "tavling-linjer": {
+    "canvas": [
+     384,
+     576,
+     192,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 333
+   },
+   "liten-hall": {
+    "canvas": [
+     384,
+     576,
+     192,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 333
+   }
+  },
+  "main": {
+   "forening-bla": {
+    "canvas": [
+     836,
+     1048,
+     212,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   },
+   "forening-vit": {
+    "canvas": [
+     836,
+     1137,
+     301,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     836,
+     1258,
+     422,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   },
+   "tavling-linjer": {
+    "canvas": [
+     836,
+     1258,
+     422,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   },
+   "liten-hall": {
+    "canvas": [
+     836,
+     1258,
+     422,
+     16,
+     304
+    ],
+    "sw": 320,
+    "vw": 320,
+    "clip": [],
+    "scrolls": 400
+   }
+  }
+ },
+ "land": {
+  "br": {
+   "forening-bla": {
+    "canvas": [
+     313,
+     723,
+     411,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "forening-vit": {
+    "canvas": [
+     313,
+     894,
+     582,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     313,
+     661,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "tavling-linjer": {
+    "canvas": [
+     313,
+     661,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "liten-hall": {
+    "canvas": [
+     313,
+     661,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   }
+  },
+  "main": {
+   "forening-bla": {
+    "canvas": [
+     507,
+     918,
+     411,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "forening-vit": {
+    "canvas": [
+     507,
+     1089,
+     582,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     507,
+     855,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "tavling-linjer": {
+    "canvas": [
+     507,
+     855,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   },
+   "liten-hall": {
+    "canvas": [
+     507,
+     855,
+     348,
+     16,
+     573
+    ],
+    "sw": 844,
+    "vw": 844,
+    "clip": [],
+    "scrolls": 400
+   }
+  }
+ },
+ "desk": {
+  "br": {
+   "forening-bla": {
+    "canvas": [
+     313,
+     907,
+     595,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "forening-vit": {
+    "canvas": [
+     313,
+     1154,
+     842,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     313,
+     817,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 329
+   },
+   "tavling-linjer": {
+    "canvas": [
+     313,
+     817,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 329
+   },
+   "liten-hall": {
+    "canvas": [
+     313,
+     817,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 329
+   },
+   "controls": "A:Tyck till om appen via e-post|BUTTON:Dölj det här tipset|BUTTON:Dölj det här tipset|BUTTON:Dölj flöde|BUTTON:Golvklart|BUTTON:Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap|BUTTON:Ta bort från hall|BUTTON:Ta bort från hall|BUTTON:Ta bort från hall|BUTTON:Uppdatera appen|BUTTON:Visa Använd alla förslag. Sparar inte automatiskt.|BUTTON:Visa förrådslista för passet|BUTTON:Visa tips igen|BUTTON:Visa tips om hur du placerar Teknik-stationer|BUTTON:← Tillbaka till Passbyggaren|DIV:Station 1: Ljushopp på satsbräda. Tryck för detaljer.|DIV:Station 2: Handstående falla till rygg. Tryck för detaljer.|DIV:Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.|SELECT:Hallayout"
+  },
+  "main": {
+   "forening-bla": {
+    "canvas": [
+     507,
+     1102,
+     595,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "forening-vit": {
+    "canvas": [
+     507,
+     1349,
+     842,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "standard-trupp": {
+    "canvas": [
+     507,
+     1011,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "tavling-linjer": {
+    "canvas": [
+     507,
+     1011,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "liten-hall": {
+    "canvas": [
+     507,
+     1011,
+     504,
+     56,
+     862
+    ],
+    "sw": 1280,
+    "vw": 1280,
+    "clip": [],
+    "scrolls": 400
+   },
+   "controls": "A:Tyck till om appen via e-post|BUTTON:Dölj det här tipset|BUTTON:Dölj det här tipset|BUTTON:Dölj flöde|BUTTON:Golvklart|BUTTON:Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap|BUTTON:Ta bort från hall|BUTTON:Ta bort från hall|BUTTON:Ta bort från hall|BUTTON:Uppdatera appen|BUTTON:Visa Använd alla förslag. Sparar inte automatiskt.|BUTTON:Visa förrådslista för passet|BUTTON:Visa tips igen|BUTTON:Visa tips om hur du placerar Teknik-stationer|BUTTON:← Tillbaka till Passbyggaren|DIV:Station 1: Ljushopp på satsbräda. Tryck för detaljer.|DIV:Station 2: Handstående falla till rygg. Tryck för detaljer.|DIV:Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.|SELECT:Hallayout"
+  }
+ }
+}

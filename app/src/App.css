@@ -2293,7 +2293,8 @@
   }
 
   .hall-canvas {
-    min-height: 50vh;
+    /* Slice 43 B1: no 50vh floor on phones, so 3:2 applies (print rules unchanged). */
+    min-height: 0;
     aspect-ratio: 3 / 2;
   }
 
@@ -3313,5 +3314,67 @@
 
   .home-wizard-chip {
     min-height: 48px;
+  }
+}
+
+/* —— Slice 43: Hallöversikt edit fits 390×844 (D1, portrait phone only) —— */
+@media (max-width: 768px) and (orientation: portrait) {
+  .hall-header:not(.hall-header--floor) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+  }
+  .hall-header:not(.hall-header--floor) > * {
+    grid-column: 1 / -1;
+  }
+  .hall-header:not(.hall-header--floor) > .back {
+    grid-column: 1;
+  }
+  .hall-header:not(.hall-header--floor) .hall-header-main {
+    display: contents;
+  }
+  .hall-header:not(.hall-header--floor) .hall-screen-title {
+    grid-column: 2;
+    align-self: center;
+  }
+  .hall-header:not(.hall-header--floor) .hall-preset-row {
+    flex-wrap: nowrap;
+    margin-top: 0;
+  }
+  .hall-header:not(.hall-header--floor) .hall-preset-select {
+    flex: 1;
+    min-width: 0;
+  }
+  .hall-preset-row .hall-zoom-bar {
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .hall-saknar-banner {
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+  }
+  .hall-saknar-banner .hall-unplaced-banner {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px 10px;
+  }
+  .hall-saknar-banner .hall-saknar-point-cta,
+  .hall-preset-row .hall-zoom-btn {
+    min-height: 44px;
+  }
+  .hall-saknar-banner .hall-saknar-point-cta {
+    padding: 0 12px;
+  }  /* Verifier F1: a long pass title shows at most 2 lines (full title stays in Passbyggaren's field). */
+  .hall-header:not(.hall-header--floor) .hall-session-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
   }
 }

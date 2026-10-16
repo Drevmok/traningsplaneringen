@@ -1,0 +1,27 @@
+PASS [TITLE-180] «180» (176 chars): field, stored draft, field after reload and the Hallöversikt DOM text all hold the full title (clamp is visual only) — {"field":176,"stored":176,"field2":176,"dom":176,"homeMeta":"Tisdagsträning Trampett, volter och tumb"}
+PASS [PRINT-180] Print with the 180-char title: print title strip shows the full title (header clamp is screen-only / hidden in print) — {"strip":"Tisdagsträning Trampett, volter och tumbling för hela gruppen 10–12 år med extra fokus på landningar, säker mattbyggnad, uppvärmning med lekar och avslutande stretch i Vit hall · 53 min","stripVisible":true,"headerTitleVisible":false}
+PASS [TITLE-2rad] «2rad» (55 chars): field, stored draft, field after reload and the Hallöversikt DOM text all hold the full title (clamp is visual only) — {"field":55,"stored":55,"field2":55,"dom":55,"homeMeta":"Tisdagsträning Trampett och volter för g"}
+PASS [TITLE-3rad] «3rad» (80 chars): field, stored draft, field after reload and the Hallöversikt DOM text all hold the full title (clamp is visual only) — {"field":80,"stored":80,"field2":80,"dom":80,"homeMeta":"Tisdagsträning Trampett, volter och tumb"}
+PASS [TITLE-ord] «ord» (177 chars): field, stored draft, field after reload and the Hallöversikt DOM text all hold the full title (clamp is visual only) — {"field":177,"stored":177,"field2":177,"dom":177,"homeMeta":"Superlångtordutanmellanslagsomintegåratt"}
+VIT 180 visas: 362–736 margin 3 lines 2 clamped true
+VIT 180 dold: 310–684 margin 55 lines 2 clamped true
+VIT kort visas: 340–714 margin 25 lines 1 clamped false
+VIT kort dold: 288–662 margin 77 lines 1 clamped false
+VIT 2rad visas: 362–736 margin 3 lines 2 clamped false
+VIT 2rad dold: 310–684 margin 55 lines 2 clamped false
+VIT 3rad visas: 362–736 margin 3 lines 2 clamped true
+VIT 3rad dold: 310–684 margin 55 lines 2 clamped true
+VIT ord visas: 362–736 margin 3 lines 2 clamped true
+VIT ord dold: 310–684 margin 55 lines 2 clamped true
+PASS [VIT-fold] Vit 390×844: hall bottom ≤ 739 for 2-line, 3-line, 180-char and unbroken-word titles, banner shown and hidden — 180/visas 736, 180/dold 684, kort/visas 714, kort/dold 662, 2rad/visas 736, 2rad/dold 684, 3rad/visas 736, 3rad/dold 684, ord/visas 736, ord/dold 684
+PASS [ALL-fold] Every hall ≤ 739 for every title, banner shown and hidden; no horizontal scroll — min margin 3
+PASS [CLAMP] Title shows at most 2 lines; clamp only kicks in above 2 lines (short/2-line titles identical to e7de022) — lines 2,1
+FAIL [V-320-2rad] 320 px, 2-line title: identical to e7de022, no h-scroll/clip
+PASS [V-320-180] 320 px, 180-char title: title clamped to 2 lines, hall higher than e7de022, ≤ 739, no h-scroll/clip — forening-bla 574 (was 751); forening-vit 663 (was 839); standard-trupp 554 (was 730); tavling-linjer 554 (was 730); liten-hall 554 (was 730)
+PASS [V-land-2rad] land, 2rad title: identical to e7de022 (clamp is portrait-phone only), no h-scroll/clip — forening-bla 313–723 / 313–723; forening-vit 313–894 / 313–894; standard-trupp 313–661 / 313–661; tavling-linjer 313–661 / 313–661; liten-hall 313–661 / 313–661
+PASS [V-land-180] land, 180 title: identical to e7de022 (clamp is portrait-phone only), no h-scroll/clip — forening-bla 395–806 / 395–806; forening-vit 395–976 / 395–976; standard-trupp 395–743 / 395–743; tavling-linjer 395–743 / 395–743; liten-hall 395–743 / 395–743
+PASS [V-desk-2rad] desk, 2rad title: identical to e7de022 (clamp is portrait-phone only), no h-scroll/clip — forening-bla 313–907 / 313–907; forening-vit 313–1154 / 313–1154; standard-trupp 313–817 / 313–817; tavling-linjer 313–817 / 313–817; liten-hall 313–817 / 313–817
+PASS [V-desk-180] desk, 180 title: identical to e7de022 (clamp is portrait-phone only), no h-scroll/clip — forening-bla 395–989 / 395–989; forening-vit 395–1236 / 395–1236; standard-trupp 395–899 / 395–899; tavling-linjer 395–899 / 395–899; liten-hall 395–899 / 395–899
+PASS [GOLV] Golvklart with the 180-char title: identical to e7de022 (floor header has no clamp rule) — {"top":388,"bottom":762,"header":328} / {"top":388,"bottom":762,"header":328}
+PASS [no-errors] No page errors
+PASS 15 / FAIL 1
