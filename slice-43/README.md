@@ -1,7 +1,7 @@
 # Slice 43 — Hela hallen syns direkt (Hallöversikt på telefon)
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-16 — not locked.** A–F below are options with Docs' recommendation marked ★. Planner/Christoffer lock. Docs pack only, no app code. Branch `slice-43-docs` from `origin/main` @ `db11398` (Slice 42 merge, verified tip 2026-10-16).  
+**Status:** **LOCKED 2026-10-16 by Christoffer: A1 B1 C1 D1 E1 F1 (the ★ recommendations).** Effort M. Docs pack only, no app code. Branch `slice-43-docs` from `origin/main` @ `db11398` (Slice 42 merge).  
 **Effort:** **M** (see below).  
 **Source:** Planner brief (Polish #5). **No Polish #5 entry exists under `backlog/`** on main @ db11398 (searched `backlog/IMPROVEMENTS.md`, `SCOUT-PLAYBOOK.md`, `PSTACK-OPS.md`); scope is taken from the brief.
 
