@@ -96,3 +96,49 @@ Not SERIOUS: no data loss (AC5, AC12), old links work (AC6), and no stall (AC18,
 - Lint: 0 errors, 6 warnings (existing react(refs)).
 - `vite build`: OK.
 - Secret grep: clean across the git tree at 800651e, both dists and all my outputs (including PDF text). Nothing references the live project.
+
+## Old smokes (classified against `slice-43-checks/smokes/`)
+- **Setup:** one sequential loop (`slice-44-checks/smokes/run.sh`, outputs next to it).
+  - Branch builds: plain :57741 and bank :57740 (`https://bank-mock.supabase.co`, routed to my local stand-in).
+  - Main plain build: :57742.
+  - Live requests: 0 in every smoke that reports a count.
+- Two earlier runs were discarded as invalid:
+  - The first used a bank build with an `http://` URL, so the app silently turned the bank off.
+  - The second had two loops running at once.
+- **Result: 0 regressions.** Every failure below is either expected from the Slice 44 spec or was already in the baseline.
+
+| Smoke | Result | Fails / classification |
+|---|---|---|
+| slice-44-builder-smoke | 26/26 | n/a |
+| slice-43-builder-smoke | 21/22 | AC16-footer «Slice 43»: expected (footer bump) |
+| slice-43-verify | 24/4 | Golvklart lost «Helskär» and «Skriv ut kort», so the hall sits 52 px higher (AC8, AC11): expected (spec, README lines 53 and 60). AC16-footer: expected. AC6-320: also failed in the Slice 43 verify |
+| slice-42-verify | 59/2 | AC18-footer, S39-unsaved: baseline. C (föreningsmall via the stand-in) passes |
+| slice-42-builder-smoke | 23/24 | AC18-footer: baseline |
+| slice-41-reverify-b | 93/2 | AC22-footer, C: baseline |
+| slice-41-builder-smoke | 32/34 | AC16, AC22-footer: baseline |
+| slice-40-builder-smoke | 15/5 | AC1/2/8-main, AC16-footer, M: baseline |
+| slice-40-reverify | 37/2 | AC16-footer, C: baseline. AC14-controls now passes |
+| slice-39-builder-smoke | 25/3 | C, F, G: baseline |
+| slice-39-verify | 67/5 | AC1, AC22a, AC3/AC17, F3, I: baseline. C2 passes |
+| slice-38-builder-smoke | 25/1 | AC18a: baseline |
+| slice-38-verify | 67/4 | Same count as baseline. AC14-golvklart «buttons 7 vs main 9» is the two spec removals (expected). The rest are footer/baseline |
+| slice-37-builder-smoke | crash | Same crash at line 88 («Ersätta det här passet?» → «Använd mall») as the baseline |
+| slice-37-verify | 4/11 | A-E, C-E, E-E, F12, M-E, M8-E, P-E: baseline |
+| slice-36-builder-smoke | 32/34 | AC23, B: baseline |
+| slice-36-verify | 13/15 | V-coach, V-overwrite: baseline |
+| slice-35-builder-smoke | 33/8 | All baseline |
+| slice-35-verify | 36/11 | All baseline |
+| slice-34-builder-smoke | 29/2 | AC20a/b: baseline |
+| slice-34-verify | 28/4 (base 30/2) | Same-controls-menu («Exportera / dela» → «Dela», AC1), Same-controls-golvklart and Same-controls-share («Helskär» and «Skriv ut kort» removed, AC9/AC10): **expected spec changes**. Footer: expected. My own AC1/AC9/AC10 checks assert the exact new lists |
+| slice-33-builder-smoke | 141/5 | All baseline. 4 baseline fails now pass |
+| slice-32-builder-smoke | 26/17 | All baseline (stand-in/admin-flow items, unchanged) |
+
+Note: `slice-44-builder-smoke` writes `slice44_*` PNGs to `/workspace/screenshots/` when it runs.
+
+## Artifacts
+- `verifier/slice-44-verify.mjs`, `slice-44-verify-results.json`
+- `slice-44-checks/`: preview.mjs, bundle.sh, old-tokens, partial-token/partial-ui, test/tsc/lint, pdf/, preview/, smokes/
+- `slice-44-screenshots/s44v_*`
+- Best two, also copied to `/workspace/screenshots/`:
+  - `s44v_preview_br-dela_bg.png` (real Chrome print preview, 3 pages)
+  - `s44v_15_partial_numbers_vs_markers.png` (F1)

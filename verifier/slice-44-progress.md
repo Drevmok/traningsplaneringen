@@ -58,10 +58,5 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
   - 43-verify AC6-320: pre-existing. It already failed in the Slice 43 verify itself.
 
 ## Remaining
-- Clean smoke chunk 1 (running), then chunk 2: 42-builder, 41, 40, 39-builder, 38, 37.
-- Chunk 3: 36, 35, 34, 33, 32.
-- Compare against the baseline in `slice-43-checks/smokes/` and classify the results.
-- Add the smokes section to the report and finalise it (verdict PASS + F1 for Planner).
-- Copy the 2 best screenshots to `/workspace/screenshots/`.
-- Final commit «Verifier: Slice 44 verify report (800651e)», then push fast-forward.
-- Tear down: previews 57740–57742, Xvfb :44, stand-in, worktrees.
+- Nothing left for the Verifier. All smokes are classified (0 regressions; see the report). Final commit made, teardown done.
+- PENDING-real: AC19, AC20 (iOS PWA), iOS clipboard, Android Chrome.
