@@ -707,7 +707,6 @@
   color: #5b21b6;
 }
 
-
 .receive-pass .btn-primary,
 .receive-pass .btn-secondary,
 .share-actions .btn-primary,
@@ -890,7 +889,6 @@
 /* Slice 39: quiet «Sparat» where Spara utkast was. */
 .save-status { align-self: center; color: #78716c; font-size: 0.85rem; white-space: nowrap; }
 .save-status-failed { color: #9a3412; }
-
 
 .template-saved-actions .btn-text {
   min-height: 44px;
@@ -1599,7 +1597,8 @@
   box-sizing: border-box;
   text-align: center;
   background: var(--md-surface);
-  min-height: calc(100svh - 56px);
+  /* Slice 46 E1: the footer rows live inside the start pane, so no fixed footer reserve. */
+  min-height: 100svh;
   overflow: visible;
 }
 
@@ -1680,24 +1679,6 @@
   opacity: 0.85;
 }
 
-.home-start-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.home-alt {
-  min-height: 48px;
-  padding: 0 12px;
-  border-radius: 16px;
-  background: var(--md-surface-container-low);
-  color: var(--md-on-surface);
-}
-
-.home-alt:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--md-on-surface) 8%, var(--md-surface-container-low));
-}
-
 .home-clear {
   min-height: 44px;
   margin-top: 4px;
@@ -1749,7 +1730,7 @@
 @media (min-width: 600px) {
   .home.home-entry {
     flex-direction: row;
-    min-height: calc(100svh - 64px);
+    min-height: 100svh;
   }
 
   .home-hero {
@@ -2055,8 +2036,6 @@
   color: var(--md-on-surface-variant);
 }
 
-
-
 /* Slice 32 — admin mode (admins only; coaches never see these). Quiet chrome. */
 .admin-bar {
   display: flex;
@@ -2230,4 +2209,85 @@
     max-height: min(92svh, 100%);
     overflow: auto;
   }
+}
+
+/* Slice 46 A1: «Planera pass» under «Fortsätt passet» when a draft exists. */
+.home-start-secondary {
+  width: 100%;
+  min-height: 48px;
+}
+
+/* Slice 46 E1: footer rows — one centre line per row, separators only inside a row. */
+.app-footer {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+.app-footer-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+}
+.app-footer-row .btn-text {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+.app-footer > p {
+  order: 0;
+}
+.app-footer-row.footer-admin {
+  display: flex;
+}
+.footer-admin-not {
+  white-space: normal;
+  text-align: right;
+}
+.app-footer > .app-footer-note,
+.app-footer > .app-footer-slice {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--md-on-surface-variant);
+}
+.home-foot-rows.app-footer {
+  width: 100%;
+  padding: 4px 0 0;
+}
+
+/* Slice 46 C1: Planera pass sheet — links under the age chips, Tillbaka left, Avbryt right. */
+.home-wizard-alt {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--md-outline-variant, #e7e5e4);
+}
+.home-wizard-alt .btn-text,
+.home-wizard-actions .btn-text,
+.home-wizard-actions .btn-secondary {
+  min-height: 44px;
+}
+.home-wizard-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.home-wizard-cancel {
+  margin-left: auto;
+}
+.home-wizard-label:focus:not(:focus-visible) {
+  outline: none;
+}
+.home-wizard-malls {
+  max-height: 55svh;
+  overflow: auto;
+  text-align: left;
 }

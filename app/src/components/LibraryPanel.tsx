@@ -9,8 +9,7 @@ import { useBank } from '../lib/useBank'
 import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
 import { AdminStatusBadge } from './AdminStatusBadge'
 import { useClubTemplates, type ClubTemplate } from '../lib/clubTemplates'
-import { ClubTemplatesSection } from './ClubTemplates'
-import { seedTemplates } from '../data/seedTemplates'
+import { MallList } from './MallList'
 import { activityFitsOwned, loadOwnedEquipment, loadTonightFilter, ownsEveryPiece, saveTonightFilter } from '../lib/ownedEquipment'
 import type { SavedTemplate } from '../lib/savedTemplates'
 import type { Activity, BlockType, SideTab } from '../types'
@@ -291,65 +290,16 @@ export function LibraryPanel({
 
       {tab === 'templates' && (
         <div className="side-body">
-          {admin.state === 'admin' && clubAdminSlot ? (
-            clubAdminSlot
-          ) : (
-            <ClubTemplatesSection club={club} onPick={onPickClub} />
-          )}
-          {savedTemplates.length > 0 && (
-            <>
-              <h3 className="template-group">{UI.myTemplates}</h3>
-              <ul className="template-list">
-                {savedTemplates.map((template) => (
-                  <li key={template.id} className="template-saved">
-                    <button
-                      type="button"
-                      className="template-card"
-                      onClick={() => onPickSaved(template.id)}
-                    >
-                      <strong>{template.title}</strong>
-                      <span className="template-meta">{template.totalMinutes} min</span>
-                    </button>
-                    <div className="template-saved-actions">
-                      <button
-                        type="button"
-                        className="btn-text"
-                        onClick={() => onCopySaved(template.id)}
-                      >
-                        {UI.copyTemplateCode}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-text"
-                        aria-label={`${UI.deleteTemplate} ${template.title}`}
-                        onClick={() => onDeleteSaved(template.id)}
-                      >
-                        {UI.deleteTemplate}
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-          <p className="muted template-saved-hint">{UI.savedTemplatesHint}</p>
-          <ul className="template-list">
-            {seedTemplates.map((t) => (
-              <li key={t.id}>
-                <button
-                  type="button"
-                  className="template-card"
-                  onClick={() => onPickTemplate(t.id)}
-                >
-                  <strong>{t.title}</strong>
-                  <span>{t.description}</span>
-                  <span className="template-meta">
-                    ~{t.totalMinutes} min · Trygg för nya tränare
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
+          <MallList
+            club={club}
+            savedTemplates={savedTemplates}
+            onPickBuiltIn={onPickTemplate}
+            onPickSaved={onPickSaved}
+            onPickClub={onPickClub}
+            clubAdminSlot={admin.state === 'admin' && clubAdminSlot ? clubAdminSlot : undefined}
+            onCopySaved={onCopySaved}
+            onDeleteSaved={onDeleteSaved}
+          />
         </div>
       )}
     </aside>

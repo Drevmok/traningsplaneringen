@@ -108,24 +108,16 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '45'
+export const SLICE_NUMBER = '46'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
   appName: 'Träningsplaneraren',
   home: 'Startsida',
-  newSession: 'Nytt pass',
   startFromTemplate: 'Starta från mall',
-  browseTemplates: 'Bläddra bland mallar',
-  continueDraft: 'Fortsätt senaste pass',
-  homeInvite:
-    'Tre frågor ger dig ett färdigt pass. Du kan fortfarande börja tomt eller från mall.',
-  planFirst: 'Planera ditt första pass',
   // Slice 29 — Home 3-question wizard (docs/home-wizard.sv.md)
   homeWizardPrimary: 'Planera pass',
   homePromise: 'Ett pass på några minuter.',
-  homeWizardPrimaryDesc: 'Tre frågor — färdigt pass med stationer på hallen.',
-  homeWizardPrimaryAria: 'Planera pass med tre frågor',
   continuePass: 'Fortsätt passet',
   clearPass: 'Rensa passet',
   clearPassTitle: 'Rensa passet?',
@@ -133,10 +125,8 @@ export const UI = {
     'Passet försvinner från den här enheten. Sedan kan du planera ett nytt från början.',
   clearPassConfirm: 'Rensa',
   emptyPass: 'Tomt pass',
-  fromTemplate: 'Från mall',
   fetchPass: 'Hämta ett pass',
   newSessionDesc: 'Börja tomt med Samling.',
-  startFromTemplateDesc: 'Välj Nybörjare eller Kort.',
   sessionBuilder: 'Passbyggaren',
   useTemplate: 'Använd mall',
   more: 'Mer',
@@ -423,12 +413,10 @@ export const UI = {
     'Visa Använd alla förslag. Sparar inte automatiskt.',
   hallSaknarPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
   // Slice 29 — wizard chrome (docs/home-wizard.sv.md)
-  wizardStepProgress: 'Fråga {n} av 3',
+  wizardStepProgress: 'Fråga {n} av {total}',
+  wizardMallLabel: 'Mall',
   wizardBack: 'Tillbaka',
-  wizardNext: 'Nästa',
   wizardCancel: 'Avbryt',
-  wizardClose: 'Stäng',
-  wizardFinish: 'Skapa pass',
   wizardQ1Label: 'Ålder',
   wizardQ1Age46: '4–6 år',
   wizardQ1Age79: '7–9 år',
@@ -674,14 +662,7 @@ export const UI = {
   ownEquipmentPick: 'Välj redskap',
   ownEquipmentNone: 'Inga redskap valda.',
   oppnaPaTelefonUrl: 'https://drevmok.github.io/traningsplaneringen/',
-  draftHonestyTitle: 'Utkastet stannar i den här webbläsaren',
-  draftHonestyBody:
-    'Passet sparas i den här webbläsaren, inte i molnet. Rensar du webbplatsdata försvinner det. Skicka till telefonen, eller ladda ner en fil, om samma pass ska köras på en annan enhet.',
-  draftHonestyBodyShort: 'Sparas lokalt i webbläsaren — inte i molnet.',
-  draftHonestyOtherDevice:
-    'En annan telefon börjar tom. QR, länk eller fil flyttar en kopia dit. Utkastet synkas inte av sig själv.',
-  draftHonestyDismiss: 'Jag förstår',
-  omUtkast: 'Om utkast',
+  draftHonestyBodyShort: 'Passen sparas bara på den här enheten.',
   oppnaPaTelefonTitle: 'Öppna på telefon',
   oppnaPaTelefonBody:
     'Öppna samma länk i telefonens webbläsare. Du kan lägga till appen på hemskärmen för snabbare start.',
@@ -733,8 +714,8 @@ export function komIgangProgressText(done: number, total: number): string {
 }
 
 
-export function wizardStepProgressText(n: number): string {
-  return UI.wizardStepProgress.replace('{n}', String(n))
+export function wizardStepProgressText(n: number, total: number): string {
+  return UI.wizardStepProgress.replace('{n}', String(n)).replace('{total}', String(total))
 }
 
 
