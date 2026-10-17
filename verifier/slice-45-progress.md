@@ -48,7 +48,7 @@ Checkpoint file, updated after each ~15-min chunk. Times are Europe/Stockholm (U
 | AC2 | PASS | no «Stationerna är förslag…» / «Välj den layout…» on Q2 or Q3; Tillbaka → Fokus, Nästa → Hall, Skapa pass → forening-vit |
 | AC3 | PASS | Grophallen drawing (canvas ratio 0.9572); meta and Golvklart meta «Gymmix – Grophallen» |
 | AC4 | PASS | Tomt pass (+1 Teknik drill, because an empty pass shows the no-stations state) and Från mall → Nybörjare: forening-bla, «Gymmix – Stora hallen», markers 1–3 on the grid in pass order, none on walls |
-| AC5 | **FAIL as written / Planner to rule** | Controls PASS: no label or select; zoom 48×44 at 390 and 320; no horizontal scroll at 320. Canvas top: see the table below |
+| AC5 | **PASS per Planner's ruling (17:10)**: the hall bottom is ≤ 739 at 390×844 in every case (lowest 713). +29 px vs main = **Low finding** (Slice 48 reworks the Hallöversikt placement). It was «FAIL as written» before the ruling | Controls PASS: no label or select; zoom 48×44 at 390 and 320; no horizontal scroll at 320. Canvas top: see the table below |
 | AC6 | PASS | under the hall only «Schematisk hall — inte exakt mått» + the flow tip; after «Dölj tips» only the caption is left; none of the 12 removed texts appear anywhere |
 | AC7 | PASS | tray text only «Dölj bricka / Ej placerade stationer (1) / station»; remove → 2, Placera här → 3, collapse works; desktop drag moves a marker and saves it |
 | AC8 | PASS | standard-trupp draft → opens, Stora hallen, markers on the grid in pass order (identical to a fresh pass), no walls; draft stores forening-bla; **pass content byte-identical, id unchanged**; no legacy id left anywhere in storage |
@@ -76,12 +76,46 @@ Checkpoint file, updated after each ~15-min chunk. Times are Europe/Stockholm (U
   - Checklist «≤ 310»: fails with the banner on both halls (340 / 339).
   - Builder-reported ruling «no lower than main»: fails for wizard passes and at 320 (+29).
 
+- **Planner's ruling (17:10, relayed by the user):** +29 px accepted. AC5 = PASS if the hall bottom is ≤ 739 at 390×844 in every case. Measured bottoms at 390: 527–713. **PASS.** Logged as a Low finding.
+  - The raw results JSON keeps `AC5-top310` and `AC5-notlower` = false, because they are the checks as written. The report grades them by the ruling.
+- 320 px usability:
+  - Hall top 369–391 and bottom 581–670, so the whole hall fits within 844 with no scroll needed to see it.
+  - No horizontal scroll. Zoom buttons are 48×44.
+  - Awkward: the meta line wraps (hall name on its own line), which pushes the hall down by +29 px. With the banner, the top of the hall sits at about 44 % of the screen. Usable.
+
+## Chunk 3 (17:10–17:28): PART p2 → 32 / 32 checks (after script fixes)
+| AC | Grade | Evidence |
+|---|---|---|
+| AC13 | PASS | Rensa passet: compact sheet 653–844 (h 191 vs main 776). Avbryt 69×44 and Rensa 68×44 side by side. Text identical to main. Avbryt, backdrop and Rensa all work |
+| AC14 | PASS | «Ersätta utkastet här?» h 191; Ny vecka h 214; TemplateConfirm h 214. All bottom 844, compact, text = main. Tall sheets are unchanged: Förrådslista 101–844 = main; wizard 369–844 = main. Övningsdetalj is not compact in source (only Admin, Export, Home, NewWeek, Replace and Template carry `modal--compact`); the script did not open it (it is a Golvklart tap). AdminHideConfirm has the compact classes in source; the real admin Dölj flow is PENDING-real |
+| AC15 | PASS | Landscape 844×390: hall top 257 vs main 313; no select; no horizontal scroll. Rensa dialog box and buttons (89×40, 88×40) are **identical to main**: compact is phone-only and the 40 px is inherited, not a regression. Desktop 1280×800: dialog 480×194 at 400,303, identical to main |
+| AC16 | PASS | Print map Stora 1280×944 (ratio 1.3562) and Grop 0.9582, both = main. Golvklart print 1.3563. Pass PDF 3 pages (pdf-br/*) |
+| AC19 | PASS | Dela at 390: sheet 381–844 (h 463), padding-bottom 20px; contents identical to main (main is full-height 0–760) |
+| AC20 | PASS | × 44×44; × and backdrop close; flip 3101 ms; prints 1. Grown sheet h 641 ≤ 776, overflow auto, × reachable, closes cleanly |
+| AC21 | PASS | Landscape sheet 20–371 scrolls inside. × is reachable at the start; after scrolling to the bottom it scrolls out of view, **same as main** (main-land xAfterScroll false too; h 351 on both), so this is not a regression (cosmetic note). Desktop box 400,188 480×424 = main. Golvklart and Delat buttons unchanged except the removed Helskär/kort |
+| FU-toast (Builder-reported ruling) | PASS | Använd mall shows the Ångra toast (2 nodes). Opening Mer → Dela at once removes the toast (0 with the sheet open). «Skriv ut passet» is not covered and prints (1). After ×, no Ångra; Ctrl+Z does nothing. Storage afterwards is identical to the 5 s timeout path (same draft content with ids normalised, same Mina mallar incl. the auto-kept «S45V eget pass A», same keys). Nothing is lost |
+| AC11-club (stand-in) | PASS | A föreningens mall row with `hallTemplateId: 'standard-trupp'` was published to the local stand-in. Note: the DB forbids hallPlacements in the payload (`club_templates_payload_check3`). Använd mall → forening-bla, «Gymmix – Stora hallen», 3 markers on the grid in pass order. DB row untouched. 0 live requests (only GET exercises/redskap/club_templates to the routed mock) |
+
+Script fixes this chunk:
+- NewWeekConfirm cancel (.btn-secondary).
+- Förrådslista aria name, and its close button.
+- Templates storage is a raw array.
+- Club payload without hallPlacements.
+- AC15 graded against main rather than a fixed 44 px.
+- `ONLY=` env to re-run single checks.
+
+## Smoke loop (one loop, flock): status 17:25
+- Done rc=0 through 39-verify. 38-builder was running.
+- `slice-45-checks/classify.sh` gives a first diff vs the Slice 44 baseline (classification is not done yet):
+  - Unchanged: 39-builder, 41-builder, 42-builder, 42-verify.
+  - New FAILs to classify: 40-builder, 40-reverify (legacy halls/select removed, so expected?); 41-reverify-b (28: race-* and AC2–AC5, needs a look); 43-builder and 43-verify (halls/select); 44-builder and 44-verify (footer = Slice 45 expected, AC6/Dela/markers to check); 39-verify (A–H).
+  - 45-builder: 40/41. AC17 errored only because the smoke copy had no `app/dist` (environment). It is now symlinked to wt/app/dist and will be re-run alone after the loop (`LIST=slice-45-builder-smoke run.sh`, same flock).
+
 ## Remaining
-- Chunk 3:
-  - AC13–AC15 and AC19–AC21: compact sheets and the Dela sheet, landscape, desktop.
-  - The Ångra-toast + Dela path: undo cleared, nothing lost.
-  - AC16: print ratios (headless + real Chrome).
-  - AC17: string/id sweep.
-  - The cleanup's removed code vs code still in use.
-  - AC11 föreningens mall via the stand-in.
-- Then: classify the smokes (the loop is running; at 17:04 it was on 42-verify), write the report, screenshots, final commit, teardown.
+- Classify every new smoke FAIL (cause: removed hall/select/legacy UI = expected, or regression).
+- Re-run builder-45.
+- AC17 sweep (rg ids/strings vs microcopy).
+- AC18 footer.
+- Cleanup analysis (removed code vs code still in use).
+- Secret grep.
+- Report, 2 screenshots, final commit, teardown.

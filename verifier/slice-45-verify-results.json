@@ -1,5 +1,5 @@
 {
-  "when": "2026-10-17T15:07:43.857Z",
+  "when": "2026-10-17T15:22:03.137Z",
   "branch": "dea69d2",
   "main": "4fe44c0",
   "results": [
@@ -156,6 +156,90 @@
       "name": "pass on forening-vit (made on main, one marker moved by hand) keeps its exact placements and ids after open + Hallöversikt + reload",
       "ok": true,
       "detail": "{\"same\":true,\"hall\":\"forening-vit\",\"n\":3,\"contentSame\":true,\"p0\":{\"sessionItemId\":\"item-ac9w3bii-mvcivwnx\",\"x\":0.2137,\"y\":0.4242}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC13",
+      "name": "Rensa passet: bottom sheet as tall as content (≤ 260 px at 390×844, bottom 844), Avbryt + Rensa side by side ≥ 44 px, text unchanged vs main; Rensa clears, Avbryt and backdrop tap keep the pass",
+      "ok": true,
+      "detail": "{\"br\":{\"top\":653,\"bottom\":844,\"h\":191,\"btns\":[{\"t\":\"Avbryt\",\"x\":229,\"y\":780,\"w\":69,\"h\":44},{\"t\":\"Rensa\",\"x\":306,\"y\":780,\"w\":68,\"h\":44}]},\"main\":{\"top\":0,\"bottom\":776,\"h\":776},\"sameText\":true,\"avbryt\":true,\"backdrop\":true,\"cleared\":true}"
+    },
+    {
+      "part": "p2",
+      "id": "AC19",
+      "name": "Dela at 390×844: bottom sheet (bottom 844, safe-area padding kept), content height ≤ 480 (main 760), pass visible above; contents and order exactly as Slice 44",
+      "ok": true,
+      "detail": "{\"br\":{\"top\":381,\"bottom\":844,\"h\":463,\"padB\":\"20px\"},\"main\":{\"top\":0,\"bottom\":760,\"h\":760},\"sameContents\":true,\"texts\":[\"BUTTON:×\",\"H2:Dela\",\"P:Skicka länken till en annan tränare. Den som öppnar den ser \",\"BUTTON:Kopiera länk\",\"P:Hela passet på papper: tidslinjen, varje station med skiss, \",\"BUTTON:Skriv ut passet\"]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC20-basic",
+      "name": "× (≥ 44×44) and backdrop tap close; «Länken är kopierad.» resets after ~3 s; «Skriv ut passet» prints",
+      "ok": true,
+      "detail": "{\"x\":[44,44,389],\"xClose\":true,\"bdClose\":true,\"copied\":true,\"flip\":3101,\"prints\":1,\"link\":\"http://127.0.0.1:57841/traningsplaneringen/#dela=z.lZNBjptAE\"}"
+    },
+    {
+      "part": "p2",
+      "id": "AC20-grow",
+      "name": "clipboard blocked + print stalled: manual line + link field + stalled line; sheet grows, ≤ 92 % of the screen (776), scrolls inside, × reachable; close leaves no print class",
+      "ok": true,
+      "detail": "{\"h\":641,\"top\":203,\"bottom\":844,\"sh\":641,\"ch\":641,\"ov\":\"auto\",\"xHit\":true,\"xAfterScroll\":true,\"manual\":true,\"closed\":true}"
+    },
+    {
+      "part": "p2",
+      "id": "AC21",
+      "name": "landscape 844×390: sheet inside the screen, scrolls inside, × reachable; desktop 1280×800: centred dialog, same box as main; Golvklart and Delat pass print buttons unchanged",
+      "ok": true,
+      "detail": "{\"land\":{\"top\":20,\"bottom\":371,\"sh\":424,\"ch\":351,\"ov\":\"auto\",\"xHit\":true,\"xAfterScroll\":false},\"desk\":[400,188,480,424],\"mainDesk\":[400,188,480,424],\"btn\":{\"golvklart\":[[\"Avsluta golvklart\",155,44],[\"Förrådslista\",124,44],[\"Skriv ut passet\",143,44]],\"delat\":[[\"Kör passet\",116,44],[\"Spara och kör\",136,44],[\"Spara på den här enheten\",211,44],[\"Skriv ut passet\",143,44],[\"Till planeringen\",123,44]]},\"mainBtn\":{\"golvklart\":[[\"Avsluta golvklart\",155,44],[\"Förrådslista\",124,44],[\"Skriv ut passet\",143,44]],\"delat\":[[\"Kör passet\",116,44],[\"Spara och kör\",136,44],[\"Spara på den här enheten\",211,44],[\"Skriv ut passet\",143,44],[\"Till planeringen\",123,44]]}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC16",
+      "name": "Skriv ut passet and Golvklart print the Gymmix halls with their drawing ratios (Stora = Blå 1.3562, Grophallen = Vit 0.9582 at 1280; same as main)",
+      "ok": true,
+      "detail": "{\"br-bla\":{\"pass\":{\"w\":1280,\"h\":944,\"ratio\":1.3562,\"cls\":\"hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor\"},\"pages\":3,\"golvklart\":{\"w\":196,\"h\":144,\"ratio\":1.3563,\"visible\":true},\"gtxt\":\"Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått \"},\"br-vit\":{\"pass\":{\"w\":1280,\"h\":1336,\"ratio\":0.9582,\"cls\":\"hall-canvas hall-canvas--plan hall-canvas--forening-vit is-floor\"},\"pages\":3,\"golvklart\":{\"w\":196,\"h\":204,\"ratio\":0.9582,\"visible\":true},\"gtxt\":\"Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått \"},\"main-bla\":{\"pass\":{\"w\":1280,\"h\":944,\"ratio\":1.3562,\"cls\":\"hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor\"},\"pages\":3,\"golvklart\":{\"w\":196,\"h\":144,\"ratio\":1.3563,\"visible\":true},\"gtxt\":\"Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall"
+    },
+    {
+      "part": "p2",
+      "id": "AC15",
+      "name": "landscape 844×390 and desktop 1280×800: Hallöversikt (no select, markers, no h-scroll, canvas not lower than main) and Rensa passet dialog usable — same box and buttons as main (compact is phone-only)",
+      "ok": true,
+      "detail": "{\"land\":[{\"top\":257,\"w\":557,\"h\":411},{\"top\":98,\"bottom\":292,\"h\":194,\"w\":480,\"left\":182,\"btns\":[[\"Avbryt\",89,40],[\"Rensa\",88,40]]},\"main\",{\"top\":313,\"w\":557,\"h\":348},{\"top\":98,\"bottom\":292,\"h\":194,\"w\":480,\"left\":182,\"btns\":[[\"Avbryt\",89,40],[\"Rensa\",88,40]]}],\"desk\":[{\"top\":303,\"bottom\":497,\"h\":194,\"w\":480,\"left\":400,\"btns\":[[\"Avbryt\",89,40],[\"Rensa\",88,40]]},{\"top\":303,\"bottom\":497,\"h\":194,\"w\":480,\"left\":400,\"btns\":[[\"Avbryt\",89,40],[\"Rensa\",88,40]]}]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC11-club-standin",
+      "name": "föreningens mall published (local stand-in) with hallTemplateId standard-trupp: Använd mall → Stora hallen pass, markers on the grid in pass order; DB row untouched (no SQL/Supabase change); 0 live requests",
+      "ok": true,
+      "detail": "{\"seen\":1,\"hall\":\"forening-bla\",\"meta\":\"S45V klubbmall standard\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[{\"rank\":1,\"title\":\"Ljushopp på satsbräda\",\"inOpen\":true},{\"rank\":2,\"title\":\"Handstående falla till rygg\",\"inOpen\":true},{\"rank\":3,\"title\":\"Falla bakåt från höjd till rygg\",\"inOpen\":true}],\"bank\":[\"GET /rest/v1/exercises\",\"GET /rest/v1/redskap\",\"GET /rest/v1/club_templates\"],\"live\":[],\"dbStill\":\"standard-trupp\"}"
+    },
+    {
+      "part": "p2",
+      "id": "FU-toast",
+      "name": "Använd mall → Mer → Dela at once: Ångra toast gone, «Skriv ut passet» not covered and prints; no Ångra after ×; storage afterwards identical to the 5 s timeout path (nothing lost, nothing extra)",
+      "ok": true,
+      "detail": "{\"D\":{\"toast0\":2,\"confirmed\":1,\"toastWithSheet\":0,\"printHit\":true,\"prints\":1,\"toastAfter\":0,\"ctrlZ\":null,\"title\":\"Nybörjare — ca 55 min\",\"hall\":\"forening-bla\",\"templates\":[\"S45V eget pass A\"],\"keys\":[\"gymnastics-planner-draft-v1\",\"gymnastics-planner-templates-v1\",\"gymnastics-planner-tips-v1\"],\"beforeTitle\":\"S45V eget pass A\"},\"T\":{\"toast0\":2,\"confirmed\":1,\"toastAfter\":0,\"ctrlZ\":null,\"title\":\"Nybörjare — ca 55 min\",\"hall\":\"forening-bla\",\"templates\":[\"S45V eget pass A\"],\"keys\":[\"gymnastics-planner-draft-v1\",\"gymnastics-planner-templates-v1\",\"gymnastics-planner-tips-v1\"],\"beforeTitle\":\"S45V eget pass A\"},\"sameDraft\":true,\"sameMall\":true}"
+    },
+    {
+      "part": "p2",
+      "id": "AC14-short",
+      "name": "compact bottom sheet for «Ersätta utkastet här?», Ny vecka confirm, mall confirm (TemplateConfirm): content height, bottom 844, buttons side by side ≥ 44, text unchanged vs main",
+      "ok": true,
+      "detail": "{\"replace\":{\"compact\":true,\"top\":653,\"bottom\":844,\"h\":191,\"mainH\":776,\"sameText\":true},\"newweek\":{\"compact\":true,\"top\":630,\"bottom\":844,\"h\":214,\"mainH\":776,\"sameText\":true},\"template\":{\"compact\":true,\"top\":630,\"bottom\":844,\"h\":214,\"mainH\":776,\"sameText\":true}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC14-tall",
+      "name": "tall sheets unchanged: Förrådslista, övningsdetalj, wizard (same size as main, not compact)",
+      "ok": true,
+      "detail": "{\"forrad\":{\"compact\":false,\"top\":101,\"bottom\":844,\"h\":743,\"mainH\":743,\"sameText\":true},\"detail\":null,\"wizard\":[{\"top\":369,\"bottom\":844,\"h\":475,\"w\":390,\"left\":0},{\"top\":369,\"bottom\":844,\"h\":475,\"w\":390,\"left\":0}]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC14-admin",
+      "name": "AdminHideConfirm carries the compact classes (source only; the admin Dölj flow is PENDING-real)",
+      "ok": true,
+      "detail": "18:      className=\"modal-backdrop modal-backdrop--compact replace-draft-backdrop admin-hide-backdrop\" ¶ 26:      <div className=\"modal modal--compact admin-hide-confirm\"> ¶ "
     }
   ],
   "notes": {
@@ -1465,6 +1549,888 @@
             0.28
           ]
         ]
+      }
+    },
+    "AC13": {
+      "br": {
+        "top": 653,
+        "bottom": 844,
+        "h": 191,
+        "w": 390,
+        "left": 0,
+        "compact": true,
+        "bdCompact": true,
+        "text": "Rensa passet?\n\nPasset försvinner från den här enheten. Sedan kan du planera ett nytt från början.\n\nAvbryt\nRensa",
+        "btns": [
+          {
+            "t": "Avbryt",
+            "x": 229,
+            "y": 780,
+            "w": 69,
+            "h": 44
+          },
+          {
+            "t": "Rensa",
+            "x": 306,
+            "y": 780,
+            "w": 68,
+            "h": 44
+          }
+        ],
+        "sh": 191,
+        "ch": 191,
+        "ov": "auto"
+      },
+      "avbryt": true,
+      "backdrop": true,
+      "cleared": true,
+      "main": {
+        "top": 0,
+        "bottom": 776,
+        "h": 776,
+        "w": 390,
+        "left": 0,
+        "compact": false,
+        "bdCompact": false,
+        "text": "Rensa passet?\n\nPasset försvinner från den här enheten. Sedan kan du planera ett nytt från början.\n\nAvbryt\nRensa",
+        "btns": [
+          {
+            "t": "Avbryt",
+            "x": 229,
+            "y": 126,
+            "w": 69,
+            "h": 44
+          },
+          {
+            "t": "Rensa",
+            "x": 306,
+            "y": 126,
+            "w": 68,
+            "h": 44
+          }
+        ],
+        "sh": 776,
+        "ch": 776,
+        "ov": "auto"
+      }
+    },
+    "AC15": {
+      "br-land": {
+        "sw": 844,
+        "cw": 844,
+        "select": false,
+        "canvas": {
+          "top": 257,
+          "w": 557,
+          "h": 411
+        },
+        "chips": 3,
+        "dlg": {
+          "top": 98,
+          "bottom": 292,
+          "h": 194,
+          "w": 480,
+          "left": 182,
+          "btns": [
+            [
+              "Avbryt",
+              89,
+              40
+            ],
+            [
+              "Rensa",
+              88,
+              40
+            ]
+          ]
+        }
+      },
+      "br-desk": {
+        "sw": 1280,
+        "cw": 1280,
+        "select": false,
+        "canvas": {
+          "top": 257,
+          "w": 806,
+          "h": 595
+        },
+        "chips": 3,
+        "dlg": {
+          "top": 303,
+          "bottom": 497,
+          "h": 194,
+          "w": 480,
+          "left": 400,
+          "btns": [
+            [
+              "Avbryt",
+              89,
+              40
+            ],
+            [
+              "Rensa",
+              88,
+              40
+            ]
+          ]
+        }
+      },
+      "main-land": {
+        "sw": 844,
+        "cw": 844,
+        "select": true,
+        "canvas": {
+          "top": 313,
+          "w": 557,
+          "h": 348
+        },
+        "chips": 3,
+        "dlg": {
+          "top": 98,
+          "bottom": 292,
+          "h": 194,
+          "w": 480,
+          "left": 182,
+          "btns": [
+            [
+              "Avbryt",
+              89,
+              40
+            ],
+            [
+              "Rensa",
+              88,
+              40
+            ]
+          ]
+        }
+      },
+      "main-desk": {
+        "sw": 1280,
+        "cw": 1280,
+        "select": true,
+        "canvas": {
+          "top": 313,
+          "w": 806,
+          "h": 504
+        },
+        "chips": 3,
+        "dlg": {
+          "top": 303,
+          "bottom": 497,
+          "h": 194,
+          "w": 480,
+          "left": 400,
+          "btns": [
+            [
+              "Avbryt",
+              89,
+              40
+            ],
+            [
+              "Rensa",
+              88,
+              40
+            ]
+          ]
+        }
+      }
+    },
+    "AC19-AC21": {
+      "br": {
+        "top": 381,
+        "bottom": 844,
+        "h": 463,
+        "w": 390,
+        "left": 0,
+        "sh": 463,
+        "ch": 463,
+        "ov": "auto",
+        "padB": "20px",
+        "x": [
+          44,
+          44,
+          389
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 844,
+        "passVisible": true
+      },
+      "xClose": true,
+      "bdClose": true,
+      "copied": true,
+      "flip": 3101,
+      "link": "http://127.0.0.1:57841/traningsplaneringen/#dela=z.lZNBjptAE",
+      "prints": 1,
+      "printHost": 3,
+      "main": {
+        "top": 0,
+        "bottom": 760,
+        "h": 760,
+        "w": 390,
+        "left": 0,
+        "sh": 760,
+        "ch": 760,
+        "ov": "auto",
+        "padB": "20px",
+        "x": [
+          44,
+          44,
+          8
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 844
+      },
+      "grow": {
+        "top": 203,
+        "bottom": 844,
+        "h": 641,
+        "w": 390,
+        "left": 0,
+        "sh": 641,
+        "ch": 641,
+        "ov": "auto",
+        "padB": "20px",
+        "x": [
+          44,
+          44,
+          211
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Det gick inte att kopiera. Håll fingret på länken nedan och ",
+          "INPUT:http://127.0.0.1:57841/traningsplaneringen/#dela=z.lZNRjtowF",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet",
+          "P:Utskriften kom inte igång. Från hemskärmen kan iPhone ibland"
+        ],
+        "vh": 844,
+        "manual": true,
+        "stall": "×\nDela\nKopiera länk\n\nSkicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.\n\nKopiera länk\n\nDet gick inte att kopiera. Håll fingret på länken nedan och välj Kopiera.\n\nSkriv ut passet\n\nHela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF.\n\nSkriv ut passet\n\nUtskriften kom inte igång. Från hemskärmen kan iPhone ibland inte skriva ut. Kopiera länken, öppna den i Safari och skriv ut passet därifrån.",
+        "xAfterScroll": true,
+        "closed": true
+      },
+      "br-land": {
+        "top": 20,
+        "bottom": 371,
+        "h": 351,
+        "w": 480,
+        "left": 182,
+        "sh": 424,
+        "ch": 351,
+        "ov": "auto",
+        "padB": "24px",
+        "x": [
+          25,
+          37,
+          30
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 390,
+        "xAfterScroll": false
+      },
+      "main-land": {
+        "top": 20,
+        "bottom": 371,
+        "h": 351,
+        "w": 480,
+        "left": 182,
+        "sh": 424,
+        "ch": 351,
+        "ov": "auto",
+        "padB": "24px",
+        "x": [
+          25,
+          37,
+          30
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 390,
+        "xAfterScroll": false
+      },
+      "br-desk": {
+        "top": 188,
+        "bottom": 612,
+        "h": 424,
+        "w": 480,
+        "left": 400,
+        "sh": 424,
+        "ch": 424,
+        "ov": "auto",
+        "padB": "24px",
+        "x": [
+          25,
+          37,
+          198
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 800,
+        "xAfterScroll": true
+      },
+      "main-desk": {
+        "top": 188,
+        "bottom": 612,
+        "h": 424,
+        "w": 480,
+        "left": 400,
+        "sh": 424,
+        "ch": 424,
+        "ov": "auto",
+        "padB": "24px",
+        "x": [
+          25,
+          37,
+          198
+        ],
+        "xHit": true,
+        "texts": [
+          "BUTTON:×",
+          "H2:Dela",
+          "P:Skicka länken till en annan tränare. Den som öppnar den ser ",
+          "BUTTON:Kopiera länk",
+          "P:Hela passet på papper: tidslinjen, varje station med skiss, ",
+          "BUTTON:Skriv ut passet"
+        ],
+        "vh": 800,
+        "xAfterScroll": true
+      },
+      "br-buttons": {
+        "golvklart": [
+          [
+            "Avsluta golvklart",
+            155,
+            44
+          ],
+          [
+            "Förrådslista",
+            124,
+            44
+          ],
+          [
+            "Skriv ut passet",
+            143,
+            44
+          ]
+        ],
+        "delat": [
+          [
+            "Kör passet",
+            116,
+            44
+          ],
+          [
+            "Spara och kör",
+            136,
+            44
+          ],
+          [
+            "Spara på den här enheten",
+            211,
+            44
+          ],
+          [
+            "Skriv ut passet",
+            143,
+            44
+          ],
+          [
+            "Till planeringen",
+            123,
+            44
+          ]
+        ]
+      },
+      "main-buttons": {
+        "golvklart": [
+          [
+            "Avsluta golvklart",
+            155,
+            44
+          ],
+          [
+            "Förrådslista",
+            124,
+            44
+          ],
+          [
+            "Skriv ut passet",
+            143,
+            44
+          ]
+        ],
+        "delat": [
+          [
+            "Kör passet",
+            116,
+            44
+          ],
+          [
+            "Spara och kör",
+            136,
+            44
+          ],
+          [
+            "Spara på den här enheten",
+            211,
+            44
+          ],
+          [
+            "Skriv ut passet",
+            143,
+            44
+          ],
+          [
+            "Till planeringen",
+            123,
+            44
+          ]
+        ]
+      }
+    },
+    "FU-toast": {
+      "dela": {
+        "toast0": 2,
+        "confirmed": 1,
+        "toastWithSheet": 0,
+        "printHit": true,
+        "prints": 1,
+        "toastAfter": 0,
+        "ctrlZ": null,
+        "title": "Nybörjare — ca 55 min",
+        "hall": "forening-bla",
+        "draftContent": "{\"basedOnTemplateId\":\"tmpl-beginner-60\",\"blocks\":[{\"id\":\"_\",\"title\":\"Samling\"},{\"id\":\"_\",\"title\":\"Uppvärmning\"},{\"id\":\"_\",\"title\":\"Teknik\"},{\"id\":\"_\",\"title\":\"Styrka\"},{\"id\":\"_\",\"title\":\"Lek och spel\"}],\"id\":\"_\",\"notes\":\"\",\"title\":\"Nybörjare — ca 55 min\",\"totalMinutes\":53}[{\"id\":\"_\",\"type\":\"gathering\",\"title\":\"Samling\",\"durationMinutes\":6,\"items\":[{\"id\":\"_\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"warmup\",\"title\":\"Uppvärmning\",\"durationMinutes\":10,\"items\":[{\"id\":\"_\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"techniques\",\"title\":\"Teknik\",\"durationMinutes\":20,\"items\":[{\"id\":\"_\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1},{\"id\":\"_\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"strength\",\"title\":\"Styrka\",\"durationMinutes\":15,\"items\":[{\"id\":\"_\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"fun_and_games\",\"title\":\"Lek och spel\",\"durationMinutes\":10,\"items\":[{\"id\":\"_\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"}]",
+        "beforeContent": "{\"basedOnTemplateId\":\"tmpl-beginner-60\",\"blocks\":[{\"id\":\"block-gathering-dodc061d-mvcivwnx\",\"title\":\"Samling\"},{\"id\":\"block-warmup-pcqzabob-mvcivwnx\",\"title\":\"Uppvärmning\"},{\"id\":\"block-techniques-03jmzhaa-mvcivwnx\",\"title\":\"Teknik\"},{\"id\":\"block-strength-6bi8f1o7-mvcivwnx\",\"title\":\"Styrka\"},{\"id\":\"block-fun_and_games-2432d2tu-mvcivwnx\",\"title\":\"Lek och spel\"}],\"id\":\"session-1oyxmbb6-mvcivwnx\",\"notes\":\"\",\"title\":\"S45V eget pass A\",\"totalMinutes\":53}[{\"id\":\"block-gathering-dodc061d-mvcivwnx\",\"type\":\"gathering\",\"title\":\"Samling\",\"durationMinutes\":6,\"items\":[{\"id\":\"item-jlo0zyc9-mvcivwnx\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"item-qil8kwjw-mvcivwnx\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"block-warmup-pcqzabob-mvcivwnx\",\"type\":\"warmup\",\"title\":\"Uppvärmning\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-3vdo22e3-mvcivwnx\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"},{\"id\":\"block-techniques-03jmzhaa-mvcivwnx\",\"type\":\"techniques\",\"title\":\"Teknik\",\"durationMinutes\":20,\"items\":[{\"id\":\"item-ac9w3bii-mvcivwnx\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0,\"stationEquipment\":[{\"pieceId\":\"eq-satsbrada\",\"count\":1},{\"pieceId\":\"eq-landningsmatta\",\"count\":1}]},{\"id\":\"item-7h324l2g-mvcivwnx\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1,\"stationEquipment\":[{\"pieceId\":\"eq-madrass\",\"count\":1}]},{\"id\":\"item-dhozf7t8-mvcivwnx\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2,\"stationEquipment\":[{\"pieceId\":\"eq-plint\",\"count\":1},{\"pieceId\":\"eq-madrass\",\"count\":1}]}],\"coachNote\":\"\"},{\"id\":\"block-strength-6bi8f1o7-mvcivwnx\",\"type\":\"strength\",\"title\":\"Styrka\",\"durationMinutes\":15,\"items\":[{\"id\":\"item-312a9gm9-mvcivwnx\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"item-bjos2dkb-mvcivwnx\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"block-fun_and_games-2432d2tu-mvcivwnx\",\"type\":\"fun_and_games\",\"title\":\"Lek och spel\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-ee0p7hrp-mvcivwnx\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"}]",
+        "templates": [
+          {
+            "title": "S45V eget pass A",
+            "min": 53,
+            "pass": "{\"v\":1,\"title\":\"S45V eget pass A\",\"notes\":\"\",\"hallTemplateId\":\"forening-bla\",\"hallPlacements\":[{\"sessionItemId\":\"item-ac9w3bii-mvcivwnx\",\"x\":0.83,\"y\":0.56,\"zoneId\":\"open\"},{\"sessionItemId\":\"item-7h324l2g-mvcivwnx\",\"x\":0.9,\"y\":0.76},{\"sessionItemId\":\"item-dhozf7t8-mvcivwnx\",\"x\":0.2056,\"y\":0.3184,\"zoneId\":\"open\"}],\"blocks\":[{\"type\":\"gathering\",\"durationMinutes\":6,\"items\":[{\"id\":\"item-jlo0zyc9-mvcivwnx\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"item-qil8kwjw-mvcivwnx\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}]},{\"type\":\"warmup\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-3vdo22e3-mvcivwnx\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}]},{\"type\":\"techniques\",\"durationMinutes\":20,\"items\":[{\"id\":\"item-ac9w3bii-mvcivwnx\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0,\"stationEquipment\":[{\"pieceId\":\"eq-satsbrada\",\"count\":1},{\"pieceId\":\"eq-landningsmatta\",\"count\":1}]},{\"id\":\"item-7h324l2g-mvcivwnx\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1,\"stationEquipment\":[{\"pieceId\":\"eq-madrass\",\"count\":1}]},{\"id\":\"item-dhozf7t8-mvcivwnx\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2,\"stationEquipment\":[{\"pieceId\":\"eq-plint\",\"count\":1},{\"pieceId\":\"eq-madrass\",\"count\":1}]}]},{\"type\":\"strength\",\"durationMinutes\":15,\"items\":[{\"id\":\"item-312a9gm9-mvcivwnx\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"item-bjos2dkb-mvcivwnx\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}]},{\"type\":\"fun_and_games\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-ee0p7hrp-mvcivwnx\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}]}]}"
+          }
+        ],
+        "keys": [
+          "gymnastics-planner-draft-v1",
+          "gymnastics-planner-templates-v1",
+          "gymnastics-planner-tips-v1"
+        ],
+        "beforeTitle": "S45V eget pass A"
+      },
+      "timeout": {
+        "toast0": 2,
+        "confirmed": 1,
+        "toastAfter": 0,
+        "ctrlZ": null,
+        "title": "Nybörjare — ca 55 min",
+        "hall": "forening-bla",
+        "draftContent": "{\"basedOnTemplateId\":\"tmpl-beginner-60\",\"blocks\":[{\"id\":\"_\",\"title\":\"Samling\"},{\"id\":\"_\",\"title\":\"Uppvärmning\"},{\"id\":\"_\",\"title\":\"Teknik\"},{\"id\":\"_\",\"title\":\"Styrka\"},{\"id\":\"_\",\"title\":\"Lek och spel\"}],\"id\":\"_\",\"notes\":\"\",\"title\":\"Nybörjare — ca 55 min\",\"totalMinutes\":53}[{\"id\":\"_\",\"type\":\"gathering\",\"title\":\"Samling\",\"durationMinutes\":6,\"items\":[{\"id\":\"_\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"warmup\",\"title\":\"Uppvärmning\",\"durationMinutes\":10,\"items\":[{\"id\":\"_\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"techniques\",\"title\":\"Teknik\",\"durationMinutes\":20,\"items\":[{\"id\":\"_\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1},{\"id\":\"_\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"strength\",\"title\":\"Styrka\",\"durationMinutes\":15,\"items\":[{\"id\":\"_\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"_\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"_\",\"type\":\"fun_and_games\",\"title\":\"Lek och spel\",\"durationMinutes\":10,\"items\":[{\"id\":\"_\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"}]",
+        "beforeContent": "{\"basedOnTemplateId\":\"tmpl-beginner-60\",\"blocks\":[{\"id\":\"block-gathering-dodc061d-mvcivwnx\",\"title\":\"Samling\"},{\"id\":\"block-warmup-pcqzabob-mvcivwnx\",\"title\":\"Uppvärmning\"},{\"id\":\"block-techniques-03jmzhaa-mvcivwnx\",\"title\":\"Teknik\"},{\"id\":\"block-strength-6bi8f1o7-mvcivwnx\",\"title\":\"Styrka\"},{\"id\":\"block-fun_and_games-2432d2tu-mvcivwnx\",\"title\":\"Lek och spel\"}],\"id\":\"session-1oyxmbb6-mvcivwnx\",\"notes\":\"\",\"title\":\"S45V eget pass A\",\"totalMinutes\":53}[{\"id\":\"block-gathering-dodc061d-mvcivwnx\",\"type\":\"gathering\",\"title\":\"Samling\",\"durationMinutes\":6,\"items\":[{\"id\":\"item-jlo0zyc9-mvcivwnx\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"item-qil8kwjw-mvcivwnx\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"block-warmup-pcqzabob-mvcivwnx\",\"type\":\"warmup\",\"title\":\"Uppvärmning\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-3vdo22e3-mvcivwnx\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"},{\"id\":\"block-techniques-03jmzhaa-mvcivwnx\",\"type\":\"techniques\",\"title\":\"Teknik\",\"durationMinutes\":20,\"items\":[{\"id\":\"item-ac9w3bii-mvcivwnx\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0,\"stationEquipment\":[{\"pieceId\":\"eq-satsbrada\",\"count\":1},{\"pieceId\":\"eq-landningsmatta\",\"count\":1}]},{\"id\":\"item-7h324l2g-mvcivwnx\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1,\"stationEquipment\":[{\"pieceId\":\"eq-madrass\",\"count\":1}]},{\"id\":\"item-dhozf7t8-mvcivwnx\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2,\"stationEquipment\":[{\"pieceId\":\"eq-plint\",\"count\":1},{\"pieceId\":\"eq-madrass\",\"count\":1}]}],\"coachNote\":\"\"},{\"id\":\"block-strength-6bi8f1o7-mvcivwnx\",\"type\":\"strength\",\"title\":\"Styrka\",\"durationMinutes\":15,\"items\":[{\"id\":\"item-312a9gm9-mvcivwnx\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"item-bjos2dkb-mvcivwnx\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}],\"coachNote\":\"\"},{\"id\":\"block-fun_and_games-2432d2tu-mvcivwnx\",\"type\":\"fun_and_games\",\"title\":\"Lek och spel\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-ee0p7hrp-mvcivwnx\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}],\"coachNote\":\"\"}]",
+        "templates": [
+          {
+            "title": "S45V eget pass A",
+            "min": 53,
+            "pass": "{\"v\":1,\"title\":\"S45V eget pass A\",\"notes\":\"\",\"hallTemplateId\":\"forening-bla\",\"hallPlacements\":[{\"sessionItemId\":\"item-ac9w3bii-mvcivwnx\",\"x\":0.83,\"y\":0.56,\"zoneId\":\"open\"},{\"sessionItemId\":\"item-7h324l2g-mvcivwnx\",\"x\":0.9,\"y\":0.76},{\"sessionItemId\":\"item-dhozf7t8-mvcivwnx\",\"x\":0.2056,\"y\":0.3184,\"zoneId\":\"open\"}],\"blocks\":[{\"type\":\"gathering\",\"durationMinutes\":6,\"items\":[{\"id\":\"item-jlo0zyc9-mvcivwnx\",\"activityId\":\"gather-narvaro\",\"durationMinutes\":3,\"note\":\"\",\"order\":0},{\"id\":\"item-qil8kwjw-mvcivwnx\",\"activityId\":\"gather-dagens-teknik\",\"durationMinutes\":3,\"note\":\"\",\"order\":1}]},{\"type\":\"warmup\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-3vdo22e3-mvcivwnx\",\"activityId\":\"warm-hall-varv\",\"durationMinutes\":10,\"note\":\"\",\"order\":0}]},{\"type\":\"techniques\",\"durationMinutes\":20,\"items\":[{\"id\":\"item-ac9w3bii-mvcivwnx\",\"activityId\":\"tech-ljushopp-satsbrada\",\"durationMinutes\":6,\"note\":\"\",\"order\":0,\"stationEquipment\":[{\"pieceId\":\"eq-satsbrada\",\"count\":1},{\"pieceId\":\"eq-landningsmatta\",\"count\":1}]},{\"id\":\"item-7h324l2g-mvcivwnx\",\"activityId\":\"tech-handstaende-falla-rygg\",\"durationMinutes\":6,\"note\":\"\",\"order\":1,\"stationEquipment\":[{\"pieceId\":\"eq-madrass\",\"count\":1}]},{\"id\":\"item-dhozf7t8-mvcivwnx\",\"activityId\":\"tech-falla-bakat-hojd\",\"durationMinutes\":6,\"note\":\"\",\"order\":2,\"stationEquipment\":[{\"pieceId\":\"eq-plint\",\"count\":1},{\"pieceId\":\"eq-madrass\",\"count\":1}]}]},{\"type\":\"strength\",\"durationMinutes\":15,\"items\":[{\"id\":\"item-312a9gm9-mvcivwnx\",\"activityId\":\"strength-styrkelatar\",\"durationMinutes\":5,\"note\":\"\",\"order\":0},{\"id\":\"item-bjos2dkb-mvcivwnx\",\"activityId\":\"strength-burpee-emom\",\"durationMinutes\":8,\"note\":\"\",\"order\":1}]},{\"type\":\"fun_and_games\",\"durationMinutes\":10,\"items\":[{\"id\":\"item-ee0p7hrp-mvcivwnx\",\"activityId\":\"fun-rundpingis-medicinboll\",\"durationMinutes\":6,\"note\":\"\",\"order\":0}]}]}"
+          }
+        ],
+        "keys": [
+          "gymnastics-planner-draft-v1",
+          "gymnastics-planner-templates-v1",
+          "gymnastics-planner-tips-v1"
+        ],
+        "beforeTitle": "S45V eget pass A"
+      }
+    },
+    "AC16": {
+      "br-bla": {
+        "pass": {
+          "w": 1280,
+          "h": 944,
+          "ratio": 1.3562,
+          "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor"
+        },
+        "pages": 3,
+        "golvklart": {
+          "w": 196,
+          "h": 144,
+          "ratio": 1.3563,
+          "visible": true
+        },
+        "gtxt": "Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått "
+      },
+      "br-vit": {
+        "pass": {
+          "w": 1280,
+          "h": 1336,
+          "ratio": 0.9582,
+          "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-vit is-floor"
+        },
+        "pages": 3,
+        "golvklart": {
+          "w": 196,
+          "h": 204,
+          "ratio": 0.9582,
+          "visible": true
+        },
+        "gtxt": "Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått "
+      },
+      "main-bla": {
+        "pass": {
+          "w": 1280,
+          "h": 944,
+          "ratio": 1.3562,
+          "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor"
+        },
+        "pages": 3,
+        "golvklart": {
+          "w": 196,
+          "h": 144,
+          "ratio": 1.3563,
+          "visible": true
+        },
+        "gtxt": "Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått "
+      },
+      "main-vit": {
+        "pass": {
+          "w": 1280,
+          "h": 1336,
+          "ratio": 0.9582,
+          "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-vit is-floor"
+        },
+        "pages": 3,
+        "golvklart": {
+          "w": 196,
+          "h": 204,
+          "ratio": 0.9582,
+          "visible": true
+        },
+        "gtxt": "Pass — trampett · 53 min 1 2 3 Ljushopp Handståen… p… Falla bakåt… Schematisk hall — inte exakt mått "
+      }
+    },
+    "AC11-club": {
+      "seen": 1,
+      "hall": "forening-bla",
+      "meta": "S45V klubbmall standard\n3 stationer\nGymmix – Stora hallen",
+      "markers": [
+        {
+          "rank": 1,
+          "title": "Ljushopp på satsbräda",
+          "inOpen": true
+        },
+        {
+          "rank": 2,
+          "title": "Handstående falla till rygg",
+          "inOpen": true
+        },
+        {
+          "rank": 3,
+          "title": "Falla bakåt från höjd till rygg",
+          "inOpen": true
+        }
+      ],
+      "bank": [
+        "GET /rest/v1/exercises",
+        "GET /rest/v1/redskap",
+        "GET /rest/v1/club_templates"
+      ],
+      "live": [],
+      "dbStill": "standard-trupp"
+    },
+    "AC14": {
+      "br": {
+        "replace": {
+          "top": 653,
+          "bottom": 844,
+          "h": 191,
+          "w": 390,
+          "left": 0,
+          "compact": true,
+          "bdCompact": true,
+          "text": "Ersätta utkastet här?\n\nPasset sparas i den här webbläsaren och ersätter utkastet som redan finns här.\n\nFortsätt redigera\nErsätt utkast",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 122,
+              "y": 780,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Ersätt utkast",
+              "x": 265,
+              "y": 780,
+              "w": 109,
+              "h": 44
+            }
+          ],
+          "sh": 191,
+          "ch": 191,
+          "ov": "auto"
+        },
+        "newweek": {
+          "top": 630,
+          "bottom": 844,
+          "h": 214,
+          "w": 390,
+          "left": 0,
+          "compact": true,
+          "bdCompact": true,
+          "text": "Ny vecka från det här passet?\n\nFörra passet sparas som mall om det inte redan finns. Du jobbar i en kopia och kan byta stationer. Utkastet här ersätts av kopian.\n\nFortsätt redigera\nSkapa kopia",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 125,
+              "y": 780,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Skapa kopia",
+              "x": 268,
+              "y": 780,
+              "w": 106,
+              "h": 44
+            }
+          ],
+          "sh": 214,
+          "ch": 214,
+          "ov": "auto"
+        },
+        "template": {
+          "top": 630,
+          "bottom": 844,
+          "h": 214,
+          "w": 390,
+          "left": 0,
+          "compact": true,
+          "bdCompact": true,
+          "text": "Ersätta det här passet?\n\nOm du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min)\n\nFortsätt redigera\nAnvänd mall",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 124,
+              "y": 780,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Använd mall",
+              "x": 267,
+              "y": 780,
+              "w": 107,
+              "h": 44
+            }
+          ],
+          "sh": 214,
+          "ch": 214,
+          "ov": "auto"
+        },
+        "forrad": {
+          "top": 101,
+          "bottom": 844,
+          "h": 743,
+          "w": 390,
+          "left": 0,
+          "compact": false,
+          "bdCompact": false,
+          "text": "Förrådslista\nStäng\n\nInga redskap summerade ännu.\n\nDet finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.\n\nAnvänd alla förslag på hallen\nVad finns i hallen ikväll?\n\nAvmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra.\n\nTrampett\nSatsbräda\nPlint\nLandningsmatta\nTumblingmatta\nMadrass\nMattberg\nFlickiskudde\nAirtrack\nKon\nKilmatta\nSkumblock\nBom\nRäcke\nRockring",
+          "btns": [
+            {
+              "t": "Stäng",
+              "x": 289,
+              "y": 121,
+              "w": 85,
+              "h": 44
+            },
+            {
+              "t": "Använd alla förslag på hallen",
+              "x": 16,
+              "y": 266,
+              "w": 233,
+              "h": 40
+            }
+          ],
+          "sh": 1014,
+          "ch": 743,
+          "ov": "auto"
+        },
+        "detail": null,
+        "wizard": {
+          "top": 369,
+          "bottom": 844,
+          "h": 475,
+          "w": 390,
+          "left": 0
+        },
+        "wizardCompact": 0
+      },
+      "main": {
+        "replace": {
+          "top": 0,
+          "bottom": 776,
+          "h": 776,
+          "w": 390,
+          "left": 0,
+          "compact": false,
+          "bdCompact": false,
+          "text": "Ersätta utkastet här?\n\nPasset sparas i den här webbläsaren och ersätter utkastet som redan finns här.\n\nFortsätt redigera\nErsätt utkast",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 122,
+              "y": 126,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Ersätt utkast",
+              "x": 265,
+              "y": 126,
+              "w": 109,
+              "h": 44
+            }
+          ],
+          "sh": 776,
+          "ch": 776,
+          "ov": "auto"
+        },
+        "newweek": {
+          "top": 0,
+          "bottom": 776,
+          "h": 776,
+          "w": 390,
+          "left": 0,
+          "compact": false,
+          "bdCompact": false,
+          "text": "Ny vecka från det här passet?\n\nFörra passet sparas som mall om det inte redan finns. Du jobbar i en kopia och kan byta stationer. Utkastet här ersätts av kopian.\n\nFortsätt redigera\nSkapa kopia",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 125,
+              "y": 149,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Skapa kopia",
+              "x": 268,
+              "y": 149,
+              "w": 106,
+              "h": 44
+            }
+          ],
+          "sh": 776,
+          "ch": 776,
+          "ov": "auto"
+        },
+        "template": {
+          "top": 0,
+          "bottom": 776,
+          "h": 776,
+          "w": 390,
+          "left": 0,
+          "compact": false,
+          "bdCompact": false,
+          "text": "Ersätta det här passet?\n\nOm du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Nybörjare — ca 55 min)\n\nFortsätt redigera\nAnvänd mall",
+          "btns": [
+            {
+              "t": "Fortsätt redigera",
+              "x": 124,
+              "y": 149,
+              "w": 135,
+              "h": 44
+            },
+            {
+              "t": "Använd mall",
+              "x": 267,
+              "y": 149,
+              "w": 107,
+              "h": 44
+            }
+          ],
+          "sh": 776,
+          "ch": 776,
+          "ov": "auto"
+        },
+        "forrad": {
+          "top": 101,
+          "bottom": 844,
+          "h": 743,
+          "w": 390,
+          "left": 0,
+          "compact": false,
+          "bdCompact": false,
+          "text": "Förrådslista\nStäng\n\nInga redskap summerade ännu.\n\nDet finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.\n\nAnvänd alla förslag på hallen\nVad finns i hallen ikväll?\n\nAvmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra.\n\nTrampett\nSatsbräda\nPlint\nLandningsmatta\nTumblingmatta\nMadrass\nMattberg\nFlickiskudde\nAirtrack\nKon\nKilmatta\nSkumblock\nBom\nRäcke\nRockring",
+          "btns": [
+            {
+              "t": "Stäng",
+              "x": 289,
+              "y": 121,
+              "w": 85,
+              "h": 44
+            },
+            {
+              "t": "Använd alla förslag på hallen",
+              "x": 16,
+              "y": 266,
+              "w": 233,
+              "h": 40
+            }
+          ],
+          "sh": 1014,
+          "ch": 743,
+          "ov": "auto"
+        },
+        "detail": null,
+        "wizard": {
+          "top": 369,
+          "bottom": 844,
+          "h": 475,
+          "w": 390,
+          "left": 0
+        },
+        "wizardCompact": 0
       }
     }
   },

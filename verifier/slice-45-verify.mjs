@@ -12,12 +12,13 @@ const DK = 'gymnastics-planner-draft-v1', TK = 'gymnastics-planner-templates-v1'
 const STORA = 'Gymmix – Stora hallen', GROP = 'Gymmix – Grophallen', LEGACY = ['standard-trupp', 'tavling-linjer', 'liten-hall', 'generic-trupp']
 const PARTS = (process.env.PART ?? 'p1').split(',')
 const prev = existsSync(RES) ? JSON.parse(readFileSync(RES, 'utf8')) : { results: [], notes: {} }
-const results = prev.results.filter((r) => !PARTS.includes(r.part)), notes = prev.notes
+const results = prev.results.filter((r) => !PARTS.includes(r.part) || (process.env.ONLY && !process.env.ONLY.split(',').some((o) => r.id.startsWith(o)))), notes = prev.notes
 let PART = ''
 const check = (id, name, ok, detail = '') => { results.push({ part: PART, id, name, ok: !!ok, detail: String(detail).slice(0, 900) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail !== '' ? ' — ' + String(detail).slice(0, 400) : ''}`) }
 const note = (k, v) => { notes[k] = v }
 const errors = []
-async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0] + ' @' + ((e.stack || '').match(/verify\.mjs:(\d+)/) || [])[1]) } }
+const ONLY = process.env.ONLY ? process.env.ONLY.split(',') : null
+async function attempt(id, fn) { if (ONLY && !ONLY.includes(id)) return; try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0] + ' @' + ((e.stack || '').match(/verify\.mjs:(\d+)/) || [])[1]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const PHONE = { width: 390, height: 844 }
 async function page({ vp = PHONE, touch = true, print = 'webkit', perms = ['clipboard-read', 'clipboard-write'] } = {}) {
@@ -301,6 +302,239 @@ await attempt('AC12', async () => {
     await p.context().close()
   }
   note('AC12', out)
+})
+}
+
+// ───────────────────────────── PART p2: AC13–AC16, AC19–AC21, toast + Dela, AC11 club via stand-in ─────────────────────────────
+const dlg = (p) => p.evaluate(() => {
+  const bs = [...document.querySelectorAll('.modal-backdrop')].filter((b) => b.getBoundingClientRect().height > 0); const b = bs[bs.length - 1]; if (!b) return null
+  const m = b.querySelector('.modal') ?? b.firstElementChild; const r = m.getBoundingClientRect()
+  const btns = [...m.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().height > 0).map((x) => { const q = x.getBoundingClientRect(); return { t: (x.innerText || x.getAttribute('aria-label') || '').trim(), x: Math.round(q.left), y: Math.round(q.top), w: Math.round(q.width), h: Math.round(q.height) } })
+  return { top: Math.round(r.top), bottom: Math.round(r.bottom), h: Math.round(r.height), w: Math.round(r.width), left: Math.round(r.left), compact: m.classList.contains('modal--compact'), bdCompact: b.classList.contains('modal-backdrop--compact'), text: m.innerText.trim(), btns, sh: m.scrollHeight, ch: m.clientHeight, ov: getComputedStyle(m).overflowY }
+})
+const rowOk = (d, a, b) => { const x = d.btns.find((q) => q.t === a), y = d.btns.find((q) => q.t === b); return !!x && !!y && Math.abs(x.y - y.y) < 4 && x.h >= 44 && y.h >= 44 }
+if (PARTS.includes('p2')) {
+PART = 'p2'
+const mainData = JSON.parse(readFileSync(`${CK}/main-data.json`, 'utf8'))
+async function withDraft(p, base, json = mainData['forening-bla']) { await p.goto(base); await p.evaluate(([k, v]) => { localStorage.clear(); localStorage.setItem(k, v) }, [DK, JSON.stringify(json)]); await p.reload(); await p.locator('.home').waitFor(); await p.waitForTimeout(300) }
+
+await attempt('AC13', async () => {
+  const r = {}
+  for (const [tag, base] of [['br', BR], ['main', MAIN]]) {
+    const p = await page(); await withDraft(p, base)
+    await p.getByRole('button', { name: 'Rensa passet', exact: true }).click(); await p.waitForTimeout(500)
+    r[tag] = await dlg(p); if (tag === 'br') await shot(p, '20_rensa_passet_compact'); else await shot(p, '20m_rensa_passet_main')
+    if (tag === 'br') {
+      await p.getByRole('button', { name: 'Avbryt', exact: true }).click(); await p.waitForTimeout(300); r.avbryt = !!(await draft(p)) && !(await dlg(p))
+      await p.getByRole('button', { name: 'Rensa passet', exact: true }).click(); await p.waitForTimeout(400)
+      await p.mouse.click(195, 120); await p.waitForTimeout(400); r.backdrop = !!(await draft(p)) && !(await dlg(p))
+      await p.getByRole('button', { name: 'Rensa passet', exact: true }).click(); await p.waitForTimeout(400)
+      await p.locator('.modal').getByRole('button', { name: 'Rensa', exact: true }).click(); await p.waitForTimeout(600); r.cleared = !(await draft(p))
+    }
+    await p.context().close()
+  }
+  note('AC13', r)
+  check('AC13', 'Rensa passet: bottom sheet as tall as content (≤ 260 px at 390×844, bottom 844), Avbryt + Rensa side by side ≥ 44 px, text unchanged vs main; Rensa clears, Avbryt and backdrop tap keep the pass', r.br.h <= 260 && r.br.bottom >= 843 && rowOk(r.br, 'Avbryt', 'Rensa') && r.br.text === r.main.text && r.avbryt && r.backdrop && r.cleared, JSON.stringify({ br: { top: r.br.top, bottom: r.br.bottom, h: r.br.h, btns: r.br.btns }, main: { top: r.main.top, bottom: r.main.bottom, h: r.main.h }, sameText: r.br.text === r.main.text, avbryt: r.avbryt, backdrop: r.backdrop, cleared: r.cleared }))
+})
+
+await attempt('AC14', async () => {
+  const r = {}; globalThis.__dbg = []
+  for (const [tag, base] of [['br', BR], ['main', MAIN]]) {
+    const o = r[tag] = {}
+    // ReplaceDraftConfirm: Home → Hämta ett pass → paste link with a draft present
+    let p = await page(); await withDraft(p, base)
+    await p.getByRole('button', { name: 'Hämta ett pass' }).click(); await p.locator('.home-receive textarea').fill(mainData.link.replace(MAIN, base)); await p.waitForTimeout(200)
+    await p.locator('.home-receive').getByRole('button', { name: /Öppna|Hämta/ }).last().click(); await p.waitForTimeout(700)
+    o.replace = await dlg(p); if (tag === 'br') await shot(p, '21_replace_draft_compact')
+    await p.context().close()
+    // Ny vecka confirm + TemplateConfirm on an edited pass + Förrådslista (tall) + övningsdetalj (tall)
+    p = await page(); await mall(p, base); await p.getByRole('textbox', { name: 'Passets titel' }).fill('S45V ändrat'); await p.waitForTimeout(900)
+    await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel button').filter({ hasText: /^Ny vecka/ }).first().click(); await p.waitForTimeout(600)
+    o.newweek = await dlg(p); if (tag === 'br') await shot(p, '22_newweek_compact'); await p.keyboard.press('Escape'); await p.waitForTimeout(300); if (await dlg(p)) { await p.locator('.modal-backdrop .modal .btn-secondary').first().click().catch(() => {}); await p.waitForTimeout(300) }
+    await menu(p, 'Använd mall'); await p.waitForTimeout(500); await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(600)
+    o.template = await dlg(p); if (tag === 'br') await shot(p, '23_template_confirm_compact')
+    await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: /Fortsätt redigera|Avbryt/ }).first().click().catch(() => {}); await p.waitForTimeout(400)
+    for (let j = 0; j < 3 && (await p.locator('[role=dialog] .modal-close, .sheet-close').count()); j++) { await p.locator('[role=dialog] .modal-close, .sheet-close').first().click().catch(() => {}); await p.waitForTimeout(300) }
+    await hall(p); await p.getByRole('button', { name: 'Visa förrådslista för passet' }).first().click(); await p.waitForTimeout(500)
+    o.forrad = await dlg(p); await p.keyboard.press('Escape'); await p.waitForTimeout(300); for (let j = 0; j < 2 && (await dlg(p)); j++) { await p.locator('.modal-backdrop .modal-close, .forradslista-header .btn-secondary').last().click().catch(() => {}); await p.waitForTimeout(300) }
+    await back(p)
+    await p.locator('.block-card').filter({ has: p.locator('h3', { hasText: /^Teknik$/ }) }).first().locator('.item-title, .item-name, .session-item-title').first().click().catch(() => {}); await p.waitForTimeout(500)
+    o.detail = await dlg(p)
+    await p.context().close()
+    // wizard sheet
+    p = await page(); await home(p, base); await p.getByRole('button', { name: 'Planera pass' }).click(); await p.locator('.home-wizard-sheet').waitFor(); await p.waitForTimeout(300)
+    o.wizard = await rect(p, '.home-wizard-sheet'); o.wizardCompact = await p.locator('.home-wizard-sheet.modal--compact, .modal--compact .home-wizard-sheet').count()
+    await p.context().close()
+  }
+  note('AC14', r)
+  const cmp = (k) => r.br[k] && { compact: r.br[k].compact, top: r.br[k].top, bottom: r.br[k].bottom, h: r.br[k].h, mainH: r.main[k]?.h, sameText: r.br[k].text === r.main[k]?.text }
+  const short = ['replace', 'newweek', 'template'].map((k) => [k, r.br[k]])
+  check('AC14-short', 'compact bottom sheet for «Ersätta utkastet här?», Ny vecka confirm, mall confirm (TemplateConfirm): content height, bottom 844, buttons side by side ≥ 44, text unchanged vs main', short.every(([, d]) => d && d.compact && d.bottom >= 843 && d.h < 400 && d.btns.filter((b) => b.t !== '×' && b.t !== 'Stäng').every((b) => b.h >= 44)) && short.every(([k, d]) => d.text === r.main[k]?.text), JSON.stringify(Object.fromEntries(short.map(([k]) => [k, cmp(k)]))))
+  check('AC14-tall', 'tall sheets unchanged: Förrådslista, övningsdetalj, wizard (same size as main, not compact)', r.br.forrad && !r.br.forrad.compact && Math.abs(r.br.forrad.h - r.main.forrad.h) <= 2 && (!r.br.detail || (!r.br.detail.compact && Math.abs(r.br.detail.h - (r.main.detail?.h ?? 0)) <= 2)) && Math.abs(r.br.wizard.h - r.main.wizard.h) <= 2 && r.br.wizardCompact === 0, JSON.stringify({ forrad: cmp('forrad'), detail: cmp('detail'), wizard: [r.br.wizard, r.main.wizard] }))
+  const src = execFileSync('bash', ['-c', `grep -n "modal--compact\\|modal-backdrop--compact" ${ROOT}/app/src/components/AdminHideConfirm.tsx | head -3; true`], { encoding: 'utf8' })
+  check('AC14-admin', 'AdminHideConfirm carries the compact classes (source only; the admin Dölj flow is PENDING-real)', /modal--compact/.test(src), src.replace(/\n/g, ' ¶ ').slice(0, 300))
+})
+
+await attempt('AC15', async () => {
+  const r = {}
+  for (const [tag, base] of [['br', BR], ['main', MAIN]]) for (const [vn, vp, touch] of [['land', { width: 844, height: 390 }, true], ['desk', { width: 1280, height: 800 }, false]]) {
+    const p = await page({ vp, touch }); await mall(p, base); await hall(p)
+    const h = await p.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, select: !!document.querySelector('#hall-layout-select'), canvas: (() => { const b = document.querySelector('.hall-board .hall-canvas').getBoundingClientRect(); return { top: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height) } })(), chips: document.querySelectorAll('.hall-board .hall-canvas .hall-chip').length }))
+    if (tag === 'br') await shot(p, `24_hall_${vn}`)
+    await back(p); await p.getByRole('button', { name: 'Till startsidan' }).click().catch(() => {}); await p.locator('.home').waitFor()
+    await p.getByRole('button', { name: 'Rensa passet', exact: true }).click(); await p.waitForTimeout(500); const d = await dlg(p)
+    if (tag === 'br') await shot(p, `25_rensa_${vn}`)
+    r[`${tag}-${vn}`] = { ...h, dlg: d && { top: d.top, bottom: d.bottom, h: d.h, w: d.w, left: d.left, btns: d.btns.map((b) => [b.t, b.w, b.h]) } }
+    await p.context().close()
+  }
+  note('AC15', r)
+  const ok = (vn) => { const b = r[`br-${vn}`], m = r[`main-${vn}`]; return b.sw <= b.cw && !b.select && b.chips === 3 && b.dlg && b.dlg.top >= 0 && b.dlg.bottom <= (vn === 'land' ? 390 : 800) && JSON.stringify(b.dlg.btns) === JSON.stringify(m.dlg.btns) && b.dlg.h <= m.dlg.h + 2 && b.canvas.top <= m.canvas.top }
+  check('AC15', 'landscape 844×390 and desktop 1280×800: Hallöversikt (no select, markers, no h-scroll, canvas not lower than main) and Rensa passet dialog usable — same box and buttons as main (compact is phone-only)', ok('land') && ok('desk') && r['br-desk'].dlg.w === r['main-desk'].dlg.w && Math.abs(r['br-desk'].dlg.h - r['main-desk'].dlg.h) <= 2, JSON.stringify({ land: [r['br-land'].canvas, r['br-land'].dlg, 'main', r['main-land'].canvas, r['main-land'].dlg], desk: [r['br-desk'].dlg, r['main-desk'].dlg] }))
+})
+
+async function dela(p) { await menu(p, 'Dela'); await p.locator('.export-sheet').waitFor(); await p.waitForTimeout(400) }
+const sheetBox = (p) => p.evaluate(() => { const s = document.querySelector('.export-sheet'); if (!s) return null; const r = s.getBoundingClientRect(); const x = s.querySelector('.modal-close').getBoundingClientRect()
+  const hit = (el) => { const q = el.getBoundingClientRect(); return document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2)?.closest('button') === el }
+  return { top: Math.round(r.top), bottom: Math.round(r.bottom), h: Math.round(r.height), w: Math.round(r.width), left: Math.round(r.left), sh: s.scrollHeight, ch: s.clientHeight, ov: getComputedStyle(s).overflowY, padB: getComputedStyle(s).paddingBottom, x: [Math.round(x.width), Math.round(x.height), Math.round(x.top)], xHit: hit(s.querySelector('.modal-close')), texts: [...s.querySelectorAll('h2, p, button, label, textarea, input')].filter((e) => e.getBoundingClientRect().height > 0).map((e) => e.tagName + ':' + (e.innerText || e.value || e.getAttribute('aria-label') || '').trim().slice(0, 60)), vh: innerHeight } })
+await attempt('AC19-AC21', async () => {
+  const r = {}
+  for (const [tag, base] of [['br', BR], ['main', MAIN]]) {
+    const p = await page(); await mall(p, base); await dela(p); r[tag] = await sheetBox(p)
+    if (tag === 'br') { r.br.passVisible = await p.evaluate(() => { const top = document.querySelector('.export-sheet').getBoundingClientRect().top; const t = document.querySelector('[aria-label="Passets titel"]'); const q = t?.getBoundingClientRect(); return !!q && q.bottom > 0 && q.top < top }); await shot(p, '26_dela_compact_390') } else await shot(p, '26m_dela_main_390')
+    if (tag === 'br') {
+      await p.locator('.export-sheet .modal-close').click(); await p.waitForTimeout(300); r.xClose = !(await p.locator('.export-sheet').count())
+      await dela(p); await p.mouse.click(195, 40); await p.waitForTimeout(400); r.bdClose = !(await p.locator('.export-sheet').count())
+      await dela(p); await p.locator('.export-sheet').getByRole('button', { name: 'Kopiera länk' }).click(); await p.waitForTimeout(300)
+      r.copied = (await p.locator('.export-sheet').innerText()).includes('Länken är kopierad.'); const t0 = Date.now(); let flip = 0
+      while (Date.now() - t0 < 5000) { if (!(await p.locator('.export-sheet').innerText()).includes('Länken är kopierad.')) { flip = Date.now() - t0 + 300; break } await p.waitForTimeout(100) }
+      r.flip = flip; r.link = (await p.evaluate(() => navigator.clipboard.readText())).slice(0, 60)
+      await p.locator('.export-sheet').getByRole('button', { name: 'Skriv ut passet' }).click(); await p.waitForTimeout(700); r.prints = await p.evaluate(() => window.__prints); r.printHost = await p.evaluate(() => document.querySelectorAll('.print-host .pass-station').length)
+    }
+    await p.context().close()
+  }
+  // clipboard blocked + print stalled → grows ≤ 92 %, scrolls inside, × reachable
+  const q = await page({ print: 'dead', perms: [] }); await q.addInitScript(() => { document.execCommand = () => false; Object.defineProperty(navigator, 'clipboard', { configurable: true, get: () => ({ writeText: () => Promise.reject(new Error('blocked')) }) }) })
+  await mall(q); await dela(q); await q.locator('.export-sheet').getByRole('button', { name: 'Kopiera länk' }).click(); await q.waitForTimeout(500)
+  await q.locator('.export-sheet').getByRole('button', { name: 'Skriv ut passet' }).click(); await q.waitForTimeout(2000)
+  r.grow = await sheetBox(q); r.grow.manual = (await q.locator('.export-sheet').innerText()).includes('Det gick inte att kopiera'); r.grow.stall = await q.locator('.export-sheet').innerText()
+  await shot(q, '27_dela_grown_blocked_stalled')
+  await q.locator('.export-sheet').evaluate((s) => s.scrollTo(0, s.scrollHeight)); await q.waitForTimeout(200); r.grow.xAfterScroll = (await sheetBox(q)).xHit
+  await q.locator('.export-sheet .modal-close').click(); await q.waitForTimeout(300); r.grow.closed = !(await q.locator('.export-sheet').count()) && !(await q.evaluate(() => document.body.className.includes('is-print-pass')))
+  await q.context().close()
+  // landscape + desktop
+  for (const [vn, vp, touch] of [['land', { width: 844, height: 390 }, true], ['desk', { width: 1280, height: 800 }, false]]) for (const [tag, base] of [['br', BR], ['main', MAIN]]) {
+    const p = await page({ vp, touch }); await mall(p, base); await dela(p); r[`${tag}-${vn}`] = await sheetBox(p)
+    if (tag === 'br') await shot(p, `28_dela_${vn}`)
+    await p.locator('.export-sheet').evaluate((s) => s.scrollTo(0, s.scrollHeight)); await p.waitForTimeout(150); r[`${tag}-${vn}`].xAfterScroll = (await sheetBox(p)).xHit
+    await p.context().close()
+  }
+  // Golvklart and Delat pass print buttons vs main
+  for (const [tag, base] of [['br', BR], ['main', MAIN]]) {
+    const p = await page(); await mall(p, base); await hall(p); await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(500)
+    const g = await p.evaluate(() => [...document.querySelectorAll('.hall-floor-actions button')].map((b) => { const q = b.getBoundingClientRect(); return [b.innerText.trim(), Math.round(q.width), Math.round(q.height)] }))
+    await p.goto('about:blank'); await p.goto(mainData.link.replace(MAIN, base)); await p.locator('.share-actions').waitFor()
+    const s = await p.evaluate(() => [...document.querySelectorAll('.share-actions button')].map((b) => { const q = b.getBoundingClientRect(); return [b.innerText.trim(), Math.round(q.width), Math.round(q.height)] }))
+    r[`${tag}-buttons`] = { golvklart: g, delat: s }; await p.context().close()
+  }
+  note('AC19-AC21', r)
+  const b = r.br, m = r.main
+  check('AC19', 'Dela at 390×844: bottom sheet (bottom 844, safe-area padding kept), content height ≤ 480 (main 760), pass visible above; contents and order exactly as Slice 44', b.bottom >= 843 && b.h <= 480 && b.passVisible && JSON.stringify(b.texts) === JSON.stringify(m.texts), JSON.stringify({ br: { top: b.top, bottom: b.bottom, h: b.h, padB: b.padB }, main: { top: m.top, bottom: m.bottom, h: m.h }, sameContents: JSON.stringify(b.texts) === JSON.stringify(m.texts), texts: b.texts }))
+  check('AC20-basic', '× (≥ 44×44) and backdrop tap close; «Länken är kopierad.» resets after ~3 s; «Skriv ut passet» prints', b.x[0] >= 44 && b.x[1] >= 44 && r.xClose && r.bdClose && r.copied && r.flip > 2500 && r.flip < 3800 && r.prints === 1 && r.printHost > 0, JSON.stringify({ x: b.x, xClose: r.xClose, bdClose: r.bdClose, copied: r.copied, flip: r.flip, prints: r.prints, link: r.link }))
+  const g = r.grow
+  check('AC20-grow', 'clipboard blocked + print stalled: manual line + link field + stalled line; sheet grows, ≤ 92 % of the screen (776), scrolls inside, × reachable; close leaves no print class', g.manual && /textarea|INPUT/i.test(g.texts.join()) && g.h > b.h && g.h <= Math.round(0.92 * 844) + 1 && g.bottom >= 843 && (g.sh <= g.ch || g.ov === 'auto' || g.ov === 'scroll') && g.xHit && g.closed, JSON.stringify({ h: g.h, top: g.top, bottom: g.bottom, sh: g.sh, ch: g.ch, ov: g.ov, xHit: g.xHit, xAfterScroll: g.xAfterScroll, manual: g.manual, closed: g.closed }))
+  const L = r['br-land'], D = r['br-desk'], MD = r['main-desk']
+  check('AC21', 'landscape 844×390: sheet inside the screen, scrolls inside, × reachable; desktop 1280×800: centred dialog, same box as main; Golvklart and Delat pass print buttons unchanged', L.top >= 0 && L.bottom <= 390 && (L.sh <= L.ch || L.ov !== 'visible') && L.xHit && D.w === MD.w && Math.abs(D.h - MD.h) <= 2 && Math.abs(D.left - MD.left) <= 1 && JSON.stringify(r['br-buttons']) === JSON.stringify({ golvklart: r['main-buttons'].golvklart.filter((x) => !/Helskär|kort/.test(x[0])), delat: r['main-buttons'].delat }), JSON.stringify({ land: { top: L.top, bottom: L.bottom, sh: L.sh, ch: L.ch, ov: L.ov, xHit: L.xHit, xAfterScroll: L.xAfterScroll }, desk: [D.left, D.top, D.w, D.h], mainDesk: [MD.left, MD.top, MD.w, MD.h], btn: r['br-buttons'], mainBtn: r['main-buttons'] }))
+})
+
+await attempt('FU-toast', async () => {
+  // compare «Använd mall → open Dela at once» against «Använd mall → let the toast time out»: same storage, no Ångra
+  const run = async (mode) => {
+    const p = await page(); await withDraft(p, BR, { ...mainData['forening-bla'], title: 'S45V eget pass A' })
+    await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(400)
+    const before = await draft(p)
+    await menu(p, 'Använd mall'); await p.waitForTimeout(400); await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(500)
+    const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); const confirmed = await c.count(); if (confirmed) await c.click()
+    await p.waitForTimeout(400)
+    const toast0 = await p.locator('.toast, [class*=toast]').filter({ hasText: /Ångra/ }).count()
+    let info = { toast0, confirmed }
+    if (mode === 'dela') {
+      await p.getByRole('button', { name: 'Fler saker med passet' }).tap(); await p.locator('.more-menu-panel').getByRole('button', { name: 'Dela', exact: true }).tap(); await p.locator('.export-sheet').waitFor(); await p.waitForTimeout(300)
+      info.toastWithSheet = await p.locator('.toast, [class*=toast]').filter({ hasText: /Ångra/ }).count()
+      info.printHit = await p.evaluate(() => { const b = [...document.querySelectorAll('.export-sheet button')].find((x) => x.innerText.trim() === 'Skriv ut passet'); const q = b.getBoundingClientRect(); return document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2)?.closest('button') === b })
+      await shot(p, '29_dela_right_after_mall')
+      await p.locator('.export-sheet').getByRole('button', { name: 'Skriv ut passet' }).click(); await p.waitForTimeout(600); info.prints = await p.evaluate(() => window.__prints)
+      await p.locator('.export-sheet .modal-close').click(); await p.waitForTimeout(300)
+      await p.waitForTimeout(6000)
+    } else await p.waitForTimeout(6500)
+    info.toastAfter = await p.locator('.toast, [class*=toast]').filter({ hasText: /Ångra/ }).count()
+    info.ctrlZ = null
+    const st = await allStorage(p); const d = JSON.parse(st[DK])
+    info.title = d.title; info.hall = d.hallTemplateId; info.draftContent = content(d).replace(/"id":"[^"]*"/g, '"id":"_"'); info.beforeContent = content(before)
+    info.templates = (JSON.parse(st[TK] ?? '[]') ?? []).map((t) => ({ title: t.title, min: t.totalMinutes, pass: JSON.stringify({ ...t.pass, savedAt: undefined }) }))
+    info.keys = Object.keys(st).sort()
+    info.beforeTitle = before.title
+    await p.context().close(); return info
+  }
+  const D = await run('dela'), T = await run('timeout')
+  note('FU-toast', { dela: D, timeout: T })
+  check('FU-toast', 'Använd mall → Mer → Dela at once: Ångra toast gone, «Skriv ut passet» not covered and prints; no Ångra after ×; storage afterwards identical to the 5 s timeout path (nothing lost, nothing extra)', D.toast0 > 0 && D.toastWithSheet === 0 && D.printHit && D.prints === 1 && D.toastAfter === 0 && D.title === T.title && JSON.stringify(D.templates) === JSON.stringify(T.templates) && JSON.stringify(D.keys) === JSON.stringify(T.keys) && D.draftContent === T.draftContent && D.templates.some((t) => t.title === D.beforeTitle), JSON.stringify({ D: { ...D, draftContent: undefined, beforeContent: undefined, templates: D.templates.map((t) => t.title) }, T: { ...T, draftContent: undefined, beforeContent: undefined, templates: T.templates.map((t) => t.title) }, sameDraft: D.draftContent === T.draftContent, sameMall: JSON.stringify(D.templates) === JSON.stringify(T.templates) }))
+})
+
+await attempt('AC16', async () => {
+  // print map ratio for Stora / Grophallen in the pass print and Golvklart (print media, 1280 wide), vs main Blå / Vit
+  const r = {}
+  for (const [tag, base, halls] of [['br', BR, [STORA, GROP]], ['main', MAIN, ['Blå hall', 'Vit hall']]]) for (const hn of halls) {
+    const p = await page({ vp: { width: 1280, height: 800 }, touch: false }); await wizard(p, base, hn)
+    await menu(p, 'Dela'); await p.locator('.export-sheet').getByRole('button', { name: 'Skriv ut passet' }).click(); await p.waitForTimeout(700)
+    await p.emulateMedia({ media: 'print' })
+    const pr = await p.evaluate(() => { const c = document.querySelector('.print-host .hall-canvas'); if (!c) return null; const b = c.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), ratio: +(b.width / b.height).toFixed(4), cls: c.className } })
+    const k = `${tag}-${hn.includes('Grop') || hn.includes('Vit') ? 'vit' : 'bla'}`
+    const path = `${CK}/pdf-${k}-pass.pdf`; execFileSync('mkdir', ['-p', CK]); await p.pdf({ path, format: 'A4', printBackground: true })
+    const pages = Number(/Pages:\s+(\d+)/.exec(execFileSync('pdfinfo', [path], { encoding: 'utf8' }))[1])
+    await p.emulateMedia({ media: 'screen' })
+    await p.locator('.export-sheet .modal-close').click().catch(() => {}); await p.waitForTimeout(300)
+    await p.mouse.click(5, 5); await p.waitForTimeout(200)
+    await hall(p); await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(500)
+    await p.emulateMedia({ media: 'print' })
+    const gk = await p.evaluate(() => { const c = document.querySelector('.hall-board .hall-canvas'); const b = c.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), ratio: +(b.width / b.height).toFixed(4), visible: getComputedStyle(c).display !== 'none' } })
+    if (tag === 'br') { await shot(p, `30_golvklart_print_${k}`, true) }
+    const gpath = `${CK}/pdf-${k}-golvklart.pdf`; await p.pdf({ path: gpath, format: 'A4', printBackground: true, landscape: false })
+    const gtxt = execFileSync('pdftotext', ['-layout', gpath, '-'], { encoding: 'utf8' }).replace(/\s+/g, ' ').slice(0, 120)
+    r[k] = { pass: pr, pages, golvklart: gk, gtxt }
+    await p.context().close()
+  }
+  note('AC16', r)
+  const same = (a, b) => a && b && Math.abs(a.ratio - b.ratio) < 0.002
+  check('AC16', 'Skriv ut passet and Golvklart print the Gymmix halls with their drawing ratios (Stora = Blå 1.3562, Grophallen = Vit 0.9582 at 1280; same as main)', same(r['br-bla'].pass, r['main-bla'].pass) && same(r['br-vit'].pass, r['main-vit'].pass) && same(r['br-bla'].golvklart, r['main-bla'].golvklart) && same(r['br-vit'].golvklart, r['main-vit'].golvklart) && /Stora hallen/.test(r['br-bla'].gtxt + ' ') !== null, JSON.stringify(r))
+})
+
+await attempt('AC11-club-standin', async () => {
+  // föreningens mall saved with a generic hall, published in MY local stand-in (bank build :57840 → https://bank-mock.supabase.co routed to the gateway)
+  const env = JSON.parse(readFileSync('/workspace/s45v/sb/env.json', 'utf8')); const GW = `http://127.0.0.1:${env.gatewayPort}`
+  const src = mainData.std; const blocks = src.blocks.map((b) => ({ type: b.type, durationMinutes: b.durationMinutes, items: b.items.map((i) => ({ id: i.id, activityId: i.activityId, durationMinutes: i.durationMinutes, note: i.note ?? '', order: i.order, ...(i.stationEquipment ? { stationEquipment: i.stationEquipment } : {}) })) }))
+  const payload = { v: 1, title: 'S45V klubbmall standard', notes: '', blocks, hallTemplateId: 'standard-trupp' } // the DB forbids hallPlacements in club payloads (check3)
+  const sql = (q) => execFileSync('psql', ['-h', '127.0.0.1', '-p', String(env.pgPort), '-U', 'postgres', '-d', 'bank', '-qAt', '-c', q], { encoding: 'utf8' })
+  sql(`delete from public.club_templates where title like 'S45V klubbmall%'`)
+  sql(`insert into public.club_templates (title, total_minutes, payload) values ('S45V klubbmall standard', ${src.totalMinutes || 53}, '${JSON.stringify(payload).replace(/'/g, "''")}'::jsonb)`)
+  const ON = BR.replace('57841', '57840')
+  const ctx = await browser.newContext({ viewport: PHONE, deviceScaleFactor: 2, hasTouch: true })
+  const bank = []
+  await ctx.route('https://bank-mock.supabase.co/**', async (route) => { const req = route.request(); const u = new URL(req.url()); bank.push(req.method() + ' ' + u.pathname); const headers = { ...req.headers() }; delete headers.host
+    try { const resp = await route.fetch({ url: GW + u.pathname + u.search, method: req.method(), headers, postData: req.postDataBuffer() ?? undefined, maxRedirects: 0 }); return route.fulfill({ response: resp }) } catch { return route.abort('failed').catch(() => {}) } })
+  const live = []; ctx.on('request', (q) => { if (/supabase\.co/.test(q.url()) && !q.url().startsWith('https://bank-mock.supabase.co')) live.push(q.url()) })
+  const p = await ctx.newPage(); p.setDefaultTimeout(10000)
+  await p.goto(ON); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor(); await p.waitForTimeout(1500)
+  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(1500)
+  const card = p.locator('section.club-templates .template-card').filter({ hasText: 'S45V klubbmall standard' }).first(); const seen = await card.count()
+  await card.click(); await p.waitForTimeout(500); const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
+  await p.waitForTimeout(5800); await hall(p)
+  const m = await markers(p); const d = await draft(p); const meta = (await p.locator('.hall-session-meta').first().innerText()).trim()
+  await shot(p, '31_club_mall_standard_on_stora')
+  const dbStill = sql(`select payload->>'hallTemplateId' from public.club_templates where title = 'S45V klubbmall standard'`).trim()
+  note('AC11-club', { seen, hall: d.hallTemplateId, meta, markers: m, bank: [...new Set(bank)], live, dbStill })
+  check('AC11-club-standin', 'föreningens mall published (local stand-in) with hallTemplateId standard-trupp: Använd mall → Stora hallen pass, markers on the grid in pass order; DB row untouched (no SQL/Supabase change); 0 live requests', seen && d.hallTemplateId === 'forening-bla' && meta.includes(STORA) && m.length === teknik(d).length && m.every((x, i) => x.rank === i + 1 && x.inOpen) && dbStill === 'standard-trupp' && live.length === 0, JSON.stringify(notes['AC11-club']))
+  sql(`delete from public.club_templates where title like 'S45V klubbmall%'`)
+  await ctx.close()
 })
 }
 
