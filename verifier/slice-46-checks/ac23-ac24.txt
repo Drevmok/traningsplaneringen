@@ -1,0 +1,31 @@
+== deleted keys in src
+wizardNext 0
+wizardFinish 0
+wizardClose 0
+fromTemplate 0
+homeWizardPrimaryDesc 0
+homeWizardPrimaryAria 0
+homeInvite 0
+planFirst 0
+newSession 0
+browseTemplates 0
+continueDraft 0
+startFromTemplateDesc 0
+draftHonestyTitle 0
+draftHonestyBody 0
+draftHonestyOtherDevice 0
+draftHonestyDismiss 0
+omUtkast 0
+== new keys
+416:  wizardStepProgress: 'Fråga {n} av {total}',
+417:  wizardMallLabel: 'Mall',
+665:  draftHonestyBodyShort: 'Passen sparas bara på den här enheten.',
+717:export function wizardStepProgressText(n: number, total: number): string {
+718:  return UI.wizardStepProgress.replace('{n}', String(n)).replace('{total}', String(total))
+== ! in blockMeta diff
+== SLICE
+src/lib/feedback.test.ts:45:    assert.equal(SLICE_NUMBER, '46')
+  'Version: Slice 46',
+    assert.equal(SLICE_NUMBER, '46')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 46')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 46')

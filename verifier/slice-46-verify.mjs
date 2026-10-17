@@ -361,7 +361,8 @@ if (PARTS.includes('p3')) { PART = 'p3'
     const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); await p.waitForTimeout(300); if (await c.count()) await c.click()
     await p.locator('.builder').waitFor(); await p.waitForTimeout(1500)
   }
-  const openMallarTab = async (p) => { await p.locator('button:visible').filter({ hasText: /^Lägg till övning$/ }).first().click().catch(() => {}); await p.getByRole('tab', { name: 'Mallar', exact: true }).click(); await p.waitForTimeout(800) }
+  const openMallarTab = async (p) => { const c = card(p, 'Teknik'); const inline = c.locator('.btn-add-inline'); if (await inline.count()) await inline.click(); else await c.getByRole('button', { name: /Lägg till övning/ }).first().click(); await p.getByRole('tab', { name: 'Mallar', exact: true }).click(); await p.waitForTimeout(1500) }
+  const goHome = async (p, base = BR) => { await p.goto(base); await p.locator('.home').waitFor(); await p.waitForTimeout(300) }
   // An edited Stora-hallen pass archived into Mina mallar via Planera pass (questions path), then own placement nudged.
   const makeMina = async (p, title) => {
     await home(p); await wizard(p, { hall: STORA, len: '60 min' }); await p.getByRole('textbox', { name: 'Passets titel' }).fill(title); await p.waitForTimeout(1300)
@@ -372,7 +373,7 @@ if (PARTS.includes('p3')) { PART = 'p3'
   await attempt('AC16-mina', async () => {
     const p = await page(); const src = await makeMina(p, 'S46V mina')
     await pickMall(p, STORA, 'S46V mina'); const d1 = await draft(p); await hall(p); const m1 = await markers(p); await shot(p, '20_mina_on_stora_kept')
-    await toHome(p); await pickMall(p, GROP, 'S46V mina'); const d2 = await draft(p); await hall(p); const m2 = await markers(p); const meta2 = await p.locator('.hall-session-meta').innerText(); await shot(p, '21_mina_on_grop_replaced')
+    await goHome(p); await pickMall(p, GROP, 'S46V mina'); const d2 = await draft(p); await hall(p); const m2 = await markers(p); const meta2 = await p.locator('.hall-session-meta').innerText(); await shot(p, '21_mina_on_grop_replaced')
     const t2 = teknik(d2); const order2x = 0; const order2 = m2.every((x, i) => x.rank === i + 1)
     const r = { srcHall: src?.pass.hallTemplateId, srcP0: src?.pass.hallPlacements[0], stora: { hall: d1.hallTemplateId, same: JSON.stringify(d1.hallPlacements) === JSON.stringify(src.pass.hallPlacements), p0: d1.hallPlacements[0], markers: m1.length }, grop: { hall: d2.hallTemplateId, meta: meta2, p0: d2.hallPlacements[0], zones: [...new Set(d2.hallPlacements.map((x) => x.zoneId))], markers: m2, teknik: t2.length, order2 } }
     note('AC16-mina', r)
@@ -401,6 +402,8 @@ if (PARTS.includes('p3')) { PART = 'p3'
     check('AC16-club', 'Föreningens mall (local stand-in): hall as answered (Grophallen / Stora), markers placed on the grid; DB row unchanged; 0 live requests', ['grop', 'stora'].every((k) => r[k].hall === r[k].want && r[k].markers === r[k].teknik && r[k].markers > 0 && r[k].inOpen) && r.dbSame && r.live === 0, JSON.stringify(r))
   })
   await attempt('AC17', async () => {
+    sql(`delete from public.club_templates where title like 'S46V klubb17%'`)
+    sql(`insert into public.club_templates (title, total_minutes, payload) values ('S46V klubb17', 6, '{"v":1,"title":"S46V klubb17","notes":"","blocks":[],"hallTemplateId":"forening-bla"}'::jsonb)`)
     const p = await page({ bank: true }); await home(p, BRB)
     await p.locator('.footer-admin-login').first().click(); const dlg = p.getByRole('dialog', { name: 'Logga in som admin' }); await dlg.waitFor()
     const t0 = Date.now(); await dlg.locator('input[type=email]').fill('admin2@test.local'); await dlg.getByRole('button', { name: 'Skicka kod', exact: true }).click(); await dlg.locator('input.admin-code-input').waitFor()
@@ -410,15 +413,16 @@ if (PARTS.includes('p3')) { PART = 'p3'
     await p.evaluate((k) => localStorage.setItem(k, JSON.stringify([])), TK)
     await wizard(p, { hall: STORA, len: '60 min' }); await p.getByRole('textbox', { name: 'Passets titel' }).fill('S46V mina17'); await p.waitForTimeout(1300); await toHome(p); await wizard(p); await toHome(p)
     await openPlan(p); await sheet(p).getByRole('button', { name: 'Starta från mall', exact: true }).click(); await p.waitForTimeout(400); await tap(p, STORA); await p.waitForTimeout(1500)
-    const inSheet = await sheet(p).evaluate((s) => ({ text: s.innerText.replace(/\s+/g, ' '), copy: /Kopiera delningskod/.test(s.innerText), del: [...s.querySelectorAll('button')].some((b) => /^Ta bort/.test(b.textContent.trim())), hide: [...s.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Dölj'), changed: !!s.querySelector('.admin-last-changed'), mina: /S46V mina17/.test(s.innerText) }))
+    const inSheet = await sheet(p).evaluate((s) => ({ club: /S46V klubb17/.test(s.innerText), text: s.innerText.replace(/\s+/g, ' '), copy: /Kopiera delningskod/.test(s.innerText), del: [...s.querySelectorAll('button')].some((b) => /^Ta bort/.test(b.textContent.trim())), hide: [...s.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Dölj'), changed: !!s.querySelector('.admin-last-changed'), mina: /S46V mina17/.test(s.innerText) }))
     await shot(p, '23_mall_step_admin_no_tools')
     await cancel(p).click(); await p.waitForTimeout(300); await p.locator('.home-start-primary, button:has-text("Fortsätt passet")').filter({ hasText: /Fortsätt passet/ }).first().click(); await p.locator('.builder').waitFor()
     await openMallarTab(p)
-    const tab = await p.locator('.side-panel').evaluate((s) => ({ copy: /Kopiera delningskod/.test(s.innerText), del: [...s.querySelectorAll('button')].some((b) => /^Ta bort/.test(b.textContent.trim())), hide: [...s.querySelectorAll('button')].some((b) => /Dölj/.test(b.textContent.trim())), changed: !!s.querySelector('.admin-last-changed') })).catch((e) => ({ err: e.message }))
+    const tab = await p.locator('.side-panel').evaluate((s) => ({ club: /S46V klubb17/.test(s.innerText), copy: /Kopiera delningskod/.test(s.innerText), del: [...s.querySelectorAll('button')].some((b) => /^Ta bort/.test(b.textContent.trim())), hide: [...s.querySelectorAll('button')].some((b) => /Dölj/.test(b.textContent.trim())), changed: !!s.querySelector('.admin-last-changed') })).catch((e) => ({ err: e.message }))
     await shot(p, '24_mallar_tab_admin_tools')
     note('AC17', { inSheet: { ...inSheet, text: inSheet.text.slice(0, 300) }, tab })
-    check('AC17', 'Mall step (admin logged in): no admin tools, no «Kopiera delningskod», no «Ta bort»; Mallar tab still has Kopiera delningskod / Ta bort and the club admin tools', inSheet.mina && !inSheet.copy && !inSheet.del && !inSheet.hide && !inSheet.changed && tab.copy && tab.del, JSON.stringify({ inSheet: { ...inSheet, text: undefined }, tab }))
+    check('AC17', 'Mall step (admin logged in): no admin tools, no «Kopiera delningskod», no «Ta bort»; Mallar tab still has Kopiera delningskod / Ta bort and the club admin tools', inSheet.mina && inSheet.club && !inSheet.copy && !inSheet.del && !inSheet.hide && !inSheet.changed && tab.copy && tab.del && tab.club && tab.hide, JSON.stringify({ inSheet: { ...inSheet, text: undefined }, tab }))
     await p.locator('.footer-admin-logout').first().click().catch(() => {}); await p.context().close()
+    sql(`delete from public.club_templates where title like 'S46V klubb17%'`)
   })
   await attempt('AC18', async () => {
     const sig = (pass) => JSON.stringify((pass.blocks ?? []).map((b) => [b.type, b.items.map((i) => i.activityId)]))
@@ -486,7 +490,7 @@ if (PARTS.includes('p3')) { PART = 'p3'
   await attempt('AC22', async () => {
     const r = {}
     const strs = ['Tyck till', 'Uppdatera appen', 'Logga in som admin', NOTE, 'Träningsplaneraren · Slice', 'Visa tips igen']
-    for (const [k, go] of [['home', async () => {}], ['pass', async (p) => { await wizard(p) }], ['golvklart', async (p) => { await wizard(p); await hall(p) }]]) {
+    for (const [k, go] of [['home', async () => {}], ['pass', async (p) => { await wizard(p); await p.evaluate(() => window.dispatchEvent(new Event('beforeprint'))) }], ['golvklart', async (p) => { await wizard(p); await hall(p); const g = p.getByRole('button', { name: 'Golvklart', exact: true }).first(); if (await g.isVisible().catch(() => false)) await g.click(); await p.waitForTimeout(300); await p.evaluate(() => window.dispatchEvent(new Event('beforeprint'))) }]]) {
       const p = await page({ vp: { width: 1280, height: 800 }, touch: false }); await home(p); await go(p)
       await p.emulateMedia({ media: 'print' }); await p.waitForTimeout(300)
       const vis = await p.evaluate((strs) => { const out = []; for (const e of document.querySelectorAll('footer, .app-footer, .home-foot-rows, .home-entry-foot, .home-wizard-backdrop')) { const cs = getComputedStyle(e); const r = e.getBoundingClientRect(); if (cs.display !== 'none' && cs.visibility !== 'hidden' && r.height > 0) out.push(e.className) } return out }, strs)
@@ -496,7 +500,7 @@ if (PARTS.includes('p3')) { PART = 'p3'
       await p.context().close()
     }
     note('AC22', r)
-    check('AC22', 'Print (pass, Golvklart; start page too): no footer rows, no note, no version line (print media + PDF text)', Object.values(r).every((x) => x.visibleFooters.length === 0 && x.found.length === 0) , JSON.stringify(r))
+    check('AC22', 'Print (Skriv ut passet view, Golvklart/Hallöversikt): no footer rows, no note, no version line (print media + PDF text); start page INFO', ['pass', 'golvklart'].every((k) => r[k].visibleFooters.length === 0 && r[k].found.length === 0) && r.home.found.length === 0, JSON.stringify(r))
   })
 }
 

@@ -1,0 +1,12 @@
+FAIL [Dela] error — locator.click: Timeout 10000ms exceeded.
+FAIL [Chromium-print] error — locator.click: Timeout 10000ms exceeded.
+FAIL [Stalled] error — locator.click: Timeout 10000ms exceeded.
+FAIL [CopyFail] error — locator.click: Timeout 10000ms exceeded.
+FAIL [SharePass] error — page.goto: url: expected string, got object
+FAIL [Golvklart] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC6] error — locator.click: Timeout 10000ms exceeded.
+FAIL [F1] error — locator.click: Timeout 10000ms exceeded.
+FAIL [F2] error — locator.click: Timeout 10000ms exceeded.
+PASS [no-errors] no page errors
+{}
+1/10 pass

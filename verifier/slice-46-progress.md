@@ -43,3 +43,7 @@ Script `slice-46-verify.mjs` written (p1 / p2 / p3). Runs: `slice-46-checks/veri
 Smoke loop (19:41, at slice-40): runner rc=0 everywhere, but pass counts: **slice-46-builder-smoke 33/33** (Builder's claim confirmed), 45-builder 3/20, 44-builder 1/10, 44-verify 1/12, 43-builder 1/9, 43-verify 1/6+, 42-verify 2/6, 42-builder 1/11, 41-reverify-b 61/89, 41-builder 32/34 — mass failures expected (start page Tomt pass/Från mall and wizard «Nästa» removed); classification in chunk 2.
 
 Next (chunk 2): p3 (AC16 mina/club, AC17, AC18 + main ref, AC20, AC22), AC23/AC24 greps, smoke classification.
+
+## Chunk 2 end / final — 20:08 CEST
+p3 all PASS after script fixes (AC16-mina, AC16-club, AC17, AC18 + fresh + main ref, AC20, AC22). AC23/AC24 static PASS. Smokes classified (no real regression). Adapted slice-39-verify section A 11/12 (1 adaptation artefact).
+Final: 30/31 scripted checks; 1 MAJOR (AC21 landscape sheet, Avbryt unreachable). Report `slice-46-verify-report.md`.

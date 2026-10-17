@@ -1,0 +1,11 @@
+FAIL [A] error — locator.evaluate: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer') ⏎ 
+FAIL [B] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎ 
+FAIL [C] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎ 
+FAIL [D-admin] error — locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible ⏎ 
+FAIL [D-notadmin] error — locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible ⏎ 
+FAIL [E] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('[aria-labelledby="home-wizard-title"]').getByRole('option', { name: /7–9/ }).first() ⏎ 
+FAIL [AC16d] Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings
+PASS [AC10c] No fetch / beacon / storage / window.open / location in the feedback code
+PASS [E] No page errors
+
+PASS 2 / FAIL 7

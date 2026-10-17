@@ -1,0 +1,37 @@
+PASS [AC1] × removes at once, no dialog, toast «Borttagen · Ångra» — Borttagen
+·
+Ångra
+PASS [AC1-oneline] × toast «Borttagen · Ångra» one line, inside 390 px — {"h":64,"lines":1,"l":115.7265625,"r":274.2734375,"vw":390,"sw":390}
+PASS [AC20-tap] Ångra tap target ≥ 44 px tall — 44
+PASS [AC3] Ångra → station back at same place with same fields; stored at once — [0,1,2]
+PASS [AC3-toast] toast «Ångrat.» without button
+PASS [AC4] hallPlacements entry back, same x/y — [{"sessionItemId":"item-z9a661ma-mvcomwjy","x":0.2,"y":0.4},{"sessionItemId":"item-jgmsbnqw-mvcomwjy","x":0.35,"y":0.4},{"sessionItemId":"item-g64e1hbw-mvcomwjy","x":0.5,"y":0.4}]
+PASS [AC5] reload right after Ångra → restored station stored
+PASS [AC2] toast still at 3.5 s, gone after ~5 s; station stays removed (stored) — at3.5=1
+PASS [AC6] second × gives fresh 5 s; Ångra brings back B only — tech-ljushopp-trampett,tech-satsbrada-volt-rygg
+PASS [AC7] change minutes on another station closes the toast; no Ångra left — undo=0 mins=3,9
+PASS [AC8-hall] Hallöversikt and back → no toast, station removed
+PASS [AC8-home] Hem and back → no toast, station removed
+PASS [AC9-oneline] mall toast «Mallen är i Passbyggaren. · Ångra» on one line at 390 px, no overflow — {"h":64,"lines":1,"l":66.5546875,"r":323.4453125,"vw":390,"sw":390}
+PASS [AC9-toast] built-in mall → «Mallen är i Passbyggaren. · Ångra», focus on Ångra — Mallen är i Passbyggaren. · Ångra / toast-action
+PASS [AC9] Ångra → previous pass back (id, title, blocks, hall) — S41 eget mall=Nybörjare — ca 55 min
+PASS [AC12] placements = old pass only
+PASS [AC11-like] after Ångra only «Ångrat.» (mall text not shown again)
+PASS [AC14] Mina mallar = before + 1 (auto-copy of old pass), no copy of the mall pass — S41 eget
+PASS [AC13] reload → stored pass is the old one (same id)
+PASS [AC13-open] Fortsätt passet opens it
+PASS [AC15] Använd mall again over restored pass → no second identical auto-copy — S41 eget
+PASS [AC10] Mina mallar mall → toast with Ångra → previous pass back — Mallen är i Passbyggaren. · Ångra
+FAIL [AC16] error — locator.click: Timeout 10000ms exceeded.
+PASS [AC17] edit the mall pass → toast gone, edit stays
+PASS [AC18-enter] Enter on × → focus on Ångra; timer paused while focused; Enter undoes — focus=Ångra held=1
+PASS [AC18-esc] Escape closes without undo
+FAIL [AC22-footer] footer «Träningsplaneraren · Slice 41»
+PASS [AC20-plain-fit] plain toast inside 390 px — {"h":40,"lines":1,"l":107.7421875,"r":282.2578125,"vw":390,"sw":390}
+PASS [AC20-plain] other toast (Spara som mall) has no button and closes in ~2.2 s — Sparad som egen mall.
+PASS [AC2-reX] × → Ångra → × same station → stored without that station — stored=2 midGone=true
+PASS [AC2-reX-reload] Hem + reload keeps same station removed — 2
+PASS [AC8-kor] × → Kör passet → Avsluta → no undo toast — toast=0 undo=0
+PASS [AC8-kor-gone] station still removed after Kör passet
+PASS [no-errors] no page errors
+32/34 pass

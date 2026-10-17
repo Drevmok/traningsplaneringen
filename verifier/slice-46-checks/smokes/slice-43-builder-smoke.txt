@@ -1,0 +1,11 @@
+FAIL [main-halls] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [main-landscape] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [main-desktop] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [branch-halls] error — locator.click: Timeout 10000ms exceeded.
+FAIL [branch-landscape] error — locator.click: Timeout 10000ms exceeded.
+FAIL [branch-desktop] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC13/14] error — Cannot read properties of undefined (reading 'landscape')
+FAIL [F1-longtitle] error — locator.click: Timeout 10000ms exceeded.
+PASS [no-errors] no page errors
+{"main":{}}
+1/9 pass
