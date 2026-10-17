@@ -1,0 +1,24 @@
+  main eager assets/index-CkkVR-5W.css 14391
+  main eager assets/index-DpS1uMh3.js 140955
+main JS=204839 CSS=14391 TOTAL=219230 EAGER=155346
+  AdminBankForm-Ca069T17.js raw=6022 gz=1989
+  AdminDetailPanel-BcYs9fSy.js raw=8785 gz=2769
+  AdminLoginSheet-BYNXa8Nl.js raw=4664 gz=1661
+  adminBank-D8l6pPRr.js raw=1684 gz=879
+  bankWrite-DAYnzIWk.js raw=2253 gz=1171
+  dist-DvjAMUvs.js raw=214183 gz=54270
+  index-DpS1uMh3.js raw=478670 gz=140955
+  session-Bz-8JowZ.js raw=2557 gz=1145
+  index-CkkVR-5W.css raw=74191 gz=14391
+  wt eager assets/index-B0cPCvif.js 135622
+  wt eager assets/index-xmlnUCtS.css 14132
+wt JS=199499 CSS=14132 TOTAL=213631 EAGER=149754
+  AdminBankForm-DpUNJ-r_.js raw=6022 gz=1989
+  AdminDetailPanel-FHGwab7u.js raw=8785 gz=2768
+  AdminLoginSheet-1Y_q-P8C.js raw=4664 gz=1658
+  adminBank-tcKoM3nN.js raw=1684 gz=879
+  bankWrite-C4LAbUgx.js raw=2253 gz=1170
+  dist-DvjAMUvs.js raw=214183 gz=54270
+  index-B0cPCvif.js raw=463592 gz=135622
+  session-DRKItkrn.js raw=2557 gz=1143
+  index-xmlnUCtS.css raw=72770 gz=14132

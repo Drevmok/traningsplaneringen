@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { BLOCK_LABELS, BLOCK_ORDER, UI } from '../data/blockMeta'
 import { getActivityById } from '../data/seedActivities'
-import { useBodyPrint } from '../lib/bodyPrint'
+import { usePassPrint } from '../lib/bodyPrint'
 import { unlockRunSignal } from '../lib/runSignal'
 import { hasDraft } from '../lib/session'
 import { countSessionItems } from '../lib/hall'
@@ -11,7 +11,7 @@ import type { Session } from '../types'
 import { HallCanvas } from './HallCanvas'
 import { PassPrint } from './PassPrint'
 import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
-import { enterPresentation, StationDeck } from './StationDeck'
+import { enterPresentation } from '../lib/presentation'
 
 interface Props {
   session: Session
@@ -21,11 +21,9 @@ interface Props {
 
 export function SharePass({ session, onSave, onRun }: Props) {
   const cards = stationCards(session)
-  const [deck, setDeck] = useState(false)
-  const [printMode, setPrintMode] = useState<'stations' | 'pass' | null>(null)
   const [pendingRun, setPendingRun] = useState<boolean | null>(null)
 
-  useBodyPrint(printMode, () => setPrintMode(null))
+  const pp = usePassPrint()
 
   function leave() {
     window.location.hash = ''
@@ -71,26 +69,10 @@ export function SharePass({ session, onSave, onRun }: Props) {
         >
           {UI.saveHere}
         </button>
-        {cards.length > 0 && (
-          <>
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={() => {
-                enterPresentation()
-                setDeck(true)
-              }}
-            >
-              {UI.exportFullscreen}
-            </button>
-            <button type="button" className="btn-secondary" onClick={() => setPrintMode('stations')}>
-              {UI.printStations}
-            </button>
-          </>
-        )}
-        <button type="button" className="btn-secondary" onClick={() => setPrintMode('pass')}>
+        <button type="button" className="btn-secondary" onClick={pp.print}>
           {UI.exportPrintPass}
         </button>
+        {pp.stalled && <p className="muted" role="status">{UI.printStalled}</p>}
         <button type="button" className="btn-text" onClick={leave}>
           {UI.shareExit}
         </button>
@@ -150,9 +132,7 @@ export function SharePass({ session, onSave, onRun }: Props) {
           }}
         />
       )}
-      {deck && <StationDeck cards={cards} onClose={() => setDeck(false)} />}
-      {printMode &&
-        createPortal(<PassPrint session={session} mode={printMode} />, document.body)}
+      {pp.armed && createPortal(<PassPrint session={session} />, document.body)}
     </div>
   )
 }

@@ -1,0 +1,121 @@
+{
+  "v": 1,
+  "title": "Nybörjare — ca 55 min",
+  "notes": "",
+  "hallTemplateId": "standard-trupp",
+  "hallPlacements": [
+    {
+      "sessionItemId": "item-kgl40gz4-mvc30ayt",
+      "x": 0.77,
+      "y": 0.61,
+      "zoneId": "vault"
+    },
+    {
+      "sessionItemId": "item-hyfwyree-mvc30ayt",
+      "x": 0.86,
+      "y": 0.8,
+      "zoneId": "mats"
+    },
+    {
+      "sessionItemId": "item-b6y047gv-mvc30ayt",
+      "x": 0.2056,
+      "y": 0.3184,
+      "zoneId": "open"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gathering",
+      "durationMinutes": 6,
+      "items": [
+        {
+          "id": "item-858fabl7-mvc30ayt",
+          "activityId": "gather-narvaro",
+          "durationMinutes": 3,
+          "note": "",
+          "order": 0
+        },
+        {
+          "id": "item-ec3ibkpw-mvc30ayt",
+          "activityId": "gather-dagens-teknik",
+          "durationMinutes": 3,
+          "note": "",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "type": "warmup",
+      "durationMinutes": 10,
+      "items": [
+        {
+          "id": "item-mlthgofb-mvc30ayt",
+          "activityId": "warm-hall-varv",
+          "durationMinutes": 10,
+          "note": "",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "type": "techniques",
+      "durationMinutes": 20,
+      "items": [
+        {
+          "id": "item-kgl40gz4-mvc30ayt",
+          "activityId": "tech-ljushopp-satsbrada",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 0
+        },
+        {
+          "id": "item-hyfwyree-mvc30ayt",
+          "activityId": "tech-handstaende-falla-rygg",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 1
+        },
+        {
+          "id": "item-b6y047gv-mvc30ayt",
+          "activityId": "tech-falla-bakat-hojd",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "type": "strength",
+      "durationMinutes": 15,
+      "items": [
+        {
+          "id": "item-6fv8whmx-mvc30ayt",
+          "activityId": "strength-styrkelatar",
+          "durationMinutes": 5,
+          "note": "",
+          "order": 0
+        },
+        {
+          "id": "item-d0az1mfq-mvc30ayt",
+          "activityId": "strength-burpee-emom",
+          "durationMinutes": 8,
+          "note": "",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "type": "fun_and_games",
+      "durationMinutes": 10,
+      "items": [
+        {
+          "id": "item-a1vruy51-mvc30ayt",
+          "activityId": "fun-rundpingis-medicinboll",
+          "durationMinutes": 6,
+          "note": "",
+          "order": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+br-dela {"pages":3,"size":"594.96 x 841.92 pts (A4)","footers":["1/3","2/3","3/3",""],"hasApp":false,"hasStations":true,"mapWithHeading":true}
+main-dela {"pages":2,"size":"594.96 x 841.92 pts (A4)","footers":["1/2","2/2",""],"hasApp":false,"hasStations":false,"mapWithHeading":true}
+br-golvklart {"pages":3,"size":"594.96 x 841.92 pts (A4)","footers":["1/3","2/3","3/3",""],"hasApp":false,"hasStations":true,"mapWithHeading":true}
+br-delat {"pages":3,"size":"594.96 x 841.92 pts (A4)","footers":["1/3","2/3","3/3",""],"hasApp":false,"hasStations":true,"mapWithHeading":true}
+br-bla {"pages":4,"size":"594.96 x 841.92 pts (A4)","footers":["1/4","2/4","3/4","4/4",""],"hasApp":false,"hasStations":true,"mapWithHeading":true}
+main-bla {"pages":3,"size":"594.96 x 841.92 pts (A4)","footers":["1/3","2/3","3/3",""],"hasApp":false,"hasStations":false,"mapWithHeading":true}
+br-vit {"pages":4,"size":"594.96 x 841.92 pts (A4)","footers":["1/4","2/4","3/4","4/4",""],"hasApp":false,"hasStations":true,"mapWithHeading":true}
+main-vit {"pages":3,"size":"594.96 x 841.92 pts (A4)","footers":["1/3","2/3","3/3",""],"hasApp":false,"hasStations":false,"mapWithHeading":true}
+br-twice {"after1":{"cls":"is-print-pass","sheet":true,"hosts":1},"after2":{"cls":"is-print-pass","sheet":true,"status":null},"usable":{"cls":"","title":"Efter avbruten utskrift","scroll":500}}

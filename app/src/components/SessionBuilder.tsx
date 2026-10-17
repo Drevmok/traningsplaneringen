@@ -53,7 +53,7 @@ import { NewWeekConfirm } from './NewWeekConfirm'
 import { OwnActivityForm } from './OwnActivityForm'
 import { OwnImportSheet } from './OwnImportSheet'
 import { SaveTemplateDialog } from './SaveTemplateDialog'
-import { enterPresentation } from './StationDeck'
+import { enterPresentation } from '../lib/presentation'
 import { unlockRunSignal } from '../lib/runSignal'
 import { AdminStatusBadge } from './AdminStatusBadge'
 import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
@@ -419,15 +419,6 @@ export function SessionBuilder({
     const token = await encodeShare(savedTemplateToSession(template))
     await copyText(shareUrl(token))
     showToast(UI.templateCodeCopied)
-  }
-
-  function handleImported(next: Session) {
-    const adopted = adoptAsDraft(next)
-    setSelectedBlockId(adopted.blocks[0]?.id ?? null)
-    setMismatch(null)
-    onChange(adopted)
-    setShowExport(false)
-    showToast(UI.importDone)
   }
 
   function handleTitle(title: string) {
@@ -859,8 +850,6 @@ export function SessionBuilder({
         <ExportSheet
           session={session}
           onClose={() => setShowExport(false)}
-          onImport={handleImported}
-          onTemplateSaved={() => setSavedTemplates(loadSavedTemplates())}
         />
       )}
     </div>

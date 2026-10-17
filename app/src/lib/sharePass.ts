@@ -247,40 +247,24 @@ export async function sessionFromTransfer(text: string): Promise<Session | null>
   return decodeShare(trimmed)
 }
 
-export function passFileName(title: string): string {
-  const slug = title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 40)
-  return `${slug || 'pass'}.json`
-}
-
-export function downloadPassFile(session: Session): void {
-  const json = JSON.stringify(sessionToShare(session), null, 2)
-  const blob = new Blob([json], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = passFileName(session.title)
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
-  URL.revokeObjectURL(url)
-}
-
-export async function copyText(value: string): Promise<void> {
+/** Slice 44: true only when a copy path reported success. */
+export async function copyText(value: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(value)
+    return true
   } catch {
     const input = document.createElement('textarea')
     input.value = value
     document.body.appendChild(input)
     input.select()
-    document.execCommand('copy')
+    let ok = false
+    try {
+      ok = document.execCommand('copy')
+    } catch {
+      ok = false
+    }
     input.remove()
+    return ok
   }
 }
 
