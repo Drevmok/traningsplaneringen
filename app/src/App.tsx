@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { HallBoard } from './components/HallBoard'
 import { Home } from './components/Home'
-import type { WizardFinishAnswers } from './components/HomeWizard'
+import type { PlanResult } from './components/HomeWizard'
 import { SessionBuilder } from './components/SessionBuilder'
 import { SharePass } from './components/SharePass'
 import { FooterFeedback } from './components/FooterFeedback'
@@ -26,9 +26,13 @@ import {
   hasDraft,
   loadDraft,
   saveDraft,
+  setSessionLength,
   withComputedTotal,
 } from './lib/session'
 import { composeWizardSession } from './lib/wizard'
+import { applyMall } from './lib/mallApply'
+import { armMallUndo } from './lib/undoCarry'
+import { trySaveDraft } from './lib/autosave'
 import { useAutosave } from './lib/useAutosave'
 import { useBank } from './lib/useBank'
 import { adminAvailable } from './lib/admin/state'
@@ -55,7 +59,6 @@ export default function App() {
   const [session, setSession] = useState<Session>(() => createBlankSession())
   // Slice 42: the first edit of a mall / wizard / Tomt pass ends «fresh» (also Hallöversikt edits).
   useEffect(() => noteChange(session), [session])
-  const [openTemplates, setOpenTemplates] = useState(false)
   const [hallStartFloor, setHallStartFloor] = useState(false)
   const [tips, setTips] = useState<CoachTipsStateV1>(() => loadCoachTips())
   const [footerTipsMsg, setFooterTipsMsg] = useState<string | null>(null)
@@ -165,30 +168,28 @@ export default function App() {
     setTips((prev) => updater(prev))
   }
 
-  function goNew() {
+  /** Slice 46: where each Planera pass path lands — always Passbyggaren. */
+  function finishPlan(plan: PlanResult) {
     patchTips(markChooseOrBuild)
-    setSession(markFreshed(createBlankSession()))
-    setOpenTemplates(false)
     setHallStartFloor(false)
-    setView('builder')
-  }
-
-  function goTemplate() {
-    patchTips(markChooseOrBuild)
-    setSession(markFreshed(createBlankSession()))
-    setOpenTemplates(true)
-    setHallStartFloor(false)
-    setView('builder')
-  }
-
-  function goWizardFinish(answers: WizardFinishAnswers) {
-    patchTips(markChooseOrBuild)
-    const next = composeWizardSession(answers)
-    setSession(next)
-    saveDraft(next)
-    markFresh(next)
-    setOpenTemplates(false)
-    setHallStartFloor(false)
+    if (plan.path === 'questions') {
+      const next = composeWizardSession(plan.answers)
+      saveDraft(next)
+      markFresh(next)
+      setSession(next)
+    } else if (plan.path === 'empty') {
+      // As Tomt pass before: not written until the first change.
+      setSession(markFreshed(setSessionLength({ ...createBlankSession(), hallTemplateId: plan.hallTemplateId }, plan.targetMinutes)))
+    } else {
+      // As Använd mall in the Mallar tab: saved on apply, fresh, «Mallen är i Passbyggaren. · Ångra».
+      const mall = applyMall(plan.pick, plan.hallTemplateId)
+      let next = mall
+      if (plan.pick.kind === 'builtin') trySaveDraft(mall)
+      else next = adoptAsDraft(mall)
+      markFresh(next)
+      armMallUndo({ ...createBlankSession(), hallTemplateId: plan.hallTemplateId }, next, UI.clubTemplateApplied)
+      setSession(next)
+    }
     setView('builder')
   }
 
@@ -197,7 +198,6 @@ export default function App() {
     if (!loaded) return
     patchTips(markChooseOrBuild)
     setSession(withComputedTotal(loaded))
-    setOpenTemplates(false)
     setHallStartFloor(false)
     setView('builder')
   }
@@ -246,16 +246,10 @@ export default function App() {
     patchTips(markBuilderVisited)
   }, [])
 
-  /** Slice 20 C1 — one-shot Starta från mall flag; clear after apply or sheet close. */
-  const handleInitialTemplateConsumed = useCallback(() => {
-    setOpenTemplates(false)
-  }, [])
-
   function receiveSession(next: Session) {
     const adopted = adoptAsDraft(next)
     patchTips(markChooseOrBuild)
     setSession(adopted)
-    setOpenTemplates(false)
     setHallStartFloor(false)
     setShared(null)
     setView('builder')
@@ -272,11 +266,67 @@ export default function App() {
         : markChooseOrBuild(prev),
     )
     setSession(adopted)
-    setOpenTemplates(false)
     setHallStartFloor(floor)
     setView(floor ? 'hall' : 'builder')
     setShared(null)
     if (window.location.hash) window.location.hash = ''
+  }
+
+  /** Slice 46 E1: footer rows — separators only inside a row, never at a row end. */
+  function footerRows(kind: 'home' | 'app' | 'shared') {
+    const home = kind !== 'app'
+    const sep = (
+      <span className="app-footer-sep" aria-hidden>
+        ·
+      </span>
+    )
+    return (
+      <>
+        <FooterFeedback
+          after={
+            <>
+              {!home && (
+                <>
+                  {sep}
+                  <button type="button" className="btn-text visa-tips-igen footer-visa-tips" onClick={handleFooterShowTipsAgain}>
+                    {UI.visaTipsIgen}
+                  </button>
+                </>
+              )}
+              {sep}
+              <button type="button" className="btn-text visa-tips-igen footer-update" onClick={() => applyUpdate(remoteBuild)}>
+                {UI.updateApp}
+              </button>
+            </>
+          }
+        />
+        {!home && footerTipsMsg && (
+          <span className="visa-tips-feedback" role="status">
+            {footerTipsMsg}
+          </span>
+        )}
+        {adminAvailable() && admin.state !== 'checking' && (
+          <div className="app-footer-row footer-admin">
+            {admin.state === 'none' && (
+              <button type="button" className="btn-text visa-tips-igen footer-admin-login" onClick={() => setLoginOpen(true)}>
+                {UI.adminLoginLink}
+              </button>
+            )}
+            {admin.state === 'admin' && <span className="footer-admin-badge">{UI.adminBadge}</span>}
+            {admin.state === 'notAdmin' && <span className="footer-admin-not">{UI.adminNotAdmin}</span>}
+            {admin.state !== 'none' && (
+              <>
+                {sep}
+                <button ref={logoutRef} type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
+                  {UI.adminLogout}
+                </button>
+              </>
+            )}
+          </div>
+        )}
+        {kind !== 'shared' && <p className={home ? 'app-footer-note' : 'app-footer-slice'}>{home ? UI.draftHonestyBodyShort : UI.footerSliceLabel}</p>}
+      </>
+    )
   }
 
   return (
@@ -298,13 +348,7 @@ export default function App() {
               {UI.shareBad}
             </p>
           )}
-          <Home
-            onNew={goNew}
-            onTemplate={goTemplate}
-            onContinue={goContinue}
-            onWizardFinish={goWizardFinish}
-            onReceive={receiveSession}
-          />
+          <Home onContinue={goContinue} onPlan={finishPlan} onReceive={receiveSession} foot={footerRows('home')} />
         </>
       ) : view === 'hall' ? (
         <HallBoard
@@ -321,7 +365,7 @@ export default function App() {
         />
       ) : (
         <SessionBuilder
-          key={session.id + (openTemplates ? '-tmpl' : '')}
+          key={session.id}
           session={session}
           onChange={setSession}
           onHome={() => {
@@ -331,74 +375,12 @@ export default function App() {
           saveStatus={autosave.status}
           onOpenHall={handleOpenHallFromBuilder}
           onRun={openRunFromBuilder}
-          initialTemplatePicker={openTemplates}
-          onInitialTemplateConsumed={handleInitialTemplateConsumed}
           tips={syncedTips}
           onDismissTip={handleDismissTip}
           onBuilderMounted={handleBuilderMounted}
         />
       )}
-      <footer className="app-footer no-print">
-        {view !== 'home' && (
-          <>
-            <span>{UI.footerSliceLabel}</span>
-            <span className="app-footer-sep" aria-hidden>
-              ·
-            </span>
-          </>
-        )}
-        {adminAvailable() && admin.state !== 'checking' && (
-          <span className="footer-admin">
-            {admin.state === 'none' && (
-              <button type="button" className="btn-text visa-tips-igen footer-admin-login" onClick={() => setLoginOpen(true)}>
-                {UI.adminLoginLink}
-              </button>
-            )}
-            {admin.state === 'admin' && <span className="footer-admin-badge">{UI.adminBadge}</span>}
-            {admin.state === 'notAdmin' && <span className="footer-admin-not">{UI.adminNotAdmin}</span>}
-            {admin.state !== 'none' && (
-              <>
-                <span className="app-footer-sep" aria-hidden>
-                  ·
-                </span>
-                <button ref={logoutRef} type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
-                  {UI.adminLogout}
-                </button>
-              </>
-            )}
-            <span className="app-footer-sep" aria-hidden>
-              ·
-            </span>
-          </span>
-        )}
-        <FooterFeedback />
-        {view !== 'home' && (
-          <>
-            <button
-              type="button"
-              className="btn-text visa-tips-igen footer-visa-tips"
-              onClick={handleFooterShowTipsAgain}
-            >
-              {UI.visaTipsIgen}
-            </button>
-            <span className="app-footer-sep" aria-hidden>
-              ·
-            </span>
-          </>
-        )}
-        <button
-          type="button"
-          className="btn-text visa-tips-igen footer-update"
-          onClick={() => applyUpdate(remoteBuild)}
-        >
-          {UI.updateApp}
-        </button>
-        {footerTipsMsg && (
-          <span className="visa-tips-feedback" role="status">
-            {footerTipsMsg}
-          </span>
-        )}
-      </footer>
+      {(shared || view !== 'home') && <footer className="app-footer no-print">{footerRows(shared ? 'shared' : 'app')}</footer>}
       {showLogin && (
         <Suspense fallback={null}>
           <AdminLoginSheet

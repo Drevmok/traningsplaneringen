@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { UI } from '../data/blockMeta'
 import { loadDraft, clearDraft } from '../lib/session'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
@@ -6,24 +6,20 @@ import { sessionFromTransfer } from '../lib/sharePass'
 import { isExerciseFile } from '../lib/ownImport'
 import type { Session } from '../types'
 import heroUrl from '../assets/home-hero.jpg'
-import { HomeWizard, type WizardFinishAnswers } from './HomeWizard'
+import { HomeWizard, type PlanResult } from './HomeWizard'
 import { ReplaceDraftConfirm } from './ReplaceDraftConfirm'
 
 interface Props {
-  onNew: () => void
-  onTemplate: () => void
   onContinue: () => void
-  onWizardFinish: (answers: WizardFinishAnswers) => void
+  /** Slice 46: a finished Planera pass sheet (questions, Tomt pass or mall). */
+  onPlan: (plan: PlanResult) => void
   onReceive: (session: Session) => void
+  /** Slice 46 E1: the footer rows live inside the start pane (App owns admin + update state). */
+  foot: ReactNode
 }
 
-export function Home({
-  onNew,
-  onTemplate,
-  onContinue,
-  onWizardFinish,
-  onReceive,
-}: Props) {
+export function Home({ onContinue, onPlan, onReceive, foot }: Props) {
+  const planBtn = useRef<HTMLButtonElement>(null)
   const [draft, setDraft] = useState(() => loadDraft())
   const [confirmClear, setConfirmClear] = useState(false)
   useBodyScrollLock(confirmClear)
@@ -33,9 +29,15 @@ export function Home({
   const [receiveError, setReceiveError] = useState<string | null>(null)
   const [pendingReceive, setPendingReceive] = useState<Session | null>(null)
 
-  function handleWizardFinish(answers: WizardFinishAnswers) {
+  function handleWizardFinish(plan: PlanResult) {
     setWizardOpen(false)
-    onWizardFinish(answers)
+    onPlan(plan)
+  }
+
+  function handleWizardCancel() {
+    setWizardOpen(false)
+    // C1: nothing made or saved; focus back on «Planera pass».
+    window.setTimeout(() => planBtn.current?.focus(), 0)
   }
 
   async function takeTransfer(text: string) {
@@ -65,7 +67,7 @@ export function Home({
         <p className="home-promise">{UI.homePromise}</p>
 
         <div className="home-start">
-          {draft ? (
+          {draft && (
             <button
               type="button"
               className="btn-primary home-start-primary"
@@ -76,24 +78,15 @@ export function Home({
                 {draft.title.trim() || UI.untitledPass} · {draft.totalMinutes} min
               </span>
             </button>
-          ) : (
-            <button
-              type="button"
-              className="btn-primary home-start-primary"
-              onClick={() => setWizardOpen(true)}
-            >
-              {UI.homeWizardPrimary}
-            </button>
           )}
-
-          <div className="home-start-links">
-            <button type="button" className="btn-text home-alt" onClick={onNew}>
-              {UI.emptyPass}
-            </button>
-            <button type="button" className="btn-text home-alt" onClick={onTemplate}>
-              {UI.fromTemplate}
-            </button>
-          </div>
+          <button
+            ref={planBtn}
+            type="button"
+            className={draft ? 'btn-secondary home-start-secondary' : 'btn-primary home-start-primary'}
+            onClick={() => setWizardOpen(true)}
+          >
+            {UI.homeWizardPrimary}
+          </button>
           {draft && (
             <button
               type="button"
@@ -107,7 +100,6 @@ export function Home({
       </div>
 
       <div className="home-entry-foot">
-        <p className="home-start-note">{UI.draftHonestyBodyShort}</p>
         <button
           type="button"
           className="btn-text home-fetch"
@@ -149,6 +141,7 @@ export function Home({
             {receiveError && <p role="alert">{receiveError}</p>}
           </div>
         )}
+        <footer className="home-foot-rows app-footer no-print">{foot}</footer>
       </div>
       </div>
 
@@ -203,7 +196,7 @@ export function Home({
       {wizardOpen && (
         <HomeWizard
           onFinish={handleWizardFinish}
-          onCancel={() => setWizardOpen(false)}
+          onCancel={handleWizardCancel}
         />
       )}
     </div>

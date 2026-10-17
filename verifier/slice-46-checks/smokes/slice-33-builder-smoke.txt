@@ -1,0 +1,52 @@
+  · seed rows flagged needs_coach_review: 16; AC 33 uses gather-narvaro «Närvaro»
+  · mall drill used for AC 34: tech-ljushopp-satsbrada «Ljushopp på satsbräda»
+  · users: admin2@test.local, admin3@test.local, admin@test.local, nonadmin@test.local · admins: admin2@test.local, admin3@test.local, admin@test.local
+FAIL [AC21] Coach visit — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+PASS [AC18-old-codea] ?code=abc… → Home, address cleaned to …/traningsplaneringen/ — …/
+PASS [AC18-old-codeb] No login sheet, no message, no error
+PASS [AC18-old-codec] No supabase-js / admin chunk and no auth request — index-BBA1r5BW.js
+FAIL [AC18] Old link URLs in a fresh profile — error: locator.innerText: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer')
+PASS [AC20a] ?code=abc#dela=<token> → shared pass opens, hash kept, code dropped — /traningsplaneringen/#dela=z.jVPB…
+PASS [AC20b] No admin chunk / auth request for that visit
+FAIL [AC3] Unknown e-mail — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+FAIL [AC8] Step 1 and step 2 DOM (admin) — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+FAIL [AC7] Code field typing + paste (admin, code not used yet) — error: locator.fill: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).locator('input.admin-code-input')
+FAIL [AC6a] Pending entry {email, sentAt} stored after the send (no code in it)
+FAIL [AC6] Pending login survives a reload (admin) — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login') to be visible
+FAIL [AC12] Wrong code, offline verify, then the right code (admin2) — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+FAIL [AC14] Offline send, rate limit, Byt e-post, verify-side 429, expired code (admin3) — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+FAIL [AC22] Non-admin logs in with a code — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+  · waiting 0 s for the 60 s resend cooldown
+FAIL [AC16] Resend after 60 s, replaced code, login (admin) — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka ny kod', exact: true }) to be visible
+PASS [AC20c] #dela= opens the shared pass while logged in as admin
+PASS [S32-AC41a] Dry-run lists 2 new rows and writes nothing — Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs.
+PASS [S32-AC41b] Push → exit 0, «Väntar på godkännande i appen» — Nya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / 
+PASS [S32-AC41c] Rows pending, needs_coach_review true, updated_by bot:planner — tech-test-aggrullning-kil|pending|true|bot:planner ; tech-test-formhopp-over-lagt-block|pending|true|bot:planner
+PASS [S32-AC41d] Invisible to anon
+PASS [S32-AC42a] Second push: existing ids skipped + reported, not overwritten — Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / 
+PASS [S32-C5] All skipped → «Inget nytt …», no «Väntar på godkännande» — Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.
+PASS [S32-AC42b] Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses
+PASS [S32-AC42c] Key never printed
+PASS [S32-AC43] Bot key DELETE → permission denied, row still there — 403 {"code":"42501","details":null,"hint":null,"message":"permission denied for tabl
+PASS [S32-AC40b] Secret-style key refused from a browser origin (gateway emulates Supabase 401)
+FAIL [S32-AC29] Admin mode lists — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [S32-AC30] Another (anon) profile sees the approved row — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [S32-AC31] Ändra i banken — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+  · review count now 16 (16 seed rows + the approved bot row)
+FAIL [S32-AC33] Markera som granskad — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [S32-AC34] Dölj för alla + Visa igen — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Från mall' })
+FAIL [S32-AC35] No delete control — error: locator.selectOption: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.filter-row select')
+FAIL [S32-AC36] Two tabs edit the same exercise — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [S32-AC37] Offline admin — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [AC24] Logga ut (admin) — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+PASS [AC19] rg for the retired link names in app/src returns nothing
+PASS [AC26j] Login sheet never says «länk», no «!»
+PASS [AC26k] Login sheet never says Supabase / OTP / token / session / server / databas
+FAIL [AC26l] Every Slice 33 key in blockMeta.ts matches microcopy.sv.md verbatim — footerSliceLabel
+PASS [AC26m] No admin UI string says Supabase / OTP / token / session; none has «!»
+FAIL [AC26n] Every Slice 33 status/error line seen in the sheet is a microcopy string
+PASS [E] No page errors
+PASS [N] Every coach-context bank request was a GET with the publishable key and no Authorization
+PASS [C] No login code in any request URL or the results (codes only in POST bodies to /auth/v1/verify)
+
+PASS 23 / FAIL 22

@@ -1,0 +1,27 @@
+PASS [A-title] title: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":798}
+FAIL [A-passlength] passlength: exactly one write ~800 ms after the edit, change stored, same id — {"writes":0,"msAfterEdit":null}
+PASS [A-add-station] add-station: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":766}
+PASS [A-item-minutes] item-minutes: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":793}
+PASS [A-remove-station] remove-station: exactly one write ~800 ms after the edit, change stored, same id — {"writes":1,"msAfterEdit":798}
+NOTE A.timing: {"title":{"writes":1,"msAfterEdit":798},"passlength":{"writes":0,"msAfterEdit":null},"add-station":{"writes":1,"msAfterEdit":766},"item-minutes":{"writes":1,"msAfterEdit":793},"remove-station":{"writes":1,"msAfterEdit":798}}
+NOTE A.noUI: Passbyggaren has no station reorder (Flytta upp/ner keys exist but are unused in components) and no pass-notes field, so those edit kinds cannot be driven
+PASS [A-burst] Burst (12 keys + 5 taps over ~2 s) → 1 write ~800 ms after the last change; «Sparat» visible throughout — writes 1, +798 ms
+PASS [A-reload] Edit → reload at once (0 ms) → change kept — Reload direkt
+PASS [A-vis] visibilitychange:hidden → write within the same task (no 800 ms wait) — writes 1 +2 ms
+PASS [A-nav] Edit → navigate away at once → kept
+PASS [A-close1] Edit → close tab at once (runBeforeUnload) → reopen → kept
+NOTE A.closeNoUnload: page.close() without unload handlers (Playwright skips pagehide) → stored title «Stängd B»
+PASS [AC4] Edit → Till startsidan at once → Home shows new title / minutes — 50 ms; Träningsplaneraren Ett pass på några minuter. Fortsätt passet Hem snabbt · 60 min Planera pass Rensa passet Hämta ett pass Tyck till · Uppdatera appen Passen sparas bara på den här enheten.
+PASS [A-run] Edit → Kör passet at once → stored (flush)
+FAIL [B] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [C] section error — locator.count: Target page, context or browser has been closed
+FAIL [C2] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [D] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [E] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [F] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [G] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [H] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [I] section error — browser.newContext: Target page, context or browser has been closed
+FAIL [J] section error — browser.newContext: Target page, context or browser has been closed
+
+PASS 11 / FAIL 11 · page errors 0 · bank requests 0 (live: 0)

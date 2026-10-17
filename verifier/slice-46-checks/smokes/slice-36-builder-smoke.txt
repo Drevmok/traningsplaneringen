@@ -1,0 +1,9 @@
+FAIL [A] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-login')
+PASS [AC10] One GET to club_templates after render: apikey, no Authorization, hidden=is.false — select=id,title,total_minutes,payload,updated_at&hidden=is.false&order=sort_order,title
+FAIL [B] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: /^(Starta f|F)rån mall$/ }).first()
+FAIL [C] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: /^(Starta f|F)rån mall$/ }).first()
+FAIL [AC23] All Slice 36 strings verbatim in blockMeta.ts, no «!», SLICE_NUMBER = 36
+PASS [AC21d] rg "\.delete\(" app/src (non-test) finds nothing
+PASS [errors] No page errors
+
+3/7 pass

@@ -1,0 +1,7 @@
+FAIL [T] section error — locator.click: Timeout 10000ms exceeded. @slice-42-verify.mjs:51,slice-42-verify.mjs:93,slice-42-verify.mjs:19,slice-42-verify.mjs:92
+FAIL [C] section error — locator.click: Timeout 10000ms exceeded. @slice-42-verify.mjs:51,slice-42-verify.mjs:170,slice-42-verify.mjs:19,slice-42-verify.mjs:169
+FAIL [S] section error — locator.click: Timeout 10000ms exceeded. @slice-42-verify.mjs:51,slice-42-verify.mjs:296,slice-42-verify.mjs:19,slice-42-verify.mjs:293
+FAIL [X] section error — locator.click: Timeout 10000ms exceeded. @slice-42-verify.mjs:51,slice-42-verify.mjs:337,slice-42-verify.mjs:345,slice-42-verify.mjs:19,slice-42-verify.mjs:335
+PASS [no-errors] No page errors
+PASS [no-live] No request to any host but the bank-mock (→ local stand-in) — 0 bank requests
+PASS 2 / FAIL 4 · page errors 0 · bank requests 0 (live: 0)

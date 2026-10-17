@@ -8,14 +8,13 @@ import {
 import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { coachStationCount, isFreshPass, markFresh } from '../lib/freshPass'
-import { autoPlaceItems, autoPlaceUnplaced } from '../lib/hallSuggest'
+import { autoPlaceItems } from '../lib/hallSuggest'
 import { restoreDraft, trySaveDraft } from '../lib/autosave'
 import type { SaveStatus } from '../lib/useAutosave'
 import { loadOwnActivities, deleteOwnActivity, markOwnReviewed } from '../lib/ownActivities'
 import {
   addItemToBlock,
   adoptAsDraft,
-  cloneTemplate,
   getTemplateById,
   loadDraft,
   passLengthOf,
@@ -34,7 +33,7 @@ import {
   startNewWeek,
 } from '../lib/savedTemplates'
 import { copyText, encodeShare, shareUrl } from '../lib/sharePass'
-import { clubPayload, clubTemplateToSession, type ClubTemplate } from '../lib/clubTemplates'
+import { clubPayload, type ClubTemplate } from '../lib/clubTemplates'
 import type {
   Activity,
   BlockType,
@@ -56,18 +55,13 @@ import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from '../lib/presentation'
 import { unlockRunSignal } from '../lib/runSignal'
 import { AdminStatusBadge } from './AdminStatusBadge'
+import { carry, type CarriedToast } from '../lib/undoCarry'
+import { applyMall } from '../lib/mallApply'
 import { useAdmin, useAdminBank } from '../lib/admin/useAdmin'
 
 // Slice 32 — the bank form is admin-only: its own chunk, loaded when «Ändra i banken» is tapped.
 const AdminBankForm = lazy(() => import('./AdminBankForm'))
-/**
- * Slice 36: a new pass gets a new id, and App keys the builder by session id, so the builder
- * remounts right after a mall is applied. A toast for that moment rides across the remount here.
- */
-type Toast = { text: string; undo?: boolean; focus?: boolean }
-let carriedToast: Toast | null = null
-/** Slice 41 (C1): one undo level — the pass before × / Använd mall and the pass that action produced. */
-let pendingUndo: { before: Session; after: Session; blockId: string | null } | null = null
+type Toast = CarriedToast
 const samePass = (a: Session, b: Session) => JSON.stringify(a) === JSON.stringify(b)
 /** Slice 39: pass ids that already got the «kunde inte sparas» toast (once per pass). */
 const failToasted = new Set<string>()
@@ -82,9 +76,6 @@ interface Props {
   onHome: () => void
   onOpenHall: () => void
   onRun: () => void
-  initialTemplatePicker?: boolean
-  /** Slice 20 C1 — clear App openTemplates after mall picker consumed. */
-  onInitialTemplateConsumed?: () => void
   tips: CoachTipsStateV1
   onDismissTip: (tipId: string) => void
   onBuilderMounted?: () => void
@@ -100,8 +91,6 @@ export function SessionBuilder({
   onHome,
   onOpenHall,
   onRun,
-  initialTemplatePicker = false,
-  onInitialTemplateConsumed,
   tips,
   onDismissTip,
   onBuilderMounted,
@@ -110,10 +99,8 @@ export function SessionBuilder({
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(
     session.blocks[0]?.id ?? null,
   )
-  const [sideTab, setSideTab] = useState<SideTab>(
-    initialTemplatePicker ? 'templates' : 'library',
-  )
-  const [panelOpen, setPanelOpen] = useState(initialTemplatePicker)
+  const [sideTab, setSideTab] = useState<SideTab>('library')
+  const [panelOpen, setPanelOpen] = useState(false)
   const [isNarrow, setIsNarrow] = useState(false)
   const [filterBlockType, setFilterBlockType] = useState<BlockType | 'all'>(
     'all',
@@ -126,13 +113,13 @@ export function SessionBuilder({
   const [mismatch, setMismatch] = useState<MismatchWarning | null>(null)
   const [toast, setToast] = useState<Toast | null>(() => {
     // Slice 41: an undo only survives the mall remount (it rides on the carried toast).
-    if (!carriedToast?.undo) pendingUndo = null
-    return carriedToast
+    if (!carry.toast?.undo) carry.undo = null
+    return carry.toast
   })
   const [toastHeld, setToastHeld] = useState(false)
   const undoBtn = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    carriedToast = null
+    carry.toast = null
   }, [])
   useEffect(() => {
     if (!toast || toastHeld) return
@@ -144,8 +131,8 @@ export function SessionBuilder({
   }, [toast])
   // Slice 41: any other change to the pass ends the undo.
   useEffect(() => {
-    if (pendingUndo && session !== pendingUndo.after && !samePass(session, pendingUndo.after)) {
-      pendingUndo = null
+    if (carry.undo && session !== carry.undo.after && !samePass(session, carry.undo.after)) {
+      carry.undo = null
       setToast((t) => (t?.undo ? null : t))
     }
   }, [session])
@@ -212,7 +199,7 @@ export function SessionBuilder({
 
   function closeToast() {
     setToast((t) => {
-      if (t?.undo) pendingUndo = null
+      if (t?.undo) carry.undo = null
       return null
     })
     setToastHeld(false)
@@ -224,8 +211,8 @@ export function SessionBuilder({
 
   /** Slice 41 (A1/B1): put the whole pass back as it was before × or Använd mall. */
   function runUndo() {
-    const u = pendingUndo
-    pendingUndo = null
+    const u = carry.undo
+    carry.undo = null
     setToastHeld(false)
     if (!u || (session !== u.after && !samePass(session, u.after))) {
       setToast(null)
@@ -234,13 +221,13 @@ export function SessionBuilder({
     const saved = restoreDraft(u.before)
     setSelectedBlockId(u.blockId ?? u.before.blocks[0]?.id ?? null)
     const done = saved ? { text: UI.undoDone } : null
-    if (u.before.id !== session.id) carriedToast = done
+    if (u.before.id !== session.id) carry.toast = done
     setToast(done)
     onChange(u.before)
   }
 
   function armUndo(after: Session, blockId: string | null) {
-    pendingUndo = { before: session, after, blockId }
+    carry.undo = { before: session, after, blockId }
   }
 
   function handleRemoveItem(blockId: string, itemId: string) {
@@ -258,9 +245,6 @@ export function SessionBuilder({
 
   function closePanel() {
     setPanelOpen(false)
-    if (initialTemplatePicker) {
-      onInitialTemplateConsumed?.()
-    }
   }
 
   function openAddForBlock(blockId: string) {
@@ -365,30 +349,28 @@ export function SessionBuilder({
 
   function handleConfirmTemplate(tpl = pendingTemplate) {
     if (!tpl) return
-    const cloned = autoPlaceUnplaced(cloneTemplate(tpl))
+    const cloned = applyMall({ kind: 'builtin', item: tpl })
     setSelectedBlockId(cloned.blocks[0]?.id ?? null)
     setPendingTemplateId(null)
     setMismatch(null)
-    // Slice 20 C1 — clear one-shot flag before remount key; close sheet (not library).
-    onInitialTemplateConsumed?.()
     // Slice 39 C1: a built-in mall is saved the moment it is applied.
     trySaveDraft(cloned)
     markFresh(cloned)
     armUndo(cloned, null)
-    carriedToast = undoToast(true)
+    carry.toast = undoToast(true)
     onChange(cloned)
     closePanel()
   }
 
   function handleConfirmSaved(tpl = pendingSaved) {
     if (!tpl) return
-    const next = adoptAsDraft(autoPlaceUnplaced(savedTemplateToSession(tpl)))
+    const next = adoptAsDraft(applyMall({ kind: 'saved', item: tpl }))
     markFresh(next)
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingSavedId(null)
     setMismatch(null)
     armUndo(next, null)
-    carriedToast = undoToast(true)
+    carry.toast = undoToast(true)
     onChange(next)
     closePanel()
   }
@@ -397,14 +379,13 @@ export function SessionBuilder({
   // Teknik is placed on apply (club data itself still carries no placements).
   function handleConfirmClub(tpl = pendingClub) {
     if (!tpl) return
-    const next = adoptAsDraft(autoPlaceUnplaced(clubTemplateToSession(tpl)))
+    const next = adoptAsDraft(applyMall({ kind: 'club', item: tpl }))
     markFresh(next)
     setSelectedBlockId(next.blocks[0]?.id ?? null)
     setPendingClub(null)
     setMismatch(null)
     armUndo(next, null)
-    carriedToast = undoToast(true)
-    onInitialTemplateConsumed?.()
+    carry.toast = undoToast(true)
     onChange(next)
     closePanel()
   }
@@ -540,7 +521,7 @@ export function SessionBuilder({
               aria-label={UI.runPassAria}
               onClick={() => {
                 // Slice 41 AC8: Kör passet is an overlay — builder stays mounted, so expire undo here.
-                pendingUndo = null
+                carry.undo = null
                 setToast((t) => (t?.undo ? null : t))
                 setToastHeld(false)
                 unlockRunSignal()

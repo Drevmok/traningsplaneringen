@@ -1,0 +1,1632 @@
+{
+  "when": "2026-10-17T17:46:44.009Z",
+  "branch": "fe5e51e",
+  "main": "bc8cce0",
+  "results": [
+    {
+      "part": "p1",
+      "id": "AC1",
+      "name": "No draft: one «Planera pass», no «Tomt pass»/«Från mall» on the page; «Hämta ett pass» opens its panel as on main",
+      "ok": true,
+      "detail": "{\"br\":[\"Planera pass\",\"Hämta ett pass\",\"Tyck till\",\"Uppdatera appen\",\"Logga in som admin\"],\"main\":[\"Planera pass\",\"Tomt pass\",\"Från mall\",\"Hämta ett pass\"],\"recvSame\":true}"
+    },
+    {
+      "part": "p1",
+      "id": "AC2",
+      "name": "With draft: «Fortsätt passet» (title · min) first, «Planera pass» under it, then «Rensa passet»; each ≥ 44 px",
+      "ok": true,
+      "detail": "[{\"t\":\"Fortsätt passet S46V utkast · 53 min\",\"cls\":\"btn-primary home-start-primary\",\"top\":485,\"bottom\":550,\"h\":65},{\"t\":\"Planera pass\",\"cls\":\"btn-secondary home-start-secondary\",\"top\":562,\"bottom\":610,\"h\":48},{\"t\":\"Rensa passet\",\"cls\":\"btn-text home-clear\",\"top\":626,\"bottom\":670,\"h\":44}]"
+    },
+    {
+      "part": "p1",
+      "id": "AC3",
+      "name": "Start page (admin available), no draft and with draft: doc height ≤ 844, no scroll; «Uppdatera appen» and «Logga in som admin» fully on screen",
+      "ok": true,
+      "detail": "{\"br-nodraft\":{\"docH\":844,\"upd\":{\"top\":726,\"bottom\":770},\"admin\":{\"top\":770,\"bottom\":814}},\"br-draft\":{\"docH\":844,\"upd\":{\"top\":726,\"bottom\":770},\"admin\":{\"top\":770,\"bottom\":814}},\"main-nodraft\":{\"docH\":898,\"upd\":{\"top\":846,\"bottom\":886},\"admin\":{\"top\":800,\"bottom\":840}},\"main-draft\":{\"docH\":898,\"upd\":{\"top\":846,\"bottom\":886},\"admin\":{\"top\":800,\"bottom\":840}}}"
+    },
+    {
+      "part": "p1",
+      "id": "AC4",
+      "name": "Footer rows: «Tyck till · Uppdatera appen» / «Logga in som admin» / note ≤ 12 px grey; no edge «·»; one centre line per row; links ≥ 44 px",
+      "ok": true,
+      "detail": "[{\"t\":\"Tyck till · Uppdatera appen\",\"fs\":\"12px\",\"color\":\"rgb(120, 113, 108)\",\"items\":[\"A:Tyck till:h44:cy748:14px\",\"SPAN:·:h17:cy748:12px\",\"BUTTON:Uppdatera appen:h44:cy748:14px\"]},{\"t\":\"Logga in som admin\",\"fs\":\"12px\",\"color\":\"rgb(120, 113, 108)\",\"items\":[\"BUTTON:Logga in som admin:h44:cy792:14px\"]},{\"t\":\"Passen sparas bara på den här enheten.\",\"fs\":\"12px\",\"color\":\"rgb(73, 69, 79)\",\"items\":[]}]"
+    },
+    {
+      "part": "p1",
+      "id": "AC6",
+      "name": "Tyck till opens the mail (mailto) and shows the fallback line with the address as its own row; nothing else moves off screen",
+      "ok": true,
+      "detail": "{\"mail\":\"mailto:drevmok@gmail.com?subject=Tyck%20\",\"rows\":[\"Tyck till · Uppdatera appen@667-711\",\"Hittar du ingen e-postapp? Skriv till drevmok@gmail.com Kopiera adressen@711-770\",\"Logga in som admin@770-814\",\"Passen sparas bara på den här enheten.@816-832\"],\"offscreen\":[],\"docH\":844,\"rowsBefore\":3}"
+    },
+    {
+      "part": "p1",
+      "id": "AC21-home-land",
+      "name": "Landscape 844×390 start page: no horizontal scroll; Planera pass and footer reachable (scroll)",
+      "ok": true,
+      "detail": "{\"br\":{\"docH\":587,\"docW\":844,\"hero\":{\"top\":0,\"bottom\":587,\"h\":587,\"w\":440,\"left\":0,\"right\":440},\"pane\":{\"top\":0,\"bottom\":587,\"h\":587,\"w\":459,\"left\":440,\"right\":899},\"foot\":{\"top\":352,\"bottom\":462,\"h\":110,\"w\":299,\"left\":520,\"right\":819},\"appFooter\":null,\"plan\":{\"top\":220,\"bottom\":276,\"h\":56,\"w\":299,\"left\":520,\"right\":819},\"upd\":400},\"main\":{\"docH\":651,\"docW\":844,\"hero\":{\"top\":0,\"bottom\":587,\"h\":587,\"w\":440,\"left\":0,\"right\":440},\"pane\":{\"top\":0,\"bottom\":587,\"h\":587,\"w\":459,\"left\":440,\"right\":899},\"foot\":{\"top\":587,\"bottom\":651,\"h\":64,\"w\":844,\"left\":0,\"right\":844},\"appFooter\":{\"top\":587,\"bottom\":651,\"h\":64,\"w\":844,\"left\":0,\"right\":844},\"plan\":{\"top\":236,\"bottom\":292,\"h\":56,\"w\":299,\"left\":520,\"right\":819},\"upd\":639}}"
+    },
+    {
+      "part": "p1",
+      "id": "AC21-home-desk",
+      "name": "Desktop 1280×800 start page: hero layout vs main (measured); footer position",
+      "ok": true,
+      "detail": "{\"br\":{\"hero\":{\"top\":0,\"bottom\":800,\"h\":800,\"w\":589,\"left\":0,\"right\":589},\"pane\":{\"top\":0,\"bottom\":800,\"h\":800,\"w\":691,\"left\":589,\"right\":1280},\"foot\":{\"top\":459,\"bottom\":569,\"h\":110,\"w\":352,\"left\":758,\"right\":1110},\"docH\":800},\"main\":{\"hero\":{\"top\":0,\"bottom\":785,\"h\":785,\"w\":589,\"left\":0,\"right\":589},\"pane\":{\"top\":0,\"bottom\":785,\"h\":785,\"w\":691,\"left\":589,\"right\":1280},\"foot\":{\"top\":785,\"bottom\":849,\"h\":64,\"w\":1280,\"left\":0,\"right\":1280},\"appFooter\":{\"top\":785,\"bottom\":849,\"h\":64,\"w\":1280,\"left\":0,\"right\":1280},\"docH\":849},\"footInPane\":true}"
+    },
+    {
+      "part": "p1",
+      "id": "W-320-home",
+      "name": "320×640 start page: no horizontal scroll; footer usable",
+      "ok": true,
+      "detail": "{\"br\":{\"docH\":640,\"docW\":320,\"hero\":{\"top\":0,\"bottom\":346,\"h\":346,\"w\":320,\"left\":0,\"right\":320},\"pane\":{\"top\":318,\"bottom\":640,\"h\":322,\"w\":320,\"left\":0,\"right\":320},\"foot\":{\"top\":518,\"bottom\":628,\"h\":110,\"w\":280,\"left\":20,\"right\":300},\"appFooter\":null,\"plan\":{\"top\":410,\"bottom\":466,\"h\":56,\"w\":280,\"left\":20,\"right\":300},\"upd\":566},\"main\":{\"docH\":694,\"docW\":320,\"hero\":{\"top\":0,\"bottom\":322,\"h\":322,\"w\":320,\"left\":0,\"right\":320},\"pane\":{\"top\":294,\"bottom\":584,\"h\":290,\"w\":320,\"left\":0,\"right\":320},\"foot\":{\"top\":584,\"bottom\":694,\"h\":110,\"w\":320,\"left\":0,\"right\":320},\"appFooter\":{\"top\":584,\"bottom\":694,\"h\":110,\"w\":320,\"left\":0,\"right\":320},\"plan\":{\"top\":386,\"bottom\":442,\"h\":56,\"w\":280,\"left\":20,\"right\":300},\"upd\":682}}"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-local",
+      "name": "LOCAL stand-in: admin row «Admin · Logga ut»; non-admin «Du är inloggad men inte admin. · Logga ut»; focus on Logga ut after code login; Logga ut works; rows tidy, page ≤ 844",
+      "ok": true,
+      "detail": "{\"admin\":{\"rows\":[\"Tyck till · Uppdatera appen\",\"Admin · Logga ut\",\"Passen sparas bara på den här enheten.\"],\"rowsOk\":true,\"act\":\"BUTTON.btn-text visa-tips-igen footer-admin-logout:Logga ut\",\"docH\":844,\"afterLogout\":[\"Tyck till · Uppdatera appen\",\"Logga in som admin\",\"Passen sparas bara på den här enheten.\"]},\"nonadmin\":{\"rows\":[\"Tyck till · Uppdatera appen\",\"Du är inloggad men inte admin. · Logga ut\",\"Passen sparas bara på den här enheten.\"],\"rowsOk\":true,\"act\":\"BUTTON.btn-text visa-tips-igen footer-admin-logout:Logga ut\",\"docH\":844,\"afterLogout\":[\"Tyck till · Uppdatera appen\",\"Logga in som admin\",\"Passen sparas bara på den här enheten.\"]}}"
+    },
+    {
+      "part": "p3",
+      "id": "LIVE",
+      "name": "No request to any real *.supabase.co host during the run",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "part": "p2",
+      "id": "AC7",
+      "name": "Sheet opens on «Fråga 1 av 4» «Ålder», chips 4–6 · 7–9 · 10–12 · 13–18 år · Nivå, a thin line then «Starta från mall» and «Tomt pass»; no ×; bottom row only «Avbryt»",
+      "ok": true,
+      "detail": "{\"pr\":\"Fråga 1 av 4\",\"h\":\"Ålder\",\"opts\":[\"4–6 år\",\"7–9 år\",\"10–12 år\",\"13–18 år\",\"Nivå\"],\"alt\":[\"Starta från mall\",\"Tomt pass\"],\"altBorder\":\"1px\",\"headerBtns\":[],\"actions\":[\"Avbryt\"],\"x\":false,\"sheet\":[301,844]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC8",
+      "name": "Tap «7–9 år»: chip chosen, then «Fråga 2 av 4» «Fokus» within ~0.3 s; no «Nästa»/«Skapa pass»; a quick double tap advances one step only",
+      "ok": true,
+      "detail": "{\"selMs\":28,\"advMs\":280,\"pr\":\"Fråga 2 av 4\",\"h\":\"Fokus\",\"anyNext\":false,\"doubleTap\":{\"pr2\":\"Fråga 2 av 4\",\"sel2\":[]},\"dblclickFokus\":{\"pr3\":\"Fråga 3 av 4\",\"h3\":\"Hall\"}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC9",
+      "name": "Fokus: Satsbräda · Trampett · Tumbling · Blandat, no station/zone line; Trampett → «Fråga 3 av 4» «Hall» with exactly the two Gymmix halls",
+      "ok": true,
+      "detail": "{\"f\":{\"opts\":[\"Satsbräda\",\"Trampett\",\"Tumbling\",\"Blandat\"],\"text\":\"Fråga 2 av 4\\n\\nFokus\\nSatsbräda\\nTrampett\\nTumbling\\nBlandat\\nTillbaka\\nAvbryt\"},\"hh\":{\"pr\":\"Fråga 3 av 4\",\"h\":\"Hall\",\"opts\":[\"Gymmix – Stora hallen\",\"Gymmix – Grophallen\"]}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC11",
+      "name": "Nivå → Nivå 9…1 + «Nivå 9 är den lägsta. Nivå 1 är den högsta.»; Tillbaka → age chips; Nivå 3 → Fokus; title «Nivå 3 — …»",
+      "ok": true,
+      "detail": "{\"lv\":{\"opts\":[\"Nivå 9\",\"Nivå 8\",\"Nivå 7\",\"Nivå 6\",\"Nivå 5\",\"Nivå 4\",\"Nivå 3\",\"Nivå 2\",\"Nivå 1\"],\"hint\":\"Nivå 9 är den lägsta. Nivå 1 är den högsta.\",\"actions\":[\"Tillbaka\",\"Avbryt\"],\"pr\":\"Fråga 1 av 4\"},\"back\":{\"opts\":[\"4–6 år\",\"7–9 år\",\"10–12 år\",\"13–18 år\",\"Nivå\"],\"pr\":\"Fråga 1 av 4\"},\"h\":\"Fokus\",\"pr\":\"Fråga 2 av 4\",\"title\":\"Nivå 3 — tumbling\"}"
+    },
+    {
+      "part": "p2",
+      "id": "AC12",
+      "name": "Tillbaka on steps 2–4: one step back, earlier answer marked; re-tap moves on; another answer replaces it; progress updates; no Tillbaka on step 1",
+      "ok": true,
+      "detail": "{\"log\":[{\"tag\":\"q1\",\"pr\":\"Fråga 1 av 4\",\"h\":\"Ålder\",\"sel\":[],\"back\":false},{\"tag\":\"q2\",\"pr\":\"Fråga 2 av 4\",\"h\":\"Fokus\",\"sel\":[],\"back\":true},{\"tag\":\"back→q1\",\"pr\":\"Fråga 1 av 4\",\"h\":\"Ålder\",\"sel\":[\"7–9 år\"],\"back\":false},{\"tag\":\"retap→q2\",\"pr\":\"Fråga 2 av 4\",\"h\":\"Fokus\",\"sel\":[],\"back\":true},{\"tag\":\"q3\",\"pr\":\"Fråga 3 av 4\",\"h\":\"Hall\",\"sel\":[],\"back\":true},{\"tag\":\"back→q2\",\"pr\":\"Fråga 2 av 4\",\"h\":\"Fokus\",\"sel\":[\"Trampett\"],\"back\":true},{\"tag\":\"other→q3\",\"pr\":\"Fråga 3 av 4\",\"h\":\"Hall\",\"sel\":[],\"back\":true},{\"tag\":\"q4\",\"pr\":\"Fråga 4 av 4\",\"h\":\"Passlängd\",\"sel\":[],\"back\":true},{\"tag\":\"back→q3\",\"pr\":\"Fråga 3 av 4\",\"h\":\"Hall\",\"sel\":[\"Gymmix – Grophallen\"],\"back\":true},{\"tag\":\"other→q4\",\"pr\":\"Fråga 4 av 4\",\"h\":\"Passlängd\",\"sel\":[],\"back\":true}],\"title\":\"Pass — tumbling\",\"hall\":\"forening-bla\",\"target\":60}"
+    },
+    {
+      "part": "p2",
+      "id": "AC13",
+      "name": "Avbryt on every step (q1–q4, Nivå, Tomt pass ×2, mall ×2) and a tap outside (q2, q4, mall list): sheet closes, start page unchanged, draft identical, focus on «Planera pass» (no draft and with draft)",
+      "ok": true,
+      "detail": "{\"n\":24,\"bad\":[],\"otherKeysChanged\":[]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC13-forget",
+      "name": "After Avbryt the next Planera pass starts on step 1 with nothing marked",
+      "ok": true,
+      "detail": "{\"pr\":\"Fråga 1 av 4\",\"sel\":[]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC19",
+      "name": "Keyboard: after each advance focus is on the new heading; progress line aria-live; chips are buttons with aria-selected",
+      "ok": true,
+      "detail": "{\"a0\":\"H2.home-wizard-label:Ålder\",\"a1\":\"H2.home-wizard-label:Fokus\",\"a2\":\"H2.home-wizard-label:Hall\",\"pr2\":\"Fråga 3 av 4\",\"live\":\"polite\",\"chipInfo\":[\"BUTTON:false\",\"BUTTON:false\",\"BUTTON:false\",\"BUTTON:false\",\"BUTTON:false\"],\"escape\":{\"open\":1,\"focus\":\"H2.home-wizard-label:Hall\"}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC21-sheet",
+      "name": "Sheet at 320, 390, landscape 844×390 (scrolls inside, Avbryt reachable) and desktop 1280×800: chips ≥ 44 px and on screen, no horizontal scroll, Avbryt reachable on step 1 and the Nivå list, full path works",
+      "ok": false,
+      "detail": "{\"320\":{\"sheet\":{\"top\":97,\"bottom\":640,\"h\":543,\"w\":320,\"left\":0,\"right\":320},\"docW\":320,\"scroll1\":{\"sh\":543,\"ch\":543,\"ov\":\"auto\"},\"cancel\":[580,624,44],\"chipW\":[[280,49,300],[280,49,300],[280,49,300],[280,49,300],[280,49,300]],\"niva\":{\"top\":82,\"bottom\":640,\"h\":558,\"w\":320,\"left\":0,\"right\":320},\"scrollN\":{\"sh\":558,\"ch\":558},\"cancelN\":[580,624],\"closed\":true,\"path\":\"Pass — satsbräda|120|forening-bla\"},\"390\":{\"sheet\":{\"top\":301,\"bottom\":844,\"h\":543,\"w\":390,\"left\":0,\"right\":390},\"docW\":390,\"scroll1\":{\"sh\":543,\"ch\":543,\"ov\":\"auto\"},\"cancel\":[784,828,44],\"chipW\":[[350,49,370],[350,49,370],[350,49,370],[350,49,370],[350,49,370]],\"niva\":{\"top\":199,\"bottom\":844,\"h\":645,\"w\":390,\"left\":0,\"right\":390},\"scrollN\":{\"sh\":645,\"ch\":645},\"cancelN\":[784,828],\"closed\":true,\"path\":\"Pass — satsbräda|120|forening-bla\"},\"land\":{\"sheet\":{\"top\":16,\"bottom\":476,\"h\":460,\"w\":420,\"left\":212,\"right\":632},\"docW\":844,\"scroll1\":{\"sh\":460,\"ch\":460,\"ov\":\"visible\"},\"cancel\":[416,460,44],\"chipW\":[[380,44,612],[380,44,612],[380,44,612],[380,44,612],[380,44,612]],\"niva\":{\"top\":16,\"bottom\":444,\"h\":428,\"w\":420,\"left\":212,\"right\":632},\"scrollN\":{\"sh\":428,\"ch\":428},\"cancelN\":[384,428],\"closed\":true,\"path\":\"Pass — satsbräda|12"
+    },
+    {
+      "part": "p2",
+      "id": "AC10",
+      "name": "Grophallen → «Fråga 4 av 4» «Passlängd» 60/90/120, none preselected; 90 → Passbyggaren «Pass — trampett», «53 / 90 min», Teknik on Grophallen",
+      "ok": true,
+      "detail": "{\"L\":{\"pr\":\"Fråga 4 av 4\",\"h\":\"Passlängd\",\"opts\":[\"60 min\",\"90 min\",\"120 min\"],\"sel\":[]},\"title\":\"Pass — trampett\",\"len\":\"53 /\",\"lsel\":\"90\",\"target\":90,\"total\":53,\"hall\":\"forening-vit\",\"meta\":\"Pass — trampett\\n3 stationer\\nGymmix – Grophallen\",\"ch\":\"forening-vit\",\"mk\":[{\"rank\":1,\"inOpen\":true},{\"rank\":2,\"inOpen\":true},{\"rank\":3,\"inOpen\":true}],\"teknik\":3}"
+    },
+    {
+      "part": "p2",
+      "id": "TOMT-reload",
+      "name": "Blank Tomt pass: not stored until edited — same as main's Tomt pass (reload / Till startsidan → start page without a draft); stored after the first added station (title/notes alone are not written — same as main)",
+      "ok": true,
+      "detail": "{\"br-reload\":{\"storedBefore\":false,\"view\":\"home\",\"fortsatt\":0,\"storedAfter\":false},\"br-home\":{\"storedBefore\":false,\"view\":\"home\",\"fortsatt\":0,\"storedAfter\":false},\"br-edit-title\":{\"stored\":null},\"br-title+note-reload\":{\"stored\":null,\"view\":\"home\"},\"br-station\":{\"stored\":3,\"afterReload\":true},\"main-reload\":{\"storedBefore\":false,\"view\":\"home\",\"fortsatt\":0,\"storedAfter\":false},\"main-home\":{\"storedBefore\":false,\"view\":\"home\",\"fortsatt\":0,\"storedAfter\":false},\"main-edit-title\":{\"stored\":null},\"main-title+note-reload\":{\"stored\":null,\"view\":\"home\"},\"main-station\":{\"stored\":3,\"afterReload\":true}}"
+    },
+    {
+      "part": "p2",
+      "id": "AC15",
+      "name": "Starta från mall: «Hall» → Grophallen → «Fråga 2 av 2» «Mall» (Föreningens/Nybörjare/Kort pass) → Nybörjare: Passbyggaren, toast «Mallen är i Passbyggaren. · Ångra», Grophallen, markers on its grid",
+      "ok": true,
+      "detail": "{\"s1\":{\"pr\":\"Fråga 1 av 2\",\"h\":\"Hall\"},\"s2\":{\"pr\":\"Fråga 2 av 2\",\"h\":\"Mall\",\"text\":\"Fråga 2 av 2 Mall Föreningens mallar Pass som föreningen har provat. Du gör dem till dina när du använder dem. Föreningen har inga mallar än. Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort pass — ca 45 min Kompakt pass när tiden är knapp. Fortfarande alla fem blocken. ~45 min · Trygg för nya tränare Tillbaka Avbryt\"},\"toast\":\"Mallen är i Passbyggaren. · Ångra\",\"hall\":\"forening-vit\",\"meta\":\"Nybörjare — ca 55 min\\n3 stationer\\nGymmix – Grophallen\",\"mk\":[{\"rank\":1,\"inOpen\":true},{\"rank\":2,\"inOpen\":true},{\"rank\":3,\"inOpen\":true}]}"
+    },
+    {
+      "part": "p2",
+      "id": "AC14",
+      "name": "Tomt pass: «Fråga 1 av 2» «Hall» → Grophallen → «Fråga 2 av 2» «Passlängd» → 120 → empty pass (Närvaro + Dagens pass), «… / 120 min», hall Grophallen; Tillbaka on Hall → step 1",
+      "ok": true,
+      "detail": "{\"s1\":{\"pr\":\"Fråga 1 av 2\",\"h\":\"Hall\",\"opts\":[\"Gymmix – Stora hallen\",\"Gymmix – Grophallen\"]},\"back\":{\"pr\":\"Fråga 1 av 4\",\"h\":\"Ålder\"},\"s2\":{\"pr\":\"Fråga 2 av 2\",\"h\":\"Passlängd\",\"opts\":[\"60 min\",\"90 min\",\"120 min\"],\"sel\":[]},\"len\":\"6 /\",\"lsel\":\"120\",\"storedBeforeEdit\":\"not stored\",\"afterStation\":{\"title\":\"S46V tomt\",\"hall\":\"forening-vit\",\"target\":120,\"items\":[\"gather-narvaro\",\"gather-dagens-teknik\",\"tech-ljushopp-satsbrada\"]},\"afterTitleOnly\":\"not stored\"}"
+    },
+    {
+      "part": "p3",
+      "id": "AC16-club",
+      "name": "Föreningens mall (local stand-in): hall as answered (Grophallen / Stora), markers placed on the grid; DB row unchanged; 0 live requests",
+      "ok": true,
+      "detail": "{\"grop\":{\"hall\":\"forening-vit\",\"want\":\"forening-vit\",\"markers\":3,\"teknik\":3,\"inOpen\":true,\"toast\":\"Mallen är i Passbyggaren. · Ångra\"},\"stora\":{\"hall\":\"forening-bla\",\"want\":\"forening-bla\",\"markers\":3,\"teknik\":3,\"inOpen\":true,\"toast\":\"Mallen är i Passbyggaren. · Ångra\"},\"dbSame\":true,\"live\":0}"
+    },
+    {
+      "part": "p3",
+      "id": "AC18",
+      "name": "With a draft: Planera pass replaces the draft without asking (all 4 paths); the edited old draft is kept in Mina mallar as an auto copy (same content + placements), as Använd mall autosave does",
+      "ok": true,
+      "detail": "{\"edited-questions\":{\"oldTitle\":\"S46V gammal\",\"mallarBefore\":0,\"confirmShown\":0,\"stored\":\"Pass — tumbling|forening-vit|9\",\"storedIsOld\":false,\"autoCopy\":{\"title\":\"S46V gammal\",\"sameContent\":true,\"hall\":\"forening-bla\",\"placements\":true},\"mallarAfter\":1,\"afterReload\":{\"stored\":\"Pass — tumbling|9\",\"mallar\":1,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet Pass — tumbling · 53 min\"}},\"edited-tomt-edit\":{\"oldTitle\":\"S46V gammal\",\"mallarBefore\":0,\"confirmShown\":0,\"stored\":\"S46V ny tomt|forening-vit|3\",\"storedIsOld\":false,\"autoCopy\":{\"title\":\"S46V gammal\",\"sameContent\":true,\"hall\":\"forening-bla\",\"placements\":true},\"mallarAfter\":1,\"afterReload\":{\"stored\":\"S46V ny tomt|3\",\"mallar\":1,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet S46V ny tomt · 12 min\"}},\"edited-tomt-noedit-home\":{\"oldTitle\":\"S46V gammal\",\"mallarBefore\":0,\"confirmShown\":0,\"stored\":\"S46V gammal|forening-bla|9\",\"storedIsOld\":true,\"autoCopy\":null,\"mallarAfter\":0,\"afterReload\":{\"stored\":\"S46V gammal|9\",\"mallar\":0,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet S46V gammal · 53 min\"}},\"edited-mall\":{\"oldTitle\":\"S46V gammal\",\"mallarBefore\":0,\"confirmShown\":0,\"stored\":\"Nybörjare — ca 55 min|forening-vit|9\",\"storedIsOld\":false,\"autoCopy\":{\"title\":\"S"
+    },
+    {
+      "part": "p3",
+      "id": "AC18-fresh",
+      "name": "INFO: an untouched (fresh) old draft is not archived (Slice 42 D1 rule)",
+      "ok": true,
+      "detail": "{\"fresh-questions\":{\"autoCopy\":false,\"stored\":\"Pass — tumbling|forening-vit|9\",\"afterReload\":{\"stored\":\"Pass — tumbling|9\",\"mallar\":0,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet Pass — tumbling · 53 min\"}},\"fresh-tomt-edit\":{\"autoCopy\":true,\"stored\":\"S46V ny tomt|forening-vit|3\",\"afterReload\":{\"stored\":\"S46V ny tomt|3\",\"mallar\":1,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet S46V ny tomt · 12 min\"}},\"fresh-tomt-noedit-home\":{\"autoCopy\":false,\"stored\":\"Pass — trampett|forening-bla|9\",\"afterReload\":{\"stored\":\"Pass — trampett|9\",\"mallar\":0,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet Pass — trampett · 53 min\"}},\"fresh-mall\":{\"autoCopy\":false,\"stored\":\"Nybörjare — ca 55 min|forening-vit|9\",\"afterReload\":{\"stored\":\"Nybörjare — ca 55 min|9\",\"mallar\":0,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet Nybörjare — ca 55 min · 53 min\"}},\"fresh-mall-undo\":{\"autoCopy\":false,\"stored\":\"Nytt pass|forening-vit|2\",\"afterReload\":{\"stored\":\"Nytt pass|2\",\"mallar\":0,\"view\":\"home\",\"fortsatt\":\"Fortsätt passet Nytt pass · 6 min\"}}}"
+    },
+    {
+      "part": "p3",
+      "id": "AC18-main-ref",
+      "name": "INFO main reference: start page with a draft; Från mall → Nybörjare → Ångra and Tomt pass → edit",
+      "ok": true,
+      "detail": "{\"confirm\":0,\"fran-mall-undo\":{\"homeButtonsWithDraft\":[\"Fortsätt passet S46V gammal · 12 min\",\"Tomt pass\",\"Från mall\",\"Rensa passet\",\"Hämta ett pass\"],\"stored\":\"Nytt pass|2\",\"storedIsOld\":false,\"autoCopy\":true,\"mallar\":1},\"tomt-edit\":{\"homeButtonsWithDraft\":[\"Fortsätt passet S46V gammal · 12 min\",\"Tomt pass\",\"Från mall\",\"Rensa passet\",\"Hämta ett pass\"],\"stored\":\"S46V ny tomt|3\",\"storedIsOld\":false,\"autoCopy\":true,\"mallar\":1}}"
+    },
+    {
+      "part": "p3",
+      "id": "AC20",
+      "name": "Passbyggaren and Hallöversikt footer: «Tyck till · Visa tips igen · Uppdatera appen» / «Logga in som admin» / «Träningsplaneraren · Slice 46» (smallest); no edge «·»; Visa tips igen shows its status line",
+      "ok": true,
+      "detail": "{\"builder\":{\"rows\":[\"Tyck till · Visa tips igen · Uppdatera appen\",\"Logga in som admin\",\"Träningsplaneraren · Slice 46\"],\"rowsOk\":true,\"lastFs\":12,\"maxOtherFs\":14,\"status\":\"Tips syns redan\",\"footerText\":\"Tyck till · Visa tips igen · Uppdatera appen Tips syns redan Logga in som admin Träningsplaneraren · Slice 46\"},\"hall\":{\"rows\":[\"Tyck till · Visa tips igen · Uppdatera appen\",\"Logga in som admin\",\"Träningsplaneraren · Slice 46\"],\"rowsOk\":true,\"lastFs\":12,\"maxOtherFs\":14,\"status\":\"Tips syns redan\",\"footerText\":\"Tyck till · Visa tips igen · Uppdatera appen Tips syns redan Logga in som admin Träningsplaneraren · Slice 46\"}}"
+    },
+    {
+      "part": "p3",
+      "id": "AC16-mina",
+      "name": "Mina mall (Stora hallen, own placements): chosen with Stora → placements kept exactly; chosen with Grophallen → hall Grophallen, markers re-placed on its grid in pass order",
+      "ok": true,
+      "detail": "{\"srcHall\":\"forening-bla\",\"srcP0\":{\"sessionItemId\":\"item-aanj1yo0-mvcotpll\",\"x\":0.2137,\"y\":0.4242,\"zoneId\":\"open\"},\"stora\":{\"hall\":\"forening-bla\",\"same\":true,\"p0\":{\"sessionItemId\":\"item-aanj1yo0-mvcotpll\",\"x\":0.2137,\"y\":0.4242,\"zoneId\":\"open\"},\"markers\":3},\"grop\":{\"hall\":\"forening-vit\",\"meta\":\"S46V mina\\n3 stationer\\nGymmix – Grophallen\",\"p0\":{\"sessionItemId\":\"item-aanj1yo0-mvcotpll\",\"x\":0.135,\"y\":0.19,\"zoneId\":\"open\"},\"zones\":[\"open\"],\"markers\":[{\"rank\":1,\"inOpen\":true},{\"rank\":2,\"inOpen\":true},{\"rank\":3,\"inOpen\":true}],\"teknik\":3,\"order2\":true}}"
+    },
+    {
+      "part": "p3",
+      "id": "AC17",
+      "name": "Mall step (admin logged in): no admin tools, no «Kopiera delningskod», no «Ta bort»; Mallar tab still has Kopiera delningskod / Ta bort and the club admin tools",
+      "ok": true,
+      "detail": "{\"inSheet\":{\"club\":true,\"copy\":false,\"del\":false,\"hide\":false,\"changed\":false,\"mina\":true},\"tab\":{\"club\":true,\"copy\":true,\"del\":true,\"hide\":true,\"changed\":true}}"
+    },
+    {
+      "part": "p3",
+      "id": "AC22",
+      "name": "Print (Skriv ut passet view, Golvklart/Hallöversikt): no footer rows, no note, no version line (print media + PDF text); start page INFO",
+      "ok": true,
+      "detail": "{\"home\":{\"visibleFooters\":[\"home-entry-foot\"],\"found\":[],\"chars\":102},\"pass\":{\"visibleFooters\":[],\"found\":[],\"chars\":13780},\"golvklart\":{\"visibleFooters\":[],\"found\":[],\"chars\":151}}"
+    }
+  ],
+  "notes": {
+    "p1.draftTitle": "S46V utkast",
+    "AC3": {
+      "br-nodraft": {
+        "docH": 844,
+        "upd": {
+          "top": 726,
+          "bottom": 770
+        },
+        "admin": {
+          "top": 770,
+          "bottom": 814
+        }
+      },
+      "br-draft": {
+        "docH": 844,
+        "upd": {
+          "top": 726,
+          "bottom": 770
+        },
+        "admin": {
+          "top": 770,
+          "bottom": 814
+        }
+      },
+      "main-nodraft": {
+        "docH": 898,
+        "upd": {
+          "top": 846,
+          "bottom": 886
+        },
+        "admin": {
+          "top": 800,
+          "bottom": 840
+        }
+      },
+      "main-draft": {
+        "docH": 898,
+        "upd": {
+          "top": 846,
+          "bottom": 886
+        },
+        "admin": {
+          "top": 800,
+          "bottom": 840
+        }
+      }
+    },
+    "AC4.rows": [
+      {
+        "text": "Tyck till · Uppdatera appen",
+        "top": 726,
+        "bottom": 770,
+        "fs": "12px",
+        "color": "rgb(120, 113, 108)",
+        "items": [
+          {
+            "t": "Tyck till",
+            "tag": "A",
+            "cy": 748,
+            "h": 44,
+            "w": 66,
+            "fs": "14px",
+            "bottom": 770,
+            "right": 160
+          },
+          {
+            "t": "·",
+            "tag": "SPAN",
+            "cy": 748,
+            "h": 17,
+            "w": 3,
+            "fs": "12px",
+            "bottom": 757,
+            "right": 167
+          },
+          {
+            "t": "Uppdatera appen",
+            "tag": "BUTTON",
+            "cy": 748,
+            "h": 44,
+            "w": 125,
+            "fs": "14px",
+            "bottom": 770,
+            "right": 296
+          }
+        ]
+      },
+      {
+        "text": "Logga in som admin",
+        "top": 770,
+        "bottom": 814,
+        "fs": "12px",
+        "color": "rgb(120, 113, 108)",
+        "items": [
+          {
+            "t": "Logga in som admin",
+            "tag": "BUTTON",
+            "cy": 792,
+            "h": 44,
+            "w": 146,
+            "fs": "14px",
+            "bottom": 814,
+            "right": 268
+          }
+        ]
+      },
+      {
+        "text": "Passen sparas bara på den här enheten.",
+        "top": 816,
+        "bottom": 832,
+        "fs": "12px",
+        "color": "rgb(73, 69, 79)",
+        "items": []
+      }
+    ],
+    "W-home": {
+      "320-br": {
+        "docH": 640,
+        "docW": 320,
+        "hero": {
+          "top": 0,
+          "bottom": 346,
+          "h": 346,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "pane": {
+          "top": 318,
+          "bottom": 640,
+          "h": 322,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "foot": {
+          "top": 518,
+          "bottom": 628,
+          "h": 110,
+          "w": 280,
+          "left": 20,
+          "right": 300
+        },
+        "appFooter": null,
+        "plan": {
+          "top": 410,
+          "bottom": 466,
+          "h": 56,
+          "w": 280,
+          "left": 20,
+          "right": 300
+        },
+        "upd": 566
+      },
+      "320-main": {
+        "docH": 694,
+        "docW": 320,
+        "hero": {
+          "top": 0,
+          "bottom": 322,
+          "h": 322,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "pane": {
+          "top": 294,
+          "bottom": 584,
+          "h": 290,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "foot": {
+          "top": 584,
+          "bottom": 694,
+          "h": 110,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "appFooter": {
+          "top": 584,
+          "bottom": 694,
+          "h": 110,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "plan": {
+          "top": 386,
+          "bottom": 442,
+          "h": 56,
+          "w": 280,
+          "left": 20,
+          "right": 300
+        },
+        "upd": 682
+      },
+      "390-br": {
+        "docH": 844,
+        "docW": 390,
+        "hero": {
+          "top": 0,
+          "bottom": 550,
+          "h": 550,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "pane": {
+          "top": 522,
+          "bottom": 844,
+          "h": 322,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "foot": {
+          "top": 722,
+          "bottom": 832,
+          "h": 110,
+          "w": 350,
+          "left": 20,
+          "right": 370
+        },
+        "appFooter": null,
+        "plan": {
+          "top": 614,
+          "bottom": 670,
+          "h": 56,
+          "w": 350,
+          "left": 20,
+          "right": 370
+        },
+        "upd": 770
+      },
+      "390-main": {
+        "docH": 898,
+        "docW": 390,
+        "hero": {
+          "top": 0,
+          "bottom": 526,
+          "h": 526,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "pane": {
+          "top": 498,
+          "bottom": 788,
+          "h": 290,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "foot": {
+          "top": 788,
+          "bottom": 898,
+          "h": 110,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "appFooter": {
+          "top": 788,
+          "bottom": 898,
+          "h": 110,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "plan": {
+          "top": 590,
+          "bottom": 646,
+          "h": 56,
+          "w": 350,
+          "left": 20,
+          "right": 370
+        },
+        "upd": 886
+      },
+      "land-br": {
+        "docH": 587,
+        "docW": 844,
+        "hero": {
+          "top": 0,
+          "bottom": 587,
+          "h": 587,
+          "w": 440,
+          "left": 0,
+          "right": 440
+        },
+        "pane": {
+          "top": 0,
+          "bottom": 587,
+          "h": 587,
+          "w": 459,
+          "left": 440,
+          "right": 899
+        },
+        "foot": {
+          "top": 352,
+          "bottom": 462,
+          "h": 110,
+          "w": 299,
+          "left": 520,
+          "right": 819
+        },
+        "appFooter": null,
+        "plan": {
+          "top": 220,
+          "bottom": 276,
+          "h": 56,
+          "w": 299,
+          "left": 520,
+          "right": 819
+        },
+        "upd": 400
+      },
+      "land-main": {
+        "docH": 651,
+        "docW": 844,
+        "hero": {
+          "top": 0,
+          "bottom": 587,
+          "h": 587,
+          "w": 440,
+          "left": 0,
+          "right": 440
+        },
+        "pane": {
+          "top": 0,
+          "bottom": 587,
+          "h": 587,
+          "w": 459,
+          "left": 440,
+          "right": 899
+        },
+        "foot": {
+          "top": 587,
+          "bottom": 651,
+          "h": 64,
+          "w": 844,
+          "left": 0,
+          "right": 844
+        },
+        "appFooter": {
+          "top": 587,
+          "bottom": 651,
+          "h": 64,
+          "w": 844,
+          "left": 0,
+          "right": 844
+        },
+        "plan": {
+          "top": 236,
+          "bottom": 292,
+          "h": 56,
+          "w": 299,
+          "left": 520,
+          "right": 819
+        },
+        "upd": 639
+      },
+      "desk-br": {
+        "docH": 800,
+        "docW": 1280,
+        "hero": {
+          "top": 0,
+          "bottom": 800,
+          "h": 800,
+          "w": 589,
+          "left": 0,
+          "right": 589
+        },
+        "pane": {
+          "top": 0,
+          "bottom": 800,
+          "h": 800,
+          "w": 691,
+          "left": 589,
+          "right": 1280
+        },
+        "foot": {
+          "top": 459,
+          "bottom": 569,
+          "h": 110,
+          "w": 352,
+          "left": 758,
+          "right": 1110
+        },
+        "appFooter": null,
+        "plan": {
+          "top": 327,
+          "bottom": 383,
+          "h": 56,
+          "w": 352,
+          "left": 758,
+          "right": 1110
+        },
+        "upd": 507
+      },
+      "desk-main": {
+        "docH": 849,
+        "docW": 1280,
+        "hero": {
+          "top": 0,
+          "bottom": 785,
+          "h": 785,
+          "w": 589,
+          "left": 0,
+          "right": 589
+        },
+        "pane": {
+          "top": 0,
+          "bottom": 785,
+          "h": 785,
+          "w": 691,
+          "left": 589,
+          "right": 1280
+        },
+        "foot": {
+          "top": 785,
+          "bottom": 849,
+          "h": 64,
+          "w": 1280,
+          "left": 0,
+          "right": 1280
+        },
+        "appFooter": {
+          "top": 785,
+          "bottom": 849,
+          "h": 64,
+          "w": 1280,
+          "left": 0,
+          "right": 1280
+        },
+        "plan": {
+          "top": 336,
+          "bottom": 392,
+          "h": 56,
+          "w": 352,
+          "left": 758,
+          "right": 1110
+        },
+        "upd": 837
+      }
+    },
+    "AC5-local": {
+      "admin": {
+        "rows": [
+          "Tyck till · Uppdatera appen",
+          "Admin · Logga ut",
+          "Passen sparas bara på den här enheten."
+        ],
+        "rowsOk": true,
+        "act": "BUTTON.btn-text visa-tips-igen footer-admin-logout:Logga ut",
+        "docH": 844,
+        "afterLogout": [
+          "Tyck till · Uppdatera appen",
+          "Logga in som admin",
+          "Passen sparas bara på den här enheten."
+        ]
+      },
+      "nonadmin": {
+        "rows": [
+          "Tyck till · Uppdatera appen",
+          "Du är inloggad men inte admin. · Logga ut",
+          "Passen sparas bara på den här enheten."
+        ],
+        "rowsOk": true,
+        "act": "BUTTON.btn-text visa-tips-igen footer-admin-logout:Logga ut",
+        "docH": 844,
+        "afterLogout": [
+          "Tyck till · Uppdatera appen",
+          "Logga in som admin",
+          "Passen sparas bara på den här enheten."
+        ]
+      }
+    },
+    "live-requests": 0,
+    "errors": [],
+    "AC13": [
+      {
+        "withDraft": false,
+        "name": "q1",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "q2",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "q2",
+        "how": "outside",
+        "pr": "Fråga 2 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "q3",
+        "how": "avbryt",
+        "pr": "Fråga 3 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "q4",
+        "how": "avbryt",
+        "pr": "Fråga 4 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "q4",
+        "how": "outside",
+        "pr": "Fråga 4 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "niva",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "tomt-hall",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "tomt-len",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "mall-hall",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "mall-list",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": false,
+        "name": "mall-list",
+        "how": "outside",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-primary home-start-primary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q1",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q2",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q2",
+        "how": "outside",
+        "pr": "Fråga 2 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q3",
+        "how": "avbryt",
+        "pr": "Fråga 3 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q4",
+        "how": "avbryt",
+        "pr": "Fråga 4 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "q4",
+        "how": "outside",
+        "pr": "Fråga 4 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "niva",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 4",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "tomt-hall",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "tomt-len",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "mall-hall",
+        "how": "avbryt",
+        "pr": "Fråga 1 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "mall-list",
+        "how": "avbryt",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      },
+      {
+        "withDraft": true,
+        "name": "mall-list",
+        "how": "outside",
+        "pr": "Fråga 2 av 2",
+        "open": 0,
+        "sameDraft": true,
+        "diffKeys": [],
+        "focus": "BUTTON.btn-secondary home-start-secondary:Planera pass",
+        "home": 1
+      }
+    ],
+    "TOMT-reload": {
+      "br-reload": {
+        "storedBefore": false,
+        "view": "home",
+        "fortsatt": 0,
+        "storedAfter": false
+      },
+      "br-home": {
+        "storedBefore": false,
+        "view": "home",
+        "fortsatt": 0,
+        "storedAfter": false
+      },
+      "br-edit-title": {
+        "stored": null
+      },
+      "br-title+note-reload": {
+        "stored": null,
+        "view": "home"
+      },
+      "br-station": {
+        "stored": 3,
+        "afterReload": true
+      },
+      "main-reload": {
+        "storedBefore": false,
+        "view": "home",
+        "fortsatt": 0,
+        "storedAfter": false
+      },
+      "main-home": {
+        "storedBefore": false,
+        "view": "home",
+        "fortsatt": 0,
+        "storedAfter": false
+      },
+      "main-edit-title": {
+        "stored": null
+      },
+      "main-title+note-reload": {
+        "stored": null,
+        "view": "home"
+      },
+      "main-station": {
+        "stored": 3,
+        "afterReload": true
+      }
+    },
+    "W-sheet": {
+      "320": {
+        "sheet": {
+          "top": 97,
+          "bottom": 640,
+          "h": 543,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "docW": 320,
+        "scroll1": {
+          "sh": 543,
+          "ch": 543,
+          "ov": "auto"
+        },
+        "cancel": [
+          580,
+          624,
+          44
+        ],
+        "chipW": [
+          [
+            280,
+            49,
+            300
+          ],
+          [
+            280,
+            49,
+            300
+          ],
+          [
+            280,
+            49,
+            300
+          ],
+          [
+            280,
+            49,
+            300
+          ],
+          [
+            280,
+            49,
+            300
+          ]
+        ],
+        "niva": {
+          "top": 82,
+          "bottom": 640,
+          "h": 558,
+          "w": 320,
+          "left": 0,
+          "right": 320
+        },
+        "scrollN": {
+          "sh": 558,
+          "ch": 558
+        },
+        "cancelN": [
+          580,
+          624
+        ],
+        "closed": true,
+        "path": "Pass — satsbräda|120|forening-bla"
+      },
+      "390": {
+        "sheet": {
+          "top": 301,
+          "bottom": 844,
+          "h": 543,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "docW": 390,
+        "scroll1": {
+          "sh": 543,
+          "ch": 543,
+          "ov": "auto"
+        },
+        "cancel": [
+          784,
+          828,
+          44
+        ],
+        "chipW": [
+          [
+            350,
+            49,
+            370
+          ],
+          [
+            350,
+            49,
+            370
+          ],
+          [
+            350,
+            49,
+            370
+          ],
+          [
+            350,
+            49,
+            370
+          ],
+          [
+            350,
+            49,
+            370
+          ]
+        ],
+        "niva": {
+          "top": 199,
+          "bottom": 844,
+          "h": 645,
+          "w": 390,
+          "left": 0,
+          "right": 390
+        },
+        "scrollN": {
+          "sh": 645,
+          "ch": 645
+        },
+        "cancelN": [
+          784,
+          828
+        ],
+        "closed": true,
+        "path": "Pass — satsbräda|120|forening-bla"
+      },
+      "land": {
+        "sheet": {
+          "top": 16,
+          "bottom": 476,
+          "h": 460,
+          "w": 420,
+          "left": 212,
+          "right": 632
+        },
+        "docW": 844,
+        "scroll1": {
+          "sh": 460,
+          "ch": 460,
+          "ov": "visible"
+        },
+        "cancel": [
+          416,
+          460,
+          44
+        ],
+        "chipW": [
+          [
+            380,
+            44,
+            612
+          ],
+          [
+            380,
+            44,
+            612
+          ],
+          [
+            380,
+            44,
+            612
+          ],
+          [
+            380,
+            44,
+            612
+          ],
+          [
+            380,
+            44,
+            612
+          ]
+        ],
+        "niva": {
+          "top": 16,
+          "bottom": 444,
+          "h": 428,
+          "w": 420,
+          "left": 212,
+          "right": 632
+        },
+        "scrollN": {
+          "sh": 428,
+          "ch": 428
+        },
+        "cancelN": [
+          384,
+          428
+        ],
+        "closed": true,
+        "path": "Pass — satsbräda|120|forening-bla"
+      },
+      "desk": {
+        "sheet": {
+          "top": 128,
+          "bottom": 672,
+          "h": 543,
+          "w": 420,
+          "left": 430,
+          "right": 850
+        },
+        "docW": 1280,
+        "scroll1": {
+          "sh": 543,
+          "ch": 543,
+          "ov": "visible"
+        },
+        "cancel": [
+          612,
+          656,
+          44
+        ],
+        "chipW": [
+          [
+            380,
+            49,
+            830
+          ],
+          [
+            380,
+            49,
+            830
+          ],
+          [
+            380,
+            49,
+            830
+          ],
+          [
+            380,
+            49,
+            830
+          ],
+          [
+            380,
+            49,
+            830
+          ]
+        ],
+        "niva": {
+          "top": 80,
+          "bottom": 720,
+          "h": 641,
+          "w": 420,
+          "left": 430,
+          "right": 850
+        },
+        "scrollN": {
+          "sh": 641,
+          "ch": 641
+        },
+        "cancelN": [
+          660,
+          704
+        ],
+        "closed": true,
+        "path": "Pass — satsbräda|120|forening-bla"
+      }
+    },
+    "AC14.firstEdit": {
+      "afterTitleOnly": "not stored",
+      "afterStation": "S46V tomt|3"
+    },
+    "AC16-club": {
+      "grop": {
+        "hall": "forening-vit",
+        "want": "forening-vit",
+        "markers": 3,
+        "teknik": 3,
+        "inOpen": true,
+        "toast": "Mallen är i Passbyggaren. · Ångra"
+      },
+      "stora": {
+        "hall": "forening-bla",
+        "want": "forening-bla",
+        "markers": 3,
+        "teknik": 3,
+        "inOpen": true,
+        "toast": "Mallen är i Passbyggaren. · Ångra"
+      },
+      "dbSame": true,
+      "live": 0
+    },
+    "AC18": {
+      "edited-questions": {
+        "oldTitle": "S46V gammal",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Pass — tumbling|forening-vit|9",
+        "storedIsOld": false,
+        "autoCopy": {
+          "title": "S46V gammal",
+          "sameContent": true,
+          "hall": "forening-bla",
+          "placements": true
+        },
+        "mallarAfter": 1,
+        "afterReload": {
+          "stored": "Pass — tumbling|9",
+          "mallar": 1,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Pass — tumbling · 53 min"
+        }
+      },
+      "edited-tomt-edit": {
+        "oldTitle": "S46V gammal",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "S46V ny tomt|forening-vit|3",
+        "storedIsOld": false,
+        "autoCopy": {
+          "title": "S46V gammal",
+          "sameContent": true,
+          "hall": "forening-bla",
+          "placements": true
+        },
+        "mallarAfter": 1,
+        "afterReload": {
+          "stored": "S46V ny tomt|3",
+          "mallar": 1,
+          "view": "home",
+          "fortsatt": "Fortsätt passet S46V ny tomt · 12 min"
+        }
+      },
+      "edited-tomt-noedit-home": {
+        "oldTitle": "S46V gammal",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "S46V gammal|forening-bla|9",
+        "storedIsOld": true,
+        "autoCopy": null,
+        "mallarAfter": 0,
+        "afterReload": {
+          "stored": "S46V gammal|9",
+          "mallar": 0,
+          "view": "home",
+          "fortsatt": "Fortsätt passet S46V gammal · 53 min"
+        }
+      },
+      "edited-mall": {
+        "oldTitle": "S46V gammal",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Nybörjare — ca 55 min|forening-vit|9",
+        "storedIsOld": false,
+        "autoCopy": {
+          "title": "S46V gammal",
+          "sameContent": true,
+          "hall": "forening-bla",
+          "placements": true
+        },
+        "mallarAfter": 1,
+        "afterReload": {
+          "stored": "Nybörjare — ca 55 min|9",
+          "mallar": 1,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Nybörjare — ca 55 min · 53 min"
+        }
+      },
+      "edited-mall-undo": {
+        "oldTitle": "S46V gammal",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Nytt pass|forening-vit|2",
+        "storedIsOld": false,
+        "autoCopy": {
+          "title": "S46V gammal",
+          "sameContent": true,
+          "hall": "forening-bla",
+          "placements": true
+        },
+        "mallarAfter": 1,
+        "afterReload": {
+          "stored": "Nytt pass|2",
+          "mallar": 1,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Nytt pass · 6 min"
+        }
+      },
+      "fresh-questions": {
+        "oldTitle": "Pass — trampett",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Pass — tumbling|forening-vit|9",
+        "storedIsOld": false,
+        "autoCopy": null,
+        "mallarAfter": 0,
+        "afterReload": {
+          "stored": "Pass — tumbling|9",
+          "mallar": 0,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Pass — tumbling · 53 min"
+        }
+      },
+      "fresh-tomt-edit": {
+        "oldTitle": "Pass — trampett",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "S46V ny tomt|forening-vit|3",
+        "storedIsOld": false,
+        "autoCopy": {
+          "title": "Pass — trampett",
+          "sameContent": true,
+          "hall": "forening-bla",
+          "placements": true
+        },
+        "mallarAfter": 1,
+        "afterReload": {
+          "stored": "S46V ny tomt|3",
+          "mallar": 1,
+          "view": "home",
+          "fortsatt": "Fortsätt passet S46V ny tomt · 12 min"
+        }
+      },
+      "fresh-tomt-noedit-home": {
+        "oldTitle": "Pass — trampett",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Pass — trampett|forening-bla|9",
+        "storedIsOld": true,
+        "autoCopy": null,
+        "mallarAfter": 0,
+        "afterReload": {
+          "stored": "Pass — trampett|9",
+          "mallar": 0,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Pass — trampett · 53 min"
+        }
+      },
+      "fresh-mall": {
+        "oldTitle": "Pass — trampett",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Nybörjare — ca 55 min|forening-vit|9",
+        "storedIsOld": false,
+        "autoCopy": null,
+        "mallarAfter": 0,
+        "afterReload": {
+          "stored": "Nybörjare — ca 55 min|9",
+          "mallar": 0,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Nybörjare — ca 55 min · 53 min"
+        }
+      },
+      "fresh-mall-undo": {
+        "oldTitle": "Pass — trampett",
+        "mallarBefore": 0,
+        "confirmShown": 0,
+        "stored": "Nytt pass|forening-vit|2",
+        "storedIsOld": false,
+        "autoCopy": null,
+        "mallarAfter": 0,
+        "afterReload": {
+          "stored": "Nytt pass|2",
+          "mallar": 0,
+          "view": "home",
+          "fortsatt": "Fortsätt passet Nytt pass · 6 min"
+        }
+      }
+    },
+    "AC18-main-ref": {
+      "confirm": 0,
+      "fran-mall-undo": {
+        "homeButtonsWithDraft": [
+          "Fortsätt passet S46V gammal · 12 min",
+          "Tomt pass",
+          "Från mall",
+          "Rensa passet",
+          "Hämta ett pass"
+        ],
+        "stored": "Nytt pass|2",
+        "storedIsOld": false,
+        "autoCopy": true,
+        "mallar": 1
+      },
+      "tomt-edit": {
+        "homeButtonsWithDraft": [
+          "Fortsätt passet S46V gammal · 12 min",
+          "Tomt pass",
+          "Från mall",
+          "Rensa passet",
+          "Hämta ett pass"
+        ],
+        "stored": "S46V ny tomt|3",
+        "storedIsOld": false,
+        "autoCopy": true,
+        "mallar": 1
+      }
+    },
+    "AC20": {
+      "builder": {
+        "rows": [
+          "Tyck till · Visa tips igen · Uppdatera appen",
+          "Logga in som admin",
+          "Träningsplaneraren · Slice 46"
+        ],
+        "rowsOk": true,
+        "lastFs": 12,
+        "maxOtherFs": 14,
+        "status": "Tips syns redan",
+        "footerText": "Tyck till · Visa tips igen · Uppdatera appen Tips syns redan Logga in som admin Träningsplaneraren · Slice 46"
+      },
+      "hall": {
+        "rows": [
+          "Tyck till · Visa tips igen · Uppdatera appen",
+          "Logga in som admin",
+          "Träningsplaneraren · Slice 46"
+        ],
+        "rowsOk": true,
+        "lastFs": 12,
+        "maxOtherFs": 14,
+        "status": "Tips syns redan",
+        "footerText": "Tyck till · Visa tips igen · Uppdatera appen Tips syns redan Logga in som admin Träningsplaneraren · Slice 46"
+      }
+    },
+    "AC22": {
+      "home": {
+        "visibleFooters": [
+          "home-entry-foot"
+        ],
+        "found": [],
+        "chars": 102
+      },
+      "pass": {
+        "visibleFooters": [],
+        "found": [],
+        "chars": 13780
+      },
+      "golvklart": {
+        "visibleFooters": [],
+        "found": [],
+        "chars": 151
+      }
+    },
+    "AC16-mina": {
+      "srcHall": "forening-bla",
+      "srcP0": {
+        "sessionItemId": "item-aanj1yo0-mvcotpll",
+        "x": 0.2137,
+        "y": 0.4242,
+        "zoneId": "open"
+      },
+      "stora": {
+        "hall": "forening-bla",
+        "same": true,
+        "p0": {
+          "sessionItemId": "item-aanj1yo0-mvcotpll",
+          "x": 0.2137,
+          "y": 0.4242,
+          "zoneId": "open"
+        },
+        "markers": 3
+      },
+      "grop": {
+        "hall": "forening-vit",
+        "meta": "S46V mina\n3 stationer\nGymmix – Grophallen",
+        "p0": {
+          "sessionItemId": "item-aanj1yo0-mvcotpll",
+          "x": 0.135,
+          "y": 0.19,
+          "zoneId": "open"
+        },
+        "zones": [
+          "open"
+        ],
+        "markers": [
+          {
+            "rank": 1,
+            "inOpen": true
+          },
+          {
+            "rank": 2,
+            "inOpen": true
+          },
+          {
+            "rank": 3,
+            "inOpen": true
+          }
+        ],
+        "teknik": 3,
+        "order2": true
+      }
+    },
+    "AC17": {
+      "inSheet": {
+        "club": true,
+        "text": "Fråga 2 av 2 Mall Föreningens mallar Pass som föreningen har provat. Du gör dem till dina när du använder dem. S46V klubb17 6 min Föreningens V39 klubbmall 30 min Föreningens Mina mallar S46V mina17 53 min Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrk",
+        "copy": false,
+        "del": false,
+        "hide": false,
+        "changed": false,
+        "mina": true
+      },
+      "tab": {
+        "club": true,
+        "copy": true,
+        "del": true,
+        "hide": true,
+        "changed": true
+      }
+    }
+  },
+  "errors": []
+}

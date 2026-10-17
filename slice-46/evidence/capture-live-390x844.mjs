@@ -1,0 +1,10 @@
+import { chromium } from 'playwright'
+const b = await chromium.launch()
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true })
+const p = await ctx.newPage()
+await p.goto('https://drevmok.github.io/traningsplaneringen/'); await p.waitForTimeout(2500)
+const r = await p.evaluate(() => ({ docH: document.documentElement.scrollHeight, footer: [...document.querySelectorAll('.app-footer, .app-footer button, .app-footer a, .app-footer > span')].map(e => { const r = e.getBoundingClientRect(); return [e.className, (e.innerText||'').slice(0,40), Math.round(r.top), Math.round(r.bottom), Math.round(r.left), Math.round(r.width), Math.round(r.height)] }), fetch: (() => { const e = document.querySelector('.home-fetch'); const r = e?.getBoundingClientRect(); return r && [Math.round(r.top), Math.round(r.bottom)] })() }))
+console.log(JSON.stringify(r, null, 0))
+await p.screenshot({ path: process.argv[2] + '/live-390x844-home-clean.png' })
+await p.screenshot({ path: process.argv[2] + '/live-390x844-home-clean-full.png', fullPage: true })
+await b.close()

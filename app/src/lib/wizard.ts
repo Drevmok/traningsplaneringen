@@ -13,6 +13,7 @@ import {
   type WizardLevel,
 } from '../data/wizardPaths'
 import { getActivityById } from '../data/seedActivities'
+import type { PassLength } from '../data/blockMeta'
 import type { HallZoneId, Session } from '../types'
 import { normalizeTemplateId } from './hall'
 import { autoPlaceUnplaced } from './hallSuggest'
@@ -27,6 +28,35 @@ export interface WizardAnswers {
   level: WizardLevel | null
   focus: WizardFocus
   hallTemplateId: string
+  /** Slice 46 D1: the pass length only; the proposal stays the same (53 min). */
+  targetMinutes: PassLength
+}
+
+/** Slice 46: three paths through the Planera pass sheet. */
+export type WizardPath = 'questions' | 'empty' | 'mall'
+export type WizardStep = 'age' | 'focus' | 'hall' | 'length' | 'mall'
+export const WIZARD_STEPS: Record<WizardPath, readonly WizardStep[]> = {
+  questions: ['age', 'focus', 'hall', 'length'],
+  empty: ['hall', 'length'],
+  mall: ['hall', 'mall'],
+}
+export interface WizardPos {
+  path: WizardPath
+  index: number
+}
+export const WIZARD_START: WizardPos = { path: 'questions', index: 0 }
+
+export const wizardStepAt = (pos: WizardPos): WizardStep => WIZARD_STEPS[pos.path][pos.index]
+
+/** C1: an answer moves on; the last step of a path finishes. */
+export function wizardAdvance(pos: WizardPos): WizardPos | 'finish' {
+  return pos.index + 1 < WIZARD_STEPS[pos.path].length ? { ...pos, index: pos.index + 1 } : 'finish'
+}
+
+/** C1: Tillbaka — one step back; Hall (first step of Tomt pass / mall) returns to Ålder; there is none on Ålder. */
+export function wizardBack(pos: WizardPos): WizardPos | null {
+  if (pos.index > 0) return { ...pos, index: pos.index - 1 }
+  return pos.path === 'questions' ? null : WIZARD_START
 }
 
 /**
@@ -103,6 +133,7 @@ export function composeWizardSession(answers: WizardAnswers): Session {
     blocks,
     hallTemplateId,
     hallPlacements: [],
+    targetMinutes: answers.targetMinutes,
   })
 
   session = autoPlaceUnplaced(session)
