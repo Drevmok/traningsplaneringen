@@ -31,3 +31,7 @@ Har du lagt appen på hemskärmen kan iPhone ibland inte skriva ut därifrån. D
 ## Det som togs bort i Slice 44
 
 Stationskorten (**Skriv ut kort**, en station per sida) och **Helskär** finns inte längre. Det korten visade finns nu i utskriften av passet. QR-koden, **Ladda ner fil** och **Importera fil** är också borta ur Dela.
+
+---
+
+**Slice 45 F3 (FÖRESLAGEN 2026-10-17, inte låst):** På telefonen blir Dela ett kort ark nertill, lika högt som innehållet. Passet syns ovanför. Texterna är desamma. Se [`slice-45/`](../slice-45/README.md).

@@ -21,3 +21,11 @@ Home -> Rensa passet (draft present)
   cause: App.css:1619–1623 (≤768) `.modal-backdrop { align-items: flex-end; place-items: stretch; }`
          `place-items` is the later shorthand and resets align-items to stretch, so the .modal fills the grid row
          up to its max-height min(92svh, 100%) = 776 px. Same rule applies to every dialog using .modal-backdrop (16 components).
+
+F3 baseline — main @ 4fe44c0 (Slice 44 live), vite preview, same viewport (capture-4fe44c0-390x844.mjs)
+Planera pass -> 7–9 år -> Trampett -> Blå hall -> Skapa pass -> Mer -> Dela
+  .export-sheet: top 0, bottom 760, height 760 = 90 % of 844, computed max-height 759.6px (export.css:3–6 min(90vh, 760px))
+  children: .modal-close 8–52 · h2 «Dela» 20–52 · .export-block (Kopiera länk) 64–244 · .export-block (Skriv ut passet) 248–443
+  content ends at y 443 (+20 px padding) -> ≈ 300 px empty sheet below the content
+  buttons: × 44×44 @ y 8 · «Kopiera länk» 127×44 @ y 200 · «Skriv ut passet» 143×44 @ y 399
+  screenshot: main-4fe44c0-390x844-dela.png

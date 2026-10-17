@@ -1,7 +1,7 @@
 # Slice 45 — Verification checklist
 
-**Status:** PROPOSED — written against ★ A1 B1 C1 D1 E1 F1; re-check after lock.  
-**Viewport:** 390×844 portrait, DPR 2, touch, clean site data unless noted. Baseline: `evidence/measurements-390x844.txt` (main @ 0d88da5).
+**Status:** PROPOSED — written against ★ A1 B1 C1 D1 E1 F1 + F3; re-check after lock. AC19–AC21 apply only if F3 is locked.  
+**Viewport:** 390×844 portrait, DPR 2, touch, clean site data unless noted. Baseline: `evidence/measurements-390x844.txt` (main @ 0d88da5; Dela rows @ 4fe44c0).
 
 | # | Check |
 |---|---|
@@ -18,8 +18,11 @@
 | AC11 | A Mina mall and a föreningens mall saved with a generic hall: Använd mall gives a Stora hallen pass with markers (no SQL, no Supabase change) |
 | AC12 | Passes already on Blå/Vit (`forening-bla` / `forening-vit`) keep their exact placements after reload (ids unchanged) |
 | AC13 | Rensa passet: dialog is a bottom sheet as tall as its content (≤ 260 px at 390×844), Avbryt and Rensa side by side, both ≥ 44 px; text unchanged; Rensa clears, Avbryt and backdrop tap keep the pass |
-| AC14 | Same compact sheet for «Ersätta utkastet här?», Ny vecka confirm, mall confirm, admin Dölj confirm; tall sheets (Förrådslista, övningsdetalj, Dela, wizard) unchanged |
+| AC14 | Same compact sheet for «Ersätta utkastet här?», Ny vecka confirm, mall confirm, admin Dölj confirm; tall sheets (Förrådslista, övningsdetalj, wizard) unchanged; Dela per AC19 if F3 is locked, else unchanged |
 | AC15 | Landscape 844×390 and desktop 1280×800: Hallöversikt and dialogs usable; no regression vs main beyond the removed items |
 | AC16 | Print «Skriv ut passet» (Slice 44) and Golvklart show the Gymmix halls with their drawing ratios |
 | AC17 | No new strings beyond `content/microcopy.sv.md`; locked terms as on main; `rg` finds no `standard-trupp` / `tavling-linjer` / `liten-hall` outside the legacy alias and tests |
 | AC18 | Bundle ≤ +512 B gz (expected shrink), numbers in PR; `npx tsc -b`, `bun test src`, `npm run lint`, `npm run build` green; footer «Träningsplaneraren · Slice 45»; asserts `feedback.test.ts:25/45/46`, `clubTemplates.test.ts:316` |
+| AC19 | F3: Passbyggaren → Mer → Dela at 390×844: the sheet sits at the bottom (bottom edge 844, safe-area padding kept), is as tall as its content and ≤ 480 px (main: 760 px, 90 %), and the pass is visible above it. Contents and order exactly as Slice 44: «Dela» heading and ×, «Kopiera länk» with its line and button, «Skriv ut passet» with its line and button. No new strings |
+| AC20 | F3: × (≥ 44×44) and a tap on the backdrop close the sheet; «Kopiera länk» shows «Länken är kopierad.» and resets after about 3 s; «Skriv ut passet» prints as in Slice 44. With the clipboard blocked, the manual line and the link field appear: the sheet grows, stays ≤ 92 % of the screen height and scrolls inside, and × stays reachable. Same with the print-stalled line |
+| AC21 | F3: landscape 844×390 (sheet scrolls inside, × reachable) and desktop 1280×800 (centred dialog, same as main) work; Golvklart and Delat pass print buttons unchanged |

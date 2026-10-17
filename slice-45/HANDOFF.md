@@ -1,6 +1,6 @@
 # Slice 45 — Builder handoff
 
-**Status:** PROPOSED 2026-10-17 (head start, not locked). Written against ★ answers A1 B1 C1 D1 E1 F1. Base `origin/main` @ `0d88da5`; rebase on Slice 44 when it ships. Scope: `app/src/data/hallPresets.ts`, `types.ts`, `lib/hall.ts`, `lib/session.ts`, `lib/sharePass.ts`, `components/HallBoard.tsx`, `components/HomeWizard.tsx`, `components/Home.tsx` + 4 confirm components, `App.css`, `data/blockMeta.ts`, tests. No data format change, ids stable, no SQL.
+**Status:** PROPOSED 2026-10-17 (head start, not locked). Written against ★ answers A1 B1 C1 D1 E1 F1 + F3. Base: branch merged with `origin/main` @ `4fe44c0` (Slice 44 live). F3 (compact Dela) added. Line refs below are from `0d88da5` unless marked; Slice 44 moved `HallBoard.tsx` up by 20–25 lines (on 4fe44c0: `trayTipVisible` :124, auto-place effect :160, `handlePresetChange` :220, Golvklart meta :454, preset row :522–539, `.hall-below` :612, `hallPresetMigrateNote` :613, `.hall-hints-info` :623, flow tip :652, tray hints :705–708, `tipHallPlace` strip :711–715). Go by the symbol names. Scope: `app/src/data/hallPresets.ts`, `types.ts`, `lib/hall.ts`, `lib/session.ts`, `lib/sharePass.ts`, `components/HallBoard.tsx`, `components/HomeWizard.tsx`, `components/Home.tsx` + 4 confirm components, `components/ExportSheet.tsx` (F3), `App.css`, `export.css` (F3), `data/blockMeta.ts`, tests. No data format change, ids stable, no SQL.
 
 ## What exists today (main @ 0d88da5)
 
@@ -48,6 +48,17 @@ Delete from `HallBoard.tsx`: `hallPresetMigrateNote` + `hallPresetCoachTip` para
 - Add `modal-backdrop--compact` / `modal--compact` to: `Home.tsx` Rensa passet, `ReplaceDraftConfirm.tsx`, `NewWeekConfirm.tsx`, `TemplateConfirm.tsx`, `AdminHideConfirm.tsx`. Text unchanged.
 - Target at 390×844: Rensa passet sheet height ≤ 260 px, bottom edge at the viewport bottom (safe-area padding kept).
 
+## 6b. F3 — compact Dela sheet (`ExportSheet.tsx`, `export.css`)
+
+Measured on main @ 4fe44c0 at 390×844 (`evidence/measurements-390x844.txt`): `.export-sheet` top 0, bottom 760, height 760 (90 %), `max-height` 759.6 px; last child ends at y 443; × 44×44 at y 8; «Kopiera länk» 127×44 at y 200; «Skriv ut passet» 143×44 at y 399.
+
+- `ExportSheet.tsx`: add `modal-backdrop--compact` to the `.modal-backdrop.export-sheet-backdrop` div and `modal--compact` to `.modal.export-sheet`. Markup, order and strings stay as Slice 44 (heading «Dela», ×, two `.export-block` sections).
+- CSS: E1's `.modal-backdrop--compact { place-items: end stretch }` puts the sheet at the bottom. Then, inside the ≤768 block of `export.css` (it loads after `App.css`), `.export-sheet.modal--compact { max-height: min(92svh, 100%); overflow: auto; }`. Dela keeps a cap and inner scroll (unlike the short confirms, where E1 sets `max-height: none`), because the copy-failed line + link field and the print-stalled line can make it taller. Keep `padding-bottom: max(20px, env(safe-area-inset-bottom))`.
+- Do **not** apply E1's row layout for `.modal-actions` here; Dela has none. Buttons keep min-height 44 px.
+- Close paths unchanged: × and backdrop tap. Desktop (≥769) unchanged.
+- If Christoffer picks E2 instead of E1: only the `export.css` cap override is needed. If E3: add the two compact classes and their phone CSS for Dela alone.
+- Target at 390×844: sheet bottom = 844, height ≤ 480 px, top ≥ 364.
+
 ## 7. Dead code and strings
 
 | What | Where |
@@ -71,4 +82,4 @@ Estimate **−1.2 to −1.8 kB gz** (not measured). Report JS + CSS gz deltas vs
 
 ## 10. Self-smoke
 
-`evidence/capture-390x844.mjs` adapted: wizard Q3 shows 2 chips; Hallöversikt has no select and no text under the hall except caption + flow tip; Rensa passet sheet height; a draft injected with `hallTemplateId: 'standard-trupp'` and old placements opens on Stora hallen with grid markers.
+`evidence/capture-390x844.mjs` adapted: wizard Q3 shows 2 chips; Mer → Dela sheet bottom-anchored and ≤ 480 px tall; Hallöversikt has no select and no text under the hall except caption + flow tip; Rensa passet sheet height; a draft injected with `hallTemplateId: 'standard-trupp'` and old placements opens on Stora hallen with grid markers.

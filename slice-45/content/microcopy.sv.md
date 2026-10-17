@@ -1,6 +1,6 @@
 # Slice 45 — microcopy (Swedish): hallar och städning
 
-**Status:** PROPOSED 2026-10-17, written against ★ (B1, C1, D1, E1, F1). Warm, du-form, no exclamation marks. Locked terms unchanged: gymnaster, pass, Redigera redskap, Passbyggaren, Hallöversikt, Golvklart, Förrådslista, Starta från mall, Kom igång, Biblioteket, God känn, Dölj för alla, Visa igen, Logga in som admin, Logga ut.
+**Status:** PROPOSED 2026-10-17, written against ★ (B1, C1, D1, E1, F1, F3). Warm, du-form, no exclamation marks. Locked terms unchanged: gymnaster, pass, Redigera redskap, Passbyggaren, Hallöversikt, Golvklart, Förrådslista, Starta från mall, Kom igång, Biblioteket, Godkänn, Dölj för alla, Visa igen, Logga in som admin, Logga ut.
 
 ## Renamed (ids unchanged)
 
@@ -44,6 +44,10 @@ The multi-line hint paragraphs under the hall (`hallStationOrderHint`, `hallStat
 | `clearPass`, `clearPassTitle`, `clearPassBody`, `clearPassConfirm`, `wizardCancel` | Rensa passet · Rensa passet? · Passet försvinner från den här enheten. Sedan kan du planera ett nytt från början. · Rensa · Avbryt (only the dialog size changes) |
 | Zone label | Öppen yta |
 | `footerSliceLabel` / `feedbackMailVersion` | Träningsplaneraren · Slice 45 / Version: Slice 45 |
+
+## Dela sheet (F3): size only, strings unchanged
+
+F3 changes how tall the Dela sheet is on phones. Every string stays as Slice 44 locked it: `export` «Dela», `close` «Stäng» (× label), `exportShareLink` / `exportCopy` «Kopiera länk», `exportShareHint`, `exportCopied` «Länken är kopierad.», `exportCopyManual`, `exportPrintPass` «Skriv ut passet», `exportPrintPassHint`, `printStalled`.
 
 ## Options that need extra strings
 

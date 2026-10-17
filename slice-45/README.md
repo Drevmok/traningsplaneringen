@@ -1,13 +1,13 @@
 # Slice 45 — Hallar och städning
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-17 — head start, not locked.** A–F below are options with Docs' recommendation marked ★. Planner/Christoffer lock. Docs pack only, no app code. Branch `slice-45-docs` from `origin/main` @ `0d88da5` (same tip as Slice 44 docs). Builder should start after Slice 44 ships (both touch `SLICE_NUMBER` and `HallBoard.tsx`).  
+**Status:** **PROPOSED 2026-10-17 — head start, not locked.** A–F below are options with Docs' recommendation marked ★. Planner/Christoffer lock. Docs pack only, no app code. Branch `slice-45-docs` from `origin/main` @ `0d88da5`, merged with `origin/main` @ `4fe44c0` (Slice 44 live) on 2026-10-17. Builder can start from that tip. Option F3 (compact Dela sheet) added 2026-10-17.  
 **Effort:** **M** (see below).  
-**Source:** `feedback/2026-10-17-christoffer.md` row B: «Blå->"Gymmix – Stora hallen", Vit->"Gymmix – Grophallen", remove other halls, remove layout picker, placement texts, Tips om placering, focus-explainer text; compact Rensa passet dialog.»
+**Source:** `feedback/2026-10-17-christoffer.md` row B: «Blå->"Gymmix – Stora hallen", Vit->"Gymmix – Grophallen", remove other halls, remove layout picker, placement texts, Tips om placering, focus-explainer text; compact Rensa passet dialog.» F3 (compact Dela sheet) added on Planner's request 2026-10-17.
 
 ## Why
 
-The club trains in two real halls. The app still offers three generic schemes, a layout picker, and six lines of placement help that explain zone snapping. That snapping only exists in the generic schemes: Blå and Vit have one free zone (Öppen yta) and a fixed grid (Slice 40). Once the generic halls go, most of that text is no longer true.
+The club trains in two real halls. The app still offers three generic schemes, a layout picker, and six lines of placement help that explain zone snapping. That snapping only exists in the generic schemes: Blå and Vit have one free zone (Öppen yta) and a fixed grid (Slice 40). Once the generic halls go, most of that text is no longer true. And since Slice 44 the Dela sheet holds two buttons but still covers 90 % of a phone screen.
 
 **Coach outcome:** «Jag väljer Stora hallen eller Grophallen, och hallen visar bara hallen.»
 
@@ -18,6 +18,8 @@ The club trains in two real halls. The app still offers three generic schemes, a
 - Hallöversikt: «Hallayout» + select + zoom − / + on one row (y 202–246). Under the hall: migrate note, Blå/Vit coach tip, «Tips om placering» (panel with 5 lines), flow coach tip. Tray: drag and snap hints (when hints are not compact).
 - Wizard Q3 «Hallayout»: 5 chips + «Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.» + «Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.» Both sentences describe zone snapping by focus.
 - Rensa passet dialog: **776 px tall** at 390×844 for ~210 px of content. Cause: `App.css:1619–1623` (≤768) `.modal-backdrop { align-items: flex-end; place-items: stretch }`; the later `place-items` shorthand resets `align-items` to `stretch`, so `.modal` fills to its `max-height` (92svh). The same rule hits all 16 dialogs that use `.modal-backdrop`.
+
+- Dela sheet (Slice 44, main @ 4fe44c0, `evidence/main-390x844-dela.png`): Mer → Dela opens a sheet from **y 0 to 760**, 90 % of the screen, top-aligned. Its content (Dela, ×, Kopiera länk with its hint, Skriv ut passet with its hint) ends at **y 443**, so about 300 px of the sheet is empty white. Cause: the same `place-items: stretch` rule as Rensa passet, plus `export.css:3–6` `.export-sheet { max-height: min(90vh, 760px) }`, which wins over the phone `max-height` because `export.css` loads after `App.css`.
 
 ## Ids and saved passes
 
@@ -46,29 +48,34 @@ The club trains in two real halls. The app still offers three generic schemes, a
 - **D3** Names only; leave texts until Slice 46.
 
 ### E — Compact «Rensa passet?»
-- **E1 ★** Add a `modal--compact` variant: on phone the sheet is as tall as its content and sits at the bottom, buttons side by side (≥ 44 px), same text. Use it for Rensa passet and the other short confirms with the same problem (`ReplaceDraftConfirm`, `NewWeekConfirm`, `TemplateConfirm`, `AdminHideConfirm`). Tall sheets unchanged.
+- **E1 ★** Add a `modal--compact` variant: on phone the sheet is as tall as its content and sits at the bottom, buttons side by side (≥ 44 px), same text. Use it for Rensa passet and the other short confirms with the same problem (`ReplaceDraftConfirm`, `NewWeekConfirm`, `TemplateConfirm`, `AdminHideConfirm`). Tall sheets unchanged (Dela: see F3).
 - **E2** Fix the shared rule for all 16 dialogs (`place-items: end stretch`). One line, but every dialog moves; larger verify surface.
 - **E3** Only Rensa passet.
 
-### F — Copy, ids, budget
+### F — Copy, ids, budget and the Dela sheet
+
+F1 and F2 are either/or. F3 is an add-on: it can be picked with F1 or F2.
+
 - **F1 ★** Ids unchanged; one label source (`HALL_PRESETS[id].label`, wizard reads it; delete `UI.hallPreset*`); strings as `content/microcopy.sv.md`; no locked term changes; `SLICE_NUMBER = '45'`. Budget +512 B gz soft; expected **−1.2 to −1.8 kB gz** (3 preset definitions, ~14 strings, `applyPreset`, select and hint JSX removed; estimate, not measured).
 - **F2** Keep `UI.hallPreset*` and sync both sources. Duplicate labels drift.
+- **F3 ★** Compact Dela sheet on phones. Mer → Dela becomes a bottom sheet as tall as its content: Dela heading with ×, «Kopiera länk», «Skriv ut passet», texts exactly as Slice 44. At 390×844 that is about 460 px instead of 760 px, and the pass stays visible above it. If the copy fails or printing stalls, the extra line (and link field) makes the sheet grow, up to the usual 92 % cap, and it scrolls inside. Desktop is unchanged (already content height). No new strings. About +60 B gz CSS (estimate).
+  - **F3 and E1:** F3 uses the E1 `modal--compact` variant (one sheet style, no second CSS path), but stays its own choice because Dela is a menu, not a confirm, and E1 keeps menus tall. With E2 the shared fix already moves Dela to the bottom and F3 only removes the `export.css` height cap; with E3 F3 brings `modal--compact` in for Dela alone.
 
 ## Effort: M
 
-Not S: data migration for legacy ids touching every load path (drafts, Mina mallar, föreningens mallar, share links), 6 test files reference generic ids (`hallGrid` golden snapshot for Standard/Tävling/Liten, `hallSuggest`, `sharePass`, `clubTemplates`, `runPass`, `weekCopy`), `HallTemplateId` type narrows, wizard and Hallöversikt chrome changes, a dialog variant across 5 confirms. Not L: no new screen, no new state, ids stable.
+F3 adds about 10 lines (two class names, one CSS override) and three ACs; it does not change the size. Not S: data migration for legacy ids touching every load path (drafts, Mina mallar, föreningens mallar, share links), 6 test files reference generic ids (`hallGrid` golden snapshot for Standard/Tävling/Liten, `hallSuggest`, `sharePass`, `clubTemplates`, `runPass`, `weekCopy`), `HallTemplateId` type narrows, wizard and Hallöversikt chrome changes, a dialog variant across 5 confirms. Not L: no new screen, no new state, ids stable.
 
 ## Files
 
 - [`HANDOFF.md`](./HANDOFF.md) — Builder notes, file:function refs
-- [`verification-checklist.md`](./verification-checklist.md) — AC1–AC18 (against ★)
+- [`verification-checklist.md`](./verification-checklist.md) — AC1–AC21 (against ★; AC19–AC21 are F3)
 - [`content/microcopy.sv.md`](./content/microcopy.sv.md) — renamed, removed and kept strings
-- [`evidence/`](./evidence/) — main @ 0d88da5 screenshots + `measurements-390x844.txt`
+- [`evidence/`](./evidence/) — main @ 0d88da5 screenshots, the Dela sheet @ 4fe44c0, `measurements-390x844.txt`
 - Living docs: Slice 45 notes in `docs/ui-chrome.sv.md`, `hall-presets-copy.sv.md`, `home-wizard.sv.md`, `copy-quieter-chrome.sv.md`, `hall-declutter.sv.md`, `golvklart-copy.sv.md`
 
 ## Out of scope
 
-Wizard order and auto-advance (Slice 46), Planera pass merge (Slice 46), Lägg till övning / Admin (Slice 47), Hallöversikt edit mode and pinch (Slice 48), new hall drawings, renaming the hall zone «Öppen yta», print/Dela (Slice 44).
+Dela contents and its texts (locked in Slice 44; F3 changes only the sheet size), wizard order and auto-advance (Slice 46), Planera pass merge (Slice 46), Lägg till övning / Admin (Slice 47), Hallöversikt edit mode and pinch (Slice 48), new hall drawings, renaming the hall zone «Öppen yta», print content (Slice 44).
 
 ## Open items
 
@@ -76,4 +83,6 @@ Wizard order and auto-advance (Slice 46), Planera pass merge (Slice 46), Lägg t
 2. Exact names: the feedback writes «Gymmix – Stora hallen» / «Gymmix – Grophallen» with an en dash; Docs kept that. Confirm the club name spelling «Gymmix».
 3. «focus-explainer text» read as `wizardQ3Hint` + `wizardFocusHonesty`. If Christoffer meant something else (e.g. the flow tip about the numbers), adjust C/D.
 4. Föreningens mallar already published with a generic hall: A1 handles them on load; nothing to change in Supabase (no SQL).
-5. Slice 44 must ship first; then the test asserts read `'44'` and move to `'45'`.
+5. Slice 44 is live (merge `4fe44c0`). The test asserts read `'44'` and move to `'45'`.
+6. F3: confirm the Dela sheet keeps both hint lines from Slice 44. They take about 200 of the 460 px. Dropping them would make the sheet about 260 px (estimate), but that reopens Slice 44 copy, so Docs did not propose it.
+7. Focus explainer, checked in `app/` on main @ 4fe44c0: the only text that explains focus is `wizardFocusHonesty` («Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.», `data/blockMeta.ts:469`, rendered in `components/HomeWizard.tsx:128–130` on wizard steps 2 **and** 3, CSS `.home-wizard-honesty` `App.css:3241–3251`). `wizardQ3Hint` (`blockMeta.ts:468`, `HomeWizard.tsx:124–126`) also mentions focus («Teknik fäster i zon efter fokus.»). D1 removes both, so Slice 45 covers it. No other coach-facing focus explainer exists (`rg -i fokus` outside seed texts finds only `wizardQ2Label` «Fokus»).
