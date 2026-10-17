@@ -28,4 +28,4 @@ Under åldrarna finns **Starta från mall** och **Tomt pass**.
 
 ## Längst ner på startsidan
 
-**Tyck till** och **Uppdatera appen** står på en rad, **Logga in som admin** under. Sist en liten rad: *Sparas lokalt i webbläsaren — inte i molnet.*
+**Tyck till** och **Uppdatera appen** står på en rad, **Logga in som admin** under. Sist en liten rad: *Passen sparas bara på den här enheten.*

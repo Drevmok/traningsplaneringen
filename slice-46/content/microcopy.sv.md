@@ -28,7 +28,7 @@
 | `PASS_LENGTHS` + `passLengthMinutes` | 60 min · 90 min · 120 min | Step 4 chips |
 | `wizardBack`, `wizardCancel` | Tillbaka · Avbryt | Bottom row |
 | `clubTemplatesTitle`, `myTemplates`, built-in titles and «~{min} min · Trygg för nya tränare» | Föreningens mallar · Mina mallar · Nybörjare — ca 55 min · Kort pass — ca 45 min | Mall step |
-| `draftHonestyBodyShort` | Sparas lokalt i webbläsaren — inte i molnet. | Last line of the start-page foot, small grey |
+| `draftHonestyBodyShort` | Passen sparas bara på den här enheten. | Last line of the start-page foot, small grey |
 | `feedbackLink`, `updateApp`, `adminLoginLink`, `adminBadge`, `adminNotAdmin`, `adminLogout`, `visaTipsIgen`, `footerSliceLabel` | Tyck till · Uppdatera appen · Logga in som admin · Admin · Du är inloggad men inte admin. · Logga ut · Visa tips igen · Träningsplaneraren · Slice 46 | Footer rows (E1) |
 | `continuePass`, `clearPass`, `fetchPass` | Fortsätt passet · Rensa passet · Hämta ett pass | Start page (unchanged) |
 

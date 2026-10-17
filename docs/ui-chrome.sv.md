@@ -137,7 +137,7 @@ Full microcopy: [`distribution-copy.sv.md`](./distribution-copy.sv.md) (also und
 | Key | Swedish |
 | --- | --- |
 | Honesty title | Utkastet stannar i den här webbläsaren |
-| Honesty short | Sparas lokalt i webbläsaren — inte i molnet. |
+| Honesty short | Passen sparas bara på den här enheten. |
 | Om utkast (footer) | Om utkast |
 | Öppna på telefon | Öppna på telefon |
 | Footer | Träningsplaneraren · Slice 10 |
@@ -394,7 +394,7 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 
 **Slice 35 (2026-10-11):** Sidfoten — länken «Tyck till» öppnar ett förifyllt mejl till drevmok@gmail.com. Se [`slice-35/`](../slice-35/README.md).
 
-**Slice 46 (FÖRESLAGEN 2026-10-17, inte låst):** Sidfoten i rader utan avbrott vid kanten. Startsidan: «Tyck till · Uppdatera appen», sedan «Logga in som admin» (eller «Admin · Logga ut»), sist «Sparas lokalt i webbläsaren — inte i molnet.» i liten grå text; allt syns utan att skrolla på 390×844. Passbyggaren och Hallöversikt: «Tyck till · Visa tips igen · Uppdatera appen», admin-raden, sist «Träningsplaneraren · Slice 46». Startsidan har bara knappen «Planera pass» (Tomt pass och Från mall flyttar in i den). Se [`slice-46/`](../slice-46/README.md).
+**Slice 46 (LÅST 2026-10-17):** Sidfoten i rader utan avbrott vid kanten. Startsidan: «Tyck till · Uppdatera appen», sedan «Logga in som admin» (eller «Admin · Logga ut»), sist «Passen sparas bara på den här enheten.» i liten grå text; allt syns utan att skrolla på 390×844. Passbyggaren och Hallöversikt: «Tyck till · Visa tips igen · Uppdatera appen», admin-raden, sist «Träningsplaneraren · Slice 46». Startsidan har bara knappen «Planera pass» (Tomt pass och Från mall flyttar in i den). Se [`slice-46/`](../slice-46/README.md).
 
 **Slice 38 (2026-10-13):** Kör passet — grå rad «Kvar: X min» under «Nästa: …» (resten av passet, hela minuter avrundat uppåt; 0 när tiden är ute på sista övningen). Se [`slice-38/`](../slice-38/README.md).
 

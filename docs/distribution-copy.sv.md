@@ -18,7 +18,7 @@ Show on **Home** (preferred): quiet strip near the bottom of content, below prim
 | --- | --- |
 | `draftHonestyTitle` | Utkastet stannar i den här webbläsaren |
 | `draftHonestyBody` | Pass och tips sparas lokalt i den här webbläsaren. Rensar du webbplatsdata försvinner utkastet. Ingen sparning i molnet i den här versionen. |
-| `draftHonestyBodyShort` | Sparas lokalt i webbläsaren — inte i molnet. |
+| `draftHonestyBodyShort` | Passen sparas bara på den här enheten. |
 | `draftHonestyOtherDevice` | Öppnar du länken i en annan telefon eller webbläsare börjar du tomt — utkastet följer inte med. |
 | `draftHonestyDismiss` | Jag förstår |
 

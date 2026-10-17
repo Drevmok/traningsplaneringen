@@ -1,7 +1,7 @@
 # Slice 46 — Startsidan och Planera pass
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-17 — not locked.** A–F below are options with Docs' recommendation marked ★. Christoffer locks. Docs pack only, no app code. Branch `slice-46-docs` from `origin/main` @ `4fe44c0` (Slice 44 live). Builder starts after Slice 45 ships (see Dependencies).  
+**Status:** **LOCKED 2026-10-17 by Christoffer: A1 B1 C1 D1 E1 F1 (the ★ recommendations). Open items: «Header buttons» = the bottom footer row; Planera pass replaces the draft without asking (as today); the note becomes «Passen sparas bara på den här enheten.» (key `draftHonestyBodyShort`).** Docs pack only, no app code. Branch `slice-46-docs` merged with current `origin/main` (Slice 45 live). Builder starts from this tip.  
 **Effort:** **M+** (see below).  
 **Source:** `feedback/2026-10-17-christoffer.md` row C: «one "Planera pass" (mall or tomt inside), wizard Ålder->Fokus->Hall->Passlängd auto-advance + Tillbaka, discreet local-storage note, fix mobile header buttons (Logga in/ut, Tyck till, Uppdatera).» Row B (Slice 45) lists the focus-explainer text.
 
@@ -56,7 +56,7 @@ With a draft (all options): «Fortsätt passet» stays the primary button, and �
 - **D3** No Passlängd question; the pass starts at 60 min and you change it in Passbyggaren as today. Against the feedback.
 
 ### E — Start page: the local note and the footer links at 390×844
-- **E1 ★** Everything fits on one screen without scrolling. Top to bottom on the start page: «Planera pass» (or «Fortsätt passet», «Planera pass», «Rensa passet»), «Hämta ett pass», then a quiet foot inside the start pane: row 1 «Tyck till · Uppdatera appen», row 2 «Logga in som admin» (or «Admin · Logga ut», or «Du är inloggad men inte admin. · Logga ut»), row 3 the note «Sparas lokalt i webbläsaren — inte i molnet.» in small grey text. The picture above gives way. No separator at a line end, every link at least 44 px tall. In Passbyggaren and Hallöversikt the footer uses the same rows, with «Visa tips igen» in row 1 and «Träningsplaneraren · Slice 46» as the last, smallest line.
+- **E1 ★** Everything fits on one screen without scrolling. Top to bottom on the start page: «Planera pass» (or «Fortsätt passet», «Planera pass», «Rensa passet»), «Hämta ett pass», then a quiet foot inside the start pane: row 1 «Tyck till · Uppdatera appen», row 2 «Logga in som admin» (or «Admin · Logga ut», or «Du är inloggad men inte admin. · Logga ut»), row 3 the note «Passen sparas bara på den här enheten.» in small grey text. The picture above gives way. No separator at a line end, every link at least 44 px tall. In Passbyggaren and Hallöversikt the footer uses the same rows, with «Visa tips igen» in row 1 and «Träningsplaneraren · Slice 46» as the last, smallest line.
 - **E2** One «⋯» button at the top right of the start page opens a small menu with Tyck till, Uppdatera appen and Logga in som admin. Very quiet, but it hides Tyck till and adds a new menu.
 - **E3** Keep the footer as it is; only stop the hanging separator and move the note into the footer. Smallest, but «Uppdatera appen» can still end up below the edge.
 

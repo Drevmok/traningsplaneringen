@@ -8,7 +8,7 @@
 | AC1 | Start page, no draft: one «Planera pass» button; no «Tomt pass» or «Från mall» on the page; «Hämta ett pass» still there and works as before |
 | AC2 | Start page, with draft: «Fortsätt passet» (with title · min) first, «Planera pass» under it, then «Rensa passet»; each ≥ 44 px tall |
 | AC3 | Start page, no draft and with draft, admin available: document height ≤ 844, no scroll. «Uppdatera appen» and «Logga in som admin» are fully on screen |
-| AC4 | Footer rows on the start page: row 1 «Tyck till · Uppdatera appen», row 2 «Logga in som admin», row 3 «Sparas lokalt i webbläsaren — inte i molnet.» in small grey text (≤ 12 px). No «·» at the start or end of a row; items in a row share one centre line; every link ≥ 44 px tall |
+| AC4 | Footer rows on the start page: row 1 «Tyck till · Uppdatera appen», row 2 «Logga in som admin», row 3 «Passen sparas bara på den här enheten.» in small grey text (≤ 12 px). No «·» at the start or end of a row; items in a row share one centre line; every link ≥ 44 px tall |
 | AC5 | Logged in as admin: row 2 reads «Admin · Logga ut»; signed in but not admin: «Du är inloggad men inte admin. · Logga ut». After a code login focus lands on «Logga ut» (Slice 33). Logga ut works |
 | AC6 | Tyck till opens the mail and shows the fallback line with the address as its own row; nothing else moves out of the screen |
 | AC7 | Planera pass opens the sheet on «Fråga 1 av 4», heading «Ålder», chips 4–6 år · 7–9 år · 10–12 år · 13–18 år · Nivå, and under a thin line the links «Starta från mall» and «Tomt pass». No × in the header. Bottom row shows only «Avbryt» (no Tillbaka) |
