@@ -468,7 +468,15 @@ export function SessionBuilder({
           {UI.useTemplate}
         </button>
         {hasItems && (
-          <button type="button" className="btn-secondary" onClick={() => setShowExport(true)}>
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={() => {
+              // Slice 45 follow-up: the Dela bottom sheet would sit under the toast; end it like a timeout (expires undo).
+              closeToast()
+              setShowExport(true)
+            }}
+          >
             {UI.export}
           </button>
         )}

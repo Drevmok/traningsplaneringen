@@ -84,3 +84,10 @@ Soft limit +512 B: met (shrink, within the pack's −1.2 to −1.8 kB estimate).
 - `coachTips.hallHintsCompact` stays in the stored tips shape: it is still read by normalise/reset, and removing it would change the format.
 - **Observation for Planner:** after Använd mall, the Slice 41 toast «Mallen är i Passbyggaren. · Ångra» (about 5 s) now covers the «Skriv ut passet» button if Dela is opened right away, because the sheet is bottom-anchored. Screenshot: `slice45_15_dela_compact.png`. Not changed (out of scope).
 - No SQL, no Supabase change, ids stable. `tools/bank/out/*` not touched.
+
+## Follow-up (PR #49 review)
+- **AC5 ruling (Planner):** «no lower than main» accepted. Canvas top is 340 on both main and the branch when the saknar banner shows.
+- **Toast over Dela fixed:** opening Dela (Passbyggaren action, also reached through Mer) now calls `closeToast()` before showing the sheet, which is the same path the 5 s timer takes. An Ångra toast therefore expires its undo snapshot (`pendingUndo = null`) exactly like a timeout, and Ångra is not reachable behind the sheet or after closing it. One-level undo, the timer and the focus pause are unchanged. A plain toast is also dismissed, because it would cover the sheet the same way. One `onClick` in `SessionBuilder.tsx`. No unit test: the toast and undo state live inside the SessionBuilder component (module-level `pendingUndo`), and there is no component-test harness for it. Covered by smoke step `FU-toast`.
+- **Smoke step FU-toast (390×844):** Använd mall, then Mer → Dela with a real tap right away. The toast is gone, «Skriv ut passet» takes a real (non-forced) click and prints, and after × no Ångra comes back. Screenshot `slice45_25_dela_after_mall_no_toast.png`. Full smoke: **41/41 PASS**.
+- **Bundle after the fix:** total 212,145 B gz vs main 213,631 = **−1,486 B**. Versus cd19319 it is **+7 B** (index.js +5, a lazy chunk +2; CSS 0).
+- Old-hall Mina mall duplicate detection: accepted as is (Planner).

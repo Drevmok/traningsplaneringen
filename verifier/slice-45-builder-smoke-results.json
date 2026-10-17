@@ -1,6 +1,6 @@
 {
-  "pass": 40,
-  "total": 40,
+  "pass": 41,
+  "total": 41,
   "results": [
     {
       "id": "AC1",
@@ -181,6 +181,12 @@
       "name": "× ≥ 44×44 and backdrop close; «Länken är kopierad.» resets after ~3 s; Skriv ut passet prints",
       "ok": true,
       "detail": "Länken är kopierad.→Kopiera länk prints=1 x=true bd=true"
+    },
+    {
+      "id": "FU-toast",
+      "name": "Använd mall → Dela immediately: Ångra toast dismissed, «Skriv ut passet» clickable, undo not back after closing",
+      "ok": true,
+      "detail": "toastBefore=1 toastWithSheet=0 prints=1 undoAfterClose=0"
     },
     {
       "id": "AC20-grow",

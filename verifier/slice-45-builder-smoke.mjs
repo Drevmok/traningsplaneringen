@@ -278,6 +278,23 @@ await attempt('Dela', async () => {
   check('AC20-basic', '× ≥ 44×44 and backdrop close; «Länken är kopierad.» resets after ~3 s; Skriv ut passet prints', close.w >= 44 && close.h >= 44 && closedX && closedBackdrop && lab === 'Länken är kopierad.' && lab2 === 'Kopiera länk' && prints >= 1, `${lab}→${lab2} prints=${prints} x=${closedX} bd=${closedBackdrop}`)
 })
 
+await attempt('Dela-toast', async () => {
+  // Follow-up (PR #49): Använd mall → Dela at once; the Ångra toast must not cover «Skriv ut passet».
+  const p = await page(); await mall(p)
+  const before = await p.locator('.toast').count()
+  await p.getByRole('button', { name: 'Fler saker med passet' }).click()
+  await p.locator('.more-menu-panel button').filter({ hasText: /^Dela$/ }).first().click() // real tap
+  await sheet(p).waitFor(); await p.waitForTimeout(200)
+  const toastNow = await p.locator('.toast').count()
+  await shot(p, '25_dela_after_mall_no_toast')
+  await sheet(p).getByRole('button', { name: 'Skriv ut passet' }).click({ timeout: 3000 }) // fails if anything covers it
+  await p.waitForTimeout(400)
+  const prints = await p.evaluate(() => window.__prints)
+  await p.locator('.export-sheet .modal-close').click(); await p.waitForTimeout(300)
+  const afterClose = await p.locator('.toast-action').count()
+  check('FU-toast', 'Använd mall → Dela immediately: Ångra toast dismissed, «Skriv ut passet» clickable, undo not back after closing', before === 1 && toastNow === 0 && prints >= 1 && afterClose === 0, `toastBefore=${before} toastWithSheet=${toastNow} prints=${prints} undoAfterClose=${afterClose}`)
+})
+
 await attempt('Dela-grow', async () => {
   const p = await page({ clipboard: false, print: 'dead' }); await mall(p)
   await menu(p, 'Dela'); await sheet(p).waitFor()
