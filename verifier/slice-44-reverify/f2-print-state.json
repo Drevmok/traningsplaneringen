@@ -1,0 +1,343 @@
+{
+ "br": {
+  "webkit_before": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_1_passbtn_noTouch": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "webkit_2_afterTap_ctrlP": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_3_passbtn_again": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "webkit_4_afterCtrlP_key": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_5_passbtn_third": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "webkit_6_hallEdit_print": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": false,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_prints": 3,
+  "chromium_before": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_1_passbtn_noTouch": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "chromium_2_afterTap_ctrlP": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_3_passbtn_again": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "chromium_4_afterCtrlP_key": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_5_passbtn_third": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  },
+  "chromium_6_hallEdit_print": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": false,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_prints": 3,
+  "dead_stall_line": 0,
+  "dead_afterTap": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 3,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  }
+ },
+ "main": {
+  "webkit_before": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_1_passbtn_noTouch": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_2_afterTap_ctrlP": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_3_passbtn_again": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_4_afterCtrlP_key": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_5_passbtn_third": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_6_hallEdit_print": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": false,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "webkit_prints": 3,
+  "chromium_before": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_1_passbtn_noTouch": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_2_afterTap_ctrlP": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_3_passbtn_again": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_4_afterCtrlP_key": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_5_passbtn_third": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": true,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_6_hallEdit_print": {
+   "cls": "",
+   "root": "block",
+   "host": false,
+   "hosts": 0,
+   "floor": false,
+   "pages": 1,
+   "pdfPass": false,
+   "pdfHead": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 Mat",
+   "kind": "hall"
+  },
+  "chromium_prints": 3,
+  "dead_stall_line": 0,
+  "dead_afterTap": {
+   "cls": "is-print-pass",
+   "root": "none",
+   "host": true,
+   "hosts": 1,
+   "floor": true,
+   "pages": 2,
+   "pdfPass": true,
+   "pdfHead": "Nybörjare — ca 55 min 53 min Samling · 6 min Närvaro 3 min Dagens pass — snabb genomgång 3",
+   "kind": "pass"
+  }
+ },
+ "errors": []
+}

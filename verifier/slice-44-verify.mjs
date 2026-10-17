@@ -115,7 +115,7 @@ await attempt('Dela', async () => {
   const lab = await sheet(p).locator('.btn-primary').innerText(); await shot(p, '03_copied')
   let flip = null; for (let i = 0; i < 50; i++) { await p.waitForTimeout(100); if ((await sheet(p).locator('.btn-primary').innerText()) === 'Kopiera länk') { flip = Date.now() - t0; break } }
   linkDraft = await draft(p)
-  check('AC4', 'clipboard = …/traningsplaneringen/#dela=…; label «Länken är kopierad.» then «Kopiera länk» after ~3 s', /^http:\/\/127\.0\.0\.1:57741\/traningsplaneringen\/#dela=z\./.test(link) && lab === 'Länken är kopierad.' && flip > 2800 && flip < 3700, `len=${link.length} label=${lab} flipAfter=${flip}ms`)
+  check('AC4', 'clipboard = …/traningsplaneringen/#dela=…; label «Länken är kopierad.» then «Kopiera länk» after ~3 s', new RegExp('^' + BR.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&') + '#dela=z\\.').test(link) && lab === 'Länken är kopierad.' && flip > 2800 && flip < 3700, `len=${link.length} label=${lab} flipAfter=${flip}ms`)
   await sheet(p).locator('.modal-close').click(); await p.waitForTimeout(300)
   const c1 = await p.evaluate(() => ({ cls: document.body.className, sheet: !!document.querySelector('.export-sheet'), builder: !!document.querySelector('.builder') }))
   await menu(p, 'Dela'); await sheet(p).waitFor()
@@ -252,7 +252,7 @@ await attempt('CopyFail', async () => {
   const sel = await q.evaluate(() => { const i = document.activeElement; return [i.selectionStart, i.selectionEnd, i.value.length] })
   await q.waitForTimeout(3200); const later = await sheet(q).locator('.btn-primary').innerText()
   const tried = await q.evaluate(() => window.__tried)
-  const sameToken = !!b.value && b.value === tried && /^http:\/\/127\.0\.0\.1:57741\/traningsplaneringen\/#dela=z\./.test(b.value)
+  const sameToken = !!b.value && b.value === tried && new RegExp('^' + BR.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&') + '#dela=z\\.').test(b.value)
   check('AC7', 'both copy paths fail → exportCopyManual line + read-only field holding the full link; label never says «kopierad»', b.label === 'Kopiera länk' && later === 'Kopiera länk' && b.status === microcopy.manual && b.readOnly === true && sameToken && b.sw <= 390, JSON.stringify({ ...b, value: b.value?.slice(0, 60) + '…', sameToken, sel }))
   check('AC7-select', 'focusing the field selects the whole link (copy by hand)', sel[0] === 0 && sel[1] === sel[2], JSON.stringify(sel))
   await q.context().close()
@@ -352,7 +352,7 @@ await attempt('OldLinks', async () => {
   await m.waitForTimeout(1200); const mainDraft = await draft(m); await m.context().close()
   const res = {}
   const cases = [
-    ['main-ui', mainLink.replace('57742', '57741'), stripS(mainDraft)],
+    ['main-ui', mainLink.replace(MAIN, BR), stripS(mainDraft)],
     ['main-code-zip', BR + '#dela=' + OLD.zip, null],
     ['main-code-raw-j', BR + '#dela=' + OLD.raw, null],
     ['main-code-plain-json', BR + '#dela=' + OLD.plainJson, null],
@@ -393,7 +393,7 @@ await attempt('OldLinks', async () => {
     await p.context().close()
   }
   const p = await page('webkit'); await p.goto(BR); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: 'Hämta ett pass' }).click(); await p.locator('.home-receive textarea').fill(mainLink.replace('57742', '57741'))
+  await p.getByRole('button', { name: 'Hämta ett pass' }).click(); await p.locator('.home-receive textarea').fill(mainLink.replace(MAIN, BR))
   await p.locator('.home-receive .btn-primary').click(); await p.waitForTimeout(900)
   const pasteTitle = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue().catch(() => null)
   const q = await page('webkit'); await q.goto(BR); await q.evaluate(() => localStorage.clear()); await q.reload(); await q.locator('.home').waitFor()

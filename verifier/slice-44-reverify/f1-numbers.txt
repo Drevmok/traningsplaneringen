@@ -1,0 +1,91 @@
+{
+ "base": {
+  "markers": [
+   "1=Ljushopp på satsbräda.",
+   "2=Handstående falla till",
+   "3=Falla bakåt från höjd ",
+   "4=Salto från höjd. Erfar"
+  ],
+  "print": {
+   "rows": [
+    "1. Ljushopp på satsbräda",
+    "2. Handstående falla till rygg",
+    "3. Falla bakåt från höjd till rygg",
+    "4. Salto från höjd · Erfaren ledare"
+   ],
+   "printMarkers": [
+    "1=Ljushopp på satsbräda.",
+    "2=Handstående falla till",
+    "3=Falla bakåt från höjd ",
+    "4=Salto från höjd. Erfar"
+   ]
+  },
+  "match": {
+   "ok": true,
+   "bad": [],
+   "numbered": 4,
+   "markers": 4,
+   "unnumbered": 0
+  }
+ },
+ "removedLabel": "Station 2: Handstående falla till rygg. Tryck för detaljer.",
+ "removed": {
+  "markers": [
+   "1=Ljushopp på satsbräda.",
+   "2=Falla bakåt från höjd ",
+   "3=Salto från höjd. Erfar"
+  ],
+  "print": {
+   "rows": [
+    "1. Ljushopp på satsbräda",
+    "Handstående falla till rygg",
+    "2. Falla bakåt från höjd till rygg",
+    "3. Salto från höjd · Erfaren ledare"
+   ],
+   "printMarkers": [
+    "1=Ljushopp på satsbräda.",
+    "2=Falla bakåt från höjd ",
+    "3=Salto från höjd. Erfar"
+   ]
+  },
+  "match": {
+   "ok": true,
+   "bad": [],
+   "numbered": 3,
+   "markers": 3,
+   "unnumbered": 1
+  },
+  "printMarkersEqualHall": true
+ },
+ "trayCount": 1,
+ "back": {
+  "markers": [
+   "1=Ljushopp på satsbräda.",
+   "3=Falla bakåt från höjd ",
+   "4=Salto från höjd. Erfar",
+   "2=Handstående falla till"
+  ],
+  "print": {
+   "rows": [
+    "1. Ljushopp på satsbräda",
+    "2. Handstående falla till rygg",
+    "3. Falla bakåt från höjd till rygg",
+    "4. Salto från höjd · Erfaren ledare"
+   ],
+   "printMarkers": [
+    "1=Ljushopp på satsbräda.",
+    "3=Falla bakåt från höjd ",
+    "4=Salto från höjd. Erfar",
+    "2=Handstående falla till"
+   ]
+  },
+  "match": {
+   "ok": true,
+   "bad": [],
+   "numbered": 4,
+   "markers": 4,
+   "unnumbered": 0
+  }
+ },
+ "errs": []
+}

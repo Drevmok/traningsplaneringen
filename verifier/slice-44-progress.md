@@ -60,3 +60,12 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
 ## Remaining
 - Nothing left for the Verifier. All smokes are classified (0 regressions; see the report). Final commit made, teardown done.
 - PENDING-real: AC19, AC20 (iOS PWA), iOS clipboard, Android Chrome.
+
+## Re-verify @ 9fc5fd9 (F1 + F2 fixes), 2026-10-17 11:2x–11:4x UTC+2
+- Done:
+  - F1 FIXED (remove the middle station → unnumbered in the print, the rest match the markers; placed back → 1–4 again).
+  - F2 FIXED (tap, Ctrl+P or Avsluta golvklart → the browser print shows the hall; real Chrome Ctrl+P preview = the hall, same as main; «Skriv ut passet» still gives 3 pages, repeated 3×).
+  - AC14/16/17 re-run PASS.
+  - verify 38/39 (BLAST-hall-ctrlp resolved, see the addendum). Builder smoke 44: 32/32.
+  - Bundle −5,599 vs main. Tests 228/0, tsc/lint/build OK, secrets clean.
+- Remaining: none for the Verifier. PENDING-real as listed in the addendum.
