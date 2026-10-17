@@ -175,3 +175,7 @@ Keep **Visa tips igen** / **Om utkast** from prior slices. Footer remains `no-pr
 - Prefer these strings over inventing synonyms (“bara teknik”, “floor items”, “declutter mode”).
 - Single filter source: `blockType === 'techniques'`; prune non-Teknik placements silently.
 - Wire Slice 09 tip keys above so Kom igång / tip-hall-place match the product lock.
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** «Tips om placering» (knapp och panel), dra- och fäst-raderna i brickan och coachtipset om zoner (`tipHallPlace`) tas bort ur Hallöversikt. Bildtexten «Schematisk hall — inte exakt mått» och tipset om siffrorna (`tipHallFlowGolvklart`) blir kvar. Se [`slice-45/`](../slice-45/README.md).

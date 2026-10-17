@@ -397,3 +397,7 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 **Slice 38 (2026-10-13):** Kör passet — grå rad «Kvar: X min» under «Nästa: …» (resten av passet, hela minuter avrundat uppåt; 0 när tiden är ute på sista övningen). Se [`slice-38/`](../slice-38/README.md).
 
 **Slice 41 (2026-10-14):** Passbyggaren — toasten kan bära en knapp «Ångra» (ca 5 s). Efter × på en station: «Borttagen · Ångra». Efter Använd mall (inbyggd mall, Mina mallar, föreningsmall): «Mallen är i Passbyggaren. · Ångra». Efter Ångra: «Ångrat.». Ett steg, ingen historik, ingen bekräftelsedialog. Övriga toaster oförändrade (2,2 s, ingen knapp). Se [`slice-41/`](../slice-41/README.md).
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).

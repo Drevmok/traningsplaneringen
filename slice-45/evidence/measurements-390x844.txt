@@ -1,0 +1,23 @@
+Slice 45 baseline — main @ 0d88da5, vite preview, Playwright Chromium 390x844 DPR 2 touch (capture-390x844.mjs)
+
+Planera pass -> 7–9 år -> Trampett -> step 3 («Hallayout», «Fråga 3 av 3»)
+  options: Blå hall · Vit hall · Standard trupp · Tävling / linjer · Liten hall
+  texts:   «Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.»
+           «Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.»
+-> Blå hall -> Skapa pass -> Mer -> Hallöversikt
+  #hall-layout-select options: Blå hall · Vit hall · Standard trupp · Tävling / linjer · Liten hall
+  .hall-preset-row (label «Hallayout» + select + zoom − / +): y 202–246
+  .hall-canvas: y 310–574
+  .hall-below (y 691–931) texts:
+     «Placerade övningar flyttas till samma zon i den nya layouten när det går.»
+     «Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.»
+     [Tips om placering]  (panel: Stationsordning följer passet · Endast Teknik-stationer… · Stationerna visas som markörer… · Förslagen ligger redan i zonen… · Släpp på en zon…)
+     coach tip «Siffrorna följer Teknik-stationernas ordning i passet, …» [× Dölj tips]
+  document height 1147
+Golvklart meta: «Pass — trampett · Blå hall»
+
+Home -> Rensa passet (draft present)
+  .modal: top 0, bottom 776, height 776 of 844 (content ≈ 210 px), buttons Avbryt 69×44 / Rensa 68×44 at y 126
+  cause: App.css:1619–1623 (≤768) `.modal-backdrop { align-items: flex-end; place-items: stretch; }`
+         `place-items` is the later shorthand and resets align-items to stretch, so the .modal fills the grid row
+         up to its max-height min(92svh, 100%) = 776 px. Same rule applies to every dialog using .modal-backdrop (16 components).
