@@ -1,7 +1,7 @@
 # Slice 44 — Dela och utskrift
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-17 — not locked.** A–F below are options with Docs' recommendation marked ★. Planner/Christoffer lock. Docs pack only, no app code. Branch `slice-44-docs` from `origin/main` @ `0d88da5` (Slice 43 merge; live Pages build reports the same SHA in `version.json`).  
+**Status:** **LOCKED 2026-10-17 by Christoffer: A1 B1 C1 D1 E1 F1 (the ★ recommendations).** Effort M (print fix alone S). Docs pack only, no app code. Branch `slice-44-docs` from `origin/main` @ `0d88da5` (Slice 43 merge).  
 **Effort:** **M** overall. The print fix on its own is **S** (one hook, ~30 lines). See below.  
 **Source:** `feedback/2026-10-17-christoffer.md` row A: «fix Skriv ut passet (broken), Dela = only print + copy link; remove Helskär, Skriv ut kort».
 
