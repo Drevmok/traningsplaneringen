@@ -20,6 +20,12 @@ Planner pings Scout after:
 
 Not continuous. Not after every chat message.
 
+## Run types
+
+- **Internal polish pass (every run):** walk the live app at 390×844 with fresh localStorage as a brand-new coach (Home/wizard → Passbyggaren → Mallar → Hallöversikt/Golvklart → Kör passet → Förrådslista → dela/skriv ut). Up to **5** items tagged **Polish** (screen + step + screenshot), alongside any outside sweep.
+- **Outside sweep (monthly), two parts:** (1) similar apps; (2) **unmet demand** — forums, Reddit, public FB posts, app-store reviews, Swedish coach discussions. At most **1–2** unmet-demand ideas/month, each with quotes/links + simplicity check.
+- **Simplicity filter (every idea, any source):** does it make planning a pass faster or easier for a new coach? Prefer replacing/shortening a step over adding one.
+
 ## Scout output contract
 
 Each run: **exactly 2–3** ideas in `backlog/IMPROVEMENTS.md` under **Proposed**, plus a short reply to Planner only.
@@ -61,7 +67,7 @@ Team rigor layer: see `backlog/PSTACK-OPS.md`. Scout: tag each idea with experie
 - Ping Docs / Builder / Verifier  
 - CAD / accounts / cloud / App Store unless Christoffer asked  
 - Re-propose Declined or Parked items without new evidence  
-- More than 3 ideas unless Planner asks  
+- More than 3 ideas unless Planner asks (Polish pass: up to 5)  
 
 ## After Approve
 
