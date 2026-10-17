@@ -29,7 +29,11 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
 - The first smoke run was invalid. My bank build used an `http://` stand-in URL, so `bankConfigFrom` turned the bank off, and the stand-in-dependent sections failed (42-verify C, 39-verify C2).
 - Fix: rebuilt the bank build with `https://bank-mock.supabase.co` (routed to the local stand-in) and restarted :57740.
 - The second run was also invalid: two loops ran concurrently and overwrote each other's outputs. Both runs were discarded.
-- Clean re-run, chunk 1: 44-builder, 43-builder, 43-verify, 42-verify, 39-verify. Results are below once they are in.
+- Clean re-run, chunk 1 (started 10:28 UTC+2, one loop only, bank build on https):
+  - **slice-44-builder-smoke: 26/26 PASS.**
+  - **slice-43-builder-smoke: 21/22.** The only fail is AC16-footer «Slice 43», which is expected (footer bump).
+  - slice-43-verify: still running at checkpoint 2. Output so far: AC11 fails (expected, see below) and AC6-320 fails (pre-existing). **AC8 now passes**, so the earlier AC8 fail was a side effect of the bank being off.
+  - slice-42-verify and slice-39-verify: queued in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
 - Classified so far from the earlier partial runs. These are preliminary and get re-confirmed on the clean run:
   - Footer «Slice 43/42…» asserts: expected (the footer is bumped to Slice 44).
   - 43-verify AC8 and AC11: expected. Golvklart lost «Helskärm…» and «Skriv ut kort» (StationDeck removed per AC9), so the hall sits 52 px higher than on main.
