@@ -1,0 +1,38 @@
+FAIL [A] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [B] section error — locator.click: Timeout 10000ms exceeded.
+PASS [AC6] Built-in mall → apply → reload at once → stored = that mall, Teknik placements kept — Nybörjare — ca 55 min tek 3 placed 3
+PASS [AC6-home] Home shows Fortsätt passet · that mall
+PASS [AC7-egen] Mina mallar «V39 egen» → apply → reload at once → stored (fresh id, mall contents; pass keeps its own title) — Nybörjare — ca 55 min, items 9
+FAIL [C] section error — locator.click: Timeout 10000ms exceeded.
+PASS [AC7-club] Föreningsmall (stand-in) → apply → reload at once → stored, Teknik placed — V39 klubbmall placements 2
+FAIL [D] section error — locator.click: Timeout 10000ms exceeded.
+NOTE E.after_each_replace: ["Min handsparade mall","Pass 1 | Min handsparade mall","Pass 2 | Pass 1 | Min handsparade mall","Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Pass 1 | Min handsparade mall","Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Pass 2 | Min handsparade mall"]
+PASS [E-archive-names] Replaced passes archived under their own titles, newest first (Pass 8 … Pass 2) + the hand-saved one — Pass 8* | Pass 7* | Pass 6* | Pass 5* | Pass 4* | Pass 3* | Pass 2* | Min handsparade mall
+PASS [E-cap] Cap 8 holds: list length 8 after 10 entries — 8
+NOTE E.cap_drop: oldest dropped first; hand-saved «Min handsparade mall» kept; «Pass 0» evicted; no message shown
+PASS [E-cap-hand-kept] 4b92442 rule: auto-copies push out only auto-copies; the hand-saved mall survives 9 replacements — oldest dropped first; hand-saved «Min handsparade mall» kept; «Pass 0» evicted; no message shown
+NOTE E.dedupe_title: «Kopia av 5» (same stations as «Pass 5», other title) replaced → Mina mallar: Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Pass 3 | Min handsparade mall
+PASS [AC11-title] Dedupe is by contents only: «Kopia av 5» is NOT archived under its own title because «Pass 5» has the same contents (recorded) — 8 → 8
+PASS [AC11] Same old pass contents replaced twice → one archived copy («Pass 5» once) — Nytt pass | Pass 9 | Pass 8 | Pass 7 | Pass 6 | Pass 5 | Pass 4 | Min handsparade mall
+PASS [AC12] Empty title → Home «Fortsätt passet Nytt pass · N min»; archived as «Nytt pass» — Träningsplaneraren Ett pass på några minuter. Fortsätt passet Nytt pass · 12 min Tomt pass / Nytt pass
+FAIL [F] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [G] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [H] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [I] section error — locator.click: Timeout 10000ms exceeded.
+PASS [J1] Auto-copy into full mixed list → oldest auto-copy (A4) out, all H kept, copy on top flagged — J1 gammal* | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J2] 2b21629: 8 hand-saved → replaced pass takes the spare slot (9 entries, J2 gammal* on top); new pass saved, «Sparat» — J2 gammal* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8 / Sparat
+PASS [J2r] Spare entry + auto flag survive reload (9 entries) — J2 gammal* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8
+PASS [J2s] 9 Mina mallar cards render at 390: all 9 visible cards, none overflow, no page horizontal scroll (Från mall + Använd mall) — {"r1":{"cards":9,"over":0,"sw":390,"sheetScroll":false},"r2":{"cards":9,"over":0,"sw":390,"sheetScroll":false}}
+PASS [J2b] Newer auto-copy replaces the spare: 9 entries, «J2 ny*» in, «J2 gammal*» out, all 8 H kept — J2 ny* | H1 | H2 | H3 | H4 | H5 | H6 | H7 | H8
+PASS [J2c] Hand-save into 8 H + spare → 8 entries: spare (J2 ny*) AND oldest hand-saved (H8) dropped — J2 hand | H1 | H2 | H3 | H4 | H5 | H6 | H7
+PASS [J3] Hand-save into full mixed list → oldest auto-copy (A4) out — J3 hand | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J4] Hand-save into 8 hand-saved → oldest hand-saved (H8) out — J4 hand | H1 | H2 | H3 | H4 | H5 | H6 | H7
+PASS [J5] auto flag survives reload + a later write (A1–A3 still *, new hand entry not *) — J5 hand | H1 | A1* | H2 | A2* | H3 | A3* | H4
+PASS [J5b] UI only: 9+ auto-copies → list of 8 auto (*), newest first (spare not used: auto-copies evict auto-copies) — U8* | U7* | U6* | U5* | U4* | U3* | U2* | U1*
+PASS [J6a] Main build wrote 8 entries with no auto key — L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1
+PASS [J6b] Legacy (main) = hand-saved: replaced pass takes the spare (9), new pass saved — J6 gammal* | L8 | L7 | L6 | L5 | L4 | L3 | L2 | L1
+PASS [J6c] Hand-save into 8 legacy + spare → 8: spare and oldest legacy (L1) dropped — J6 hand | L8 | L7 | L6 | L5 | L4 | L3 | L2
+PASS [F4a] Dedupe vs flags: replaced «Dubbel» = same contents as hand-saved «Dubbel hand» → no auto-copy — Dubbel hand
+NOTE J.matrix: {"J1":["J1 gammal*","H1","A1*","H2","A2*","H3","A3*","H4"],"J2":["J2 gammal*","H1","H2","H3","H4","H5","H6","H7","H8"],"J2r":["J2 gammal*","H1","H2","H3","H4","H5","H6","H7","H8"],"J2b":["J2 ny*","H1","H2","H3","H4","H5","H6","H7","H8"],"J2c":["J2 hand","H1","H2","H3","H4","H5","H6","H7"],"J3":["J3 hand","H1","A1*","H2","A2*","H3","A3*","H4"],"J4":["J4 hand","H1","H2","H3","H4","H5","H6","H7"],"J5":["J5 hand","H1","A1*","H2","A2*","H3","A3*","H4"],"J5b":["U8*","U7*","U6*","U5*","U4*","U3*","U2*","U1*"],"J6b":["J6 gammal*","L8","L7","L6","L5","L4","L3","L2","L1"],"J6c":["J6 hand","L8","L7","L6","L5","L4","L3","L2"],"F4a":["Dubbel hand"]}
+
+PASS 24 / FAIL 8 · page errors 0 · bank requests 9 (live: 0)

@@ -1,0 +1,34 @@
+PASS [AC1-menu] Mer shows «Dela», not «Exportera / dela» — Hallöversikt|Spara som egen mall|Ny vecka|Använd mall|Dela
+PASS [AC1-title] sheet titled «Dela»
+PASS [AC2] exactly Kopiera länk + Skriv ut passet (+ ×); no file input, textarea, QR — ×|Kopiera länk|Skriv ut passet
+PASS [AC3] buttons ≥ 44×44, no horizontal scroll, hints as microcopy — {"sw":390,"small":0,"hints":["Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.","Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säke
+PASS [AC4] clipboard holds …/traningsplaneringen/#dela=…; «Länken är kopierad.» then back after ~3 s — http://127.0.0.1:57841/traningsplaneringen/#dela=z.lZNNbtswF… Länken är kopierad. → Kopiera länk
+PASS [A1-webkit] WebKit timing: after afterprint the class and the print host are still there — {"prints":[{"cls":"is-print-pass","hosts":1}],"now":{"cls":"is-print-pass","hosts":1}}
+PASS [AC14] print = the pass, not the app (title, minutes, 5 blocks), A4 — pages=3
+PASS [AC15] Teknik rows «1.» «2.» «3.» with Se upp för / Säkerhet / Redskap — pages=3
+PASS [AC16] no page ends on a block heading; Hallöversikt heading on the page with the map — pages=3 last=["Redskap. Madrass","Rundpingis med medicinboll                                                                                   6 min","Ljushopp p…   Handståen…   Falla bakåt…"] mapPage=2
+PASS [AC18] second tap prints again; no stall line
+PASS [AC8] close → back in Passbyggaren, no stray is-print-pass, page scrolls
+FAIL [AC22-footer] footer «Träningsplaneraren · Slice 44»
+PASS [AC13] Mer «Spara som egen mall» dialog still saves — saved=1
+PASS [A1-chromium] Chromium timing: print host present at print time; same pass PDF — {"cls":"is-print-pass","hosts":1} pages=3
+PASS [AC20-sim] no beforeprint → printStalled line within ~2 s (not before 1.5 s) — Utskriften kom inte igång. Från hemskärmen kan iPhone ibland inte skriva ut. Kopiera länken, öppna den i Safari och skriv ut passet därifrån.
+PASS [AC7] copy failure → exportCopyManual + read-only field with the link; label not «kopierad» — Kopiera länk / Det gick inte att kopiera. Håll fingret  / http://127.0.0.1:57841/traningsplanering
+PASS [AC5] link opens Delat pass with the same title and blocks
+PASS [AC10] Delat pass actions: Kör passet · Spara och kör · Spara på den här enheten · Skriv ut passet · Till planeringen — Kör passet|Spara och kör|Spara på den här enheten|Skriv ut passet|Till planeringen
+PASS [AC17-share] print from Delat pass = same pages as from Dela — pages=3 vs 3
+PASS [AC5-save] «Spara på den här enheten» saves it — Nybörjare — ca 55 min
+PASS [AC9] Golvklart actions: Avsluta Golvklart · Förrådslista · Skriv ut passet — Avsluta golvklart|Förrådslista|Skriv ut passet
+PASS [AC17-golv] print from Golvklart = same pages — pages=3
+PASS [AC9-forrad] Förrådslista still opens
+PASS [AC6] link made on main 0d88da5 opens on the branch (SharePass v1) — http://127.0.0.1:57842/traningsplaneringen/#dela=z.jZNNbtswEEavYnAtFrJ
+PASS [AC12-paste] Home «Hämta ett pass» pasted link still opens the pass (in Passbyggaren) — Nybörjare — ca 55 min
+PASS [F1-dom] print rows: placed Teknik numbered 1, 2 in hall order; the unplaced one has no number — 1. Ljushopp på satsbräda | Handstående falla till rygg | 2. Falla bakåt från höjd till rygg
+PASS [F1-hall] same numbers the hall shows (2 markers: 1, 2) — 1,2
+PASS [F1-pdf] PDF text: «1. <first>», «<second>» without number, «2. <third>» — Ljushopp på satsbräda / Handstående falla till rygg / Falla bakåt från höjd till rygg
+PASS [F2-golvklart] after pass print, Ctrl/Cmd+P in Golvklart prints the hall: class gone, no print host, hall visible, no pass text — {"cls":"is-print-pass","hosts":1} → {"cls":"","hosts":0} pages=1
+PASS [F2-again] tapping Skriv ut passet again still prints the pass — pages=3
+PASS [F2-hall] then Ctrl/Cmd+P in Hallöversikt prints the hall (no pass) — cls= pages=1
+PASS [no-errors] no page errors
+{"webkitPages":3,"chromiumPages":3}
+31/32 pass

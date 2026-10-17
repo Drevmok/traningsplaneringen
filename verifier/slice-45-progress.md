@@ -104,18 +104,11 @@ Script fixes this chunk:
 - AC15 graded against main rather than a fixed 44 px.
 - `ONLY=` env to re-run single checks.
 
-## Smoke loop (one loop, flock): status 17:25
-- Done rc=0 through 39-verify. 38-builder was running.
-- `slice-45-checks/classify.sh` gives a first diff vs the Slice 44 baseline (classification is not done yet):
-  - Unchanged: 39-builder, 41-builder, 42-builder, 42-verify.
-  - New FAILs to classify: 40-builder, 40-reverify (legacy halls/select removed, so expected?); 41-reverify-b (28: race-* and AC2–AC5, needs a look); 43-builder and 43-verify (halls/select); 44-builder and 44-verify (footer = Slice 45 expected, AC6/Dela/markers to check); 39-verify (A–H).
-  - 45-builder: 40/41. AC17 errored only because the smoke copy had no `app/dist` (environment). It is now symlinked to wt/app/dist and will be re-run alone after the loop (`LIST=slice-45-builder-smoke run.sh`, same flock).
-
-## Remaining
-- Classify every new smoke FAIL (cause: removed hall/select/legacy UI = expected, or regression).
-- Re-run builder-45.
-- AC17 sweep (rg ids/strings vs microcopy).
-- AC18 footer.
-- Cleanup analysis (removed code vs code still in use).
-- Secret grep.
-- Report, 2 screenshots, final commit, teardown.
+## Smoke loop: finished 17:35 (ALLDONE). Builder-45 re-run alone 17:38: **41/41**
+## Chunk 4 (17:24–18:15): smoke classification + AC17/AC18 + cleanup + secrets
+- The loop's raw outputs are in `slice-45-checks/smokes/`. `classify-loop.txt` compares them with the Slice 44 baseline.
+- Patched re-runs (copy `/workspace/s45v/smk2`, the same flock, one loop): the wizard option `/Standard trupp/` became `/Stora hallen|Standard trupp/`. Results are in `smokes-patched/` and `classify-patched.txt`.
+- Hand repros: `repro/` (x41 with Blå and with legacy seeds, x39, x44/x44b with «Dela», slice-33 on main's bank build vs the branch, Golvklart text probe).
+- Result: **no regression found.** Every new failure is either an expected removal/rename (hall select, generic halls, the «Standard trupp» chip, «Tips om placering», «Blå/Vit hall» names, footer 45) or brittleness (tap point, rate limits, stale MAIN vs. «Exportera / dela»). Details are in the report.
+- AC17 PASS. AC18 PASS. Cleanup: nothing still in use lost code. Secret grep clean.
+- Next: the final report, the final commit, teardown.

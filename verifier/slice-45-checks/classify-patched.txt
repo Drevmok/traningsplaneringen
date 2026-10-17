@@ -1,0 +1,11 @@
+slice-32-builder-smoke.txt | now 27/17 | s44 27/17 | new: – | fixed/gone: –
+slice-33-builder-smoke.txt | now 140/7 | s44 142/5 | new: [AC11c] [AC12d]  | fixed/gone: –
+slice-34-builder-smoke.txt | now 30/2 | s44 30/2 | new: – | fixed/gone: –
+slice-35-builder-smoke.txt | now 34/8 | s44 34/8 | new: – | fixed/gone: –
+slice-35-verify.txt | now 37/11 | s44 37/11 | new: – | fixed/gone: –
+slice-36-builder-smoke.txt | now 32/2 | s44 32/2 | new: – | fixed/gone: –
+slice-36-verify.txt | now 13/2 | s44 13/2 | new: – | fixed/gone: –
+slice-37-verify.txt | now 4/7 | s44 4/7 | new: – | fixed/gone: –
+slice-38-builder-smoke.txt | now 26/1 | s44 26/1 | new: – | fixed/gone: –
+slice-40-builder-smoke.txt | now 12/6 | s44 16/5 | new: [AC14] [AC9] [W]  | fixed/gone: [AC1-main] [AC2-main] 
+slice-40-reverify.txt | now 32/7 | s44 38/2 | new: [AC14-controls] [AC9-liten-hall] [AC9-standard-trupp] [AC9-tavling-linjer] [A]  | fixed/gone: –
