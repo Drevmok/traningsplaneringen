@@ -1,0 +1,35 @@
+Slice 44 print evidence — main @ 0d88da5 (= live build, version.json 0d88da5), 2026-10-17
+Box: vite preview :4544, Playwright Chromium (headless), 390x844 DPR 2 touch. Pass = Från mall -> Nybörjare.
+Path: Mer -> Exportera / dela -> «Skriv ut passet». window.print stubbed to record DOM state; print media + page.pdf(A4, preferCSSPageSize).
+
+1. Real Chromium event order for window.print() (print-event-order.mjs):
+   [ 'call', 'beforeprint', 'afterprint', 'returned' ]
+   -> Chromium dispatches both events INSIDE print() and lays out the print copy synchronously.
+
+2. Chromium-like (sync) run (print-repro.mjs, WEBKIT unset):
+   state when print() is called : body.is-print-pass, 1 .print-host
+   state when the print renders : body.is-print-pass, 1 .print-host
+   PDF: 2 A4 pages, timeline + Hallöversikt map  -> main-A4-chromium-pass-p1/p2.png  (desktop Chrome works)
+
+3. WebKit-like (async) run (WEBKIT=1: print() returns at once, afterprint fires as the sheet opens,
+   which is the documented Safari/iOS behaviour: MDN window.print, SO 30310918):
+   state when print() is called : body.is-print-pass, 1 .print-host
+   state when the print renders : body '' , 0 .print-host   <- useBodyPrint's afterprint handler already ran
+   PDF: 10 A4 pages of the APP (Passbyggaren + the Exportera / dela modal, QR code)  -> main-A4-webkit-sim-pass-p1.png
+
+4. «Skriv ut kort» (stations mode, Chromium): 3 pages, one station per A4 -> main-A4-skriv-ut-kort-p1.png
+
+5. Share link (share-copy.mjs, clipboard permission granted):
+   «Kopiera länk» -> button label becomes «Länken är kopierad.» (no toast; .toast count 0)
+   clipboard: http://localhost:4544/traningsplaneringen/#dela=z.… (754 chars for Nybörjare)
+   opening it in a new tab -> SharePass view, banner «Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.»
+   share-actions: Kör passet · Spara och kör · Spara på den här enheten · Helskär · Skriv ut kort · Skriv ut passet · Till planeringen
+
+6. Scratch prototype of the ★ fix (never pushed; worktree removed): usePassPrint keeps the host + class armed,
+   card fields merged into Teknik rows, Helskär/Skriv ut kort/QR/file/mall removed.
+   WEBKIT=1 run: state when the print renders = is-print-pass + 1 host; PDF 3 A4 pages, pass + stations + map
+   -> prototype-A4-pass-with-cards.png
+   Bundle (vite build, gzip): main index JS 142.98 kB -> 137.38 kB (−5.60 kB; QR encoder uqr.mjs + StationDeck gone),
+   CSS 14.52 -> 14.59 kB (+0.07 kB; prototype added rules but deleted no dead CSS).
+
+Scripts expect: Playwright resolvable from cwd, preview on http://localhost:4544/traningsplaneringen/.
