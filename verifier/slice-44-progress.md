@@ -42,8 +42,16 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
   - **slice-42-verify: 59 / 2.** The fails are AC18-footer (expected) and S39-unsaved (baseline). 0 new. Section C (föreningsmall via the stand-in) now passes, which confirms the earlier C fail came from the bank being off.
   - **slice-39-verify: 67 / 5** (AC1, AC22a, AC3/AC17, F3, I), the same set as the baseline. 0 new. C2 now passes. Live requests: 0.
   - **slice-42-builder-smoke: 23/24.** The fail is AC18-footer (expected, the same as the baseline).
-  - slice-41-reverify-b: running at checkpoint 5. The fails so far are AC22-footer and C, both in the baseline.
-  - Queued in the same chain: 41-builder, 40-builder, 40-reverify, 39-builder, 38-builder, 38-verify, 37-builder, 37-verify, 36-builder, 36-verify, 35-builder, 35-verify, 34-builder, 34-verify, 33-builder, 32-builder. At about 5 min each, that is roughly 80 min. in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
+  - **slice-41-reverify-b: 93 / 2** (AC22-footer, C), both in the baseline. 0 new.
+  - **slice-41-builder-smoke: 32/34** (AC16, AC22-footer), both in the baseline. 0 new.
+  - **slice-40-builder-smoke: 15 / 5** (AC1/2/8-main, AC16-footer, M), all in the baseline. 0 new.
+  - **slice-40-reverify: 37 / 2** (AC16-footer, C), both in the baseline. AC14-controls now passes.
+  - **slice-39-builder-smoke: 25 / 3** (C, F, G), all in the baseline. 0 new.
+  - **slice-38-builder-smoke: 25 / 1** (AC18a), in the baseline.
+  - **slice-38-verify: 67 / 4.** The fail set matches the baseline. 0 new.
+  - **slice-37-builder-smoke: rc 1.** It crashed at line 88 waiting for «Ersätta det här passet?» → «Använd mall». This is the identical crash to the Slice 43 baseline, so it is pre-existing.
+  - slice-37-verify: running at checkpoint 6. Fails so far are all in the baseline.
+  - Left after it: 36-builder, 36-verify, 35-builder, 35-verify, 34-builder, 34-verify, 33-builder, 32-builder (8). in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
 - Classified so far from the earlier partial runs. These are preliminary and get re-confirmed on the clean run:
   - Footer «Slice 43/42…» asserts: expected (the footer is bumped to Slice 44).
   - 43-verify AC8 and AC11: expected. Golvklart lost «Helskärm…» and «Skriv ut kort» (StationDeck removed per AC9), so the hall sits 52 px higher than on main.
