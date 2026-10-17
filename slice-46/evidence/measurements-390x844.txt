@@ -1,0 +1,36 @@
+Slice 46 baseline — 390x844 portrait, DPR 2, touch, clean site data, Playwright Chromium.
+Local: vite preview of the main build (app identical to 4fe44c0) on :4546, capture-390x844.mjs. That build has no bank config, so «Logga in som admin» is hidden there.
+Live: https://drevmok.github.io/traningsplaneringen/ (version.json build 4fe44c0, admin link shown), capture-live-390x844.mjs.
+
+START PAGE, no draft (local)
+  .home-hero 0–526 · h1 518–550 · .home-promise 554–574
+  «Planera pass» 590–646 (350×56)
+  «Tomt pass» 658–706 (171×48) · «Från mall» 658–706 (171×48)
+  «Sparas lokalt i webbläsaren — inte i molnet.» 718–736 (13 px, centred, between the buttons and Hämta ett pass)
+  «Hämta ett pass» 736–776
+  .app-footer 788–852: «Tyck till» 800–840 (74×40) · «Uppdatera appen» 800–840 (133×40)
+  document height 852 (8 px scroll)
+
+START PAGE, no draft (live, admin available)
+  .app-footer 788–898, two rows:
+    row 1 y 800–840: «Logga in som admin» (154×40, x 70) · «Tyck till» (74×40, x 237) · trailing «·» at x 317 (separator left hanging at the line end)
+    row 2 y 846–886: «Uppdatera appen» (133×40) — below the 844 fold
+  document height 898 (54 px scroll). In the screenshot «Tyck till» sits higher than «Logga in som admin» on the same row.
+  cause: export.css `.home.home-entry { min-height: calc(100svh - 56px) }` reserves 56 px for the footer; the footer is 64 px with two links and 110 px with three.
+
+START PAGE, with draft (local)
+  «Fortsätt passet / Pass — trampett · 53 min» 521–586 · «Tomt pass» / «Från mall» 598–646 · «Rensa passet» 662–706
+  note 718–736 · «Hämta ett pass» 736–776 · footer links 800–840
+  There is no «Planera pass» button when a draft exists (Home.tsx: the primary button is Fortsätt passet; only Tomt pass and Från mall start a new pass).
+
+WIZARD (local)
+  sheet 369–844 (475 px), «Fråga 1 av 3», × in the header, Avbryt + Nästa at the bottom
+  step 1: 4–6 år · 7–9 år · 10–12 år · 13–18 år · Nivå
+  step 2: «Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.» + Satsbräda · Trampett · Tumbling · Blandat
+  step 3 «Hallayout»: «Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.» + the same focus line + Blå hall · Vit hall · Standard trupp · Tävling / linjer · Liten hall; «Skapa pass»
+  no pass-length step; the wizard pass is «Pass — trampett», 53 / 60 min (targetMinutes not set -> 60)
+
+PASSBYGGAREN footer (local, after the wizard)
+  row 1 y 1553–1593: «Träningsplaneraren · Slice 44» · «Tyck till» · (trailing «·»)
+  row 2 y 1599–1639: «Visa tips igen» · «Uppdatera appen»
+  document height 1651

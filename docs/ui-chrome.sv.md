@@ -394,6 +394,8 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 
 **Slice 35 (2026-10-11):** Sidfoten — länken «Tyck till» öppnar ett förifyllt mejl till drevmok@gmail.com. Se [`slice-35/`](../slice-35/README.md).
 
+**Slice 46 (FÖRESLAGEN 2026-10-17, inte låst):** Sidfoten i rader utan avbrott vid kanten. Startsidan: «Tyck till · Uppdatera appen», sedan «Logga in som admin» (eller «Admin · Logga ut»), sist «Sparas lokalt i webbläsaren — inte i molnet.» i liten grå text; allt syns utan att skrolla på 390×844. Passbyggaren och Hallöversikt: «Tyck till · Visa tips igen · Uppdatera appen», admin-raden, sist «Träningsplaneraren · Slice 46». Startsidan har bara knappen «Planera pass» (Tomt pass och Från mall flyttar in i den). Se [`slice-46/`](../slice-46/README.md).
+
 **Slice 38 (2026-10-13):** Kör passet — grå rad «Kvar: X min» under «Nästa: …» (resten av passet, hela minuter avrundat uppåt; 0 när tiden är ute på sista övningen). Se [`slice-38/`](../slice-38/README.md).
 
 **Slice 41 (2026-10-14):** Passbyggaren — toasten kan bära en knapp «Ångra» (ca 5 s). Efter × på en station: «Borttagen · Ångra». Efter Använd mall (inbyggd mall, Mina mallar, föreningsmall): «Mallen är i Passbyggaren. · Ångra». Efter Ångra: «Ångrat.». Ett steg, ingen historik, ingen bekräftelsedialog. Övriga toaster oförändrade (2,2 s, ingen knapp). Se [`slice-41/`](../slice-41/README.md).

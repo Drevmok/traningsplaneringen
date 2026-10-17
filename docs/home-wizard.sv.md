@@ -9,6 +9,8 @@
 **Out of scope copy:** seed selection math · placement algorithms · full age×focus matrix · Använd-alla-on-finish · Pages/Netlify · Soft blank inject rewrite · mall gathering rewrite · CAD/cloud/accounts · app code in this Docs pass
 
 Pack mirror: [`slice-29/content/home-wizard.sv.md`](../slice-29/content/home-wizard.sv.md).  
+**Slice 46 (FÖRESLAGEN 2026-10-17, inte låst):** Planera pass blir den enda knappen på startsidan. Frågorna blir fyra: Ålder → Fokus → Hall → Passlängd (60, 90 eller 120 min), och ett tryck går vidare till nästa fråga, utan Nästa och Skapa pass. Starta från mall och Tomt pass flyttar in under åldrarna. Tillbaka och Avbryt står längst ner; på första frågan finns bara Avbryt. Se [`slice-46/`](../slice-46/README.md) och [`planera-pass.sv.md`](./planera-pass.sv.md).
+
 Living companions: [`copy-home-polish.sv.md`](./copy-home-polish.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md) · [`hall-presets-copy.sv.md`](./hall-presets-copy.sv.md) · [`soft-samling.sv.md`](./soft-samling.sv.md) · [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md).
 
 ---
