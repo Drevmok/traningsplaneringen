@@ -6,7 +6,6 @@ import type { Session, SessionBlock } from '../types.ts'
 import {
   decodeShare,
   encodeShare,
-  passFileName,
   sessionFromPassJson,
   sessionFromTransfer,
   sessionToShare,
@@ -125,7 +124,6 @@ describe('sharePass', () => {
       'item-b',
     )
     assert.equal(sessionFromPassJson('inte json'), null)
-    assert.equal(passFileName('Nytt pass'), 'nytt-pass.json')
     const token = await encodeShare(session())
     const fromUrl = await sessionFromTransfer(
       `https://example.test/traningsplaneringen/#dela=${token}`,

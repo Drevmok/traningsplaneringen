@@ -57,9 +57,7 @@ import { ForradslistaSheet } from './ForradslistaSheet'
 import { HallChip, HALL_CHIP_MIME } from './HallChip'
 import { PassPrint } from './PassPrint'
 import { StationComposeSheet } from './StationComposeSheet'
-import { enterPresentation, StationDeck } from './StationDeck'
-import { useBodyPrint } from '../lib/bodyPrint'
-import { stationCards } from '../lib/stationCards'
+import { usePassPrint } from '../lib/bodyPrint'
 
 interface Props {
   session: Session
@@ -106,16 +104,13 @@ export function HallBoard({
   /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
   const [applyAllHighlight, setApplyAllHighlight] = useState(false)
   const [ownedIds, setOwnedIds] = useState<string[]>(() => loadOwnedEquipment())
-  const [deckOpen, setDeckOpen] = useState(false)
-  const [cardPrint, setCardPrint] = useState<'stations' | 'pass' | null>(null)
-  useBodyPrint(cardPrint, () => setCardPrint(null))
+  const pp = usePassPrint()
 
   // Slice 31 — activity-derived values are plain (not memoized on session) so a bank
   // refresh that re-renders the board shows the new text in place.
   useBank()
   const itemCount = useMemo(() => countSessionItems(session), [session])
   const placeableCount = countPlaceableItems(session)
-  const cards = stationCards(session)
   const unplaced = getUnplacedItems(session)
   const noStations = itemCount > 0 && placeableCount === 0
   const activeTemplateId = normalizeTemplateId(session.hallTemplateId)
@@ -431,25 +426,6 @@ export function HallBoard({
             </button>
             <button
               type="button"
-              className="btn-primary hall-tap-target"
-              disabled={cards.length === 0}
-              onClick={() => {
-                enterPresentation()
-                setDeckOpen(true)
-              }}
-            >
-              {UI.exportFullscreen}
-            </button>
-            <button
-              type="button"
-              className="btn-secondary hall-tap-target"
-              disabled={cards.length === 0}
-              onClick={() => setCardPrint('stations')}
-            >
-              {UI.printStations}
-            </button>
-            <button
-              type="button"
               className="btn-secondary hall-tap-target"
               aria-label={UI.forradslistaOpenAria}
               onClick={() => setForradOpen(true)}
@@ -459,11 +435,12 @@ export function HallBoard({
             <button
               type="button"
               className="btn-secondary hall-tap-target"
-              onClick={() => setCardPrint('pass')}
+              onClick={pp.print}
             >
               {UI.exportPrintPass}
             </button>
           </div>
+          {pp.stalled && <p className="muted" role="status">{UI.printStalled}</p>}
           <div className="hall-header-main">
             <h1 className="hall-screen-title">
               {UI.hallFloorModeLabel}
@@ -844,14 +821,7 @@ export function HallBoard({
           {applyAllStatus}
         </div>
       )}
-      {deckOpen && (
-        <StationDeck cards={cards} onClose={() => setDeckOpen(false)} />
-      )}
-      {cardPrint &&
-        createPortal(
-          <PassPrint session={session} mode={cardPrint} />,
-          document.body,
-        )}
+      {pp.armed && createPortal(<PassPrint session={session} />, document.body)}
     </div>
   )
 }

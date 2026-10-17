@@ -1,7 +1,7 @@
 import { BLOCK_LABELS, BLOCK_ORDER, stationEquipmentLabelText, UI } from '../data/blockMeta'
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
-import { listSessionItems } from '../lib/hall'
+import { listSessionItems, placeableItems, stationRanks } from '../lib/hall'
 import { HallCanvas } from './HallCanvas'
 import { StationSketch } from './StationSketch'
 import { stationCards } from '../lib/stationCards'
@@ -9,54 +9,14 @@ import type { Session } from '../types'
 
 interface Props {
   session: Session
-  mode: 'stations' | 'pass'
 }
 
-export function PassPrint({ session, mode }: Props) {
+/** Slice 44 C1: the pass print carries the station card fields (rank, Erfaren ledare, sketch, Se upp för, Säkerhet, Redskap). */
+export function PassPrint({ session }: Props) {
   const cards = stationCards(session)
-
-  if (mode === 'stations') {
-    return (
-      <div className="print-host">
-        {cards.length === 0 ? (
-          <p className="station-sheet-empty">{UI.stationCardsEmpty}</p>
-        ) : (
-          cards.map((card) => (
-            <article key={card.rank} className="station-sheet">
-              <p className="station-sheet-rank">{card.rank}</p>
-              <h1>{card.title}</h1>
-              <p className="station-sheet-meta">
-                {card.blockLabel} · {card.minutes} min
-                {card.experienced ? ` · ${UI.experiencedCoach}` : ''}
-              </p>
-              {card.equipmentSlots && card.equipmentSlots.length > 0 && (
-                <StationSketch slots={card.equipmentSlots} />
-              )}
-              {card.watch && (
-                <p>
-                  <strong>{UI.watchFor}. </strong>
-                  {card.watch}
-                </p>
-              )}
-              {card.safety && (
-                <p className="station-sheet-safety">
-                  <strong>{UI.safety}. </strong>
-                  {card.safety}
-                </p>
-              )}
-              {card.equipment && (
-                <p>
-                  <strong>{UI.stationEquipmentHeading}. </strong>
-                  {card.equipment}
-                </p>
-              )}
-            </article>
-          ))
-        )}
-      </div>
-    )
-  }
-
+  const cardById = new Map(placeableItems(session).map((item, i) => [item.id, cards[i]]))
+  // Verifier F1: numbers come from the hall (placed Teknik only); unplaced stations stay unnumbered.
+  const ranks = stationRanks(session)
   const rows = aggregateStationEquipment(listSessionItems(session))
 
   return (
@@ -80,10 +40,46 @@ export function PassPrint({ session, mode }: Props) {
               <ul>
                 {items.map((item) => {
                   const activity = getActivityById(item.activityId)
+                  const card = cardById.get(item.id)
+                  if (!card) {
+                    return (
+                      <li key={item.id}>
+                        <span>{activity?.title ?? item.activityId}</span>
+                        <span>{item.durationMinutes} min</span>
+                      </li>
+                    )
+                  }
                   return (
-                    <li key={item.id}>
-                      <span>{activity?.title ?? item.activityId}</span>
+                    <li key={item.id} className="pass-station">
+                      <span>
+                        {ranks.has(item.id) ? `${ranks.get(item.id)}. ` : ''}
+                        {card.title}
+                        {card.experienced ? ` · ${UI.experiencedCoach}` : ''}
+                      </span>
                       <span>{item.durationMinutes} min</span>
+                      <div className="pass-station-body">
+                        {card.equipmentSlots && card.equipmentSlots.length > 0 && (
+                          <StationSketch slots={card.equipmentSlots} />
+                        )}
+                        {card.watch && (
+                          <p>
+                            <strong>{UI.watchFor}. </strong>
+                            {card.watch}
+                          </p>
+                        )}
+                        {card.safety && (
+                          <p className="pass-station-safety">
+                            <strong>{UI.safety}. </strong>
+                            {card.safety}
+                          </p>
+                        )}
+                        {card.equipment && (
+                          <p>
+                            <strong>{UI.stationEquipmentHeading}. </strong>
+                            {card.equipment}
+                          </p>
+                        )}
+                      </div>
                     </li>
                   )
                 })}

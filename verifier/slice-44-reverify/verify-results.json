@@ -1,0 +1,930 @@
+{
+  "when": "2026-10-17T09:41:30.656Z",
+  "branch": "800651e",
+  "main": "0d88da5",
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Mer shows «Dela» (no «Exportera / dela»); tap opens a sheet titled «Dela» (dialog aria-label «Dela»)",
+      "ok": true,
+      "detail": "menu=Hallöversikt|Spara som egen mall|Ny vecka|Använd mall|Dela aria=Dela"
+    },
+    {
+      "id": "AC2",
+      "name": "exactly two actions «Kopiera länk» + «Skriv ut passet» (+ ×); no Helskär/Skriv ut kort/Ladda ner fil/link field/QR/Importera fil/Spara som egen mall",
+      "ok": true,
+      "detail": "{\"buttons\":[\"×\",\"Kopiera länk\",\"Skriv ut passet\"],\"inputs\":0,\"svg\":0,\"labels\":0,\"headings\":[\"Dela\",\"Kopiera länk\",\"Skriv ut passet\"]}"
+    },
+    {
+      "id": "AC3",
+      "name": "both buttons ≥ 44×44; no horizontal scroll; hint texts = microcopy",
+      "ok": true,
+      "detail": "{\"sw\":390,\"esw\":390,\"ecw\":390,\"sheetTop\":0,\"sheetBottom\":760,\"contentBottom\":443,\"btn\":[[\"×\",44,44],[\"Kopiera länk\",127,44],[\"Skriv ut passet\",143,44]],\"hints\":[\"Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.\",\"Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF.\"]}"
+    },
+    {
+      "id": "AC3-320",
+      "name": "320×640: no horizontal scroll, buttons ≥ 44×44",
+      "ok": true,
+      "detail": "{\"sw\":320,\"esw\":320,\"ecw\":320,\"btn\":[[127,44],[143,44]]}"
+    },
+    {
+      "id": "AC4",
+      "name": "clipboard = …/traningsplaneringen/#dela=…; label «Länken är kopierad.» then «Kopiera länk» after ~3 s",
+      "ok": true,
+      "detail": "len=757 label=Länken är kopierad. flipAfter=3078ms"
+    },
+    {
+      "id": "A1-webkit",
+      "name": "WebKit timing (afterprint right after print returns): body.is-print-pass + 1 .print-host still there after afterprint",
+      "ok": true,
+      "detail": "{\"prints\":[{\"t\":10034,\"cls\":\"is-print-pass\",\"hosts\":1}],\"now\":{\"cls\":\"is-print-pass\",\"hosts\":1}}"
+    },
+    {
+      "id": "AC14-content",
+      "name": "print (WebKit timing) = the pass, not the app: title, total minutes, all five blocks with rows + minutes, A4 portrait",
+      "ok": true,
+      "detail": "pages=3 size=594.96 x 841.92 pts (A4) vis=print-host pass-sheet"
+    },
+    {
+      "id": "AC15-base",
+      "name": "Teknik rows «1.» «2.» «3.» each with sketch, «Se upp för.», «Säkerhet.», «Redskap.»",
+      "ok": true,
+      "detail": "[\"1. Ljushopp på satsbräda\",\"2. Handstående falla till rygg\",\"3. Falla bakåt från höjd till rygg\"]"
+    },
+    {
+      "id": "AC15-markers",
+      "name": "print row numbers = hall map marker numbers (all stations placed)",
+      "ok": true,
+      "detail": "{\"rows\":[\"1. Ljushopp på satsbräda\",\"2. Handstående falla till rygg\",\"3. Falla bakåt från höjd till rygg\"],\"markers\":[{\"rank\":\"1\",\"label\":\"Station 1: Ljushopp på satsbräda. Tryck för detaljer.\"},{\"rank\":\"2\",\"label\":\"Station 2: Handstående falla till rygg. Tryck för detaljer.\"},{\"rank\":\"3\",\"label\":\"Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.\"}]}"
+    },
+    {
+      "id": "AC16-breaks",
+      "name": "no page ends on a block heading; Hallöversikt heading on the same page as the map",
+      "ok": true,
+      "detail": "[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\"]"
+    },
+    {
+      "id": "AC18-stub",
+      "name": "second tap in the same sheet calls print() again; no stall line (beforeprint arrived)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8",
+      "name": "× and backdrop tap close the sheet → Passbyggaren, page scrolls, no stray is-print-pass, print host gone",
+      "ok": true,
+      "detail": "{\"c1\":{\"cls\":\"\",\"sheet\":false,\"builder\":true},\"c2\":{\"cls\":\"\",\"sheet\":false,\"hosts\":0,\"builder\":true,\"scrolled\":true},\"hit\":\"modal-backdrop export-sheet-backdrop\"}"
+    },
+    {
+      "id": "AC22-footer",
+      "name": "footer «Träningsplaneraren · Slice 44»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13",
+      "name": "Mer «Spara som egen mall» opens its dialog and saves (Mina mallar)",
+      "ok": true,
+      "detail": "[\"S44V egen mall\"]"
+    },
+    {
+      "id": "AC16-ratios",
+      "name": "Blå / Vit (and Standard) print map ratio and size identical to main (Blå 2132/1572≈1.3562, Vit 2108/2200≈0.9582)",
+      "ok": true,
+      "detail": "{\"br-forening-bla\":[1.3562,1280,944,3],\"br-forening-vit\":[0.9582,1280,1336,3],\"br-standard-trupp\":[1.6,1280,800,3],\"main-forening-bla\":[1.3562,1280,944,2],\"main-forening-vit\":[0.9582,1280,1336,2],\"main-standard-trupp\":[1.6,1280,800,2]}"
+    },
+    {
+      "id": "AC16-breaks-halls",
+      "name": "no page ends on a heading for Blå/Vit/Standard prints",
+      "ok": true,
+      "detail": "{\"br-forening-bla\":[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\"],\"br-forening-vit\":[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\"],\"br-standard-trupp\":[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\"],\"main-forening-bla\":[\"Hallöversikt\"],\"main-forening-vit\":[\"Hallöversikt\"],\"main-standard-trupp\":[\"Hallöversikt\"]}"
+    },
+    {
+      "id": "AC15-exp",
+      "name": "4th station Rondat–flickis prints «4. Rondat–flickis · Erfaren ledare» with sketch / Se upp för / Säkerhet / Redskap; numbers = hall markers",
+      "ok": true,
+      "detail": "{\"rows\":[\"1. Ljushopp på satsbräda\",\"2. Handstående falla till rygg\",\"3. Falla bakåt från höjd till rygg\",\"4. Rondat–flickis · Erfaren ledare\"],\"screenMarkers\":[{\"rank\":\"1\",\"label\":\"Station 1: Ljushopp på satsbräda. Redskap angivna. Tryck för detaljer.\"},{\"rank\":\"2\",\"label\":\"Station 2: Handstående falla till rygg. Redskap angivna. Tryck för detaljer.\"},{\"rank\":\"3\",\"label\":\"Station 3: Falla bakåt från höjd till rygg. Redskap angivna. Tryck för detaljer.\"},{\"rank\":\"4\",\"label\":\"Station 4: Rondat–flickis. Erfaren. Redskap angivna. Tryck för detaljer.\"}]}"
+    },
+    {
+      "id": "AC16-nosplit",
+      "name": "no station split across pages (title and its Redskap. line on one page); no page ends on a heading",
+      "ok": true,
+      "detail": "{\"pages\":4,\"split\":[{\"t\":\"Ljushopp på satsbräda\",\"pg\":0,\"redskapSamePage\":true},{\"t\":\"Handstående falla till rygg\",\"pg\":0,\"redskapSamePage\":true},{\"t\":\"Falla bakåt från höjd till rygg\",\"pg\":1,\"redskapSamePage\":true},{\"t\":\"Rondat–flickis\",\"pg\":1,\"redskapSamePage\":true}],\"last\":[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\",\"Madrass\"]}"
+    },
+    {
+      "id": "MARKERS-partial",
+      "name": "station 1 unplaced (2 of 3 on the map): print numbers still equal the map marker numbers",
+      "ok": true,
+      "detail": "[{\"marker\":\"1\",\"label\":\"Station 1: Handstående falla till rygg. \",\"printRow\":\"1. Handstående falla till rygg\"},{\"marker\":\"2\",\"label\":\"Station 2: Falla bakåt från höjd till ry\",\"printRow\":\"2. Falla bakåt från höjd till rygg\"}]"
+    },
+    {
+      "id": "AC20-sim",
+      "name": "no beforeprint → printStalled text (exact) under the button after ~1.5 s (not before)",
+      "ok": true,
+      "detail": "at=1561ms {\"below\":true,\"sameBlock\":true}"
+    },
+    {
+      "id": "AC20-sim-close",
+      "name": "closing after a stalled print leaves no is-print-pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20-sim-surfaces",
+      "name": "printStalled also on Golvklart and Delat pass",
+      "ok": true,
+      "detail": "golvklart=1 delat=1"
+    },
+    {
+      "id": "AC20-noline-webkit",
+      "name": "print starts (webkit timing) → no stall line after 2.2 s",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC20-noline-chromium",
+      "name": "print starts (chromium timing) → no stall line after 2.2 s",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "both copy paths fail → exportCopyManual line + read-only field holding the full link; label never says «kopierad»",
+      "ok": true,
+      "detail": "{\"label\":\"Kopiera länk\",\"status\":\"Det gick inte att kopiera. Håll fingret på länken nedan och välj Kopiera.\",\"readOnly\":true,\"value\":\"http://127.0.0.1:57751/traningsplaneringen/#dela=z.jZNNbtswE…\",\"aria\":\"Kopiera länk\",\"fieldW\":[358,5002],\"sw\":390,\"sameToken\":true,\"sel\":[0,751,751]}"
+    },
+    {
+      "id": "AC7-select",
+      "name": "focusing the field selects the whole link (copy by hand)",
+      "ok": true,
+      "detail": "[0,751,751]"
+    },
+    {
+      "id": "AC7-throw",
+      "name": "execCommand throwing is also caught → manual field, no leftover textarea",
+      "ok": true,
+      "detail": "{\"label\":\"Kopiera länk\",\"manual\":1,\"leftover\":0}"
+    },
+    {
+      "id": "AC7-noapi",
+      "name": "no navigator.clipboard at all + execCommand false → manual field",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10",
+      "name": "Delat pass actions exactly: Kör passet · Spara och kör · Spara på den här enheten · Skriv ut passet · Till planeringen",
+      "ok": true,
+      "detail": "Kör passet|Spara och kör|Spara på den här enheten|Skriv ut passet|Till planeringen"
+    },
+    {
+      "id": "AC5",
+      "name": "link in a fresh context → Delat pass with banner; «Spara på den här enheten» saves the same title, blocks, minutes and hall placements",
+      "ok": true,
+      "detail": "{\"saved\":\"Nybörjare — ca 55 min\",\"place\":3,\"eq\":true}"
+    },
+    {
+      "id": "AC17",
+      "name": "Dela, Golvklart and Delat pass print the same pages (page count + identical text)",
+      "ok": true,
+      "detail": "{\"dela\":[3,1308],\"golvklart\":[3,1308],\"delat\":[3,1308]}"
+    },
+    {
+      "id": "AC11",
+      "name": "Kör passet enters fullscreen (document.fullscreenElement = HTML) from Passbyggaren and from Delat pass, as on main; run view shows",
+      "ok": true,
+      "detail": "{\"br\":{\"builder\":{\"fs\":\"HTML\",\"kicker\":\"1 / 9 · Samling\"},\"delat\":{\"fs\":\"HTML\",\"kicker\":\"1 / 9 · Samling\"}},\"main\":{\"builder\":{\"fs\":\"HTML\",\"kicker\":\"1 / 9 · Samling\"},\"delat\":{\"fs\":\"HTML\",\"kicker\":\"1 / 10 · Samling\"}}}"
+    },
+    {
+      "id": "AC9",
+      "name": "Golvklart actions exactly Avsluta golvklart · Förrådslista · Skriv ut passet; Förrådslista opens with its list (same as main)",
+      "ok": true,
+      "detail": "{\"br\":[\"Avsluta golvklart\",\"Förrådslista\",\"Skriv ut passet\"],\"fl\":15,\"mainFl\":15}"
+    },
+    {
+      "id": "BLAST-hall-ctrlp",
+      "name": "after «Skriv ut passet» in Golvklart, a browser print (Ctrl+P / share-sheet print) of Golvklart / Hallöversikt prints the hall again, as on main",
+      "ok": false,
+      "detail": "{\"brAfter\":{\"cls\":\"is-print-pass\",\"rootDisplay\":\"none\",\"hostVisible\":true,\"floor\":true},\"brEdit\":{\"cls\":\"\",\"rootDisplay\":\"block\",\"hostVisible\":false,\"floor\":false,\"pdfText\":\"Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 MattbergMattor Ljushopp p… Handst\"},\"mainAfter\":{\"cls\":\"\",\"rootDisplay\":\"block\",\"hostVisible\":false,\"floor\":true},\"mainEdit\":{\"cls\":\"\",\"rootDisplay\":\"block\",\"hostVisible\":false,\"floor\":false},\"brBack\":\"\"}"
+    },
+    {
+      "id": "AC6",
+      "name": "old SharePass v1 links made with main 0d88da5 (main UI copy, main code z./j./plain JSON, empty pass) open Delat pass on the branch and save the identical pass (title, 90-min, Vit, placements, minutes, saved redskap)",
+      "ok": true,
+      "detail": "{\"main-ui\":[true,true,3,3],\"main-code-zip\":[true,true,3,5],\"main-code-raw-j\":[true,true,3,5],\"main-code-plain-json\":[true,true,3,5],\"main-code-empty\":[true,true,0,null]}"
+    },
+    {
+      "id": "AC6-print",
+      "name": "old link prints with station numbers incl. the old experienced drill («· Erfaren ledare») and marker numbers 1…n",
+      "ok": true,
+      "detail": "{\"pages\":5,\"rows\":[\"1. Ljushopp på satsbräda\",\"2. Handstående falla till rygg\",\"3. Falla bakåt från höjd till rygg\",\"Rondat–flickis · Erfaren ledare\"],\"markers\":[\"1\",\"2\",\"3\"]}"
+    },
+    {
+      "id": "AC12",
+      "name": "Home «Hämta ett pass»: file from main «Ladda ner fil» imports (clean; with a draft → replace confirm), pasted link opens, bad file → «Filen eller koden gick inte att läsa.»",
+      "ok": true,
+      "detail": "{\"clean\":{\"confirm\":null,\"title\":\"Nybörjare — ca 55 min\",\"match\":true},\"draft\":{\"confirm\":\"Ersätta utkastet här? Passet sparas i den här webbläsaren och ersätter utkastet \",\"title\":\"Nybörjare — ca 55 min\",\"match\":true},\"paste\":\"Nybörjare — ca 55 min\",\"bad\":\"Filen eller koden gick inte att läsa.\"}"
+    },
+    {
+      "id": "AC21-ui",
+      "name": "no deleted label visible on Passbyggaren, Dela, Hallöversikt, Golvklart, Delat pass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "no-page-errors",
+      "name": "no page errors during the run",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "notes": {
+    "AC3-geometry": {
+      "sw": 390,
+      "esw": 390,
+      "ecw": 390,
+      "sheetTop": 0,
+      "sheetBottom": 760,
+      "contentBottom": 443,
+      "btn": [
+        [
+          "×",
+          44,
+          44
+        ],
+        [
+          "Kopiera länk",
+          127,
+          44
+        ],
+        [
+          "Skriv ut passet",
+          143,
+          44
+        ]
+      ],
+      "hints": [
+        "Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.",
+        "Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF."
+      ]
+    },
+    "print-dela-webkit": {
+      "pages": 3,
+      "size": "594.96 x 841.92 pts (A4)",
+      "geo": {
+        "hosts": 1,
+        "visibleBodyChildren": [
+          "print-host pass-sheet"
+        ],
+        "mapClass": "hall-canvas is-floor",
+        "mapRatio": 1.6,
+        "mapW": 390,
+        "mapH": 243.75,
+        "rows": [
+          "1. Ljushopp på satsbräda",
+          "2. Handstående falla till rygg",
+          "3. Falla bakåt från höjd till rygg"
+        ],
+        "markers": [
+          {
+            "rank": "1",
+            "label": "Station 1: Ljushopp på satsbräda. Tryck för detaljer."
+          },
+          {
+            "rank": "2",
+            "label": "Station 2: Handstående falla till rygg. Tryck för detaljer."
+          },
+          {
+            "rank": "3",
+            "label": "Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer."
+          }
+        ]
+      },
+      "last": [
+        "Redskap. Madrass",
+        "Rundpingis med medicinboll                                                                                   6 min"
+      ]
+    },
+    "AC8-backdrop-hit": "modal-backdrop export-sheet-backdrop",
+    "AC16-ratios": {
+      "br-forening-bla": {
+        "pages": 3,
+        "ratio": 1.3562,
+        "w": 1280,
+        "h": 943.78125,
+        "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor",
+        "last": [
+          "Redskap. Madrass",
+          "Rundpingis med medicinboll                                                                                   6 min"
+        ],
+        "mapPage": 2
+      },
+      "br-forening-vit": {
+        "pages": 3,
+        "ratio": 0.9582,
+        "w": 1280,
+        "h": 1335.859375,
+        "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-vit is-floor",
+        "last": [
+          "Redskap. Madrass",
+          "Rundpingis med medicinboll                                                                                   6 min"
+        ],
+        "mapPage": 2
+      },
+      "br-standard-trupp": {
+        "pages": 3,
+        "ratio": 1.6,
+        "w": 1280,
+        "h": 800,
+        "cls": "hall-canvas is-floor",
+        "last": [
+          "Redskap. Madrass",
+          "Rundpingis med medicinboll                                                                                   6 min"
+        ],
+        "mapPage": 2
+      },
+      "main-forening-bla": {
+        "pages": 2,
+        "ratio": 1.3562,
+        "w": 1280,
+        "h": 943.78125,
+        "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-bla is-floor",
+        "last": [
+          "Hallöversikt"
+        ],
+        "mapPage": 0
+      },
+      "main-forening-vit": {
+        "pages": 2,
+        "ratio": 0.9582,
+        "w": 1280,
+        "h": 1335.859375,
+        "cls": "hall-canvas hall-canvas--plan hall-canvas--forening-vit is-floor",
+        "last": [
+          "Hallöversikt"
+        ],
+        "mapPage": 0
+      },
+      "main-standard-trupp": {
+        "pages": 2,
+        "ratio": 1.6,
+        "w": 1280,
+        "h": 800,
+        "cls": "hall-canvas is-floor",
+        "last": [
+          "Hallöversikt"
+        ],
+        "mapPage": 0
+      }
+    },
+    "AC15-exp": {
+      "rows": [
+        "1. Ljushopp på satsbräda",
+        "2. Handstående falla till rygg",
+        "3. Falla bakåt från höjd till rygg",
+        "4. Rondat–flickis · Erfaren ledare"
+      ],
+      "screenMarkers": [
+        {
+          "rank": "1",
+          "label": "Station 1: Ljushopp på satsbräda. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "2",
+          "label": "Station 2: Handstående falla till rygg. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "3",
+          "label": "Station 3: Falla bakåt från höjd till rygg. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "4",
+          "label": "Station 4: Rondat–flickis. Erfaren. Redskap angivna. Tryck för detaljer."
+        }
+      ],
+      "printMarkers": [
+        {
+          "rank": "1",
+          "label": "Station 1: Ljushopp på satsbräda. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "2",
+          "label": "Station 2: Handstående falla till rygg. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "3",
+          "label": "Station 3: Falla bakåt från höjd till rygg. Redskap angivna. Tryck för detaljer."
+        },
+        {
+          "rank": "4",
+          "label": "Station 4: Rondat–flickis. Erfaren. Redskap angivna. Tryck för detaljer."
+        }
+      ],
+      "pages": 4,
+      "split": [
+        {
+          "t": "Ljushopp på satsbräda",
+          "pg": 0,
+          "redskapSamePage": true
+        },
+        {
+          "t": "Handstående falla till rygg",
+          "pg": 0,
+          "redskapSamePage": true
+        },
+        {
+          "t": "Falla bakåt från höjd till rygg",
+          "pg": 1,
+          "redskapSamePage": true
+        },
+        {
+          "t": "Rondat–flickis",
+          "pg": 1,
+          "redskapSamePage": true
+        }
+      ],
+      "last": [
+        "Redskap. Madrass",
+        "Rundpingis med medicinboll                                                                                   6 min",
+        "Madrass"
+      ]
+    },
+    "markers-partial": {
+      "screen": [
+        {
+          "rank": "1",
+          "label": "Station 1: Handstående falla till rygg. Tryck för detaljer."
+        },
+        {
+          "rank": "2",
+          "label": "Station 2: Falla bakåt från höjd till rygg. Tryck för detaljer."
+        }
+      ],
+      "rows": [
+        "Ljushopp på satsbräda",
+        "1. Handstående falla till rygg",
+        "2. Falla bakåt från höjd till rygg"
+      ],
+      "printMarkers": [
+        {
+          "rank": "1",
+          "label": "Station 1: Handstående falla till rygg. Tryck för detaljer."
+        },
+        {
+          "rank": "2",
+          "label": "Station 2: Falla bakåt från höjd till rygg. Tryck för detaljer."
+        }
+      ],
+      "pairs": [
+        {
+          "marker": "1",
+          "label": "Station 1: Handstående falla till rygg. ",
+          "printRow": "1. Handstående falla till rygg"
+        },
+        {
+          "marker": "2",
+          "label": "Station 2: Falla bakåt från höjd till ry",
+          "printRow": "2. Falla bakåt från höjd till rygg"
+        }
+      ]
+    },
+    "AC7-a-no-permission": {
+      "label": "Länken är kopierad.",
+      "trace": [
+        "rej:NotAllowedError",
+        "exec:true"
+      ],
+      "manual": 0
+    },
+    "AC5": {
+      "src": {
+        "title": "Nybörjare — ca 55 min",
+        "total": 53,
+        "target": 60,
+        "hall": "standard-trupp",
+        "place": [
+          [
+            "item-1h1xa00z-mvc7elwv",
+            0.77,
+            0.61
+          ],
+          [
+            "item-9smw1pgq-mvc7elwv",
+            0.86,
+            0.8
+          ],
+          [
+            "item-24c3ijse-mvc7elwv",
+            0.2056,
+            0.3184
+          ]
+        ],
+        "blocks": [
+          [
+            "gathering",
+            [
+              [
+                "gather-narvaro",
+                3,
+                null
+              ],
+              [
+                "gather-dagens-teknik",
+                3,
+                null
+              ]
+            ]
+          ],
+          [
+            "warmup",
+            [
+              [
+                "warm-hall-varv",
+                10,
+                null
+              ]
+            ]
+          ],
+          [
+            "techniques",
+            [
+              [
+                "tech-ljushopp-satsbrada",
+                6,
+                null
+              ],
+              [
+                "tech-handstaende-falla-rygg",
+                6,
+                null
+              ],
+              [
+                "tech-falla-bakat-hojd",
+                6,
+                null
+              ]
+            ]
+          ],
+          [
+            "strength",
+            [
+              [
+                "strength-styrkelatar",
+                5,
+                null
+              ],
+              [
+                "strength-burpee-emom",
+                8,
+                null
+              ]
+            ]
+          ],
+          [
+            "fun_and_games",
+            [
+              [
+                "fun-rundpingis-medicinboll",
+                6,
+                null
+              ]
+            ]
+          ]
+        ]
+      },
+      "saved": {
+        "title": "Nybörjare — ca 55 min",
+        "total": 53,
+        "target": 60,
+        "hall": "standard-trupp",
+        "place": [
+          [
+            "item-1h1xa00z-mvc7elwv",
+            0.77,
+            0.61
+          ],
+          [
+            "item-9smw1pgq-mvc7elwv",
+            0.86,
+            0.8
+          ],
+          [
+            "item-24c3ijse-mvc7elwv",
+            0.2056,
+            0.3184
+          ]
+        ],
+        "blocks": [
+          [
+            "gathering",
+            [
+              [
+                "gather-narvaro",
+                3,
+                null
+              ],
+              [
+                "gather-dagens-teknik",
+                3,
+                null
+              ]
+            ]
+          ],
+          [
+            "warmup",
+            [
+              [
+                "warm-hall-varv",
+                10,
+                null
+              ]
+            ]
+          ],
+          [
+            "techniques",
+            [
+              [
+                "tech-ljushopp-satsbrada",
+                6,
+                null
+              ],
+              [
+                "tech-handstaende-falla-rygg",
+                6,
+                null
+              ],
+              [
+                "tech-falla-bakat-hojd",
+                6,
+                null
+              ]
+            ]
+          ],
+          [
+            "strength",
+            [
+              [
+                "strength-styrkelatar",
+                5,
+                null
+              ],
+              [
+                "strength-burpee-emom",
+                8,
+                null
+              ]
+            ]
+          ],
+          [
+            "fun_and_games",
+            [
+              [
+                "fun-rundpingis-medicinboll",
+                6,
+                null
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    "AC11": {
+      "br": {
+        "builder": {
+          "fs": "HTML",
+          "kicker": "1 / 9 · Samling"
+        },
+        "delat": {
+          "fs": "HTML",
+          "kicker": "1 / 9 · Samling"
+        }
+      },
+      "main": {
+        "builder": {
+          "fs": "HTML",
+          "kicker": "1 / 9 · Samling"
+        },
+        "delat": {
+          "fs": "HTML",
+          "kicker": "1 / 10 · Samling"
+        }
+      }
+    },
+    "AC9-golvklart": {
+      "br": {
+        "btns": [
+          "Avsluta golvklart",
+          "Förrådslista",
+          "Skriv ut passet"
+        ],
+        "before": {
+          "cls": "",
+          "rootDisplay": "block",
+          "hostVisible": false,
+          "floor": true
+        },
+        "after": {
+          "cls": "is-print-pass",
+          "rootDisplay": "none",
+          "hostVisible": true,
+          "floor": true
+        },
+        "edit": {
+          "cls": "",
+          "rootDisplay": "block",
+          "hostVisible": false,
+          "floor": false,
+          "pdfText": "Nybörjare — ca 55 min · 53 min 3Öppen yta Trampett Tumbling 1 Falla bakåt… Satsbräda 2 MattbergMattor Ljushopp p… Handst"
+        },
+        "back": "",
+        "fl": {
+          "text": "Förrådslista\nStäng\n\nInga redskap summerade ännu.\n\nDet finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.\n\nAnvänd alla förslag på hallen\nVad finns i hallen ",
+          "items": 15
+        }
+      },
+      "main": {
+        "btns": [
+          "Avsluta golvklart",
+          "Helskär",
+          "Skriv ut kort",
+          "Förrådslista",
+          "Skriv ut passet"
+        ],
+        "before": {
+          "cls": "",
+          "rootDisplay": "block",
+          "hostVisible": false,
+          "floor": true
+        },
+        "after": {
+          "cls": "",
+          "rootDisplay": "block",
+          "hostVisible": false,
+          "floor": true
+        },
+        "edit": {
+          "cls": "",
+          "rootDisplay": "block",
+          "hostVisible": false,
+          "floor": false
+        },
+        "back": "",
+        "fl": {
+          "text": "Förrådslista\nStäng\n\nInga redskap summerade ännu.\n\nDet finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.\n\nAnvänd alla förslag på hallen\nVad finns i hallen ",
+          "items": 15
+        }
+      }
+    },
+    "AC6": {
+      "main-ui": {
+        "banner": "Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.",
+        "bad": false,
+        "h1": "Nybörjare — ca 55 min",
+        "min": "53 min",
+        "chips": 3,
+        "actions": [
+          "Kör passet",
+          "Spara och kör",
+          "Spara på den här enheten",
+          "Skriv ut passet",
+          "Till planeringen"
+        ],
+        "match": true,
+        "printOk": {
+          "pages": 3,
+          "rows": [
+            "1. Ljushopp på satsbräda",
+            "2. Handstående falla till rygg",
+            "3. Falla bakåt från höjd till rygg"
+          ],
+          "markers": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "savedTitle": "Nybörjare — ca 55 min"
+      },
+      "main-code-zip": {
+        "banner": "Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.",
+        "bad": false,
+        "h1": "Måndag – Nybörjare åäö «test» & 50%",
+        "min": "60 min",
+        "chips": 3,
+        "actions": [
+          "Kör passet",
+          "Spara och kör",
+          "Spara på den här enheten",
+          "Skriv ut passet",
+          "Till planeringen"
+        ],
+        "match": true,
+        "printOk": {
+          "pages": 5,
+          "rows": [
+            "1. Ljushopp på satsbräda",
+            "2. Handstående falla till rygg",
+            "3. Falla bakåt från höjd till rygg",
+            "Rondat–flickis · Erfaren ledare"
+          ],
+          "markers": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "savedTitle": "Måndag – Nybörjare åäö «test» & 50%"
+      },
+      "main-code-raw-j": {
+        "banner": "Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.",
+        "bad": false,
+        "h1": "Måndag – Nybörjare åäö «test» & 50%",
+        "min": "60 min",
+        "chips": 3,
+        "actions": [
+          "Kör passet",
+          "Spara och kör",
+          "Spara på den här enheten",
+          "Skriv ut passet",
+          "Till planeringen"
+        ],
+        "match": true,
+        "printOk": {
+          "pages": 5,
+          "rows": [
+            "1. Ljushopp på satsbräda",
+            "2. Handstående falla till rygg",
+            "3. Falla bakåt från höjd till rygg",
+            "Rondat–flickis · Erfaren ledare"
+          ],
+          "markers": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "savedTitle": "Måndag – Nybörjare åäö «test» & 50%"
+      },
+      "main-code-plain-json": {
+        "banner": "Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.",
+        "bad": false,
+        "h1": "Måndag – Nybörjare åäö «test» & 50%",
+        "min": "60 min",
+        "chips": 3,
+        "actions": [
+          "Kör passet",
+          "Spara och kör",
+          "Spara på den här enheten",
+          "Skriv ut passet",
+          "Till planeringen"
+        ],
+        "match": true,
+        "printOk": {
+          "pages": 5,
+          "rows": [
+            "1. Ljushopp på satsbräda",
+            "2. Handstående falla till rygg",
+            "3. Falla bakåt från höjd till rygg",
+            "Rondat–flickis · Erfaren ledare"
+          ],
+          "markers": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "savedTitle": "Måndag – Nybörjare åäö «test» & 50%"
+      },
+      "main-code-empty": {
+        "banner": "Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.",
+        "bad": false,
+        "h1": "Tomt gammalt",
+        "min": "0 min",
+        "chips": 0,
+        "actions": [
+          "Kör passet",
+          "Spara på den här enheten",
+          "Skriv ut passet",
+          "Till planeringen"
+        ],
+        "match": true,
+        "printOk": null,
+        "savedTitle": "Tomt gammalt"
+      }
+    },
+    "AC12": {
+      "clean": {
+        "confirm": null,
+        "title": "Nybörjare — ca 55 min",
+        "match": true
+      },
+      "draft": {
+        "confirm": "Ersätta utkastet här? Passet sparas i den här webbläsaren och ersätter utkastet ",
+        "title": "Nybörjare — ca 55 min",
+        "match": true
+      },
+      "paste": "Nybörjare — ca 55 min",
+      "bad": "Filen eller koden gick inte att läsa."
+    }
+  }
+}

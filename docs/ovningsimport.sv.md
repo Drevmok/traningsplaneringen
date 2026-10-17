@@ -264,3 +264,7 @@ Också oförändrat: de tio första redskapsnamnen (Trampett … Kon) och deras 
 - Ordet "Planner" i appens gränssnitt.
 - Ett fritt fält för "Övrigt" eller "eget redskap".
 - `#importera=`-länkar.
+
+---
+
+**Slice 44-anteckning (FÖRESLAGEN 2026-10-17, inte låst):** Stationskorten («Skriv ut kort», «Helskär») tas bort. Det korten visade (nummer, skiss, Se upp för, Säkerhet, Redskap, Erfaren ledare) kommer med i «Skriv ut passet». Där texten ovan säger «stationskort» gäller det utskriften av passet efter Slice 44. Se [`slice-44/`](../slice-44/README.md).

@@ -14,6 +14,7 @@ Coach-facing help, activity library copy, empty-state guidance, and internal pro
 | `ui-chrome.sv.md` | Swedish UI chrome glossary for Builder (Träningsplaneraren) |
 | `delad-bank.sv.md` | Coach doc: shared exercise bank (Slice 31–32) |
 | `foreningens-mallar.sv.md` | Coach doc: Föreningens mallar in Starta från mall (Slice 36) |
+| `dela-och-utskrift.sv.md` | Coach doc: Dela — Kopiera länk and Skriv ut passet (Slice 44, PROPOSED) |
 
 Swedish copies also live under `/workspace/gymnastics-planner/slice-01/content/` (same filenames).
 
