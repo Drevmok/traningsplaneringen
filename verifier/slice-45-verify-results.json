@@ -1,0 +1,1472 @@
+{
+  "when": "2026-10-17T15:07:43.857Z",
+  "branch": "dea69d2",
+  "main": "4fe44c0",
+  "results": [
+    {
+      "part": "p1",
+      "id": "AC1",
+      "name": "Planera pass → Q3 titled «Hall», exactly two chips «Gymmix – Stora hallen», «Gymmix – Grophallen» (en dash)",
+      "ok": true,
+      "detail": "Hall | Gymmix – Stora hallen | Gymmix – Grophallen | step3of3=true"
+    },
+    {
+      "part": "p1",
+      "id": "AC2",
+      "name": "Q2 (Fokus) and Q3 have no «Stationerna är förslag…» / «Välj den layout…» line; Tillbaka / Nästa / Skapa pass work",
+      "ok": true,
+      "detail": "q2=Fokus back=Fokus fwd=Hall hall=forening-vit"
+    },
+    {
+      "part": "p1",
+      "id": "AC3",
+      "name": "Grophallen pass: Hallöversikt shows the Grophallen drawing and «Gymmix – Grophallen» in the meta line; Golvklart meta the same",
+      "ok": true,
+      "detail": "meta=«Pass — trampett\n3 stationer\nGymmix – Grophallen» golvklart=«Pass — trampett\nGymmix – Grophallen» zones= ratio=0.9572"
+    },
+    {
+      "part": "p1",
+      "id": "AC4",
+      "name": "Tomt pass and Från mall → Nybörjare start on «Gymmix – Stora hallen»; Teknik markers auto-placed on the fixed grid (open zone) in pass order",
+      "ok": true,
+      "detail": "tomt=forening-bla «Nytt pass · 1 station · Gymmix – Stora hallen» drawing=forening-bla mall=forening-bla markers=1:Ljushopp på satsbräda 2:Handstående falla till rygg 3:Falla bakåt från höjd till rygg gridRowMajor=true"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-controls",
+      "name": "Hallöversikt has no «Hallayout» label and no layout select; zoom − / + present and ≥ 44×44 (390 and 320)",
+      "ok": true,
+      "detail": "{\"zoom\":[[\"Zooma ut\",48,44],[\"Zooma in\",48,44]],\"z320\":[[\"Zooma ut\",48,44],[\"Zooma in\",48,44]]}"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-top310",
+      "name": "hall canvas top ≤ 310 (checklist text) — every branch scenario at 390",
+      "ok": false,
+      "detail": "mall-banner 340–604 (banner) | main 340–579; mall-nobanner 288–552 | main 288–527; long-nobanner 310–574 | main 310–549; vit 339–713 (banner) | main 310–684; vit-nobanner 287–661 | main 258–632; wiz-bla 339–603 (banner) | main 310–574; wiz-bla-nobanner 287–551 | main 258–522"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-notlower",
+      "name": "hall canvas top not lower than main in every scenario (390 and 320, banner / no banner / 2-line title / Grophallen)",
+      "ok": false,
+      "detail": "mall-banner 340–604 (banner) | main 340–579; mall-nobanner 288–552 | main 288–527; long-nobanner 310–574 | main 310–549; vit 339–713 (banner) | main 310–684; vit-nobanner 287–661 | main 258–632; wiz-bla 339–603 (banner) | main 310–574; wiz-bla-nobanner 287–551 | main 258–522"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-320",
+      "name": "320 px: no horizontal scroll on Hallöversikt",
+      "ok": true,
+      "detail": "br-320-mall-banner sw=320 top=369; br-320-mall-nobanner sw=320 top=369; br-320-long-nobanner sw=320 top=391; br-320-vit sw=320 top=369; br-320-vit-nobanner sw=320 top=369; br-320-wiz-bla sw=320 top=369; br-320-wiz-bla-nobanner sw=320 top=369"
+    },
+    {
+      "part": "p1",
+      "id": "AC5-fold",
+      "name": "fold 739 at 390×844: Stora hallen canvas bottom ≤ 739 without banner (info; Slice 43 rule)",
+      "ok": true,
+      "detail": "br-390-mall-banner:604 br-390-mall-nobanner:552 br-390-long-nobanner:574 br-390-vit:713 br-390-vit-nobanner:661 br-390-wiz-bla:603 br-390-wiz-bla-nobanner:551 main-390-mall-banner:579 main-390-mall-nobanner:527 main-390-long-nobanner:549 main-390-vit:684 main-390-vit-nobanner:632 main-390-wiz-bla:574 main-390-wiz-bla-nobanner:522"
+    },
+    {
+      "part": "p1",
+      "id": "AC6",
+      "name": "under the hall only «Schematisk hall — inte exakt mått» + the flow tip (until dismissed); no migrate note, Blå/Vit tip, «Tips om placering», multi-line hints",
+      "ok": true,
+      "detail": "{\"lines\":[\"Schematisk hall — inte exakt mått\",\"Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa gruppen — skriv ut eller håll upp skärmen.\",\"×\",\"Dölj tips\"],\"gone\":[],\"after\":[\"Schematisk hall — inte exakt mått\"]}"
+    },
+    {
+      "part": "p1",
+      "id": "AC7",
+      "name": "expanded tray: no drag/snap hint lines, no «Stationerna föreslås i zonen…»; remove, expand, Placera här, collapse work",
+      "ok": true,
+      "detail": "{\"trayText\":\"Dölj bricka\\nEj placerade stationer (1)\\nHandstående falla till rygg\\n6 min\",\"trayGone\":[],\"removedTo\":2,\"placedBackTo\":3,\"placeLbl\":2,\"collapsed\":1}"
+    },
+    {
+      "part": "p1",
+      "id": "AC7-drag",
+      "name": "desktop drag of a marker moves it (placement saved), as Slice 20/21/40",
+      "ok": true,
+      "detail": "[{\"sessionItemId\":\"item-vtyr6oqp-mvcj5fak\",\"x\":0.28522156988122227,\"y\":0.34709484140540825,\"zoneId\":\"open\"}]"
+    },
+    {
+      "part": "p1",
+      "id": "AC8",
+      "name": "legacy draft standard-trupp → opens, «Gymmix – Stora hallen», markers on the open grid in pass order, nothing on walls, draft stores forening-bla, pass content unchanged",
+      "ok": true,
+      "detail": "{\"srcHall\":\"standard-trupp\",\"srcZones\":[\"vault\",\"mats\",\"open\"],\"storedAtOpen\":\"standard-trupp\",\"stored\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[\"1:Ljushopp på satsbräda\",\"2:Handstående falla till rygg\",\"3:Falla bakåt från höjd till rygg\"],\"zones\":[\"open\"],\"sameAsGrid\":true,\"contentSame\":true,\"legacyLeft\":[],\"idSame\":true,\"title\":\"S45V gammalt pass\",\"canvas\":null}"
+    },
+    {
+      "part": "p1",
+      "id": "AC9-tavling-linjer",
+      "name": "legacy draft tavling-linjer → opens, «Gymmix – Stora hallen», markers on the open grid in pass order, nothing on walls, draft stores forening-bla, pass content unchanged",
+      "ok": true,
+      "detail": "{\"srcHall\":\"tavling-linjer\",\"srcZones\":[\"vault\",\"mats\",\"open\"],\"storedAtOpen\":\"tavling-linjer\",\"stored\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[\"1:Ljushopp på satsbräda\",\"2:Handstående falla till rygg\",\"3:Falla bakåt från höjd till rygg\"],\"zones\":[\"open\"],\"sameAsGrid\":true,\"contentSame\":true,\"legacyLeft\":[],\"idSame\":true,\"title\":\"S45V gammalt pass\",\"canvas\":null}"
+    },
+    {
+      "part": "p1",
+      "id": "AC9-liten-hall",
+      "name": "legacy draft liten-hall → opens, «Gymmix – Stora hallen», markers on the open grid in pass order, nothing on walls, draft stores forening-bla, pass content unchanged",
+      "ok": true,
+      "detail": "{\"srcHall\":\"liten-hall\",\"srcZones\":[\"vault\",\"mats\",\"open\"],\"storedAtOpen\":\"liten-hall\",\"stored\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[\"1:Ljushopp på satsbräda\",\"2:Handstående falla till rygg\",\"3:Falla bakåt från höjd till rygg\"],\"zones\":[\"open\"],\"sameAsGrid\":true,\"contentSame\":true,\"legacyLeft\":[],\"idSame\":true,\"title\":\"S45V gammalt pass\",\"canvas\":null}"
+    },
+    {
+      "part": "p1",
+      "id": "AC9-generic-trupp",
+      "name": "legacy draft generic-trupp → opens, «Gymmix – Stora hallen», markers on the open grid in pass order, nothing on walls, draft stores forening-bla, pass content unchanged",
+      "ok": true,
+      "detail": "{\"srcHall\":\"generic-trupp\",\"srcZones\":[\"vault\",\"mats\",\"open\"],\"storedAtOpen\":\"generic-trupp\",\"stored\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[\"1:Ljushopp på satsbräda\",\"2:Handstående falla till rygg\",\"3:Falla bakåt från höjd till rygg\"],\"zones\":[\"open\"],\"sameAsGrid\":true,\"contentSame\":true,\"legacyLeft\":[],\"idSame\":true,\"title\":\"S45V gammalt pass\",\"canvas\":null}"
+    },
+    {
+      "part": "p1",
+      "id": "AC9-no-id",
+      "name": "legacy draft no-id → opens, «Gymmix – Stora hallen», markers on the open grid in pass order, nothing on walls, draft stores forening-bla, pass content unchanged",
+      "ok": true,
+      "detail": "{\"srcHall\":null,\"srcZones\":[\"vault\",\"mats\",\"open\"],\"stored\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":[\"1:Ljushopp på satsbräda\",\"2:Handstående falla till rygg\",\"3:Falla bakåt från höjd till rygg\"],\"zones\":[\"open\"],\"sameAsGrid\":true,\"contentSame\":true,\"legacyLeft\":[],\"idSame\":true,\"title\":\"S45V gammalt pass\",\"canvas\":null}"
+    },
+    {
+      "part": "p1",
+      "id": "AC10",
+      "name": "old #dela= link made on main (Standard trupp): Delat pass shows Stora hallen with markers; «Spara på den här enheten» stores forening-bla; pass content as on main",
+      "ok": true,
+      "detail": "{\"drawing\":\"forening-bla\",\"markers\":[{\"rank\":1,\"title\":\"Ljushopp på satsbräda\",\"inOpen\":true},{\"rank\":2,\"title\":\"Handstående falla till rygg\",\"inOpen\":true},{\"rank\":3,\"title\":\"Falla bakåt från höjd till rygg\",\"inOpen\":true}],\"chips\":3,\"nameShown\":false,\"stored\":\"forening-bla\",\"title\":\"S45V gammalt pass\"}"
+    },
+    {
+      "part": "p1",
+      "id": "AC11-mina",
+      "name": "Mina mall saved on main with Liten hall: Använd mall gives a Stora hallen pass with markers; the saved mall itself is kept",
+      "ok": true,
+      "detail": "{\"seen\":1,\"hall\":\"forening-bla\",\"meta\":\"S45V gammalt pass\\n3 stationer\\nGymmix – Stora hallen\",\"markers\":3,\"tplStillThere\":true,\"tplHalls\":[\"\\\"hallTemplateId\\\":\\\"liten-hall\\\"\"]}"
+    },
+    {
+      "part": "p1",
+      "id": "AC11-club-unit",
+      "name": "föreningens mall on a generic hall: unit test exists and passes (UI path PENDING-real / stand-in)",
+      "ok": true,
+      "detail": "10 pass 0 fail | "
+    },
+    {
+      "part": "p1",
+      "id": "AC12-forening-bla",
+      "name": "pass on forening-bla (made on main, one marker moved by hand) keeps its exact placements and ids after open + Hallöversikt + reload",
+      "ok": true,
+      "detail": "{\"same\":true,\"hall\":\"forening-bla\",\"n\":3,\"contentSame\":true,\"p0\":{\"sessionItemId\":\"item-ac9w3bii-mvcivwnx\",\"x\":0.2137,\"y\":0.4242,\"zoneId\":\"open\"}}"
+    },
+    {
+      "part": "p1",
+      "id": "AC12-forening-vit",
+      "name": "pass on forening-vit (made on main, one marker moved by hand) keeps its exact placements and ids after open + Hallöversikt + reload",
+      "ok": true,
+      "detail": "{\"same\":true,\"hall\":\"forening-vit\",\"n\":3,\"contentSame\":true,\"p0\":{\"sessionItemId\":\"item-ac9w3bii-mvcivwnx\",\"x\":0.2137,\"y\":0.4242}}"
+    }
+  ],
+  "notes": {
+    "main-data": {
+      "std": "standard-trupp",
+      "stdZones": [
+        "vault",
+        "mats",
+        "open"
+      ],
+      "tav": "tavling-linjer",
+      "tavZones": [
+        "vault",
+        "mats",
+        "open"
+      ],
+      "liten": "liten-hall",
+      "litenZones": [
+        "vault",
+        "mats",
+        "open"
+      ],
+      "linkLen": 818,
+      "linkHall": "standard-trupp",
+      "equip": [
+        2,
+        1,
+        2
+      ]
+    },
+    "AC1": {
+      "q3title": "Hall",
+      "opts": [
+        "Gymmix – Stora hallen",
+        "Gymmix – Grophallen"
+      ],
+      "step": true
+    },
+    "AC3": {
+      "meta": "Pass — trampett\n3 stationer\nGymmix – Grophallen",
+      "gmeta": "Pass — trampett\nGymmix – Grophallen",
+      "zones": [],
+      "cv": {
+        "top": 339,
+        "bottom": 713,
+        "h": 374,
+        "w": 358,
+        "left": 16
+      }
+    },
+    "AC5": {
+      "br-390-mall-banner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 604,
+          "w": 358,
+          "h": 264
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 234,
+          "h": 52
+        },
+        "sw": 390
+      },
+      "br-390-mall-nobanner": {
+        "canvas": {
+          "top": 288,
+          "bottom": 552,
+          "w": 358,
+          "h": 264
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 234,
+          "h": 52
+        },
+        "sw": 390
+      },
+      "br-390-long-nobanner": {
+        "canvas": {
+          "top": 310,
+          "bottom": 574,
+          "w": 358,
+          "h": 264
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 142,
+          "w": 234,
+          "h": 74
+        },
+        "sw": 390
+      },
+      "br-390-vit": {
+        "canvas": {
+          "top": 339,
+          "bottom": 713,
+          "w": 358,
+          "h": 374
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 119,
+          "w": 234,
+          "h": 51
+        },
+        "sw": 390
+      },
+      "br-390-vit-nobanner": {
+        "canvas": {
+          "top": 287,
+          "bottom": 661,
+          "w": 358,
+          "h": 374
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 119,
+          "w": 234,
+          "h": 51
+        },
+        "sw": 390
+      },
+      "br-390-wiz-bla": {
+        "canvas": {
+          "top": 339,
+          "bottom": 603,
+          "w": 358,
+          "h": 264
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 119,
+          "w": 234,
+          "h": 51
+        },
+        "sw": 390
+      },
+      "br-390-wiz-bla-nobanner": {
+        "canvas": {
+          "top": 287,
+          "bottom": 551,
+          "w": 358,
+          "h": 264
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 119,
+          "w": 234,
+          "h": 51
+        },
+        "sw": 390,
+        "metaLines": 51
+      },
+      "br-320-mall-banner": {
+        "canvas": {
+          "top": 369,
+          "bottom": 581,
+          "w": 288,
+          "h": 212
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320
+      },
+      "br-320-mall-nobanner": {
+        "canvas": {
+          "top": 369,
+          "bottom": 581,
+          "w": 288,
+          "h": 212
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320
+      },
+      "br-320-long-nobanner": {
+        "canvas": {
+          "top": 391,
+          "bottom": 603,
+          "w": 288,
+          "h": 212
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 171,
+          "w": 164,
+          "h": 103
+        },
+        "sw": 320
+      },
+      "br-320-vit": {
+        "canvas": {
+          "top": 369,
+          "bottom": 670,
+          "w": 288,
+          "h": 301
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320
+      },
+      "br-320-vit-nobanner": {
+        "canvas": {
+          "top": 369,
+          "bottom": 670,
+          "w": 288,
+          "h": 301
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320
+      },
+      "br-320-wiz-bla": {
+        "canvas": {
+          "top": 369,
+          "bottom": 581,
+          "w": 288,
+          "h": 212
+        },
+        "banner": true,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320
+      },
+      "br-320-wiz-bla-nobanner": {
+        "canvas": {
+          "top": 369,
+          "bottom": 581,
+          "w": 288,
+          "h": 212
+        },
+        "banner": false,
+        "select": false,
+        "label": false,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 149,
+          "w": 164,
+          "h": 81
+        },
+        "sw": 320,
+        "metaLines": 81
+      },
+      "main-390-mall-banner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 579,
+          "w": 358,
+          "h": 239
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 234,
+          "h": 52
+        },
+        "sw": 390
+      },
+      "main-390-mall-nobanner": {
+        "canvas": {
+          "top": 288,
+          "bottom": 527,
+          "w": 358,
+          "h": 239
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 234,
+          "h": 52
+        },
+        "sw": 390
+      },
+      "main-390-long-nobanner": {
+        "canvas": {
+          "top": 310,
+          "bottom": 549,
+          "w": 358,
+          "h": 239
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 142,
+          "w": 234,
+          "h": 74
+        },
+        "sw": 390
+      },
+      "main-390-vit": {
+        "canvas": {
+          "top": 310,
+          "bottom": 684,
+          "w": 358,
+          "h": 374
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 153,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 90,
+          "w": 198,
+          "h": 22
+        },
+        "sw": 390
+      },
+      "main-390-vit-nobanner": {
+        "canvas": {
+          "top": 258,
+          "bottom": 632,
+          "w": 358,
+          "h": 374
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 153,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 90,
+          "w": 198,
+          "h": 22
+        },
+        "sw": 390
+      },
+      "main-390-wiz-bla": {
+        "canvas": {
+          "top": 310,
+          "bottom": 574,
+          "w": 358,
+          "h": 264
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 153,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 90,
+          "w": 198,
+          "h": 22
+        },
+        "sw": 390
+      },
+      "main-390-wiz-bla-nobanner": {
+        "canvas": {
+          "top": 258,
+          "bottom": 522,
+          "w": 358,
+          "h": 264
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 153,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 90,
+          "w": 198,
+          "h": 22
+        },
+        "sw": 390,
+        "metaLines": 22
+      },
+      "main-320-mall-banner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 532,
+          "w": 288,
+          "h": 192
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320
+      },
+      "main-320-mall-nobanner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 532,
+          "w": 288,
+          "h": 192
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320
+      },
+      "main-320-long-nobanner": {
+        "canvas": {
+          "top": 362,
+          "bottom": 554,
+          "w": 288,
+          "h": 192
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 142,
+          "w": 164,
+          "h": 74
+        },
+        "sw": 320
+      },
+      "main-320-vit": {
+        "canvas": {
+          "top": 340,
+          "bottom": 641,
+          "w": 288,
+          "h": 301
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320
+      },
+      "main-320-vit-nobanner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 641,
+          "w": 288,
+          "h": 301
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320
+      },
+      "main-320-wiz-bla": {
+        "canvas": {
+          "top": 340,
+          "bottom": 552,
+          "w": 288,
+          "h": 212
+        },
+        "banner": true,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320
+      },
+      "main-320-wiz-bla-nobanner": {
+        "canvas": {
+          "top": 340,
+          "bottom": 552,
+          "w": 288,
+          "h": 212
+        },
+        "banner": false,
+        "select": true,
+        "label": true,
+        "zoom": [
+          [
+            "Zooma ut",
+            48,
+            44
+          ],
+          [
+            "Zooma in",
+            48,
+            44
+          ]
+        ],
+        "title": {
+          "top": 20,
+          "bottom": 52,
+          "w": 116,
+          "h": 31
+        },
+        "meta": {
+          "top": 68,
+          "bottom": 120,
+          "w": 164,
+          "h": 52
+        },
+        "sw": 320,
+        "metaLines": 52
+      }
+    },
+    "AC6": {
+      "lines": [
+        "Schematisk hall — inte exakt mått",
+        "Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa gruppen — skriv ut eller håll upp skärmen.",
+        "×",
+        "Dölj tips"
+      ]
+    },
+    "AC7": {
+      "tray": "Dölj bricka\nEj placerade stationer (1)\nHandstående falla till rygg\n6 min",
+      "trayGone": [],
+      "m1": 2,
+      "m2": 3,
+      "placeLbl": 2,
+      "hadCompact": 1,
+      "canCollapse": 1,
+      "collapsed": 1
+    },
+    "AC8-AC9": {
+      "standard-trupp": {
+        "srcHall": "standard-trupp",
+        "srcZones": [
+          "vault",
+          "mats",
+          "open"
+        ],
+        "storedAtOpen": "standard-trupp",
+        "stored": "forening-bla",
+        "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          "1:Ljushopp på satsbräda",
+          "2:Handstående falla till rygg",
+          "3:Falla bakåt från höjd till rygg"
+        ],
+        "zones": [
+          "open"
+        ],
+        "sameAsGrid": true,
+        "contentSame": true,
+        "legacyLeft": [],
+        "idSame": true,
+        "title": "S45V gammalt pass",
+        "canvas": null
+      },
+      "tavling-linjer": {
+        "srcHall": "tavling-linjer",
+        "srcZones": [
+          "vault",
+          "mats",
+          "open"
+        ],
+        "storedAtOpen": "tavling-linjer",
+        "stored": "forening-bla",
+        "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          "1:Ljushopp på satsbräda",
+          "2:Handstående falla till rygg",
+          "3:Falla bakåt från höjd till rygg"
+        ],
+        "zones": [
+          "open"
+        ],
+        "sameAsGrid": true,
+        "contentSame": true,
+        "legacyLeft": [],
+        "idSame": true,
+        "title": "S45V gammalt pass",
+        "canvas": null
+      },
+      "liten-hall": {
+        "srcHall": "liten-hall",
+        "srcZones": [
+          "vault",
+          "mats",
+          "open"
+        ],
+        "storedAtOpen": "liten-hall",
+        "stored": "forening-bla",
+        "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          "1:Ljushopp på satsbräda",
+          "2:Handstående falla till rygg",
+          "3:Falla bakåt från höjd till rygg"
+        ],
+        "zones": [
+          "open"
+        ],
+        "sameAsGrid": true,
+        "contentSame": true,
+        "legacyLeft": [],
+        "idSame": true,
+        "title": "S45V gammalt pass",
+        "canvas": null
+      },
+      "generic-trupp": {
+        "srcHall": "generic-trupp",
+        "srcZones": [
+          "vault",
+          "mats",
+          "open"
+        ],
+        "storedAtOpen": "generic-trupp",
+        "stored": "forening-bla",
+        "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          "1:Ljushopp på satsbräda",
+          "2:Handstående falla till rygg",
+          "3:Falla bakåt från höjd till rygg"
+        ],
+        "zones": [
+          "open"
+        ],
+        "sameAsGrid": true,
+        "contentSame": true,
+        "legacyLeft": [],
+        "idSame": true,
+        "title": "S45V gammalt pass",
+        "canvas": null
+      },
+      "no-id": {
+        "srcHall": null,
+        "srcZones": [
+          "vault",
+          "mats",
+          "open"
+        ],
+        "stored": "forening-bla",
+        "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          "1:Ljushopp på satsbräda",
+          "2:Handstående falla till rygg",
+          "3:Falla bakåt från höjd till rygg"
+        ],
+        "zones": [
+          "open"
+        ],
+        "sameAsGrid": true,
+        "contentSame": true,
+        "legacyLeft": [],
+        "idSame": true,
+        "title": "S45V gammalt pass",
+        "canvas": null
+      }
+    },
+    "AC10": {
+      "meta": [],
+      "chips": 3,
+      "stora": false,
+      "stored": "forening-bla",
+      "place": 3,
+      "title": "S45V gammalt pass"
+    },
+    "AC11-mina": {
+      "seen": 1,
+      "hall": "forening-bla",
+      "meta": "S45V gammalt pass\n3 stationer\nGymmix – Stora hallen",
+      "markers": 3,
+      "tplStillThere": true,
+      "tplHalls": [
+        "\"hallTemplateId\":\"liten-hall\""
+      ]
+    },
+    "AC12": {
+      "forening-bla": {
+        "same": true,
+        "hall": "forening-bla",
+        "n": 3,
+        "contentSame": true,
+        "p0": {
+          "sessionItemId": "item-ac9w3bii-mvcivwnx",
+          "x": 0.2137,
+          "y": 0.4242,
+          "zoneId": "open"
+        }
+      },
+      "forening-vit": {
+        "same": true,
+        "hall": "forening-vit",
+        "n": 3,
+        "contentSame": true,
+        "p0": {
+          "sessionItemId": "item-ac9w3bii-mvcivwnx",
+          "x": 0.2137,
+          "y": 0.4242
+        }
+      }
+    },
+    "AC4": {
+      "tomt": {
+        "hall": "forening-bla",
+        "meta": "Nytt pass\n1 station\nGymmix – Stora hallen",
+        "drawing": "forening-bla",
+        "markers": [
+          {
+            "rank": 1,
+            "title": "Salto från höjd",
+            "inOpen": true
+          }
+        ]
+      },
+      "mall": {
+        "hall": "forening-bla",
+        "meta": "Nybörjare — ca 55 min\n3 stationer\nGymmix – Stora hallen",
+        "markers": [
+          {
+            "rank": 1,
+            "title": "Ljushopp på satsbräda",
+            "inOpen": true
+          },
+          {
+            "rank": 2,
+            "title": "Handstående falla till rygg",
+            "inOpen": true
+          },
+          {
+            "rank": 3,
+            "title": "Falla bakåt från höjd till rygg",
+            "inOpen": true
+          }
+        ],
+        "teknik": [
+          "item-zgbolkhm-mvcj3nqa",
+          "item-hjx37g5v-mvcj3nqa",
+          "item-ss1c5fbq-mvcj3nqa"
+        ],
+        "placed": [
+          [
+            "item-zgbolkhm-mvcj3nqa",
+            "open",
+            0.21,
+            0.28
+          ],
+          [
+            "item-hjx37g5v-mvcj3nqa",
+            "open",
+            0.37,
+            0.28
+          ],
+          [
+            "item-ss1c5fbq-mvcj3nqa",
+            "open",
+            0.53,
+            0.28
+          ]
+        ]
+      }
+    }
+  },
+  "errors": []
+}

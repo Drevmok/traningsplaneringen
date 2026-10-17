@@ -35,15 +35,53 @@ Checkpoint file, updated after each ~15-min chunk. Times are Europe/Stockholm (U
   - Old-hall Mina mall duplicate detection: accepted as is.
   - Dela dismisses the Ångra toast: to verify.
 
+## Chunk 2 (17:00–17:40): AC1–AC12. Script `slice-45-verify.mjs` PART p1 → **20 / 22**
+- Main data was made in **main's own UI** (4fe44c0) and is saved in `slice-45-checks/main-data.json`:
+  - Nybörjare «S45V gammalt pass» with «Använd alla förslag», on Standard trupp; zones vault/mats/open.
+  - The same pass switched to Tävling / Liten / Blå / Vit.
+  - A Mina mall saved on Liten hall.
+  - A `#dela=` link copied on Standard trupp.
+
+| AC | Verdict | Evidence |
+|---|---|---|
+| AC1 | PASS | Q3 «Hall», chips exactly «Gymmix – Stora hallen» · «Gymmix – Grophallen» (en dash), «Fråga 3 av 3» |
+| AC2 | PASS | no «Stationerna är förslag…» / «Välj den layout…» on Q2 or Q3; Tillbaka → Fokus, Nästa → Hall, Skapa pass → forening-vit |
+| AC3 | PASS | Grophallen drawing (canvas ratio 0.9572); meta and Golvklart meta «Gymmix – Grophallen» |
+| AC4 | PASS | Tomt pass (+1 Teknik drill, because an empty pass shows the no-stations state) and Från mall → Nybörjare: forening-bla, «Gymmix – Stora hallen», markers 1–3 on the grid in pass order, none on walls |
+| AC5 | **FAIL as written / Planner to rule** | Controls PASS: no label or select; zoom 48×44 at 390 and 320; no horizontal scroll at 320. Canvas top: see the table below |
+| AC6 | PASS | under the hall only «Schematisk hall — inte exakt mått» + the flow tip; after «Dölj tips» only the caption is left; none of the 12 removed texts appear anywhere |
+| AC7 | PASS | tray text only «Dölj bricka / Ej placerade stationer (1) / station»; remove → 2, Placera här → 3, collapse works; desktop drag moves a marker and saves it |
+| AC8 | PASS | standard-trupp draft → opens, Stora hallen, markers on the grid in pass order (identical to a fresh pass), no walls; draft stores forening-bla; **pass content byte-identical, id unchanged**; no legacy id left anywhere in storage |
+| AC9 | PASS | the same for tavling-linjer, liten-hall, generic-trupp, and no id |
+| AC10 | PASS | main link on Standard trupp → Delat pass shows the Stora hallen drawing with markers 1–3, none on walls; «Spara på den här enheten» stores forening-bla; title and Teknik (activity, minutes, redskap) as on main. The Delat pass view shows the drawing but no hall *name*; main didn't show one either |
+| AC11 | PASS (Mina) / **PENDING-real (förening)** | Mina mall saved in main's UI on Liten hall → Använd mall → Stora hallen, 3 markers; the saved mall itself is untouched (still `liten-hall` in storage; nothing rewritten). Föreningens mall: **no unit test drives `clubTemplateToSession` with a legacy id.** `hallLegacy.test.ts` (10/10 pass) covers `shareToSession` + `savedTemplateToSession`, which the club path calls, so the coverage is indirect. Planned for chunk 3: a stand-in run with a club_templates row on standard-trupp |
+| AC12 | PASS | Blå and Vit drafts from main with one hand-moved marker: placements byte-identical after open + Hallöversikt + reload |
+
+**AC5 measurements** (hall canvas top–bottom in px, page coordinates; branch vs main; *banner* = saknar-redskap banner shown):
+
+| Width | Scenario | Branch | Main | Δ top |
+|---|---|---|---|---|
+| 390 | Från mall Nybörjare, banner | 340–604 | 340–579 | 0 |
+| 390 | same, no banner | 288–552 | 288–527 | 0 |
+| 390 | 2-line title, no banner | 310–574 | 310–549 | 0 |
+| 390 | wizard Stora/Blå, banner | 339–603 | 310–574 | **+29** |
+| 390 | wizard Stora/Blå, no banner | 287–551 | 258–522 | **+29** |
+| 390 | wizard Grophallen/Vit, banner | 339–713 | 310–684 | **+29** |
+| 390 | wizard Grophallen/Vit, no banner | 287–661 | 258–632 | **+29** |
+| 320 | all 7 scenarios | 369–391 tops | 340–362 tops | **+29** |
+
+- **Cause:** B1 adds the read-only hall name to the meta line (`.hall-preset-readonly`). Whenever the title + count fit on one line on main (short wizard titles at 390, every case at 320), the name wraps onto its own line, about +29 px. With Nybörjare the meta already wrapped on main, so Δ = 0. That is the only case Builder measured.
+- Canvas bottoms stay ≤ 739 in every 390 case (max 713, Grophallen with banner). The canvas is also 25 px taller than on main.
+- Grading:
+  - Checklist «≤ 310»: fails with the banner on both halls (340 / 339).
+  - Builder-reported ruling «no lower than main»: fails for wizard passes and at 320 (+29).
+
 ## Remaining
-- Chunk 2: my own `slice-45-verify.mjs`, part 1:
-  - AC1–AC7: wizard; Hallöversikt at 390 with and without the banner, 2-line titles, fold 739; 320 px.
-  - AC8–AC12: legacy drafts, old `#dela=` links made on main, Mina mall on an old hall; old data must not be lost.
 - Chunk 3:
-  - AC13–AC15: compact sheets, landscape, desktop.
-  - AC19–AC21: Dela sheet.
-  - The Ångra toast + Dela path.
-  - AC16: print ratios, plus real Chrome print preview.
+  - AC13–AC15 and AC19–AC21: compact sheets and the Dela sheet, landscape, desktop.
+  - The Ångra-toast + Dela path: undo cleared, nothing lost.
+  - AC16: print ratios (headless + real Chrome).
   - AC17: string/id sweep.
-  - What the cleanup removed vs code still in use.
-- Then: classify the smokes, write the report, take screenshots, final commit, teardown.
+  - The cleanup's removed code vs code still in use.
+  - AC11 föreningens mall via the stand-in.
+- Then: classify the smokes (the loop is running; at 17:04 it was on 42-verify), write the report, screenshots, final commit, teardown.
