@@ -32,7 +32,7 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
 - Clean re-run, chunk 1 (started 10:28 UTC+2, one loop only, bank build on https):
   - **slice-44-builder-smoke: 26/26 PASS.**
   - **slice-43-builder-smoke: 21/22.** The only fail is AC16-footer «Slice 43», which is expected (footer bump).
-  - slice-43-verify: still running at checkpoint 2. Output so far: AC11 fails (expected, see below) and AC6-320 fails (pre-existing). **AC8 now passes**, so the earlier AC8 fail was a side effect of the bank being off.
+  - slice-43-verify: still running at checkpoint 2. Output so far: AC11 fails (expected, see below) and AC6-320 fails (pre-existing). AC8 has not run yet in this clean run.
   - slice-42-verify and slice-39-verify: queued in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
 - Classified so far from the earlier partial runs. These are preliminary and get re-confirmed on the clean run:
   - Footer «Slice 43/42…» asserts: expected (the footer is bumped to Slice 44).
