@@ -1,0 +1,12 @@
+FAIL [A-E] built-in threw — locator.click: Timeout 10000ms exceeded.
+FAIL [M-E] main built-in compare threw — locator.click: Timeout 10000ms exceeded.
+FAIL [M8-E] main reload threw — locator.click: Timeout 10000ms exceeded.
+FAIL [C-E] club threw — Cannot read properties of undefined (reading 'blocks')
+FAIL [E-E] egen threw — locator.click: Timeout 10000ms exceeded.
+FAIL [F12] Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37» — Träningsplaneraren · Slice 45 · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen
+FAIL [F-E] footer + earlier flows threw — locator.click: Timeout 10000ms exceeded.
+FAIL [P-E] plain build threw — locator.click: Timeout 10000ms exceeded.
+PASS [errors] No page errors (all pages)
+
+1/9 pass
+{}

@@ -1,0 +1,13 @@
+PASS [AC9-toast] Built-in Använd mall → toast «Mallen är i Passbyggaren. · Ångra», focus on Ångra — Mallen är i Passbyggaren. · Ångra / focus Ångra
+NOTE C.mid: {"midHall":"forening-bla","midPlaced":3,"midTitle":"Nybörjare — ca 55 min"}
+PASS [AC9] Ångra → previous pass back: same id, title, blocks, hall — true S41V eget Blå forening-bla
+PASS [AC12] Mall had Teknik auto-placed → after Ångra placements = old pass only (stored), Hallöversikt shows only those — old 4, mall 3
+PASS [AC12-hall] Hallöversikt shows the old pass markers (4) in Blå — 4
+PASS [AC14] Mina mallar: auto-copy of previous pass still there, no copy of the mall pass, count = before + 1 — S41V eget Blå(auto)
+PASS [AC13] Reload → stored pass = previous (same id); Fortsätt passet opens it — S41V eget Blå
+PASS [AC15] Använd mall again over the restored pass → no second identical auto-copy — S41V eget Blå
+PASS [AC10] Mina mallar mall → «Mallen är i Passbyggaren. · Ångra» → Ångra → previous pass (same id, blocks, hall, placements); Mina mallar = before + 1 — Mallen är i Passbyggaren. · Ångra; mallar 1→2
+PASS [AC11] Föreningsmall (stand-in) → one toast «Mallen är i Passbyggaren. · Ångra» → Ångra → previous pass; mall text not shown twice or after Ångra — ["1038:Mallen är i Passbyggaren. · Ångra","1670:Ångrat."]
+FAIL [C] section error — locator.click: Timeout 10000ms exceeded.
+
+PASS 9 / FAIL 1 · page errors 0 · bank requests 6 (live: 0)

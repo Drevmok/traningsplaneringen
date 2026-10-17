@@ -108,7 +108,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '44'
+export const SLICE_NUMBER = '45'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -246,8 +246,6 @@ export const UI = {
   hallAllPlaced: 'Alla Teknik-stationer är placerade.',
   hallTrayEmptyStations: 'Alla Teknik-stationer är placerade.',
   hallEmptyPass: 'Inga övningar i passet ännu.',
-  hallDragHint:
-    'Förslagen ligger redan i zonen. Dra bara det som sitter fel, eller välj en station och tryck Placera här.',
   hallSchematicNote: 'Schematisk hall — inte exakt mått',
   hallStationsOnlyHint:
     'Endast Teknik-stationer placeras på hallen. Samling, Uppvärmning, Styrka och Lek och spel planeras i Passbyggaren.',
@@ -267,18 +265,6 @@ export const UI = {
   hallStationCount: '{n} stationer',
   hallStationCountOne: '1 station',
   // Slice 06 — Hallayout & snap (locked: hall-presets-copy.sv.md)
-  hallLayout: 'Hallayout',
-  hallPresetStandard: 'Standard trupp',
-  hallPresetTavling: 'Tävling / linjer',
-  hallPresetLiten: 'Liten hall',
-  hallPresetBla: 'Blå hall',
-  hallPresetVit: 'Vit hall',
-  hallPresetMigrateNote:
-    'Placerade övningar flyttas till samma zon i den nya layouten när det går.',
-  hallSnapHint:
-    'Släpp på en zon för att fästa stationen där. På öppen yta kan du placera fritt.',
-  hallPresetCoachTip:
-    'Blå hall och Vit hall är föreningens ritningar. Där placerar du fritt. De andra är generella scheman.',
   // Slice 07 — Golvklart / flöde / telefon (locked: golvklart-copy.sv.md)
   hallFloorReady: 'Golvklart',
   hallFloorReadyShort: 'Visa för golvet',
@@ -288,7 +274,6 @@ export const UI = {
   hallFloorModeLabel: 'Golvklart',
   hallShowFlow: 'Visa flöde',
   hallHideFlow: 'Dölj flöde',
-  hallStationOrderHint: 'Stationsordning följer passet',
   hallZoom: 'Zooma',
   hallZoomIn: 'Zooma in',
   hallZoomOut: 'Zooma ut',
@@ -335,8 +320,6 @@ export const UI = {
     'Tomt pass? Börja från en mall, eller lägg till en övning i ett block. Varje övning visar varför, hur och vad du ska se upp för.',
   tipBuilderEmptyShort:
     'Börja från mall eller lägg till en övning. Tipsen sitter på övningen.',
-  tipHallPlace:
-    'Stationerna föreslås i zonen för redskapet. Dra bara det som sitter fel. Tryck en markör för detaljer.',
   tipStationCompose:
     'Redigera redskapen ni faktiskt använder. Det sparas i utkastet och syns när du trycker på markören.',
   tipHallFlowGolvklart:
@@ -348,17 +331,11 @@ export const UI = {
   tipInfoAria: 'Visa tränartips',
   tipClose: 'Stäng',
   // Slice 22 — quieter chrome (locked: docs/copy-quieter-chrome.sv.md)
-  hallHintsInfo: 'Tips om placering',
-  hallHintsInfoAria: 'Visa tips om hur du placerar Teknik-stationer',
-  hallHintsHide: 'Dölj tips',
-  hallHintsHideAria: 'Dölj placeringstipsen',
   komIgangExpand: 'Visa steg',
   komIgangCollapse: 'Dölj steg',
   komIgangExpandAria: 'Visa alla Kom igång-steg',
   komIgangCollapseAria: 'Dölj stegen och visa bara sammanfattning',
   // Slice 12 — station markers + tap-to-detail (locked: docs/station-tiles.sv.md)
-  hallTileHint:
-    'Stationerna visas som markörer. Tryck för detaljer och redskap.',
   hallTileHintShort: 'Tryck på en markör för detaljer och redskap.',
   hallTileA11y: 'Station {rank}: {title}. Tryck för detaljer.',
   hallTileA11yNoRank: '{title}. Tryck för detaljer.',
@@ -464,9 +441,7 @@ export const UI = {
   wizardQ2Trampett: 'Trampett',
   wizardQ2Tumbling: 'Tumbling',
   wizardQ2Mixed: 'Blandat',
-  wizardQ3Label: 'Hallayout',
-  wizardQ3Hint: 'Välj den layout som liknar er hall. Teknik fäster i zon efter fokus.',
-  wizardFocusHonesty: 'Stationerna är förslag för ditt valda fokus. Andra zoner kan vara tomma — det är ok.',
+  wizardQ3Label: 'Hall',
   // Slice 10 — distribution; Slice 33 footer (slice-33/content/microcopy.sv.md)
   footerSliceLabel: `Träningsplaneraren · Slice ${SLICE_NUMBER}`,
   // Slice 35 — «Tyck till» (slice-35/content/microcopy.sv.md)

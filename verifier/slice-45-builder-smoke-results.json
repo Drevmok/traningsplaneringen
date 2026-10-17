@@ -1,0 +1,252 @@
+{
+  "pass": 41,
+  "total": 41,
+  "results": [
+    {
+      "id": "AC1",
+      "name": "Q3 titled «Hall» with exactly the two Gymmix chips (en dash)",
+      "ok": true,
+      "detail": "Hall | Gymmix – Stora hallen | Gymmix – Grophallen"
+    },
+    {
+      "id": "AC2-texts",
+      "name": "Q2 and Q3 show no «Stationerna är förslag…» / «Välj den layout…» line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC18-footer",
+      "name": "footer «Träningsplaneraren · Slice 45» (Passbyggaren)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2-nav",
+      "name": "Tillbaka → Fokus, Nästa → Hall, Skapa pass → Passbyggaren on Grophallen",
+      "ok": true,
+      "detail": "Fokus forening-vit"
+    },
+    {
+      "id": "AC5-wizardpass",
+      "name": "Grophallen pass: hall canvas top ≤ 310 when no saknar-redskap banner",
+      "ok": true,
+      "detail": "top=339 banner=1"
+    },
+    {
+      "id": "AC3",
+      "name": "Grophallen pass: Hallöversikt and Golvklart meta show «Gymmix – Grophallen»",
+      "ok": true,
+      "detail": "Pass — trampett 3 stationer Gymmix – Grophallen || Pass — trampett Gymmix – Grophallen vb=0 0 100 100"
+    },
+    {
+      "id": "AC14-wizard",
+      "name": "wizard sheet keeps its own style (no compact class)",
+      "ok": true,
+      "detail": "{\"top\":547,\"bottom\":844,\"h\":297,\"w\":390,\"left\":0}"
+    },
+    {
+      "id": "AC4",
+      "name": "Tomt pass and Från mall → Nybörjare on Stora hallen; every Teknik marker on the grid in pass order",
+      "ok": true,
+      "detail": "tomt=undefined mall=forening-bla n=3/3"
+    },
+    {
+      "id": "AC5",
+      "name": "no «Hallayout» label / select; zoom − / + ≥ 44×44; canvas top ≤ 310",
+      "ok": true,
+      "detail": "zoom=[[\"Zooma ut\",48,44],[\"Zooma in\",48,44]] canvasTop=340 main=340 (saknar banner above the hall on both: 1)"
+    },
+    {
+      "id": "AC6",
+      "name": "under the hall only the caption + flow tip about the numbers",
+      "ok": true,
+      "detail": "Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa"
+    },
+    {
+      "id": "AC6-dismiss",
+      "name": "flow tip dismissable → nothing left under the hall but the caption",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC7",
+      "name": "expanded tray has no drag/snap hint or «Stationerna föreslås i zonen…»; remove + Placera här still work",
+      "ok": true,
+      "detail": "removed=true 3→2→3 tray=\"Dölj bricka Ej placerade stationer (1) Ljushopp på satsbräda 6 min\""
+    },
+    {
+      "id": "AC8",
+      "name": "legacy draft «standard-trupp» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla",
+      "ok": true,
+      "detail": "stored=forening-bla n=3 sameGrid=true"
+    },
+    {
+      "id": "AC9-tavling",
+      "name": "legacy draft «tavling-linjer» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla",
+      "ok": true,
+      "detail": "stored=forening-bla n=3 sameGrid=true"
+    },
+    {
+      "id": "AC9-liten",
+      "name": "legacy draft «liten-hall» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla",
+      "ok": true,
+      "detail": "stored=forening-bla n=3 sameGrid=true"
+    },
+    {
+      "id": "AC9-generic",
+      "name": "legacy draft «generic-trupp» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla",
+      "ok": true,
+      "detail": "stored=forening-bla n=3 sameGrid=true"
+    },
+    {
+      "id": "AC9-none",
+      "name": "legacy draft «no id» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla",
+      "ok": true,
+      "detail": "stored=forening-bla n=3 sameGrid=true"
+    },
+    {
+      "id": "AC12-forening-bla",
+      "name": "forening-bla keeps its exact placements after reload",
+      "ok": true,
+      "detail": "forening-bla"
+    },
+    {
+      "id": "AC12-forening-vit",
+      "name": "forening-vit keeps its exact placements after reload",
+      "ok": true,
+      "detail": "forening-vit"
+    },
+    {
+      "id": "AC10",
+      "name": "old #dela= link made on main on Standard trupp → Delat pass shows markers on Stora hallen; «Spara på den här enheten» stores forening-bla",
+      "ok": true,
+      "detail": "main=standard-trupp markers=15 saved=forening-bla stora=false"
+    },
+    {
+      "id": "AC14-replace",
+      "name": "«Ersätta utkastet här?» is a compact bottom sheet",
+      "ok": true,
+      "detail": "{\"top\":653,\"bottom\":844,\"h\":191,\"w\":390,\"left\":0}"
+    },
+    {
+      "id": "AC11-mina",
+      "name": "Mina mall saved on Liten hall → Använd mall gives a Stora hallen pass with grid markers",
+      "ok": true,
+      "detail": "forening-bla n=3"
+    },
+    {
+      "id": "AC13-size",
+      "name": "Rensa passet: bottom sheet ≤ 260 px, bottom 844, Avbryt + Rensa side by side ≥ 44 px, text unchanged",
+      "ok": true,
+      "detail": "{\"top\":653,\"bottom\":844,\"h\":191,\"w\":390,\"left\":0} [{\"t\":\"Avbryt\",\"top\":780,\"h\":44,\"w\":69},{\"t\":\"Rensa\",\"top\":780,\"h\":44,\"w\":68}]"
+    },
+    {
+      "id": "AC13-actions",
+      "name": "Avbryt and backdrop tap keep the pass; Rensa clears it",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC14-newweek",
+      "name": "Ny vecka confirm is a compact bottom sheet",
+      "ok": true,
+      "detail": "{\"top\":630,\"bottom\":844,\"h\":214,\"w\":390,\"left\":0}"
+    },
+    {
+      "id": "AC14-template",
+      "name": "mall confirm (TemplateConfirm) is a compact bottom sheet",
+      "ok": true,
+      "detail": "{\"top\":630,\"bottom\":844,\"h\":214,\"w\":390,\"left\":0}"
+    },
+    {
+      "id": "AC14-tall",
+      "name": "Förrådslista stays a tall sheet (not compact)",
+      "ok": true,
+      "detail": "{\"h\":743,\"compact\":false}"
+    },
+    {
+      "id": "AC14-admin",
+      "name": "AdminHideConfirm carries the compact classes (source; Dölj needs an admin login)",
+      "ok": true,
+      "detail": "AdminHideConfirm.tsx,ExportSheet.tsx,Home.tsx,NewWeekConfirm.tsx,ReplaceDraftConfirm.tsx,TemplateConfirm.tsx"
+    },
+    {
+      "id": "AC19",
+      "name": "Dela: bottom sheet (bottom 844), content height ≤ 480 px, pass visible above; contents as Slice 44",
+      "ok": true,
+      "detail": "{\"top\":381,\"bottom\":844,\"h\":463,\"w\":390,\"left\":0} pb=20px lastChild=824"
+    },
+    {
+      "id": "AC20-basic",
+      "name": "× ≥ 44×44 and backdrop close; «Länken är kopierad.» resets after ~3 s; Skriv ut passet prints",
+      "ok": true,
+      "detail": "Länken är kopierad.→Kopiera länk prints=1 x=true bd=true"
+    },
+    {
+      "id": "FU-toast",
+      "name": "Använd mall → Dela immediately: Ångra toast dismissed, «Skriv ut passet» clickable, undo not back after closing",
+      "ok": true,
+      "detail": "toastBefore=1 toastWithSheet=0 prints=1 undoAfterClose=0"
+    },
+    {
+      "id": "AC20-grow",
+      "name": "clipboard blocked + print stalled: manual line + link field + stalled line; sheet grows ≤ 92 %, scrolls inside, × reachable",
+      "ok": true,
+      "detail": "{\"top\":203,\"bottom\":844,\"h\":641,\"w\":390,\"left\":0} sh=641 ch=641 ov=auto manual=true x={\"top\":211,\"bottom\":255,\"h\":44,\"w\":44,\"left\":338} text=× Dela Kopiera länk  Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.  Kopiera länk  Det gick inte att kopiera. Håll fingret på länken nedan och välj Kopiera.  "
+    },
+    {
+      "id": "AC21-landscape",
+      "name": "landscape 844×390: Dela scrolls inside, × reachable",
+      "ok": true,
+      "detail": "{\"top\":20,\"bottom\":371,\"h\":351,\"w\":480,\"left\":182} [424,351,\"auto\"]"
+    },
+    {
+      "id": "AC15-landscape",
+      "name": "landscape: Hallöversikt renders, no select; Rensa passet fits the screen",
+      "ok": true,
+      "detail": "canvas={\"top\":-332,\"bottom\":78,\"h\":411,\"w\":557,\"left\":16} rensa={\"top\":98,\"bottom\":292,\"h\":194,\"w\":480,\"left\":182}"
+    },
+    {
+      "id": "AC21-desktop",
+      "name": "desktop 1280×800: Dela is the centred dialog, same box as main",
+      "ok": true,
+      "detail": "branch={\"top\":188,\"bottom\":612,\"h\":424,\"w\":480,\"left\":400} main={\"top\":188,\"bottom\":612,\"h\":424,\"w\":480,\"left\":400}"
+    },
+    {
+      "id": "AC15-desktop",
+      "name": "desktop: Hallöversikt without select; Rensa passet dialog same box as main",
+      "ok": true,
+      "detail": "branch={\"top\":303,\"bottom\":497,\"h\":194,\"w\":480,\"left\":400} main={\"top\":303,\"bottom\":497,\"h\":194,\"w\":480,\"left\":400}"
+    },
+    {
+      "id": "AC16-pass",
+      "name": "Skriv ut passet prints the pass with the Gymmix hall drawing",
+      "ok": true,
+      "detail": "viewBox=0 78 696 112 pages=3"
+    },
+    {
+      "id": "AC16-golvklart",
+      "name": "Golvklart (print media) shows Stora hallen with its drawing ratio",
+      "ok": true,
+      "detail": "{\"top\":46,\"bottom\":225,\"h\":180,\"w\":244,\"left\":73} ratio=1.36"
+    },
+    {
+      "id": "AC17-ids",
+      "name": "legacy ids only in the legacy alias (types.ts LegacyHallTemplateId, lib/hall.ts LEGACY_TEMPLATES) and tests",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC17-strings",
+      "name": "removed strings are gone from the built bundle; Gymmix names present",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "errors",
+      "name": "no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+PASS [AC1] Under the timer, below «Nästa: …»: «Kvar: 4 min» — Kvar: 4 min · run-top > H1 > run-clock > run-next > run-left > run-script > run-nav
+PASS [AC12] Plain text: no role / aria-live / aria-label — {"role":null,"live":null,"al":null,"color":"rgb(168, 162, 158)","fs":"14.4px"}
+PASS [muted] Muted colour #a8a29e, 0.9rem — {"role":null,"live":null,"al":null,"color":"rgb(168, 162, 158)","fs":"14.4px"}
+PASS [AC2a] Step 1 at 01:30 → «Kvar: 4 min» — 01:30 Kvar: 4 min
+PASS [AC2b/AC4] Step 1 at 00:59 → «Kvar: 3 min» (live, no tap) — 00:59 Kvar: 3 min
+PASS [AC12b] Clock aria-label format unchanged (time first) — 02:00. Pausa timern
+PASS [AC6a] Paused: line frozen with the timer
+PASS [AC6b] Resume continues from same value — 00:58
+PASS [AC7a] Earlier step at 00:00 → later steps only («Kvar: 2 min»)
+PASS [AC7b] …and stays still
+PASS [AC5a] Nästa övning → recalculates at once («Kvar: 2 min»)
+PASS [AC5b] ArrowRight → last step «Kvar: 1 min»
+PASS [AC10] Last step: «Sista aktiviteten» and «Kvar: 1 min» both show
+PASS [AC5c] ArrowLeft → back to 2
+PASS [AC5d] Föregående → raises again to 4 (step clock restarts)
+PASS [AC3a] 1 s left in total → «Kvar: 1 min»
+PASS [AC3b/AC8] Last step 00:00 → «Kvar: 0 min», still visible, same colour
+PASS [AC8b] Stays «Kvar: 0 min» over time; no new banners
+PASS [AC13] No new controls: 4 buttons as Slice 34 — Avsluta | 00:00 | Föregående | Sista övningen
+PASS [AC9] Long «Nästa» (ellipsis) and «Kvar» are separate single lines, no overlap, no horizontal scroll — {"nBottom":231.703125,"lTop":239.703125,"lH":20.875,"lBottom":260.578125,"sTop":272.578125,"navTop":776,"navBottom":828,"vh":844,"scrolls":true,"pageH":1037,"overlayScroll":0,"sw":390,"ellipsis":"elli
+PASS [AC11] Long text: nav buttons stay on screen; only .run-script scrolls — {"nBottom":231.703125,"lTop":239.703125,"lH":20.875,"lBottom":260.578125,"sTop":272.578125,"navTop":776,"navBottom":828,"vh":844,"scrolls":true,"pageH":1037,"overlayScroll":0,"sw":390,"ellipsis":"elli
+FAIL [AC18a] Footer «Träningsplaneraren · Slice 38»; mail «Version: Slice 38» — Träningsplaneraren · Slice 45 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC14] Passbyggaren has no «Kvar:» line
+PASS [AC17] Builder Kör passet: «Nästa: …» and «Kvar» both present; clock runs
+PASS [AC18b] runLeftLabel verbatim in blockMeta.ts; no «!»
+PASS [E] No page or console errors
+
+PASS 25 / FAIL 1

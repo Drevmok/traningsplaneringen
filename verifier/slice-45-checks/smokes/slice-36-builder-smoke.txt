@@ -1,0 +1,15 @@
+FAIL [A] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('[aria-labelledby="home-wizard-title"]').getByRole('option', { name: /Standard trupp/ }).first()
+PASS [AC10] One GET to club_templates after render: apikey, no Authorization, hidden=is.false — select=id,title,total_minutes,payload,updated_at&hidden=is.false&order=sort_order,title
+PASS [AC9a] Starta från mall: «Föreningens mallar» heading + hint first, then savedTemplatesHint, then built-in mallar — Föreningens mallar | Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen. | Nybörjare — ca 55 min | Kort pass — ca 45 min
+PASS [AC9b] Each club card: title, minutes, tag «Föreningens», aria «Föreningens mall {title}, {n} min»
+PASS [AC9c] No Ta bort / Kopiera delningskod / admin words on club cards for coaches
+PASS [AC21a] Coach visit downloads no admin chunk and no supabase-js — index-BkbDGEVZ.js
+PASS [AC22a] 390 wide: no horizontal scroll; 80-char title wraps inside the card; cards ≥ 44 px
+FAIL [B] phase crashed — error: locator.focus: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.side-panel-slot.is-open').locator('section.club-templates').locator('.template-club .template-card').first()
+PASS [AC14a] First ever load, list unreachable, no cache: no club section, no empty text, no error; built-in mallar listed
+FAIL [C] phase crashed — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('section.club-templates .bank-stale') to be visible
+FAIL [AC23] All Slice 36 strings verbatim in blockMeta.ts, no «!», SLICE_NUMBER = 36
+PASS [AC21d] rg "\.delete\(" app/src (non-test) finds nothing
+PASS [errors] No page errors
+
+9/13 pass

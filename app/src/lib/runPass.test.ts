@@ -48,7 +48,7 @@ function session(): Session {
     totalMinutes: 15,
     notes: '',
     blocks: [...blocks].reverse(),
-    hallTemplateId: 'standard-trupp',
+    hallTemplateId: 'forening-bla',
     hallPlacements: [],
   }
 }

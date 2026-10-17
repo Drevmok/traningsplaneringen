@@ -213,12 +213,6 @@ export default function App() {
     setRunSession(shared)
   }
 
-  function handleTipsUpdate(
-    updater: (prev: CoachTipsStateV1) => CoachTipsStateV1,
-  ) {
-    patchTips(updater)
-  }
-
   function handleShowTipsAgain(): 'restored' | 'already' {
     if (!anyTipsHidden(syncedTips)) return 'already'
     patchTips(resetTipsVisibility)
@@ -322,7 +316,6 @@ export default function App() {
           }}
           tips={syncedTips}
           onDismissTip={handleDismissTip}
-          onTips={handleTipsUpdate}
           initialFloor={hallStartFloor}
           onEnterGolvklart={handleEnterGolvklart}
         />

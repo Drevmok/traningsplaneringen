@@ -11,7 +11,7 @@ export function ReplaceDraftConfirm({ onConfirm, onCancel }: Props) {
 
   return (
     <div
-      className="modal-backdrop replace-draft-backdrop"
+      className="modal-backdrop modal-backdrop--compact replace-draft-backdrop"
       role="dialog"
       aria-modal="true"
       aria-label={UI.replaceDraftTitle}
@@ -19,7 +19,7 @@ export function ReplaceDraftConfirm({ onConfirm, onCancel }: Props) {
         if (e.target === e.currentTarget) onCancel()
       }}
     >
-      <div className="modal">
+      <div className="modal modal--compact">
         <h2>{UI.replaceDraftTitle}</h2>
         <p>{UI.replaceDraftBody}</p>
         <div className="modal-actions">

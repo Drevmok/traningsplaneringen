@@ -2222,3 +2222,12 @@
   align-items: center;
   font-weight: 600;
 }
+
+/* Slice 45 F3: on phones Dela is a compact bottom sheet (E1 style); it keeps a cap and scrolls
+   inside when the copy-failed line + link field or the print-stalled line make it taller. */
+@media (max-width: 768px) {
+  .export-sheet.modal--compact {
+    max-height: min(92svh, 100%);
+    overflow: auto;
+  }
+}

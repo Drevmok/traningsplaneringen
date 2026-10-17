@@ -15,6 +15,8 @@ import type {
   SessionBlock,
   StationEquipmentSlot,
 } from '../types'
+import { isLegacyHall, migrateLegacyHall } from './hall'
+import { autoPlaceUnplaced } from './hallSuggest'
 
 const PREFIX_RAW = 'j.'
 const PREFIX_ZIP = 'z.'
@@ -110,7 +112,7 @@ export function shareToSession(pass: SharePass): Session {
     }
   })
 
-  return withComputedTotal({
+  const session = withComputedTotal({
     id: 'shared',
     title: pass.title || 'Delat pass',
     notes: pass.notes ?? '',
@@ -124,6 +126,9 @@ export function shareToSession(pass: SharePass): Session {
     hallPlacements: pass.hallPlacements,
     hallShowFlow: pass.hallShowFlow,
   })
+  // Slice 45 A1: old links / Mina mallar / föreningens mallar on a removed hall open on Stora hallen with
+  // markers on the grid (the read-only Delat pass view renders without adopting, so place here).
+  return isLegacyHall(session) ? autoPlaceUnplaced(migrateLegacyHall(session)) : session
 }
 
 function bytesToB64url(bytes: Uint8Array): string {

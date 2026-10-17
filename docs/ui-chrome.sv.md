@@ -401,3 +401,7 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 **Slice 41 (2026-10-14):** Passbyggaren — toasten kan bära en knapp «Ångra» (ca 5 s). Efter × på en station: «Borttagen · Ångra». Efter Använd mall (inbyggd mall, Mina mallar, föreningsmall): «Mallen är i Passbyggaren. · Ångra». Efter Ångra: «Ångrat.». Ett steg, ingen historik, ingen bekräftelsedialog. Övriga toaster oförändrade (2,2 s, ingen knapp). Se [`slice-41/`](../slice-41/README.md).
 
 **Slice 44 (FÖRESLAGEN 2026-10-17, inte låst):** «Exportera / dela» byter namn till **Dela** och har bara två saker kvar: «Kopiera länk» och «Skriv ut passet». Borta: Stationskort (Helskär, Skriv ut kort), Ladda ner fil, länkfältet, QR-koden, Importera fil och Spara som egen mall (den finns kvar under Mer; filer och länkar tas emot under «Hämta ett pass» på startsidan). Raden «Export / share (stub) | Exportera / dela» och anteckningen om **Kommer snart** ovan är historik. Se [`slice-44/`](../slice-44/README.md) och [`dela-och-utskrift.sv.md`](./dela-och-utskrift.sv.md).
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).

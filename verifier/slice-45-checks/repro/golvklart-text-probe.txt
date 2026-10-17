@@ -1,0 +1,2 @@
+ONLY MAIN: ["Standard trupp","Öppen yta","Trampett","Tumbling","Satsbräda","Mattberg","Mattor","Träningsplaneraren · Slice 44"]
+ONLY BR: ["Gymmix – Stora hallen","Träningsplaneraren · Slice 45"]
