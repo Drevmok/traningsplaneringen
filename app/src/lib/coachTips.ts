@@ -3,7 +3,6 @@
 export const TIPS_STORAGE_KEY = 'gymnastics-planner-tips-v1'
 
 export const TIP_BUILDER_EMPTY = 'tip-builder-empty'
-export const TIP_HALL_PLACE = 'tip-hall-place'
 export const TIP_HALL_FLOW_GOLVKLART = 'tip-hall-flow-golvklart'
 export const TIP_EXPERIENCED_SAFETY = 'tip-experienced-safety'
 /** Slice 13 — soft guidance after first hall detail / compose entry */
@@ -240,12 +239,6 @@ export function syncChecklistHeuristics(
   return saveCoachTips({ ...state, checklist })
 }
 
-
-/** Slice 22 A1 — durable compact after first successful Teknik place (idempotent). */
-export function markHallHintsCompact(state: CoachTipsStateV1): CoachTipsStateV1 {
-  if (state.hallHintsCompact) return state
-  return saveCoachTips({ ...state, hallHintsCompact: true })
-}
 
 /** Slice 22 B1 — persist Kom igång collapsed preference. */
 export function setKomIgangCollapsed(

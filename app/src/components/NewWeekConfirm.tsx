@@ -11,7 +11,7 @@ export function NewWeekConfirm({ onConfirm, onCancel }: Props) {
 
   return (
     <div
-      className="modal-backdrop replace-draft-backdrop"
+      className="modal-backdrop modal-backdrop--compact replace-draft-backdrop"
       role="dialog"
       aria-modal="true"
       aria-label={UI.newWeekTitle}
@@ -19,7 +19,7 @@ export function NewWeekConfirm({ onConfirm, onCancel }: Props) {
         if (e.target === e.currentTarget) onCancel()
       }}
     >
-      <div className="modal">
+      <div className="modal modal--compact">
         <h2>{UI.newWeekTitle}</h2>
         <p>{UI.newWeekBody}</p>
         <div className="modal-actions">

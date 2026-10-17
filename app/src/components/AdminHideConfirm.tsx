@@ -15,7 +15,7 @@ export function AdminHideConfirm({ id, title, onConfirm, onCancel, text }: Props
   const usedInCode = !text && idsUsedByMallsOrWizard().has(id)
   return (
     <div
-      className="modal-backdrop replace-draft-backdrop admin-hide-backdrop"
+      className="modal-backdrop modal-backdrop--compact replace-draft-backdrop admin-hide-backdrop"
       role="dialog"
       aria-modal="true"
       aria-label={UI.adminHide}
@@ -23,7 +23,7 @@ export function AdminHideConfirm({ id, title, onConfirm, onCancel, text }: Props
         if (e.target === e.currentTarget) onCancel()
       }}
     >
-      <div className="modal admin-hide-confirm">
+      <div className="modal modal--compact admin-hide-confirm">
         <p>{(text ?? UI.adminHideConfirm).replace('{title}', title)}</p>
         {usedInCode && <p className="muted">{UI.adminHideUsedIn}</p>}
         <div className="modal-actions">

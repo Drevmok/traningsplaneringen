@@ -60,7 +60,7 @@ function session(): Session {
     totalMinutes: 15,
     notes: 'Kort kö.',
     blocks,
-    hallTemplateId: 'liten-hall',
+    hallTemplateId: 'forening-vit',
     hallPlacements: [{ sessionItemId: 'item-b', x: 0.4, y: 0.6 }],
     hallShowFlow: false,
   }
@@ -86,7 +86,7 @@ describe('sharePass', () => {
     assert.equal(back.title, 'Torsdag')
     assert.equal(back.notes, 'Kort kö.')
     assert.equal(back.id, 'shared')
-    assert.equal(back.hallTemplateId, 'liten-hall')
+    assert.equal(back.hallTemplateId, 'forening-vit')
     assert.equal(back.hallShowFlow, false)
     assert.deepEqual(back.hallPlacements, [
       { sessionItemId: 'item-b', x: 0.4, y: 0.6 },

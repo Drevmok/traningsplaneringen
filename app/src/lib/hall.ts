@@ -18,7 +18,10 @@ import type {
 export { HALL_PRESETS, HALL_PRESET_ORDER, ZONE_PRIORITY }
 export type { HallPreset, HallZoneDef }
 
-export const DEFAULT_HALL_TEMPLATE: HallTemplateId = 'standard-trupp'
+export const DEFAULT_HALL_TEMPLATE: HallTemplateId = 'forening-bla'
+
+/** Slice 45 A1: hall ids that can no longer be chosen. */
+const LEGACY_TEMPLATES = new Set<string>(['generic-trupp', 'standard-trupp', 'tavling-linjer', 'liten-hall'])
 
 export const HALL_ZONE_LABELS: Record<HallZoneId, string> = {
   open: 'Öppen yta',
@@ -65,22 +68,40 @@ export function touchDistance(
   return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
 }
 
-/** Resolve preset; alias legacy Slice 05 `generic-trupp` → `standard-trupp`. */
+/** Resolve preset; legacy or unknown ids → Gymmix – Stora hallen (Slice 45 A1). */
 export function getPreset(
   id: HallTemplateId | string | undefined | null,
 ): HallPreset {
-  if (id === 'generic-trupp' || !id || !KNOWN_TEMPLATES.has(id)) {
-    return HALL_PRESETS[DEFAULT_HALL_TEMPLATE]
-  }
-  return HALL_PRESETS[id as HallTemplateId]
+  return HALL_PRESETS[normalizeTemplateId(id)]
 }
 
 export function normalizeTemplateId(
   id: string | undefined | null,
 ): HallTemplateId {
-  if (id === 'generic-trupp') return 'standard-trupp'
   if (id && KNOWN_TEMPLATES.has(id)) return id as HallTemplateId
   return DEFAULT_HALL_TEMPLATE
+}
+
+/**
+ * Slice 45 A1: a pass on a removed hall — a legacy id, or no/unknown id with placements snapped
+ * to a zone other than «Öppen yta» (the generic drawings were the only ones with such zones).
+ */
+export function isLegacyHall(session: Pick<Session, 'hallTemplateId' | 'hallPlacements'>): boolean {
+  const id = session.hallTemplateId as string | undefined
+  if (id && LEGACY_TEMPLATES.has(id)) return true
+  if (id && KNOWN_TEMPLATES.has(id)) return false
+  const placements = Array.isArray(session.hallPlacements) ? session.hallPlacements : []
+  return placements.some((p) => !!p && typeof p === 'object' && typeof p.zoneId === 'string' && p.zoneId !== 'open')
+}
+
+/**
+ * Slice 45 A1: move a legacy pass to forening-bla and drop its placements (a position on a generic
+ * drawing means nothing on the club drawing); auto-place then puts Teknik on the fixed grid in pass
+ * order. Deliberate exception to «do not auto-snap on load», for legacy halls only.
+ */
+export function migrateLegacyHall<T extends Session>(session: T): T {
+  if (!isLegacyHall(session)) return session
+  return { ...session, hallTemplateId: DEFAULT_HALL_TEMPLATE, hallPlacements: [] }
 }
 
 /**
@@ -403,58 +424,6 @@ export function upsertPlacement(
   }
 }
 
-/**
- * Switch hall preset; remap by zoneId→snap when possible.
- * NEVER dumps chips to tray.
- */
-export function applyPreset(
-  session: Session,
-  nextId: HallTemplateId | string,
-): Session {
-  const templateId = normalizeTemplateId(nextId)
-  const preset = getPreset(templateId)
-  const remapped: HallPlacement[] = []
-  const zoneCounts = new Map<HallZoneId, number>()
-
-  for (const p of session.hallPlacements ?? []) {
-    const zone =
-      p.zoneId && KNOWN_ZONES.has(p.zoneId)
-        ? zoneById(preset, p.zoneId)
-        : undefined
-
-    if (zone && zone.snaps && zone.snap) {
-      const index = zoneCounts.get(zone.id) ?? 0
-      zoneCounts.set(zone.id, index + 1)
-      const snapped = offsetFromSlot(zone.snap, index, zone.bbox)
-      remapped.push({
-        sessionItemId: p.sessionItemId,
-        x: snapped.x,
-        y: snapped.y,
-        zoneId: zone.id,
-      })
-    } else {
-      const x = clamp01(p.x)
-      const y = clamp01(p.y)
-      const zoneId = resolveZoneId(preset, x, y)
-      remapped.push({
-        sessionItemId: p.sessionItemId,
-        x,
-        y,
-        ...(zoneId ? { zoneId } : {}),
-      })
-      // If remapped into a snappable zone via keep-xy path, still count for
-      // subsequent same-zone remaps? Spec: keep x,y + re-resolve — do not
-      // auto-snap on that branch. Only bump counts for explicit zone snaps.
-    }
-  }
-
-  return {
-    ...session,
-    hallTemplateId: templateId,
-    hallPlacements: remapped,
-  }
-}
-
 export function removePlacement(
   session: Session,
   sessionItemId: string,
@@ -510,10 +479,11 @@ function sanitizePlacement(raw: unknown): HallPlacement | null {
 
 /**
  * Migrate additive hall fields on load.
- * Alias generic-trupp → standard-trupp; accept six zone ids;
- * do NOT auto-snap on load.
+ * Legacy halls → forening-bla without placements (Slice 45 A1); accept six zone ids;
+ * otherwise do NOT auto-snap on load.
  */
-export function migrateHallFields(session: Session): Session {
+export function migrateHallFields(input: Session): Session {
+  const session = migrateLegacyHall(input)
   const rawPlacements = Array.isArray(session.hallPlacements)
     ? session.hallPlacements
     : []

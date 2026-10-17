@@ -46,7 +46,7 @@ function session(placements: Session['hallPlacements'] = []): Session {
     totalMinutes: 18,
     notes: '',
     blocks,
-    hallTemplateId: 'standard-trupp',
+    hallTemplateId: 'forening-bla',
     hallPlacements: placements,
   }
 }
@@ -64,9 +64,10 @@ describe('autoPlaceUnplaced', () => {
   it('places every teknik station and separates two in the same zone', () => {
     const next = autoPlaceUnplaced(session())
     const byId = new Map((next.hallPlacements ?? []).map((p) => [p.sessionItemId, p]))
-    assert.equal(byId.get('vault-1')?.zoneId, 'vault')
-    assert.equal(byId.get('vault-2')?.zoneId, 'vault')
-    assert.equal(byId.get('tramp')?.zoneId, 'trampett')
+    // Slice 45: Gymmix halls have one free zone; stations go on the fixed grid in pass order.
+    assert.equal(byId.get('vault-1')?.zoneId, 'open')
+    assert.equal(byId.get('vault-2')?.zoneId, 'open')
+    assert.equal(byId.get('tramp')?.zoneId, 'open')
     assert.notEqual(byId.get('vault-1')?.x, byId.get('vault-2')?.x)
   })
 
@@ -78,10 +79,9 @@ describe('autoPlaceUnplaced', () => {
     const kept = next.hallPlacements?.find((p) => p.sessionItemId === 'vault-1')
     assert.equal(kept?.x, 0.2)
     assert.equal(kept?.zoneId, 'open')
-    assert.equal(
-      next.hallPlacements?.find((p) => p.sessionItemId === 'tramp')?.zoneId,
-      'trampett',
-    )
+    const tramp = next.hallPlacements?.find((p) => p.sessionItemId === 'tramp')
+    assert.equal(tramp?.zoneId, 'open')
+    assert.ok(tramp && (tramp.x !== 0.2 || tramp.y !== 0.2))
   })
 })
 

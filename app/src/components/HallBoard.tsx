@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import type { ChangeEvent, DragEvent } from 'react'
+import type { DragEvent } from 'react'
 import { createPortal } from 'react-dom'
 import {
   hallApplyAllSuggestedResultText,
@@ -13,16 +13,12 @@ import {
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import {
   isTipDismissed,
-  markHallHintsCompact,
   TIP_HALL_FLOW_GOLVKLART,
-  TIP_HALL_PLACE,
   type CoachTipsStateV1,
 } from '../lib/coachTips'
-import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets'
 import { getActivityById } from '../data/seedActivities'
 import { useBank } from '../lib/useBank'
 import {
-  applyPreset,
   clampHallZoom,
   countPlaceableItems,
   countSessionItems,
@@ -49,7 +45,7 @@ import {
   saveDraft,
   updateItemStationEquipment,
 } from '../lib/session'
-import type { HallTemplateId, Session, StationEquipmentSlot } from '../types'
+import type { Session, StationEquipmentSlot } from '../types'
 import { ActivityDetail } from './ActivityDetail'
 import { CoachTipStrip } from './CoachTipStrip'
 import { HallCanvas, type HallMode } from './HallCanvas'
@@ -65,8 +61,6 @@ interface Props {
   onBack: () => void
   tips: CoachTipsStateV1
   onDismissTip: (tipId: string) => void
-  /** Slice 22 — tips mutators (hallHintsCompact on place) */
-  onTips?: (updater: (prev: CoachTipsStateV1) => CoachTipsStateV1) => void
   initialFloor?: boolean
   onEnterGolvklart?: () => void
 }
@@ -77,7 +71,6 @@ export function HallBoard({
   onBack,
   tips,
   onDismissTip,
-  onTips,
   initialFloor = false,
   onEnterGolvklart,
 }: Props) {
@@ -96,8 +89,6 @@ export function HallBoard({
   const [viewZoom, setViewZoom] = useState(1)
   /** Slice 21 B1 — phone edit tray collapsed by default to free canvas. */
   const [trayCollapsed, setTrayCollapsed] = useState(true)
-  /** Slice 22 A1 — session-local expand for progressive hints info panel */
-  const [hintsInfoOpen, setHintsInfoOpen] = useState(false)
   const trayRef = useRef<HTMLElement | null>(null)
   const applyAllBtnRef = useRef<HTMLButtonElement | null>(null)
   const [trayHeight, setTrayHeight] = useState(0)
@@ -118,16 +109,9 @@ export function HallBoard({
   const isFloor = hallMode === 'floor'
   const presetLabel = getPreset(activeTemplateId).label
 
-  // Slice 22 A1/C1 — progressive hints + one chrome layer
+  // Slice 45 C1: under the hall only the caption and the flow tip about the numbers.
   const headerTipVisible =
     !isFloor && !isTipDismissed(tips, TIP_HALL_FLOW_GOLVKLART)
-  const trayTipVisible =
-    !isFloor &&
-    !(isNarrow && trayCollapsed) &&
-    !isTipDismissed(tips, TIP_HALL_PLACE)
-  const anyEditTipVisible = headerTipVisible || trayTipVisible
-  const showMultiLineHints = !tips.hallHintsCompact && !anyEditTipVisible
-  const showHintsInfo = Boolean(tips.hallHintsCompact) || anyEditTipVisible
   // C1 Golvklart: no tip strip on floor today (edit tips already hidden); banner alone.
 
   const detailItem = detailItemId
@@ -211,17 +195,8 @@ export function HallBoard({
       y,
     })
     persist(next)
-    // Slice 22 A1 — durable quiet chrome after first successful Teknik place
-    onTips?.(markHallHintsCompact)
     setPlaceModeItemId(null)
     setSelectedItemId(null)
-  }
-
-  function handlePresetChange(e: ChangeEvent<HTMLSelectElement>) {
-    if (isFloor) return
-    const nextId = e.target.value as HallTemplateId
-    if (nextId === activeTemplateId) return
-    persist(applyPreset(session, nextId))
   }
 
   function handleRemove(sessionItemId: string) {
@@ -474,6 +449,7 @@ export function HallBoard({
               <span className="hall-session-count">
                 {hallStationCountText(placeableCount)}
               </span>
+              <span className="hall-preset-readonly">{presetLabel}</span>
             </p>
           </div>
           <div className="hall-header-actions">
@@ -519,25 +495,8 @@ export function HallBoard({
               {UI.hallFloorReady}
             </button>
           </div>
-          <div className="hall-preset-row">
-            <label className="hall-preset-label" htmlFor="hall-layout-select">
-              {UI.hallLayout}
-            </label>
-            <select
-              id="hall-layout-select"
-              className="hall-preset-select"
-              aria-label={UI.hallLayout}
-              value={activeTemplateId}
-              onChange={handlePresetChange}
-            >
-              {HALL_PRESET_ORDER.map((id) => (
-                <option key={id} value={id}>
-                  {HALL_PRESETS[id].label}
-                </option>
-              ))}
-            </select>
-            {zoomBar}
-          </div>
+          {/* Slice 45 B1: no layout picker; the row keeps the zoom − / + (Slice 43 place). */}
+          {zoomBar && <div className="hall-preset-row">{zoomBar}</div>}
           {missingSavedCompositionCount >= 1 && (
             <div className="hall-saknar-banner no-print">
               <p
@@ -610,41 +569,6 @@ export function HallBoard({
         <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
         {!isFloor && (
           <div className="hall-below no-print">
-              <p className="hall-preset-note">{UI.hallPresetMigrateNote}</p>
-              <p className="hall-preset-coach-tip">{UI.hallPresetCoachTip}</p>
-              {showMultiLineHints && (
-                <>
-                  <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
-                  <p className="hall-stations-only-hint">{UI.hallStationsOnlyHint}</p>
-                  <p className="hall-tile-hint">{UI.hallTileHint}</p>
-                </>
-              )}
-              {!showMultiLineHints && showHintsInfo && (
-                <div className="hall-hints-info no-print">
-                  <button
-                    type="button"
-                    className="btn-secondary hall-tap-target hall-hints-info-btn"
-                    aria-label={
-                      hintsInfoOpen ? UI.hallHintsHideAria : UI.hallHintsInfoAria
-                    }
-                    aria-expanded={hintsInfoOpen}
-                    onClick={() => setHintsInfoOpen((o) => !o)}
-                  >
-                    {hintsInfoOpen ? UI.hallHintsHide : UI.hallHintsInfo}
-                  </button>
-                  {hintsInfoOpen && (
-                    <div className="hall-hints-info-panel" role="region">
-                      <p className="hall-station-hint">{UI.hallStationOrderHint}.</p>
-                      <p className="hall-stations-only-hint">
-                        {UI.hallStationsOnlyHint}
-                      </p>
-                      <p className="hall-tile-hint">{UI.hallTileHint}</p>
-                      <p className="hall-tray-hint">{UI.hallDragHint}</p>
-                      <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
-                    </div>
-                  )}
-                </div>
-              )}
               {headerTipVisible && (
                 <CoachTipStrip
                   tipId={TIP_HALL_FLOW_GOLVKLART}
@@ -702,20 +626,6 @@ export function HallBoard({
                 <h2 className="hall-tray-title">
                   {UI.hallUnplacedStations} ({unplaced.length})
                 </h2>
-                {showMultiLineHints && (
-                  <>
-                    <p className="hall-tray-hint">{UI.hallDragHint}</p>
-                    <p className="hall-tray-hint hall-snap-hint">{UI.hallSnapHint}</p>
-                  </>
-                )}
-                {trayTipVisible && (
-                  <CoachTipStrip
-                    tipId={TIP_HALL_PLACE}
-                    className="hall-place-coach-tip"
-                    text={UI.tipHallPlace}
-                    onDismiss={onDismissTip}
-                  />
-                )}
 
                 {placeModeItemId && isNarrow && (
                   <p className="hall-place-mode-hint" role="status">

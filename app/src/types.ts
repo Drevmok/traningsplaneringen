@@ -132,15 +132,10 @@ export type HallZoneId =
   | 'mattberg'
   | 'mats'
 
-export type HallTemplateId =
-  | 'forening-bla'
-  | 'forening-vit'
-  | 'standard-trupp'
-  | 'tavling-linjer'
-  | 'liten-hall'
+export type HallTemplateId = 'forening-bla' | 'forening-vit'
 
-/** Legacy Slice 05 id — migrate on load only; do not write anew */
-export type LegacyHallTemplateId = 'generic-trupp'
+/** Slice 45 A1: removed halls — migrated to forening-bla on load only; never written anew. */
+export type LegacyHallTemplateId = 'generic-trupp' | 'standard-trupp' | 'tavling-linjer' | 'liten-hall'
 
 export interface HallPlacement {
   /** SessionItem.id — instance on this pass */

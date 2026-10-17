@@ -64,7 +64,7 @@ function passSession(): Session {
     notes: 'Fokus landning',
     totalMinutes: 20,
     targetMinutes: 90,
-    hallTemplateId: 'standard-trupp',
+    hallTemplateId: 'forening-vit',
     hallShowFlow: true,
     blocks: [
       {
@@ -257,7 +257,7 @@ describe('publish payload (C1, E1)', () => {
     assert.equal(p.title.length, 80)
     assert.equal(cleanClubTitle(long), 'x'.repeat(80))
     assert.equal(p.own?.length, 1)
-    assert.equal(p.hallTemplateId, 'standard-trupp')
+    assert.equal(p.hallTemplateId, 'forening-vit')
     assert.equal(JSON.stringify(p).includes('hallPlacements'), false)
   })
 
@@ -313,7 +313,7 @@ describe('UI keys (Slice 36)', () => {
       assert.equal(typeof ui[k], 'string', k)
       assert.equal(ui[k].includes('!'), false, k)
     }
-    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 44')
+    assert.equal(UI.footerSliceLabel, 'Träningsplaneraren · Slice 45')
     assert.equal(UI.clubTemplatesTitle, 'Föreningens mallar')
     assert.equal(UI.clubOverwriteTitle, 'Det finns redan en mall som heter ”{title}”')
   })
