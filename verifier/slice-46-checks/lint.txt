@@ -1,0 +1,11 @@
+
+> app@0.0.0 lint
+> oxlint
+
+src/components/equipmentMark.tsx:91:14: warning react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+src/components/equipmentMark.tsx:110:14: warning react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+src/components/HallCanvas.tsx:72:14: warning react(refs): Cannot access refs during render help: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected
+src/components/ClubTemplates.tsx:26:17: warning react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+src/components/StationSketch.tsx:75:11: warning react(immutability): Cannot reassign variable after render completes help: Reassigning `cursor` after render has completed can cause inconsistent behavior on subsequent renders. Consider using state instead
+src/components/RunPass.tsx:30:13: warning react(refs): Cannot access refs during render help: React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected
+rc=0
