@@ -38,7 +38,9 @@ Checkpoint file. The verify was interrupted twice, so it is being finished in sh
     - AC16-footer: expected (footer bump).
     - AC6-320 (saknar-banner ellipsized at 320 px): pre-existing. It failed the same way in the Slice 43 verify itself.
     - **0 new regressions.**
-  - 42-verify, 39-verify, then the rest (42-builder … 32) run in one sequential chain (chain.sh waits for the previous loop to exit): in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
+  - 42-verify, 39-verify, then the rest (42-builder … 32) run in one sequential chain (chain.sh waits for the previous loop to exit):
+  - **slice-42-verify: 59 / 2.** The fails are AC18-footer (expected) and S39-unsaved (baseline). 0 new. Section C (föreningsmall via the stand-in) now passes, which confirms the earlier C fail came from the bank being off.
+  - **slice-39-verify:** fails are AC1, AC22a, AC3/AC17, F3 and I, the same set as the baseline. 0 new. C2 now passes. in the same background loop. Output goes to `/workspace/s44v/smk/out/`.
 - Classified so far from the earlier partial runs. These are preliminary and get re-confirmed on the clean run:
   - Footer «Slice 43/42…» asserts: expected (the footer is bumped to Slice 44).
   - 43-verify AC8 and AC11: expected. Golvklart lost «Helskärm…» and «Skriv ut kort» (StationDeck removed per AC9), so the hall sits 52 px higher than on main.
