@@ -1,7 +1,7 @@
 # Slice 45 — Hallar och städning
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-17 — head start, not locked.** A–F below are options with Docs' recommendation marked ★. Planner/Christoffer lock. Docs pack only, no app code. Branch `slice-45-docs` from `origin/main` @ `0d88da5`, merged with `origin/main` @ `4fe44c0` (Slice 44 live) on 2026-10-17. Builder can start from that tip. Option F3 (compact Dela sheet) added 2026-10-17.  
+**Status:** **LOCKED 2026-10-17 by Christoffer: A1 B1 C1 D1 E1 F1 F3 (the ★ recommendations). Spelling «Gymmix» confirmed.** Docs pack only, no app code. Branch `slice-45-docs` from `origin/main` @ `0d88da5`, merged with `origin/main` @ `4fe44c0` (Slice 44 live). Builder starts from this tip.  
 **Effort:** **M** (see below).  
 **Source:** `feedback/2026-10-17-christoffer.md` row B: «Blå->"Gymmix – Stora hallen", Vit->"Gymmix – Grophallen", remove other halls, remove layout picker, placement texts, Tips om placering, focus-explainer text; compact Rensa passet dialog.» F3 (compact Dela sheet) added on Planner's request 2026-10-17.
 
