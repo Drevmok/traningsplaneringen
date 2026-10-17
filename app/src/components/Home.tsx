@@ -141,7 +141,7 @@ export function Home({ onContinue, onPlan, onReceive, foot }: Props) {
             {receiveError && <p role="alert">{receiveError}</p>}
           </div>
         )}
-        <div className="home-foot-rows app-footer no-print">{foot}</div>
+        <footer className="home-foot-rows app-footer no-print">{foot}</footer>
       </div>
       </div>
 

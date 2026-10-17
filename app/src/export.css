@@ -2291,3 +2291,10 @@
   overflow: auto;
   text-align: left;
 }
+
+/* Slice 46 M1: the sheet never outgrows the screen (landscape); Tillbaka / Avbryt reachable by scrolling inside it. */
+.home-wizard-sheet {
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}

@@ -57,3 +57,10 @@ Locked **A1 B1 C1 D1 E1 F1** (Christoffer 2026-10-17). Branch `slice-46-code` fr
 
 Not verified: **AC5** (Admin · Logga ut / not-admin line / focus after code login) needs a real admin login — the admin row code is unchanged apart from its row wrapper. AC23: no new strings outside microcopy, no «!», deleted keys absent (rg).
 Notes: start page doc height 844 (main 898). A blank Tomt pass is not written to localStorage until edited — same as main's goNew.
+
+## Follow-up (Verifier M1, m2, m4)
+- **M1:** `.home-wizard-sheet { max-height: calc(100dvh - 32px); overflow-y: auto }` (with a `100vh` fallback first). The sheet never outgrows the screen, and Tillbaka / Avbryt can be reached by scrolling inside it on every step.
+- **m2:** the start-page footer rows are a `<footer>` again (one contentinfo on the start page).
+- **m4:** `verifier/slice-46-builder-smoke.mjs` added (script only). New steps M1 (all 9 sheet steps — Ålder, Nivå, Fokus, Hall, Passlängd, Tomt pass ×2, mall ×2 — at 844×390, 390×844 and 320×568: sheet inside viewport, Avbryt/Tillbaka scrolled into view and hit-testable, Avbryt closes) and m2.
+- Checks: `bun test src` 245/0, `bun test tools/bank` 26/0, `tsc -b` clean, lint 0 errors (6 warnings, same as main), build green. Smoke **37/37 PASS**.
+- Bundle gzip -9: vs main bc8cce0 JS **+423 B** (198 587), CSS +150 B (14 131), total +573 B (212 718). vs fe5e51e: JS +17 B, CSS +16 B, total +33 B.
