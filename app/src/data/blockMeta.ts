@@ -108,7 +108,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '43'
+export const SLICE_NUMBER = '44'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -141,23 +141,14 @@ export const UI = {
   useTemplate: 'Använd mall',
   more: 'Mer',
   moreAria: 'Fler saker med passet',
-  export: 'Exportera / dela',
-  exportStations: 'Stationskort',
-  exportStationsHint: 'En station per A4, med stor siffra. Sätt upp vid stationen eller håll upp skärmen.',
-  exportFullscreen: 'Helskär',
-  printStations: 'Skriv ut kort',
-  exportShareLink: 'Skicka till telefonen',
+  export: 'Dela',
+  exportShareLink: 'Kopiera länk',
   exportShareHint:
-    'Skanna QR-koden. På telefonen sparar du passet och kör det i hallen. Koden innehåller passet — inget konto och ingen molnsynk.',
+    'Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.',
+  exportCopyManual: 'Det gick inte att kopiera. Håll fingret på länken nedan och välj Kopiera.',
   exportCopy: 'Kopiera länk',
   exportCopied: 'Länken är kopierad.',
-  exportQr: 'QR-kod till det delade passet',
-  exportQrLong: 'Länken är för lång för en QR. Kopiera den eller ladda ner filen.',
-  downloadFile: 'Ladda ner fil',
   importFile: 'Importera fil',
-  saveAsTemplate: 'Spara som egen mall',
-  savedAsTemplate: 'Sparad som egen mall på den här enheten.',
-  importDone: 'Passet är sparat på den här enheten.',
   receiveBad: 'Filen eller koden gick inte att läsa.',
   receiveTitle: 'Ta emot ett pass',
   receiveHint: 'Importera filen, eller klistra in länken, från den andra enheten.',
@@ -176,10 +167,10 @@ export const UI = {
   savedTemplatesHint:
     'Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen.',
   exportPrintPass: 'Skriv ut passet',
-  exportPrintPassHint: 'Tidslinje och hallkarta. Välj Spara som PDF i dialogen.',
-  stationCardsEmpty: 'Inga teknikstationer i passet.',
-  deckNext: 'Nästa',
-  deckPrev: 'Föregående',
+  exportPrintPassHint:
+    'Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF.',
+  printStalled:
+    'Utskriften kom inte igång. Från hemskärmen kan iPhone ibland inte skriva ut. Kopiera länken, öppna den i Safari och skriv ut passet därifrån.',
   shareBanner:
     'Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.',
   shareBad: 'Länken gick inte att läsa.',
@@ -292,7 +283,6 @@ export const UI = {
   hallFloorReady: 'Golvklart',
   hallFloorReadyShort: 'Visa för golvet',
   hallExitFloor: 'Avsluta golvklart',
-  hallPrint: 'Skriv ut',
   hallUnplacedBanner: '{n} stationer ej placerade',
   hallUnplacedBannerOne: '1 station ej placerad',
   hallFloorModeLabel: 'Golvklart',

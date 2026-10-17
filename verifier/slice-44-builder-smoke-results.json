@@ -1,0 +1,165 @@
+{
+  "when": "2026-10-17T06:41:15.868Z",
+  "results": [
+    {
+      "id": "AC1-menu",
+      "name": "Mer shows «Dela», not «Exportera / dela»",
+      "ok": true,
+      "detail": "Hallöversikt|Spara som egen mall|Ny vecka|Använd mall|Dela"
+    },
+    {
+      "id": "AC1-title",
+      "name": "sheet titled «Dela»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC2",
+      "name": "exactly Kopiera länk + Skriv ut passet (+ ×); no file input, textarea, QR",
+      "ok": true,
+      "detail": "×|Kopiera länk|Skriv ut passet"
+    },
+    {
+      "id": "AC3",
+      "name": "buttons ≥ 44×44, no horizontal scroll, hints as microcopy",
+      "ok": true,
+      "detail": "{\"sw\":390,\"small\":0,\"hints\":[\"Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto.\",\"Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF.\"]}"
+    },
+    {
+      "id": "AC4",
+      "name": "clipboard holds …/traningsplaneringen/#dela=…; «Länken är kopierad.» then back after ~3 s",
+      "ok": true,
+      "detail": "http://127.0.0.1:4444/traningsplaneringen/#dela=z.jZNBbtswEE… Länken är kopierad. → Kopiera länk"
+    },
+    {
+      "id": "A1-webkit",
+      "name": "WebKit timing: after afterprint the class and the print host are still there",
+      "ok": true,
+      "detail": "{\"prints\":[{\"cls\":\"is-print-pass\",\"hosts\":1}],\"now\":{\"cls\":\"is-print-pass\",\"hosts\":1}}"
+    },
+    {
+      "id": "AC14",
+      "name": "print = the pass, not the app (title, minutes, 5 blocks), A4",
+      "ok": true,
+      "detail": "pages=3"
+    },
+    {
+      "id": "AC15",
+      "name": "Teknik rows «1.» «2.» «3.» with Se upp för / Säkerhet / Redskap",
+      "ok": true,
+      "detail": "pages=3"
+    },
+    {
+      "id": "AC16",
+      "name": "no page ends on a block heading; Hallöversikt heading on the page with the map",
+      "ok": true,
+      "detail": "pages=3 last=[\"Redskap. Madrass\",\"Rundpingis med medicinboll                                                                                   6 min\",\"Handståen…\"] mapPage=2"
+    },
+    {
+      "id": "AC18",
+      "name": "second tap prints again; no stall line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC8",
+      "name": "close → back in Passbyggaren, no stray is-print-pass, page scrolls",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC22-footer",
+      "name": "footer «Träningsplaneraren · Slice 44»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC13",
+      "name": "Mer «Spara som egen mall» dialog still saves",
+      "ok": true,
+      "detail": "saved=1"
+    },
+    {
+      "id": "A1-chromium",
+      "name": "Chromium timing: print host present at print time; same pass PDF",
+      "ok": true,
+      "detail": "{\"cls\":\"is-print-pass\",\"hosts\":1} pages=3"
+    },
+    {
+      "id": "AC20-sim",
+      "name": "no beforeprint → printStalled line within ~2 s (not before 1.5 s)",
+      "ok": true,
+      "detail": "Utskriften kom inte igång. Från hemskärmen kan iPhone ibland inte skriva ut. Kopiera länken, öppna den i Safari och skriv ut passet därifrån."
+    },
+    {
+      "id": "AC7",
+      "name": "copy failure → exportCopyManual + read-only field with the link; label not «kopierad»",
+      "ok": true,
+      "detail": "Kopiera länk / Det gick inte att kopiera. Håll fingret  / http://127.0.0.1:4444/traningsplaneringe"
+    },
+    {
+      "id": "AC5",
+      "name": "link opens Delat pass with the same title and blocks",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC10",
+      "name": "Delat pass actions: Kör passet · Spara och kör · Spara på den här enheten · Skriv ut passet · Till planeringen",
+      "ok": true,
+      "detail": "Kör passet|Spara och kör|Spara på den här enheten|Skriv ut passet|Till planeringen"
+    },
+    {
+      "id": "AC17-share",
+      "name": "print from Delat pass = same pages as from Dela",
+      "ok": true,
+      "detail": "pages=3 vs 3"
+    },
+    {
+      "id": "AC5-save",
+      "name": "«Spara på den här enheten» saves it",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min"
+    },
+    {
+      "id": "AC9",
+      "name": "Golvklart actions: Avsluta Golvklart · Förrådslista · Skriv ut passet",
+      "ok": true,
+      "detail": "Avsluta golvklart|Förrådslista|Skriv ut passet"
+    },
+    {
+      "id": "AC17-golv",
+      "name": "print from Golvklart = same pages",
+      "ok": true,
+      "detail": "pages=3"
+    },
+    {
+      "id": "AC9-forrad",
+      "name": "Förrådslista still opens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC6",
+      "name": "link made on main 0d88da5 opens on the branch (SharePass v1)",
+      "ok": true,
+      "detail": "http://127.0.0.1:4410/traningsplaneringen/#dela=z.jZNBbtswEEWvYnAtFpJs"
+    },
+    {
+      "id": "AC12-paste",
+      "name": "Home «Hämta ett pass» pasted link still opens the pass (in Passbyggaren)",
+      "ok": true,
+      "detail": "Nybörjare — ca 55 min"
+    },
+    {
+      "id": "no-errors",
+      "name": "no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "measure": {
+    "webkitPages": 3,
+    "chromiumPages": 3
+  }
+}

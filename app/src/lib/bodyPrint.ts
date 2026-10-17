@@ -1,34 +1,42 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
-export type BodyPrintMode = 'stations' | 'pass'
+export const PRINT_CLASS = 'is-print-pass'
+export const PRINT_STALL_MS = 1500
 
-/** Print after the portal is in the DOM. Clears the body class when the dialog closes. */
-export function useBodyPrint(
-  mode: BodyPrintMode | null,
-  onDone: () => void,
-): void {
-  const onDoneRef = useRef(onDone)
-  onDoneRef.current = onDone
+/**
+ * Slice 44 A1/B1 — the print page stays armed after the tap. WebKit returns from print() at once and
+ * fires afterprint before it renders the print copy, so nothing is torn down on afterprint; the body
+ * class goes when the owner unmounts. If beforeprint never arrives (iOS home-screen app), `stalled`.
+ * Plain function so it can be tested without React.
+ */
+export function startPassPrint(win: Window, onStalled: () => void): () => void {
+  let seen = false
+  const onBefore = () => { seen = true }
+  win.document.body.classList.add(PRINT_CLASS)
+  win.addEventListener('beforeprint', onBefore, { once: true })
+  const raf = win.requestAnimationFrame(() => win.print())
+  const timer = win.setTimeout(() => { if (!seen) onStalled() }, PRINT_STALL_MS)
+  return () => {
+    win.cancelAnimationFrame(raf)
+    win.clearTimeout(timer)
+    win.removeEventListener('beforeprint', onBefore)
+  }
+}
 
-  useLayoutEffect(() => {
-    if (!mode) return
-    const cls = mode === 'stations' ? 'is-print-stations' : 'is-print-pass'
-    document.body.classList.add(cls)
-    let cancelled = false
-    function done() {
-      if (cancelled) return
-      document.body.classList.remove('is-print-stations', 'is-print-pass')
-      onDoneRef.current()
-    }
-    window.addEventListener('afterprint', done)
-    const id = requestAnimationFrame(() => {
-      if (!cancelled) window.print()
-    })
-    return () => {
-      cancelled = true
-      cancelAnimationFrame(id)
-      window.removeEventListener('afterprint', done)
-      document.body.classList.remove('is-print-stations', 'is-print-pass')
-    }
-  }, [mode])
+export function usePassPrint(): { armed: boolean; stalled: boolean; print: () => void } {
+  const [request, setRequest] = useState(0)
+  const [stalled, setStalled] = useState(false)
+  useEffect(() => {
+    if (request === 0) return
+    return startPassPrint(window, () => setStalled(true))
+  }, [request])
+  useEffect(() => () => document.body.classList.remove(PRINT_CLASS), [])
+  return {
+    armed: request > 0,
+    stalled,
+    print: () => {
+      setStalled(false)
+      setRequest((n) => n + 1)
+    },
+  }
 }
