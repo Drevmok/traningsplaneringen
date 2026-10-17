@@ -1,0 +1,17 @@
+PASS [AC1] Mer shows «Dela» (no «Exportera / dela»); tap opens a sheet titled «Dela» (dialog aria-label «Dela») — menu=Hallöversikt|Spara som egen mall|Ny vecka|Använd mall|Dela aria=Dela
+PASS [AC2] exactly two actions «Kopiera länk» + «Skriv ut passet» (+ ×); no Helskär/Skriv ut kort/Ladda ner fil/link field/QR/Importera fil/Spara som egen mall — {"buttons":["×","Kopiera länk","Skriv ut passet"],"inputs":0,"svg":0,"labels":0,"headings":["Dela","Kopiera länk","Skriv ut passet"]}
+PASS [AC3] both buttons ≥ 44×44; no horizontal scroll; hint texts = microcopy — {"sw":390,"esw":390,"ecw":390,"sheetTop":381,"sheetBottom":844,"contentBottom":824,"btn":[["×",44,44],["Kopiera länk",127,44],["Skriv ut passet",143,44]],"hints":["Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs 
+PASS [AC3-320] 320×640: no horizontal scroll, buttons ≥ 44×44 — {"sw":320,"esw":320,"ecw":320,"btn":[[127,44],[143,44]]}
+PASS [AC4] clipboard = …/traningsplaneringen/#dela=…; label «Länken är kopierad.» then «Kopiera länk» after ~3 s — len=727 label=Länken är kopierad. flipAfter=3079ms
+PASS [A1-webkit] WebKit timing (afterprint right after print returns): body.is-print-pass + 1 .print-host still there after afterprint — {"prints":[{"t":9993.200000001118,"cls":"is-print-pass","hosts":1}],"now":{"cls":"is-print-pass","hosts":1}}
+PASS [AC14-content] print (WebKit timing) = the pass, not the app: title, total minutes, all five blocks with rows + minutes, A4 portrait — pages=3 size=594.96 x 841.92 pts (A4) vis=print-host pass-sheet
+PASS [AC15-base] Teknik rows «1.» «2.» «3.» each with sketch, «Se upp för.», «Säkerhet.», «Redskap.» — ["1. Ljushopp på satsbräda","2. Handstående falla till rygg","3. Falla bakåt från höjd till rygg"]
+PASS [AC15-markers] print row numbers = hall map marker numbers (all stations placed) — {"rows":["1. Ljushopp på satsbräda","2. Handstående falla till rygg","3. Falla bakåt från höjd till rygg"],"markers":[{"rank":"1","label":"Station 1: Ljushopp på satsbräda. Tryck för detaljer."},{"rank":"2","label":"Station 2: Handstående falla till rygg. Tryck för detaljer."},{"rank":"3","label":"S
+PASS [AC16-breaks] no page ends on a block heading; Hallöversikt heading on the same page as the map — ["Redskap. Madrass","Rundpingis med medicinboll                                                                                   6 min"]
+PASS [AC18-stub] second tap in the same sheet calls print() again; no stall line (beforeprint arrived)
+FAIL [AC8] × and backdrop tap close the sheet → Passbyggaren, page scrolls, no stray is-print-pass, print host gone — {"c1":{"cls":"","sheet":false,"builder":true},"c2":{"cls":"","sheet":true,"hosts":0,"builder":true,"scrolled":true},"hit":"modal modal--compact export-sheet"}
+FAIL [AC22-footer] footer «Träningsplaneraren · Slice 44»
+FAIL [Dela] error — locator.click: Timeout 10000ms exceeded.
+FAIL [OldLinks] error — page.waitForEvent: Timeout 10000ms exceeded while waiting for event "download"
+PASS [no-page-errors] no page errors during the run
+12/16 pass

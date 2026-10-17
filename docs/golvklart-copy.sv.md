@@ -121,3 +121,7 @@ Use at most one tip near the station-order hint or under Golvklart the first tim
 - Keep **pass** / **övning** / **gymnaster** consistent with Slice 01–06.
 - Flow layer is decorative (`aria-hidden`); chip names carry the station number.
 - Print CSS hides edit chrome; keep title, schematic, chips + numbers, caption, flow if on.
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).

@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
 import { describe, it } from 'node:test'
 import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets.ts'
 import { markerOverlap, openGridCells, pickOpenCell } from './hall.ts'
@@ -37,48 +36,6 @@ const GOLDEN: Record<string, Row[]> = {
     ["g-vault-2", 0.135, 0.19, "open"],
     ["g-vault-3", 0.295, 0.19, "open"],
   ],
-  // standard-trupp: snapshot captured on main @ 45cce9b before the change (verifier/slice-40-golden-main-45cce9b.json)
-  "standard-trupp": [
-    ["g-vault", 0.77, 0.61, "vault"],
-    ["g-trampett", 0.77, 0.18, "trampett"],
-    ["g-tumbling", 0.77, 0.4, "tumbling"],
-    ["g-mattberg", 0.7, 0.8, "mattberg"],
-    ["g-mats", 0.86, 0.8, "mats"],
-    ["g-open-1", 0.2056, 0.3184, "open"],
-    ["g-open-2", 0.2406, 0.3184, "open"],
-    ["g-open-3", 0.2756, 0.3184, "open"],
-    ["g-open-4", 0.2056, 0.3584, "open"],
-    ["g-vault-2", 0.805, 0.61, "vault"],
-    ["g-vault-3", 0.8400000000000001, 0.61, "vault"],
-  ],
-  // tavling-linjer: snapshot captured on main @ 45cce9b before the change (verifier/slice-40-golden-main-45cce9b.json)
-  "tavling-linjer": [
-    ["g-vault", 0.7, 0.55, "vault"],
-    ["g-trampett", 0.7, 0.17, "trampett"],
-    ["g-tumbling", 0.7, 0.36, "tumbling"],
-    ["g-mattberg", 0.6, 0.76, "mattberg"],
-    ["g-mats", 0.85, 0.76, "mats"],
-    ["g-open-1", 0.1564, 0.32720000000000005, "open"],
-    ["g-open-2", 0.19140000000000001, 0.32720000000000005, "open"],
-    ["g-open-3", 0.22640000000000002, 0.32720000000000005, "open"],
-    ["g-open-4", 0.1564, 0.3672, "open"],
-    ["g-vault-2", 0.735, 0.55, "vault"],
-    ["g-vault-3", 0.77, 0.55, "vault"],
-  ],
-  // liten-hall: snapshot captured on main @ 45cce9b before the change (verifier/slice-40-golden-main-45cce9b.json)
-  "liten-hall": [
-    ["g-vault", 0.83, 0.56, "vault"],
-    ["g-trampett", 0.83, 0.19, "trampett"],
-    ["g-tumbling", 0.83, 0.38, "tumbling"],
-    ["g-mattberg", 0.78, 0.76, "mattberg"],
-    ["g-mats", 0.9, 0.76, "mats"],
-    ["g-open-1", 0.2336, 0.3184, "open"],
-    ["g-open-2", 0.2686, 0.3184, "open"],
-    ["g-open-3", 0.3036, 0.3184, "open"],
-    ["g-open-4", 0.2336, 0.3584, "open"],
-    ["g-vault-2", 0.865, 0.56, "vault"],
-    ["g-vault-3", 0.8999999999999999, 0.56, "vault"],
-  ],
 }
 
 const box = (id: string) => HALL_PRESETS[id as keyof typeof HALL_PRESETS].zones.find((z) => z.id === 'open')!.bbox
@@ -110,17 +67,13 @@ function oneByOne(hall: string, n: number): Session {
 }
 
 describe('Slice 40 golden: autoPlaceUnplaced over every hall template', () => {
-  it('covers all 5 templates', () => assert.deepEqual([...HALL_PRESET_ORDER].sort(), Object.keys(GOLDEN).sort()))
+  it('covers both Gymmix halls (Slice 45: generic templates removed)', () => assert.deepEqual([...HALL_PRESET_ORDER].sort(), Object.keys(GOLDEN).sort()))
   for (const id of HALL_PRESET_ORDER) {
     it(id, () => {
       const rows = autoPlaceUnplaced(goldenSession(id)).hallPlacements!.map((p) => [p.sessionItemId, p.x, p.y, p.zoneId ?? null])
       assert.deepEqual(rows, GOLDEN[id])
     })
   }
-  it('Standard, Tävling, Liten equal the committed main snapshot file', () => {
-    const main = JSON.parse(readFileSync(new URL('../../../verifier/slice-40-golden-main-45cce9b.json', import.meta.url), 'utf8'))
-    for (const id of ['standard-trupp', 'tavling-linjer', 'liten-hall']) assert.deepEqual(GOLDEN[id], main[id], id)
-  })
 })
 
 describe('Slice 40 fixed open grid', () => {

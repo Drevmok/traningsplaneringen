@@ -1,0 +1,8 @@
+FAIL [branch-halls] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [branch-landscape] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [branch-desktop] error — locator.selectOption: Timeout 10000ms exceeded.
+FAIL [AC13/14] error — Cannot read properties of undefined (reading 'canvas')
+FAIL [F1-longtitle] error — locator.selectOption: Timeout 10000ms exceeded.
+PASS [no-errors] no page errors
+{"main":{"forening-bla":[340,604,264],"forening-vit":[340,714,374],"standard-trupp":[340,579,239],"tavling-linjer":[340,579,239],"liten-hall":[340,579,239],"golvklart":[241,615,374],"landscape":[313,723,411],"desktop":[313,907,595]},"branch":{}}
+1/6 pass

@@ -1,0 +1,25 @@
+slice-32-builder-smoke.txt | now 26/18 | s44 27/17 | new: [AC48]  | fixed/gone: –
+slice-33-builder-smoke.txt | now 140/7 | s44 142/5 | new: [AC11c] [AC12d]  | fixed/gone: –
+slice-34-builder-smoke.txt | now 27/2 | s44 30/2 | new: [B]  | fixed/gone: [AC20a] 
+slice-34-verify.txt | now 20/0 | s44 29/4 | new: – | fixed/gone: –
+slice-35-builder-smoke.txt | now 24/9 | s44 34/8 | new: [A] [D-admin] [D-notadmin] [E]  | fixed/gone: [AC16a] [AC1c] [AC1g] 
+slice-35-verify.txt | now 27/12 | s44 37/11 | new: [A] [D-admin] [D-notadmin]  | fixed/gone: [AC16a] [AC1c] [AC1g] 
+slice-36-builder-smoke.txt | now 9/4 | s44 32/2 | new: [A] [C]  | fixed/gone: –
+slice-36-verify.txt | now 4/5 | s44 13/2 | new: [V-admin-publish] [V-dela] [V-hide]  | fixed/gone: –
+slice-37-builder-smoke.txt | now 0/0 | s44 0/0 | new: – | fixed/gone: –
+slice-37-verify.txt | now 1/8 | s44 4/7 | new: [F-E]  | fixed/gone: –
+slice-38-builder-smoke.txt | now 24/1 | s44 26/1 | new: [B]  | fixed/gone: [AC18a] 
+slice-38-verify.txt | now 60/1 | s44 68/4 | new: – | fixed/gone: –
+slice-39-builder-smoke.txt | now 26/3 | s44 26/3 | new: – | fixed/gone: –
+slice-39-verify.txt | now 25/8 | s44 68/5 | new: [A] [B] [C] [D] [F] [G] [H]  | fixed/gone: [AC1] [AC22a] [AC3/AC17] [F3] 
+slice-40-builder-smoke.txt | now 12/6 | s44 16/5 | new: [AC14] [AC9] [W]  | fixed/gone: [AC1-main] [AC2-main] 
+slice-40-reverify.txt | now 32/7 | s44 38/2 | new: [AC14-controls] [AC9-liten-hall] [AC9-standard-trupp] [AC9-tavling-linjer] [A]  | fixed/gone: –
+slice-41-builder-smoke.txt | now 32/2 | s44 32/2 | new: – | fixed/gone: –
+slice-41-reverify-b.txt | now 62/28 | s44 94/2 | new: [AC2-twice] [AC2] [AC3-first] [AC3-last] [AC3-middle] [AC3-uv-middle] [AC4-first] [AC4-last] [AC4-middle] [AC5] [race-mall-builtin-0] [race-mall-builtin-100] [race-mall-builtin-400] [race-mall-builtin-790] [race-mall-builtin-900] [race-mall-saved-0] [race-mall-saved-100] [race-mall-saved-400] [race-mall-saved-790] [race-mall-saved-900] [race-x-0] [race-x-100] [race-x-1500] [race-x-400] [race-x-790] [race-x-900]  | fixed/gone: –
+slice-42-builder-smoke.txt | now 23/1 | s44 23/1 | new: – | fixed/gone: –
+slice-42-verify.txt | now 60/2 | s44 60/2 | new: – | fixed/gone: –
+slice-43-builder-smoke.txt | now 1/5 | s44 21/1 | new: [AC13/14] [F1-longtitle] [branch-desktop] [branch-halls] [branch-landscape]  | fixed/gone: [AC16-footer] 
+slice-43-verify.txt | now 2/6 | s44 25/4 | new: [H] [L] [M] [P] [V] [X]  | fixed/gone: [AC11] [AC16-footer] [AC6-320] [AC8] 
+slice-44-builder-smoke.txt | now 29/2 | s44 26/0 | new: [AC22-footer] [AC6]  | fixed/gone: –
+slice-44-verify.txt | now 29/7 | s44 –/– | new: [AC22-footer] [AC8] [BLAST-hall-ctrlp] [Dela] [MARKERS-partial] [OldLinks] [Ratios]  | fixed/gone: –
+slice-45-builder-smoke.txt | now 41/0 | s44 –/– | new: – | fixed/gone: –

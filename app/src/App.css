@@ -507,13 +507,6 @@
   margin: 8px 0 0;
 }
 
-.hall-place-coach-tip {
-  margin: 0 0 10px;
-  background: #f8fafc;
-  border-color: #cbd5e1;
-  color: #334155;
-}
-
 .experienced-coach-tip {
   margin: 10px 0 0;
 }
@@ -1384,7 +1377,6 @@
   outline: 2px solid #fde68a;
 }
 
-
 /* —— Slice 02: phone / narrow polish —— */
 
 .app-shell {
@@ -1655,6 +1647,27 @@
     padding: 12px 14px;
   }
 
+  /* Slice 45 E1: short confirms are bottom sheets as tall as their content. */
+  .modal-backdrop.modal-backdrop--compact {
+    place-items: end stretch;
+  }
+
+  .modal--compact {
+    max-height: none;
+  }
+
+  .modal--compact:not(.export-sheet) .modal-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .modal--compact:not(.export-sheet) .modal-actions .btn-primary,
+  .modal--compact:not(.export-sheet) .modal-actions .btn-secondary {
+    flex: 0 1 auto;
+    width: auto;
+    min-height: 44px;
+  }
+
   .duration-edit input {
     font-size: 16px;
     min-height: 44px;
@@ -1778,40 +1791,6 @@
   align-items: center;
   gap: 8px 12px;
   margin-top: 4px;
-}
-
-.hall-preset-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #0f172a;
-}
-
-.hall-preset-select {
-  min-height: 44px;
-  min-width: 12rem;
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #fff;
-  color: #0f172a;
-}
-
-.hall-preset-note,
-.hall-preset-coach-tip {
-  flex: 1 1 100%;
-  margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.35;
-  color: #64748b;
-}
-
-.hall-preset-coach-tip {
-  margin-top: -2px;
-}
-
-.hall-snap-hint {
-  margin-top: -4px;
 }
 
 .hall-empty-pass {
@@ -2072,7 +2051,6 @@
   top: calc(100% + 0.85rem + 4px);
 }
 
-
 .hall-chip--canvas .hall-chip-rank {
   position: absolute;
   top: -6px;
@@ -2218,24 +2196,10 @@
   font-size: 1rem;
 }
 
-.hall-tray-hint {
-  margin: 0 0 8px;
-  font-size: 0.82rem;
-  color: #64748b;
-  line-height: 1.35;
-}
-
 .hall-tray-empty {
   margin: 12px 0 0;
   font-size: 0.9rem;
   color: #475569;
-}
-
-.hall-tile-hint {
-  margin: 0 0 10px;
-  font-size: 0.8rem;
-  color: #64748b;
-  line-height: 1.35;
 }
 
 .hall-stations-only-hint {
@@ -2350,14 +2314,8 @@
   .hall-header .back,
   .hall-chip--tray,
   .hall-chip--tray .hall-chip-remove,
-  .hall-empty-pass .btn-primary,
-  .hall-preset-select {
+  .hall-empty-pass .btn-primary {
     min-height: 44px;
-  }
-
-  .hall-preset-select {
-    width: 100%;
-    max-width: 100%;
   }
 
   .hall-chip-remove {
@@ -2366,7 +2324,6 @@
     min-width: 36px;
   }
 }
-
 
 /* —— Slice 07: stationsordning, flow, phone polish, Golvklart, print —— */
 
@@ -2392,41 +2349,6 @@
 }
 
 /* —— Slice 22 — progressive Hall hints info (A1) —— */
-.hall-hints-info {
-  margin: 6px 0 10px;
-}
-
-.hall-hints-info-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hall-hints-info-panel {
-  margin-top: 8px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-.hall-hints-info-panel .hall-station-hint,
-.hall-hints-info-panel .hall-stations-only-hint,
-.hall-hints-info-panel .hall-tile-hint,
-.hall-hints-info-panel .hall-tray-hint {
-  margin-bottom: 6px;
-}
-
-.hall-hints-info-panel .hall-tray-hint:last-child,
-.hall-hints-info-panel .hall-tile-hint:last-child {
-  margin-bottom: 0;
-}
-
-.hall-station-hint {
-  margin: 4px 0 0;
-  font-size: 0.85rem;
-  color: #64748b;
-}
 
 .hall-station-hint-tray {
   margin-top: -2px;
@@ -2663,8 +2585,6 @@
   .no-print-hide .hall-header-actions,
   .no-print-hide .hall-floor-actions,
   .no-print-hide .hall-preset-row,
-  .no-print-hide .hall-station-hint,
-  .no-print-hide .hall-tile-hint,
   .hall-zoom-bar,
   .hall-tray,
   .hall-chip-remove,
@@ -2764,8 +2684,7 @@
     print-color-adjust: exact;
   }
 
-  .hall-stations-only-hint,
-  .hall-tile-hint {
+  .hall-stations-only-hint {
     display: none !important;
   }
 
@@ -3003,7 +2922,6 @@
   }
 }
 
-
 /* —— Slice 20 — dirty Stäng in-sheet confirm —— */
 .station-compose-dirty {
   padding: 12px 14px;
@@ -3238,16 +3156,11 @@
   color: #1c1917;
 }
 
-.home-wizard-hint,
-.home-wizard-honesty {
+.home-wizard-hint {
   margin: 0 0 12px;
   font-size: 0.875rem;
   line-height: 1.4;
   color: #78716c;
-}
-
-.home-wizard-honesty {
-  margin-bottom: 14px;
 }
 
 .home-wizard-options {
@@ -3341,10 +3254,7 @@
     flex-wrap: nowrap;
     margin-top: 0;
   }
-  .hall-header:not(.hall-header--floor) .hall-preset-select {
-    flex: 1;
-    min-width: 0;
-  }
+
   .hall-preset-row .hall-zoom-bar {
     margin: 0;
     flex-shrink: 0;

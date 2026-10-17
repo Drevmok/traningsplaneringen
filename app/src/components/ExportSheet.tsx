@@ -41,7 +41,7 @@ export function ExportSheet({ session, onClose }: Props) {
   return (
     <>
       <div
-        className="modal-backdrop export-sheet-backdrop"
+        className="modal-backdrop modal-backdrop--compact export-sheet-backdrop"
         role="dialog"
         aria-modal="true"
         aria-label={UI.export}
@@ -49,7 +49,7 @@ export function ExportSheet({ session, onClose }: Props) {
           if (e.target === e.currentTarget) onClose()
         }}
       >
-        <div className="modal export-sheet">
+        <div className="modal modal--compact export-sheet">
           <button type="button" className="modal-close" onClick={onClose} aria-label={UI.close}>
             ×
           </button>

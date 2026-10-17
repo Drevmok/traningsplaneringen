@@ -15,14 +15,14 @@ export function TemplateConfirm({ template, onConfirm, onCancel, note }: Props) 
 
   return (
     <div
-      className="modal-backdrop"
+      className="modal-backdrop modal-backdrop--compact"
       role="dialog"
       aria-modal="true"
       onClick={(e) => {
         if (e.target === e.currentTarget) onCancel()
       }}
     >
-      <div className="modal">
+      <div className="modal modal--compact">
         <h2>{UI.templateTitle}</h2>
         <p>
           {UI.templateBody} ({template.title})

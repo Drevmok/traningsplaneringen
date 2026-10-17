@@ -103,3 +103,7 @@ Keep unchanged dismiss paths:
 - Prefer these strings over inventing synonyms (“Visa placeringshjälp”, “Expandera checklista”, “Tour”).
 - Wire keys into `blockMeta.ts` (or equivalent); persist flags in tips store — not Docs scope.
 - Living companions: [`hall-declutter.sv.md`](./hall-declutter.sv.md) · [`coach-tips.sv.md`](./coach-tips.sv.md) · [`kom-igang-redskap.sv.md`](./kom-igang-redskap.sv.md) · [`hall-phone-chrome.sv.md`](./hall-phone-chrome.sv.md).
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** «Tips om placering» (knapp och panel), dra- och fäst-raderna i brickan och coachtipset om zoner (`tipHallPlace`) tas bort ur Hallöversikt. Bildtexten «Schematisk hall — inte exakt mått» och tipset om siffrorna (`tipHallFlowGolvklart`) blir kvar. Se [`slice-45/`](../slice-45/README.md).

@@ -154,7 +154,7 @@ export function Home({
 
       {confirmClear && (
         <div
-          className="modal-backdrop replace-draft-backdrop"
+          className="modal-backdrop modal-backdrop--compact replace-draft-backdrop"
           role="dialog"
           aria-modal="true"
           aria-label={UI.clearPassTitle}
@@ -162,7 +162,7 @@ export function Home({
             if (e.target === e.currentTarget) setConfirmClear(false)
           }}
         >
-          <div className="modal">
+          <div className="modal modal--compact">
             <h2>{UI.clearPassTitle}</h2>
             <p>{UI.clearPassBody}</p>
             <div className="modal-actions">

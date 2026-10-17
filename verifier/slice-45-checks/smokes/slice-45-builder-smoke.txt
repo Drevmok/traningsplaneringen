@@ -1,0 +1,48 @@
+PASS [AC1] Q3 titled «Hall» with exactly the two Gymmix chips (en dash) — Hall | Gymmix – Stora hallen | Gymmix – Grophallen
+PASS [AC2-texts] Q2 and Q3 show no «Stationerna är förslag…» / «Välj den layout…» line
+PASS [AC18-footer] footer «Träningsplaneraren · Slice 45» (Passbyggaren)
+PASS [AC2-nav] Tillbaka → Fokus, Nästa → Hall, Skapa pass → Passbyggaren on Grophallen — Fokus forening-vit
+PASS [AC5-wizardpass] Grophallen pass: hall canvas top ≤ 310 when no saknar-redskap banner — top=339 banner=1
+PASS [AC3] Grophallen pass: Hallöversikt and Golvklart meta show «Gymmix – Grophallen» — Pass — trampett 3 stationer Gymmix – Grophallen || Pass — trampett Gymmix – Grophallen vb=0 0 100 100
+PASS [AC14-wizard] wizard sheet keeps its own style (no compact class) — {"top":547,"bottom":844,"h":297,"w":390,"left":0}
+PASS [AC4] Tomt pass and Från mall → Nybörjare on Stora hallen; every Teknik marker on the grid in pass order — tomt=undefined mall=forening-bla n=3/3
+PASS [AC5] no «Hallayout» label / select; zoom − / + ≥ 44×44; canvas top ≤ 310 — zoom=[["Zooma ut",48,44],["Zooma in",48,44]] canvasTop=340 main=340 (saknar banner above the hall on both: 1)
+PASS [AC6] under the hall only the caption + flow tip about the numbers — Siffrorna följer Teknik-stationernas ordning i passet, inte var markörerna står i hallen. Golvklart är till för att visa
+PASS [AC6-dismiss] flow tip dismissable → nothing left under the hall but the caption
+PASS [AC7] expanded tray has no drag/snap hint or «Stationerna föreslås i zonen…»; remove + Placera här still work — removed=true 3→2→3 tray="Dölj bricka Ej placerade stationer (1) Ljushopp på satsbräda 6 min"
+PASS [AC8] legacy draft «standard-trupp» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla — stored=forening-bla n=3 sameGrid=true
+PASS [AC9-tavling] legacy draft «tavling-linjer» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla — stored=forening-bla n=3 sameGrid=true
+PASS [AC9-liten] legacy draft «liten-hall» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla — stored=forening-bla n=3 sameGrid=true
+PASS [AC9-generic] legacy draft «generic-trupp» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla — stored=forening-bla n=3 sameGrid=true
+PASS [AC9-none] legacy draft «no id» → Stora hallen, markers on the open grid in pass order, draft stores forening-bla — stored=forening-bla n=3 sameGrid=true
+PASS [AC12-forening-bla] forening-bla keeps its exact placements after reload — forening-bla
+PASS [AC12-forening-vit] forening-vit keeps its exact placements after reload — forening-vit
+PASS [AC10] old #dela= link made on main on Standard trupp → Delat pass shows markers on Stora hallen; «Spara på den här enheten» stores forening-bla — main=standard-trupp markers=15 saved=forening-bla stora=false
+PASS [AC14-replace] «Ersätta utkastet här?» is a compact bottom sheet — {"top":653,"bottom":844,"h":191,"w":390,"left":0}
+PASS [AC11-mina] Mina mall saved on Liten hall → Använd mall gives a Stora hallen pass with grid markers — forening-bla n=3
+PASS [AC13-size] Rensa passet: bottom sheet ≤ 260 px, bottom 844, Avbryt + Rensa side by side ≥ 44 px, text unchanged — {"top":653,"bottom":844,"h":191,"w":390,"left":0} [{"t":"Avbryt","top":780,"h":44,"w":69},{"t":"Rensa","top":780,"h":44,"w":68}]
+PASS [AC13-actions] Avbryt and backdrop tap keep the pass; Rensa clears it
+PASS [AC14-newweek] Ny vecka confirm is a compact bottom sheet — {"top":630,"bottom":844,"h":214,"w":390,"left":0}
+PASS [AC14-template] mall confirm (TemplateConfirm) is a compact bottom sheet — {"top":630,"bottom":844,"h":214,"w":390,"left":0}
+PASS [AC14-tall] Förrådslista stays a tall sheet (not compact) — {"h":743,"compact":false}
+PASS [AC14-admin] AdminHideConfirm carries the compact classes (source; Dölj needs an admin login) — AdminHideConfirm.tsx,ExportSheet.tsx,Home.tsx,NewWeekConfirm.tsx,ReplaceDraftConfirm.tsx,TemplateConfirm.tsx
+PASS [AC19] Dela: bottom sheet (bottom 844), content height ≤ 480 px, pass visible above; contents as Slice 44 — {"top":381,"bottom":844,"h":463,"w":390,"left":0} pb=20px lastChild=824
+PASS [AC20-basic] × ≥ 44×44 and backdrop close; «Länken är kopierad.» resets after ~3 s; Skriv ut passet prints — Länken är kopierad.→Kopiera länk prints=1 x=true bd=true
+PASS [FU-toast] Använd mall → Dela immediately: Ångra toast dismissed, «Skriv ut passet» clickable, undo not back after closing — toastBefore=1 toastWithSheet=0 prints=1 undoAfterClose=0
+PASS [AC20-grow] clipboard blocked + print stalled: manual line + link field + stalled line; sheet grows ≤ 92 %, scrolls inside, × reachable — {"top":203,"bottom":844,"h":641,"w":390,"left":0} sh=641 ch=641 ov=auto manual=true x={"top":211,"bottom":255,"h":44,"w":44,"left":338} text=× Dela Kopiera länk  Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs in
+  step L mall
+PASS [AC21-landscape] landscape 844×390: Dela scrolls inside, × reachable — {"top":20,"bottom":371,"h":351,"w":480,"left":182} [424,351,"auto"]
+  step L dela
+  step L hall
+PASS [AC15-landscape] landscape: Hallöversikt renders, no select; Rensa passet fits the screen — canvas={"top":-332,"bottom":78,"h":411,"w":557,"left":16} rensa={"top":98,"bottom":292,"h":194,"w":480,"left":182}
+  step L rensa
+  step D mall
+PASS [AC21-desktop] desktop 1280×800: Dela is the centred dialog, same box as main — branch={"top":188,"bottom":612,"h":424,"w":480,"left":400} main={"top":188,"bottom":612,"h":424,"w":480,"left":400}
+PASS [AC15-desktop] desktop: Hallöversikt without select; Rensa passet dialog same box as main — branch={"top":303,"bottom":497,"h":194,"w":480,"left":400} main={"top":303,"bottom":497,"h":194,"w":480,"left":400}
+PASS [AC16-pass] Skriv ut passet prints the pass with the Gymmix hall drawing — viewBox=0 78 696 112 pages=3
+PASS [AC16-golvklart] Golvklart (print media) shows Stora hallen with its drawing ratio — {"top":46,"bottom":225,"h":180,"w":244,"left":73} ratio=1.36
+PASS [AC17-ids] legacy ids only in the legacy alias (types.ts LegacyHallTemplateId, lib/hall.ts LEGACY_TEMPLATES) and tests
+PASS [AC17-strings] removed strings are gone from the built bundle; Gymmix names present
+PASS [errors] no page errors
+
+41/41 PASS

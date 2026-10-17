@@ -52,7 +52,7 @@ function session(): Session {
     totalMinutes: 6,
     notes: '',
     blocks,
-    hallTemplateId: 'standard-trupp',
+    hallTemplateId: 'forening-bla',
     hallPlacements: [{ sessionItemId: 'keep-me', x: 0.42, y: 0.2, zoneId: 'vault' }],
   }
 }

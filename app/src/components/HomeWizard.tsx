@@ -33,14 +33,6 @@ const FOCUS_OPTIONS: { id: WizardFocus; label: string }[] = [
   { id: 'mixed', label: UI.wizardQ2Mixed },
 ]
 
-const PRESET_LABEL: Record<HallTemplateId, string> = {
-  'forening-bla': UI.hallPresetBla,
-  'forening-vit': UI.hallPresetVit,
-  'standard-trupp': UI.hallPresetStandard,
-  'tavling-linjer': UI.hallPresetTavling,
-  'liten-hall': UI.hallPresetLiten,
-}
-
 export function HomeWizard({ onFinish, onCancel }: Props) {
   useBodyScrollLock(true)
   const [step, setStep] = useState<1 | 2 | 3>(1)
@@ -119,14 +111,6 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
 
         {step === 1 && showLevels && (
           <p className="home-wizard-hint muted">{UI.wizardLevelsHint}</p>
-        )}
-
-        {step === 3 && (
-          <p className="home-wizard-hint muted">{UI.wizardQ3Hint}</p>
-        )}
-
-        {(step === 2 || step === 3) && (
-          <p className="home-wizard-honesty muted">{UI.wizardFocusHonesty}</p>
         )}
 
         <div className="home-wizard-options" role="listbox">
@@ -213,7 +197,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
                 }
                 onClick={() => setHallTemplateId(id)}
               >
-                {PRESET_LABEL[id] ?? HALL_PRESETS[id].label}
+                {HALL_PRESETS[id].label}
               </button>
             ))}
         </div>

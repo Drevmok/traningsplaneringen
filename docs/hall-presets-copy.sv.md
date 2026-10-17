@@ -84,3 +84,7 @@ Use once near the picker or under snap hint. Do **not** add a modal.
 - Labels must match tables exactly (including **Tävling / linjer** with slash and spaces).
 - Prefer these strings over inventing “Snap”, “Magnetisk zon”, or English preset names in UI.
 - Keep **pass** / **övning** / **gymnaster** consistent with prior slices.
+
+---
+
+**Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).

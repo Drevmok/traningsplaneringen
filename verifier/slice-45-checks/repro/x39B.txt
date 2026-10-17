@@ -1,0 +1,8 @@
+FAIL [AC1] No «Spara utkast» on branch (row, Fler, Använd mall sheet, Spara som egen mall, Hallöversikt, Golvklart, Home); main has it — {"branch":[],"main":[]}
+PASS [AC2/B1] «Sparat» exact text, muted rgb(120,113,108), in .builder-actions, plain text (no role / aria-live / live ancestor) — {"text":"Sparat","color":"rgb(120, 113, 108)","inRow":true,"role":null,"live":null,"liveAnc":false,"ariaHidden":null}
+FAIL [AC3/AC17] Five saved edits: 0 toasts; live-region mutations same as main (no extra announcements); «Sparat» stays (no «Sparar…») — branch {"toasts":["Borttagen · Ångra"],"live":0} main {"toasts":["Borttagen · Ångra"],"live":0}
+PASS [AC18] 390 px: «Sparat» overlaps nothing, inside viewport, no horizontal scroll — {"hit":[],"s":[339,120,378,140],"kids":["Kör passet","Mer","Mer"],"tops":[120,108],"sw":390}
+FAIL [AC22a] Footer «Träningsplaneraren · Slice 39» — Träningsplaneraren · Slice 45 · Tyck till · Visa tips igen · Uppdatera appen
+PASS [AC22b] Använd mall confirm shows the new templateBody verbatim — Ersätta det här passet? Om du börjar från en mall ersätts blocken och övningarna du har nu. Passet du hade finns kvar under Mina mallar. (Kort pass — ca 45 min) Fortsätt redigera Använd mall
+
+PASS 3 / FAIL 3 · page errors 0 · bank requests 0 (live: 0)
