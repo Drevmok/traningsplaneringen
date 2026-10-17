@@ -1,0 +1,4294 @@
+{
+  "when": "2026-10-17T18:17:05.326Z",
+  "branch": "eecf677",
+  "fe": "fe5e51e",
+  "results": [
+    {
+      "id": "M1-all",
+      "name": "Every step (9) × 844×390, 390×844, 320×568, 320×844, 1280×800: sheet inside the viewport; Tillbaka (steps 2+) and Avbryt reachable in view and hit-testable; Avbryt closes; storage byte-identical",
+      "ok": true,
+      "detail": "{\"cases\":45,\"bad\":[]}"
+    },
+    {
+      "id": "M1-double-scroll",
+      "name": "No nested double scroll: at most one scrolling container in the sheet on any step/viewport",
+      "ok": false,
+      "detail": "[\"land|Ålder modal.home-wizard-sheet:460/358 home-wizard-options:260/203\",\"land|Nivå modal.home-wizard-sheet:428/358 home-wizard-options:476/203\",\"land|Fokus modal.home-wizard-sheet:391/358 home-wizard-options:206/203\",\"land|Mall-lista modal.home-wizard-sheet:401/358 home-wizard-malls:258/215\"]"
+    },
+    {
+      "id": "M1-no-jump",
+      "name": "Tap a chip: no chip/sheet movement before the step changes; the next step settles in one layout (scrollTop at top) without bouncing",
+      "ok": false,
+      "detail": "{\"390\":{\"frames\":56,\"preMoves\":0,\"postDistinct\":1,\"postFirst\":{\"t\":302,\"h2\":\"Fokus\",\"top\":0,\"opt\":0,\"cs\":\"539,598,658,717\",\"sh\":415},\"postLast\":{\"t\":901,\"h2\":\"Fokus\",\"top\":0,\"opt\":0,\"cs\":\"539,598,658,717\",\"sh\":415},\"firstFrame\":{\"t\":1,\"h2\":\"Ålder\",\"top\":0,\"opt\":0,\"cs\":\"411,470,529,589,648\",\"sh\":543}},\"land\":{\"frames\":55,\"preMoves\":0,\"postDistinct\":1,\"postFirst\":{\"t\":297,\"h2\":\"Fokus\",\"top\":33,\"opt\":0,\"cs\":\"93,147,201,255\",\"sh\":358},\"postLast\":{\"t\":913,\"h2\":\"Fokus\",\"top\":33,\"opt\":0,\"cs\":\"93,147,201,255\",\"sh\":358},\"firstFrame\":{\"t\":13,\"h2\":\"Ålder\",\"top\":40,\"opt\":0,\"cs\":\"86,140,194,248,302\",\"sh\":358}},\"320x568\":{\"frames\":55,\"preMoves\":0,\"postDistinct\":1,\"postFirst\":{\"t\":301,\"h2\":\"Fokus\",\"top\":0,\"opt\":0,\"cs\":\"263,322,382,441\",\"sh\":415},\"postLast\":{\"t\":900,\"h2\":\"Fokus\",\"top\":0,\"opt\":0,\"cs\":\"263,322,382,441\",\"sh\":415},\"firstFrame\":{\"t\":0,\"h2\":\"Ålder\",\"top\":0,\"opt\":0,\"cs\":\"142,202,261,320,379\",\"sh\":536}}}"
+    },
+    {
+      "id": "M1-layout-unchanged",
+      "name": "Sheet geometry (sheet, chips, links, Tillbaka/Avbryt) identical to fe5e51e at 390×844, 320×568, 320×844, 1280×800 on 6 steps",
+      "ok": false,
+      "detail": "{\"n\":24,\"diffs\":[{\"k\":\"320x568|Ålder\",\"br\":[0,32,320,536],\"fe\":[0,45,320,523],\"brScroll\":[543,536],\"feScroll\":[543,523]}]}"
+    },
+    {
+      "id": "m2-landmark",
+      "name": "Exactly one <footer> (contentinfo) per page: start page (all viewports), Passbyggaren, Hallöversikt; start-page rows are the <footer>",
+      "ok": true,
+      "detail": "{\"home\":{\"390\":{\"br\":[1,1,\"FOOTER\"],\"fe\":[0,\"DIV\"],\"main\":[1]},\"320x568\":{\"br\":[1,1,\"FOOTER\"],\"fe\":[0,\"DIV\"],\"main\":[1]},\"land\":{\"br\":[1,1,\"FOOTER\"],\"fe\":[0,\"DIV\"],\"main\":[1]},\"desk\":{\"br\":[1,1,\"FOOTER\"],\"fe\":[0,\"DIV\"],\"main\":[1]}},\"views\":{\"builder\":{\"footers\":1,\"visibleFooters\":1},\"hall\":{\"footers\":1,\"visibleFooters\":1}}}"
+    },
+    {
+      "id": "m2-layout",
+      "name": "Start page geometry identical to fe5e51e at 390, 320×568, landscape, desktop (desktop hero 800, footer in the right column, docH 800)",
+      "ok": true,
+      "detail": "{\"390\":{\"br\":[[0,0,390,594],[20,766,350,66],844],\"fe\":[[0,0,390,594],[20,766,350,66],844],\"main\":[[0,0,390,526],852]},\"320x568\":{\"br\":[[0,0,320,318],[20,490,280,66],568],\"fe\":[[0,0,320,318],[20,490,280,66],568],\"main\":[[0,0,320,250],576]},\"land\":{\"br\":[[0,0,440,587],[520,374,299,66],587],\"fe\":[[0,0,440,587],[520,374,299,66],587],\"main\":[[0,0,440,587],651]},\"desk\":{\"br\":[[0,0,589,800],[758,481,352,66],800],\"fe\":[[0,0,589,800],[758,481,352,66],800],\"main\":[[0,0,589,785],849]}}"
+    }
+  ],
+  "notes": {
+    "m1": {
+      "390|Ålder": {
+        "sheet": [
+          0,
+          301,
+          390,
+          543
+        ],
+        "sheetScroll": [
+          543,
+          543,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": null,
+        "chips": [
+          [
+            20,
+            411,
+            350,
+            49
+          ],
+          [
+            20,
+            470,
+            350,
+            49
+          ],
+          [
+            20,
+            529,
+            350,
+            49
+          ],
+          [
+            20,
+            589,
+            350,
+            49
+          ],
+          [
+            20,
+            648,
+            350,
+            49
+          ]
+        ],
+        "alt": [
+          [
+            84,
+            724,
+            123,
+            44
+          ],
+          [
+            215,
+            724,
+            91,
+            44
+          ]
+        ],
+        "heading": "Ålder",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": null,
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Nivå": {
+        "sheet": [
+          0,
+          199,
+          390,
+          645
+        ],
+        "sheetScroll": [
+          645,
+          645,
+          0
+        ],
+        "scrollers": [
+          "home-wizard-options:512/420"
+        ],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            346,
+            350,
+            48
+          ],
+          [
+            20,
+            404,
+            350,
+            48
+          ],
+          [
+            20,
+            462,
+            350,
+            48
+          ],
+          [
+            20,
+            520,
+            350,
+            48
+          ],
+          [
+            20,
+            578,
+            350,
+            48
+          ],
+          [
+            20,
+            636,
+            350,
+            48
+          ]
+        ],
+        "alt": [],
+        "heading": "Nivå",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Fokus": {
+        "sheet": [
+          0,
+          429,
+          390,
+          415
+        ],
+        "sheetScroll": [
+          415,
+          415,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            539,
+            350,
+            49
+          ],
+          [
+            20,
+            598,
+            350,
+            49
+          ],
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Fokus",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Hall": {
+        "sheet": [
+          0,
+          547,
+          390,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Passlängd": {
+        "sheet": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            598,
+            350,
+            49
+          ],
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Tomt-Hall": {
+        "sheet": [
+          0,
+          547,
+          390,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Tomt-Passlängd": {
+        "sheet": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            598,
+            350,
+            49
+          ],
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Mall-Hall": {
+        "sheet": [
+          0,
+          547,
+          390,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            350,
+            49
+          ],
+          [
+            20,
+            717,
+            350,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "390|Mall-lista": {
+        "sheet": [
+          0,
+          400,
+          390,
+          444
+        ],
+        "sheetScroll": [
+          444,
+          444,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          305,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [],
+        "alt": [],
+        "heading": "Mall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Ålder": {
+        "sheet": [
+          212,
+          16,
+          420,
+          358
+        ],
+        "sheetScroll": [
+          460,
+          358,
+          0
+        ],
+        "scrollers": [
+          "modal.home-wizard-sheet:460/358",
+          "home-wizard-options:260/203"
+        ],
+        "cancel": [
+          547,
+          416,
+          65,
+          44
+        ],
+        "back": null,
+        "chips": [
+          [
+            232,
+            126,
+            380,
+            44
+          ],
+          [
+            232,
+            180,
+            380,
+            44
+          ],
+          [
+            232,
+            234,
+            380,
+            44
+          ],
+          [
+            232,
+            288,
+            380,
+            44
+          ],
+          [
+            232,
+            342,
+            380,
+            44
+          ]
+        ],
+        "alt": [
+          [
+            311,
+            356,
+            123,
+            44
+          ],
+          [
+            442,
+            356,
+            91,
+            44
+          ]
+        ],
+        "heading": "Ålder",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": null,
+        "hitCancel": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Nivå": {
+        "sheet": [
+          212,
+          16,
+          420,
+          358
+        ],
+        "sheetScroll": [
+          428,
+          358,
+          0
+        ],
+        "scrollers": [
+          "modal.home-wizard-sheet:428/358",
+          "home-wizard-options:476/203"
+        ],
+        "cancel": [
+          547,
+          384,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          384,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            106,
+            380,
+            44
+          ],
+          [
+            232,
+            160,
+            380,
+            44
+          ],
+          [
+            232,
+            214,
+            380,
+            44
+          ],
+          [
+            232,
+            268,
+            380,
+            44
+          ],
+          [
+            232,
+            322,
+            380,
+            44
+          ],
+          [
+            232,
+            376,
+            380,
+            44
+          ]
+        ],
+        "alt": [],
+        "heading": "Nivå",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Fokus": {
+        "sheet": [
+          212,
+          16,
+          420,
+          358
+        ],
+        "sheetScroll": [
+          391,
+          358,
+          0
+        ],
+        "scrollers": [
+          "modal.home-wizard-sheet:391/358",
+          "home-wizard-options:206/203"
+        ],
+        "cancel": [
+          547,
+          347,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          347,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            126,
+            380,
+            44
+          ],
+          [
+            232,
+            180,
+            380,
+            44
+          ],
+          [
+            232,
+            234,
+            380,
+            44
+          ],
+          [
+            232,
+            288,
+            380,
+            44
+          ]
+        ],
+        "alt": [],
+        "heading": "Fokus",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Hall": {
+        "sheet": [
+          212,
+          47,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          547,
+          283,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          283,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            157,
+            380,
+            49
+          ],
+          [
+            232,
+            216,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Passlängd": {
+        "sheet": [
+          212,
+          17,
+          420,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          547,
+          313,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          313,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            127,
+            380,
+            49
+          ],
+          [
+            232,
+            187,
+            380,
+            49
+          ],
+          [
+            232,
+            246,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            313,
+            357
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            313,
+            357
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Tomt-Hall": {
+        "sheet": [
+          212,
+          47,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          547,
+          283,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          283,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            157,
+            380,
+            49
+          ],
+          [
+            232,
+            216,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Tomt-Passlängd": {
+        "sheet": [
+          212,
+          17,
+          420,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          547,
+          313,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          313,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            127,
+            380,
+            49
+          ],
+          [
+            232,
+            187,
+            380,
+            49
+          ],
+          [
+            232,
+            246,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            313,
+            357
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            313,
+            357
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Mall-Hall": {
+        "sheet": [
+          212,
+          47,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          547,
+          283,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          283,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            232,
+            157,
+            380,
+            49
+          ],
+          [
+            232,
+            216,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            283,
+            327
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "land|Mall-lista": {
+        "sheet": [
+          212,
+          16,
+          420,
+          358
+        ],
+        "sheetScroll": [
+          401,
+          358,
+          0
+        ],
+        "scrollers": [
+          "modal.home-wizard-sheet:401/358",
+          "home-wizard-malls:258/215"
+        ],
+        "cancel": [
+          547,
+          357,
+          65,
+          44
+        ],
+        "back": [
+          232,
+          357,
+          99,
+          44
+        ],
+        "chips": [],
+        "alt": [],
+        "heading": "Mall",
+        "vh": 390,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            330,
+            374
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Ålder": {
+        "sheet": [
+          0,
+          32,
+          320,
+          536
+        ],
+        "sheetScroll": [
+          543,
+          536,
+          0
+        ],
+        "scrollers": [
+          "modal.home-wizard-sheet:543/536"
+        ],
+        "cancel": [
+          235,
+          515,
+          65,
+          44
+        ],
+        "back": null,
+        "chips": [
+          [
+            20,
+            142,
+            280,
+            49
+          ],
+          [
+            20,
+            202,
+            280,
+            49
+          ],
+          [
+            20,
+            261,
+            280,
+            49
+          ],
+          [
+            20,
+            320,
+            280,
+            49
+          ],
+          [
+            20,
+            379,
+            280,
+            49
+          ]
+        ],
+        "alt": [
+          [
+            49,
+            455,
+            123,
+            44
+          ],
+          [
+            180,
+            455,
+            91,
+            44
+          ]
+        ],
+        "heading": "Ålder",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": null,
+        "hitCancel": {
+          "y": [
+            515,
+            559
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Nivå": {
+        "sheet": [
+          0,
+          48,
+          320,
+          520
+        ],
+        "sheetScroll": [
+          520,
+          520,
+          0
+        ],
+        "scrollers": [
+          "home-wizard-options:512/295"
+        ],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            195,
+            280,
+            48
+          ],
+          [
+            20,
+            253,
+            280,
+            48
+          ],
+          [
+            20,
+            311,
+            280,
+            48
+          ],
+          [
+            20,
+            369,
+            280,
+            48
+          ],
+          [
+            20,
+            427,
+            280,
+            48
+          ],
+          [
+            20,
+            485,
+            280,
+            48
+          ]
+        ],
+        "alt": [],
+        "heading": "Nivå",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Fokus": {
+        "sheet": [
+          0,
+          153,
+          320,
+          415
+        ],
+        "sheetScroll": [
+          415,
+          415,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            263,
+            280,
+            49
+          ],
+          [
+            20,
+            322,
+            280,
+            49
+          ],
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Fokus",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Hall": {
+        "sheet": [
+          0,
+          271,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Passlängd": {
+        "sheet": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            322,
+            280,
+            49
+          ],
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Tomt-Hall": {
+        "sheet": [
+          0,
+          271,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Tomt-Passlängd": {
+        "sheet": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            322,
+            280,
+            49
+          ],
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Mall-Hall": {
+        "sheet": [
+          0,
+          271,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            382,
+            280,
+            49
+          ],
+          [
+            20,
+            441,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x568|Mall-lista": {
+        "sheet": [
+          0,
+          100,
+          320,
+          468
+        ],
+        "sheetScroll": [
+          468,
+          468,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          508,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          508,
+          99,
+          44
+        ],
+        "chips": [],
+        "alt": [],
+        "heading": "Mall",
+        "vh": 568,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            508,
+            552
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Ålder": {
+        "sheet": [
+          0,
+          301,
+          320,
+          543
+        ],
+        "sheetScroll": [
+          543,
+          543,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": null,
+        "chips": [
+          [
+            20,
+            411,
+            280,
+            49
+          ],
+          [
+            20,
+            470,
+            280,
+            49
+          ],
+          [
+            20,
+            529,
+            280,
+            49
+          ],
+          [
+            20,
+            589,
+            280,
+            49
+          ],
+          [
+            20,
+            648,
+            280,
+            49
+          ]
+        ],
+        "alt": [
+          [
+            49,
+            724,
+            123,
+            44
+          ],
+          [
+            180,
+            724,
+            91,
+            44
+          ]
+        ],
+        "heading": "Ålder",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": null,
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Nivå": {
+        "sheet": [
+          0,
+          199,
+          320,
+          645
+        ],
+        "sheetScroll": [
+          645,
+          645,
+          0
+        ],
+        "scrollers": [
+          "home-wizard-options:512/420"
+        ],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            346,
+            280,
+            48
+          ],
+          [
+            20,
+            404,
+            280,
+            48
+          ],
+          [
+            20,
+            462,
+            280,
+            48
+          ],
+          [
+            20,
+            520,
+            280,
+            48
+          ],
+          [
+            20,
+            578,
+            280,
+            48
+          ],
+          [
+            20,
+            636,
+            280,
+            48
+          ]
+        ],
+        "alt": [],
+        "heading": "Nivå",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Fokus": {
+        "sheet": [
+          0,
+          429,
+          320,
+          415
+        ],
+        "sheetScroll": [
+          415,
+          415,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            539,
+            280,
+            49
+          ],
+          [
+            20,
+            598,
+            280,
+            49
+          ],
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Fokus",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Hall": {
+        "sheet": [
+          0,
+          547,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Passlängd": {
+        "sheet": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            598,
+            280,
+            49
+          ],
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Tomt-Hall": {
+        "sheet": [
+          0,
+          547,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Tomt-Passlängd": {
+        "sheet": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            598,
+            280,
+            49
+          ],
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Mall-Hall": {
+        "sheet": [
+          0,
+          547,
+          320,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            20,
+            658,
+            280,
+            49
+          ],
+          [
+            20,
+            717,
+            280,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "320x844|Mall-lista": {
+        "sheet": [
+          0,
+          376,
+          320,
+          468
+        ],
+        "sheetScroll": [
+          468,
+          468,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          235,
+          784,
+          65,
+          44
+        ],
+        "back": [
+          20,
+          784,
+          99,
+          44
+        ],
+        "chips": [],
+        "alt": [],
+        "heading": "Mall",
+        "vh": 844,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            784,
+            828
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Ålder": {
+        "sheet": [
+          430,
+          128,
+          420,
+          543
+        ],
+        "sheetScroll": [
+          543,
+          543,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          612,
+          65,
+          44
+        ],
+        "back": null,
+        "chips": [
+          [
+            450,
+            239,
+            380,
+            49
+          ],
+          [
+            450,
+            298,
+            380,
+            49
+          ],
+          [
+            450,
+            357,
+            380,
+            49
+          ],
+          [
+            450,
+            416,
+            380,
+            49
+          ],
+          [
+            450,
+            476,
+            380,
+            49
+          ]
+        ],
+        "alt": [
+          [
+            529,
+            552,
+            123,
+            44
+          ],
+          [
+            660,
+            552,
+            91,
+            44
+          ]
+        ],
+        "heading": "Ålder",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": null,
+        "hitCancel": {
+          "y": [
+            612,
+            656
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Nivå": {
+        "sheet": [
+          430,
+          80,
+          420,
+          641
+        ],
+        "sheetScroll": [
+          641,
+          641,
+          0
+        ],
+        "scrollers": [
+          "home-wizard-options:476/416"
+        ],
+        "cancel": [
+          765,
+          660,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          660,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            226,
+            380,
+            44
+          ],
+          [
+            450,
+            280,
+            380,
+            44
+          ],
+          [
+            450,
+            334,
+            380,
+            44
+          ],
+          [
+            450,
+            388,
+            380,
+            44
+          ],
+          [
+            450,
+            442,
+            380,
+            44
+          ],
+          [
+            450,
+            496,
+            380,
+            44
+          ]
+        ],
+        "alt": [],
+        "heading": "Nivå",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            660,
+            704
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            660,
+            704
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Fokus": {
+        "sheet": [
+          430,
+          192,
+          420,
+          415
+        ],
+        "sheetScroll": [
+          415,
+          415,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          548,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          548,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            303,
+            380,
+            49
+          ],
+          [
+            450,
+            362,
+            380,
+            49
+          ],
+          [
+            450,
+            421,
+            380,
+            49
+          ],
+          [
+            450,
+            480,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Fokus",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            548,
+            592
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            548,
+            592
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Hall": {
+        "sheet": [
+          430,
+          252,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          488,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          488,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            362,
+            380,
+            49
+          ],
+          [
+            450,
+            421,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Passlängd": {
+        "sheet": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          518,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          518,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            332,
+            380,
+            49
+          ],
+          [
+            450,
+            392,
+            380,
+            49
+          ],
+          [
+            450,
+            451,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            518,
+            562
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            518,
+            562
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Tomt-Hall": {
+        "sheet": [
+          430,
+          252,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          488,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          488,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            362,
+            380,
+            49
+          ],
+          [
+            450,
+            421,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Tomt-Passlängd": {
+        "sheet": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "sheetScroll": [
+          356,
+          356,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          518,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          518,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            332,
+            380,
+            49
+          ],
+          [
+            450,
+            392,
+            380,
+            49
+          ],
+          [
+            450,
+            451,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Passlängd",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            518,
+            562
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            518,
+            562
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Mall-Hall": {
+        "sheet": [
+          430,
+          252,
+          420,
+          297
+        ],
+        "sheetScroll": [
+          297,
+          297,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          488,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          488,
+          99,
+          44
+        ],
+        "chips": [
+          [
+            450,
+            362,
+            380,
+            49
+          ],
+          [
+            450,
+            421,
+            380,
+            49
+          ]
+        ],
+        "alt": [],
+        "heading": "Hall",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            488,
+            532
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      },
+      "desk|Mall-lista": {
+        "sheet": [
+          430,
+          178,
+          420,
+          444
+        ],
+        "sheetScroll": [
+          444,
+          444,
+          0
+        ],
+        "scrollers": [],
+        "cancel": [
+          765,
+          562,
+          65,
+          44
+        ],
+        "back": [
+          450,
+          562,
+          99,
+          44
+        ],
+        "chips": [],
+        "alt": [],
+        "heading": "Mall",
+        "vh": 800,
+        "docScroll": 0,
+        "hitBack": {
+          "y": [
+            562,
+            606
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "hitCancel": {
+          "y": [
+            562,
+            606
+          ],
+          "inView": true,
+          "hit": true
+        },
+        "closed": true,
+        "storageSame": true
+      }
+    },
+    "landRows": [
+      "Ålder: sheet 16–374 scroll 460/358 scrollers [modal.home-wizard-sheet:460/358 home-wizard-options:260/203] cancel→[330,374] back→undefined",
+      "Nivå: sheet 16–374 scroll 428/358 scrollers [modal.home-wizard-sheet:428/358 home-wizard-options:476/203] cancel→[330,374] back→[330,374]",
+      "Fokus: sheet 16–374 scroll 391/358 scrollers [modal.home-wizard-sheet:391/358 home-wizard-options:206/203] cancel→[330,374] back→[330,374]",
+      "Hall: sheet 47–344 scroll 297/297 scrollers [] cancel→[283,327] back→[283,327]",
+      "Passlängd: sheet 17–373 scroll 356/356 scrollers [] cancel→[313,357] back→[313,357]",
+      "Tomt-Hall: sheet 47–344 scroll 297/297 scrollers [] cancel→[283,327] back→[283,327]",
+      "Tomt-Passlängd: sheet 17–373 scroll 356/356 scrollers [] cancel→[313,357] back→[313,357]",
+      "Mall-Hall: sheet 47–344 scroll 297/297 scrollers [] cancel→[283,327] back→[283,327]",
+      "Mall-lista: sheet 16–374 scroll 401/358 scrollers [modal.home-wizard-sheet:401/358 home-wizard-malls:258/215] cancel→[330,374] back→[330,374]"
+    ],
+    "jump": {
+      "390": {
+        "frames": 56,
+        "preMoves": 0,
+        "postDistinct": 1,
+        "postFirst": {
+          "t": 302,
+          "h2": "Fokus",
+          "top": 0,
+          "opt": 0,
+          "cs": "539,598,658,717",
+          "sh": 415
+        },
+        "postLast": {
+          "t": 901,
+          "h2": "Fokus",
+          "top": 0,
+          "opt": 0,
+          "cs": "539,598,658,717",
+          "sh": 415
+        },
+        "firstFrame": {
+          "t": 1,
+          "h2": "Ålder",
+          "top": 0,
+          "opt": 0,
+          "cs": "411,470,529,589,648",
+          "sh": 543
+        }
+      },
+      "land": {
+        "frames": 55,
+        "preMoves": 0,
+        "postDistinct": 1,
+        "postFirst": {
+          "t": 297,
+          "h2": "Fokus",
+          "top": 33,
+          "opt": 0,
+          "cs": "93,147,201,255",
+          "sh": 358
+        },
+        "postLast": {
+          "t": 913,
+          "h2": "Fokus",
+          "top": 33,
+          "opt": 0,
+          "cs": "93,147,201,255",
+          "sh": 358
+        },
+        "firstFrame": {
+          "t": 13,
+          "h2": "Ålder",
+          "top": 40,
+          "opt": 0,
+          "cs": "86,140,194,248,302",
+          "sh": 358
+        }
+      },
+      "320x568": {
+        "frames": 55,
+        "preMoves": 0,
+        "postDistinct": 1,
+        "postFirst": {
+          "t": 301,
+          "h2": "Fokus",
+          "top": 0,
+          "opt": 0,
+          "cs": "263,322,382,441",
+          "sh": 415
+        },
+        "postLast": {
+          "t": 900,
+          "h2": "Fokus",
+          "top": 0,
+          "opt": 0,
+          "cs": "263,322,382,441",
+          "sh": 415
+        },
+        "firstFrame": {
+          "t": 0,
+          "h2": "Ålder",
+          "top": 0,
+          "opt": 0,
+          "cs": "142,202,261,320,379",
+          "sh": 536
+        }
+      }
+    },
+    "layout": {
+      "390|Ålder": {
+        "same": true,
+        "br": [
+          0,
+          301,
+          390,
+          543
+        ],
+        "fe": [
+          0,
+          301,
+          390,
+          543
+        ],
+        "brScroll": [
+          543,
+          543
+        ],
+        "feScroll": [
+          543,
+          543
+        ],
+        "diff": null
+      },
+      "390|Nivå": {
+        "same": true,
+        "br": [
+          0,
+          199,
+          390,
+          645
+        ],
+        "fe": [
+          0,
+          199,
+          390,
+          645
+        ],
+        "brScroll": [
+          645,
+          645
+        ],
+        "feScroll": [
+          645,
+          645
+        ],
+        "diff": null
+      },
+      "390|Hall": {
+        "same": true,
+        "br": [
+          0,
+          547,
+          390,
+          297
+        ],
+        "fe": [
+          0,
+          547,
+          390,
+          297
+        ],
+        "brScroll": [
+          297,
+          297
+        ],
+        "feScroll": [
+          297,
+          297
+        ],
+        "diff": null
+      },
+      "390|Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "fe": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "390|Mall-lista": {
+        "same": true,
+        "br": [
+          0,
+          400,
+          390,
+          444
+        ],
+        "fe": [
+          0,
+          400,
+          390,
+          444
+        ],
+        "brScroll": [
+          444,
+          444
+        ],
+        "feScroll": [
+          444,
+          444
+        ],
+        "diff": null
+      },
+      "390|Tomt-Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "fe": [
+          0,
+          488,
+          390,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "320x568|Ålder": {
+        "same": false,
+        "br": [
+          0,
+          32,
+          320,
+          536
+        ],
+        "fe": [
+          0,
+          45,
+          320,
+          523
+        ],
+        "brScroll": [
+          543,
+          536
+        ],
+        "feScroll": [
+          543,
+          523
+        ],
+        "diff": {
+          "br": {
+            "sheet": [
+              0,
+              32,
+              320,
+              536
+            ],
+            "cancel": [
+              235,
+              515,
+              65,
+              44
+            ],
+            "back": null,
+            "chips": [
+              [
+                20,
+                142,
+                280,
+                49
+              ],
+              [
+                20,
+                202,
+                280,
+                49
+              ],
+              [
+                20,
+                261,
+                280,
+                49
+              ],
+              [
+                20,
+                320,
+                280,
+                49
+              ],
+              [
+                20,
+                379,
+                280,
+                49
+              ]
+            ],
+            "alt": [
+              [
+                49,
+                455,
+                123,
+                44
+              ],
+              [
+                180,
+                455,
+                91,
+                44
+              ]
+            ],
+            "scroll": [
+              543,
+              536
+            ]
+          },
+          "fe": {
+            "sheet": [
+              0,
+              45,
+              320,
+              523
+            ],
+            "cancel": [
+              235,
+              529,
+              65,
+              44
+            ],
+            "back": null,
+            "chips": [
+              [
+                20,
+                156,
+                280,
+                49
+              ],
+              [
+                20,
+                215,
+                280,
+                49
+              ],
+              [
+                20,
+                274,
+                280,
+                49
+              ],
+              [
+                20,
+                333,
+                280,
+                49
+              ],
+              [
+                20,
+                393,
+                280,
+                49
+              ]
+            ],
+            "alt": [
+              [
+                49,
+                469,
+                123,
+                44
+              ],
+              [
+                180,
+                469,
+                91,
+                44
+              ]
+            ],
+            "scroll": [
+              543,
+              523
+            ]
+          }
+        }
+      },
+      "320x568|Nivå": {
+        "same": true,
+        "br": [
+          0,
+          48,
+          320,
+          520
+        ],
+        "fe": [
+          0,
+          48,
+          320,
+          520
+        ],
+        "brScroll": [
+          520,
+          520
+        ],
+        "feScroll": [
+          520,
+          520
+        ],
+        "diff": null
+      },
+      "320x568|Hall": {
+        "same": true,
+        "br": [
+          0,
+          271,
+          320,
+          297
+        ],
+        "fe": [
+          0,
+          271,
+          320,
+          297
+        ],
+        "brScroll": [
+          297,
+          297
+        ],
+        "feScroll": [
+          297,
+          297
+        ],
+        "diff": null
+      },
+      "320x568|Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "fe": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "320x568|Mall-lista": {
+        "same": true,
+        "br": [
+          0,
+          100,
+          320,
+          468
+        ],
+        "fe": [
+          0,
+          100,
+          320,
+          468
+        ],
+        "brScroll": [
+          468,
+          468
+        ],
+        "feScroll": [
+          468,
+          468
+        ],
+        "diff": null
+      },
+      "320x568|Tomt-Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "fe": [
+          0,
+          212,
+          320,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "320x844|Ålder": {
+        "same": true,
+        "br": [
+          0,
+          301,
+          320,
+          543
+        ],
+        "fe": [
+          0,
+          301,
+          320,
+          543
+        ],
+        "brScroll": [
+          543,
+          543
+        ],
+        "feScroll": [
+          543,
+          543
+        ],
+        "diff": null
+      },
+      "320x844|Nivå": {
+        "same": true,
+        "br": [
+          0,
+          199,
+          320,
+          645
+        ],
+        "fe": [
+          0,
+          199,
+          320,
+          645
+        ],
+        "brScroll": [
+          645,
+          645
+        ],
+        "feScroll": [
+          645,
+          645
+        ],
+        "diff": null
+      },
+      "320x844|Hall": {
+        "same": true,
+        "br": [
+          0,
+          547,
+          320,
+          297
+        ],
+        "fe": [
+          0,
+          547,
+          320,
+          297
+        ],
+        "brScroll": [
+          297,
+          297
+        ],
+        "feScroll": [
+          297,
+          297
+        ],
+        "diff": null
+      },
+      "320x844|Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "fe": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "320x844|Mall-lista": {
+        "same": true,
+        "br": [
+          0,
+          376,
+          320,
+          468
+        ],
+        "fe": [
+          0,
+          376,
+          320,
+          468
+        ],
+        "brScroll": [
+          468,
+          468
+        ],
+        "feScroll": [
+          468,
+          468
+        ],
+        "diff": null
+      },
+      "320x844|Tomt-Passlängd": {
+        "same": true,
+        "br": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "fe": [
+          0,
+          488,
+          320,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "desk|Ålder": {
+        "same": true,
+        "br": [
+          430,
+          128,
+          420,
+          543
+        ],
+        "fe": [
+          430,
+          128,
+          420,
+          543
+        ],
+        "brScroll": [
+          543,
+          543
+        ],
+        "feScroll": [
+          543,
+          543
+        ],
+        "diff": null
+      },
+      "desk|Nivå": {
+        "same": true,
+        "br": [
+          430,
+          80,
+          420,
+          641
+        ],
+        "fe": [
+          430,
+          80,
+          420,
+          641
+        ],
+        "brScroll": [
+          641,
+          641
+        ],
+        "feScroll": [
+          641,
+          641
+        ],
+        "diff": null
+      },
+      "desk|Hall": {
+        "same": true,
+        "br": [
+          430,
+          252,
+          420,
+          297
+        ],
+        "fe": [
+          430,
+          252,
+          420,
+          297
+        ],
+        "brScroll": [
+          297,
+          297
+        ],
+        "feScroll": [
+          297,
+          297
+        ],
+        "diff": null
+      },
+      "desk|Passlängd": {
+        "same": true,
+        "br": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "fe": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      },
+      "desk|Mall-lista": {
+        "same": true,
+        "br": [
+          430,
+          178,
+          420,
+          444
+        ],
+        "fe": [
+          430,
+          178,
+          420,
+          444
+        ],
+        "brScroll": [
+          444,
+          444
+        ],
+        "feScroll": [
+          444,
+          444
+        ],
+        "diff": null
+      },
+      "desk|Tomt-Passlängd": {
+        "same": true,
+        "br": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "fe": [
+          430,
+          222,
+          420,
+          356
+        ],
+        "brScroll": [
+          356,
+          356
+        ],
+        "feScroll": [
+          356,
+          356
+        ],
+        "diff": null
+      }
+    },
+    "home": {
+      "390": {
+        "br": {
+          "hero": [
+            0,
+            0,
+            390,
+            594
+          ],
+          "pane": [
+            0,
+            566,
+            390,
+            278
+          ],
+          "foot": [
+            20,
+            766,
+            350,
+            66
+          ],
+          "plan": [
+            20,
+            658,
+            350,
+            56
+          ],
+          "docH": 844,
+          "footers": 1,
+          "contentinfo": 1,
+          "footTag": "FOOTER"
+        },
+        "fe": {
+          "hero": [
+            0,
+            0,
+            390,
+            594
+          ],
+          "pane": [
+            0,
+            566,
+            390,
+            278
+          ],
+          "foot": [
+            20,
+            766,
+            350,
+            66
+          ],
+          "plan": [
+            20,
+            658,
+            350,
+            56
+          ],
+          "docH": 844,
+          "footers": 0,
+          "contentinfo": 0,
+          "footTag": "DIV"
+        },
+        "main": {
+          "hero": [
+            0,
+            0,
+            390,
+            526
+          ],
+          "pane": [
+            0,
+            498,
+            390,
+            290
+          ],
+          "foot": null,
+          "plan": [
+            20,
+            590,
+            350,
+            56
+          ],
+          "docH": 852,
+          "footers": 1,
+          "contentinfo": 1
+        }
+      },
+      "320x568": {
+        "br": {
+          "hero": [
+            0,
+            0,
+            320,
+            318
+          ],
+          "pane": [
+            0,
+            290,
+            320,
+            278
+          ],
+          "foot": [
+            20,
+            490,
+            280,
+            66
+          ],
+          "plan": [
+            20,
+            382,
+            280,
+            56
+          ],
+          "docH": 568,
+          "footers": 1,
+          "contentinfo": 1,
+          "footTag": "FOOTER"
+        },
+        "fe": {
+          "hero": [
+            0,
+            0,
+            320,
+            318
+          ],
+          "pane": [
+            0,
+            290,
+            320,
+            278
+          ],
+          "foot": [
+            20,
+            490,
+            280,
+            66
+          ],
+          "plan": [
+            20,
+            382,
+            280,
+            56
+          ],
+          "docH": 568,
+          "footers": 0,
+          "contentinfo": 0,
+          "footTag": "DIV"
+        },
+        "main": {
+          "hero": [
+            0,
+            0,
+            320,
+            250
+          ],
+          "pane": [
+            0,
+            222,
+            320,
+            290
+          ],
+          "foot": null,
+          "plan": [
+            20,
+            314,
+            280,
+            56
+          ],
+          "docH": 576,
+          "footers": 1,
+          "contentinfo": 1
+        }
+      },
+      "land": {
+        "br": {
+          "hero": [
+            0,
+            0,
+            440,
+            587
+          ],
+          "pane": [
+            440,
+            0,
+            459,
+            587
+          ],
+          "foot": [
+            520,
+            374,
+            299,
+            66
+          ],
+          "plan": [
+            520,
+            242,
+            299,
+            56
+          ],
+          "docH": 587,
+          "footers": 1,
+          "contentinfo": 1,
+          "footTag": "FOOTER"
+        },
+        "fe": {
+          "hero": [
+            0,
+            0,
+            440,
+            587
+          ],
+          "pane": [
+            440,
+            0,
+            459,
+            587
+          ],
+          "foot": [
+            520,
+            374,
+            299,
+            66
+          ],
+          "plan": [
+            520,
+            242,
+            299,
+            56
+          ],
+          "docH": 587,
+          "footers": 0,
+          "contentinfo": 0,
+          "footTag": "DIV"
+        },
+        "main": {
+          "hero": [
+            0,
+            0,
+            440,
+            587
+          ],
+          "pane": [
+            440,
+            0,
+            459,
+            587
+          ],
+          "foot": null,
+          "plan": [
+            520,
+            236,
+            299,
+            56
+          ],
+          "docH": 651,
+          "footers": 1,
+          "contentinfo": 1
+        }
+      },
+      "desk": {
+        "br": {
+          "hero": [
+            0,
+            0,
+            589,
+            800
+          ],
+          "pane": [
+            589,
+            0,
+            691,
+            800
+          ],
+          "foot": [
+            758,
+            481,
+            352,
+            66
+          ],
+          "plan": [
+            758,
+            349,
+            352,
+            56
+          ],
+          "docH": 800,
+          "footers": 1,
+          "contentinfo": 1,
+          "footTag": "FOOTER"
+        },
+        "fe": {
+          "hero": [
+            0,
+            0,
+            589,
+            800
+          ],
+          "pane": [
+            589,
+            0,
+            691,
+            800
+          ],
+          "foot": [
+            758,
+            481,
+            352,
+            66
+          ],
+          "plan": [
+            758,
+            349,
+            352,
+            56
+          ],
+          "docH": 800,
+          "footers": 0,
+          "contentinfo": 0,
+          "footTag": "DIV"
+        },
+        "main": {
+          "hero": [
+            0,
+            0,
+            589,
+            785
+          ],
+          "pane": [
+            589,
+            0,
+            691,
+            785
+          ],
+          "foot": null,
+          "plan": [
+            758,
+            336,
+            352,
+            56
+          ],
+          "docH": 849,
+          "footers": 1,
+          "contentinfo": 1
+        }
+      }
+    },
+    "views": {
+      "builder": {
+        "footers": 1,
+        "visibleFooters": 1
+      },
+      "hall": {
+        "footers": 1,
+        "visibleFooters": 1
+      }
+    }
+  }
+}
