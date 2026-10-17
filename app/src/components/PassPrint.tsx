@@ -1,7 +1,7 @@
 import { BLOCK_LABELS, BLOCK_ORDER, stationEquipmentLabelText, UI } from '../data/blockMeta'
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
-import { listSessionItems, placeableItems } from '../lib/hall'
+import { listSessionItems, placeableItems, stationRanks } from '../lib/hall'
 import { HallCanvas } from './HallCanvas'
 import { StationSketch } from './StationSketch'
 import { stationCards } from '../lib/stationCards'
@@ -15,6 +15,8 @@ interface Props {
 export function PassPrint({ session }: Props) {
   const cards = stationCards(session)
   const cardById = new Map(placeableItems(session).map((item, i) => [item.id, cards[i]]))
+  // Verifier F1: numbers come from the hall (placed Teknik only); unplaced stations stay unnumbered.
+  const ranks = stationRanks(session)
   const rows = aggregateStationEquipment(listSessionItems(session))
 
   return (
@@ -50,7 +52,8 @@ export function PassPrint({ session }: Props) {
                   return (
                     <li key={item.id} className="pass-station">
                       <span>
-                        {card.rank}. {card.title}
+                        {ranks.has(item.id) ? `${ranks.get(item.id)}. ` : ''}
+                        {card.title}
                         {card.experienced ? ` · ${UI.experiencedCoach}` : ''}
                       </span>
                       <span>{item.durationMinutes} min</span>

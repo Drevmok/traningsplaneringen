@@ -48,4 +48,20 @@ describe('Slice 44 startPassPrint (A1/B1)', () => {
     f.timers[0].fn()
     assert.equal(stalled, false)
   })
+  it('F2: after afterprint, the next touch/key drops the class and disarms; not before', () => {
+    const f = fakeWindow()
+    let done = 0
+    startPassPrint(f.win, () => {}, () => { done++ })
+    f.rafs.forEach((fn) => fn())
+    f.fire('beforeprint')
+    f.fire('keydown') // before afterprint: still our print
+    assert.ok(f.classes.has(PRINT_CLASS))
+    f.fire('afterprint')
+    f.fire('beforeprint') // e.g. print preview refresh: no teardown
+    assert.ok(f.classes.has(PRINT_CLASS))
+    assert.equal(done, 0)
+    f.fire('keydown') // Ctrl/Cmd+P
+    assert.ok(!f.classes.has(PRINT_CLASS))
+    assert.equal(done, 1)
+  })
 })

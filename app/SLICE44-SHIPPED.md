@@ -55,3 +55,9 @@ Branch `slice-44-code` off `main` @ `0d88da5` + docs pack `50226d7`. Locked A1 B
 | JS | 204 839 | 199 414 | −5 425 |
 | CSS | 14 391 | 14 132 | −259 |
 | **Total** | 219 230 | 213 546 | **−5 684** |
+
+## Follow-up (PR #48, Verifier F1/F2; F3 deferred to Slice 45)
+- **F1 — numbering = hall:** `PassPrint` takes the number from `stationRanks(session)` (`lib/hall.ts`, the source the hall markers use). Only placed Teknik stations get a number; unplaced ones keep their card fields but have no number. Unit test in `components/PassPrint.test.ts` (place 1st and 3rd → «1.», none, «2.»).
+- **F2 — cleanup for a later browser print:** `startPassPrint` now waits for our print's `afterprint`, and the coach's next `pointerdown`/`keydown` in the page (Ctrl/Cmd+P included) removes `is-print-pass` and disarms the portal. iOS is unaffected (the page can't be touched while the print sheet is open, so the late WebKit render still sees the pass), and a second `beforeprint` (e.g. a preview refresh) doesn't tear down. A first try (tear down on any later `beforeprint`) broke `page.pdf`, which fires `beforeprint` again, so it was dropped. Unit test in `lib/bodyPrint.test.ts`.
+- Smoke: 32/32 (+F1-dom, F1-hall, F1-pdf, F2-golvklart, F2-again, F2-hall). F2 emulates Ctrl/Cmd+P as the key press + print media/PDF, because headless opens no dialog.
+- Bundle: total vs main **−5 599** (JS −5 340, CSS −259); vs 800651e **+85** (JS).
