@@ -19,7 +19,7 @@ Admin syns bara när du är inloggad som admin. Du loggar in som förut: **Logga
 
 Tryck **Ny egen övning**, fyll i och tryck **Spara och skicka till granskning**. Övningen hamnar under **Väntar på godkännande** med märket **Väntar**. Tränarna ser den inte än.
 
-En annan admin läser igenom den och trycker **Godkänn**. Sedan finns den i Biblioteket för alla tränare nästa gång de öppnar appen. Din egen övning kan du inte godkänna själv. Där står i stället *Väntar på att en annan admin godkänner den.*
+En admin läser igenom den och trycker **Godkänn**, och det får vara du själv. Sedan finns den i Biblioteket för alla tränare nästa gång de öppnar appen.
 
 ## Importera övningar
 

@@ -1,6 +1,6 @@
 # Slice 47 — microcopy (Swedish): Lägg till övning och Admin
 
-**Status:** PROPOSED 2026-10-19, written against ★ (A1, B1, C1, D1, E1, F1). Warm, du-form, no exclamation marks, no tech words. Locked terms unchanged: gymnaster, pass, Redigera redskap, Passbyggaren, Hallöversikt, Golvklart, Förrådslista, Starta från mall, Kom igång, Biblioteket, Godkänn, Dölj för alla, Visa igen, Logga in som admin, Logga ut. Also kept from Slice 30–32: egen övning, Ändra i banken, Väntar.
+**Status:** LOCKED 2026-10-19 by Christoffer: A1 B1 C1 D2 E1 F1. D2: no `adminApproveOther`; the author may Godkänn. Warm, du-form, no exclamation marks, no tech words. Locked terms unchanged: gymnaster, pass, Redigera redskap, Passbyggaren, Hallöversikt, Golvklart, Förrådslista, Starta från mall, Kom igång, Biblioteket, Godkänn, Dölj för alla, Visa igen, Logga in som admin, Logga ut. Also kept from Slice 30–32: egen övning, Ändra i banken, Väntar.
 
 ## New
 
@@ -9,11 +9,10 @@
 | `adminArea` | Admin | Heading of the Admin view; item in Passbyggaren «Mer» |
 | `adminAreaOpenAria` | Öppna Admin | `aria-label` on the footer «Admin» button |
 | `adminAreaEmpty` | Inget väntar just nu. | Admin view when all three lists are empty |
-| `adminNewHint` | Övningen väntar under Väntar på godkännande tills en annan admin har godkänt den. Sedan finns den i Biblioteket för alla. | Under «Ny egen övning» |
+| `adminNewHint` | Övningen väntar under Väntar på godkännande tills en admin har godkänt den. Sedan finns den i Biblioteket för alla. | Under «Ny egen övning» |
 | `adminImportHint` | Övningarna från filen väntar på godkännande på samma sätt. | Under «Importera övningar» |
 | `adminNewSave` | Spara och skicka till granskning | Save button in the new-exercise form |
-| `adminNewSaved` | Sparad. Den väntar på en annan admin. | Toast after saving |
-| `adminApproveOther` | Väntar på att en annan admin godkänner den. | Instead of «Godkänn» on a pending row you changed last |
+| `adminNewSaved` | Sparad. Den väntar på godkännande. | Toast after saving |
 | `adminImportDone` | {n} övningar väntar på godkännande. | Toast after import |
 | `adminImportDoneOne` | 1 övning väntar på godkännande. | Toast after import of one |
 | `adminImportNoteSameName` | Finns redan i banken. Tar du med den får banken två övningar med samma namn. | Import row with a title already in the bank |

@@ -1,6 +1,6 @@
 # Slice 47 — Verification checklist
 
-**Status:** PROPOSED — written against ★ A1 B1 C1 D1 E1 F1; re-check after lock.  
+**Status:** LOCKED 2026-10-19 — A1 B1 C1 D2 E1 F1.  
 **Viewport:** 390×844 portrait, DPR 2, touch, clean site data unless noted. Admin rows need a build with the bank configured and **two** admin accounts (A and B) in `public.admins`; set up by Christoffer, never by SQL from the Verifier. Baseline: `evidence/measurements-390x844.txt` (main @ 9aa3996).
 
 | # | Check |
@@ -17,9 +17,9 @@
 | AC10 | Admin → «Mer» in Passbyggaren shows «Admin». Both entries open the view «Admin»; «Tillbaka» returns to the start page or Passbyggaren, with the pass unchanged |
 | AC11 | Admin view order: lists «Väntar på godkännande (n)», «Behöver granskas (n)», «Dolda (n)» (only those with rows), then «Ny egen övning», «Importera övningar», then «Föreningens mallar» with the Slice 36 admin tools. With no rows in any list: «Inget väntar just nu.» |
 | AC12 | Biblioteket for an admin has no admin bar; opening a published exercise there still shows «Ändra i banken» and «Dölj för alla» |
-| AC13 | Admin A → «Ny egen övning» (Teknik, with redskap) → «Spara och skicka till granskning»: toast «Sparad. Den väntar på en annan admin.»; the row appears under «Väntar på godkännande» with the «Väntar» badge |
+| AC13 | Admin A → «Ny egen övning» (Teknik, with redskap) → «Spara och skicka till granskning»: toast «Sparad. Den väntar på godkännande.»; the row appears under «Väntar på godkännande» with the «Väntar» badge |
 | AC14 | Same for Samling (no Säkerhet line needed) and Styrka (Säkerhet required: the form refuses without it) |
-| AC15 | Admin A opens their own pending row: no «Godkänn»; the line «Väntar på att en annan admin godkänner den.»; «Ändra i banken» and «Dölj för alla» present |
+| AC15 | (D2) Admin A opens their own pending row: «Godkänn», «Ändra i banken» and «Dölj för alla» are present; no «Väntar på att en annan admin…» line anywhere. Godkänn → published, the row shows up in Biblioteket for a coach after reload |
 | AC16 | Admin B opens it: «Godkänn» present → «Godkänd. Tränarna ser den nästa gång de öppnar appen.»; it leaves Väntar. A coach device (logged out) sees it in Biblioteket after reload; before Godkänn it never did |
 | AC17 | Admin B «Ändra i banken» on A's pending row and saves → B now sees no Godkänn, A sees Godkänn |
 | AC18 | Dölj för alla and Visa igen on rows in «Dolda» work as Slice 32 (confirm dialog, toasts) |

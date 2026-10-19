@@ -1,7 +1,7 @@
 # Slice 47 — Lägg till övning och Admin
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED 2026-10-19 — not locked.** A–F below are options with Docs' recommendation marked ★. Christoffer locks. Docs pack only, no app code. Branch `slice-47-docs` from `origin/main` @ `9aa3996` (Slice 46 live, PR #50). **No Supabase change in ★.**  
+**Status:** **LOCKED 2026-10-19 by Christoffer: A1 B1 C1 D2 E1 F1** (★ except D: D2, any admin may Godkänn, also their own row; he is the only admin). **No SQL.** Docs pack only, no app code. Branch `slice-47-docs` from `origin/main` @ `9aa3996` (Slice 46 live, PR #50). **No Supabase change in ★.**  
 **Effort:** **M+** (see below).  
 **Source:** `feedback/2026-10-17-christoffer.md` row D: «Lägg till övning + Admin: library only (drop Tips/mallar tabs, drop "ikväll" checkbox); Egen övning + Import move to new Admin area (start screen / Mer) with peer-admin review.»
 
@@ -10,7 +10,7 @@
 Lägg till övning is where a coach picks a drill for a block. Today that sheet also holds a Tips tab, a Mallar tab, two buttons for making and importing exercises, and a checkbox about tonight's equipment. Christoffer wants the sheet to be the library and nothing else. Making and importing exercises becomes an admin job, and another admin looks at a new exercise before every coach sees it.
 
 **Coach outcome:** «Jag trycker Lägg till övning och ser övningarna direkt.»  
-**Admin outcome:** «Jag lägger in en ny övning under Admin. En annan admin godkänner den, sedan finns den i Biblioteket för alla.»
+**Admin outcome:** «Jag lägger in en ny övning under Admin. När en admin har godkänt den finns den i Biblioteket för alla.»
 
 ## Measured today (main @ 9aa3996, 390×844, `evidence/`)
 

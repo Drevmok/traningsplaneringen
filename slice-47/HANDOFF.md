@@ -1,6 +1,6 @@
 # Slice 47 — Builder handoff
 
-**Status:** PROPOSED 2026-10-19 (not locked). Written against ★ answers A1 B1 C1 D1 E1 F1. Base `origin/main` @ `9aa3996` (Slice 46 live); line refs are from that tip. **No SQL, no Supabase change, no new storage key.** Scope: `components/LibraryPanel.tsx`, `SessionBuilder.tsx`, `ForradslistaSheet.tsx`, `HallBoard.tsx`, `OwnImportSheet.tsx`, `AdminBankForm.tsx`, `AdminDetailPanel.tsx`, `ClubAdminSection.tsx`, `MallList.tsx`, `App.tsx`, new `components/AdminArea.tsx`, new `components/MallSheet.tsx`, `lib/admin/bankWrite.ts`, `lib/admin/adminBank.ts`, `lib/ownImport.ts`, `lib/ownedEquipment.ts`, `types.ts`, `data/blockMeta.ts`, CSS, tests.
+**Status:** LOCKED 2026-10-19 by Christoffer: A1 B1 C1 **D2** E1 F1. D2 overrides D1 below: **no peer rule** — every admin, also the author, sees «Godkänn» on pending rows; drop `adminApproveOther` and any `updated_by === me` check. Christoffer is the only admin today. Base `origin/main` @ `9aa3996` (Slice 46 live); line refs are from that tip. **No SQL, no Supabase change, no new storage key.** Scope: `components/LibraryPanel.tsx`, `SessionBuilder.tsx`, `ForradslistaSheet.tsx`, `HallBoard.tsx`, `OwnImportSheet.tsx`, `AdminBankForm.tsx`, `AdminDetailPanel.tsx`, `ClubAdminSection.tsx`, `MallList.tsx`, `App.tsx`, new `components/AdminArea.tsx`, new `components/MallSheet.tsx`, `lib/admin/bankWrite.ts`, `lib/admin/adminBank.ts`, `lib/ownImport.ts`, `lib/ownedEquipment.ts`, `types.ts`, `data/blockMeta.ts`, CSS, tests.
 
 ## What exists today (main @ 9aa3996)
 
@@ -33,14 +33,14 @@
   3. «Föreningens mallar» via `ClubAdminSection` with `onPick` optional (cards not pickable here) and `onToast`.
 - Toasts in the view use the existing toast component.
 
-## 4. D1 — new pending rows and the peer rule (`bankWrite.ts`, `AdminBankForm.tsx`, `AdminDetailPanel.tsx`)
+## 4. D2 — new pending rows (peer rule NOT built; see status) (`bankWrite.ts`, `AdminBankForm.tsx`, `AdminDetailPanel.tsx`)
 
 - `insertPendingRow(patch: BankPatch, extra?: { tags?: string[]; difficulty?: Difficulty; needs_coach_review?: boolean }): Promise<WriteResult | 'exists'>`:
   - id `${PREFIX[block_type]}-egen-${Date.now().toString(36)}${random4}` with `PREFIX = { gathering: 'gather', warmup: 'warm', techniques: 'tech', strength: 'strength', fun_and_games: 'fun' }` (matches `^(gather|warm|tech|strength|fun)-[a-z0-9-]{2,60}$`).
   - `status: 'pending'`, `visual_key: 'own'` (the app already renders it), `sort_order` default, tags without `'egen'`, `default_station_equipment` only on Teknik, `safety_line` required except Samling (same as `needsSafetyLine`).
   - `.insert(row).select('id')`, same timeout/offline handling as `writeRow`; on success `loadAdminBank()`. Postgres `23505` → `'exists'` (retry once with a new id).
   - `updated_by` is set by the database (`private.stamp_updated_by`); do not send it.
-- `AdminBankForm`: add `mode: 'edit' | 'new'`. `'new'` starts empty with `blockType` = the first block, title «Ny egen övning», save button «Spara och skicka till granskning» → `insertPendingRow`; toast «Sparad. Den väntar på en annan admin.» Edit mode unchanged.
+- `AdminBankForm`: add `mode: 'edit' | 'new'`. `'new'` starts empty with `blockType` = the first block, title «Ny egen övning», save button «Spara och skicka till granskning» → `insertPendingRow`; toast «Sparad. Den väntar på godkännande.» Edit mode unchanged.
 - Peer rule in `AdminDetailPanel` (pending rows only): read the signed-in e-mail once from `client.auth.getSession()` (`lib/admin/session.ts:41` pattern; expose `adminEmail()` from the lazy session module, keep it in memory only). If `entry.updatedBy?.toLowerCase() === email.toLowerCase()`, hide «Godkänn» and show `UI.adminApproveOther` instead. «Ändra i banken» and «Dölj för alla» stay. This is app-side only (see README D3).
 - Coaches never see pending rows (RLS `exercises_read_public`, and `applyBankEntries` takes published + hidden only). Do not change that.
 
