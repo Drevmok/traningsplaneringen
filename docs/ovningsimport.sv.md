@@ -6,6 +6,8 @@
 **Hallens bildtext oförändrad:** **Schematisk hall — inte exakt mått**
 
 Pack: [`slice-30/`](../slice-30/README.md) · nycklar: [`slice-30/content/microcopy.sv.md`](../slice-30/content/microcopy.sv.md) · schema: [`slice-30/content/import-schema.md`](../slice-30/content/import-schema.md) · redskap: [`slice-30/content/redskap-library.md`](../slice-30/content/redskap-library.md).  
+**Slice 47 (FÖRESLAGEN 2026-10-19, inte låst):** «Importera övningar» och «Ny egen övning» lämnar Biblioteket och finns bara under **Admin**. Import skickar övningarna till banken som **Väntar** i stället för att spara dem i webbläsaren; «Ersätt» och «Plats för {n} till» försvinner. Tränares egna övningar som redan finns ligger kvar. Se [`slice-47/`](../slice-47/README.md).
+
 Närliggande: [`station-compose.sv.md`](./station-compose.sv.md) · [`forradslista.sv.md`](./forradslista.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md).
 
 ---

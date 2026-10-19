@@ -7,6 +7,8 @@
 Pack: [`slice-31/`](../slice-31/README.md) · nycklar: [`slice-31/content/microcopy.sv.md`](../slice-31/content/microcopy.sv.md) · vad som sparas var: [`slice-31/content/local-vs-bank.md`](../slice-31/content/local-vs-bank.md) · Christoffers setup: [`slice-31/content/setup-christoffer.md`](../slice-31/content/setup-christoffer.md).  
 Närliggande: [`ovningsimport.sv.md`](./ovningsimport.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md).
 
+**Slice 47 (FÖRESLAGEN 2026-10-19, inte låst):** Admin-raden i Biblioteket flyttar till en egen vy, **Admin** (startsidans «Admin · Logga ut» och Passbyggarens Mer). Där lägger en admin in **Ny egen övning** och **Importera övningar**; de blir nya övningar i banken som **Väntar**, och en annan admin trycker **Godkänn**. Ingen ändring i databasen: väntande övningar fanns redan (Slice 32). Se [`slice-47/`](../slice-47/README.md) och [`admin.sv.md`](./admin.sv.md).
+
 ---
 
 ## Kort om den delade banken
