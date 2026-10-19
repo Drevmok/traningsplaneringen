@@ -1,0 +1,6 @@
+PASS [AC14] Samling saves without Säkerhet; Styrka refuses without Säkerhet, saves with it (DB gather-egen-/strength-egen-, pending; no redskap outside Teknik) — {"tg":"Sparad. Den väntar på godkännande.","ts":"Sparad. Den väntar på godkännande.","gHasSafety":1,"msg":["Skriv säkerheten. Den följer med till golvet.","Säkerhet"],"g":["gather-egen-mvfi7o7i23kn",null],"s":["strength-egen-mvfi7pns3481","Rak rygg"]}
+FAIL [AC18] error — locator.click: Timeout 10000ms exceeded. @333
+PASS [errors-a] no page errors
+PASS [live-a] no request to a non-mock supabase.co host
+11/12 pass (parts a)
+rc=0

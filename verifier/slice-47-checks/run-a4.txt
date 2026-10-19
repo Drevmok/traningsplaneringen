@@ -1,0 +1,5 @@
+FAIL [AC18] Dölj för alla (confirm «Dölja ”…” för alla tränare?…») → «Dold för alla.», coach no longer sees it, row under «Dolda (n)»; Visa igen → «Syns igen för alla.» — {"conf":"Stäng\nFilter\nAlla typer\nSamling\nUppvärmning\nTeknik\nStyrka\nLek och spel\nHöjdhopp (lek)\n6 mi","t1":"Dold för alla.","s1":"hidden","coach":0,"t2":"Syns igen för alla.","s2":"published"}
+PASS [errors-a] no page errors
+PASS [live-a] no request to a non-mock supabase.co host
+11/12 pass (parts a)
+rc=0

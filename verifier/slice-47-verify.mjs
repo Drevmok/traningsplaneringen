@@ -327,15 +327,15 @@ if (PARTS.includes('a')) { PART = 'a'
     await a.context().close(); await b.context().close()
   })
   await attempt('AC18', async () => {
-    const p = await apage({ as: A }); await go(p); await adminView(p)
+    const H = sql("select title from public.exercises where status='published' and title not like 'S47V%' and title not like '1-2-3%' order by id offset 3 limit 1"); note('a.ac18title', H); const p = await apage({ as: A }); await go(p)
     // hide the (now published) Samling row from Biblioteket detail via Admin? → use the Teknik row through the library: open from Dolda after hiding
     await toBuilder(p); const LB = await lib(p, 0)
-    await LB.locator('select').selectOption('all'); await LB.locator('input[type=search]').fill(T.gather); await p.waitForTimeout(400); await p.locator('.library-entry .activity-card').filter({ hasText: T.gather }).first().click(); await p.waitForTimeout(500)
+    await LB.locator('select').selectOption('all'); await LB.locator('input[type=search]').fill(H); await p.waitForTimeout(400); await p.locator('.library-entry .activity-card').filter({ hasText: H }).first().click(); await p.waitForTimeout(500)
     await p.getByRole('button', { name: 'Dölj för alla' }).first().click(); await p.waitForTimeout(300); const conf = await text(p, '[role=alertdialog], [role=dialog]:last-of-type')
-    await p.getByRole('button', { name: 'Dölj', exact: true }).last().click(); const t1 = await toastText(p); await p.waitForTimeout(600); const s1 = rowBy(T.gather)[0].status; const coach = await coachSees(T.gather)
+    await p.getByRole('button', { name: 'Dölj', exact: true }).last().click(); const t1 = await toastText(p); await p.waitForTimeout(600); const s1 = rowBy(H)[0].status; const coach = await coachSees(H)
     await go(p); await adminView(p); const at = (await text(p, '.admin-area')).replace(/\s+/g, ' ')
-    await p.locator('.admin-area-list').filter({ hasText: /Dolda/ }).locator('.activity-card').filter({ hasText: T.gather }).first().click(); await p.waitForTimeout(500)
-    await p.locator('.admin-detail').getByRole('button', { name: 'Visa igen' }).click(); const t2 = await toastText(p); const s2 = rowBy(T.gather)[0].status
+    await p.locator('.admin-area-list').filter({ hasText: /Dolda/ }).locator('.activity-card').filter({ hasText: H }).first().click(); await p.waitForTimeout(500)
+    await p.locator('.admin-detail').getByRole('button', { name: 'Visa igen' }).click(); const t2 = await toastText(p); const s2 = rowBy(H)[0].status
     check('AC18', 'Dölj för alla (confirm «Dölja ”…” för alla tränare?…») → «Dold för alla.», coach no longer sees it, row under «Dolda (n)»; Visa igen → «Syns igen för alla.»', /Dölja ”.+” för alla tränare\?/.test(conf) && t1 === 'Dold för alla.' && s1 === 'hidden' && coach === 0 && /Dolda \(\d+\)/.test(at) && t2 === 'Syns igen för alla.' && s2 === 'published', JSON.stringify({ conf: conf.slice(0, 90), t1, s1, coach, t2, s2 }))
     await p.context().close()
   })
@@ -351,7 +351,7 @@ const failNth = (n, mode = 'error') => { let k = 0; return async (route, req, u)
   const resp = await route.fetch({ url: GW + u.pathname + u.search, method: 'POST', headers, postData: req.postDataBuffer() ?? undefined }); await new Promise((r) => setTimeout(r, 12500)); await route.fulfill({ response: resp }).catch(() => {}); return 'handled' } }
 async function openImport(p) { await p.locator('.admin-area').getByRole('button', { name: 'Importera övningar från en fil eller en kod' }).click(); await p.locator('.own-import').waitFor() }
 async function pasteRead(p, code) { await p.locator('.own-import').getByRole('button', { name: 'Klistra in kod' }).click().catch(() => {}); await p.locator('.own-import textarea').fill(code); await p.locator('.own-import').getByRole('button', { name: 'Läs in' }).click(); await p.waitForTimeout(400) }
-const fieldsOk = (r, src, bt) => r && r.title === src.title && r.block_type === bt && r.summary === src.summary && JSON.stringify(r.how_to) === JSON.stringify(['Gör', 'Sedan']) && r.watch_for === src.watchFor && r.status === 'pending' && r.visual_key === 'own' && /-egen-[a-z0-9]+$/.test(r.id)
+const fieldsOk = (r, src, bt) => r && r.title === src.title && r.block_type === bt && r.summary === src.summary && r.how_to === src.howTo && r.watch_for === src.watchFor && r.status === 'pending' && r.visual_key === 'own' && /-egen-[a-z0-9]+$/.test(r.id)
 if (PARTS.includes('i')) { PART = 'i'
   await ensureSession(A)
   const existing = sql("select title from public.exercises where status='published' order by id limit 1")
@@ -393,10 +393,10 @@ if (PARTS.includes('i')) { PART = 'i'
   await attempt('IMP-timeout', async () => {
     const F = [imp('own-s47v-t1', `${TAG} sen ett`), imp('own-s47v-t2', `${TAG} sen två`), imp('own-s47v-t3', `${TAG} sen tre`)]
     const p = await apage({ as: A, hook: failNth(2, 'slow') }); await go(p); await adminView(p); await openImport(p); await pasteRead(p, fileOf(F))
-    await p.locator('.own-import').getByRole('button', { name: 'Importera 3 övningar' }).click(); const tt = await toastText(p).catch(() => '(no toast)'); await p.waitForTimeout(14000)
-    const counts = F.map((x) => rowBy(x.title).length); note('i.timeout', { tt, counts })
+    await p.locator('.own-import').getByRole('button', { name: 'Importera 3 övningar' }).click(); const t0 = Date.now(); const tt = await p.locator('.toast').first().waitFor({ timeout: 25000 }).then(async () => (await p.locator('.toast').first().innerText()).trim()).catch(() => '(no toast)'); const secs = Math.round((Date.now() - t0) / 1000); await p.waitForTimeout(3000)
+    const counts = F.map((x) => rowBy(x.title).length); note('i.timeout', { tt, counts, secs })
     // informational: a slow answer after the row committed is reported as not imported
-    check('IMP-timeout', '(edge, informational) insert #2 commits but answers after the 10 s client timeout → toast count vs DB rows', true, JSON.stringify({ tt, counts }))
+    check('IMP-timeout', '(edge, informational) insert #2 commits but answers after the 10 s client timeout → toast count vs DB rows', true, JSON.stringify({ tt, counts, secs }))
     await p.context().close()
   })
   await attempt('AC21', async () => {
@@ -423,11 +423,11 @@ if (PARTS.includes('i')) { PART = 'i'
   })
   await attempt('AC24-admin', async () => {
     const out = {}
-    for (const vn of ['320', 'land', 'desk']) { const p = await apage({ as: A, vp: VPS[vn], touch: vn !== 'desk' }); await go(p); await adminView(p)
+    for (const vn of ['320', '390', 'land', 'desk']) { const p = await apage({ as: A, vp: VPS[vn], touch: vn !== 'desk' }); await go(p); await adminView(p)
       const w = await docW(p); const btns = await p.locator('.admin-area button:visible').evaluateAll((bs) => bs.map((b) => { const r = b.getBoundingClientRect(); return { t: b.innerText.trim().slice(0, 20), h: Math.round(r.height), l: Math.round(r.left), r: Math.round(r.right) } }))
       await shot(p, `16_admin_view_${vn}`); await openImport(p); const ir = await rect(p, '.own-import'); await shot(p, `17_import_${vn}`); await p.locator('.own-import').getByRole('button', { name: 'Avbryt' }).click().catch(() => {})
       const f = await newExercise(p, { block: 'warmup', title: 'x' }); const fr = await rect(p, '.admin-bank-form'); const save = await f.getByRole('button', { name: 'Spara och skicka till granskning' }).boundingBox(); await shot(p, `18_new_form_${vn}`)
-      out[vn] = { w, vw: VPS[vn].width, small: btns.filter((b) => b.h < 44 && vn !== 'desk').map((b) => b.t), off: btns.filter((b) => b.r > VPS[vn].width + 1 || b.l < -1).map((b) => b.t), ir, fr, save: !!save }
+      out[vn] = { w, vw: VPS[vn].width, small: btns.filter((b) => b.h < 44 && vn !== 'desk').map((b) => `${b.t}:${b.h}`), off: btns.filter((b) => b.r > VPS[vn].width + 1 || b.l < -1).map((b) => b.t), ir, fr, save: !!save }
       await p.context().close() }
     check('AC24-admin', 'Admin view, import sheet and new-exercise form usable at 320, 844×390, 1280×800: no sideways overflow, buttons inside the screen (≥ 44 px on touch), save reachable', Object.entries(out).every(([, o]) => o.w <= o.vw && o.off.length === 0 && o.save), JSON.stringify(out).slice(0, 900))
   })

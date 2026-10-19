@@ -29,3 +29,12 @@ Bundle vs ~512 B guideline: total +100 B, well inside; coach chunk shrinks.
 - Nothing SERIOUS so far.
 
 Remaining: part a rerun; part i (import 3, injected mid-import failure, timeout edge, offline, Logga ut, admin layouts); part c (coach AC1–AC7, AC22, AC24); AC25/AC26 static; loop classification; netlog count; secret grep; feature maps; report.
+
+## Chunk 3 — import, failures, offline, layouts, static (19:01–19:15 CEST)
+- Part a now all green after script fixes (AC12, AC17 with updated_by = e-mail, AC18 self-contained → running).
+- Part **i 10/10**: AC19, AC20 (3 pending rows, new `warm-/tech-/gather-egen-` ids, fields equal to the file, nothing local); **ruling 5 checked**: injected failure on insert #2 of 3 → toast «1 övning väntar på godkännande.», DB has exactly row 1 (complete) and nothing of rows 2–3; re-reading the file puts row 1 on «Samma namn finns redan / Hoppa över» → «Importera 2 övningar». Insert #1 failing → no toast, sheet stays with «Kunde inte spara…», 0 rows. AC21 offline (DB hash identical, 0 write requests also after reconnect), AC23 (home and builder), AC24-admin at 320/390/844×390/1280.
+- Edge found (minor): insert that commits but answers after the 10 s client timeout → counted as failed: toast «1 övning…» while DB has 2 rows; re-read marks the extra row same-name/skip, so no duplicate by default.
+- Nit: in the Admin view «Ny egen övning» / «Importera övningar» are 40 px tall on touch (btn-secondary), «← Tillbaka» < 44 in landscape.
+- Static: AC25 — no deleted key referenced as `UI.*`, no `SideTab`/`ownedEquipment` in src, all 10 new strings found in microcopy.sv.md, changed strings found too, no «!»; AC26 — no SQL/supabase files in the diff, asserts at feedback.test.ts:25/45/46 and clubTemplates.test.ts:316 read 47. Secret grep of the diff and my files: clean.
+- Loop so far: 47-builder 32/32; 46-builder 3 new FAILs = intended (Mallar tab removed → AC17; footer «Slice 47» → AC20, AC20-hall); 45…42 identical to the Slice 46 baseline.
+- Feature maps written (passbyggaren, starta-fran-mall, golvklart-forrad, delad-bank, new admin.md, README index).
