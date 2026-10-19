@@ -1,0 +1,11 @@
+netlogs (excl. shimtest): 29
+requests: 5758
+to fhzqwbdlejzohetdoluw: 0
+BLOCKED: 0
+hosts:
+   2906 127.0.0.1:57861
+   1520 127.0.0.1:57860
+    873 bank-mock.supabase.co
+    313 127.0.0.1:57862
+    140 127.0.0.1:57863
+      6 

@@ -1,0 +1,31 @@
+FAIL [AC1a] Home: «Tyck till» in the footer, before «Uppdatera appen» — ["Tyck till · Uppdatera appen","Passen sparas bara på den här enheten."]
+PASS [AC1b] Exactly one a[href^="mailto:"] in the DOM, inside footer
+PASS [AC2a] href: To drevmok@gmail.com, subject, %0D%0A, no "+", åäö as UTF-8 escapes — mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D
+FAIL [AC2b] Body decodes to the microcopy body exactly (blank lines, åäö, CRLF) — "att du tar dig tid.\r\n\r\nVersion: Slice 47"
+FAIL [AC3] Last body line «Version: Slice 35» = footer label number
+PASS [AC13a] Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel
+FAIL [AC11a] No feedback popup / banner / prompt on load
+PASS [AC13b] Tab reaches «Tyck till» with a visible focus ring — tabs 2
+PASS [AC13c] Enter follows the mailto (same href)
+FAIL [A] error — locator.innerText: Error: strict mode violation: locator('footer.app-footer').locator('p') resolved to 2 elements: ⏎     1) <p class="footer-feedback-hint">…</p> aka getByText('Hittar du ingen e-postapp?') ⏎     2) <p cl
+FAIL [B] error — locator.innerText: Error: strict mode violation: locator('footer.app-footer').locator('p') resolved to 2 elements: ⏎     1) <p class="footer-feedback-hint">…</p> aka getByText('Hittar du ingen e-postapp?') ⏎     2) <p cl
+FAIL [AC9-local] Offline: tap still follows the mailto + shows the line
+FAIL [AC12-admina] admin: order label · Admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen — ["Tyck till · Uppdatera appen","Admin · Logga ut","Passen sparas bara på den här enheten."]
+PASS [AC12-adminb] admin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":295.765625}
+FAIL [D-admin] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎     - locator resolved to <a aria-label="Tyck till om app
+FAIL [AC12-notadmina] notadmin: order label · inte admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen — ["Tyck till · Uppdatera appen","Du är inloggad men inte admin. · Logga ut","Passen sparas bara på den här enheten."]
+PASS [AC12-notadminb] notadmin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":319.515625}
+FAIL [D-notadmin] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎     - locator resolved to <a aria-label="Tyck till om app
+FAIL [E] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('[aria-labelledby="home-wizard-title"]').getByRole('option', { name: /7–9/ }).first() ⏎ 
+MAILTO mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D%0A%0D%0AH%C3%A4r%20%C3%A4r%20vad%20jag%20tycker%20om%20Tr%C3%A4ningsplaneraren.%0D%0A%0D%0AVad%20fungerade%20bra%3F%0D%0A%0D%0A%0D%0AVad%20var%20kr%C3%A5ngligt%3F%0D%0A%0D%0A%0D%0AVad%20saknade%20du%3F%0D%0A%0D%0A%0D%0ATack%20f%C3%B6r%20att%20du%20tar%20dig%20tid.%0D%0A%0D%0AVersion%3A%20Slice%2047
+FAIL [V1] Decoded mailto: To/subject/body exact, CRLF only, len < 2000 — len 390, crlf 15
+PASS [V2] Coach (plain build): no supabase-js chunk loaded — http://127.0.0.1:57861/traningsplaneringen/assets/index-Cc6qOPGV.js, http://127.0.0.1:57861/traningsplaneringen/assets/index-DmNkTlLK.css, http://127.0.0.1:57861/traningsplaneringen/assets/home-hero-DNrIw53w.jpg
+PASS [V3] Tap target size recorded (spec: same look as siblings, 12px + 4px padding; no 44px requirement) — {"x":94.21875,"y":770,"width":65.5,"height":44}
+PASS [V4] No overlapping footer controls at 390 — overlaps 0
+PASS [V5] Offline reload (no SW in this app): recorded — link count after offline reload 0
+FAIL [V] error — ENOENT: no such file or directory, open '/tmp/s35tok'
+FAIL [AC16d] Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings
+PASS [AC10c] No fetch / beacon / storage / window.open / location in the feedback code
+FAIL [E] No page errors — console: Failed to load resource: net::ERR_FAILED | console: Failed to load resource: net::ERR_FAILED | console: Failed to load resource: net::ERR_FAILED
+
+PASS 12 / FAIL 16

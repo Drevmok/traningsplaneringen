@@ -1,0 +1,10 @@
+FAIL [V-admin-publish] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('[aria-labelledby="home-wizard-title"]').getByRole('option', { name: /7–9/ }).first()
+PASS [V-req] Coach: exactly one GET club_templates (apikey only, no Authorization); every coach bank request is a GET without Authorization — GET /rest/v1/exercises ; GET /rest/v1/redskap ; GET /rest/v1/club_templates
+PASS [V-chunks] Coach loads no supabase-js / admin chunk — index-BmCTQnUi.js
+FAIL [V-coach] phase crashed — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: /^(Starta f|F)rån mall$/ }).first()
+FAIL [V-overwrite] phase crashed — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.builder') to be visible
+FAIL [V-hide] phase crashed — error: locator.waitFor: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.builder') to be visible
+FAIL [V-dela] phase crashed — error: Cannot read properties of undefined (reading 'payload')
+PASS [errors] No page errors
+
+3/8 pass

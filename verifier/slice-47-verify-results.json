@@ -1,0 +1,805 @@
+{
+ "results": [
+  {
+   "part": "g",
+   "id": "G-nonadmin",
+   "name": "Admin button / Admin view never shown: logged out, non-admin, bot key (logged out and with a non-admin session) × start, builder (footer + Mer), hall, shared link × 320 / 390 / landscape / desktop",
+   "ok": true,
+   "detail": "[] n=64"
+  },
+  {
+   "part": "g",
+   "id": "G-admin-control",
+   "name": "positive control: admin sees the Admin button (footer or Mer) on start, builder, hall at all widths",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "part": "g",
+   "id": "G-shared",
+   "name": "shared link view (admin): footer keeps the plain «Admin» badge, no Admin button (Builder: not in shared footer)",
+   "ok": true,
+   "detail": "[[\"admin/320/shared\",\"Admin · Logga ut\",[]],[\"admin/390/shared\",\"Admin · Logga ut\",[]],[\"admin/land/shared\",\"Admin · Logga ut\",[]],[\"admin/desk/shared\",\"Admin · Logga ut\",[]]]"
+  },
+  {
+   "part": "g",
+   "id": "G-notadmin-text",
+   "name": "non-admin footer says «Du är inloggad men inte admin.»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "g",
+   "id": "G-relogin",
+   "name": "Logga ut in Admin view → start page, no Admin at any width / builder / hall / after reload; non-admin then logs in (same browser) → no Admin; admin again → Admin back",
+   "ok": true,
+   "detail": "{\"after\":{\"view\":0,\"home\":1,\"seen\":[]},\"perW\":{\"320\":[],\"390\":[],\"land\":[],\"desk\":[],\"builder\":[],\"hall\":[],\"reload\":[]},\"naFoot\":\"Du är inloggad men inte admin. · Logga ut\",\"naSeen\":[],\"naB\":[],\"aSeen\":[\"btn-text visa-tips-igen footer-admin-open:Admin\"]}"
+  },
+  {
+   "part": "g",
+   "id": "G-rls",
+   "name": "direct REST as anon and as a non-admin (real JWT): insert pending/published, approve, hide, edit, delete, self-admin, club insert all refused; pending rows and admins unreadable; DB byte-identical",
+   "ok": true,
+   "detail": "{\"anon.insertPending\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.insertPublished\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.approve\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.hide\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.edit\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.readPending\":\"200:[]\",\"anon.delete\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.admins\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.selfAdmin\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"anon.clubInsert\":\"401:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permis\",\"nonadmin.insertPending\":\"403:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"new ro\",\"nonadmin.insertPublished\":\"403:{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"new ro\",\"nonadmin.appro same=true"
+  },
+  {
+   "part": "g",
+   "id": "errors-g",
+   "name": "no page errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "g",
+   "id": "live-g",
+   "name": "no request to a non-mock supabase.co host",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "a",
+   "id": "AC9",
+   "name": "admin: start-page footer row 2 «Admin · Logga ut»; «Admin» a button ≥ 44 px; start page fits 390×844",
+   "ok": true,
+   "detail": "{\"rows\":[\"Tyck till · Uppdatera appen\",\"Admin · Logga ut\"],\"btn\":{\"top\":770,\"bottom\":814,\"h\":44,\"w\":57,\"left\":125,\"right\":182},\"aria\":\"Öppna Admin\",\"h\":844}"
+  },
+  {
+   "part": "a",
+   "id": "AC10",
+   "name": "Mer in Passbyggaren shows «Admin»; both entries open «Admin»; Tillbaka → start page / Passbyggaren, pass unchanged (localStorage byte-identical)",
+   "ok": true,
+   "detail": "{\"v1\":\"Admin\",\"v2\":\"Admin\",\"back1\":1,\"back2\":1,\"same\":true,\"ttl\":\"S47V pass\"}"
+  },
+  {
+   "part": "a",
+   "id": "AC11",
+   "name": "Admin view order: Väntar på godkännande (n) / Behöver granskas (n) / Dolda (n) (only non-empty) → Ny egen övning → Importera övningar → Föreningens mallar; all empty → «Inget väntar just nu.»",
+   "ok": true,
+   "detail": "{\"want\":[\"Väntar på godkännande (2)\",\"Behöver granskas (16)\",\"Ny egen övning\",\"Importera övningar\",\"Föreningens mallar\"],\"idx\":[17,324,2682,2813,2891],\"empty\":\"← Tillbaka Admin Inget väntar just nu. Ny egen övning Övningen väntar under Väntar på godkännande tills en admin har godkänt den. Sedan finns den i Biblioteket \"}"
+  },
+  {
+   "part": "a",
+   "id": "AC16",
+   "name": "Admin B opens A's row: Godkänn → «Godkänd. Tränarna ser den nästa gång de öppnar appen.»; leaves Väntar; coach (logged out) sees it after reload, never before",
+   "ok": true,
+   "detail": "{\"tg\":\"Godkänd. Tränarna ser den nästa gång de öppnar appen.\",\"inPend\":false,\"before\":0,\"after\":1}"
+  },
+  {
+   "part": "a",
+   "id": "errors-a",
+   "name": "no page errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "a",
+   "id": "live-a",
+   "name": "no request to a non-mock supabase.co host",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "a",
+   "id": "AC12",
+   "name": "Biblioteket (admin): no admin bar; a published exercise shows «Ändra i banken» and «Dölj för alla»",
+   "ok": true,
+   "detail": "{\"bar\":0,\"lt\":\"Stäng\\nFilter\\nAlla typer\\nSamling\\nUppvärmning\\nTeknik\\nStyrka\\nLek och spel\\nLjushopp på satsbräda\\n6 min\\nLjushopp från satsbrä\",\"dt\":\"× Ljushopp på satsbräda Teknik · 6 min Skiss — så kan stationen stå. Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet. VARFÖR Ljushopp från satsbräda — grundstuds och \"}"
+  },
+  {
+   "part": "a",
+   "id": "AC13",
+   "name": "Teknik with redskap → «Spara och skicka till granskning» → toast «Sparad. Den väntar på godkännande.»; under «Väntar på godkännande» with «Väntar»; DB: 1 pending row tech-egen-…, visual own, redskap kept, updated_by = A; nothing local",
+   "ok": true,
+   "detail": "{\"tt\":\"Sparad. Den väntar på godkännande.\",\"badge\":\"S47V34tl trampett\\nVäntar\\n5 min\\nVarför den finns\",\"id\":\"tech-egen-mvfi3gwh23zy\",\"eq\":[{\"count\":1,\"pieceId\":\"eq-trampett\"}],\"by\":true,\"before\":0,\"own\":true}"
+  },
+  {
+   "part": "a",
+   "id": "AC15",
+   "name": "(D2) A opens own pending row: Godkänn, Ändra i banken, Dölj för alla; no «Väntar på att en annan admin…»; Godkänn → published; coach (logged out) sees it after reload, not before",
+   "ok": true,
+   "detail": "{\"dt\":\"Godkänn Ändra i banken Dölj för alla Senast ändrad 19 okt av admin@test.local\",\"ta\":\"Godkänd. Tränarna ser den nästa gång de öppnar appen.\",\"st\":\"published\",\"before\":0,\"after\":1}"
+  },
+  {
+   "part": "a",
+   "id": "AC17",
+   "name": "(ruling 1 / D2) B «Ändra i banken» on A's pending row and saves («Sparat i banken.»): row stays pending, updated_by = B; Godkänn still shown to B and to A (checklist text superseded by D2)",
+   "ok": true,
+   "detail": "{\"tb\":\"Sparat i banken.\",\"st\":\"pending\",\"byB\":true,\"b1\":true,\"a\":true}"
+  },
+  {
+   "part": "a",
+   "id": "AC14",
+   "name": "Samling saves without Säkerhet; Styrka refuses without Säkerhet, saves with it (DB gather-egen-/strength-egen-, pending; no redskap outside Teknik)",
+   "ok": true,
+   "detail": "{\"tg\":\"Sparad. Den väntar på godkännande.\",\"ts\":\"Sparad. Den väntar på godkännande.\",\"gHasSafety\":1,\"msg\":[\"Skriv säkerheten. Den följer med till golvet.\",\"Säkerhet\"],\"g\":[\"gather-egen-mvfi7o7i23kn\",null],\"s\":[\"strength-egen-mvfi7pns3481\",\"Rak rygg\"]}"
+  },
+  {
+   "part": "i",
+   "id": "AC19",
+   "name": "file and «Klistra in kod» both read; rows only Ta med / Hoppa över; no «Plats för…» / «Ersätt»; same title → «Samma namn finns redan», starts on Hoppa över, bank note",
+   "ok": true,
+   "detail": "{\"opts\":[\"Ta med\",\"Hoppa över\"],\"sameChoice\":\"skip\",\"sameT\":\"1-2-3 (förflyttningslek) Uppvärmning · 5 min Samma namn finns redan Ta med Hoppa över Finns redan i banken. Tar du med den får banken två övningar med samma nam\",\"hint\":\"×\\nImportera övningar\\n\\nVälj filen eller klistra in koden du fick. Inget skickas f\"}"
+  },
+  {
+   "part": "i",
+   "id": "AC20",
+   "name": "«Importera 3 övningar» → «3 övningar väntar på godkännande.»; 3 pending rows, new ids (warm-/tech-/gather-egen-…, not the file ids), all under Väntar; none in the local own list",
+   "ok": true,
+   "detail": "{\"tt\":\"3 övningar väntar på godkännande.\",\"ids\":[[\"warm-egen-mvfifivg6a75\"],[\"tech-egen-mvfifiw26y0r\"],[\"gather-egen-mvfifiwi1iwt\"]],\"own\":true}"
+  },
+  {
+   "part": "i",
+   "id": "AC21",
+   "name": "offline: both actions show «Du behöver nät för att ändra i banken.», disabled; nothing written (DB identical, no write request even after coming back online), nothing queued locally",
+   "ok": true,
+   "detail": "{\"dis\":true,\"idis\":true,\"same\":true,\"writes\":0}"
+  },
+  {
+   "part": "i",
+   "id": "AC23",
+   "name": "Logga ut in the Admin view: back where you came from (start page / Passbyggaren); no admin view open; session gone",
+   "ok": true,
+   "detail": "{\"home\":{\"admin\":0,\"home\":1,\"builder\":0,\"stored\":false},\"builder\":{\"admin\":0,\"home\":0,\"builder\":1,\"stored\":false}}"
+  },
+  {
+   "part": "i",
+   "id": "errors-i",
+   "name": "no page errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "i",
+   "id": "live-i",
+   "name": "no request to a non-mock supabase.co host",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "i",
+   "id": "IMP-fail",
+   "name": "(ruling 5) insert #2 of 3 fails → stops; toast «1 övning väntar på godkännande.»; DB has exactly row 1 (complete, pending), nothing of rows 2–3, no partial row; re-reading the file puts row 1 on «Samma namn finns redan / Hoppa över», rows 2–3 Ny → «Importera 2 övningar»",
+   "ok": true,
+   "detail": "{\"tt\":\"1 övning väntar på godkännande.\",\"open\":0,\"counts\":[1,0,0],\"n\":1,\"states\":[\"same:skip\",\"new:include\",\"new:include\"],\"btn\":\"Importera 2 övningar\"}"
+  },
+  {
+   "part": "i",
+   "id": "IMP-fail-first",
+   "name": "insert #1 fails → no toast, sheet stays open with the write error, DB has none of the rows",
+   "ok": true,
+   "detail": "5 min Ny Ta med Hoppa över S47Vf7xb noll två Uppvärmning · 5 min Ny Ta med Hoppa över Kunde inte spara. Kolla nätet och försök igen. Avbryt Importera 2 övningar"
+  },
+  {
+   "part": "i",
+   "id": "IMP-timeout",
+   "name": "(edge, informational) insert #2 commits but answers after the 10 s client timeout → toast count vs DB rows",
+   "ok": true,
+   "detail": "{\"tt\":\"1 övning väntar på godkännande.\",\"counts\":[1,1,0],\"secs\":10}"
+  },
+  {
+   "part": "i",
+   "id": "AC24-admin",
+   "name": "Admin view, import sheet and new-exercise form usable at 320, 844×390, 1280×800: no sideways overflow, buttons inside the screen (≥ 44 px on touch), save reachable",
+   "ok": true,
+   "detail": "{\"320\":{\"w\":320,\"vw\":320,\"small\":[\"Ny egen övning:40\",\"Importera övningar:40\"],\"off\":[],\"ir\":{\"top\":12,\"bottom\":436,\"h\":424,\"w\":320,\"left\":0,\"right\":320},\"fr\":{\"top\":-334,\"bottom\":732,\"h\":1066,\"w\":320,\"left\":0,\"right\":320},\"save\":true},\"390\":{\"w\":390,\"vw\":390,\"small\":[\"Ny egen övning:40\",\"Importera övningar:40\"],\"off\":[],\"ir\":{\"top\":12,\"bottom\":436,\"h\":424,\"w\":390,\"left\":0,\"right\":390},\"fr\":{\"top\":12,\"bottom\":1026,\"h\":1014,\"w\":390,\"left\":0,\"right\":390},\"save\":true},\"land\":{\"w\":844,\"vw\":844,\"small\":[\"← Tillbaka:40\",\"Ny egen övning:40\",\"Importera övningar:40\"],\"off\":[],\"ir\":{\"top\":28,\"bottom\":440,\"h\":412,\"w\":560,\"left\":142,\"right\":702},\"fr\":{\"top\":-463,\"bottom\":559,\"h\":1022,\"w\":480,\"left\":182,\"right\":662},\"save\":true},\"desk\":{\"w\":1280,\"vw\":1280,\"small\":[],\"off\":[],\"ir\":{\"top\":28,\"bottom\":440,\"h\":412,\"w\":560,\"left\":360,\"right\":920},\"fr\":{\"top\":28,\"bottom\":1050,\"h\":1022,\"w\":480,\"left\":400,\"r"
+  },
+  {
+   "part": "c",
+   "id": "AC1",
+   "name": "Lägg till övning sheet: Stäng, Sök, Filter, list; no tabs «Bibliotek · Tips · Mallar», no Ny egen övning / Importera övningar / «Så ni gör i er hall…» / «Visa bara övningar vi kan köra ikväll»",
+   "ok": true,
+   "detail": "Stäng Filter Alla typer Samling Uppvärmning Teknik Styrka Lek och spel Ljushopp på satsbräda 6 min Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först. Ljushopp på trampett 6 min Ljus"
+  },
+  {
+   "part": "c",
+   "id": "AC2",
+   "name": "first card top ≤ 240 (main 464); Sök and Filter work; block filter preselects the block you came from; tap card → Lägg till i valt block adds it, as on main",
+   "ok": true,
+   "detail": "{\"br\":{\"blk\":\"Teknik\",\"top\":238,\"sel\":\"techniques\",\"nq\":2,\"nAll\":51,\"det\":true,\"added\":1},\"main\":{\"blk\":\"Teknik\",\"top\":464,\"sel\":\"techniques\",\"nq\":2,\"nAll\":51,\"det\":true,\"added\":1}}"
+  },
+  {
+   "part": "c",
+   "id": "AC3",
+   "name": "injected own exercises show with «Egen»; Ändra opens the form and saves; Ta bort works and is disabled while the exercise is in a pass",
+   "ok": true,
+   "detail": "{\"n\":2,\"ts\":\"Egen övning sparad.\",\"renamed\":true,\"delUsed\":true,\"td\":\"Egen övning borttagen.\",\"left\":[\"own-s47v-2\"]}"
+  },
+  {
+   "part": "c",
+   "id": "AC6",
+   "name": "Planera pass Mall step identical to main (text of both steps, sheet geometry)",
+   "ok": true,
+   "detail": "{\"t1\":true,\"t2\":true,\"g\":[{\"top\":400,\"bottom\":844,\"h\":444,\"w\":390,\"left\":0,\"right\":390},{\"top\":400,\"bottom\":844,\"h\":444,\"w\":390,\"left\":0,\"right\":390}]}"
+  },
+  {
+   "part": "c",
+   "id": "errors-c",
+   "name": "no page errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "c",
+   "id": "live-c",
+   "name": "no request to a non-mock supabase.co host",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "c",
+   "id": "AC5",
+   "name": "«Använd mall» sheet: Föreningens mallar (when any), Mina mallar with «Kopiera delningskod» + «Ta bort», Nybörjare, Kort pass; no admin tools; pick → «Ersätta det här passet?» → toast «Mallen är i Passbyggaren. · Ångra»; Ångra restores the pass",
+   "ok": true,
+   "detail": "{\"h\":\"Använd mall\",\"t\":\"Använd mall Stäng Mina mallar S47V mall två 59 min Kopiera delningskod Ta bort Egna mallar stannar i den här webbläsaren. Delningskoden tar med en kopia till telefonen. Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tr\",\"mineT\":\"S47V mall två 59 min Kopiera delningskod Ta bort\",\"conf\":\"Ersätta det här passet?\\n\\nOm du börjar från en mall ersätts b\",\"tt\":\"Mallen är i Passbyggaren.\\n·\\nÅngra\"}"
+  },
+  {
+   "part": "c",
+   "id": "AC22",
+   "name": "Hämta ett pass with an exercise file: «Det här är en fil med övningar. En admin lägger in den under Admin.»; nothing imported (localStorage unchanged, still on start page)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "c",
+   "id": "AC7",
+   "name": "Förrådslista: no «Vad finns i hallen ikväll?»; rest as on main; Biblioteket shows every exercise with an old owned list (nothing ticked, ikväll on) in localStorage",
+   "ok": true,
+   "detail": "{\"br\":\"Förrådslista Summerat från Teknik-stationernas redskap Stäng 2× Trampett Plint 2× Landningsmatta Madrass Mattberg\",\"main\":\"Förrådslista Summerat från Teknik-stationernas redskap Stäng 2× Trampett Plint 2× Landningsmatta Madrass Mattberg Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta T\",\"counts\":{\"clean\":51,\"oldUnticked\":51}}"
+  },
+  {
+   "part": "c",
+   "id": "AC24-coach",
+   "name": "Lägg till övning (desktop side panel without tabs) and Använd mall usable at 320, 844×390, 1280×800",
+   "ok": false,
+   "detail": "{\"320\":{\"w\":320,\"vw\":320,\"tabs\":false,\"firstY\":221,\"firstInView\":true,\"addVis\":true,\"addReach\":true,\"ms\":{\"top\":0,\"bottom\":640,\"h\":640,\"w\":320,\"left\":0,\"right\":320},\"mallOk\":true},\"land\":{\"w\":844,\"vw\":844,\"tabs\":false,\"firstY\":1786,\"firstInView\":false,\"addVis\":true,\"addReach\":false,\"ms\":{\"top\":0,\"bottom\":390,\"h\":390,\"w\":844,\"left\":0,\"right\":844},\"mallOk\":true},\"desk\":{\"w\":1280,\"vw\":1280,\"tabs\":false,\"firstY\":-2135,\"firstInView\":true,\"addVis\":true,\"addReach\":true,\"ms\":{\"top\":0,\"bottom\":800,\"h\":800,\"w\":1280,\"left\":0,\"right\":1280},\"mallOk\":true}}"
+  },
+  {
+   "part": "c",
+   "id": "AC4",
+   "name": "pass with own exercises: Golvklart opens as on main (it lists Teknik stations only, main identical), Kör passet, Skriv ut passet show them; share link opens on a device without the own list and runs with them",
+   "ok": true,
+   "detail": "{\"inPass\":true,\"gk\":true,\"runOwn\":true,\"prints\":1,\"printOwn\":true,\"share\":true,\"sOwn\":true,\"sRun\":true}"
+  },
+  {
+   "part": "a",
+   "id": "AC18",
+   "name": "Dölj för alla (confirm «Dölja ”…” för alla tränare?…») → «Dold för alla.», coach no longer sees it, row under «Dolda (n)»; Visa igen → «Syns igen för alla.»",
+   "ok": true,
+   "detail": "{\"conf\":\"Dölja ”Höjdhopp (lek)” för alla tränare? Pass som redan har övningen visar den fortfarande\",\"t1\":\"Dold för alla.\",\"s1\":\"hidden\",\"coach\":0,\"t2\":\"Syns igen för alla.\",\"s2\":\"published\"}"
+  }
+ ],
+ "notes": {
+  "g.share": true,
+  "g.matrix": {
+   "out/320/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/320/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/320/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/320/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/390/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/390/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/390/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/390/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/land/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/land/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/land/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/land/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/desk/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/desk/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/desk/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "out/desk/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "nonadmin/320/home": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/320/builder": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/320/hall": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/320/shared": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/390/home": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/390/builder": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/390/hall": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/390/shared": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/land/home": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/land/builder": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/land/hall": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/land/shared": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/desk/home": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/desk/builder": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/desk/hall": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "nonadmin/desk/shared": {
+    "seen": [],
+    "foot": "Du är inloggad men inte admin. · Logga ut"
+   },
+   "botkey/320/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/320/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/320/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/320/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/390/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/390/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/390/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/390/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/land/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/land/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/land/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/land/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/desk/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/desk/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/desk/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey/desk/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/320/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/320/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/320/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/320/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/390/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/390/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/390/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/390/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/land/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/land/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/land/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/land/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/desk/home": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/desk/builder": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/desk/hall": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "botkey_nonadmin/desk/shared": {
+    "seen": [],
+    "foot": "Logga in som admin"
+   },
+   "admin/320/home": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/320/builder": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin",
+     "mer:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/320/hall": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/320/shared": {
+    "seen": [],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/390/home": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/390/builder": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin",
+     "mer:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/390/hall": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/390/shared": {
+    "seen": [],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/land/home": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/land/builder": {
+    "seen": [
+     "btn-secondary:Admin",
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/land/hall": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/land/shared": {
+    "seen": [],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/desk/home": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/desk/builder": {
+    "seen": [
+     "btn-secondary:Admin",
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/desk/hall": {
+    "seen": [
+     "btn-text visa-tips-igen footer-admin-open:Admin"
+    ],
+    "foot": "Admin · Logga ut"
+   },
+   "admin/desk/shared": {
+    "seen": [],
+    "foot": "Admin · Logga ut"
+   }
+  },
+  "g.relogin": {
+   "after": {
+    "view": 0,
+    "home": 1,
+    "seen": []
+   },
+   "perW": {
+    "320": [],
+    "390": [],
+    "land": [],
+    "desk": [],
+    "builder": [],
+    "hall": [],
+    "reload": []
+   },
+   "naFoot": "Du är inloggad men inte admin. · Logga ut",
+   "naSeen": [],
+   "naB": [],
+   "aSeen": [
+    "btn-text visa-tips-igen footer-admin-open:Admin"
+   ]
+  },
+  "g.rls": {
+   "anon.insertPending": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.insertPublished": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.approve": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.hide": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.edit": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.readPending": {
+    "status": 200,
+    "body": "[]"
+   },
+   "anon.delete": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "anon.admins": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table admins\"}"
+   },
+   "anon.selfAdmin": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table admins\"}"
+   },
+   "anon.clubInsert": {
+    "status": 401,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table club_templates\"}"
+   },
+   "nonadmin.insertPending": {
+    "status": 403,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"new row violates row-level security policy for table \\\"exercises\\\"\"}"
+   },
+   "nonadmin.insertPublished": {
+    "status": 403,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"new row violates row-level security policy for table \\\"exercises\\\"\"}"
+   },
+   "nonadmin.approve": {
+    "status": 200,
+    "body": "[]"
+   },
+   "nonadmin.hide": {
+    "status": 200,
+    "body": "[]"
+   },
+   "nonadmin.edit": {
+    "status": 200,
+    "body": "[]"
+   },
+   "nonadmin.readPending": {
+    "status": 200,
+    "body": "[]"
+   },
+   "nonadmin.delete": {
+    "status": 403,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table exercises\"}"
+   },
+   "nonadmin.admins": {
+    "status": 200,
+    "body": "[]"
+   },
+   "nonadmin.selfAdmin": {
+    "status": 403,
+    "body": "{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for table admins\"}"
+   },
+   "nonadmin.clubInsert": {
+    "status": 400,
+    "body": "{\"code\":\"22P02\",\"details\":null,\"hint\":null,\"message\":\"invalid input syntax for type uuid: \\\"s47v-x\\\"\"}"
+   }
+  },
+  "a.coachBeforeTech": 0,
+  "a.techRow": {
+   "id": "tech-egen-mvfi3gwh23zy",
+   "status": "pending",
+   "visual_key": "own",
+   "eq": [
+    {
+     "count": 1,
+     "pieceId": "eq-trampett"
+    }
+   ],
+   "updated_by": "admin@",
+   "tags": []
+  },
+  "i.ac20ids": [
+   [
+    "warm-egen-mvfifivg6a75"
+   ],
+   [
+    "tech-egen-mvfifiw26y0r"
+   ],
+   [
+    "gather-egen-mvfifiwi1iwt"
+   ]
+  ],
+  "i.timeout": {
+   "tt": "1 övning väntar på godkännande.",
+   "counts": [
+    1,
+    1,
+    0
+   ],
+   "secs": 10
+  },
+  "a.ac18title": "Höjdhopp (lek)",
+  "c.ac12": {
+   "br": {
+    "blk": "Teknik",
+    "top": 238,
+    "sel": "techniques",
+    "nq": 2,
+    "nAll": 51,
+    "det": true,
+    "added": 1,
+    "t": "Stäng Filter Alla typer Samling Uppvärmning Teknik Styrka Lek och spel Ljushopp på satsbräda 6 min Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först. Ljushopp på trampett 6 min Ljus"
+   },
+   "main": {
+    "blk": "Teknik",
+    "top": 464,
+    "sel": "techniques",
+    "nq": 2,
+    "nAll": 51,
+    "det": true,
+    "added": 1,
+    "t": "Stäng Bibliotek Tips Mallar Filter Alla typer Samling Uppvärmning Teknik Styrka Lek och spel Ny egen övning Importera övningar Så ni gör i er hall. Övningen stannar i den här webbläsaren. Visa bara övningar vi kan köra i"
+   }
+  }
+ }
+}

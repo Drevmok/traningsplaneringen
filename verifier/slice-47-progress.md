@@ -38,3 +38,6 @@ Remaining: part a rerun; part i (import 3, injected mid-import failure, timeout 
 - Static: AC25 — no deleted key referenced as `UI.*`, no `SideTab`/`ownedEquipment` in src, all 10 new strings found in microcopy.sv.md, changed strings found too, no «!»; AC26 — no SQL/supabase files in the diff, asserts at feedback.test.ts:25/45/46 and clubTemplates.test.ts:316 read 47. Secret grep of the diff and my files: clean.
 - Loop so far: 47-builder 32/32; 46-builder 3 new FAILs = intended (Mallar tab removed → AC17; footer «Slice 47» → AC20, AC20-hall); 45…42 identical to the Slice 46 baseline.
 - Feature maps written (passbyggaren, starta-fran-mall, golvklart-forrad, delad-bank, new admin.md, README index).
+
+## Chunk 4 — coach side, loop, final (19:15–19:45 CEST)
+- Part c green except AC24 landscape add (Major, pre-existing on main). Loop ALLDONE and classified; 33/35 deltas reproduced on main. Netlog: 5,758 requests, 0 live. Final report written.

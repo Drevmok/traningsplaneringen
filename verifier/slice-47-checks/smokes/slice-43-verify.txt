@@ -1,0 +1,8 @@
+FAIL [H] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:57,slice-43-verify.mjs:18,slice-43-verify.mjs:54
+FAIL [L] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:90,slice-43-verify.mjs:18,slice-43-verify.mjs:89
+FAIL [M] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:152,slice-43-verify.mjs:18,slice-43-verify.mjs:151
+FAIL [V] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:215,slice-43-verify.mjs:18,slice-43-verify.mjs:209
+FAIL [P] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:243,slice-43-verify.mjs:18,slice-43-verify.mjs:238
+FAIL [X] section error — locator.click: Timeout 10000ms exceeded. @slice-43-verify.mjs:33,slice-43-verify.mjs:272,slice-43-verify.mjs:278,slice-43-verify.mjs:18,slice-43-verify.mjs:270
+PASS [no-errors] No page errors
+PASS 1 / FAIL 6 · page errors 0

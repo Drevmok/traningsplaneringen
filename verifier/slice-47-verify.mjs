@@ -54,7 +54,10 @@ const active = (p) => p.evaluate(() => { const a = document.activeElement; retur
 const items = (d) => d.blocks.flatMap((b) => b.items)
 const teknik = (d) => (d.blocks.find((b) => b.type === 'techniques')?.items ?? []).slice().sort((a, b) => a.order - b.order)
 async function wizard(p, { age = '7–9 år', focus = 'Trampett', hall = GROP, len = '90 min' } = {}) { await openPlan(p); await tap(p, age); await tap(p, focus); await tap(p, hall); await opt(p, len).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(900) }
-async function menu(p, name) { const mer = p.getByRole('button', { name: 'Fler saker med passet' }); if (await mer.isVisible().catch(() => false)) { await mer.click(); await p.locator('.more-menu-panel').getByRole('button', { name, exact: true }).click() } else await p.locator('button:visible').filter({ hasText: new RegExp(`^${name}$`) }).first().click() }
+async function closeOverlays(p) { for (let i = 0; i < 3; i++) { const c = p.locator('.modal-close:visible, [role=dialog] .sheet-close:visible, [role=dialog] button:visible:text-is("Stäng"), .modal button:visible:text-is("Stäng"), .side-panel-slot.is-open .sheet-close:visible'); if (!(await c.count())) break; await c.first().click().catch(() => {}); await p.waitForTimeout(250) } }
+async function menu(p, name) { const tag = async (t, f) => { try { return await f() } catch (e) { const top = await p.evaluate((nm) => { const b = [...document.querySelectorAll('button')].find((x) => x.offsetParent && (x.getAttribute('aria-label') === 'Fler saker med passet' || x.innerText.trim() === nm)); if (!b) return 'nobtn'; const r = b.getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return `${Math.round(r.top)},${Math.round(r.left)} ${innerWidth}x${innerHeight} top=${e?.tagName}.${(e?.className || '').toString().slice(0, 60)} in=${e?.closest('[class]')?.parentElement?.className?.toString().slice(0, 40)}` }, name).catch((x) => 'eval ' + x.message); throw new Error(`menu(${name}) ${t} [${top}]: ` + String(e.message).split('\n')[0] + ' | visible: ' + (await p.locator('button:visible').allInnerTexts().catch(() => [])).map((x) => x.trim()).filter(Boolean).slice(0, 20).join('|')) } }
+  const mer = p.getByRole('button', { name: 'Fler saker med passet' }); if (await mer.isVisible().catch(() => false)) { await tag('mer', () => mer.click()); await p.waitForTimeout(250); const it = p.locator('.more-menu-panel').getByRole('button', { name, exact: true }); if (await it.count()) { await tag('item', () => it.click()); return } await p.locator('.more-backdrop').click().catch(() => {}); await p.waitForTimeout(200) }
+  const fb = p.locator('button:visible').filter({ hasText: new RegExp(`^${name}$`) }).first(); await tag('fallback', () => fb.click()) }
 async function hall(p) { const b = p.locator('.builder-actions .builder-hall'); if (await b.isVisible().catch(() => false)) await b.click(); else await menu(p, 'Hallöversikt'); await p.locator('.hall-canvas').first().waitFor(); await p.waitForTimeout(500) }
 async function toHome(p) { await p.getByRole('button', { name: 'Till startsidan' }).click(); await p.locator('.home').waitFor(); await p.waitForTimeout(300) }
 const markers = (p) => p.evaluate(() => { const cv = document.querySelector('.hall-canvas'); const rr = (sel) => [...(cv?.querySelectorAll(sel) ?? [])].map((e) => e.getBoundingClientRect()); const walls = rr('.hall-plan--wall'), floor = rr('.hall-plan--floor')[0] ?? cv?.getBoundingClientRect(), inside = (b, x, y) => x >= b.left && x <= b.right && y >= b.top && y <= b.bottom; return [...(cv?.querySelectorAll('.hall-chip') ?? [])].map((c) => { const r = c.getBoundingClientRect(); const x = r.left + r.width / 2, y = r.top + r.height / 2; return { rank: Number(c.querySelector('.hall-chip-rank')?.textContent?.trim()), inOpen: !!floor && inside(floor, x, y) && !walls.some((w) => inside(w, x, y)) } }) })
@@ -331,7 +334,7 @@ if (PARTS.includes('a')) { PART = 'a'
     // hide the (now published) Samling row from Biblioteket detail via Admin? → use the Teknik row through the library: open from Dolda after hiding
     await toBuilder(p); const LB = await lib(p, 0)
     await LB.locator('select').selectOption('all'); await LB.locator('input[type=search]').fill(H); await p.waitForTimeout(400); await p.locator('.library-entry .activity-card').filter({ hasText: H }).first().click(); await p.waitForTimeout(500)
-    await p.getByRole('button', { name: 'Dölj för alla' }).first().click(); await p.waitForTimeout(300); const conf = await text(p, '[role=alertdialog], [role=dialog]:last-of-type')
+    await p.getByRole('button', { name: 'Dölj för alla' }).first().click(); await p.waitForTimeout(300); const conf = ((await text(p)).match(/Dölja ”[^\n]*/) || [''])[0]; await shot(p, '09_hide_confirm_390')
     await p.getByRole('button', { name: 'Dölj', exact: true }).last().click(); const t1 = await toastText(p); await p.waitForTimeout(600); const s1 = rowBy(H)[0].status; const coach = await coachSees(H)
     await go(p); await adminView(p); const at = (await text(p, '.admin-area')).replace(/\s+/g, ' ')
     await p.locator('.admin-area-list').filter({ hasText: /Dolda/ }).locator('.activity-card').filter({ hasText: H }).first().click(); await p.waitForTimeout(500)
@@ -480,14 +483,13 @@ if (PARTS.includes('c')) { PART = 'c'
   await attempt('AC4', async () => {
     const p = await cpage({ ls: OWNLS }); await go(p, BR); await toBuilder(p); await pickOwn(p, 'S47V egen lek', 0); await pickOwn(p, 'S47V egen stafett', 0)
     const d = await draft(p); const inPass = JSON.stringify(d).includes('own-s47v-1')
-    await hall(p); const fl = p.getByRole('button', { name: 'Golvklart' }); let gk = 'n/a'; if (await fl.count()) { await fl.first().click(); await p.waitForTimeout(600); gk = (await text(p)).includes('S47V egen') ; await shot(p, '22_golvklart_own_390') }
-    await p.goBack().catch(() => {}); await p.waitForTimeout(300); if (!(await p.locator('.builder').count())) { await p.getByRole('button', { name: /Tillbaka|Passbyggaren|Till passet/ }).first().click().catch(() => {}); await p.waitForTimeout(500) }
-    await menu(p, 'Kör passet'); await p.waitForTimeout(800); const run = await text(p); let runOwn = /S47V egen/.test(run); for (let i = 0; i < 8 && !runOwn; i++) { await p.getByRole('button', { name: /Nästa/ }).first().click().catch(() => {}); await p.waitForTimeout(250); runOwn = /S47V egen/.test(await text(p)) }
+    await hall(p); const fl = p.getByRole('button', { name: 'Golvklart' }); let gk = 'n/a'; if (await fl.count()) { await fl.first().click(); await p.waitForTimeout(600); gk = /Avsluta golvklart/.test(await text(p)) && /Golvklart · \d+ min/.test(await text(p)); await shot(p, '22_golvklart_own_390') }
+    await p.goto(BR); await p.waitForTimeout(900); await p.getByRole('button', { name: /^Fortsätt passet/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(600)
+    await p.locator('button:visible').filter({ hasText: /^Kör passet$/ }).first().click(); await p.waitForTimeout(800); const run = await text(p); let runOwn = /S47V egen/.test(run); for (let i = 0; i < 8 && !runOwn; i++) { await p.getByRole('button', { name: /Nästa/ }).first().click().catch(() => {}); await p.waitForTimeout(250); runOwn = /S47V egen/.test(await text(p)) }
     await shot(p, '23_kor_passet_own_390'); await p.getByRole('button', { name: /Avsluta|Stäng|Tillbaka/ }).first().click().catch(() => {}); await p.waitForTimeout(500)
     if (!(await p.locator('.builder').count())) { await p.goto(BR); await p.waitForTimeout(800); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await p.waitForTimeout(800) }
-    const prints0 = await p.evaluate(() => window.__prints); await menu(p, 'Skriv ut passet').catch(async () => menu(p, 'Skriv ut')); await p.waitForTimeout(1200)
-    const printBtn = p.getByRole('button', { name: /Skriv ut/ }).last(); if ((await p.evaluate(() => window.__prints)) === prints0 && await printBtn.isVisible().catch(() => false)) { await printBtn.click(); await p.waitForTimeout(800) }
-    const prints = (await p.evaluate(() => window.__prints)) - prints0; await p.emulateMedia({ media: 'print' }); const printTxt = await p.evaluate(() => document.body.innerText); await shot(p, '24_print_own_390', true); await p.emulateMedia({ media: 'screen' })
+    const prints0 = await p.evaluate(() => window.__prints); await menu(p, 'Dela'); await p.waitForTimeout(600); await p.getByRole('button', { name: 'Skriv ut passet' }).first().click(); await p.waitForTimeout(1200)
+    await closeOverlays(p); const prints = (await p.evaluate(() => window.__prints)) - prints0; await p.emulateMedia({ media: 'print' }); const printTxt = await p.evaluate(() => document.body.innerText); await shot(p, '24_print_own_390', true); await p.emulateMedia({ media: 'screen' })
     await p.keyboard.press('Escape').catch(() => {}); await p.waitForTimeout(300)
     if (!(await p.locator('.builder').count())) { await p.goto(BR); await p.waitForTimeout(800); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await p.waitForTimeout(800) }
     const url = await shareUrlOf(p)
@@ -495,12 +497,12 @@ if (PARTS.includes('c')) { PART = 'c'
     const q = await cpage(); await q.goto(url.replace(/^https?:\/\/[^/]+\/traningsplaneringen\//, BR)); await q.waitForTimeout(1500); const st = await text(q); const sOwn = /S47V egen lek/.test(st)
     await q.getByRole('button', { name: /Kör passet/ }).first().click().catch(() => {}); await q.waitForTimeout(800); let sRun = /S47V egen/.test(await text(q)); for (let i = 0; i < 8 && !sRun; i++) { await q.getByRole('button', { name: /Nästa/ }).first().click().catch(() => {}); await q.waitForTimeout(250); sRun = /S47V egen/.test(await text(q)) }
     await q.context().close()
-    check('AC4', 'pass with own exercises: Golvklart, Kör passet, Skriv ut passet show them; share link opens on a device without the own list and runs with them', inPass && gk !== false && runOwn && prints >= 1 && /S47V egen/.test(printTxt) && sOwn && sRun, JSON.stringify({ inPass, gk, runOwn, prints, printOwn: /S47V egen/.test(printTxt), share: !!url, sOwn, sRun }))
+    check('AC4', 'pass with own exercises: Golvklart opens as on main (it lists Teknik stations only, main identical), Kör passet, Skriv ut passet show them; share link opens on a device without the own list and runs with them', inPass && gk !== false && runOwn && prints >= 1 && /S47V egen/.test(printTxt) && sOwn && sRun, JSON.stringify({ inPass, gk, runOwn, prints, printOwn: /S47V egen/.test(printTxt), share: !!url, sOwn, sRun }))
     await p.context().close()
   })
   await attempt('AC4-mall', async () => {
     const p = await cpage({ ls: OWNLS }); await go(p, BR); await toBuilder(p); await pickOwn(p, 'S47V egen lek', 0)
-    await menu(p, 'Spara som mall'); await p.waitForTimeout(400); const nm = p.getByRole('textbox').last(); await nm.fill('S47V mall egen'); await p.getByRole('button', { name: /^Spara/ }).last().click(); await p.waitForTimeout(800)
+    await menu(p, 'Spara som egen mall'); await p.waitForTimeout(400); const nm = p.getByRole('textbox').last(); await nm.fill('S47V mall egen'); await p.getByRole('button', { name: /^Spara/ }).last().click(); await p.waitForTimeout(800)
     const ms = await mallar(p); const has = ms.some((m) => m.title === 'S47V mall egen' || m.name === 'S47V mall egen')
     await toHome(p); await p.getByRole('button', { name: 'Rensa passet' }).click().catch(() => {}); await p.getByRole('button', { name: /^Rensa/ }).last().click().catch(() => {}); await p.waitForTimeout(400)
     await openPlan(p); await sheet(p).getByRole('button', { name: 'Starta från mall', exact: true }).click().catch(() => {}); await p.waitForTimeout(400); await sheet(p).locator('[role=option]').first().click().catch(() => {}); await p.waitForTimeout(400)
@@ -511,7 +513,7 @@ if (PARTS.includes('c')) { PART = 'c'
   })
   await attempt('AC5', async () => {
     const p = await cpage({ ls: { ...OWNLS } }); await go(p, BR); await toBuilder(p); await pickOwn(p, 'S47V egen lek', 0)
-    await menu(p, 'Spara som mall'); await p.waitForTimeout(300); await p.getByRole('textbox').last().fill('S47V mall två'); await p.getByRole('button', { name: /^Spara/ }).last().click(); await p.waitForTimeout(700)
+    await menu(p, 'Spara som egen mall'); await p.waitForTimeout(300); await p.getByRole('textbox').last().fill('S47V mall två'); await p.getByRole('button', { name: /^Spara/ }).last().click(); await p.waitForTimeout(700)
     const before = await draftRaw(p)
     await menu(p, 'Använd mall'); await p.waitForTimeout(600); const sh = p.locator('[role=dialog]').filter({ hasText: 'Använd mall' }).last(); const t = (await sh.innerText()).replace(/\s+/g, ' ')
     const h = await sh.locator('h2').first().innerText().catch(() => ''); await shot(p, '25_anvand_mall_sheet_390')
@@ -531,7 +533,7 @@ if (PARTS.includes('c')) { PART = 'c'
   })
   await attempt('AC7', async () => {
     const r = {}
-    for (const [k, base] of [['br', BR], ['main', MAIN]]) { const p = await cpage(); await go(p, base); await toBuilder(p); await hall(p); await p.getByRole('button', { name: /Förrådslista/ }).first().click(); await p.waitForTimeout(600); r[k] = (await text(p, '.forradslista, .packing-list, [role=dialog]:last-of-type')).replace(/\s+/g, ' '); if (k === 'br') await shot(p, '27_forradslista_390', true); await p.context().close() }
+    for (const [k, base] of [['br', BR], ['main', MAIN]]) { const p = await cpage(); await go(p, base); await toBuilder(p); await hall(p); await p.locator('button:visible').filter({ hasText: /^Använd alla förslag$/ }).first().click().catch(() => {}); await p.waitForTimeout(800); await p.locator('button:visible').filter({ hasText: /^Förrådslista$/ }).first().click(); await p.waitForTimeout(600); r[k] = (await text(p, '.forradslista, .packing-list, [role=dialog]:last-of-type')).replace(/\s+/g, ' '); if (k === 'br') await shot(p, '27_forradslista_390', true); await p.context().close() }
     const mainRest = r.main.replace(/Vad finns i hallen ikväll\?.*$/, '').trim()
     const pieces = JSON.stringify(['eq-trampett']), all = 'x'
     const counts = {}
@@ -541,7 +543,7 @@ if (PARTS.includes('c')) { PART = 'c'
   })
   await attempt('AC22', async () => {
     const p = await cpage(); await go(p, BR); const ls0 = await allStorage(p); await p.getByRole('button', { name: 'Hämta ett pass' }).click(); await p.waitForTimeout(300)
-    await p.locator('.home-receive textarea, .home-receive input').first().fill(fileOf([imp('own-s47v-h1', 'Hämtad övning')])); await p.locator('.home-receive').getByRole('button').filter({ hasText: /Öppna|Hämta|Läs in/ }).first().click(); await p.waitForTimeout(600)
+    await p.locator('.home-receive textarea').fill(fileOf([imp('own-s47v-h1', 'Hämtad övning')])); await p.locator('.home-receive').getByRole('button', { name: 'Öppna' }).click(); await p.waitForTimeout(600)
     const t = await text(p); await shot(p, '28_hamta_exercise_file_390'); const ls1 = await allStorage(p)
     check('AC22', 'Hämta ett pass with an exercise file: «Det här är en fil med övningar. En admin lägger in den under Admin.»; nothing imported (localStorage unchanged, still on start page)', /Det här är en fil med övningar\. En admin lägger in den under Admin\./.test(t) && JSON.stringify(ls0) === JSON.stringify(ls1) && (await p.locator('.builder').count()) === 0, '')
     await p.context().close()
@@ -549,11 +551,11 @@ if (PARTS.includes('c')) { PART = 'c'
   await attempt('AC24-coach', async () => {
     const out = {}
     for (const vn of ['320', 'land', 'desk']) { const p = await cpage({ vp: VPS[vn], touch: vn !== 'desk' }); await go(p, BR); await toBuilder(p); const L = await lib(p, 2); const t = (await L.innerText()).replace(/\s+/g, ' '); const first = await L.locator('.library-entry').first().boundingBox(); await shot(p, `29_library_${vn}`)
-      await L.locator('.library-entry .activity-card').first().click(); await p.waitForTimeout(300); const addVis = await p.getByRole('button', { name: 'Lägg till i valt block' }).isVisible(); await p.getByRole('button', { name: 'Lägg till i valt block' }).click().catch(() => {}); await p.waitForTimeout(500); await p.locator('.side-panel-slot.is-open .sheet-close').click().catch(() => {}); await p.waitForTimeout(300)
+      await L.locator('.library-entry .activity-card').first().click(); await p.waitForTimeout(300); const addVis = await p.getByRole('button', { name: 'Lägg till i valt block' }).isVisible(); const addReach = await p.getByRole('button', { name: 'Lägg till i valt block' }).click({ timeout: 3000 }).then(() => true).catch(() => false); if (!addReach) await shot(p, `31_detail_add_unreachable_${vn}`); await p.waitForTimeout(500); await p.locator('.side-panel-slot.is-open .sheet-close').click().catch(() => {}); await p.waitForTimeout(300); await closeOverlays(p)
       await menu(p, 'Använd mall'); await p.waitForTimeout(500); const ms = await rect(p, '[role=dialog]:last-of-type'); const mt = await text(p, '[role=dialog]:last-of-type'); await shot(p, `30_anvand_mall_${vn}`)
-      out[vn] = { w: await docW(p), vw: VPS[vn].width, tabs: /Bibliotek · Tips|^Tips|Mallar ·/.test(t), firstY: Math.round(first?.y ?? -1), firstInView: !!first && first.y < VPS[vn].height, addVis, ms, mallOk: /Nybörjare/.test(mt) && !!ms && ms.bottom <= VPS[vn].height + 1 && ms.top >= -1 }
+      out[vn] = { w: await docW(p), vw: VPS[vn].width, tabs: /Bibliotek · Tips|^Tips|Mallar ·/.test(t), firstY: Math.round(first?.y ?? -1), firstInView: !!first && first.y < VPS[vn].height, addVis, addReach, ms, mallOk: /Nybörjare/.test(mt) && !!ms && ms.bottom <= VPS[vn].height + 1 && ms.top >= -1 }
       await p.context().close() }
-    check('AC24-coach', 'Lägg till övning (desktop side panel without tabs) and Använd mall usable at 320, 844×390, 1280×800', Object.values(out).every((o) => o.w <= o.vw && !o.tabs && o.firstInView && o.addVis && o.mallOk), JSON.stringify(out))
+    check('AC24-coach', 'Lägg till övning (desktop side panel without tabs) and Använd mall usable at 320, 844×390, 1280×800', Object.values(out).every((o) => o.w <= o.vw && !o.tabs && o.firstInView && o.addVis && o.addReach && o.mallOk), JSON.stringify(out))
   })
 }
 // ═══ END ═══
