@@ -36,7 +36,6 @@ import {
   upsertPlacement,
 } from '../lib/hall'
 import { autoPlaceUnplaced } from '../lib/hallSuggest'
-import { loadOwnedEquipment, saveOwnedEquipment } from '../lib/ownedEquipment'
 import {
   applyAllSuggestedStationEquipment,
   eligibleSuggestedStationEquipmentItems,
@@ -94,7 +93,6 @@ export function HallBoard({
   const [trayHeight, setTrayHeight] = useState(0)
   /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
   const [applyAllHighlight, setApplyAllHighlight] = useState(false)
-  const [ownedIds, setOwnedIds] = useState<string[]>(() => loadOwnedEquipment())
   const pp = usePassPrint()
 
   // Slice 31 — activity-derived values are plain (not memoized on session) so a bank
@@ -711,18 +709,6 @@ export function HallBoard({
           eligibleSuggestedCount={eligibleSuggestedCount}
           onClose={() => setForradOpen(false)}
           onPointAtApplyAll={pointAtApplyAllFromForrad}
-          ownedIds={ownedIds}
-          onToggleOwned={(pieceId, on) => {
-            setOwnedIds((prev) => {
-              const next = on
-                ? prev.includes(pieceId)
-                  ? prev
-                  : [...prev, pieceId]
-                : prev.filter((id) => id !== pieceId)
-              saveOwnedEquipment(next)
-              return next
-            })
-          }}
         />
       )}
 

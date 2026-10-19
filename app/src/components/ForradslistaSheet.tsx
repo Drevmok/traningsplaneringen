@@ -1,5 +1,4 @@
 import { stationEquipmentLabelText, UI } from '../data/blockMeta'
-import { EQUIPMENT_PIECES } from '../data/equipmentPieces'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { AggregatedEquipmentRow } from '../data/equipmentPieces'
 
@@ -8,8 +7,6 @@ interface Props {
   eligibleSuggestedCount: number
   onClose: () => void
   onPointAtApplyAll: () => void
-  ownedIds: string[]
-  onToggleOwned: (pieceId: string, on: boolean) => void
 }
 
 /** Slice 15 — read-only pass-wide Förrådslista bottom sheet. Slice 24 soft empty path. */
@@ -18,8 +15,6 @@ export function ForradslistaSheet({
   eligibleSuggestedCount,
   onClose,
   onPointAtApplyAll,
-  ownedIds,
-  onToggleOwned,
 }: Props) {
   useBodyScrollLock(true)
 
@@ -83,27 +78,6 @@ export function ForradslistaSheet({
           </ul>
         )}
 
-        <section className="forrad-owned" aria-labelledby="forrad-owned-title">
-          <h3 id="forrad-owned-title">{UI.ownedEquipmentTitle}</h3>
-          <p className="muted">{UI.ownedEquipmentHint}</p>
-          <ul className="forrad-owned-list">
-            {EQUIPMENT_PIECES.map((piece) => {
-              const on = ownedIds.includes(piece.id)
-              return (
-                <li key={piece.id}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={on}
-                      onChange={(e) => onToggleOwned(piece.id, e.target.checked)}
-                    />
-                    <span>{piece.labelSv}</span>
-                  </label>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
       </div>
     </div>
   )

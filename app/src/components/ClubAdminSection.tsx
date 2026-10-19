@@ -8,7 +8,8 @@ import { AdminStatusBadge } from './AdminStatusBadge'
 import { ClubTemplateCard, ClubTemplatesSection } from './ClubTemplates'
 
 interface Props {
-  onPick: (t: ClubTemplate) => void
+  /** Slice 47: omitted in Admin (cards not pickable). */
+  onPick?: (t: ClubTemplate) => void
   onToast: (msg: string) => void
 }
 

@@ -14,15 +14,10 @@ import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
 
 interface Props {
-  initial: Activity | null
-  blockType: BlockType
+  /** Slice 47 E1: edit only — coaches cannot add new own exercises. */
+  initial: Activity
   onSaved: () => void
   onCancel: () => void
-}
-
-function linesFromActivity(activity: Activity | null): string {
-  if (!activity) return ''
-  return parseHowLines(activity.howTo).join('\n')
 }
 
 const ISSUE_TEXT: Record<OwnIssue, string> = {
@@ -34,20 +29,19 @@ const ISSUE_TEXT: Record<OwnIssue, string> = {
   safety: UI.ownNeedSafety,
 }
 
-export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props) {
+export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
   const [draft, setDraft] = useState<OwnDraft>(() => ({
-    title: initial?.title ?? '',
-    blockType: initial?.blockType ?? blockType,
-    durationMinutes: initial?.durationMinutesDefault ?? 5,
-    summary: initial?.summary ?? '',
-    howText: linesFromActivity(initial),
-    watchFor: initial?.watchFor ?? '',
-    safety: initial?.safetyLine ?? '',
-    equipment: initial?.defaultStationEquipment ?? [],
+    title: initial.title,
+    blockType: initial.blockType,
+    durationMinutes: initial.durationMinutesDefault,
+    summary: initial.summary,
+    howText: parseHowLines(initial.howTo).join('\n'),
+    watchFor: initial.watchFor,
+    safety: initial.safetyLine ?? '',
+    equipment: initial.defaultStationEquipment ?? [],
   }))
   const [picking, setPicking] = useState(false)
   const [issues, setIssues] = useState<OwnIssue[]>([])
-  const [full, setFull] = useState(false)
   useBodyScrollLock(true)
 
   function set<K extends keyof OwnDraft>(key: K, value: OwnDraft[K]) {
@@ -58,14 +52,8 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
     e.preventDefault()
     const nextIssues = ownActivityIssues(draft)
     setIssues(nextIssues)
-    setFull(false)
     if (nextIssues.length > 0) return
-    const saved = saveOwnActivity(draft, initial?.id)
-    if (!saved.ok) {
-      if (saved.reason === 'full') setFull(true)
-      return
-    }
-    onSaved()
+    if (saveOwnActivity(draft, initial.id).ok) onSaved()
   }
 
   return (
@@ -73,14 +61,13 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
       className="modal-backdrop own-form-backdrop"
       role="dialog"
       aria-modal="true"
-      aria-label={initial ? UI.ownEdit : UI.ownNew}
+      aria-label={UI.ownEdit}
       onClick={(e) => {
         if (e.target === e.currentTarget) onCancel()
       }}
     >
       <form className="modal own-form" onSubmit={submit}>
-        <h2>{initial ? UI.ownEdit : UI.ownNew}</h2>
-        <p>{UI.ownHint}</p>
+        <h2>{UI.ownEdit}</h2>
         {issues.length > 0 && (
           <ul className="own-issues">
             {[...new Set(issues)].map((issue) => (
@@ -88,7 +75,6 @@ export function OwnActivityForm({ initial, blockType, onSaved, onCancel }: Props
             ))}
           </ul>
         )}
-        {full && <p className="own-issues">{UI.ownFull}</p>}
         <label className="own-field">
           <span>{UI.ownTitle}</span>
           <input

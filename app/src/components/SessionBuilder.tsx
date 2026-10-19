@@ -1,11 +1,10 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { ownImportDoneText, PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
+import { PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
 import {
   isTipDismissed,
   TIP_BUILDER_EMPTY,
   type CoachTipsStateV1,
 } from '../lib/coachTips'
-import { getActivityById } from '../data/seedActivities'
 import { countSessionItems } from '../lib/hall'
 import { coachStationCount, isFreshPass, markFresh } from '../lib/freshPass'
 import { autoPlaceItems } from '../lib/hallSuggest'
@@ -39,7 +38,6 @@ import type {
   BlockType,
   MismatchWarning,
   Session,
-  SideTab,
 } from '../types'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { CoachTipStrip } from './CoachTipStrip'
@@ -50,7 +48,7 @@ import { TemplateConfirm } from './TemplateConfirm'
 import { ExportSheet } from './ExportSheet'
 import { NewWeekConfirm } from './NewWeekConfirm'
 import { OwnActivityForm } from './OwnActivityForm'
-import { OwnImportSheet } from './OwnImportSheet'
+import { MallSheet } from './MallSheet'
 import { SaveTemplateDialog } from './SaveTemplateDialog'
 import { enterPresentation } from '../lib/presentation'
 import { unlockRunSignal } from '../lib/runSignal'
@@ -66,7 +64,6 @@ const samePass = (a: Session, b: Session) => JSON.stringify(a) === JSON.stringif
 /** Slice 39: pass ids that already got the «kunde inte sparas» toast (once per pass). */
 const failToasted = new Set<string>()
 
-const ClubAdminSection = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubAdminSection })))
 const ClubPublishDialog = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubPublishDialog })))
 const AdminDetailPanel = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.AdminDetailPanel })))
 
@@ -81,6 +78,8 @@ interface Props {
   onBuilderMounted?: () => void
   /** Slice 39: autosave state from App. */
   saveStatus?: SaveStatus
+  /** Slice 47 C1: «Admin» in Mer (admins only). */
+  onOpenAdmin?: () => void
 }
 
 const NARROW_MQ = '(max-width: 768px)'
@@ -95,18 +94,17 @@ export function SessionBuilder({
   onDismissTip,
   onBuilderMounted,
   saveStatus = 'idle',
+  onOpenAdmin,
 }: Props) {
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(
     session.blocks[0]?.id ?? null,
   )
-  const [sideTab, setSideTab] = useState<SideTab>('library')
   const [panelOpen, setPanelOpen] = useState(false)
   const [isNarrow, setIsNarrow] = useState(false)
   const [filterBlockType, setFilterBlockType] = useState<BlockType | 'all'>(
     'all',
   )
   const [detailActivity, setDetailActivity] = useState<Activity | null>(null)
-  const [detailReadOnly, setDetailReadOnly] = useState(false)
   const [pendingTemplateId, setPendingTemplateId] = useState<string | null>(
     null,
   )
@@ -142,8 +140,8 @@ export function SessionBuilder({
   const [pendingClub, setPendingClub] = useState<ClubTemplate | null>(null)
   const [showClubPublish, setShowClubPublish] = useState(false)
   const [ownActivities, setOwnActivities] = useState(() => loadOwnActivities())
-  const [ownEdit, setOwnEdit] = useState<Activity | 'new' | null>(null)
-  const [ownImportOpen, setOwnImportOpen] = useState(false)
+  const [ownEdit, setOwnEdit] = useState<Activity | null>(null)
+  const [mallOpen, setMallOpen] = useState(false)
   const [showSaveTemplate, setShowSaveTemplate] = useState(false)
   const [showNewWeek, setShowNewWeek] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -238,13 +236,9 @@ export function SessionBuilder({
     setToast(undoToast(focus, UI.undoRemoved))
   }
 
-  function openPanel(tab: SideTab) {
-    setSideTab(tab)
-    setPanelOpen(true)
-  }
-
   function closePanel() {
     setPanelOpen(false)
+    setMallOpen(false)
   }
 
   function openAddForBlock(blockId: string) {
@@ -252,16 +246,10 @@ export function SessionBuilder({
     if (!block) return
     setSelectedBlockId(blockId)
     setFilterBlockType(block.type)
-    openPanel('library')
+    setPanelOpen(true)
   }
 
   function handleSelectActivity(activity: Activity) {
-    setDetailReadOnly(false)
-    setDetailActivity(activity)
-  }
-
-  function handleOpenInPass(activity: Activity) {
-    setDetailReadOnly(true)
     setDetailActivity(activity)
   }
 
@@ -334,12 +322,6 @@ export function SessionBuilder({
     const updated = next.find((item) => item.id === activity.id)
     if (updated) setDetailActivity(updated)
     showToast(UI.ownReviewedToast)
-  }
-
-  function handleOwnImported(count: number) {
-    setOwnActivities(loadOwnActivities())
-    setOwnImportOpen(false)
-    showToast(ownImportDoneText(count))
   }
 
   /** Slice 42 B1: a fresh pass is replaced at once (Ångra is the safety net); otherwise ask. */
@@ -431,6 +413,11 @@ export function SessionBuilder({
             {UI.clubPublish}
           </button>
         )}
+        {admin.state === 'admin' && onOpenAdmin && (
+          <button type="button" className="btn-secondary" onClick={onOpenAdmin}>
+            {UI.adminArea}
+          </button>
+        )}
         <button
           type="button"
           className="btn-secondary"
@@ -444,7 +431,7 @@ export function SessionBuilder({
         <button
           type="button"
           className={hasItems ? 'btn-secondary' : 'btn-primary'}
-          onClick={() => openPanel('templates')}
+          onClick={() => setMallOpen(true)}
         >
           {UI.useTemplate}
         </button>
@@ -625,15 +612,7 @@ export function SessionBuilder({
             className="side-panel-frame"
             role={isNarrow && panelOpen ? 'dialog' : undefined}
             aria-modal={isNarrow && panelOpen ? true : undefined}
-            aria-label={
-              isNarrow && panelOpen
-                ? sideTab === 'library'
-                  ? UI.library
-                  : sideTab === 'tips'
-                    ? UI.tips
-                    : UI.templates
-                : undefined
-            }
+            aria-label={isNarrow && panelOpen ? UI.addActivity : undefined}
           >
             <div className="sheet-chrome">
               <button
@@ -645,37 +624,10 @@ export function SessionBuilder({
               </button>
             </div>
             <LibraryPanel
-              tab={sideTab}
-              onTabChange={(tab) => {
-                setSideTab(tab)
-                setPanelOpen(true)
-              }}
               filterBlockType={filterBlockType}
               onFilterChange={setFilterBlockType}
-              selectedBlockType={selectedBlock?.type ?? null}
-              blockActivities={(selectedBlock?.items ?? [])
-                .slice()
-                .sort((a, b) => a.order - b.order)
-                .map((item) => getActivityById(item.activityId))
-                .filter((activity): activity is Activity => Boolean(activity))}
               onSelectActivity={handleSelectActivity}
-              onReadActivity={handleOpenInPass}
-              onPickTemplate={(id) => pick(setPendingTemplateId, id, (v) => handleConfirmTemplate(getTemplateById(v)))}
-              savedTemplates={savedTemplates}
-              onPickSaved={(id) => pick(setPendingSavedId, id, (v) => handleConfirmSaved(savedTemplates.find((t) => t.id === v)))}
-              onCopySaved={(id) => void handleCopySaved(id)}
-              onDeleteSaved={handleDeleteSaved}
-              onPickClub={(c) => pick(setPendingClub, c, handleConfirmClub)}
-              clubAdminSlot={
-                admin.state === 'admin' ? (
-                  <Suspense fallback={null}>
-                    <ClubAdminSection onPick={(c) => pick(setPendingClub, c, handleConfirmClub)} onToast={showToast} />
-                  </Suspense>
-                ) : undefined
-              }
               ownActivities={ownActivities}
-              onCreateOwn={() => setOwnEdit('new')}
-              onImportOwn={() => setOwnImportOpen(true)}
               onEditOwn={(activity) => setOwnEdit(activity)}
               onDeleteOwn={handleDeleteOwn}
               ownInUse={ownInUse}
@@ -687,7 +639,7 @@ export function SessionBuilder({
       {detailActivity && detailShown && (
         <ActivityDetail
           activity={detailShown}
-          onAdd={detailReadOnly || !detailCanAdd ? undefined : handleAddFromDetail}
+          onAdd={!detailCanAdd ? undefined : handleAddFromDetail}
           adminBadges={
             detailEntry ? (
               <>
@@ -699,7 +651,7 @@ export function SessionBuilder({
             ) : undefined
           }
           adminSlot={
-            detailEntry && !detailReadOnly ? (
+            detailEntry ? (
               <Suspense fallback={null}>
                 <AdminDetailPanel
                   id={detailEntry.activity.id}
@@ -709,7 +661,6 @@ export function SessionBuilder({
               </Suspense>
             ) : undefined
           }
-          readOnly={detailReadOnly}
           onClose={() => setDetailActivity(null)}
           tips={tips}
           onDismissTip={onDismissTip}
@@ -718,6 +669,18 @@ export function SessionBuilder({
               ? () => handleMarkReviewed(detailActivity)
               : undefined
           }
+        />
+      )}
+
+      {mallOpen && (
+        <MallSheet
+          savedTemplates={savedTemplates}
+          onPickBuiltIn={(id) => pick(setPendingTemplateId, id, (v) => handleConfirmTemplate(getTemplateById(v)))}
+          onPickSaved={(id) => pick(setPendingSavedId, id, (v) => handleConfirmSaved(savedTemplates.find((t) => t.id === v)))}
+          onCopySaved={(id) => void handleCopySaved(id)}
+          onDeleteSaved={handleDeleteSaved}
+          onPickClub={(c) => pick(setPendingClub, c, handleConfirmClub)}
+          onClose={() => setMallOpen(false)}
         />
       )}
 
@@ -807,8 +770,7 @@ export function SessionBuilder({
       )}
       {ownEdit && (
         <OwnActivityForm
-          initial={ownEdit === 'new' ? null : ownEdit}
-          blockType={selectedBlock?.type ?? 'techniques'}
+          initial={ownEdit}
           onCancel={() => setOwnEdit(null)}
           onSaved={() => {
             setOwnActivities(loadOwnActivities())
@@ -828,12 +790,6 @@ export function SessionBuilder({
             }}
           />
         </Suspense>
-      )}
-      {ownImportOpen && (
-        <OwnImportSheet
-          onImported={handleOwnImported}
-          onClose={() => setOwnImportOpen(false)}
-        />
       )}
       {showExport && (
         <ExportSheet

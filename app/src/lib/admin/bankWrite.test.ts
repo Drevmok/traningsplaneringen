@@ -5,7 +5,7 @@ import { seedActivities } from '../../data/seedActivities.ts'
 import { setBankEnvForTests } from '../bankConfig.ts'
 import { resetBankForTests } from '../bank.ts'
 import { setAdminClientForTests } from './client.ts'
-import { approveRow, hideRow, markRowReviewed, saveRow, writeRow } from './bankWrite.ts'
+import { approveRow, hideRow, insertPendingRow, markRowReviewed, newBankId, pendingRow, saveRow, writeRow, type BankPatch } from './bankWrite.ts'
 import { getAdminBank, resetAdminStateForTests, type AdminEntry } from './state.ts'
 import { refreshAdminRow, setAdminEntries } from './adminBank.ts'
 import { activityToBankRow } from '../bankRow.ts'
@@ -85,6 +85,7 @@ beforeEach(() => {
   resetBankForTests()
 })
 afterEach(() => {
+  setOnline(true)
   setAdminClientForTests(null)
   setBankEnvForTests(undefined)
 })
@@ -197,7 +198,98 @@ describe('bankWrite (Slice 32 F1)', () => {
         assert.equal(inserts.length, 1, n)
         assert.equal(/\.upsert\(/.test(src), false, n)
         assert.equal(/from\('exercises'\)/.test(src), false, n)
+      } else if (n === 'bankWrite.ts') {
+        // Slice 47: the one exercises insert is a new pending row.
+        assert.equal(inserts.length, 1, n)
+        assert.equal(/\.upsert\(/.test(src), false, n)
       } else assert.equal(inserts.length, 0, n)
     }
+  })
+})
+
+const ID_RULE = /^(gather|warm|tech|strength|fun)-[a-z0-9-]{2,60}$/
+const patch = (over: Partial<BankPatch> = {}): BankPatch => ({
+  title: 'Ny övning',
+  block_type: 'techniques',
+  duration_minutes_default: 8,
+  summary: 'Varför',
+  how_to: '1. Gör så',
+  watch_for: 'Se upp',
+  safety_line: 'Säkert',
+  default_station_equipment: [{ pieceId: 'eq-trampett', count: 1 }],
+  source: null,
+  experienced_coach_only: false,
+  ...over,
+})
+
+function insertFake(errors: Array<{ code: string } | null>) {
+  const rows: Record<string, unknown>[] = []
+  let reloads = 0
+  return {
+    rows,
+    get reloads() { return reloads },
+    from() {
+      let row: Record<string, unknown> | undefined
+      const q = {
+        insert(r: Record<string, unknown>) { row = r; rows.push(r); return q },
+        select() { return q },
+        order() { return q },
+        async abortSignal() {
+          if (!row) { reloads += 1; return { data: [], error: null } }
+          return { data: null, error: errors.shift() ?? null }
+        },
+      }
+      return q
+    },
+  }
+}
+
+describe('insertPendingRow (Slice 47 D2)', () => {
+  it('ids follow the bank rule for all five blocks', () => {
+    for (const t of ['gathering', 'warmup', 'techniques', 'strength', 'fun_and_games'] as const) {
+      const id = newBankId(t)
+      assert.match(id, ID_RULE, id)
+      assert.match(id, /-egen-/)
+    }
+  })
+  it('row: pending, visual own, no updated_by, redskap only on Teknik, no egen tag', () => {
+    const r = pendingRow(patch(), { tags: ['egen', 'trampett'] })
+    assert.equal(r.status, 'pending')
+    assert.equal(r.visual_key, 'own')
+    assert.equal('updated_by' in r, false)
+    assert.deepEqual(r.tags, ['trampett'])
+    assert.deepEqual(r.default_station_equipment, [{ pieceId: 'eq-trampett', count: 1 }])
+    const s = pendingRow(patch({ block_type: 'strength' }))
+    assert.equal(s.default_station_equipment, null)
+    assert.match(s.id, /^strength-egen-/)
+    const g = pendingRow(patch({ block_type: 'gathering', safety_line: null, default_station_equipment: null }))
+    assert.equal(g.safety_line, null)
+  })
+  it('inserts once and reloads the admin bank', async () => {
+    const f = insertFake([null])
+    setAdminClientForTests(f)
+    assert.equal(await insertPendingRow(patch()), 'ok')
+    assert.equal(f.rows.length, 1)
+    assert.equal(f.reloads, 1)
+  })
+  it('23505 retries once with a new id, then exists', async () => {
+    const f = insertFake([{ code: '23505' }, null])
+    setAdminClientForTests(f)
+    assert.equal(await insertPendingRow(patch()), 'ok')
+    assert.equal(f.rows.length, 2)
+    assert.notEqual(f.rows[0].id, f.rows[1].id)
+    const g = insertFake([{ code: '23505' }, { code: '23505' }])
+    setAdminClientForTests(g)
+    assert.equal(await insertPendingRow(patch()), 'exists')
+    const h = insertFake([{ code: '42501' }])
+    setAdminClientForTests(h)
+    assert.equal(await insertPendingRow(patch()), 'failed')
+  })
+  it('offline → offline, nothing sent', async () => {
+    setOnline(false)
+    const f = insertFake([null])
+    setAdminClientForTests(f)
+    assert.equal(await insertPendingRow(patch()), 'offline')
+    assert.equal(f.rows.length, 0)
   })
 })

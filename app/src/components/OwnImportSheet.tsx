@@ -1,15 +1,10 @@
 import { useMemo, useState } from 'react'
-import {
-  BLOCK_LABELS,
-  ownImportConfirmText,
-  ownImportMissingText,
-  ownImportRoomText,
-  UI,
-} from '../data/blockMeta'
+import { BLOCK_LABELS, ownImportConfirmText, ownImportMissingText, UI } from '../data/blockMeta'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
+import { importPendingRows } from '../lib/admin/bankWrite'
+import { useAdminBank, useOnline } from '../lib/admin/useAdmin'
 import {
-  applyImport,
-  chosenCount,
+  chosenActivities,
   parseExerciseFile,
   resolveRows,
   type ImportFailure,
@@ -21,7 +16,7 @@ import {
 } from '../lib/ownImport'
 
 interface Props {
-  /** Called after the one write with the number of drills added or replaced. */
+  /** Slice 47 F1 (Admin only): called with the number of new pending bank rows. */
   onImported: (count: number) => void
   onClose: () => void
 }
@@ -36,9 +31,7 @@ const FAILURE_TEXT: Record<ImportFailure, string> = {
 const STATE_TEXT: Record<RowState, string> = {
   new: UI.ownImportStateNew,
   sameName: UI.ownImportStateSameName,
-  exists: UI.ownImportStateExists,
   invalid: UI.ownImportStateInvalid,
-  noRoom: UI.ownImportStateNoRoom,
 }
 
 function noteText(note: RowNote): string {
@@ -66,18 +59,20 @@ function noteText(note: RowNote): string {
 
 function rowNotes(row: ResolvedRow): string[] {
   const lines = row.notes.map(noteText)
-  if (row.state === 'sameName') lines.push(UI.ownImportNoteSameName)
-  if (row.state === 'exists' && row.choice === 'replace') lines.push(UI.ownImportNoteExists)
+  if (row.state === 'sameName') lines.push(UI.adminImportNoteSameName)
   return lines
 }
 
 interface Preview {
   batchNote?: string
   rows: ImportRow[]
-  room: number
 }
 
-export function OwnImportSheet({ onImported, onClose }: Props) {
+export default function OwnImportSheet({ onImported, onClose }: Props) {
+  const bank = useAdminBank()
+  const online = useOnline()
+  const [busy, setBusy] = useState(false)
+  const [writeError, setWriteError] = useState(false)
   const [code, setCode] = useState('')
   const [fileText, setFileText] = useState<string | null>(null)
   const [fileName, setFileName] = useState('')
@@ -88,13 +83,14 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
   useBodyScrollLock(true)
 
   const resolved = useMemo(
-    () => (preview ? resolveRows(preview.rows, choices, preview.room) : []),
+    () => (preview ? resolveRows(preview.rows, choices) : []),
     [preview, choices],
   )
-  const count = chosenCount(resolved)
+  const chosen = chosenActivities(resolved)
+  const count = chosen.length
 
   function read(text: string) {
-    const result = parseExerciseFile(text)
+    const result = parseExerciseFile(text, { titles: bank.entries.map((e) => e.activity.title) })
     if (!result.ok) {
       setPreview(null)
       setError(FAILURE_TEXT[result.reason])
@@ -102,17 +98,22 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
     }
     setError(null)
     setChoices(new Map())
-    setPreview({ batchNote: result.batchNote, rows: result.rows, room: result.room })
+    setPreview({ batchNote: result.batchNote, rows: result.rows })
   }
 
   function choose(index: number, choice: RowChoice) {
     setChoices((prev) => new Map(prev).set(index, choice))
   }
 
-  function confirm() {
-    const result = applyImport(resolved)
-    if (!result.ok) return
-    onImported(result.count)
+  async function confirm() {
+    if (busy || count === 0) return
+    setBusy(true)
+    setWriteError(false)
+    const { count: done } = await importPendingRows(chosen)
+    setBusy(false)
+    // Stops at the first failure; what went in is reported by the toast, the rest stays in the file.
+    if (done > 0) onImported(done)
+    else setWriteError(true)
   }
 
   const input = fileText ?? code
@@ -189,7 +190,6 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
         {preview && (
           <section className="own-import-preview" aria-live="polite">
             {preview.batchNote && <p className="own-import-batch muted">{preview.batchNote}</p>}
-            <p className="own-import-room">{ownImportRoomText(preview.room)}</p>
             <ul className="own-import-rows">
               {resolved.map((row) => (
                 <li
@@ -215,17 +215,8 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
                       disabled={row.locked}
                       onChange={(e) => choose(row.index, e.target.value as RowChoice)}
                     >
-                      {row.state === 'exists' ? (
-                        <>
-                          <option value="skip">{UI.ownImportSkip}</option>
-                          <option value="replace">{UI.ownImportReplace}</option>
-                        </>
-                      ) : (
-                        <>
-                          <option value="include">{UI.ownImportInclude}</option>
-                          <option value="skip">{UI.ownImportSkip}</option>
-                        </>
-                      )}
+                      <option value="include">{UI.ownImportInclude}</option>
+                      <option value="skip">{UI.ownImportSkip}</option>
                     </select>
                   </div>
                   {rowNotes(row).map((line) => (
@@ -239,6 +230,12 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
           </section>
         )}
 
+        {!online && <p className="admin-offline muted">{UI.adminOffline}</p>}
+        {writeError && (
+          <p className="admin-error" role="alert">
+            {UI.adminSaveFailed}
+          </p>
+        )}
         <div className="modal-actions own-import-actions">
           <button type="button" className="btn-secondary" onClick={onClose}>
             {UI.ownImportCancel}
@@ -247,8 +244,8 @@ export function OwnImportSheet({ onImported, onClose }: Props) {
             <button
               type="button"
               className="btn-primary"
-              disabled={count === 0}
-              onClick={confirm}
+              disabled={count === 0 || !online || busy}
+              onClick={() => void confirm()}
             >
               {ownImportConfirmText(count)}
             </button>

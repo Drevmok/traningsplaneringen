@@ -41,6 +41,8 @@ import { useAdmin } from './lib/admin/useAdmin'
 // Slice 32: login sheet + sign-out live in lazy chunks (coach main chunk stays small).
 const AdminLoginSheet = lazy(() => import('./components/AdminLoginSheet').then((m) => ({ default: m.AdminLoginSheet })))
 const signOutAdmin = () => import('./lib/admin/session').then((m) => m.signOutAdmin())
+// Slice 47 C1: the Admin view rides in the lazy admin code too.
+const AdminArea = lazy(() => import('./components/AdminArea'))
 import { decodeShare, shareTokenFromHash } from './lib/sharePass'
 import { applyUpdate, fetchRemoteBuild, isNewerBuild, localBuild } from './lib/appUpdate'
 import type { Session } from './types'
@@ -50,12 +52,12 @@ import './export.css'
 import { markFresh, noteChange } from './lib/freshPass'
 const markFreshed = <T extends Parameters<typeof markFresh>[0]>(s: T): T => (markFresh(s), s)
 
-type View = 'home' | 'builder' | 'hall'
+type View = 'home' | 'builder' | 'hall' | 'admin'
 
 export default function App() {
   // Slice 31 — fresh bank data re-renders the tree in place (no remount, sheets and input kept).
   useBank()
-  const [view, setView] = useState<View>('home')
+  const [rawView, setView] = useState<View>('home')
   const [session, setSession] = useState<Session>(() => createBlankSession())
   // Slice 42: the first edit of a mall / wizard / Tomt pass ends «fresh» (also Hallöversikt edits).
   useEffect(() => noteChange(session), [session])
@@ -66,10 +68,15 @@ export default function App() {
   const [shareError, setShareError] = useState(false)
   const [runSession, setRunSession] = useState<Session | null>(null)
   const [remoteBuild, setRemoteBuild] = useState<string | null>(null)
+  const admin = useAdmin()
+  // Slice 47 C1: where «Tillbaka» in Admin goes; leaving admin (Logga ut, expiry) goes there too.
+  const [adminFrom, setAdminFrom] = useState<'home' | 'builder'>('home')
+  // Not admin any more while the Admin view is open (expiry) → show where you came from.
+  const view: View = rawView === 'admin' && admin.state !== 'admin' && admin.state !== 'checking' ? adminFrom : rawView
+  const adminView = view === 'admin' && admin.state === 'admin'
   // Slice 39 A1: autosave while the pass is on screen (builder / hall).
   const autosave = useAutosave(session, !shared && (view === 'builder' || view === 'hall'))
   // Slice 32/33 — footer admin link / state + the login sheet (opened only from the footer link).
-  const admin = useAdmin()
   const [loginOpen, setLoginOpen] = useState(false)
   const showLogin = loginOpen
   // Slice 33 — after a code login, focus moves to the footer «Logga ut» (screen readers hear the new state).
@@ -81,6 +88,11 @@ export default function App() {
     focusLogoutRef.current = false
   }, [loginOpen, admin.state])
   const updateReady = isNewerBuild(localBuild(), remoteBuild)
+  function openAdmin(from: 'home' | 'builder') {
+    if (from === 'builder') autosave.flush()
+    setAdminFrom(from)
+    setView('admin')
+  }
 
   useEffect(() => {
     let seq = 0
@@ -312,12 +324,28 @@ export default function App() {
                 {UI.adminLoginLink}
               </button>
             )}
-            {admin.state === 'admin' && <span className="footer-admin-badge">{UI.adminBadge}</span>}
+            {admin.state === 'admin' &&
+              (kind === 'shared' ? (
+                <span className="footer-admin-badge">{UI.adminBadge}</span>
+              ) : (
+                <button
+                  type="button"
+                  className="btn-text visa-tips-igen footer-admin-open"
+                  aria-label={UI.adminAreaOpenAria}
+                  onClick={() => openAdmin(view === 'builder' || view === 'hall' ? 'builder' : view === 'admin' ? adminFrom : 'home')}
+                >
+                  {UI.adminBadge}
+                </button>
+              ))}
             {admin.state === 'notAdmin' && <span className="footer-admin-not">{UI.adminNotAdmin}</span>}
             {admin.state !== 'none' && (
               <>
                 {sep}
-                <button ref={logoutRef} type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => void signOutAdmin()}>
+                <button ref={logoutRef} type="button" className="btn-text visa-tips-igen footer-admin-logout" onClick={() => {
+                    // Slice 47 AC23: Logga ut in Admin lands where you came from.
+                    if (rawView === 'admin') setView(adminFrom)
+                    void signOutAdmin()
+                  }}>
                   {UI.adminLogout}
                 </button>
               </>
@@ -350,6 +378,12 @@ export default function App() {
           )}
           <Home onContinue={goContinue} onPlan={finishPlan} onReceive={receiveSession} foot={footerRows('home')} />
         </>
+      ) : view === 'admin' ? (
+        adminView ? (
+          <Suspense fallback={null}>
+            <AdminArea onBack={() => setView(adminFrom)} />
+          </Suspense>
+        ) : null
       ) : view === 'hall' ? (
         <HallBoard
           session={session}
@@ -378,6 +412,7 @@ export default function App() {
           tips={syncedTips}
           onDismissTip={handleDismissTip}
           onBuilderMounted={handleBuilderMounted}
+          onOpenAdmin={() => openAdmin('builder')}
         />
       )}
       {(shared || view !== 'home') && <footer className="app-footer no-print">{footerRows(shared ? 'shared' : 'app')}</footer>}

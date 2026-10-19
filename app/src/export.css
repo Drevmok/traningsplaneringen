@@ -449,12 +449,6 @@
   margin-top: 8px;
 }
 
-.library-own-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
 /* Slice 30 — own form Redskap field */
 .own-equipment {
   align-items: flex-start;
@@ -628,21 +622,11 @@
   min-height: 44px;
 }
 
-.library-own {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  margin: 8px 0;
-}
-
-.library-own .btn-secondary,
 .own-form .btn-primary,
 .own-form .btn-secondary {
   min-height: 44px;
 }
 
-.library-own .muted,
 .swap-banner p {
   margin: 0;
   font-size: 13px;
@@ -1118,61 +1102,6 @@
   color: #57534e;
   background: #f5f5f4;
   border-style: dashed;
-}
-
-.library-tonight {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 8px 0 12px;
-  font-size: 0.9rem;
-  line-height: 1.35;
-  color: #1c1917;
-}
-
-.library-tonight input {
-  width: 22px;
-  height: 22px;
-  margin-top: 2px;
-  flex: none;
-}
-
-.library-tonight-hint {
-  display: block;
-  margin-top: 2px;
-  color: #78716c;
-  font-size: 0.8rem;
-}
-
-.forrad-owned {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #e7e5e4;
-}
-
-.forrad-owned h3 {
-  margin: 0 0 4px;
-  font-size: 1rem;
-}
-
-.forrad-owned-list {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-.forrad-owned-list label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  font-size: 1rem;
-}
-
-.forrad-owned-list input {
-  width: 22px;
-  height: 22px;
-  flex: none;
 }
 
 .app-shell {
@@ -2037,40 +1966,14 @@
 }
 
 /* Slice 32 — admin mode (admins only; coaches never see these). Quiet chrome. */
-.admin-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
-.admin-chip,
+
 .footer-admin-badge {
   font-size: 11px;
   font-weight: 650;
   letter-spacing: 0.02em;
   color: var(--md-on-surface-variant);
 }
-.admin-chip {
-  border: 1px solid var(--md-outline-variant, #cbd5e1);
-  border-radius: 999px;
-  padding: 1px 8px;
-}
-.admin-filter-chip {
-  font: inherit;
-  font-size: 12px;
-  border: 1px solid var(--md-outline-variant, #cbd5e1);
-  background: transparent;
-  color: var(--md-on-surface);
-  border-radius: 999px;
-  padding: 4px 10px;
-  min-height: 32px;
-  cursor: pointer;
-}
-.admin-filter-chip.active {
-  background: var(--md-secondary-container, #ede9fe);
-  border-color: transparent;
-  font-weight: 600;
-}
+
 .admin-badge {
   margin-left: 6px;
   font-size: 11px;
@@ -2297,4 +2200,58 @@
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
   overflow-y: auto;
+}
+
+/* Slice 47 C1: the Admin view (page like Passbyggaren) and its footer entry. */
+.admin-area {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+}
+.admin-area-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.admin-area-top h1 {
+  margin: 0;
+  font-size: 22px;
+}
+.admin-area-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--md-outline-variant, #e7e5e4);
+}
+.admin-area-list h2 {
+  margin: 4px 0 8px;
+  font-size: 16px;
+}
+.admin-area-section > p {
+  margin: 0 0 4px;
+}
+
+/* Slice 47 A1: «Använd mall» sheet — scrolls inside, never taller than the screen (landscape too). */
+.mall-sheet {
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+.mall-sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mall-sheet-head h2 {
+  margin: 0;
+}
+
+/* Slice 47 A1: the library sheet keeps one height on phones, so the list starts at the same place whatever the filter shows. */
+@media (max-width: 768px) {
+  .side-panel-slot.is-open .side-panel-frame {
+    height: min(92svh, 100%);
+  }
 }
