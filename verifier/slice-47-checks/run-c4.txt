@@ -1,0 +1,5 @@
+FAIL [AC4] error — locator.click: Timeout 10000ms exceeded. @57
+FAIL [AC24-coach] error — locator.click: Timeout 10000ms exceeded. @57
+PASS [errors-c] no page errors
+PASS [live-c] no request to a non-mock supabase.co host
+9/11 pass (parts c)

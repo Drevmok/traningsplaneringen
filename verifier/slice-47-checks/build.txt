@@ -1,0 +1,25 @@
+
+> app@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 156 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/version.json                           0.01 kB │ gzip:   0.03 kB
+dist/index.html                             0.98 kB │ gzip:   0.47 kB
+dist/assets/home-hero-DNrIw53w.jpg        193.94 kB
+dist/assets/index-DmNkTlLK.css             70.96 kB │ gzip:  14.01 kB
+dist/assets/adminBank-BaNITq7k.js           1.68 kB │ gzip:   0.86 kB
+dist/assets/session-CRfyfOYJ.js             2.55 kB │ gzip:   1.12 kB
+dist/assets/bankWrite-C8ixqqqF.js           3.86 kB │ gzip:   1.80 kB
+dist/assets/AdminLoginSheet-DClotP_U.js     4.66 kB │ gzip:   1.64 kB
+dist/assets/AdminBankForm-D9Peza2b.js       6.11 kB │ gzip:   2.05 kB
+dist/assets/AdminDetailPanel-QDG4wfk2.js    8.92 kB │ gzip:   2.76 kB
+dist/assets/AdminArea-DZM4OOhc.js          11.22 kB │ gzip:   3.85 kB
+dist/assets/dist-DvjAMUvs.js              214.18 kB │ gzip:  55.01 kB
+dist/assets/index-Cc6qOPGV.js             443.76 kB │ gzip: 132.35 kB
+
+✓ built in 255ms
+rc=0

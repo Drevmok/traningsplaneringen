@@ -1,0 +1,27 @@
+slice-32-builder-smoke.txt | now 17/16 | s46 17/16 | new FAIL: – | causes: 3× Logga in som admin;
+slice-33-builder-smoke.txt | now 94/14 | s46 24/22 | new FAIL: [AC11c] [AC12d]  | causes: –
+slice-34-builder-smoke.txt | now 27/2 | s46 27/2 | new FAIL: – | causes: –
+slice-34-verify.txt | now 20/0 | s46 20/0 | new FAIL: – | causes: –
+slice-35-builder-smoke.txt | now 10/13 | s46 3/7 | new FAIL: [AC11a] [AC12-admina] [AC12-notadmina] [AC1a] [AC2b] [AC3] [AC9-local]  | causes: 1× Slice 47;
+slice-35-verify.txt | now 13/16 | s46 2/9 | new FAIL: [AC11a] [AC12-admina] [AC12-notadmina] [AC1a] [AC2b] [AC3] [AC9-local] [V1]  | causes: 1× Slice 47;
+slice-36-builder-smoke.txt | now 3/4 | s46 3/4 | new FAIL: – | causes: –
+slice-36-verify.txt | now 3/5 | s46 3/5 | new FAIL: – | causes: –
+slice-37-builder-smoke.txt | now 0/0 | s46 0/0 | new FAIL: – | causes: –
+slice-37-verify.txt | now 1/8 | s46 1/7 | new FAIL: [F12]  | causes: 1× Logga in som admin;
+slice-38-builder-smoke.txt | now 24/1 | s46 24/1 | new FAIL: – | causes: –
+slice-38-verify.txt | now 60/1 | s46 60/1 | new FAIL: – | causes: –
+slice-39-builder-smoke.txt | now 14/5 | s46 14/5 | new FAIL: – | causes: –
+slice-39-verify.txt | now 1/11 | s46 1/11 | new FAIL: – | causes: –
+slice-40-builder-smoke.txt | now 14/4 | s46 14/4 | new FAIL: – | causes: 1× Slice 47;
+slice-40-reverify.txt | now 33/5 | s46 33/5 | new FAIL: [GK]  | causes: 1× Slice 47;
+slice-41-builder-smoke.txt | now 32/2 | s46 32/2 | new FAIL: – | causes: –
+slice-41-reverify-b.txt | now 59/28 | s46 62/28 | new FAIL: [G]  | causes: 10× Mina mallar;
+slice-42-builder-smoke.txt | now 1/10 | s46 1/10 | new FAIL: – | causes: –
+slice-42-verify.txt | now 3/4 | s46 3/4 | new FAIL: – | causes: –
+slice-43-builder-smoke.txt | now 1/8 | s46 1/8 | new FAIL: – | causes: –
+slice-43-verify.txt | now 2/6 | s46 2/6 | new FAIL: – | causes: –
+slice-44-builder-smoke.txt | now 1/9 | s46 1/9 | new FAIL: – | causes: –
+slice-44-verify.txt | now 1/11 | s46 1/11 | new FAIL: – | causes: –
+slice-45-builder-smoke.txt | now 3/17 | s46 3/17 | new FAIL: – | causes: –
+slice-46-builder-smoke.txt | now 34/3 | s46 33/0 | new FAIL: [AC17] [AC20-hall] [AC20]  | causes: 3× Logga in som admin;2× Slice 47;2× Slice 46;1× Tips;
+slice-47-builder-smoke.txt | now 32/0 | s46 –/– | new FAIL: – | causes: –

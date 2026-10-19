@@ -1,0 +1,38 @@
+PASS [AC1] sheet = Stäng, Sök, Filter, list; no tabs/own buttons/hint/«ikväll»; aria-label «Lägg till övning» — tabs=0 bad= aria=Lägg till övning
+PASS [AC2] first card top ≤ 240; filter preselects the block (gathering); Sök narrows; a tap adds as before — top=239 sel=gathering n=5→1 items 2→3
+PASS [AC2-ref] reference: main first card top — main=464 branch=239
+PASS [AC3] own drills show «Egen»; Ändra opens «Ändra egen övning» and saves; Ta bort works; disabled when in the pass — egen=true disabledB=true saved=true left=own-s47-b
+PASS [AC4] pass with an own drill opens in Hallöversikt and Golvklart (as main) — hall=2 errors=0
+PASS [AC5] Använd mall → sheet with Mina mallar (Kopiera delningskod, Ta bort), Nybörjare, Kort pass; not fresh → «Ersätta …»; toast «Mallen är i Passbyggaren. · Ångra» — groups=true confirm=Ersätta det här passet?
+
+Om du börjar från en mall ersätts b toast=Mallen är i Passbyggaren.
+·
+Ångra title=Kort pass — ca 45 min sheetBottom=812
+PASS [AC5-club] Föreningens mallar shown when the club list has rows (fake list empty → section hidden as coach main) — club_templates faked empty; Slice 36 rendering unchanged (MallList)
+PASS [AC6] Planera pass Mall step unchanged: Fråga 2 av 2 «Mall», Nybörjare + Kort pass, no tools — Fråga 2 av 2 Mall Föreningens mallar Pass som föreningen har provat. Du gör dem till dina när du använder dem. Föreningen har inga mallar än. Nybörjare — ca 55 
+PASS [AC7] Förrådslista has no «Vad finns i hallen ikväll?»; Biblioteket shows every exercise despite an old unticked owned list; old keys left alone — shown=51 published=51 ls=["eq-landningsmatta"],1
+PASS [AC8] logged out / not admin: no Admin button on the start page or in Mer — [{"label":"logged out","homeBtn":0,"mer":false,"foot":"Tyck till · Uppdatera appen Logga in som admin Passen sparas bara på den här enheten."},{"label":"not admin","homeBtn":0,"mer":false,"foot":"Tyck till · Uppdatera appen Du är inloggad men inte admin. · Logga ut Passen sparas bara på den här enhe
+PASS [AC9] admin: footer row 2 «Admin · Logga ut»; «Admin» is a button ≥ 44 px (aria «Öppna Admin»); page fits 844 — rows=["Tyck till · Uppdatera appen","Admin · Logga ut"] h=44 doc=844
+PASS [AC11-empty] Admin view: «Inget väntar just nu.» then Ny egen övning, Importera övningar, Föreningens mallar — [11,41,174,254]
+PASS [AC10] Mer shows «Admin»; footer and Mer both open Admin; Tillbaka → start page / Passbyggaren, pass unchanged — items=Hallöversikt|Spara som egen mall|Publicera som föreningsmall|Admin|Ny vecka|Använd mall|Dela
+PASS [AC12] admin Biblioteket: no admin bar/chips; published detail shows «Ändra i banken» and «Dölj för alla» — bar=0 detail=Ändra i banken Dölj för alla Oförändrad sedan 1 okt
+PASS [AC11] Admin view order: Väntar på godkännande (n), Behöver granskas (n) (only lists with rows), then Ny egen övning, Importera övningar, Föreningens mallar — [17,94,258,391,471]
+PASS [AC13] Teknik with redskap → «Spara och skicka till granskning» → toast «Sparad. Den väntar på godkännande.»; row under «Väntar på godkännande (1)» with «Väntar» — toast=Sparad. Den väntar på godkännande. id=tech-egen-mvfhgiwkzy2l eq=[{"pieceId":"eq-trampett","count":1}]
+PASS [AC14] Samling saves without Säkerhet; Styrka refuses without it, saves with it — gather-egen-mvfhgjay20lf:null strength-egen-mvfhgk0djkx7:Rak rygg
+PASS [AC15] (D2) author opens own pending row: Godkänn, Ändra i banken, Dölj för alla; no «Väntar på att en annan admin…» — Godkänn Ändra i banken Dölj för alla Senast ändrad 1 okt av a@test.local
+PASS [AC15-approve] author Godkänn → published («Godkänd. Tränarna ser den…») — Godkänd. Tränarna ser den nästa gång de öppnar appen.
+PASS [AC17-D2] per D2 (no peer rule): after B «Ändra i banken» on A’s pending row, B and A both still see Godkänn — updated_by=b@test.local
+PASS [AC16] B Godkänn → «Godkänd. …»; leaves Väntar; coach (logged out) sees it after reload, never before — before=0 after=Smoke trampettövning|Smoke samling
+PASS [AC18] Dölj för alla (confirm) → «Dold för alla.»; row under «Dolda (n)» in Admin; Visa igen → «Syns igen för alla.» — title=Välkomstcheck-in t1=Dold för alla. t2=Syns igen för alla.
+PASS [AC19] file read; rows offer only Ta med / Hoppa över; no «Plats för…», no «Ersätt»; same title → «Samma namn finns redan», starts on Hoppa över, bank note — opts=Ta med,Hoppa över choice=skip
+PASS [AC20] «Importera 3 övningar» (pasted code) → «3 övningar väntar på godkännande.»; 3 pending rows with new ids, nothing in the local own list — 3 övningar väntar på godkännande. warm-egen-mvfhh5vuk37a|pending tech-egen-mvfhh5w7umk8|pending gather-egen-mvfhh5wbcgmm|pending
+PASS [AC21] offline: both actions show «Du behöver nät för att ändra i banken.» and are disabled; nothing saved or queued — dis=true idis=true
+PASS [AC22] Hämta ett pass with an exercise file → «Det här är en fil med övningar. En admin lägger in den under Admin.»; nothing imported
+PASS [AC23] Logga ut in Admin → back where you came from (Passbyggaren / start page); no admin view left
+PASS [AC24-landscape] landscape: Lägg till övning, Använd mall sheet, Admin view + form usable — add: side column tabs=0 search=174 card=267 · mall: 16–374 stang=40 scroll=525,358 · admin back=12 form=28+1022 cancel=294
+PASS [AC24-desktop] desktop: Lägg till övning, Använd mall sheet, Admin view + form usable; side panel without tabs — side tabs=0 list=true · mall: 137–663 stang=161 scroll=525,525 · admin back=12 form=28+1022 cancel=704
+PASS [AC26-footer] footer «Träningsplaneraren · Slice 47»
+PASS [AC26-nobackend] all writes went to the in-browser fake (no real Supabase); count of faked writes — faked writes=13
+PASS [errors] no page errors
+
+32/32 pass

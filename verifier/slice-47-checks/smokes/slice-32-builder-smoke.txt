@@ -1,0 +1,37 @@
+  · seed rows flagged needs_coach_review: 16; AC 33 uses gather-narvaro «Närvaro»
+  · mall drill used for AC 34: tech-ljushopp-satsbrada «Ljushopp på satsbräda»
+FAIL [AC26] Coach visit — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [AC24] Unknown e-mail — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })
+FAIL [AC25] Magic link round trip — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })
+FAIL [AC28] Used link, then a second request within 60 s — error: page.goto: url: expected string, got undefined
+FAIL [AC27] Logged-in user who is not admin — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })
+PASS [AC41a] Dry-run lists 2 new rows and writes nothing — Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs.
+PASS [AC41b] Push → exit 0, «Väntar på godkännande i appen» — Nya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / 
+PASS [AC41c] Rows pending, needs_coach_review true, updated_by bot:planner — tech-test-aggrullning-kil|pending|true|bot:planner ; tech-test-formhopp-over-lagt-block|pending|true|bot:planner
+PASS [AC41d] Invisible to anon
+PASS [AC42a] Second push: existing ids skipped + reported, not overwritten — Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / 
+PASS [C5] All skipped → «Inget nytt …», no «Väntar på godkännande» — Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.
+PASS [AC42b] Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses
+PASS [AC42c] Key never printed
+PASS [AC43] Bot key DELETE → permission denied, row still there — 403 {"code":"42501","details":null,"hint":null,"message":"permission denied for tabl
+PASS [AC40b] Secret-style key refused from a browser origin (gateway emulates Supabase 401)
+FAIL [AC29] Admin mode lists — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [AC30] Another (anon) profile sees the approved row — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [AC31] Ändra i banken — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+  · review count now 16 (16 seed rows + the approved bot row)
+FAIL [AC33] Markera som granskad — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [AC34] Dölj för alla + Visa igen — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Från mall' })
+FAIL [AC35] No delete control — error: locator.selectOption: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.filter-row select')
+FAIL [AC36] Two tabs edit the same exercise — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+FAIL [AC37] Offline admin — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+PASS [AC39a] Admin writes: only auth calls + PATCH of bank columns on exercises
+PASS [AC39b] No pass / own exercise / draft data in any request
+PASS [AC39c] No DELETE request ever sent
+PASS [AC44a] Script fails clearly (Nyckeln fungerar inte längre) — Fel: Nyckeln fungerar inte längre (borttagen eller fel). Be Christoffer skapa en ny planner-bot-nyckel och sätta den på boxen. (HTTP 401)
+FAIL [AC44] Revoked bot key — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [AC48] Slice 31 behaviour — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [AC25h] Logga ut — error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible
+PASS [E] No page errors
+PASS [N] Every coach-context bank request was a GET with the publishable key and no Authorization
+
+PASS 16 / FAIL 16

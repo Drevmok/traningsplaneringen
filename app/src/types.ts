@@ -116,7 +116,6 @@ export interface SessionTemplate {
   blocks: SessionBlock[]
 }
 
-export type SideTab = 'library' | 'tips' | 'templates'
 
 export interface MismatchWarning {
   blockId: string

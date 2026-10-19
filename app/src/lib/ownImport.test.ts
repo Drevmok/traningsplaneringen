@@ -1,17 +1,9 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { describe, it } from 'node:test'
-import { seedActivities } from '../data/seedActivities.ts'
-import type { Activity } from '../types.ts'
+import { clearOwnActivities } from './ownActivities.ts'
 import {
-  clearOwnActivities,
-  loadOwnActivities,
-  MAX_OWN,
-  sanitizeOwnActivity,
-} from './ownActivities.ts'
-import {
-  applyImport,
-  chosenCount,
+  chosenActivities,
   isExerciseFile,
   parseExerciseFile,
   resolveRows,
@@ -39,7 +31,6 @@ Object.defineProperty(globalThis, 'localStorage', {
   },
 })
 
-const OWN_KEY = 'gymnastics-planner-own-activities-v1'
 const content = new URL('../../../slice-30/content/', import.meta.url)
 const example = readFileSync(new URL('example-import.json', content), 'utf8')
 const edge = readFileSync(new URL('example-import-edge.json', content), 'utf8')
@@ -49,8 +40,8 @@ function fresh(): void {
   mem.clear()
 }
 
-function rowsOf(text: string): { rows: ImportRow[]; room: number; batchNote?: string } {
-  const result = parseExerciseFile(text)
+function rowsOf(text: string, titles?: string[]): { rows: ImportRow[]; batchNote?: string } {
+  const result = parseExerciseFile(text, titles ? { titles } : undefined)
   assert.equal(result.ok, true)
   if (!result.ok) throw new Error('not ok')
   return result
@@ -93,74 +84,52 @@ describe('parseExerciseFile — envelope (AC 17)', () => {
   })
 })
 
-describe('example import (AC 14, 15, 7, 24)', () => {
-  it('previews two rows, default Ta med, with the batch note — and writes nothing', () => {
+describe('example import into the bank (Slice 47 F1)', () => {
+  it('a title already in the bank → Samma namn finns redan, starts on Hoppa över; writes nothing', () => {
     fresh()
-    const { rows, room, batchNote } = rowsOf(example)
+    const { rows, batchNote } = rowsOf(example)
     assert.equal(rows.length, 2)
     // Both example drills are seeds since promotion 2DJ_oMM81mI → Samma namn finns redan.
     assert.deepEqual(rows.map((r) => r.state), ['sameName', 'sameName'])
-    assert.deepEqual(rows.map((r) => r.defaultChoice), ['include', 'include'])
+    assert.deepEqual(rows.map((r) => r.defaultChoice), ['skip', 'skip'])
     assert.match(batchNote ?? '', /Prime Coaching Sport/)
-    assert.equal(room, MAX_OWN)
-    assert.equal(mem.get(OWN_KEY), undefined)
+    assert.equal(mem.size, 0)
+    assert.equal(chosenActivities(resolveRows(rows, new Map())).length, 0)
   })
 
-  it('keeps redskap, tags, links, review flag and source after the write', () => {
+  it('titles come from the admin bank copy; Ta med carries redskap, tags, review flag and source', () => {
     fresh()
-    const { rows, room } = rowsOf(example)
-    const resolved = resolveRows(rows, new Map(), room)
-    assert.equal(chosenCount(resolved), 2)
-    assert.deepEqual(applyImport(resolved), { ok: true, count: 2 })
-    const stored = JSON.parse(mem.get(OWN_KEY) ?? '[]') as Activity[]
-    const formhopp = stored.find((a) => a.id === 'own-imp-2dj-02-formhopp-over-block')
-    assert.ok(formhopp)
+    const { rows } = rowsOf(example, ['Något annat'])
+    assert.deepEqual(rows.map((r) => r.state), ['new', 'new'])
+    assert.deepEqual(rows.map((r) => r.defaultChoice), ['include', 'include'])
+    const chosen = chosenActivities(resolveRows(rows, new Map<number, RowChoice>([[1, 'skip']])))
+    assert.equal(chosen.length, 1)
+    const formhopp = chosen[0]
     assert.deepEqual(formhopp.defaultStationEquipment, [
       { pieceId: 'eq-trampett', count: 1 },
       { pieceId: 'eq-skumblock', count: 1 },
       { pieceId: 'eq-landningsmatta', count: 1 },
     ])
     assert.ok(formhopp.tags.includes('trampett'))
-    assert.ok(formhopp.tags.includes('egen'))
-    assert.equal(formhopp.progressionOf, 'tech-ljushopp-trampett')
     assert.equal(formhopp.needsCoachReview, true)
-    assert.deepEqual(formhopp.source, {
-      url: 'https://youtu.be/2DJ_oMM81mI?t=30',
-      creator: 'Prime Coaching Sport',
-      title: 'Fun gymnastics stations',
-      startSeconds: 30,
-    })
-    assert.equal('confidence' in formhopp, false)
-    const agg = stored.find((a) => a.id === 'own-imp-2dj-03-aggrullning-kil')
-    assert.equal(agg?.difficulty, 'intro')
-    assert.equal(agg?.regressionOf, 'tech-kullerbytta')
+    assert.equal(formhopp.source?.creator, 'Prime Coaching Sport')
+    assert.equal(mem.size, 0)
   })
 
-  it('re-import → Finns redan, Hoppa över; Ersätt replaces in place with the same id', () => {
+  it('no room, Ersätt or Finns redan states any more', () => {
     fresh()
-    const first = rowsOf(example)
-    applyImport(resolveRows(first.rows, new Map(), first.room))
-    const doc = JSON.parse(example)
-    doc.exercises[0].title = 'Formhopp över block — ny text'
-    const again = rowsOf(JSON.stringify(doc))
-    assert.deepEqual(again.rows.map((r) => r.state), ['exists', 'exists'])
-    assert.deepEqual(again.rows.map((r) => r.defaultChoice), ['skip', 'skip'])
-    const none = resolveRows(again.rows, new Map(), again.room)
-    assert.equal(chosenCount(none), 0)
-    const choices = new Map<number, RowChoice>([[0, 'replace']])
-    const resolved = resolveRows(again.rows, choices, again.room)
-    assert.deepEqual(applyImport(resolved), { ok: true, count: 1 })
-    const list = loadOwnActivities()
-    assert.equal(list.length, 2)
-    const replaced = list.find((a) => a.id === 'own-imp-2dj-02-formhopp-over-block')
-    assert.equal(replaced?.title, 'Formhopp över block — ny text')
+    const { rows } = rowsOf(edge)
+    for (const r of resolveRows(rows, new Map())) {
+      assert.ok(['new', 'sameName', 'invalid'].includes(r.state), r.state)
+      assert.ok(['include', 'skip'].includes(r.choice), r.choice)
+    }
   })
 })
 
 describe('edge fixture (AC 19–23, 26)', () => {
   it('handles one rule per row', () => {
     fresh()
-    const { rows, room } = rowsOf(edge)
+    const { rows } = rowsOf(edge)
     assert.equal(rows.length, 7)
     const [r1, r2, r3, r4, r5, r6, r7] = rows
 
@@ -178,6 +147,7 @@ describe('edge fixture (AC 19–23, 26)', () => {
     assert.deepEqual(r4.notes, [{ kind: 'dupId' }])
 
     assert.equal(r5.state, 'sameName')
+    assert.equal(r5.defaultChoice, 'skip')
     assert.ok(r5.notes.some((n) => n.kind === 'link'))
     assert.ok(r5.notes.some((n) => n.kind === 'source'))
     assert.equal(r5.activity?.progressionOf, undefined)
@@ -191,12 +161,12 @@ describe('edge fixture (AC 19–23, 26)', () => {
     assert.equal(r7.state, 'invalid')
     assert.deepEqual(r7.notes, [{ kind: 'badFormat' }])
 
-    const resolved = resolveRows(rows, new Map(), room)
+    const resolved = resolveRows(rows, new Map())
     assert.deepEqual(
       resolved.map((r) => r.locked),
       [false, false, true, true, false, false, true],
     )
-    assert.equal(chosenCount(resolved), 4)
+    assert.equal(chosenActivities(resolved).length, 3)
   })
 
   it('clips long fields with Förkortad', () => {
@@ -219,36 +189,3 @@ describe('edge fixture (AC 19–23, 26)', () => {
     assert.equal(firstStep.replace(/^1\. /, '').length, 180)
   })
 })
-
-describe('room (AC 25)', () => {
-  it('with 99 own drills only the first new row fits', () => {
-    fresh()
-    const list = Array.from({ length: 99 }, (_, i) =>
-      sanitizeOwnActivity({
-        id: `own-fill-${i}`,
-        title: `Fyll ${i}`,
-        blockType: 'warmup',
-        durationMinutesDefault: 5,
-        summary: 'x',
-        howTo: '1. x',
-        watchFor: 'x',
-        safetyLine: 'x',
-      }),
-    )
-    const result = parseExerciseFile(example, {
-      own: list.filter((a): a is Activity => Boolean(a)),
-      seeds: seedActivities,
-    })
-    assert.equal(result.ok, true)
-    if (!result.ok) return
-    assert.equal(result.room, 1)
-    const resolved = resolveRows(result.rows, new Map(), result.room)
-    assert.deepEqual(resolved.map((r) => r.state), ['sameName', 'noRoom'])
-    assert.equal(resolved[1].locked, true)
-    // Skipping the first frees the room for the second.
-    const swapped = resolveRows(result.rows, new Map([[0, 'skip' as RowChoice]]), result.room)
-    assert.deepEqual(swapped.map((r) => r.state), ['sameName', 'sameName'])
-    assert.deepEqual(swapped.map((r) => r.choice), ['skip', 'include'])
-  })
-})
-

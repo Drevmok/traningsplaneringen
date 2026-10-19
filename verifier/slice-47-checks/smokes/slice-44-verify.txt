@@ -1,0 +1,13 @@
+FAIL [Dela] error — locator.click: Timeout 10000ms exceeded.
+FAIL [Ratios] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC15-exp] error — locator.click: Timeout 10000ms exceeded.
+FAIL [MARKERS-partial] station 1 unplaced (2 of 3 on the map): print numbers still equal the map marker numbers — [{"marker":"1","label":"Station 1: Ljushopp på satsbräda. Tryck ","printRow":"1. Ljushopp på satsbräda"},{"marker":"2","label":"Station 2: Handstående falla till rygg. ","printRow":"2. Handstående falla till rygg"},{"marker":"3","label":"Station 3: Falla bakåt från höjd till ry","printRow":"3. Falla
+FAIL [Stalled] error — locator.click: Timeout 10000ms exceeded.
+FAIL [CopyFail] error — locator.click: Timeout 10000ms exceeded.
+FAIL [SharePass] error — page.goto: url: expected string, got object
+FAIL [AC11] error — locator.click: Timeout 10000ms exceeded.
+FAIL [Golvklart] error — locator.click: Timeout 10000ms exceeded.
+FAIL [OldLinks] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC21-ui] error — locator.click: Timeout 10000ms exceeded.
+PASS [no-page-errors] no page errors during the run
+1/12 pass

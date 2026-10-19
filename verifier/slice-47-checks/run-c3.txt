@@ -1,0 +1,6 @@
+FAIL [AC4] error — locator.click: Timeout 10000ms exceeded. @57
+PASS [AC7] Förrådslista: no «Vad finns i hallen ikväll?»; rest as on main; Biblioteket shows every exercise with an old owned list (nothing ticked, ikväll on) in localStorage — {"br":"Förrådslista Summerat från Teknik-stationernas redskap Stäng 2× Trampett Plint 2× Landningsmatta Madrass Mattberg","main":"Förrådslista Summerat från Teknik-stationernas redskap Stäng 2× Trampett Plint 2× Landningsmatta Madrass Mattberg Vad finns i hallen ikväll? Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra. Trampett Satsbräda Plint Landningsmatta T","counts":{"clean":51,"oldUnticked":51}}
+FAIL [AC24-coach] error — locator.click: Timeout 10000ms exceeded. @57
+PASS [errors-c] no page errors
+PASS [live-c] no request to a non-mock supabase.co host
+9/11 pass (parts c)

@@ -1,0 +1,13 @@
+FAIL [A] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [B] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [C] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [C2] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [D] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [E] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [F] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [G] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [H] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [I] section error — locator.click: Timeout 10000ms exceeded.
+FAIL [J] section error — locator.click: Timeout 10000ms exceeded.
+
+PASS 0 / FAIL 11 · page errors 0 · bank requests 6 (live: 0)

@@ -1,0 +1,17 @@
+Slice 47 baseline — main (app identical to 9aa3996), vite preview of the Slice 46 build on :4547, Playwright Chromium 390x844 DPR 2 touch, clean site data (capture-390x844.mjs).
+The preview build has no bank config: no Föreningens mallar, no admin. Admin rows below are from the code, not measured.
+
+Planera pass -> Tomt pass -> Gymmix – Stora hallen -> 60 min -> Passbyggaren -> Samling «+ Lägg till övning»
+  .side-panel-frame       y 68–844 (776 px)
+  «Stäng»                 y 68–118
+  tabs Bibliotek · Tips · Mallar   y 118–165 (each 47 px tall)
+  Sök                     y 178–222
+  Filter                  y 232–276 (preset to Samling)
+  «Ny egen övning» · «Importera övningar»   y 294–338
+  «Så ni gör i er hall. Övningen stannar i den här webbläsaren.»   y 342–360
+  ☐ «Visa bara övningar vi kan köra ikväll» + hint   y 386–442 (unchecked: no saved owned list, so all pieces count as owned)
+  first exercise card     y 464 (Välkomstcheck-in); 5 Samling cards in the list
+  screenshot: main-390x844-lagg-till-ovning.png
+
+Tips tab: «Samling» · «För hela blocket» · block tip · «Övningarna» · Närvaro / Dagens pass with «Se beskrivning»  (main-390x844-tab-tips.png)
+Mallar tab: savedTemplatesHint · Nybörjare — ca 55 min · Kort pass — ca 45 min  (main-390x844-tab-mallar.png)

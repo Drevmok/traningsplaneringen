@@ -1,0 +1,114 @@
+  · seed rows flagged needs_coach_review: 16; AC 33 uses gather-narvaro «Närvaro»
+  · mall drill used for AC 34: tech-ljushopp-satsbrada «Ljushopp på satsbräda»
+  · users: admin2@test.local, admin3@test.local, admin@test.local, nonadmin@test.local · admins: admin2@test.local, admin3@test.local, admin@test.local
+FAIL [AC21] Coach visit — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+PASS [AC18-old-codea] ?code=abc… → Home, address cleaned to …/traningsplaneringen/ — …/
+PASS [AC18-old-codeb] No login sheet, no message, no error
+PASS [AC18-old-codec] No supabase-js / admin chunk and no auth request — index-DAkREIKd.js
+PASS [AC18-old-coded] Footer still «Logga in som admin» (logged out)
+PASS [AC18-old-errora] ?error=access_denied&err… → Home, address cleaned to …/traningsplaneringen/ — …/
+PASS [AC18-old-errorb] No login sheet, no message, no error
+PASS [AC18-old-errorc] No supabase-js / admin chunk and no auth request — index-DAkREIKd.js
+PASS [AC18-old-errord] Footer still «Logga in som admin» (logged out)
+PASS [AC20a] ?code=abc#dela=<token> → shared pass opens, hash kept, code dropped — /traningsplaneringen/#dela=z.jVPB…
+PASS [AC20b] No admin chunk / auth request for that visit
+PASS [AC3a] Unknown address → step 2 with the same adminCodeSent text — Om okand@test.local hör till en admin kommer en kod strax. Skriv den här. Koden gäller i en timme.
+PASS [AC3b] No user created (shouldCreateUser false)
+PASS [AC3c] No mail to the unknown address
+PASS [AC2a] One POST /auth/v1/otp with "create_user": false and no redirect_to (URL or body) — ["email","data","create_user","gotrue_meta_security","code_challenge","code_challenge_method"] /auth/v1/otp
+PASS [AC26c] Step 1 texts: heading, hint, label, button
+PASS [AC26d] E-mail field: type email, autocomplete email, no placeholder, hint via aria-describedby
+PASS [AC26e] Skicka kod disabled while the field is empty
+PASS [AC23a] Step 1 at 390×844: heading, field, button visible; no horizontal scroll; e-mail font ≥ 16px — scrollWidth 390, font 16
+PASS [AC26f] Close button has adminCloseAria
+PASS [AC1a] Mail subject «Din kod till Träningsplaneraren: ######» (12c) — Din kod till Träningsplaneraren: ######
+PASS [AC1b] Mail body = 12c text with exactly one 6-digit code, same as the subject
+PASS [AC1c] Mail has no link (no <a href, no /auth/v1/verify, no URL)
+PASS [AC2b] Skicka kod → one POST /auth/v1/otp, create_user false, no redirect_to
+PASS [AC8a] Code input: type text, inputmode numeric, autocomplete one-time-code, pattern [0-9]{6}, no maxlength — {"type":"text","inputmode":"numeric","ac":"one-time-code","pattern":"[0-9]{6}","maxlength":null,"placeholder":"6 siffror","describedby":"admin-code-status","label":"Kod från mejlet"}
+PASS [AC8b] Label adminCodeLabel (accessible name), placeholder adminCodePlaceholder
+PASS [AC8c] Code input computed font size ≥ 16px — 20px
+PASS [AC26g] aria-describedby → the adminCodeSent line (role=status)
+PASS [AC26h] Step 2 opens with adminCodeSent and the typed address
+PASS [AC11a] Step 2 opens with focus in the code field — admin-code-input
+PASS [AC16a] Skicka ny kod disabled right after the send, adminResendSoon shown, aria-describedby → it
+PASS [AC26i] No countdown numbers next to Skicka ny kod
+PASS [AC23b] Step 2 at 390×844: heading, field, Logga in visible; no horizontal scroll — scrollWidth 390
+PASS [AC23c] Short viewport (390×450, keyboard-sized): field, Logga in, Skicka ny kod, Byt e-post reachable by scrolling; no horizontal scroll — [true,true,true,true]
+PASS [AC7a] Logga in disabled at 5 digits, enabled at 6; a 7th digit is not added — 123456
+PASS [AC7b] Letters and symbols typed are dropped — 123
+PASS [AC7c] Logga in disabled with 0 digits
+PASS [AC9a] Paste (clipboard + Ctrl/Cmd+V) of 123456, «123 456», « 123456 », 123-456 → 123456, Logga in enabled — {"123456":["123456",true],"123 456":["123456",true]," 123456 ":["123456",true],"123-456":["123456",true]}
+PASS [AC9b] Paste «12 34» → 1234, Logga in disabled — 1234
+PASS [AC9c] Paste full-width digits → 123456 (unit test covers it too) — 123456
+PASS [AC10-local] Autofill-style insert (one input event with 6 digits) fills the field and enables Logga in
+PASS [AC6a] Pending entry {email, sentAt} stored after the send (no code in it)
+PASS [AC6b] Reload does not start admin or open the sheet by itself
+PASS [AC6c] Logga in som admin after reload → step 2, same address in adminCodeSent, focus in code field, resend still cooling down
+PASS [AC12a] Wrong code (one digit changed) → adminCodeWrong under the field (role=alert), aria-invalid=true, digits kept
+PASS [AC11b] After adminCodeWrong: focus in the field with its text selected — {"start":0,"end":6,"len":6}
+PASS [AC12b] Sheet stays open, still logged out, aria-describedby includes the error line
+PASS [AC12c] aria-invalid cleared on the next change
+PASS [AC15c] Offline on Logga in → adminVerifyFailed, digits kept, no request
+FAIL [AC12d] Back online, same button → logged in; sheet closed, error gone
+PASS [AC2c] Logga in → POST /auth/v1/verify {email, token, type:"email"} — ["email","token","type","gotrue_meta_security"]
+FAIL [AC11c] After success, focus is on the footer «Logga ut»
+PASS [AC24a] After login: session stored; verifier + pending keys removed
+PASS [AC15a] Offline on Skicka kod → adminSendFailed (role=alert), step 1 stays with the address
+PASS [AC15b] Back online, same button → step 2 (sheet never closed)
+PASS [AC17a] Byt e-post → step 1, address still in the field, focused + selected (typing replaces it) — {"type":"email","replaced":"z"}
+PASS [AC6d] Byt e-post clears the pending entry
+PASS [AC14a] Second Skicka kod within 60 s (429) → step 2 with adminCodeSent + adminWait under Skicka ny kod
+PASS [AC14b] Rate-limited step 2: Skicka ny kod disabled (cooldown), focus in the code field, code field empty
+PASS [AC17b] Code and error lines cleared by Byt e-post
+PASS [AC14c] Verify-side 429 → adminVerifyWait, not logged in
+PASS [AC13a] Code older than the expiry → adminCodeWrong, still logged out
+PASS [AC13b] Control: the same code with a fresh send time logs in (age was the only reason)
+PASS [AC17c] Sending to another address shows that address in adminCodeSent
+PASS [AC6e] After Byt e-post the sheet reopens on step 1
+PASS [AC6f] Pending entry older than 60 min → sheet opens on step 1, entry removed
+PASS [AC22a] Footer adminNotAdmin + Logga ut, focus on Logga ut — Tyck till · Uppdatera appen Du är inloggad men inte admin. · Logga ut Passen sparas bara på den här enheten.
+FAIL [AC22] Non-admin logs in with a code — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+  · waiting 43 s for the 60 s resend cooldown
+PASS [AC16b] After 60 s Skicka ny kod is enabled and adminResendSoon is gone
+PASS [AC16c] Resend → POST /auth/v1/otp to the same address, adminCodeResent, field cleared + focused, cooldown again
+PASS [AC13c] Replaced code (the first one, after Skicka ny kod) → adminCodeWrong
+PASS [AC16d] The new code logs in
+PASS [AC11d] Focus moves to the footer «Logga ut»
+PASS [AC24b] Verifier + pending keys removed after login, session stored
+FAIL [AC16] Resend after 60 s, replaced code, login (admin) — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+PASS [AC20c] #dela= opens the shared pass while logged in as admin
+PASS [S32-AC41a] Dry-run lists 2 new rows and writes nothing — Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs.
+PASS [S32-AC41b] Push → exit 0, «Väntar på godkännande i appen» — Nya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / 
+PASS [S32-AC41c] Rows pending, needs_coach_review true, updated_by bot:planner — tech-test-aggrullning-kil|pending|true|bot:planner ; tech-test-formhopp-over-lagt-block|pending|true|bot:planner
+PASS [S32-AC41d] Invisible to anon
+PASS [S32-AC42a] Second push: existing ids skipped + reported, not overwritten — Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / 
+PASS [S32-C5] All skipped → «Inget nytt …», no «Väntar på godkännande» — Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs.
+PASS [S32-AC42b] Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses
+PASS [S32-AC42c] Key never printed
+PASS [S32-AC43] Bot key DELETE → permission denied, row still there — 403 {"code":"42501","details":null,"hint":null,"message":"permission denied for tabl
+PASS [S32-AC40b] Secret-style key refused from a browser origin (gateway emulates Supabase 401)
+FAIL [S32-AC29] Admin mode lists — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [S32-AC30] Another (anon) profile sees the approved row — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [S32-AC31] Ändra i banken — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+  · review count now 16 (16 seed rows + the approved bot row)
+FAIL [S32-AC33] Markera som granskad — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [S32-AC34] Dölj för alla + Visa igen — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Från mall' })
+FAIL [S32-AC35] No delete control — error: locator.selectOption: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.filter-row select')
+FAIL [S32-AC36] Two tabs edit the same exercise — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+FAIL [S32-AC37] Offline admin — error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })
+PASS [AC24c] Logga ut removes auth, code-verifier and pending keys; footer back to «Logga in som admin»
+PASS [AC24d] Reopening the app shows «Logga in som admin»
+PASS [AC6g] After Logga ut the sheet opens on step 1
+PASS [S32-AC38c] After logout the coach cache holds no pending rows
+PASS [AC19] rg for the retired link names in app/src returns nothing
+PASS [AC26j] Login sheet never says «länk», no «!»
+PASS [AC26k] Login sheet never says Supabase / OTP / token / session / server / databas
+FAIL [AC26l] Every Slice 33 key in blockMeta.ts matches microcopy.sv.md verbatim — footerSliceLabel
+PASS [AC26m] No admin UI string says Supabase / OTP / token / session; none has «!»
+PASS [AC26n] Every Slice 33 status/error line seen in the sheet is a microcopy string
+PASS [E] No page errors
+PASS [N] Every coach-context bank request was a GET with the publishable key and no Authorization
+PASS [C] No login code in any request URL or the results (codes only in POST bodies to /auth/v1/verify)
+
+PASS 93 / FAIL 14

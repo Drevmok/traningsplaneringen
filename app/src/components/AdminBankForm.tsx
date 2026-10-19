@@ -4,7 +4,7 @@ import { getEquipmentPiece } from '../data/equipmentPieces'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { parseStartTime } from '../lib/admin/adminFormat'
 import { useAdminBank, useOnline } from '../lib/admin/useAdmin'
-import { saveRow, type BankPatch } from '../lib/admin/bankWrite'
+import { insertPendingRow, saveRow, type BankPatch } from '../lib/admin/bankWrite'
 import { ownActivityIssues, normalizeHowTo, parseHowLines, type OwnDraft, type OwnIssue } from '../lib/ownActivities'
 import { formatSourceTime, sanitizeSource } from '../lib/source'
 import type { BlockType, StationEquipmentSlot } from '../types'
@@ -12,7 +12,9 @@ import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
 
 interface Props {
-  id: string
+  /** Slice 47: 'new' = «Ny egen övning» in Admin → a pending bank row; 'edit' = «Ändra i banken» on row `id`. */
+  mode?: 'edit' | 'new'
+  id?: string
   onSaved: () => void
   onCancel: () => void
 }
@@ -31,7 +33,7 @@ const ISSUE_TEXT: Record<OwnIssue, string> = {
  * plus Källa and Bara för erfarna. Tags, difficulty, links, visual and order are never sent,
  * so the database keeps them. Saving clears Behöver granskas. Lazy chunk (admins only).
  */
-export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
+export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCancel }: Props) {
   useBodyScrollLock(true)
   const bank = useAdminBank()
   const online = useOnline()
@@ -39,7 +41,7 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
   const a = entry?.activity
   const [draft, setDraft] = useState<OwnDraft>(() => ({
     title: a?.title ?? '',
-    blockType: a?.blockType ?? 'techniques',
+    blockType: a?.blockType ?? BLOCK_ORDER[0],
     durationMinutes: a?.durationMinutesDefault ?? 5,
     summary: a?.summary ?? '',
     howText: a ? parseHowLines(a.howTo).join('\n') : '',
@@ -58,8 +60,10 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<'conflict' | 'failed' | null>(null)
 
-  if (!entry || !a) return null
+  const isNew = mode === 'new'
+  if (!isNew && (!entry || !a)) return null
   const current = entry
+  const title = isNew ? UI.ownNew : UI.adminFormTitle
 
   function set<K extends keyof OwnDraft>(key: K, value: OwnDraft[K]) {
     setDraft((prev) => ({ ...prev, [key]: value }))
@@ -77,7 +81,7 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
       const clean = sanitizeSource({
         url,
         creator: sourceCreator,
-        title: current.activity.source?.url === url ? current.activity.source.title : undefined,
+        title: current?.activity.source?.url === url ? current.activity.source.title : undefined,
         startSeconds: start ?? undefined,
       })
       if (!clean || start === null) return
@@ -98,11 +102,11 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
     }
     setSaving(true)
     setError(null)
-    const result = await saveRow(current, patch)
+    const result = current && !isNew ? await saveRow(current, patch) : await insertPendingRow(patch)
     setSaving(false)
     if (result === 'ok') onSaved()
     else if (result === 'conflict') setError('conflict')
-    else if (result === 'failed') setError('failed')
+    else if (result === 'failed' || result === 'exists') setError('failed')
   }
 
   return (
@@ -110,13 +114,13 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
       className="modal-backdrop own-form-backdrop admin-form-backdrop"
       role="dialog"
       aria-modal="true"
-      aria-label={UI.adminFormTitle}
+      aria-label={title}
       onClick={(e) => {
         if (e.target === e.currentTarget) onCancel()
       }}
     >
       <form className="modal own-form admin-bank-form" onSubmit={submit}>
-        <h2>{UI.adminFormTitle}</h2>
+        <h2>{title}</h2>
         {issues.length > 0 && (
           <ul className="own-issues">
             {[...new Set(issues)].map((issue) => (
@@ -212,14 +216,14 @@ export default function AdminBankForm({ id, onSaved, onCancel }: Props) {
           <input type="checkbox" checked={experienced} onChange={(e) => setExperienced(e.target.checked)} />
           <span>{UI.adminFormExperienced}</span>
         </label>
-        <p className="muted admin-form-hint">{UI.adminFormHint}</p>
+        {!isNew && <p className="muted admin-form-hint">{UI.adminFormHint}</p>}
         {!online && <p className="admin-offline muted">{UI.adminOffline}</p>}
         <div className="modal-actions">
           <button type="button" className="btn-secondary" onClick={onCancel}>
             {UI.adminCancel}
           </button>
           <button type="submit" className="btn-primary" disabled={!online || saving}>
-            {UI.adminFormSave}
+            {isNew ? UI.adminNewSave : UI.adminFormSave}
           </button>
         </div>
         {error && (

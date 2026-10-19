@@ -1,8 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER } from '../data/blockMeta.ts'
-import { activityFitsOwned } from './ownedEquipment.ts'
-import { getActivityById } from '../data/seedActivities.ts'
 import type { Session, SessionBlock } from '../types.ts'
 import { autoPlaceItems, autoPlaceUnplaced, suggestZoneId } from './hallSuggest.ts'
 
@@ -82,21 +80,6 @@ describe('autoPlaceUnplaced', () => {
     const tramp = next.hallPlacements?.find((p) => p.sessionItemId === 'tramp')
     assert.equal(tramp?.zoneId, 'open')
     assert.ok(tramp && (tramp.x !== 0.2 || tramp.y !== 0.2))
-  })
-})
-
-describe('activityFitsOwned', () => {
-  it('hides a drill that needs redskap the hall does not have', () => {
-    const drill = getActivityById('tech-ljushopp-satsbrada')
-    assert.ok(drill)
-    assert.equal(activityFitsOwned(drill, ['eq-trampett', 'eq-landningsmatta']), false)
-    assert.equal(
-      activityFitsOwned(drill, ['eq-satsbrada', 'eq-landningsmatta']),
-      true,
-    )
-    const gathering = getActivityById('gather-narvaro')
-    assert.ok(gathering)
-    assert.equal(activityFitsOwned(gathering, []), true)
   })
 })
 

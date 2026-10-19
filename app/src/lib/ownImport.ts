@@ -1,29 +1,30 @@
+/**
+ * Slice 30 import, Slice 47 F1: the file is read here and the chosen rows become new pending bank
+ * rows (Admin only, lazy chunk). File ids and links are not used for the bank rows; a title already
+ * in the bank (any status) is «Samma namn finns redan» and starts on «Hoppa över».
+ */
 import { BLOCK_ORDER } from '../data/blockMeta'
 import { isKnownPieceId } from '../data/equipmentPieces'
-import { seedActivities } from '../data/seedActivities'
 import { bankActivityIds, listBankActivities } from './bank'
 import type { Activity, ActivitySource, BlockType } from '../types'
 import {
   MAX_OWN,
   OWN_LIMITS,
-  importOwnActivities,
-  loadOwnActivities,
   normalizeHowTo,
   parseHowLines,
   sanitizeLinkId,
   sanitizeOwnActivity,
 } from './ownActivities'
 import { sanitizeSource } from './source'
+import { EXERCISE_FORMAT, EXERCISE_SCHEMA_VERSION, isRecord, parseJson } from './exerciseFile'
 
-/** Schema v1 envelope (slice-30/content/import-schema.md). */
-export const EXERCISE_FORMAT = 'traningsplaneraren.ovningar'
-export const EXERCISE_SCHEMA_VERSION = 1
+export { EXERCISE_FORMAT, EXERCISE_SCHEMA_VERSION, isExerciseFile, stripFence } from './exerciseFile'
 
 const ID_RE = /^own-[a-z0-9-]{3,60}$/
 
 export type ImportFailure = 'bad' | 'newer' | 'empty' | 'isPass'
-export type RowState = 'new' | 'sameName' | 'exists' | 'invalid' | 'noRoom'
-export type RowChoice = 'include' | 'skip' | 'replace'
+export type RowState = 'new' | 'sameName' | 'invalid'
+export type RowChoice = 'include' | 'skip'
 export type MissingField = 'namn' | 'varför' | 'så gör du' | 'se upp för' | 'säkerhet'
 
 export type RowNote =
@@ -45,44 +46,18 @@ export interface ImportRow {
   minutes?: number
   /** Sanitized own drill; null when the row cannot be imported. */
   activity: Activity | null
-  /** State from the file alone. `noRoom` is applied later by `resolveRows`. */
-  state: Exclude<RowState, 'noRoom'>
+  state: RowState
   notes: RowNote[]
   defaultChoice: RowChoice
 }
 
 export type ParseResult =
   | { ok: false; reason: ImportFailure }
-  | { ok: true; batchNote?: string; rows: ImportRow[]; room: number }
+  | { ok: true; batchNote?: string; rows: ImportRow[] }
 
 export interface ImportContext {
-  own: readonly Activity[]
-  seeds: readonly Activity[]
-}
-
-/** Accepts a raw JSON paste or a ```json block copied from a chat. */
-export function stripFence(text: string): string {
-  const trimmed = text.trim()
-  const fenced = /^```[a-zA-Z]*[^\S\n]*\n([\s\S]*?)\n?```\s*$/.exec(trimmed)
-  return fenced ? fenced[1].trim() : trimmed
-}
-
-function parseJson(text: string): unknown {
-  try {
-    return JSON.parse(stripFence(text)) as unknown
-  } catch {
-    return undefined
-  }
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
-}
-
-/** Home → Hämta ett pass uses this to point at Bibliotek instead of failing. */
-export function isExerciseFile(text: string): boolean {
-  const data = parseJson(text)
-  return isRecord(data) && data.format === EXERCISE_FORMAT
+  /** Titles already in the bank (the admin copy: every status). */
+  titles: readonly string[]
 }
 
 function str(value: unknown): string {
@@ -220,17 +195,15 @@ export function parseExerciseFile(text: string, context?: ImportContext): ParseR
   const list = data.exercises
   if (!Array.isArray(list) || list.length === 0) return { ok: false, reason: 'empty' }
 
-  const own = context?.own ?? loadOwnActivities()
-  const seeds = context?.seeds ?? listBankActivities()
-  const ownIds = new Set(own.map((a) => a.id))
-  const titles = new Set([...own, ...seeds].map((a) => a.title.trim().toLowerCase()))
+  const seeds = listBankActivities()
+  const titles = new Set((context?.titles ?? seeds.map((a) => a.title)).map((t) => t.trim().toLowerCase()))
   const fileIds = new Set(
     list
       .map((entry) => (isRecord(entry) && typeof entry.id === 'string' ? entry.id : ''))
       .filter((id) => ID_RE.test(id)),
   )
   // Links may point at any resolvable exercise, hidden bank rows included.
-  const knownIds = new Set([...seeds.map((a) => a.id), ...bankActivityIds(), ...ownIds, ...fileIds])
+  const knownIds = new Set([...seeds.map((a) => a.id), ...bankActivityIds(), ...fileIds])
 
   const seen = new Set<string>()
   const rows: ImportRow[] = list.slice(0, MAX_OWN * 2).map((entry, index) => {
@@ -262,17 +235,16 @@ export function parseExerciseFile(text: string, context?: ImportContext): ParseR
         defaultChoice: 'skip',
       }
     }
-    const exists = ownIds.has(row.activity.id)
-    const sameName = !exists && titles.has(row.activity.title.toLowerCase())
+    const sameName = titles.has(row.activity.title.toLowerCase())
     return {
       index,
       title: row.activity.title,
       blockType: row.activity.blockType,
       minutes: row.activity.durationMinutesDefault,
       activity: row.activity,
-      state: exists ? 'exists' : sameName ? 'sameName' : 'new',
+      state: sameName ? 'sameName' : 'new',
       notes: row.notes,
-      defaultChoice: exists ? 'skip' : 'include',
+      defaultChoice: sameName ? 'skip' : 'include',
     }
   })
 
@@ -281,64 +253,24 @@ export function parseExerciseFile(text: string, context?: ImportContext): ParseR
     ok: true,
     ...(batchNote ? { batchNote } : {}),
     rows,
-    room: Math.max(0, MAX_OWN - own.length),
   }
 }
 
-export interface ResolvedRow extends Omit<ImportRow, 'state'> {
-  state: RowState
+export interface ResolvedRow extends ImportRow {
   choice: RowChoice
-  /** Choice control is locked (invalid or no room left). */
+  /** Choice control is locked (invalid row). */
   locked: boolean
 }
 
-/**
- * Applies the coach's choices and the room left. New rows use up room in
- * file order; once it is gone the rest are `Ingen plats` and locked off.
- * Ersätt never needs room.
- */
-export function resolveRows(
-  rows: readonly ImportRow[],
-  choices: ReadonlyMap<number, RowChoice>,
-  room: number,
-): ResolvedRow[] {
-  let left = room
-  return rows.map((row) => {
-    const wanted = choices.get(row.index) ?? row.defaultChoice
-    if (row.state === 'invalid') return { ...row, choice: 'skip', locked: true }
-    if (row.state === 'exists') {
-      const choice: RowChoice = wanted === 'replace' ? 'replace' : 'skip'
-      return { ...row, choice, locked: false }
-    }
-    if (wanted !== 'include') return { ...row, choice: 'skip', locked: false }
-    if (left <= 0) return { ...row, state: 'noRoom', choice: 'skip', locked: true }
-    left -= 1
-    return { ...row, choice: 'include', locked: false }
-  })
+/** Applies the admin's choices. No room limit: the 100 cap is for a coach's device only. */
+export function resolveRows(rows: readonly ImportRow[], choices: ReadonlyMap<number, RowChoice>): ResolvedRow[] {
+  return rows.map((row) =>
+    row.state === 'invalid'
+      ? { ...row, choice: 'skip', locked: true }
+      : { ...row, choice: choices.get(row.index) ?? row.defaultChoice, locked: false },
+  )
 }
 
-export function chosenCount(rows: readonly ResolvedRow[]): number {
-  return rows.filter((row) => row.choice !== 'skip' && row.activity).length
-}
-
-/** The one write. Links to rows that were not taken (and do not exist) are dropped. */
-export function applyImport(rows: readonly ResolvedRow[]): { ok: boolean; count: number } {
-  const chosen = rows
-    .filter((row) => row.choice !== 'skip' && row.activity)
-    .map((row) => row.activity as Activity)
-  if (chosen.length === 0) return { ok: false, count: 0 }
-  const resolvable = new Set([
-    ...bankActivityIds(),
-    ...seedActivities.map((a) => a.id),
-    ...loadOwnActivities().map((a) => a.id),
-    ...chosen.map((a) => a.id),
-  ])
-  const clean = chosen.map((activity) => {
-    const copy = { ...activity }
-    if (copy.progressionOf && !resolvable.has(copy.progressionOf)) delete copy.progressionOf
-    if (copy.regressionOf && !resolvable.has(copy.regressionOf)) delete copy.regressionOf
-    return copy
-  })
-  const result = importOwnActivities(clean)
-  return result.ok ? { ok: true, count: chosen.length } : { ok: false, count: 0 }
+export function chosenActivities(rows: readonly ResolvedRow[]): Activity[] {
+  return rows.filter((row) => row.choice === 'include' && row.activity).map((row) => row.activity as Activity)
 }

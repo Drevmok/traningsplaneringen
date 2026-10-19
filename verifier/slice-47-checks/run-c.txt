@@ -1,0 +1,14 @@
+PASS [AC1] Lägg till övning sheet: Stäng, Sök, Filter, list; no tabs «Bibliotek · Tips · Mallar», no Ny egen övning / Importera övningar / «Så ni gör i er hall…» / «Visa bara övningar vi kan köra ikväll» — Stäng Filter Alla typer Samling Uppvärmning Teknik Styrka Lek och spel Ljushopp på satsbräda 6 min Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först. Ljushopp på trampett 6 min Ljus
+PASS [AC2] first card top ≤ 240 (main 464); Sök and Filter work; block filter preselects the block you came from; tap card → Lägg till i valt block adds it, as on main — {"br":{"blk":"Teknik","top":238,"sel":"techniques","nq":2,"nAll":51,"det":true,"added":1},"main":{"blk":"Teknik","top":464,"sel":"techniques","nq":2,"nAll":51,"det":true,"added":1}}
+PASS [AC3] injected own exercises show with «Egen»; Ändra opens the form and saves; Ta bort works and is disabled while the exercise is in a pass — {"n":2,"ts":"Egen övning sparad.","renamed":true,"delUsed":true,"td":"Egen övning borttagen.","left":["own-s47v-2"]}
+FAIL [AC4] error — locator.click: Timeout 10000ms exceeded. @57
+FAIL [AC4-mall] error — locator.click: Timeout 10000ms exceeded. @57
+FAIL [AC5] error — locator.click: Timeout 10000ms exceeded. @57
+PASS [AC6] Planera pass Mall step identical to main (text of both steps, sheet geometry) — {"t1":true,"t2":true,"g":[{"top":400,"bottom":844,"h":444,"w":390,"left":0,"right":390},{"top":400,"bottom":844,"h":444,"w":390,"left":0,"right":390}]}
+FAIL [AC7] error — locator.click: Timeout 10000ms exceeded. @534
+FAIL [AC22] error — locator.fill: Error: Input of type "file" cannot be filled @544
+FAIL [AC24-coach] error — locator.click: Timeout 10000ms exceeded. @57
+PASS [errors-c] no page errors
+PASS [live-c] no request to a non-mock supabase.co host
+6/12 pass (parts c)
+rc=0

@@ -1,0 +1,24 @@
+FAIL [AC1a] Home: «Tyck till» in the footer, before «Uppdatera appen» — ["Tyck till · Uppdatera appen","Passen sparas bara på den här enheten."]
+PASS [AC1b] Exactly one a[href^="mailto:"] in the DOM, inside footer
+PASS [AC2a] href: To drevmok@gmail.com, subject, %0D%0A, no "+", åäö as UTF-8 escapes — mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D
+FAIL [AC2b] Body decodes to the microcopy body exactly (blank lines, åäö, CRLF) — "att du tar dig tid.\r\n\r\nVersion: Slice 47"
+FAIL [AC3] Last body line «Version: Slice 35» = footer label number
+PASS [AC13a] Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel
+FAIL [AC11a] No feedback popup / banner / prompt on load
+PASS [AC13b] Tab reaches «Tyck till» with a visible focus ring — tabs 2
+PASS [AC13c] Enter follows the mailto (same href)
+FAIL [A] error — locator.innerText: Error: strict mode violation: locator('footer.app-footer').locator('p') resolved to 2 elements: ⏎     1) <p class="footer-feedback-hint">…</p> aka getByText('Hittar du ingen e-postapp?') ⏎     2) <p cl
+FAIL [B] error — locator.innerText: Error: strict mode violation: locator('footer.app-footer').locator('p') resolved to 2 elements: ⏎     1) <p class="footer-feedback-hint">…</p> aka getByText('Hittar du ingen e-postapp?') ⏎     2) <p cl
+FAIL [AC9-local] Offline: tap still follows the mailto + shows the line
+FAIL [AC12-admina] admin: order label · Admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen — ["Tyck till · Uppdatera appen","Admin · Logga ut","Passen sparas bara på den här enheten."]
+PASS [AC12-adminb] admin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":295.765625}
+FAIL [D-admin] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎     - locator resolved to <a aria-label="Tyck till om app
+FAIL [AC12-notadmina] notadmin: order label · inte admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen — ["Tyck till · Uppdatera appen","Du är inloggad men inte admin. · Logga ut","Passen sparas bara på den här enheten."]
+PASS [AC12-notadminb] notadmin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":319.515625}
+FAIL [D-notadmin] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer.app-footer').getByRole('link', { name: 'Tyck till om appen via e-post' }) ⏎     - locator resolved to <a aria-label="Tyck till om app
+FAIL [E] error — locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('[aria-labelledby="home-wizard-title"]').getByRole('option', { name: /7–9/ }).first() ⏎ 
+FAIL [AC16d] Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings
+PASS [AC10c] No fetch / beacon / storage / window.open / location in the feedback code
+PASS [E] No page errors
+
+PASS 9 / FAIL 13

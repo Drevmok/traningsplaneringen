@@ -1,0 +1,39 @@
+PASS [AC1] no draft: one «Planera pass», no Tomt pass/Från mall, «Hämta ett pass» present — Träningsplaneraren Ett pass på några minuter. Planera pass Hämta ett pass Tyck till · Uppdatera appen Logga in som admin Passen sparas bara på den här enheten.
+PASS [AC1-hamta] «Hämta ett pass» still expands its import panel inline (as main)
+PASS [AC3-nodraft] no draft: doc height ≤ 844; Uppdatera appen + Logga in som admin on screen — h=844 upd=770 adm=814
+PASS [AC4] footer rows: Tyck till · Uppdatera appen / Logga in som admin / note ≤ 12 px; no edge «·»; one centre line; links ≥ 44 px — [["Tyck till · Uppdatera appen","12px",[748,748,748],[44,44]],["Logga in som admin","12px",[792],[44]],["Passen sparas bara på den här enheten.","12px",[],[]]]
+PASS [AC6] Tyck till shows the address line as its own row; page still ≤ 844, admin row on screen — hint={"top":711,"bottom":770,"h":59,"w":350} h=844 adm=814
+PASS [AC3-main-ref] reference: main bc8cce0 doc height (no draft) — main h=844 branch h=844
+PASS [AC2] with draft: Fortsätt passet (title · min) → Planera pass → Rensa passet, each ≥ 44 px — [["Fortsätt passet Pass — trampett · 53 min",65],["Planera pass",48],["Rensa passet",44],["Hämta ett pass",40]]
+PASS [AC3-draft] with draft: doc height ≤ 844; Uppdatera appen + Logga in som admin on screen — h=844 adm=814
+PASS [AC3-main-ref] reference: main bc8cce0 doc height (draft) — main h=844 branch h=844
+PASS [AC7] Fråga 1 av 4 «Ålder», five chips, links Starta från mall + Tomt pass, no ×, only Avbryt — 4–6 år|7–9 år|10–12 år|13–18 år|Nivå close=0 back=0
+PASS [AC8] chip marked chosen, Fråga 2 av 4 «Fokus» in ~0.3 s, no Nästa, double tap = one step — sel=true Fråga 2 av 4
+PASS [AC19-focus] focus moved to the new heading after advance — H2:Ålder
+PASS [AC19-live] progress line aria-live, chips are role=option buttons with aria-selected
+PASS [AC9] Fokus: Satsbräda · Trampett · Tumbling · Blandat, no station/zone line; Hall: exactly the two Gymmix chips — Satsbräda|Trampett|Tumbling|Blandat / Gymmix – Stora hallen|Gymmix – Grophallen
+PASS [AC10] Passlängd 60/90/120 none preselected → «Pass — trampett», «53 / 90 min», Grophallen — 60 min|90 min|120 min pre=0 len=53 / 90 min hall=Gymmix – Grophallen
+PASS [AC10-placed] Teknik items placed on the Grophallen grid — forening-vit 3
+PASS [AC11] Nivå list 9…1 + hint; Tillbaka → age chips; Nivå 3 → Fokus; title «Nivå 3 — …» — Nivå 9|Nivå 8|Nivå 7|Nivå 6|Nivå 5|Nivå 4|Nivå 3|Nivå 2|Nivå 1 back=true h=Fokus title=Nivå 3 — blandat
+PASS [AC12] Tillbaka shows earlier answer marked, progress updates, re-tap moves on, new answer replaces — [["Fråga 2 av 4","Fokus","Tumbling"],["Fråga 1 av 4","Ålder","10–12 år"],["Fråga 2 av 4","Fokus"],["Fråga 3 av 4","Hall","Gymmix – Grophallen"]] Pass — satsbräda forening-bla
+PASS [AC13] Avbryt on q1–q4, Nivå, Tomt pass ×2, mall ×2 and outside tap (no draft + draft): closes, draft identical, focus Planera pass — -q1:ok -q2:ok -q3:ok -q4:ok -niva:ok -tomt_hall:ok -tomt_len:ok -mall_hall:ok -mall_list:ok -outside:ok Dq1:ok Dq2:ok Dq3:ok Dq4:ok Dniva:ok Dtomt_hall:ok Dtomt_len:ok Dmall_hall:ok Dmall_list:ok Doutside:ok
+PASS [AC14] Tomt pass: Fråga 1 av 2 Hall → Fråga 2 av 2 Passlängd → 120 → empty pass «… / 120 min» on Grophallen; Tillbaka → Ålder — Fråga 1 av 2,Hall Ålder Fråga 2 av 2,Passlängd len=6 / 120 min hall=Gymmix – Grophallen blank=true draftWritten=false
+PASS [AC17-sheet] Mall step has no admin tools, no Kopiera delningskod, no Ta bort — Fråga 2 av 2 Mall Föreningens mallar Pass som föreningen har provat. Du gör dem till dina när du använder dem. Klubbmall test 55 min Föreningens Mina mallar Min testmall 55 min Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg fö
+PASS [AC15] Starta från mall: Fråga 1 av 2 Hall → Fråga 2 av 2 Mall listing Föreningens/Mina/Nybörjare/Kort pass → Nybörjare on Grophallen with toast «Mallen är i Passbyggaren. · Ångra» — Fråga 1 av 2,Hall Fråga 2 av 2,Mall lists=true hall=forening-vit pl=3
+PASS [AC15-undo] Ångra returns to a blank pass on the answered hall — Nytt pass forening-vit
+PASS [AC16] Mina mall: same hall keeps placements, Grophallen re-places; Föreningens mall: hall as answered, markers placed — [{"hall":"Gymmix – Stora hallen","kind":"saved","hallId":"forening-bla","n":3,"kept":true},{"hall":"Gymmix – Grophallen","kind":"saved","hallId":"forening-vit","n":3,"kept":false},{"hall":"Gymmix – Grophallen","kind":"club","hallId":"forening-vit","n":3,"kept":false},{"hall":"Gymmix – Stora hallen",
+FAIL [AC17] error — locator.click: Timeout 8000ms exceeded. @244
+PASS [AC18] with draft: four answers replace the draft without asking — Pass — trampett → Pass — satsbräda
+FAIL [AC20] builder footer: Tyck till · Visa tips igen · Uppdatera appen / Logga in som admin / «Träningsplaneraren · Slice 46»; no edge «·» — ["Tyck till · Visa tips igen · Uppdatera appen","Logga in som admin","Träningsplaneraren · Slice 47"]
+PASS [AC20-tips] Visa tips igen shows its status line — Tips syns redan
+FAIL [AC20-hall] Hallöversikt footer ends with «Träningsplaneraren · Slice 46» — ["Tyck till · Visa tips igen · Uppdatera appen","Tips syns redan","Logga in som admin","Träningsplaneraren · Slice 47"]
+PASS [AC21-landscape] landscape: sheet Avbryt reachable, footer usable, hero layout as main — avbryt=327 sheet=297,297,auto upd={"top":356,"bottom":400,"h":44,"w":125} heroB={"top":0,"bottom":587,"h":587,"w":440} heroM={"top":0,"bottom":587,"h":587,"w":440}
+PASS [AC21-desktop] desktop: sheet Avbryt reachable, footer usable, hero layout as main — avbryt=532 sheet=297,297,auto upd={"top":463,"bottom":507,"h":44,"w":125} heroB={"top":0,"bottom":800,"h":800,"w":589} heroM={"top":0,"bottom":800,"h":800,"w":589}
+PASS [AC22] print media: no footer rows, no note — visible=0
+PASS [M1-844x390] 844×390: every step — sheet inside viewport, Avbryt/Tillbaka reachable and clickable — q1:ok niva:ok q2:ok q3:ok q4:ok tomt_hall:ok tomt_len:ok mall_hall:ok mall_list:ok closed=true
+PASS [M1-390x844] 390×844: every step — sheet inside viewport, Avbryt/Tillbaka reachable and clickable — q1:ok niva:ok q2:ok q3:ok q4:ok tomt_hall:ok tomt_len:ok mall_hall:ok mall_list:ok closed=true
+PASS [M1-320x568] 320×568: every step — sheet inside viewport, Avbryt/Tillbaka reachable and clickable — q1:ok niva:ok q2:ok q3:ok q4:ok tomt_hall:ok tomt_len:ok mall_hall:ok mall_list:ok closed=true
+PASS [m2] start page: footer rows inside a <footer> landmark (one contentinfo) — contentinfo=1 home-foot-rows app-footer no-print
+PASS [errors] no page errors
+
+34/37 pass

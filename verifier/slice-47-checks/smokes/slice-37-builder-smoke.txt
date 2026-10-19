@@ -1,0 +1,14 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: /^(Starta f|F)rån mall$/ }).first()
+
+    at openFromHome (/workspace/s47v/smk/verifier/slice-37-builder-smoke.mjs:63:75)
+    at async file:///workspace/s47v/smk/verifier/slice-37-builder-smoke.mjs:85:1 {
+  name: 'TimeoutError'
+}
+
+Node.js v20.19.2

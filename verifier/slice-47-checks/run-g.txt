@@ -1,0 +1,10 @@
+PASS [G-nonadmin] Admin button / Admin view never shown: logged out, non-admin, bot key (logged out and with a non-admin session) × start, builder (footer + Mer), hall, shared link × 320 / 390 / landscape / desktop — [] n=64
+PASS [G-admin-control] positive control: admin sees the Admin button (footer or Mer) on start, builder, hall at all widths — []
+PASS [G-shared] shared link view (admin): footer keeps the plain «Admin» badge, no Admin button (Builder: not in shared footer) — [["admin/320/shared","Admin · Logga ut",[]],["admin/390/shared","Admin · Logga ut",[]],["admin/land/shared","Admin · Logga ut",[]],["admin/desk/shared","Admin · Logga ut",[]]]
+PASS [G-notadmin-text] non-admin footer says «Du är inloggad men inte admin.»
+PASS [G-relogin] Logga ut in Admin view → start page, no Admin at any width / builder / hall / after reload; non-admin then logs in (same browser) → no Admin; admin again → Admin back — {"after":{"view":0,"home":1,"seen":[]},"perW":{"320":[],"390":[],"land":[],"desk":[],"builder":[],"hall":[],"reload":[]},"naFoot":"Du är inloggad men inte admin. · Logga ut","naSeen":[],"naB":[],"aSeen":["btn-text visa-tips-igen footer-admin-open:Admin"]}
+PASS [G-rls] direct REST as anon and as a non-admin (real JWT): insert pending/published, approve, hide, edit, delete, self-admin, club insert all refused; pending rows and admins unreadable; DB byte-identical — {"anon.insertPending":"401:{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permis","anon.insertPublished":"401:{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permis","anon.approve":"401:{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permis","anon.hide":"401:{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permis","anon.edit":"401:{\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permis","anon.readPending":"200:[]
+PASS [errors-g] no page errors
+PASS [live-g] no request to a non-mock supabase.co host
+8/8 pass (parts g)
+rc=0

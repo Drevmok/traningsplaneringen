@@ -84,20 +84,6 @@ export const EMPTY_TIPS: Record<BlockType, { tip: string; addLabel: string }> = 
   },
 }
 
-/** From slice-01-empty-states.sv.md tips tab */
-export const TIPS_TAB: Record<BlockType, string> = {
-  gathering:
-    'Samla i cirkel, ta ögonkontakt och säg vad dagens pass handlar om — i en mening.',
-  warmup:
-    'Börja lugnt, höj sedan energin. Ser någon stel eller kylig ut? Ge en runda till.',
-  techniques:
-    'Nämn färdigheten, visa en gång, låt dem sedan prova. Ge en cue i taget.',
-  strength:
-    'Håll koll på knän, rygg och andning. Avbryt setet tidigt om formen faller isär.',
-  fun_and_games:
-    'Tydliga regler, korta rundor, fira ansträngning. Säkerhet gäller även när det är kul.',
-}
-
 export const DEFAULT_TARGET_MINUTES = 60
 
 /** A single drill can fill most of a pass. Not a section budget. */
@@ -108,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '46'
+export const SLICE_NUMBER = '47'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -171,9 +157,6 @@ export const UI = {
   passLengthMinutes: 'min',
   addActivity: 'Lägg till övning',
   browseIdeas: 'Bläddra bland idéer',
-  library: 'Bibliotek',
-  tips: 'Tips',
-  templates: 'Mallar',
   search: 'Sök',
   filters: 'Filter',
   stub: 'Utkast',
@@ -209,17 +192,6 @@ export const UI = {
   overflow: 'Över budget',
   filterAll: 'Alla typer',
   noResults: 'Inga övningar matchar.',
-  libraryTonight: 'Visa bara övningar vi kan köra ikväll',
-  libraryTonightHint:
-    'Döljer övningar som behöver redskap du kryssat bort i Förrådslistan.',
-  ownedEquipmentTitle: 'Vad finns i hallen ikväll?',
-  ownedEquipmentHint:
-    'Avmarkera det ni inte har. Biblioteket kan då visa bara övningar ni kan köra.',
-  selectBlockForTips: 'Välj ett block — då syns tipsen för övningarna där.',
-  tipsBlockLead: 'För hela blocket',
-  tipsExercisesLead: 'Övningarna',
-  tipsNoExercises:
-    'Inga övningar i blocket ännu. Lägg till en, så syns tipset här.',
   backHome: 'Till startsidan',
   experiencedCoach: 'Erfaren ledare',
   experiencedCoachWarning:
@@ -461,6 +433,17 @@ export const UI = {
   // Slice 32 — admins (slice-31/content/microcopy.sv.md § Slice 32, Docs final 2026-10-03). Admin-only except adminLoginLink.
   adminLoginLink: 'Logga in som admin',
   adminBadge: 'Admin',
+  // Slice 47 — Admin view (C1), new pending rows (D2), import into the bank (F1)
+  adminArea: 'Admin',
+  adminAreaOpenAria: 'Öppna Admin',
+  adminAreaEmpty: 'Inget väntar just nu.',
+  adminNewHint: 'Övningen väntar under Väntar på godkännande tills en admin har godkänt den. Sedan finns den i Biblioteket för alla.',
+  adminImportHint: 'Övningarna från filen väntar på godkännande på samma sätt.',
+  adminNewSave: 'Spara och skicka till granskning',
+  adminNewSaved: 'Sparad. Den väntar på godkännande.',
+  adminImportDone: '{n} övningar väntar på godkännande.',
+  adminImportDoneOne: '1 övning väntar på godkännande.',
+  adminImportNoteSameName: 'Finns redan i banken. Tar du med den får banken två övningar med samma namn.',
   adminLogout: 'Logga ut',
   adminNotAdmin: 'Du är inloggad men inte admin.',
   adminLoginTitle: 'Logga in som admin',
@@ -580,7 +563,6 @@ export const UI = {
   ownNew: 'Ny egen övning',
   ownEdit: 'Ändra egen övning',
   ownBadge: 'Egen',
-  ownHint: 'Så ni gör i er hall. Övningen stannar i den här webbläsaren.',
   ownTitle: 'Namn',
   ownMinutes: 'Minuter',
   ownSteps: 'Så gör du',
@@ -591,7 +573,6 @@ export const UI = {
   ownInUse: 'Övningen sitter i ett pass eller en mall.',
   ownSaved: 'Egen övning sparad.',
   ownDeleted: 'Egen övning borttagen.',
-  ownFull: 'Du har 100 egna övningar. Ta bort en först.',
   ownNeedTitle: 'Skriv ett namn.',
   ownNeedWhy: 'Skriv varför ni gör den.',
   ownNeedHow: 'Skriv minst ett steg, högst fyra.',
@@ -601,8 +582,7 @@ export const UI = {
   ownImport: 'Importera övningar',
   ownImportAria: 'Importera övningar från en fil eller en kod',
   ownImportTitle: 'Importera övningar',
-  ownImportHint:
-    'Välj filen eller klistra in koden du fick. Inget sparas förrän du trycker Importera.',
+  ownImportHint: 'Välj filen eller klistra in koden du fick. Inget skickas förrän du trycker Importera.',
   ownImportFile: 'Välj fil',
   ownImportPaste: 'Klistra in kod',
   ownImportRead: 'Läs in',
@@ -613,20 +593,13 @@ export const UI = {
     'Filen kommer från en nyare version av appen. Uppdatera appen och försök igen.',
   ownImportEmpty: 'Det finns inga övningar i filen.',
   ownImportIsPass: 'Det här är ett pass. Öppna det under Hämta ett pass på startsidan.',
-  importIsExercises:
-    'Det här är övningar. Importera dem under Bibliotek → Importera övningar.',
-  ownImportRoom: 'Plats för {n} till',
-  ownImportRoomNone:
-    'Du har redan 100 egna övningar. Ta bort några för att importera fler.',
+  importIsExercises: 'Det här är en fil med övningar. En admin lägger in den under Admin.',
   ownImportInclude: 'Ta med',
   ownImportSkip: 'Hoppa över',
-  ownImportReplace: 'Ersätt',
   ownImportChoiceAria: 'Välj vad som händer med {title}',
   ownImportStateNew: 'Ny',
   ownImportStateSameName: 'Samma namn finns redan',
-  ownImportStateExists: 'Finns redan',
   ownImportStateInvalid: 'Kan inte importeras',
-  ownImportStateNoRoom: 'Ingen plats',
   ownImportNoteClipped: 'Förkortad.',
   ownImportNoteSteps: 'Högst fyra steg. Resten togs bort.',
   ownImportNoteUnknownPiece: 'Okänt redskap togs bort: {list}',
@@ -636,14 +609,9 @@ export const UI = {
   ownImportNoteDupId: 'Samma övning finns två gånger i filen.',
   ownImportNoteBadFormat: 'Övningen har fel format.',
   ownImportNoteMissing: 'Saknar {fält}.',
-  ownImportNoteSameName: 'Tar du med den får du två övningar med samma namn.',
-  ownImportNoteExists:
-    'Ersätt skriver över din version. Pass som använder övningen får den nya texten.',
   ownImportConfirm: 'Importera {n} övningar',
   ownImportConfirmOne: 'Importera 1 övning',
   ownImportConfirmNone: 'Välj minst en övning först',
-  ownImportDone: '{n} övningar importerade. Läs igenom dem före passet.',
-  ownImportDoneOne: '1 övning importerad. Läs igenom den före passet.',
   ownNeedsReview: 'Behöver granskas',
   ownNeedsReviewHint:
     'Importerad övning. Läs igenom den och ändra så att den passar er hall.',
@@ -769,20 +737,15 @@ export function mismatchMessage(intendedBlockLabel: string): string {
 
 // Slice 30 — Övningsimport helpers
 
-export function ownImportRoomText(n: number): string {
-  if (n <= 0) return UI.ownImportRoomNone
-  return UI.ownImportRoom.replace('{n}', String(n))
-}
-
 export function ownImportConfirmText(n: number): string {
   if (n <= 0) return UI.ownImportConfirmNone
   if (n === 1) return UI.ownImportConfirmOne
   return UI.ownImportConfirm.replace('{n}', String(n))
 }
 
-export function ownImportDoneText(n: number): string {
-  if (n === 1) return UI.ownImportDoneOne
-  return UI.ownImportDone.replace('{n}', String(n))
+export function adminImportDoneText(n: number): string {
+  if (n === 1) return UI.adminImportDoneOne
+  return UI.adminImportDone.replace('{n}', String(n))
 }
 
 /** "Saknar varför och säkerhet." · "Saknar namn, varför och säkerhet." */

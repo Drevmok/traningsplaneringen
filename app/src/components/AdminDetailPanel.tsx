@@ -14,7 +14,7 @@ interface Props {
 
 /**
  * Slice 32 — screen-spec §5, admin mode only, bank rows only.
- * pending: Godkänn · Ändra i banken — published: Ändra i banken · Dölj för alla — hidden: Visa igen · Ändra i banken.
+ * pending: Godkänn · Ändra i banken · Dölj för alla (Slice 47 D2: every admin, the author too) — published: Ändra i banken · Dölj för alla — hidden: Visa igen · Ändra i banken.
  */
 export function AdminDetailPanel({ id, onToast, onEdit }: Props) {
   const bank = useAdminBank()
@@ -68,6 +68,9 @@ export function AdminDetailPanel({ id, onToast, onEdit }: Props) {
             </button>
             <button type="button" className="btn-secondary" disabled={disabled} onClick={onEdit}>
               {UI.adminEdit}
+            </button>
+            <button type="button" className="btn-secondary" disabled={disabled} onClick={() => setConfirmHide(true)}>
+              {UI.adminHide}
             </button>
           </>
         )}

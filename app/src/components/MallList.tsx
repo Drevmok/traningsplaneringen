@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { UI } from '../data/blockMeta'
 import { seedTemplates } from '../data/seedTemplates'
 import type { ClubSnapshot, ClubTemplate } from '../lib/clubTemplates'
@@ -11,19 +10,17 @@ interface Props {
   onPickBuiltIn: (templateId: string) => void
   onPickSaved: (id: string) => void
   onPickClub: (template: ClubTemplate) => void
-  /** Mallar tab only (until Slice 47): the admin club section replaces the plain one. */
-  clubAdminSlot?: ReactNode
-  /** Mallar tab only: Kopiera delningskod / Ta bort and the hint under Mina mallar. */
+  /** Använd mall sheet only (Slice 47): Kopiera delningskod / Ta bort and the hint under Mina mallar. */
   onCopySaved?: (id: string) => void
   onDeleteSaved?: (id: string) => void
 }
 
-/** Slice 46 B1: one mall list for the Mallar tab and the Mall step of Planera pass. */
-export function MallList({ club, savedTemplates, onPickBuiltIn, onPickSaved, onPickClub, clubAdminSlot, onCopySaved, onDeleteSaved }: Props) {
+/** Slice 46 B1: one mall list for the Använd mall sheet (Slice 47) and the Mall step of Planera pass. */
+export function MallList({ club, savedTemplates, onPickBuiltIn, onPickSaved, onPickClub, onCopySaved, onDeleteSaved }: Props) {
   const tools = Boolean(onCopySaved && onDeleteSaved)
   return (
     <>
-      {clubAdminSlot ?? <ClubTemplatesSection club={club} onPick={onPickClub} />}
+      <ClubTemplatesSection club={club} onPick={onPickClub} />
       {savedTemplates.length > 0 && (
         <>
           <h3 className="template-group">{UI.myTemplates}</h3>
