@@ -15,7 +15,11 @@ Planerare för svenska gymnastiktränare: bygg ett pass, placera stationer i hal
   - `npm ci` · `npm run dev` (utveckling)
   - `npm run build` (`tsc -b && vite build`, måste vara grönt) · `npm run lint`
   - `npm run preview -- --host 127.0.0.1 --port 4173` → `http://127.0.0.1:4173/traningsplaneringen/`
-- Inga enhetstester; test = verifieringsreceptet nedan.
+- Enhetstester (bun kör `node:test`-sviterna, `*.test.ts`):
+  - `cd app && bun test src` — ca 245 tester (Slice 46/47: 245/0)
+  - `bun test tools/bank` från repo-roten — ca 26 tester (rena + mockade); mot lokal stand-in: `S32_GATEWAY=http://127.0.0.1:54340 bun test tools/bank`
+  - Builder och Verifier rapporterar som `bun test src 245/0` (pass/fail) tillsammans med `npm run build`, `tsc -b` och lint.
+- UI-beteende bevisas med verifieringsreceptet nedan.
 - Deploy: push till `main` kör `.github/workflows/pages.yml` (GitHub Pages).
 
 ## Låsta termer (översätt eller byt aldrig)
