@@ -1,7 +1,7 @@
 # Slice 48 — Hallöversikt
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED.** Christoffer väljer A–F. Inga beslut är låsta. Ingen SQL. Bara dokumentation, ingen appkod. Bas: main @ e605b3f. Gren: `slice-48-docs`.
+**Status:** **LÅST 2026-10-22 av Christoffer: A1 B1 C1 D1 E1 F1** (★-förslagen; C1 ca +1,3 kB gz godkänd). Ingen SQL. Bara dokumentation, ingen appkod. Bas: main @ e605b3f. Gren: `slice-48-docs`.
 **Effort:** **M** (se nedan).  
 **Källa:** `feedback/2026-10-17-christoffer.md` rad E: «48 Hallöversikt: visible outside Mer on mobile, edit mode (add/remove/drag&drop/reorder), touch drag, fix iPhone pinch.» Dessutom (PO): detaljvyn för en övning ska gå att använda i liggande läge, 844×390.
 
