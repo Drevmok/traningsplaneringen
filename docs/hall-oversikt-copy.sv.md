@@ -3,6 +3,7 @@
 **Status:** Living Hallöversikt chrome — Slice 05 base; Slice 19 bulk **Använd alla förslag**; Slice 25 edit soft **saknar redskap** banner.  
 **Terminologi:** **gymnaster**, **pass**. CTA: **Hallöversikt**.  
 **Keep caption exactly:** **Schematisk hall — inte exakt mått**  
+**Slice 48 (FÖRESLAGEN 2026-10-17, inte låst):** ändra-läge i Hallöversikt. «Ändra stationer» visar listan «Stationer i ordning» med ↑ ↓, «Ta bort» (ur passet, med «Borttagen · Ångra») och «Lägg till station» (arket «Lägg till övning» med Teknik). Du lämnar läget med «Klar». Stationsordningen är Teknik-blockets ordning i Passbyggaren, så siffrorna följer med. Se [`slice-48/`](../slice-48/README.md).  
 **Out of scope (Slice 19):** confirm dialogs, Golvklart/Passbyggaren variants of bulk CTA, auto-apply on place, badge/CAD, Netlify.
 
 ---

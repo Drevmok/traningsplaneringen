@@ -15,6 +15,7 @@ Coach-facing help, activity library copy, empty-state guidance, and internal pro
 | `delad-bank.sv.md` | Coach doc: shared exercise bank (Slice 31–32) |
 | `foreningens-mallar.sv.md` | Coach doc: Föreningens mallar in Starta från mall (Slice 36) |
 | `admin.sv.md` | Coach doc: Admin — Ny egen övning, Importera övningar, granskning och Godkänn (Slice 47, LOCKED) |
+| `../slice-48/` | Slice 48 Hallöversikt: Hallöversikt i raden, ändra-läge, dra med fingret, nypningen på iPhone, liggande detaljvy (PROPOSED) |
 | `dela-och-utskrift.sv.md` | Coach doc: Dela — Kopiera länk and Skriv ut passet (Slice 44, PROPOSED) |
 | `planera-pass.sv.md` | Coach doc: Planera pass — fyra frågor, mall eller tomt pass, startsidans fot (Slice 46, PROPOSED) |
 

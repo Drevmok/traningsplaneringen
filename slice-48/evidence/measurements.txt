@@ -1,0 +1,11 @@
+main @ e605b3f, vite preview :4548 (built from git-archive copy in /tmp), Playwright Chromium, DPR 2, isMobile, hasTouch. 2026-10-17.
+[390x844] header: «Kör passet» 108–152 (44); «Hallöversikt» display:none; «Mer» 108–152 (44)
+[390x844] library sheet: 68–844, display:flex, overflow-y hidden (list scrolls inside), max-height min(776.48px,100%)
+[390x844] detail .modal.activity-detail: 0–776, overflow-y:auto, max-height min(776.48px,100%)
+[390x844] «Lägg till i valt block» 474–519 (44) — reachable
+[844x390] header: «Kör passet» 150–190 (40); «Hallöversikt» 150–190 (40) visible; «Mer» 0 px
+[844x390] library: no sheet (inline in page flow)
+[844x390] detail .modal.activity-detail: 16–552 (536) in 390 viewport, overflow-y:visible, max-height:none; backdrop 0–390 display:grid
+[844x390] «Lägg till i valt block» 488–528 (40); after scrollTop=max on modal and backdrop: still 528; scrollHeight 536 = clientHeight 536 → NOT reachable
+viewport meta: width=device-width, initial-scale=1.0
+build: index 443.76 kB / 132.35 kB gz; dist-* 214.18 kB / 55.01 kB gz; CSS 13.9 kB gz
