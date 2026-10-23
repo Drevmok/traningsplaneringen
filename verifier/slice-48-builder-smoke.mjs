@@ -88,6 +88,7 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     await p.locator('.hall-station-add').click(); await p.waitForTimeout(400)
     const lib = p.locator('.side-panel-slot.is-open.hall-library')
     check(`${tag}-lib`, '«Lägg till station» opens the library on Teknik', await lib.isVisible() && (await lib.locator('select').inputValue()) === 'techniques')
+    check(`${tag}-Q2`, 'library filter is locked to Teknik (select disabled)', await lib.locator('select').isDisabled())
     await lib.locator('.library-entry .activity-card').first().click(); await p.waitForTimeout(500)
     const d2 = await draft(p); const t = d2.blocks.find((b) => b.type === 'techniques').items
     const newId = t.find((i) => !NAMES.includes(i.id))?.id

@@ -9,7 +9,8 @@ import { ActivityCard } from './ActivityCard'
 /** Slice 47 A1: Lägg till övning is Biblioteket only — no tabs, no own buttons, no «ikväll», no admin bar. */
 interface Props {
   filterBlockType: BlockType | 'all'
-  onFilterChange: (t: BlockType | 'all') => void
+  /** Omitted in the hall's «Lägg till station» sheet: the filter is locked (Slice 48 Q2). */
+  onFilterChange?: (t: BlockType | 'all') => void
   onSelectActivity: (activity: Activity) => void
   ownActivities: Activity[]
   /** Omitted in the hall's «Lägg till station» sheet: no own-drill edit/delete there. */
@@ -76,8 +77,9 @@ export function LibraryPanel({
           <span>{UI.filters}</span>
           <select
             value={filterBlockType}
+            disabled={!onFilterChange}
             onChange={(e) =>
-              onFilterChange(e.target.value as BlockType | 'all')
+              onFilterChange?.(e.target.value as BlockType | 'all')
             }
           >
             <option value="all">{UI.filterAll}</option>

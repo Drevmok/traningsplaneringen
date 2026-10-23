@@ -57,7 +57,7 @@ import {
   saveDraft,
   updateItemStationEquipment,
 } from '../lib/session'
-import type { Activity, BlockType, Session, StationEquipmentSlot } from '../types'
+import type { Activity, Session, StationEquipmentSlot } from '../types'
 import { ActivityDetail } from './ActivityDetail'
 import { CoachTipStrip } from './CoachTipStrip'
 import { HallCanvas, type HallMode } from './HallCanvas'
@@ -103,7 +103,6 @@ export function HallBoard({
   const [stationFocusId, setStationFocusId] = useState<string | null>(null)
   const [stationLive, setStationLive] = useState('')
   const [libraryOpen, setLibraryOpen] = useState(false)
-  const [libraryFilter, setLibraryFilter] = useState<BlockType | 'all'>('techniques')
   const [libraryOwn] = useState(() => loadOwnActivities())
   /** Slice 48 E1 — one undo level for «Ta bort» in the list (Slice 41 rule: any other change ends it). */
   const [undo, setUndo] = useState<{ before: Session; after: Session } | null>(null)
@@ -713,7 +712,6 @@ export function HallBoard({
             onMoveTo={handleStationMove}
             onRemove={handleStationRemove}
             onAdd={() => {
-              setLibraryFilter('techniques')
               setLibraryOpen(true)
             }}
             onDone={closeStationsEdit}
@@ -887,8 +885,7 @@ export function HallBoard({
               </button>
             </div>
             <LibraryPanel
-              filterBlockType={libraryFilter}
-              onFilterChange={setLibraryFilter}
+              filterBlockType="techniques"
               onSelectActivity={handleAddStation}
               ownActivities={libraryOwn}
             />

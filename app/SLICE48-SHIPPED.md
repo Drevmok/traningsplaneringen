@@ -12,20 +12,26 @@ Branch `slice-48-code` (from `slice-48-docs` @ 29ef308). Locked: A1 B1 C1 D1 E1 
 - `SLICE_NUMBER = '48'`; asserts updated.
 
 ## Checks
-- `bun test src`: 254 pass / 0 fail (9 new in `lib/hallStations.test.ts`)
+- `bun test src`: 256 pass / 0 fail (9 new in `lib/hallStations.test.ts`, 2 in `components/LibraryPanel.test.ts`)
 - `bun test tools/bank`: 21 pass, 5 skip, 0 fail
 - `npx tsc -b` clean · `npm run lint` 0 errors, 6 warnings (baseline) · `npm run build` ok
-- Smoke `verifier/slice-48-builder-smoke.mjs` at 390×844, 844×390 (touch via CDP) and 1280×800 (mouse): **49/49 PASS**. Supabase is blocked in the browser.
+- Smoke `verifier/slice-48-builder-smoke.mjs` at 390×844, 844×390 (touch via CDP) and 1280×800 (mouse): **52/52 PASS**. Supabase is blocked in the browser.
 
 ## Bundle (gzip -9 vs main e605b3f)
-- index JS 130 422 → 132 454 B (**+2 032 B**)
+- index JS 130 422 → 132 417 B (**+1 995 B**)
 - CSS 13 881 → 14 207 B (**+326 B**)
-- Total **≈ +2.36 kB**. That is above the approved ≈ +1.3 kB and needs a decision.
+- Total **≈ +2.32 kB**. Approved by Christoffer (was asked at ≈ +2.36 kB).
 
 ## Pending / deviations
 - **AC26–27 are pending a real iPhone** (pinch and long-press in Safari). Headless cannot prove them.
 - Hall undo is a local toast in HallBoard, not the shared UndoToast (★ preference in the handoff).
 - The drag handle carries its hint in `title`, not `aria-description`.
-- If the coach switches the library filter, a non-Teknik pick is still added to Teknik.
-- Own drills show in the hall library without Ändra/Ta bort.
 - I did not update the living docs or Verifier feature maps (HANDOFF §12).
+
+## PO rulings
+- **Q1 (bundle):** +2.36 kB accepted as built.
+- **Q2 (filter):** done. «Lägg till station» locks the library filter to Teknik (select disabled; `onFilterChange` omitted). Covered by `LibraryPanel.test.ts` and the smoke `*-Q2` steps.
+- **Q3 (own drills):** shipped as built, without Ändra/Ta bort in the hall library.
+
+## Accepted deviations
+Local hall undo toast (not the shared UndoToast), handle hint in `title`, living docs and feature maps not updated, AC26–27 pending a real iPhone.
