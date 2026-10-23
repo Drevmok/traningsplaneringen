@@ -30,3 +30,5 @@ Headless Chromium, 390×844 (+320, 360), `page.clock.install` then `runFor`. See
 ## Needs a real device (PENDING-real)
 
 VoiceOver reading order/announcements, audible tone and vibration, real wake-lock behaviour with screen-off timers.
+
+**Slice 49:** a fresh Planera pass starts at «Kvar: 60/90/120 min» (the chosen length).

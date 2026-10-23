@@ -54,3 +54,5 @@ Ett pass du redan har gjort från en mall ligger kvar som det är, även om mall
 - **Dölj för alla** gömmer mallen för alla tränare. **Visa igen** tar tillbaka den. Inget raderas.
 - Placeringarna i hallen sparas aldrig i mallen. Appen ställer ut stationerna på nytt hos varje tränare.
 - Du behöver nät för att ändra föreningens mallar.
+
+**Slice 49 (LÅST 2026-10-23):** «Föreningens mallar» syns för tränare bara när föreningen har minst en mall. Texten «Föreningen har inga mallar än.» finns kvar i Admin.

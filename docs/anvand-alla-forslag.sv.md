@@ -122,3 +122,5 @@ Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as
 - Auto-apply from Hall saknar banner (Slice 25 points only)
 - Ändra caption **Schematisk hall — inte exakt mått**
 - Netlify / konton / moln
+
+**Slice 49 (LÅST 2026-10-23):** Efter Planera pass är redskapen redan sparade. «Använd alla förslag» finns en gång, i verktygsraden, och bara när minst en station har ett osparat förslag (t.ex. efter Starta från mall). «Inga förslag att spara» finns inte längre. Toasten «Sparade redskap på {n} stationer» är kvar.

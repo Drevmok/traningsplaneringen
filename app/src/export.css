@@ -1096,14 +1096,6 @@
   }
 }
 
-.hall-apply-all-idle,
-.btn-secondary.is-idle:disabled {
-  opacity: 1;
-  color: #57534e;
-  background: #f5f5f4;
-  border-style: dashed;
-}
-
 .app-shell {
   background: var(--md-surface);
   color: var(--md-on-surface);

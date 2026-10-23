@@ -4,6 +4,9 @@
  * Durations chosen to stay ≤ block budgets (warmup ≤10; never short-mall 11).
  */
 
+import type { PassLength } from './blockMeta'
+import type { BlockType } from '../types'
+
 export type WizardAge = 'age46' | 'age79' | 'age1012' | 'age1318'
 export type WizardLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 export type WizardFocus = 'vault' | 'trampett' | 'tumbling' | 'mixed'
@@ -91,7 +94,27 @@ export function teknikActivityIdsFor(
   return [...TEKNIK_BY_FOCUS[focus]]
 }
 
-export const WIZARD_TEKNIK_DURATION = 6
+/** Slice 49 A1: minutes per block for each pass length (sum = the length). Edit freely. */
+export const WIZARD_BLOCK_MINUTES: Record<PassLength, Record<BlockType, number>> = {
+  60: { gathering: 6, warmup: 10, techniques: 21, strength: 15, fun_and_games: 8 },
+  90: { gathering: 6, warmup: 15, techniques: 36, strength: 20, fun_and_games: 13 },
+  120: { gathering: 8, warmup: 20, techniques: 45, strength: 27, fun_and_games: 20 },
+}
+
+/** Split `total` whole minutes by `weights`, largest remainder (ties: first item). */
+export function splitMinutes(total: number, weights: number[]): number[] {
+  const sum = weights.reduce((a, b) => a + b, 0) || 1
+  const raw = weights.map((w) => (total * w) / sum)
+  const out = raw.map(Math.floor)
+  let left = total - out.reduce((a, b) => a + b, 0)
+  const order = raw.map((_, i) => i).sort((a, b) => raw[b] - out[b] - (raw[a] - out[a]) || a - b)
+  for (const i of order) {
+    if (left <= 0) break
+    out[i]++
+    left--
+  }
+  return out
+}
 
 export function focusTitleLabel(focus: WizardFocus): string {
   return WIZARD_FOCUS_TITLE_LABEL[focus]

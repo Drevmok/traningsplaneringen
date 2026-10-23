@@ -284,3 +284,5 @@ Keep footer `no-print`. Ship when Builder lands the wizard. Docs owns the string
 **Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).
 
 **Slice 45 (FÖRESLAGEN 2026-10-17):** I home-wizard tas även `wizardQ3Hint` och `wizardFocusHonesty` bort (de förklarar zoner som bara fanns i de generella hallarna).
+
+**Slice 49 (LÅST 2026-10-23):** Svaret på Passlängd styr tiderna: förslaget blir 60, 90 eller 120 min (inte 53 min), och redskapsförslagen sparas på stationerna.

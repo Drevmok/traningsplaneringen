@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '48'
+export const SLICE_NUMBER = '49'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -378,21 +378,14 @@ export const UI = {
   forradslistaPrintIntro: 'Ta med från förrådet:',
   // Slice 19 — Använd alla förslag (locked: docs/anvand-alla-forslag.sv.md)
   hallApplyAllSuggested: 'Använd alla förslag',
-  hallApplyAllSuggestedIdle: 'Inga förslag att spara',
   hallApplyAllSuggestedAria:
     'Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap',
-  hallApplyAllSuggestedDisabled:
-    'Redskapen är redan sparade, eller så har stationen inget förslag.',
   hallApplyAllSuggestedResult: 'Sparade redskap på {n} stationer',
   hallApplyAllSuggestedResultOne: 'Sparade redskap på 1 station',
   hallApplyAllSuggestedNone: 'Inga osparade förslag just nu.',
   // Slice 25 — saknar redskap banner (docs/saknar-redskap-banner.sv.md)
   hallSaknarRedskapBanner: '{n} stationer saknar redskap',
   hallSaknarRedskapBannerOne: '1 station saknar redskap',
-  hallSaknarPointApplyAll: 'Använd alla förslag',
-  hallSaknarPointApplyAllAria:
-    'Visa Använd alla förslag. Sparar inte automatiskt.',
-  hallSaknarPointApplyAllToast: 'Tryck Använd alla förslag för att spara.',
   // Slice 29 — wizard chrome (docs/home-wizard.sv.md)
   wizardStepProgress: 'Fråga {n} av {total}',
   wizardMallLabel: 'Mall',

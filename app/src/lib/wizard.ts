@@ -7,7 +7,8 @@ import {
   teknikActivityIdsFor,
   wizardSessionTitle,
   WIZARD_SHARED_SKELETON,
-  WIZARD_TEKNIK_DURATION,
+  WIZARD_BLOCK_MINUTES,
+  splitMinutes,
   type WizardAge,
   type WizardFocus,
   type WizardLevel,
@@ -18,6 +19,7 @@ import type { HallZoneId, Session } from '../types'
 import { normalizeTemplateId } from './hall'
 import { autoPlaceUnplaced } from './hallSuggest'
 import {
+  applyAllSuggestedStationEquipment,
   createEmptyBlocks,
   createSessionItem,
   withComputedTotal,
@@ -28,7 +30,7 @@ export interface WizardAnswers {
   level: WizardLevel | null
   focus: WizardFocus
   hallTemplateId: string
-  /** Slice 46 D1: the pass length only; the proposal stays the same (53 min). */
+  /** Slice 49 A1: the length sets the times (WIZARD_BLOCK_MINUTES). */
   targetMinutes: PassLength
 }
 
@@ -107,7 +109,7 @@ export function composeWizardSession(answers: WizardAnswers): Session {
   const teknikIds = teknikActivityIdsFor(age, focus, level)
   if (techniques) {
     techniques.items = teknikIds.map((activityId, order) =>
-      createSessionItem(activityId, WIZARD_TEKNIK_DURATION, order),
+      createSessionItem(activityId, 1, order),
     )
   }
 
@@ -125,6 +127,12 @@ export function composeWizardSession(answers: WizardAnswers): Session {
     )
   }
 
+  const minutes = WIZARD_BLOCK_MINUTES[answers.targetMinutes] ?? WIZARD_BLOCK_MINUTES[60]
+  for (const b of blocks) {
+    const split = splitMinutes(minutes[b.type], b.items.map((it) => it.durationMinutes))
+    b.items.forEach((it, i) => (it.durationMinutes = split[i]))
+  }
+
   let session: Session = withComputedTotal({
     id: uid('session'),
     title: wizardSessionTitle(focus, level),
@@ -136,6 +144,7 @@ export function composeWizardSession(answers: WizardAnswers): Session {
     targetMinutes: answers.targetMinutes,
   })
 
-  session = autoPlaceUnplaced(session)
+  // Slice 49 C1: Planera pass also saves the suggested redskap.
+  session = applyAllSuggestedStationEquipment(autoPlaceUnplaced(session)).session
   return withComputedTotal(session)
 }

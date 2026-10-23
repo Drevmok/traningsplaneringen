@@ -47,7 +47,7 @@ Walked https://drevmok.github.io/traningsplaneringen/ (footer «Slice 37») at 3
 - **Simplicity test:** removes one confirm tap and one confusing message from the first-pass path.
 - **Standing lock?** No.
 
-#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)** — one button / no «Inga förslag att spara»: part of Slice 49.
 - **Effort:** S · CSS/markup only, ~0 to −30 B (drop duplicate button; fold layout notes into the select helper; hide «Inga förslag att spara» once done).
 - **Evidence:** Hallöversikt at 390×844: the hall canvas starts ~y 570 under toolbar, layout select, two notes, saknar-banner with a 2nd «Använd alla förslag», «Tips om placering» and tip card (`09-hall.png`). After applying, a dead «Inga förslag att spara» button stays in the toolbar (`10b-forrad-after.png`).
 - **Simplicity test:** fewer things to read before placing; one button instead of two.

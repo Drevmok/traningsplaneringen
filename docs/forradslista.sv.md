@@ -176,3 +176,5 @@ Keep footer `no-print`. When Slice 24 ships, footer becomes **Träningsplanerare
 - Aggregate: omit unset / `[]`; never include `defaultStationEquipment` / förslag.  
 - Slice 24 soft empty: pass `eligibleSuggestedCount` into the sheet; point-only CTA — [`forrad-empty-soft-path.sv.md`](./forrad-empty-soft-path.sv.md).  
 - Companion: this file under `docs/forradslista.sv.md`. Compose chrome stays in `station-compose.sv.md`; floor lines in `golvklart-redskap.sv.md`; apply-all in `anvand-alla-forslag.sv.md`.
+
+**Slice 49 (LÅST 2026-10-23):** Efter Planera pass är Förrådslistan fylld direkt. Tomtexten gäller nu bara pass från mall eller Tomt pass.

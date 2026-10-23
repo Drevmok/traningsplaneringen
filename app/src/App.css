@@ -2314,10 +2314,6 @@
   box-sizing: border-box;
 }
 
-.hall-saknar-point-cta {
-  align-self: flex-start;
-}
-
 .hall-floor-duration {
   font-weight: 500;
   color: #475569;
@@ -3200,13 +3196,10 @@
     text-overflow: ellipsis;
     padding: 8px 10px;
   }
-  .hall-saknar-banner .hall-saknar-point-cta,
   .hall-preset-row .hall-zoom-btn {
     min-height: 44px;
   }
-  .hall-saknar-banner .hall-saknar-point-cta {
-    padding: 0 12px;
-  }  /* Verifier F1: a long pass title shows at most 2 lines (full title stays in Passbyggaren's field). */
+  /* Verifier F1: a long pass title shows at most 2 lines (full title stays in Passbyggaren's field). */
   .hall-header:not(.hall-header--floor) .hall-session-title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
