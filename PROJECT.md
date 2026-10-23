@@ -42,6 +42,10 @@ Omverifiering: bara FAIL-AC och smokes som berörs av fixen; samma Doctor och is
 Hela smoke-loopen: varje söndag 03:00 mot main, och när pick-smokes säger «hela loopen».
 Mål: ordinarie ca 20–25 min, omverifiering ca 10 min. Ingen SQL mot det riktiga projektet.
 
+### psql-shim (Slice 50)
+
+Smoke-skripten anropar `psql -d bank`. `verifier/tools/run-smokes.sh` lägger `verifier/tools/shim/` först i PATH; shimmen skriver om `-d bank` till körningens egen databas `$S32_DB` (`bank_<run>` från `bank_template`). Utan `S32_DB` skickas anropet vidare oförändrat. Rör aldrig den riktiga Supabase-värden.
+
 ## Regler (backlog/PSTACK-OPS.md, backlog/SCOUT-PLAYBOOK.md)
 
 - pstack är rigorlagret: djupt före snabbt, bevis före påståenden, små verifierade enheter. Ersätter inte Christoffers grindar.
