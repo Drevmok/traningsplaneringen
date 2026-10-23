@@ -3218,7 +3218,8 @@
 }
 
 /* —— Slice 48 — Hallöversikt: Ändra stationer, pointer drag, pinch, landscape —— */
-/* F1: the whole hall area owns pinch (incl. the reserved tray space); one-finger pan stays native. */
+/* F1: the whole hall area owns pinch (canvas, tray, list); one-finger pan stays native. */
+.hall-board,
 .hall-canvas-wrap {
   touch-action: pan-x pan-y;
 }
@@ -3260,6 +3261,7 @@
 
 .hall-station-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   min-height: 48px;
@@ -3300,9 +3302,9 @@
 }
 
 .hall-station-name {
-  flex: 1;
+  flex: 1 1 8rem;
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .hall-station-name:focus {
@@ -3319,6 +3321,10 @@
 .hall-station-remove {
   flex-shrink: 0;
   padding: 8px 10px;
+}
+
+.hall-station-name + .hall-station-move {
+  margin-left: auto;
 }
 
 .hall-station-add {

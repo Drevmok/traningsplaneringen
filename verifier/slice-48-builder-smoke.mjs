@@ -48,7 +48,7 @@ async function touchDrag(p, from, to, steps = 8) {
 async function mouseDrag(p, from, to) { await p.mouse.move(from.x, from.y); await p.mouse.down(); for (let i = 1; i <= 8; i++) await p.mouse.move(from.x + (to.x - from.x) * i / 8, from.y + (to.y - from.y) * i / 8); await p.mouse.up(); await p.waitForTimeout(300) }
 const center = async (loc) => { const r = await loc.boundingBox(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 } }
 
-for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['844', { width: 844, height: 390 }, true], ['1280', { width: 1280, height: 800 }, false]]) {
+for (const [tag, vp, touch] of [['320', { width: 320, height: 568 }, true], ['390', { width: 390, height: 844 }, true], ['844', { width: 844, height: 390 }, true], ['1280', { width: 1280, height: 800 }, false]]) {
   await attempt(`${tag}-entry`, async () => {
     const p = await page(vp, touch); await openHall(p)
     check(`${tag}-AC1`, 'Hallöversikt opens from the builder at this size', await p.locator('.hall-board').isVisible())
@@ -70,6 +70,13 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     const rank = await p.locator('.hall-station-rank').allInnerTexts()
     check(`${tag}-ranks`, 'ranks 1..3 follow the list', rank.map((s) => s.trim()).join() === '1,2,3', rank)
     await p.screenshot({ path: `${SHOTS}/s48_${tag}_list.png` }).catch(() => {})
+    const lay = await p.evaluate(() => {
+      const vw = document.documentElement.clientWidth
+      const right = Math.max(...[...document.querySelectorAll('.hall-station-list *')].map((e) => e.getBoundingClientRect().right))
+      const names = [...document.querySelectorAll('.hall-station-name')].map((e) => { const r = e.getBoundingClientRect(); const lh = parseFloat(getComputedStyle(e).lineHeight) || 20; return { w: Math.round(r.width), lines: Math.round(r.height / lh) } })
+      return { vw, right: Math.round(right), names, sw: document.documentElement.scrollWidth }
+    })
+    check(`${tag}-W320`, 'list fits the viewport and names wrap sensibly (≥ 100 px wide, ≤ 3 lines)', lay.right <= lay.vw && lay.sw <= lay.vw && lay.names.every((n) => n.w >= 100 && n.lines <= 3), JSON.stringify(lay))
     // drag handle: row 3 → top
     const h = rows(p).nth(2).locator('.hall-station-handle'); await h.scrollIntoViewIfNeeded()
     const from = await center(h); const top = await center(rows(p).nth(0))
@@ -106,6 +113,18 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     check(`${tag}-chipdrag`, `canvas marker drag moves its placement (${touch ? 'touch' : 'mouse'})`, before !== after, id ?? '')
     const ta = await p.locator('.hall-canvas-wrap').evaluate((e) => getComputedStyle(e).touchAction)
     check(`${tag}-touchaction`, 'canvas wrap touch-action pan-x pan-y', /pan-x pan-y/.test(ta), ta)
+    const tab = await p.locator('.hall-board').evaluate((e) => getComputedStyle(e).touchAction)
+    check(`${tag}-AC27-area`, 'whole hall area (.hall-board, incl. tray) has touch-action pan-x pan-y', /pan-x pan-y/.test(tab), tab)
+    if (touch) {
+      const tray = p.locator('.hall-tray-compact-bar, .hall-below').first(); await tray.scrollIntoViewIfNeeded()
+      const t = await center(tray); const s = await p.context().newCDPSession(p)
+      const two = (d) => [{ x: t.x - 20 - d, y: t.y, id: 1 }, { x: t.x + 20 + d, y: t.y, id: 2 }]
+      await s.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: two(0) })
+      for (let i = 1; i <= 8; i++) { await s.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: two(i * 8) }); await p.waitForTimeout(16) }
+      await s.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(400)
+      const scale = await p.evaluate(() => window.visualViewport?.scale ?? 1)
+      check(`${tag}-AC27-pinch`, 'pinch over the tray does not zoom the page (simulated, real iPhone pending)', Math.abs(scale - 1) < 0.01, scale)
+    }
     const overflow = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
     check(`${tag}-overflow`, 'no horizontal overflow', overflow <= 1, overflow)
     await p.screenshot({ path: `${SHOTS}/s48_${tag}_end.png` }).catch(() => {})

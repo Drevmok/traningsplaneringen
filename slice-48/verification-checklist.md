@@ -1,6 +1,6 @@
 # Slice 48 — Verification checklist
 
-Status: **PROPOSED**. Raderna gäller ★-valen (A1 B1 C1 D1 E1 F1). Byt rader om Christoffer väljer annat.
+Status: **LÅST** 2026-10-22 (A1 B1 C1 D1 E1 F1, se `decisions.md`).
 Recept (PROJECT.md): `npm run build`, preview `--host 127.0.0.1 --port 4173`, HTTP 200 på `/traningsplaneringen/`. Driv som tränare med synliga svenska etiketter. 390×844 om inget annat står. Liggande rader: 844×390. DPR 2, touch.
 Förberedelse: Planera pass → 7–9 år → Trampett → «Gymmix – Stora hallen» → 60 min. Passet har minst 3 Teknik-stationer.
 

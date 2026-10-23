@@ -1,6 +1,6 @@
 # Slice 48 — microcopy (svenska): Hallöversikt
 
-Status: **PROPOSED**. Ton enligt PROJECT.md: varm och kort, «du», inga utropstecken, inga tekniska ord.
+Status: **LÅST** 2026-10-22 (se `../decisions.md`). Ton enligt PROJECT.md: varm och kort, «du», inga utropstecken, inga tekniska ord.
 
 ## Nytt
 | Nyckel | Text | Var |

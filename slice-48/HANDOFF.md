@@ -1,6 +1,6 @@
 # Slice 48 — Builder handoff
 
-Status: **PROPOSED**. Bygg inget förrän Christoffer har valt A–F. Den här texten beskriver ★-valen. När valen är låsta skriver Docs `slice-48/decisions.md` (PROJECT.md: beslutslogg per slice).
+Status: **LÅST** 2026-10-22 av Christoffer: A1 B1 C1 D1 E1 F1 (se `decisions.md`).
 
 ## Vad som finns idag (main @ e605b3f)
 - `SessionBuilder.tsx:522–535` har knappen «Hallöversikt» (`.builder-hall`) i raden och `:561–569` har samma knapp i «Mer». Båda anropar `onOpenHall` (App.tsx:410, `handleOpenHallFromBuilder`).
