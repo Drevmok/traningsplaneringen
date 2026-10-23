@@ -1,7 +1,7 @@
 # Slice 50 — Snabbare verifiering
 
 **App:** Träningsplaneraren (appen ändras inte)
-**Status:** **FÖRESLAGEN** — väntar på Christoffers lås i Docs-chatten (Effort M, så Planner får inte låsa). Ingen SQL. Bas: main @ 9a087c3. Gren: `slice-50-docs`.
+**Status:** **LÅST** 2026-10-23 av Christoffer (svar via PO-chatten: «Ja, lås enligt rekommendationerna»): A1 B1 C1 D1 E1 F1. Ingen SQL. Bas: main @ 9a087c3. Gren: `slice-50-docs`. Se `decisions.md`.
 **Effort:** **M** (se nedan).
 **Källa:** PO-uppdrag 2026-10-23 (punkt 1–6). Underlag: `verifier/slice-48-verify-report.md`, `verifier/slice-48-reverify-addendum.md`, `verifier/slice-49-verify-report.md`, `verifier/slice-32-local/`, `verifier/slice-33-local/`, `verifier/slice-33-builder-smoke.mjs`, `/home/box/agent-data/workflows/verify-traningsplaneraren{,-2}/SKILL.md`.
 
