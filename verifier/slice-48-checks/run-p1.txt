@@ -1,0 +1,54 @@
+PASS [AC1] «Kör passet», «Hallöversikt», «Mer» on one row, ≥44 px, no clipped text, in that order — [{"t":"Kör passet","top":108,"h":44,"l":12,"r":131,"clip":false},{"t":"Hallöversikt","top":108,"h":44,"l":139,"r":266,"clip":false},{"t":"Mer","top":108,"h":44,"l":274,"r":331,"clip":false}]
+PASS [AC2] one tap «Hallöversikt» opens the hall; «Tillbaka till Passbyggaren» returns
+PASS [AC3] «Mer» has no «Hallöversikt» — Spara som egen mall|Ny vecka|Använd mall|Dela
+PASS [AC4] empty pass: «Hallöversikt» disabled with an announced explanation (hall-cta-hint) — items=0 {"dis":true,"db":"hall-cta-hint","vis":true} hint=«Lägg till minst en övning först» hintEls=1
+PASS [AC6] «Ändra stationer» → «Stationer i ordning», one row per Teknik station, button «Klar» — rows=3 teknik=3
+PASS [AC7] each row: number, name, handle, ↑, ↓, «Ta bort», all ≥44×44; ↑ off on first, ↓ off on last — [{"rank":"1","name":"Ljushopp på trampett","handle":[44,44],"btns":[["Flytta upp: Ljushopp på trampett",55,44,true],["Flytta ner: Ljushopp på trampett",55,44,false],["Ta bort Ljushopp på trampett ur passet",93,44,false]]},{"rank":"2","name":"Trampett volt upp på mattberg","handle":[44,44],"btns":[["Flytta upp: Trampett volt upp på mattberg",55,44,false],["Flytta ner: Trampett volt upp på mattberg",55,44,false],["Ta bort Trampett volt upp på mattberg ur passet",93,44,false]]},{"rank":"3","name":"
+PASS [AC7-add] «Lägg till station» last and ≥44 px — {"top":1399,"bottom":1443,"h":44,"w":332,"left":29,"right":361}
+PASS [AC8] «Klar» closes the list, focus on «Ändra stationer»; Esc in the list does the same — BUTTON.btn-secondary hall-tap-target hall-stations-toggle:Ändra stationer || BUTTON.btn-secondary hall-tap-target hall-stations-toggle:Ändra stationer
+PASS [AC9] «Golvklart» closes edit mode; Golvklart has no «Ändra stationer» and no «Ta bort» — {"edit":0,"del":0,"list":false}
+PASS [AC11] touch: drag row 3 handle to place 1 — a drop line shows, row 3 becomes first — before=item-wyp676ui-mvkjoxiv,item-axfgyoqg-mvkjoxiv,item-6rato074-mvkjoxiv after=item-6rato074-mvkjoxiv,item-wyp676ui-mvkjoxiv,item-axfgyoqg-mvkjoxiv ind={"idx":0,"cls":"hall-station-row is-drop-target","line":"none auto rgba(0, 0, 0, 0) none auto none 2px"}
+PASS [AC12a] touch: page does not scroll while dragging the handle — scrollY 861→861
+PASS [AC12b] touch: outside the handle the list/page scrolls normally (handle touch-action none, row not) — handle=none row=auto scroll 462→712
+PASS [AC20] markers keep their positions when only the order changes — {"item-wyp676ui-mvkjoxiv":"0.21,0.28,open","item-axfgyoqg-mvkjoxiv":"0.37,0.28,open","item-6rato074-mvkjoxiv":"0.53,0.28,open"} vs {"item-wyp676ui-mvkjoxiv":"0.21,0.28,open","item-axfgyoqg-mvkjoxiv":"0.37,0.28,open","item-6rato074-mvkjoxiv":"0.53,0.28,open"}
+PASS [AC17] markers show 1,2,3 in the new order — chips=["Station 1: Falla bakåt från höjd till rygg. Tryck för detaljer.","Station 2: Ljushopp på trampett. Tryck för detaljer.","Station 3: Trampett volt upp på mattberg. Tryck för detaljer."] list=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"]
+PASS [AC10] changes survive reload without saving — item-6rato074-mvkjoxiv,item-wyp676ui-mvkjoxiv,item-axfgyoqg-mvkjoxiv
+PASS [AC18] back in Passbyggaren the Teknik block has the same order — builder=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"] hall=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"]
+FAIL [AC11] error — locator.click: Timeout 10000ms exceeded. @182
+PASS [AC13a] touch: drag a marker to a new spot — it lands where released (grid snap) — target=0.62,0.55 got={"sessionItemId":"item-uwmygvs1-mvkjpc8k","x":0.6200000187538189,"y":0.5499999075060676,"zoneId":"open"} chipNow=null
+PASS [AC13b] touch: a short tap without movement opens the detail view, nothing moves — detail=true
+PASS [AC14] touch: a marker dragged to the tray is lifted off the plan (pass keeps the station) — placements 3→2
+PASS [AC21] «Lägg till station» → «Lägg till övning» on Teknik; choosing closes the sheet, new station last in list and on a free spot — filter=techniques head=«Stäng
+Filter
+Alla typer
+Samling
+Uppvärmning
+Teknik
+Styrka
+Lek och spel
+Ljushopp på satsbräda
+6 min
+Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först.
+Ljushopp på trampett
+6 min
+Ljushopp på trampett — tydlig ansats, studs i mitten, sträckt hopp och mjuk landning.
+Satsbräda volt till rygg
+9 min
+Volt från satsbräda till landning på rygg — progressiv volt med madrass.
+Trampett volt upp på mattberg
+9 min
+Volt från trampett upp på mattberg
+PASS [Q2] Builder-reported PO ruling Q2: hall library filter locked to Teknik (select disabled) — pack E1 only says «filtret satt till Teknik» — disabled=true
+PASS [AC21-keep] adding a station does not move existing markers
+PASS [AC22] «Ta bort» removes the station from pass and hall; «Borttagen · Ångra» shows — toast=«Borttagen · Ångra» chips=3
+PASS [AC23] «Ångra» restores station, its placement and the order; then «Ångrat.» — toast2=«Ångrat.» same=true
+PASS [AC22-time] undo toast stays about 5 s — 5023 ms
+PASS [AC24] another change before «Ångra» ends the undo toast (Slice 41 rule) — before=«Borttagen · Ångra» after=«»
+PASS [AC24b] a marker drag also ends the undo toast
+PASS [AC25] outside edit mode «Ta bort från hall» lifts the marker only, nothing removed from the pass — chip × aria=«Ta bort från hall»
+PASS [AC28] zoom − / + work as before; viewport meta unchanged — 358→448→358 meta=width=device-width, initial-scale=1.0
+PASS [AC33] footer «Träningsplaneraren · Slice 48» — Träningsplaneraren · Slice 48
+PASS [console-p1] no page errors in this run
+PASS [live-p1] no browser request to a non-mock supabase.co host
+
+p1: 31/32 PASS · total 31/32

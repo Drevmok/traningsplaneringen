@@ -1,0 +1,11 @@
+netlogs: 32
+requests: 6324
+to fhzqwbdlejzohetdoluw: 0
+BLOCKED: 0
+hosts:
+   3566 127.0.0.1:57880
+   1472 127.0.0.1:57881
+    799 bank-mock.supabase.co
+    427 127.0.0.1:57882
+     54 127.0.0.1:57883
+      6 mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D%0A%0D%0AH%C3%A4r%20%C3%A4r%20vad%20jag%20tycker%20om%20Tr%C3%A4ningsplaneraren.%0D%0A%0D%0AVad%20fungerade%20bra%3F%0D%0A%0D%0A%0D%0AVad%20var%20kr%C3%A5ngligt%3F%0D%0A%0D%0A%0D%0AVad%20saknade%20du%3F%0D%0A%0
