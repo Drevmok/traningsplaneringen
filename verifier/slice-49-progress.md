@@ -19,3 +19,10 @@ Env: box had lost Postgres 17 and Playwright browsers; Postgres 17 reinstalled (
 - Own exhaustive A1 check (4 ages × 4 focus × 6 levels × 3 lengths × 2 halls = 576 compose calls): total = length, all minutes whole ≥1, 0 bad. C1: 3 Teknik placed with saved redskap, no other block gets redskap (temp test, deleted).
 - Bundle gzip -9 total vs main: plain +21 B, bank +14 B (≤512 ✓).
 - Stand-in up (/workspace/s49v/sb, 36-03 8×t). Builder smoke 34/34 on wt-plain.
+
+## Chunk 3 (20:10–20:35 CEST)
+- Own verify `verifier/slice-49-verify.mjs`: **26/26** (plain + bank stand-in, AC1–AC16, C1 negative, Tomt pass, 320/390/844×390/1280, AC12b/13/14/15 on stand-in). Script selector bugs fixed (mall-sheet is `.mall-sheet`, wizard Tomt pass asks hall + length, footer only in builder).
+- Info: after «Använd alla förslag» the focus lands on BODY (button unmounts) — minor a11y.
+- Bank tests: offline 21 pass (+5 stand-in tests need /tmp/s32/bot-keys.txt); with stand-in 25/1 = same as Slice 48 baseline (`inserts pending rows… second run` = re-run state).
+- Feature maps: Builder's 6 edits match HANDOFF §9 one-to-one.
+- Smoke loop running (sequential).
