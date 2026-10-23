@@ -32,3 +32,4 @@ Target: PR #53, `slice-48-code` @ f523774. Main: e605b3f (contains Slice 47 merg
 - Smoke loop: s48 52/0. The only new FAIL ids compared with Slice 47 come from intended Slice 48 changes: s40 AC14/AC11/AC14-controls/AC14-drag, s46 AC7-10, and s47 AC3/AC7/AC26-footer. s32 is partial because the interruption killed the loop and the session ended mid-run. It has no new FAIL ids. Details: `slice-48-checks/loop-classify.txt`.
 - Netlog: 32 logs, 6324 requests, 0 to fhzqwbdlejzohetdoluw (`slice-48-checks/netlog-count.txt`).
 - Resumed after the interruption (08:27). The stand-in and previews were still up.
+- Report written 08:40; final commit.
