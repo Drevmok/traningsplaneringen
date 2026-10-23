@@ -1,0 +1,55 @@
+bun test v1.4.2 (744846f84)
+
+tools/bank/export-seed.test.ts:
+(pass) export-seed --chunked > committed parts equal a fresh run, each ≤ 16 000 bytes, own begin/commit [22.26ms]
+(pass) export-seed --chunked > --new-only never updates existing rows and fills only empty links [20.02ms]
+(pass) export-seed --chunked > single-file output is unchanged by the chunked mode [17.40ms]
+
+tools/bank/push-promote.test.ts:
+(pass) args, url, key > parses flags [0.13ms]
+(pass) args, url, key > url: https, or http only for localhost [0.12ms]
+(pass) args, url, key > key: refuses missing, publishable and anon/authenticated JWTs; message never contains the key [0.30ms]
+(pass) args, url, key > scrub removes the key from any text [0.02ms]
+(pass) planPromote > maps to pending bot rows with bank rules [2.69ms]
+(pass) planPromote > drops links to ids that are not in the bank [0.57ms]
+(pass) planPromote > all-or-nothing: bad seedId, wrong prefix, duplicate, invalid row, >100 [2.76ms]
+(pass) planPromote > marks existing ids; replace body never carries status / id / sort order [0.72ms]
+(pass) run (mocked bank) > dry-run: reads ids, writes nothing [1.91ms]
+(pass) run (mocked bank) > dry-run works without a key (offline check against the bundled bank) [0.48ms]
+(pass) run (mocked bank) > real run without a key refuses [0.13ms]
+(pass) run (mocked bank) > refuses the publishable key [0.08ms]
+(pass) run (mocked bank) > POSTs new rows with apikey only, skips existing, never DELETE, never prints the key [0.72ms]
+(pass) run (mocked bank) > every row already exists → «nothing new», no «Väntar på godkännande», no write (C5) [0.58ms]
+(pass) run (mocked bank) > all 409 on insert (race) → also «nothing new» (C5) [0.47ms]
+(pass) run (mocked bank) > --replace PATCHes by id without status [0.66ms]
+(pass) run (mocked bank) > 409 on insert → skipped, not overwritten [0.53ms]
+(pass) run (mocked bank) > revoked key (401) → clear message, no key in output [0.21ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > dry-run against the DB writes nothing [34.33ms]
+206 | const GATEWAY = process.env.S32_GATEWAY
+207 | const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+208 | liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
+209 |   const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+210 |   const envLocal = () => ({ SUPABASE_PLANNER_BOT_KEY: localKey(), SUPABASE_URL: GATEWAY })
+211 |   const pub = () => JSON.parse(readFileSync('/tmp/s32/env.json', 'utf8')).publishableKey as string
+                                     ^
+ENOENT: no such file or directory, open '/tmp/s32/env.json'
+    path: "/tmp/s32/env.json",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at pub (/workspace/s48v/wt/tools/bank/push-promote.test.ts:211:32)
+      at <anonymous> (/workspace/s48v/wt/tools/bank/push-promote.test.ts:231:79)
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > inserts pending rows; second run skips (no overwrite); anon cannot see them [29.34ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > --replace changes text but not status [13.51ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > the bot key cannot DELETE (permission denied, row still there) [6.26ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > a revoked key fails clearly [0.74ms]
+
+1 tests failed:
+(fail) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > inserts pending rows; second run skips (no overwrite); anon cannot see them [29.34ms]
+
+ 25 pass
+ 1 fail
+ 142 expect() calls
+Ran 26 tests across 2 files. [174.00ms]
+rc=1
