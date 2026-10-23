@@ -56,3 +56,15 @@
 ## PENDING
 - AC12, AC13 and AC15 wait for the next app slice. AC19 waits for the Sunday routine.
 - Old-smoke loop: it was started in the background on 5e961cf (`/workspace/s50v/loop`). Loop pending.
+
+## Loop result (finished 2026-10-24 ~00:28 CEST)
+- **Run:** `run-smokes.sh all` on 5e961cf, ports 57580–57583. Output in `slice-50-verify-checks/loop.txt`.
+- **Comparison:** against `main/9a087c3…/smoke-baseline.txt`, ignoring durations. All 22 scripts have **the same** exit code and PASS/FAIL counts as main.
+- **Regression: none.**
+- **Intended change: none.** app/ is unchanged, so none was expected.
+- **Script error, same on main:**
+  - seed, s30, s30-fix and s31 exit 1 with a Node error within about a second.
+  - s37 and s46 also exit 1 with a Node error, exactly as on main.
+- **The only difference:** the netlog shows 2075 requests instead of 2076, with 0 to the live host in both. That is ordinary run-to-run noise.
+- The FAIL counts that already existed (s32–s47) are the same on main. Tracked result files the loop rewrote were restored and not committed.
+- **Verdict unchanged:** PASS with PO-accepted deviations (AC11, AC16). The loop is no longer pending.
