@@ -18,3 +18,10 @@ The target is PR #53, `slice-48-code` @ **29df282**. That is fix 7dc8e8f plus a 
 - Bundle: JS +1 994 B, CSS +342 B, **≈ +2.34 kB** gz-9.
 - Docs: every Slice 48 status says LÅST, and the A–F labels in SHIPPED match decisions.md.
 - The smoke loop started at 08:41, with the fix-related smokes first.
+
+## Chunk 2 (08:45–09:02 CEST)
+- Smokes so far, compared with the Slice 47 baseline:
+  - s48 builder smoke: **80/0**.
+  - s47 29/3, s46 32/4, s40 13/5, s40-reverify 31/7: new FAIL ids **identical to the first verify run** (intended Slice 48 changes: «Ändra stationer», Pointer-Events drag, Hallöversikt out of «Mer», footer).
+  - s41-bs, s42-v, s43-v, s44-v: unchanged.
+- s45 AC17 errored because my fresh smoke tree had no `app/dist`. That is a harness gap, not the product. I copied the branch build in and will rerun s45.
