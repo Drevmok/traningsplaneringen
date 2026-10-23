@@ -1,0 +1,6 @@
+ok: postgres 17 (/usr/lib/postgresql/17/bin)
+install: GoTrue v2.197.0
+install: PostgREST v12.2.3
+ok: Playwright Chromium (chromium_headless_shell-1243)
+install-once: installed
+exit=0

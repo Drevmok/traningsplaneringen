@@ -1,0 +1,10 @@
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (c2ddf0dcd9a8… → 8da8717259b8…), bygger om
+PASS malldatabas ombyggd sha256=8da8717259b84db0ff831e303e24e3e883c89862bce349e3cad9147a65f99582
+PASS bank_template på port 54741
+PASS portar lediga (57880–57883, 54740–54745)
+Doctor: PASS (1403 ms)
+exit=0

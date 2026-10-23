@@ -1,0 +1,10 @@
+PASS Postgres 17 (17.11)
+BLOCKED GoTrue (/workspace/s50v/tph-ac3/bin/gotrue/auth) — kör bash verifier/tools/install-once.sh
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+Doctor: BLOCKED (24 ms)
+
+real	0m0.031s
+user	0m0.020s
+sys	0m0.009s
+exit=1
