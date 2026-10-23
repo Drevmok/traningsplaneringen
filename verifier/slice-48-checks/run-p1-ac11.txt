@@ -1,0 +1,12 @@
+PASS [AC11] touch: drag row 3 handle to place 1 — a drop line shows, row 3 becomes first — before=item-bp1oxusr-mvkjqvx4,item-bko0o7oq-mvkjqvx4,item-74qs9lbc-mvkjqvx4 after=item-74qs9lbc-mvkjqvx4,item-bp1oxusr-mvkjqvx4,item-bko0o7oq-mvkjqvx4 ind={"idx":0,"cls":"hall-station-row is-drop-target","line":"none auto rgba(0, 0, 0, 0) none auto none 2px"}
+PASS [AC12a] touch: page does not scroll while dragging the handle — scrollY 861→861
+PASS [AC12b] touch: outside the handle the list/page scrolls normally (handle touch-action none, row not) — handle=none row=auto scroll 462→717
+PASS [AC20] markers keep their positions when only the order changes — {"item-bp1oxusr-mvkjqvx4":"0.21,0.28,open","item-bko0o7oq-mvkjqvx4":"0.37,0.28,open","item-74qs9lbc-mvkjqvx4":"0.53,0.28,open"} vs {"item-bp1oxusr-mvkjqvx4":"0.21,0.28,open","item-bko0o7oq-mvkjqvx4":"0.37,0.28,open","item-74qs9lbc-mvkjqvx4":"0.53,0.28,open"}
+PASS [AC17] markers show 1,2,3 in the new order — chips=["Station 1: Falla bakåt från höjd till rygg. Tryck för detaljer.","Station 2: Ljushopp på trampett. Tryck för detaljer.","Station 3: Trampett volt upp på mattberg. Tryck för detaljer."] list=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"]
+PASS [AC10] changes survive reload without saving — item-74qs9lbc-mvkjqvx4,item-bp1oxusr-mvkjqvx4,item-bko0o7oq-mvkjqvx4
+PASS [AC18] back in Passbyggaren the Teknik block has the same order — builder=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"] hall=["Falla bakåt från höjd till rygg","Ljushopp på trampett","Trampett volt upp på mattberg"]
+FAIL [AC11] error — locator.click: Timeout 10000ms exceeded. @182
+PASS [console-p1] no page errors in this run
+PASS [live-p1] no browser request to a non-mock supabase.co host
+
+p1: 31/32 PASS · total 31/32

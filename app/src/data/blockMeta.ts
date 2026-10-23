@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '47'
+export const SLICE_NUMBER = '48'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -216,6 +216,15 @@ export const UI = {
     'Lägg till övningar under Teknik i Passbyggaren — sedan kan du placera dem här.',
   hallNoStationsCta: 'Tillbaka till Passbyggaren',
   hallRemove: 'Ta bort från hall',
+  /** Slice 48 B1 — Ändra stationer (edit order / add / remove in Hallöversikt). */
+  hallStationsEdit: 'Ändra stationer',
+  hallStationsDone: 'Klar',
+  hallStationsTitle: 'Stationer i ordning',
+  hallStationAdd: 'Lägg till station',
+  hallStationUp: 'Flytta upp',
+  hallStationDown: 'Flytta ner',
+  hallStationRemove: 'Ta bort',
+  hallStationDragAria: 'Dra för att byta ordning',
   hallMissingActivity: 'Övning saknas',
   hallPlaceHere: 'Placera här',
   hallDropHint: 'Dra en Teknik-station hit',
@@ -765,4 +774,22 @@ export function sourceLineText(creator: string, time?: string): string {
 export function sourceAriaText(creator: string, title?: string): string {
   if (title) return UI.sourceAriaTitled.replace('{title}', title).replace('{creator}', creator)
   return UI.sourceAria.replace('{creator}', creator)
+}
+
+/** Slice 48 — aria labels for the station list rows. */
+export function hallStationUpAria(title: string): string {
+  return `${UI.hallStationUp}: ${title}`
+}
+
+export function hallStationDownAria(title: string): string {
+  return `${UI.hallStationDown}: ${title}`
+}
+
+export function hallStationRemoveAria(title: string): string {
+  return `${UI.hallStationRemove} ${title} ur passet`
+}
+
+/** Slice 48 — screen-reader line after a move: «{title} är nu nummer {n}.» */
+export function hallStationMovedText(title: string, n: number): string {
+  return `${title} är nu nummer ${n}.`
 }

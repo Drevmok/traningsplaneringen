@@ -9,12 +9,14 @@ import { ActivityCard } from './ActivityCard'
 /** Slice 47 A1: Lägg till övning is Biblioteket only — no tabs, no own buttons, no «ikväll», no admin bar. */
 interface Props {
   filterBlockType: BlockType | 'all'
-  onFilterChange: (t: BlockType | 'all') => void
+  /** Omitted in the hall's «Lägg till station» sheet: the filter is locked (Slice 48 Q2). */
+  onFilterChange?: (t: BlockType | 'all') => void
   onSelectActivity: (activity: Activity) => void
   ownActivities: Activity[]
-  onEditOwn: (activity: Activity) => void
-  onDeleteOwn: (activity: Activity) => void
-  ownInUse: (activityId: string) => boolean
+  /** Omitted in the hall's «Lägg till station» sheet: no own-drill edit/delete there. */
+  onEditOwn?: (activity: Activity) => void
+  onDeleteOwn?: (activity: Activity) => void
+  ownInUse?: (activityId: string) => boolean
 }
 
 export function LibraryPanel({
@@ -75,8 +77,9 @@ export function LibraryPanel({
           <span>{UI.filters}</span>
           <select
             value={filterBlockType}
+            disabled={!onFilterChange}
             onChange={(e) =>
-              onFilterChange(e.target.value as BlockType | 'all')
+              onFilterChange?.(e.target.value as BlockType | 'all')
             }
           >
             <option value="all">{UI.filterAll}</option>
@@ -94,7 +97,7 @@ export function LibraryPanel({
           {filtered.map((a) => (
             <div key={a.id} className="library-entry">
               <ActivityCard activity={a} onSelect={onSelectActivity} adminBadges={adminBadgesFor(a)} />
-              {a.own && (
+              {a.own && onEditOwn && onDeleteOwn && ownInUse && (
                 <div className="own-card-actions">
                   <button type="button" className="btn-text" onClick={() => onEditOwn(a)}>
                     {UI.ownEditAction}

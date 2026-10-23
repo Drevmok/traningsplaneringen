@@ -116,9 +116,6 @@ export function SharePass({ session, onSave, onRun }: Props) {
           onPlaceAt={() => {}}
           onChipClick={() => {}}
           onRemovePlacement={() => {}}
-          onDragOverCanvas={() => {}}
-          draggingId={null}
-          setDraggingId={() => {}}
         />
       </section>
 

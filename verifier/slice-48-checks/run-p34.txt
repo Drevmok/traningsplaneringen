@@ -1,0 +1,17 @@
+PASS [OLD-Blå-load] old Blå pass from main (with hand placement + equipment) loads unchanged on the branch — hall=forening-bla placements main=3 chips=3 keep=true
+PASS [OLD-Blå-edit] old Blå pass: ↓, add, remove+Ångra keep every existing hand placement — reorderKeep=true addKeep=true undoExact=true
+PASS [OLD-Blå-reload] old Blå pass after edits survives reload
+PASS [OLD-Blå-golvklart] Blå: Golvklart numbers follow the list order, no edit mode; «Skriv ut passet» prints — gl=["Station 2: Ljushopp på trampett. Tryck för detaljer.","Station 1: Trampett volt upp på mattberg. Tryck för detaljer.","Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.","Station 4: Ljushopp på satsbräda. Tryck för detaljer."] names=[] edit=0 prints 0→1
+PASS [OLD-Vit-load] old Vit pass from main (with hand placement + equipment) loads unchanged on the branch — hall=forening-vit placements main=3 chips=3 keep=true
+PASS [OLD-Vit-edit] old Vit pass: ↓, add, remove+Ångra keep every existing hand placement — reorderKeep=true addKeep=true undoExact=true
+PASS [OLD-Vit-reload] old Vit pass after edits survives reload
+PASS [OLD-Vit-golvklart] Vit: Golvklart numbers follow the list order, no edit mode; «Skriv ut passet» prints — gl=["Station 2: Ljushopp på trampett. Tryck för detaljer.","Station 1: Trampett volt upp på mattberg. Tryck för detaljer.","Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.","Station 4: Ljushopp på satsbräda. Tryck för detaljer."] names=[] edit=0 prints 0→1
+PASS [UNKNOWN-HALL] legacy/unknown hall pass opens; edit list works (no crash) — rows=3 hall=forening-bla
+PASS [AC26-sim] SIMULATED (CDP two-touch, not iPhone): zoom follows fingers continuously, back and forth, page scale stays 1 — scales=1.25,1.50,1.75,2.00,1.75,1.50,1.75,2.00,2.00,2.00 vv=1
+FAIL [AC27-sim] SIMULATED: pinch starting in the tray area does not zoom the page (visualViewport.scale 1) — vv=1.6000001430511475 y=1124 tray={"x":12,"y":1114.015625,"width":366,"height":58} touchAction-restricted els=5
+FAIL [AC32] error — menu(Dela) mer [108,274 390x844 top=DIV.modal activity-detail in=modal-backdrop]: locator.click: Timeout 10000ms exceeded. | visible: ←|60|90|120|Kör passet|Hallöversikt|Mer|×|×|+ Lägg till övning|×|+ Lägg till övning|×|×|×|+ Lägg till övning|×|×|+ Lägg till övning|× @58
+PASS [AC36] locked terms present unchanged in UI (builder, hall, chip detail); source counts in report — missing=
+PASS [console-p3+p4] no page errors in this run
+PASS [live-p3+p4] no browser request to a non-mock supabase.co host
+
+p3,p4: 13/15 PASS · total 56/59

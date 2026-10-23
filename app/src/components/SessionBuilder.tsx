@@ -559,14 +559,6 @@ export function SessionBuilder({
                   onClick={() => setMoreOpen(false)}
                 />
                 <div className="more-menu-panel" role="menu" onClick={() => setMoreOpen(false)}>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    disabled={countSessionItems(session) < 1}
-                    onClick={onOpenHall}
-                  >
-                    {UI.hallOverview}
-                  </button>
                   {renderPassExtras()}
                 </div>
               </>

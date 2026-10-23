@@ -1,6 +1,12 @@
-import { useEffect, useRef, type DragEvent, type MouseEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  type MouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from 'react'
 import { UI } from '../data/blockMeta'
 import {
+  clientToNormalized,
   flowSegments,
   getPlacedItems,
   getPreset,
@@ -9,7 +15,7 @@ import {
   touchDistance,
 } from '../lib/hall'
 import type { Session } from '../types'
-import { HallChip, HALL_CHIP_MIME } from './HallChip'
+import { HallChip } from './HallChip'
 
 export type HallMode = 'edit' | 'floor'
 
@@ -24,19 +30,13 @@ interface Props {
   onPlaceAt: (sessionItemId: string, x: number, y: number) => void
   onChipClick: (itemId: string) => void
   onRemovePlacement: (itemId: string) => void
-  onDragOverCanvas: (e: DragEvent) => void
-  draggingId: string | null
-  setDraggingId: (id: string | null) => void
-}
-
-function clientToNormalized(
-  e: { clientX: number; clientY: number },
-  el: HTMLElement,
-): { x: number; y: number } {
-  const rect = el.getBoundingClientRect()
-  const x = rect.width > 0 ? (e.clientX - rect.left) / rect.width : 0.5
-  const y = rect.height > 0 ? (e.clientY - rect.top) / rect.height : 0.5
-  return { x, y }
+  /** Slice 48 C1 — pointer drag of a placed marker (edit mode only). */
+  onChipPointerDown?: (
+    e: ReactPointerEvent<HTMLDivElement>,
+    itemId: string,
+  ) => void
+  /** Live position of the marker being dragged (normalized 0..1). */
+  dragPreview?: { id: string; x: number; y: number } | null
 }
 
 interface PinchState {
@@ -54,9 +54,8 @@ export function HallCanvas({
   onPlaceAt,
   onChipClick,
   onRemovePlacement,
-  onDragOverCanvas,
-  draggingId,
-  setDraggingId,
+  onChipPointerDown,
+  dragPreview = null,
 }: Props) {
   const placed = getPlacedItems(session)
   const preset = getPreset(session.hallTemplateId)
@@ -69,13 +68,20 @@ export function HallCanvas({
   const viewZoomRef = useRef(viewZoom)
   const pinchRef = useRef<PinchState | null>(null)
 
+  const zoomCb = useRef(onViewZoomChange)
+
   viewZoomRef.current = viewZoom
 
+  useEffect(() => {
+    zoomCb.current = onViewZoomChange
+  })
+
   // Slice 21 A1/C1 — two-finger pinch → viewZoom; one-finger empty uses wrap overflow pan.
+  // Slice 48 F1 — one stable listener ([] deps, callback via ref): a re-render mid-pinch no longer
+  // drops pinchRef, so iOS never takes the gesture over and zooms the page.
   useEffect(() => {
     const wrap = wrapRef.current
-    if (!wrap || !onViewZoomChange) return
-    const setZoom: (zoom: number) => void = onViewZoomChange
+    if (!wrap) return
 
     function beginPinch(touches: TouchList) {
       if (touches.length < 2) return
@@ -108,7 +114,7 @@ export function HallCanvas({
       const scale = dist / pinchRef.current.initialDistance
       const next = roundHallZoom(pinchRef.current.initialZoom * scale)
       if (next !== viewZoomRef.current) {
-        setZoom(next)
+        zoomCb.current?.(next)
       }
     }
 
@@ -118,7 +124,14 @@ export function HallCanvas({
       }
     }
 
+    // Safari-only gesture* events: never let them zoom the page over the hall.
+    function blockGesture(e: Event) {
+      e.preventDefault()
+    }
+
     wrap.addEventListener('touchstart', onTouchStart, { passive: true })
+    wrap.addEventListener('gesturestart', blockGesture, { passive: false })
+    wrap.addEventListener('gesturechange', blockGesture, { passive: false })
     wrap.addEventListener('touchmove', onTouchMove, { passive: false })
     wrap.addEventListener('touchend', endPinchIfNeeded)
     wrap.addEventListener('touchcancel', endPinchIfNeeded)
@@ -128,21 +141,10 @@ export function HallCanvas({
       wrap.removeEventListener('touchmove', onTouchMove)
       wrap.removeEventListener('touchend', endPinchIfNeeded)
       wrap.removeEventListener('touchcancel', endPinchIfNeeded)
-      pinchRef.current = null
+      wrap.removeEventListener('gesturestart', blockGesture)
+      wrap.removeEventListener('gesturechange', blockGesture)
     }
-  }, [onViewZoomChange])
-
-  function handleDrop(e: DragEvent<HTMLDivElement>) {
-    if (isFloor) return
-    e.preventDefault()
-    const id =
-      e.dataTransfer.getData(HALL_CHIP_MIME) ||
-      e.dataTransfer.getData('text/plain')
-    if (!id) return
-    const { x, y } = clientToNormalized(e, e.currentTarget)
-    onPlaceAt(id, x, y)
-    setDraggingId(null)
-  }
+  }, [])
 
   function handleCanvasClick(e: MouseEvent<HTMLDivElement>) {
     if (isFloor || !placeModeItemId) return
@@ -162,13 +164,6 @@ export function HallCanvas({
       >
         <div
           className={`hall-canvas${preset.plan ? ' hall-canvas--plan hall-canvas--' + preset.id : ''}${editPlaceMode ? ' is-place-mode' : ''}${isFloor ? ' is-floor' : ''}`}
-          onDragOver={(e) => {
-            if (isFloor) return
-            e.preventDefault()
-            e.dataTransfer.dropEffect = 'move'
-            onDragOverCanvas(e)
-          }}
-          onDrop={handleDrop}
           onClick={handleCanvasClick}
           role="application"
           aria-label={UI.hallOverview}
@@ -260,14 +255,15 @@ export function HallCanvas({
             </svg>
           )}
 
-          {placed.map(({ item, placement }) => (
+          {placed.map(({ item, placement }) => {
+            const live = dragPreview?.id === item.id ? dragPreview : null
+            return (
             <div
               key={item.id}
-              className="hall-chip-anchor"
+              className={`hall-chip-anchor${live ? ' is-dragging' : ''}`}
               style={{
-                left: `${placement.x * 100}%`,
-                top: `${placement.y * 100}%`,
-                opacity: draggingId === item.id ? 0.45 : 1,
+                left: `${(live ?? placement).x * 100}%`,
+                top: `${(live ?? placement).y * 100}%`,
               }}
             >
               <HallChip
@@ -275,17 +271,16 @@ export function HallCanvas({
                 variant="canvas"
                 selected={!isFloor && selectedItemId === item.id}
                 stationRank={ranks.get(item.id)}
-                draggable={!isFloor}
-                onDragStart={
-                  isFloor ? undefined : (_e, id) => setDraggingId(id)
-                }
-                onDragEnd={isFloor ? undefined : () => setDraggingId(null)}
+                movable={!isFloor}
+                dragging={Boolean(live)}
+                onPointerDown={isFloor ? undefined : onChipPointerDown}
                 onClick={onChipClick}
                 onRemove={isFloor ? undefined : onRemovePlacement}
                 showRemove={!isFloor}
               />
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>

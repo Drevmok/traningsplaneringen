@@ -4,6 +4,7 @@
 **Tone:** Short, coach-facing Swedish. Prefer *du*.  
 **Product lock:** Phone ≤768px edit tray is collapsible (collapsed by default). Expand/collapse ≥44px. Golvklart hides the edit tray. Pinch-zoom / pan reuse existing zoom chrome — no new tip.  
 **Locked terms:** gymnaster · pass · övning · station / stationer · markör · Hallöversikt · Golvklart · Passbyggaren · Placera här  
+**Slice 48 (LÅST 2026-10-22):** på telefon ligger «Hallöversikt» i Passbyggarens rad (inte i «Mer»). Stationer och markörer går att dra med fingret (Pointer Events). Nypningen på iPhone fixas med en stabil lyssnare, stopp för `gesture*` och `touch-action` på hela hallytan, och viewport-meta lämnas orörd. Se [`slice-48/`](../slice-48/README.md).  
 **Keep caption exactly:** **Schematisk hall — inte exakt mått**  
 **Out of scope:** saknar-redskap banner, Kom igång place-step changes, required tip, Netlify/Pages, Passbyggaren compose, badge/CAD.
 

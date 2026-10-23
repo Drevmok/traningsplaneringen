@@ -99,9 +99,6 @@ export function PassPrint({ session }: Props) {
           onPlaceAt={() => {}}
           onChipClick={() => {}}
           onRemovePlacement={() => {}}
-          onDragOverCanvas={() => {}}
-          draggingId={null}
-          setDraggingId={() => {}}
         />
       </div>
       {rows.length > 0 && (

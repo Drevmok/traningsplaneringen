@@ -1,0 +1,13 @@
+PASS [AC5] 844×390: «Hallöversikt» visible in the row
+PASS [AC29] 844×390 detail scrollable; «Lägg till i valt block» and «Lägg till och ändra tid» reachable — scroll=true {"ok":true,"top":318,"bottom":358,"hit":"btn-primary"} {"ok":true,"top":318,"bottom":358,"hit":"btn-secondary"}
+FAIL [AC29-tap] «Lägg till i valt block» tappable at 844×390 (adds item)
+PASS [AC30] 844×390 library scrolls to the last drill — {"ok":true,"top":169,"bottom":251,"hit":"activity-duration"}
+PASS [AC31] 844×390 edit mode open: «Klar» reachable — {"ok":true,"top":99,"bottom":139,"hit":"btn-secondary hall-tap-target hall-stati"}
+PASS [L-reach] 844×390 every hall button reachable by scrolling (outside + edit mode) — outside 11 bad= edit 21 bad=
+PASS [L-sheets] 844×390 add-station sheet (to last drill), Förrådslista, tray, Golvklart controls reachable — add 26/ last=true forrad 2/ tray 0/ golvklart 5/
+FAIL [W320] 320 px: no horizontal overflow (builder, hall edit); rows/buttons fit ≥40 px; ↓ works — docW 320/320 rowOk=false
+FAIL [AC15] desktop mouse: list handle drag reorders (AC11) and marker drag moves one marker without opening details; click opens details (AC13) — reorder=false dropLine=false moved=1 detAfterDrag=false detOnClick=true Station 1: Ljushopp på trampett. Tryck för detaljer.
+PASS [console-p2] no page errors in this run
+PASS [live-p2] no browser request to a non-mock supabase.co host
+
+p2: 8/11 PASS · total 41/44

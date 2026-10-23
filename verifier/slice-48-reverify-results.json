@@ -1,0 +1,459 @@
+{
+ "target": "29df282",
+ "main": "e605b3f",
+ "criteria": "29ef308",
+ "results": [
+  {
+   "part": "p1",
+   "id": "AC1",
+   "name": "«Kör passet», «Hallöversikt», «Mer» on one row, ≥44 px, no clipped text, in that order",
+   "ok": true,
+   "detail": "[{\"t\":\"Kör passet\",\"top\":108,\"h\":44,\"l\":12,\"r\":131,\"clip\":false},{\"t\":\"Hallöversikt\",\"top\":108,\"h\":44,\"l\":139,\"r\":266,\"clip\":false},{\"t\":\"Mer\",\"top\":108,\"h\":44,\"l\":274,\"r\":331,\"clip\":false}]"
+  },
+  {
+   "part": "p1",
+   "id": "AC2",
+   "name": "one tap «Hallöversikt» opens the hall; «Tillbaka till Passbyggaren» returns",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p1",
+   "id": "AC3",
+   "name": "«Mer» has no «Hallöversikt»",
+   "ok": true,
+   "detail": "Spara som egen mall|Ny vecka|Använd mall|Dela"
+  },
+  {
+   "part": "p1",
+   "id": "AC4",
+   "name": "empty pass: «Hallöversikt» disabled with an announced explanation (hall-cta-hint)",
+   "ok": true,
+   "detail": "items=0 {\"dis\":true,\"db\":\"hall-cta-hint\",\"vis\":true} hint=«Lägg till minst en övning först» hintEls=1"
+  },
+  {
+   "part": "p1",
+   "id": "AC6",
+   "name": "«Ändra stationer» → «Stationer i ordning», one row per Teknik station, button «Klar»",
+   "ok": true,
+   "detail": "rows=3 teknik=3"
+  },
+  {
+   "part": "p1",
+   "id": "AC7",
+   "name": "each row: number, name, handle, ↑, ↓, «Ta bort», all ≥44×44; ↑ off on first, ↓ off on last",
+   "ok": true,
+   "detail": "[{\"rank\":\"1\",\"name\":\"Ljushopp på trampett\",\"handle\":[44,44],\"btns\":[[\"Flytta upp: Ljushopp på trampett\",55,44,true],[\"Flytta ner: Ljushopp på trampett\",55,44,false],[\"Ta bort Ljushopp på trampett ur passet\",93,44,false]]},{\"rank\":\"2\",\"name\":\"Trampett volt upp på mattberg\",\"handle\":[44,44],\"btns\":[[\"Flytta upp: Trampett volt upp på mattberg\",55,44,false],[\"Flytta ner: Trampett volt upp på mattberg\",55,44,false],[\"Ta bort Trampett volt upp på mattberg ur passet\",93,44,false]]},{\"rank\":\"3\",\"name\":\"Falla bakåt från höjd till rygg\",\"handle\":[44,44],\"btns\":[[\"Flytta upp: Falla bakåt från höjd till rygg\",55,44,false],[\"Flytta ner: Falla bakåt från höjd till rygg\",55,44,true],[\"Ta bort Falla bakåt från höjd till rygg ur passet\",93,44,false]]}]"
+  },
+  {
+   "part": "p1",
+   "id": "AC7-add",
+   "name": "«Lägg till station» last and ≥44 px",
+   "ok": true,
+   "detail": "{\"top\":1109,\"bottom\":1153,\"h\":44,\"w\":332,\"left\":29,\"right\":361}"
+  },
+  {
+   "part": "p1",
+   "id": "AC8",
+   "name": "«Klar» closes the list, focus on «Ändra stationer»; Esc in the list does the same",
+   "ok": true,
+   "detail": "BUTTON.btn-secondary hall-tap-target hall-stations-toggle:Ändra stationer || BUTTON.btn-secondary hall-tap-target hall-stations-toggle:Ändra stationer"
+  },
+  {
+   "part": "p1",
+   "id": "AC9",
+   "name": "«Golvklart» closes edit mode; Golvklart has no «Ändra stationer» and no «Ta bort»",
+   "ok": true,
+   "detail": "{\"edit\":0,\"del\":0,\"list\":false}"
+  },
+  {
+   "part": "p1",
+   "id": "AC11",
+   "name": "touch: drag row 3 handle to place 1 — a drop line shows, row 3 becomes first",
+   "ok": true,
+   "detail": "before=item-28vcqsaj-mvklkgk9,item-96atbfdw-mvklkgk9,item-0hbb1oe4-mvklkgk9 after=item-0hbb1oe4-mvklkgk9,item-28vcqsaj-mvklkgk9,item-96atbfdw-mvklkgk9 ind={\"idx\":0,\"cls\":\"hall-station-row is-drop-target\",\"line\":\"none auto rgba(0, 0, 0, 0) none auto none 2px\"}"
+  },
+  {
+   "part": "p1",
+   "id": "AC12a",
+   "name": "touch: page does not scroll while dragging the handle",
+   "ok": true,
+   "detail": "scrollY 602→602"
+  },
+  {
+   "part": "p1",
+   "id": "AC12b",
+   "name": "touch: outside the handle the list/page scrolls normally (handle touch-action none, row not)",
+   "ok": true,
+   "detail": "handle=none row=auto scroll 602→655"
+  },
+  {
+   "part": "p1",
+   "id": "AC20",
+   "name": "markers keep their positions when only the order changes",
+   "ok": true,
+   "detail": "{\"item-28vcqsaj-mvklkgk9\":\"0.21,0.28,open\",\"item-96atbfdw-mvklkgk9\":\"0.37,0.28,open\",\"item-0hbb1oe4-mvklkgk9\":\"0.53,0.28,open\"} vs {\"item-28vcqsaj-mvklkgk9\":\"0.21,0.28,open\",\"item-96atbfdw-mvklkgk9\":\"0.37,0.28,open\",\"item-0hbb1oe4-mvklkgk9\":\"0.53,0.28,open\"}"
+  },
+  {
+   "part": "p1",
+   "id": "AC17",
+   "name": "markers show 1,2,3 in the new order",
+   "ok": true,
+   "detail": "chips=[\"Station 1: Falla bakåt från höjd till rygg. Tryck för detaljer.\",\"Station 2: Ljushopp på trampett. Tryck för detaljer.\",\"Station 3: Trampett volt upp på mattberg. Tryck för detaljer.\"] list=[\"Falla bakåt från höjd till rygg\",\"Ljushopp på trampett\",\"Trampett volt upp på mattberg\"]"
+  },
+  {
+   "part": "p1",
+   "id": "AC10",
+   "name": "changes survive reload without saving",
+   "ok": true,
+   "detail": "item-0hbb1oe4-mvklkgk9,item-28vcqsaj-mvklkgk9,item-96atbfdw-mvklkgk9"
+  },
+  {
+   "part": "p1",
+   "id": "AC18",
+   "name": "back in Passbyggaren the Teknik block has the same order",
+   "ok": true,
+   "detail": "builder=[\"Falla bakåt från höjd till rygg\",\"Ljushopp på trampett\",\"Trampett volt upp på mattberg\"] hall=[\"Falla bakåt från höjd till rygg\",\"Ljushopp på trampett\",\"Trampett volt upp på mattberg\"]"
+  },
+  {
+   "part": "p1",
+   "id": "AC19",
+   "name": "Golvklart and Förrådslista use the same numbers (Golvklart chip labels; Förrådslista text recorded)",
+   "ok": true,
+   "detail": "golvklart=[\"Station 1: Falla bakåt från höjd till rygg. Tryck för detaljer.\",\"Station 2: Ljushopp på trampett. Tryck för detaljer.\",\"Station 3: Trampett volt upp på mattberg. Tryck för detaljer.\"] expect=[\"1. Falla bakåt från höjd till rygg\",\"2. Ljushopp på trampett\",\"3. Trampett volt upp på mattberg\"] forrad=[]"
+  },
+  {
+   "part": "p1",
+   "id": "AC13a",
+   "name": "touch: drag a marker to a new spot — it lands where released (grid snap)",
+   "ok": true,
+   "detail": "target=0.62,0.55 got={\"sessionItemId\":\"item-klavyh7f-mvklknzs\",\"x\":0.6200000187538189,\"y\":0.5499999075060676,\"zoneId\":\"open\"} chipNow=null"
+  },
+  {
+   "part": "p1",
+   "id": "AC13b",
+   "name": "touch: a short tap without movement opens the detail view, nothing moves",
+   "ok": true,
+   "detail": "detail=true"
+  },
+  {
+   "part": "p1",
+   "id": "AC14",
+   "name": "touch: a marker dragged to the tray is lifted off the plan (pass keeps the station)",
+   "ok": true,
+   "detail": "placements 3→2"
+  },
+  {
+   "part": "p1",
+   "id": "AC21",
+   "name": "«Lägg till station» → «Lägg till övning» on Teknik; choosing closes the sheet, new station last in list and on a free spot",
+   "ok": true,
+   "detail": "filter=techniques head=«Stäng\nFilter\nAlla typer\nSamling\nUppvärmning\nTeknik\nStyrka\nLek och spel\nLjushopp på satsbräda\n6 min\nLjushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först.\nLjushopp på trampett\n6 min\nLjushopp på trampett — tydlig ansats, studs i mitten, sträckt hopp och mjuk landning.\nSatsbräda volt till rygg\n9 min\nVolt från satsbräda till landning på rygg — progressiv volt med madrass.\nTrampett volt upp på mattberg\n9 min\nVolt från trampett upp på mattberg — progressiv höjd och rotation.\nRondat–flickis\nERFAREN LEDARE\n10 min\nRondat till flickis (bakåtväxel / flic-flac) — endast med erfaren ledare och aktiv spotting.\nFlickis med flickiskudde\n9 min\nFlickis med flickiskudde som stöd — känna bakåtrörelsen innan fri flickis.\nFalla bakåt från höjd till rygg\n6 min\nKontrollerad fall bakåt från höjd till landning på rygg — trygghet inför bakåtmoment.\nSalto från höjd\nERFAREN LEDARE\n9 min\nSalto från höjd (fullare voltmoment) — endast med erfaren ledare, spotting och rätt uppbyggnad.\nHandstående falla till rygg\n6 min\nFrån handstående, kontrollerad fall till rygg — öppning och trygg bakåtlandning.\nKullerbytta framåt\n6 min\nEn trygg kullerbytta framåt på mat"
+  },
+  {
+   "part": "p1",
+   "id": "Q2",
+   "name": "Builder-reported PO ruling Q2: hall library filter locked to Teknik (select disabled) — pack E1 only says «filtret satt till Teknik»",
+   "ok": true,
+   "detail": "disabled=true"
+  },
+  {
+   "part": "p1",
+   "id": "AC21-keep",
+   "name": "adding a station does not move existing markers",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p1",
+   "id": "AC22",
+   "name": "«Ta bort» removes the station from pass and hall; «Borttagen · Ångra» shows",
+   "ok": true,
+   "detail": "toast=«Borttagen · Ångra» chips=3"
+  },
+  {
+   "part": "p1",
+   "id": "AC23",
+   "name": "«Ångra» restores station, its placement and the order; then «Ångrat.»",
+   "ok": true,
+   "detail": "toast2=«Ångrat.» same=true"
+  },
+  {
+   "part": "p1",
+   "id": "AC22-time",
+   "name": "undo toast stays about 5 s",
+   "ok": true,
+   "detail": "5023 ms"
+  },
+  {
+   "part": "p1",
+   "id": "AC24",
+   "name": "another change before «Ångra» ends the undo toast (Slice 41 rule)",
+   "ok": true,
+   "detail": "before=«Borttagen · Ångra» after=«»"
+  },
+  {
+   "part": "p1",
+   "id": "AC24b",
+   "name": "a marker drag also ends the undo toast",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p1",
+   "id": "AC25",
+   "name": "outside edit mode «Ta bort från hall» lifts the marker only, nothing removed from the pass",
+   "ok": true,
+   "detail": "chip × aria=«Ta bort från hall»"
+  },
+  {
+   "part": "p1",
+   "id": "AC28",
+   "name": "zoom − / + work as before; viewport meta unchanged",
+   "ok": true,
+   "detail": "358→448→358 meta=width=device-width, initial-scale=1.0"
+  },
+  {
+   "part": "p1",
+   "id": "AC33",
+   "name": "footer «Träningsplaneraren · Slice 48»",
+   "ok": true,
+   "detail": "Träningsplaneraren · Slice 48"
+  },
+  {
+   "part": "p2",
+   "id": "AC5",
+   "name": "844×390: «Hallöversikt» visible in the row",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p2",
+   "id": "AC29",
+   "name": "844×390 detail scrollable; «Lägg till i valt block» and «Lägg till och ändra tid» reachable",
+   "ok": true,
+   "detail": "scroll=true {\"ok\":true,\"top\":318,\"bottom\":358,\"hit\":\"btn-primary\"} {\"ok\":true,\"top\":318,\"bottom\":358,\"hit\":\"btn-secondary\"}"
+  },
+  {
+   "part": "p2",
+   "id": "AC29-tap",
+   "name": "«Lägg till i valt block» tappable at 844×390 (adds item)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p2",
+   "id": "AC30",
+   "name": "844×390 library scrolls to the last drill",
+   "ok": true,
+   "detail": "{\"ok\":true,\"top\":169,\"bottom\":251,\"hit\":\"activity-duration\"}"
+  },
+  {
+   "part": "p2",
+   "id": "AC31",
+   "name": "844×390 edit mode open: «Klar» reachable",
+   "ok": true,
+   "detail": "{\"ok\":true,\"top\":99,\"bottom\":139,\"hit\":\"btn-secondary hall-tap-target hall-stati\"}"
+  },
+  {
+   "part": "p2",
+   "id": "L-reach",
+   "name": "844×390 every hall button reachable by scrolling (outside + edit mode)",
+   "ok": true,
+   "detail": "outside 11 bad= edit 21 bad="
+  },
+  {
+   "part": "p2",
+   "id": "L-sheets",
+   "name": "844×390 add-station sheet (to last drill), Förrådslista, tray, Golvklart controls reachable",
+   "ok": true,
+   "detail": "add 26/ last=true forrad 2/ tray 0/ golvklart 5/"
+  },
+  {
+   "part": "p2",
+   "id": "W320",
+   "name": "320 px: no horizontal overflow (builder, hall edit); rows/buttons fit ≥40 px; ↓ works",
+   "ok": true,
+   "detail": "docW 320/320 rowOk=true row 29–291 remove 198–291"
+  },
+  {
+   "part": "p2",
+   "id": "AC15",
+   "name": "desktop mouse: list handle drag reorders (AC11) and marker drag moves one marker without opening details; click opens details (AC13)",
+   "ok": true,
+   "detail": "reorder=true dropLine=true moved=1 detAfterDrag=false detOnClick=true Station 3: Ljushopp på trampett. Tryck för detaljer."
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Blå-load",
+   "name": "old Blå pass from main (with hand placement + equipment) loads unchanged on the branch",
+   "ok": true,
+   "detail": "hall=forening-bla placements main=3 chips=3 keep=true"
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Blå-edit",
+   "name": "old Blå pass: ↓, add, remove+Ångra keep every existing hand placement",
+   "ok": true,
+   "detail": "reorderKeep=true addKeep=true undoExact=true"
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Blå-reload",
+   "name": "old Blå pass after edits survives reload",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Blå-golvklart",
+   "name": "Blå: Golvklart numbers follow the list order, no edit mode; «Skriv ut passet» prints",
+   "ok": true,
+   "detail": "gl=[\"Station 2: Ljushopp på trampett. Tryck för detaljer.\",\"Station 1: Trampett volt upp på mattberg. Tryck för detaljer.\",\"Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.\",\"Station 4: Ljushopp på satsbräda. Tryck för detaljer.\"] names=[] edit=0 prints 0→1"
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Vit-load",
+   "name": "old Vit pass from main (with hand placement + equipment) loads unchanged on the branch",
+   "ok": true,
+   "detail": "hall=forening-vit placements main=3 chips=3 keep=true"
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Vit-edit",
+   "name": "old Vit pass: ↓, add, remove+Ångra keep every existing hand placement",
+   "ok": true,
+   "detail": "reorderKeep=true addKeep=true undoExact=true"
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Vit-reload",
+   "name": "old Vit pass after edits survives reload",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p3",
+   "id": "OLD-Vit-golvklart",
+   "name": "Vit: Golvklart numbers follow the list order, no edit mode; «Skriv ut passet» prints",
+   "ok": true,
+   "detail": "gl=[\"Station 2: Ljushopp på trampett. Tryck för detaljer.\",\"Station 1: Trampett volt upp på mattberg. Tryck för detaljer.\",\"Station 3: Falla bakåt från höjd till rygg. Tryck för detaljer.\",\"Station 4: Ljushopp på satsbräda. Tryck för detaljer.\"] names=[] edit=0 prints 0→1"
+  },
+  {
+   "part": "p3",
+   "id": "UNKNOWN-HALL",
+   "name": "legacy/unknown hall pass opens; edit list works (no crash)",
+   "ok": true,
+   "detail": "rows=3 hall=forening-bla"
+  },
+  {
+   "part": "p4",
+   "id": "AC26-sim",
+   "name": "SIMULATED (CDP two-touch, not iPhone): zoom follows fingers continuously, back and forth, page scale stays 1",
+   "ok": true,
+   "detail": "scales=1.25,1.50,1.75,2.00,1.75,1.50,1.75,2.00,2.00,2.00 vv=1"
+  },
+  {
+   "part": "p4",
+   "id": "AC27-sim",
+   "name": "SIMULATED: pinch starting in the tray area does not zoom the page (visualViewport.scale 1)",
+   "ok": true,
+   "detail": "vv=1 y=678 tray={\"x\":12,\"y\":668.015625,\"width\":366,\"height\":58} touchAction-restricted els=6"
+  },
+  {
+   "part": "p4",
+   "id": "AC32",
+   "name": "390×844 detail and Dela sheets same size and text as main",
+   "ok": true,
+   "detail": "{\"br\":{\"det\":[390,776,620],\"dl\":[390,844,\"× Dela Kopiera länk Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto. Kopiera länk Skriv ut passet Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF. Skriv ut passet\"]},\"main\":{\"det\":[390,776,620],\"dl\":[390,844,\"× Dela Kopiera länk Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto. Kopiera länk Skriv ut passet Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF. Skriv ut passet\"]}}"
+  },
+  {
+   "part": "p4",
+   "id": "AC36",
+   "name": "locked terms present unchanged in UI (builder, hall, chip detail); source counts in report",
+   "ok": true,
+   "detail": "missing="
+  },
+  {
+   "part": "p5",
+   "id": "R320-568",
+   "name": "320×568 «Stationer i ordning»: word wrap, buttons on second line, no overflow, ≥44 px, «Ta bort» reachable+works",
+   "ok": true,
+   "detail": "docW=320 noOverflow=true wordWrap=true second=true hit=true rows 3→2 | «Ljushopp på trampett» w182 lines1 row29–291 [↑@75–130,865 ↓@136–192,865 Ta bort@198–291,865] ; «Trampett volt upp på mattberg» w182 lines2 row29–291 [↑@75–130,976 ↓@136–192,976 Ta bort@198–291,976] ; «Falla bakåt från höjd till rygg» w182 lines2 row29–291 [↑@75–130,1086 ↓@136–192,1086 Ta bort@198–291,1086]"
+  },
+  {
+   "part": "p5",
+   "id": "R320-640",
+   "name": "320×640 «Stationer i ordning»: word wrap, buttons on second line, no overflow, ≥44 px, «Ta bort» reachable+works",
+   "ok": true,
+   "detail": "docW=320 noOverflow=true wordWrap=true second=true hit=true rows 3→2 | «Ljushopp på trampett» w182 lines1 row29–291 [↑@75–130,865 ↓@136–192,865 Ta bort@198–291,865] ; «Trampett volt upp på mattberg» w182 lines2 row29–291 [↑@75–130,976 ↓@136–192,976 Ta bort@198–291,976] ; «Falla bakåt från höjd till rygg» w182 lines2 row29–291 [↑@75–130,1086 ↓@136–192,1086 Ta bort@198–291,1086]"
+  },
+  {
+   "part": "p5",
+   "id": "R27-tray",
+   "name": "SIMULATED: pinch starting on the tray leaves the page at scale 1",
+   "ok": true,
+   "detail": "vv=1 y=687 target=hall-tray-compact-bar inBoard=true touchAction chain=auto,pan-x pan-y board=pan-x pan-y geo={\"board\":[-245,758],\"tray\":[668,726],\"vh\":844}"
+  },
+  {
+   "part": "p5",
+   "id": "R27-below",
+   "name": "SIMULATED: pinch starting below the tray (inside .hall-board) leaves the page at scale 1",
+   "ok": true,
+   "detail": "vv=1 y=734 target=hall-board inBoard=true touchAction chain=pan-x pan-y,auto board=pan-x pan-y geo={\"board\":[-245,758],\"tray\":[668,726],\"vh\":844}"
+  },
+  {
+   "part": "p5",
+   "id": "R27-tray-main",
+   "name": "CONTROL (main, unfixed): pinch on the tray — MAIN (control) DOES zoom the page, so the sim discriminates",
+   "ok": true,
+   "detail": "vv=3.072000503540039 y=687 target=hall-tray-compact-bar inBoard=true touchAction chain=auto board=auto geo={\"board\":[-193,758],\"tray\":[668,726],\"vh\":844}"
+  },
+  {
+   "part": "p5",
+   "id": "Q3",
+   "name": "own drill listed in the hall «Lägg till övning» library without Ändra/Ta bort",
+   "ok": true,
+   "detail": "hall={\"found\":true,\"actions\":[],\"anyOwnActions\":0} builderLibraryActions=[\"Ändra\",\"Ta bort\"]"
+  },
+  {
+   "part": "p5",
+   "id": "console-p1+p2+p3+p4+p5",
+   "name": "no page errors in this run",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "part": "p5",
+   "id": "live-p1+p2+p3+p4+p5",
+   "name": "no browser request to a non-mock supabase.co host",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "notes": {
+  "flowElements": 9,
+  "btnsBeforeForrad": "← Tillbaka till Passbyggaren|Ändra stationer|Dölj flöde|Förrådslista|Använd alla förslag|Golvklart|−|+|Använd alla förslag|×|×|×|×\nDölj tips|Visa stationsbricka|Visa tips igen|Uppdatera appen",
+  "url": "http://127.0.0.1:57880/traningsplaneringen/",
+  "forradAria": "Visa förrådslista för passet",
+  "forradslistaText": "Förrådslista\nStäng\n\nInga redskap summerade ännu.\n\nDet finns osparade förslag. Stäng och tryck Använd alla förslag — då syns redskapen i Förrådslista.\n\nAnvänd alla förslag på hallen",
+  "Q2_filterDisabled": true,
+  "AC5_main_rowHall": true,
+  "AC29_main": "{\"sc\":true,\"r1\":{\"ok\":false,\"top\":648,\"bottom\":688},\"r2\":{\"ok\":false,\"top\":648,\"bottom\":688}}",
+  "AC30_main": "{\"ok\":true,\"top\":169,\"bottom\":251,\"hit\":\"activity-duration\"}",
+  "print_Blå": "Pass — trampett\n\n59 min\n\nSamling · 6 min\nNärvaro\n3 min\nDagens pass — snabb genomgång\n3 min\nUppvärmning · 10 min\nUppvärmningsvarv (hallen runt)\n10 min\nTeknik · 24 min\n1. Trampett volt upp på mattberg\n6 min\nSkiss — så kan stationen stå. Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.\n\nSe upp för. Mattberg som tippar eller är för lågt; underrotation; att nästa gymnast startar för tidigt.\n\nSäkerhet. Mattberget ska stå stabilt. Nästa väntar tills landningen är klar.\n\nRedskap. Trampett · Mattberg · Landningsmatta\n\n2. Ljushopp på trampett\n6 min\nSkiss — så kan stationen stå. Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.\n\nSe upp för. Ansats för lång/snabb; studs nära kanten; landning utan madrasskydd där det behövs.\n\nSäkerhet. En i taget. Landning på madrass — vänta tills den är klar.\n\nRedskap. Trampett · Landningsmatta\n\n3. Falla bakåt från höjd till rygg\n6 min\nSkiss — så kan stationen stå.\n\nSe upp för. Huvudet får inte ta emot; madrass tillräckligt tjock/lång; ingen höjdtävling utan teknikfokus.\n\nSäkerhet. Tjock och lång madrass bakom. Huvudet får inte ta emot.\n\nRedskap. Plint · Madrass\n\n4. Ljushopp på satsbräda\n6 min\n",
+  "print_Vit": "Pass — trampett\n\n59 min\n\nSamling · 6 min\nNärvaro\n3 min\nDagens pass — snabb genomgång\n3 min\nUppvärmning · 10 min\nUppvärmningsvarv (hallen runt)\n10 min\nTeknik · 24 min\n1. Trampett volt upp på mattberg\n6 min\nSkiss — så kan stationen stå. Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.\n\nSe upp för. Mattberg som tippar eller är för lågt; underrotation; att nästa gymnast startar för tidigt.\n\nSäkerhet. Mattberget ska stå stabilt. Nästa väntar tills landningen är klar.\n\nRedskap. Trampett · Mattberg · Landningsmatta\n\n2. Ljushopp på trampett\n6 min\nSkiss — så kan stationen stå. Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.\n\nSe upp för. Ansats för lång/snabb; studs nära kanten; landning utan madrasskydd där det behövs.\n\nSäkerhet. En i taget. Landning på madrass — vänta tills den är klar.\n\nRedskap. Trampett · Landningsmatta\n\n3. Falla bakåt från höjd till rygg\n6 min\nSkiss — så kan stationen stå.\n\nSe upp för. Huvudet får inte ta emot; madrass tillräckligt tjock/lång; ingen höjdtävling utan teknikfokus.\n\nSäkerhet. Tjock och lång madrass bakom. Huvudet får inte ta emot.\n\nRedskap. Plint · Madrass\n\n4. Ljushopp på satsbräda\n6 min\n",
+  "AC26_seq": "{\"z0\":{\"t\":\"matrix(1.000\",\"vv\":1},\"z1\":{\"t\":\"matrix(2.000\",\"vv\":1},\"sc\":[1.25,1.5,1.75,2,1.75,1.5,1.75,2,2,2]}",
+  "AC32_detBtns_br": [
+   "×.modal-close",
+   "Lägg till i valt block.btn-primary",
+   "Lägg till och ändra tid.btn-secondary"
+  ],
+  "AC32_detBtns_main": [
+   "×.modal-close",
+   "Lägg till i valt block.btn-primary",
+   "Lägg till och ändra tid.btn-secondary"
+  ],
+  "AC32": "{\"br\":{\"det\":[390,776,620],\"dl\":[390,844,\"× Dela Kopiera länk Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto. Kopiera länk Skriv ut passet Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF. Skriv ut passet\"]},\"main\":{\"det\":[390,776,620],\"dl\":[390,844,\"× Dela Kopiera länk Skicka länken till en annan tränare. Den som öppnar den ser hela passet och kan spara det hos sig. Passet finns i länken, så det behövs inget konto. Kopiera länk Skriv ut passet Hela passet på papper: tidslinjen, varje station med skiss, Se upp för och Säkerhet, och hallkartan. Vill du ha en fil väljer du Spara som PDF. Skriv ut passet\"]}}"
+ }
+}

@@ -406,4 +406,7 @@ Full lock: [`delad-bank.sv.md`](./delad-bank.sv.md) (keys also in `slice-31/cont
 
 **Slice 45 (FÖRESLAGEN 2026-10-17, inte låst):** Hallarna heter **Gymmix – Stora hallen** (id `forening-bla`, förut Blå hall) och **Gymmix – Grophallen** (id `forening-vit`, förut Vit hall). Standard trupp, Tävling / linjer och Liten hall tas bort; gamla pass på dem öppnas i Stora hallen. Väljaren «Hallayout» försvinner ur Hallöversikt; hallen väljs i Planera pass (frågan heter **Hall**). Se [`slice-45/`](../slice-45/README.md).
 
+**Slice 48 (LÅST 2026-10-22):** «Mer» i Passbyggaren innehåller inte längre «Hallöversikt», eftersom knappen ligger i raden på telefon också. Detaljvyn för en övning scrollar på låga skärmar (≤500 px hög), så «Lägg till i valt block» går att nå i liggande läge. Se [`slice-48/`](../slice-48/README.md).
+
+
 **Slice 47 (FÖRESLAGEN 2026-10-19, inte låst):** «Lägg till övning» visar bara Biblioteket: inga flikar Tips och Mallar, inga knappar för egna övningar, ingen ruta «Visa bara övningar vi kan köra ikväll». «Använd mall» i Passbyggaren öppnar ett eget ark **Använd mall** (Mina mallar med Kopiera delningskod och Ta bort). Inloggade admins får vyn **Admin**: «Admin» i sidfotens «Admin · Logga ut» och i Passbyggarens Mer. Se [`slice-47/`](../slice-47/README.md) och [`admin.sv.md`](./admin.sv.md).
