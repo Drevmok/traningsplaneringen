@@ -4,12 +4,21 @@
 # Generated local-only keys/secrets stay in that dir, never in git.
 #   bash verifier/slice-32-local/setup.sh      then   bash verifier/slice-32-local/start.sh
 # S32_SCHEMA32 (optional) = the schema-32 file to apply (default: slice-31/content/schema-32.sql).
+# Slice 50 (A1): `setup.sh --template` builds the fixed cluster in $TPV_STANDIN (default
+# /home/box/tp-verify/standin) with ONE database, bank_template (roles → GoTrue migrate → schema-31 →
+# bank-seed → schema-32), and writes <dir>/template.sha256 (sha256 of the four sql files). Runs then
+# copy it with verifier/tools/db-new.sh <run> (createdb -T bank_template bank_<run>).
+# TPV_BANK_SEED (optional) = the bank-seed.sql to use (default tools/bank/out/bank-seed.sql).
 set -euo pipefail
+TEMPLATE=0
+if [ "${1:-}" = "--template" ]; then TEMPLATE=1; export S32_TEMPLATE_MODE=1; export S32_PG_PORT=${S32_PG_PORT:-54741}; fi
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 HERE="$REPO/verifier/slice-32-local"
 . "$HERE/env.sh"
 SCHEMA32=${S32_SCHEMA32:-$REPO/slice-31/content/schema-32.sql}
+SEED=${TPV_BANK_SEED:-$REPO/tools/bank/out/bank-seed.sql}
 PGPORT=$S32_PG_PORT
+DB=bank; [ $TEMPLATE = 1 ] && { DB=bank_template; S32_PORTS=$S32_PG_PORT; }
 # Stop only what belongs to THIS dir, then make sure no other process holds our ports.
 if [ -d "$D" ]; then bash "$HERE/stop.sh" >/dev/null || true; fi
 for port in $S32_PORTS; do
@@ -32,14 +41,14 @@ chmod 600 "$D/env.json"
 "$PGBIN/initdb" -D "$D/pg" -U postgres -A trust >/dev/null
 S32_OWNER="$D" "$PGBIN/pg_ctl" -D "$D/pg" -o "-p $PGPORT -k /tmp -c listen_addresses=127.0.0.1" -l "$D/pg.log" -w start >/dev/null
 P="env PGOPTIONS=-cclient_min_messages=warning psql -h 127.0.0.1 -p $PGPORT -U postgres -v ON_ERROR_STOP=1 -qAt"
-$P -c "create database bank" >/dev/null
-$P -d bank -f "$HERE/roles.sql" >/dev/null
+$P -c "create database $DB" >/dev/null
+$P -d $DB -f "$HERE/roles.sql" >/dev/null
 cat > "$D/gotrue.env" <<ENV
 GOTRUE_API_HOST=127.0.0.1
 PORT=$S32_GOTRUE_PORT
 API_EXTERNAL_URL=https://bank-mock.supabase.co/auth/v1
 GOTRUE_DB_DRIVER=postgres
-DATABASE_URL='postgres://supabase_auth_admin:local-only@127.0.0.1:$PGPORT/bank?sslmode=disable&search_path=auth'
+DATABASE_URL='postgres://supabase_auth_admin:local-only@127.0.0.1:$PGPORT/$DB?sslmode=disable&search_path=auth'
 DB_NAMESPACE=auth
 GOTRUE_SITE_URL=http://127.0.0.1:$S32_PREVIEW_PORT/traningsplaneringen/
 GOTRUE_URI_ALLOW_LIST=http://127.0.0.1:$S32_PREVIEW_PORT/traningsplaneringen/,http://127.0.0.1:$S32_PREVIEW_PORT/traningsplaneringen/**
@@ -76,11 +85,22 @@ if [ -n "${S32_MAGIC_LINK_TEMPLATE:-}" ]; then
 fi
 chmod 600 "$D/gotrue.env"
 ( cd "$(dirname "$GOTRUE")" && set -a && . "$D/gotrue.env" && set +a && "$GOTRUE" migrate >"$D/gotrue-migrate.log" 2>&1 )
-$P -d bank -f "$REPO/slice-31/content/schema-31.sql" >/dev/null
-$P -d bank -f "$REPO/tools/bank/out/bank-seed.sql" >/dev/null
-$P -d bank -f "$SCHEMA32" >/dev/null
+$P -d $DB -f "$REPO/slice-31/content/schema-31.sql" >/dev/null
+$P -d $DB -f "$SEED" >/dev/null
+$P -d $DB -f "$SCHEMA32" >/dev/null
+if [ $TEMPLATE = 1 ]; then
+  # Template cluster: no services of its own, no keys kept (runs get their own from db-new.sh).
+  rm -f "$D/bot-keys.txt" "$D/gotrue.env"
+  python3 - "$D/env.json" <<'PY'
+import json,sys; p=sys.argv[1]; c=json.load(open(p)); c.pop("jwtSecret",None); c["template"]="bank_template"; json.dump(c,open(p,"w"))
+PY
+  $P -c "alter database bank_template is_template true" >/dev/null
+  sha256sum "$HERE/roles.sql" "$REPO/slice-31/content/schema-31.sql" "$SEED" "$SCHEMA32" | awk '{print $1}' | sha256sum | awk '{print $1}' > "$D/template.sha256"
+  echo "template ok ($D, pg :$PGPORT, sha256 $(cat "$D/template.sha256")): $($P -d $DB -c "select count(*) from public.exercises where status='published'") published"
+  exit 0
+fi
 cat > "$D/postgrest.conf" <<CONF
-db-uri = "postgres://authenticator:local-only@127.0.0.1:$PGPORT/bank"
+db-uri = "postgres://authenticator:local-only@127.0.0.1:$PGPORT/$DB"
 db-schemas = "public"
 db-anon-role = "anon"
 jwt-secret = "$JWT_SECRET"
@@ -88,4 +108,4 @@ server-host = "127.0.0.1"
 server-port = $S32_POSTGREST_PORT
 CONF
 chmod 600 "$D/postgrest.conf"
-echo "setup ok ($D, pg :$PGPORT, schema-32: ${SCHEMA32#$REPO/}): $($P -d bank -c "select count(*) from public.exercises where status='published'") published, $($P -d bank -c "select count(*) from public.redskap") redskap"
+echo "setup ok ($D, pg :$PGPORT, schema-32: ${SCHEMA32#$REPO/}): $($P -d $DB -c "select count(*) from public.exercises where status='published'") published, $($P -d $DB -c "select count(*) from public.redskap") redskap"

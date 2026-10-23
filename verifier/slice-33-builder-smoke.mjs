@@ -106,7 +106,7 @@ async function newCtx(label, init) {
   })
   ctx.on('request', (r) => {
     const url = r.url()
-    if (url.startsWith(BANK_HOST)) bankLog.push({ ctx: label, method: r.method(), url, headers: r.headers(), body: r.postData() })
+    if (url.startsWith(BANK_HOST)) bankLog.push({ ctx: label, method: r.method(), url, headers: r.headers(), body: r.postData(), t: Date.now() })
     if (/\/assets\/[^/]+\.js$/.test(url)) assetLog.push({ ctx: label, url })
   })
   return ctx
@@ -203,6 +203,39 @@ async function waitMail(to, after) {
     await sleep(250)
   }
   throw new Error(`no mail for ${to}`)
+}
+// Slice 50 (D1): newest mail after `after` whose code differs from `notCode`; keep waiting up to 15 s.
+async function waitNewCode(to, after, notCode, timeoutMs = 15_000) {
+  const end = Date.now() + timeoutMs
+  let last
+  while (Date.now() < end) {
+    const m = mails(to).filter((x) => x.t > after).sort((a, b) => b.t - a.t)
+    last = m[0]?.m
+    if (last && codeOf(last) !== notCode) return last
+    await sleep(250)
+  }
+  if (last) return last // only a mail with the same code (1 in 10⁶ or a resend that did not go out); AC13c/AC16d decide
+  throw new Error(`no new mail for ${to} within ${timeoutMs} ms`)
+}
+// Slice 50 (D1): on AC16d FAIL write slice-33-otp-debug.txt — GoTrue /otp and /verify lines (no token values),
+// mail timestamps and the last two digits of the codes that were sent to /verify.
+function otpDebug(codes) {
+  const dir = process.env.TPV_LOG_DIR ?? `${ROOT}/verifier`
+  let log = ''
+  try { log = readFileSync(`${S32}/gotrue.log`, 'utf8') } catch { log = '(no gotrue.log)' }
+  const lines = log.split('\n').filter((l) => /\/otp|\/verify|otp_expired|rate limit|max_frequency/i.test(l))
+    .map((l) => l.replace(/("?(token|token_hash|code|otp|access_token|refresh_token|password)"?\s*[:=]\s*"?)[^",}\s&]+/gi, '$1***').replace(/\b\d{6}\b/g, '******'))
+  const sent = verifyReqs('admin').map((r) => { try { const b = JSON.parse(r.body); return `${new Date(r.t ?? Date.now()).toISOString()} …${String(b.token ?? '').slice(-2)}` } catch { return '?' } })
+  const out = [
+    `slice-33 AC16d debug ${new Date().toISOString()}`,
+    `first send click tA=${new Date(tA).toISOString()} first mail=${new Date(mailA1T).toISOString()}`,
+    'mails (mtime, last two digits):', ...mails(ADMIN).map((x) => `  ${new Date(x.t).toISOString()} …${String(codeOf(x.m)).slice(-2)}`),
+    `codes: A1 …${String(codes.a1).slice(-2)}  A2 …${String(codes.a2).slice(-2)}`,
+    'sent to /verify (time, last two digits):', ...sent.map((l) => `  ${l}`),
+    'GoTrue /otp, /verify lines (token values masked):', ...lines.map((l) => `  ${l}`),
+  ]
+  writeFileSync(`${dir}/slice-33-otp-debug.txt`, out.join('\n') + '\n')
+  note(`AC16d failed → ${dir}/slice-33-otp-debug.txt`)
 }
 const codeOf = (m) => (m.subject.match(/\b(\d{6})\b/) ?? [])[1]
 const otpReqs = (label) => bankLog.filter((r) => r.ctx === label && r.method === 'POST' && r.url.includes('/auth/v1/otp'))
@@ -364,6 +397,7 @@ const admin = await newCtx('admin')
 let adminPage
 let tA = 0
 let codeA1 = ''
+let mailA1T = 0 // slice 50 (D1): mtime of the first admin mail — GoTrue's SMTP_MAX_FREQUENCY counts from its send, not from the click
 await attempt('AC8', 'Step 1 and step 2 DOM (admin)', async () => {
   adminPage = await newPage(admin, ON)
   await openSheet(adminPage)
@@ -381,6 +415,7 @@ await attempt('AC8', 'Step 1 and step 2 DOM (admin)', async () => {
   await remember(adminPage)
   const mA = await waitMail(ADMIN, tA - 1)
   codeA1 = codeOf(mA)
+  mailA1T = mails(ADMIN).filter((x) => x.t > tA - 1).at(-1)?.t ?? tA
   // AC 1: mail
   const body = mA.body ?? ''
   const text = body.replace(/<[^>]+>/g, ' ')
@@ -610,7 +645,7 @@ await attempt('AC22', 'Non-admin logs in with a code', async () => {
 // ───────────────────────── admin main flow, part 2: resend after 60 s, replaced code, login ─────────────────────────
 await attempt('AC16', 'Resend after 60 s, replaced code, login (admin)', async () => {
   const p = adminPage
-  const waitMs = Math.max(0, tA + 61_500 - Date.now())
+  const waitMs = Math.max(0, mailA1T + 65_000 - Date.now()) // slice 50 (D1): from the first mail, not from tA + 61.5 s
   note(`waiting ${Math.round(waitMs / 1000)} s for the 60 s resend cooldown`)
   await sleep(waitMs)
   await resendBtn(p).waitFor()
@@ -625,14 +660,17 @@ await attempt('AC16', 'Resend after 60 s, replaced code, login (admin)', async (
   check('AC16c', 'Resend → POST /auth/v1/otp to the same address, adminCodeResent, field cleared + focused, cooldown again', JSON.parse(r.body).email === ADMIN && JSON.parse(r.body).create_user === false && (await statusText(p)) === S.adminCodeResent && (await codeInput(p).inputValue()) === '' && String(a.cls).includes('admin-code-input') && (await resendBtn(p).isDisabled()))
   await remember(p)
   await shot(p, 'step2_resent', maskCode(p))
-  const codeA2 = codeOf(await waitMail(ADMIN, t1 - 1))
+  const codeA2 = codeOf(await waitNewCode(ADMIN, t1 - 1, codeA1))
   if (codeA2 === codeA1) note('the new code happened to equal the first one (1 in 10⁶); AC 13 replaced-code check not meaningful this run')
   await loginWith(p, codeA1)
   await errorLine(p).waitFor()
   check('AC13c', 'Replaced code (the first one, after Skicka ny kod) → adminCodeWrong', codeA2 !== codeA1 && (await errorLine(p).innerText()) === S.adminCodeWrong)
   await loginWith(p, codeA2)
-  await p.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  check('AC16d', 'The new code logs in', (await dialog(p).count()) === 0)
+  const loggedIn = await p.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 }).then(() => true, () => false)
+  const ok16d = loggedIn && (await dialog(p).count()) === 0
+  if (!ok16d) otpDebug({ a1: codeA1, a2: codeA2 })
+  check('AC16d', 'The new code logs in', ok16d)
+  if (!ok16d) throw new Error('AC16d: the new code did not log in (see slice-33-otp-debug.txt)')
   check('AC11d', 'Focus moves to the footer «Logga ut»', String((await active(p)).cls).includes('footer-admin-logout'))
   check('AC24b', 'Verifier + pending keys removed after login, session stored', (await store(p, VERIFIER_KEY)) === null && (await store(p, PENDING_KEY)) === null && (await store(p, AUTH_KEY)) !== null)
   await startBlank(p)

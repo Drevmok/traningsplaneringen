@@ -5,7 +5,9 @@ set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"; HERE="$REPO/verifier/slice-32-local"
 . "$HERE/env.sh"
 s32_check_env_json
-[ -f "$D/pg/postmaster.pid" ] || S32_OWNER="$D" "$PGBIN/pg_ctl" -D "$D/pg" -o "-p $S32_PG_PORT -k /tmp -c listen_addresses=127.0.0.1" -l "$D/pg.log" -w start >/dev/null
+if [ "$S32_PG_DIR" != "$D/pg" ]; then  # Slice 50 run (db-new.sh): shared cluster, never started/stopped here
+  [ -f "$S32_PG_DIR/postmaster.pid" ] || { echo "template cluster $S32_PG_DIR is not running — kör: bash verifier/tools/doctor.sh" >&2; exit 1; }
+else [ -f "$D/pg/postmaster.pid" ] || S32_OWNER="$D" "$PGBIN/pg_ctl" -D "$D/pg" -o "-p $S32_PG_PORT -k /tmp -c listen_addresses=127.0.0.1" -l "$D/pg.log" -w start >/dev/null; fi
 for port in $S32_GATEWAY_PORT $S32_POSTGREST_PORT $S32_GOTRUE_PORT $S32_SMTP_PORT; do
   [ -z "$(s32_port_pids "$port")" ] || { echo "port $port already in use (pid $(s32_port_pids "$port" | tr '\n' ' ')) — stop.sh for this dir, or other S32_*_PORT values" >&2; exit 1; }
 done

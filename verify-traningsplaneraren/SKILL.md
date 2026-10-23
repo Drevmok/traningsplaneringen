@@ -52,11 +52,32 @@ Before first drive:
 
 If doctor fails, **BLOCKED** — do not PASS.
 
+## Fast path (Slice 50)
+
+Once per box: `bash verifier/tools/install-once.sh` (Postgres 17, GoTrue v2.197.0, PostgREST v12.2.3 in `/home/box/tp-verify/bin`, Playwright Chromium; idempotent — second run prints «nothing to install»).
+
+1. **Doctor** — `bash verifier/tools/doctor.sh`. One line per check (tools, template database sha256, free ports, main cache for `origin/main`, HTTP 200 + base). Any `BLOCKED <x> — kör <cmd>` = BLOCKED, never PASS. Doctor installs nothing; it is the only writer of `/home/box/tp-verify/{standin,main}` (Builder and Verifier only read).
+2. **Own database** — `eval "$(bash verifier/tools/db-new.sh <run>)"` → `bank_<run>` from `bank_template` in about 1 s, own GoTrue/PostgREST/gateway config in `standin/runs/<run>/`. Then `bash verifier/slice-32-local/start.sh` and `users.sh`. Smokes that call `psql -d bank` go through `verifier/tools/shim/psql` (put it first on `PATH`; `run-smokes.sh` does). Teardown: `bash verifier/tools/db-drop.sh <run>`.
+3. **Smokes** — `node verifier/tools/pick-smokes.mjs origin/main HEAD` lists the scripts and the reason for each; run them with `bash verifier/tools/run-smokes.sh <scripts…>` (env `TPV_ROOT`, `TPV_PLAIN`, `TPV_BANK`, `TPV_MAIN`, `TPV_OUT`; see the header). Compare against `/home/box/tp-verify/main/<sha>/smoke-baseline.txt` — do not run main again. Scripts marked `trasig` in `verifier/smoke-map.json` are judged only against that baseline (same FAIL ids = no regression).
+4. **Bundle** — gzip per chunk of the branch build vs `/home/box/tp-verify/main/<sha>/bundle.txt` (`build-dists.sh` writes the same format).
+
+## Re-verify
+
+Only the FAIL ACs from the report and the smokes pick-smokes gives for the fix diff (`pick-smokes.mjs <previous verified sha> HEAD`). Reuse the template database, a fresh `db-new` run and the main cache; Doctor still first. Target about 10 min.
+
+## Always
+
+- Isolation: own database (`db-new`), own ports, stop only your own processes, drop only your own run.
+- One PASS/FAIL per AC in the slice checklist / locked A–F.
+- Phone 390×844 **and** landscape 844×390 (slice-48 smoke is always in the pick list).
+- Bundle gzip vs main; netlog shows 0 requests to the real project host.
+- No SQL against the real Supabase project; no keys in files (only the `sb_publishable_` / `sb_secret_` prefixes may appear).
+
 ## Drive
 
 Use the box browser / computer-use agent. Prefer **visible Swedish labels** and roles over brittle CSS.
 
-Stable handles (prefer in this order):
+Stable handles (prefer in this order; each feature file has a **Stabila väljare** table, checked by `node verifier/tools/check-selectors.mjs`):
 
 - Button/link **name** from UI copy (`Starta från mall`, `Redigera redskap`, `Golvklart`, `Klar`, `Stäng`, …)  
 - `aria-label` where set (e.g. pass title)  

@@ -1,0 +1,66 @@
+PASS README.md: footer.app-footer
+PASS README.md: .toast
+PASS README.md: .sheet-close
+PASS README.md: .modal-backdrop[role=dialog]
+PASS admin.md: .admin-area
+PASS admin.md: .admin-detail
+PASS admin.md: .admin-bank-form
+PASS admin.md: .own-import
+PASS admin.md: .footer-admin-open
+PASS admin.md: footer .footer-admin-logout
+PASS autosave.md: .save-status
+PASS autosave.md: .save-status-failed
+PASS autosave.md: .toast
+PASS autosave.md: [role=status]
+PASS delad-bank.md: .library-entry .activity-card
+PASS delad-bank.md: input[type=search]
+PASS delad-bank.md: .filter-row select
+PASS delad-bank.md: .activity-detail
+PASS delad-bank.md: footer .footer-admin-login
+PASS delad-bank.md: input.admin-code-input
+PASS delad-bank.md: .admin-resend
+PASS delad-bank.md: #admin-code-status
+PASS golvklart-forrad.md: role=button «Golvklart»
+PASS golvklart-forrad.md: text «Förrådslista»
+PASS golvklart-forrad.md: .export-sheet
+PASS golvklart-forrad.md: .export-sheet .modal-close
+PASS golvklart-forrad.md: .modal-backdrop[role=dialog]
+PASS hall-redigera-redskap.md: .hall-board
+PASS hall-redigera-redskap.md: .hall-canvas
+PASS hall-redigera-redskap.md: .hall-chip--canvas
+PASS hall-redigera-redskap.md: .hall-saknar-banner
+PASS hall-redigera-redskap.md: role=button «Redigera redskap»
+PASS hall-redigera-redskap.md: .hall-session-meta
+PASS home-kom-igang.md: .home
+PASS home-kom-igang.md: .home-wizard-sheet
+PASS home-kom-igang.md: role=button «Kom igång»
+PASS home-kom-igang.md: footer.app-footer
+PASS home-kom-igang.md: footer a.footer-feedback
+PASS kor-passet.md: .run-pass
+PASS kor-passet.md: .run-clock
+PASS kor-passet.md: .run-next
+PASS kor-passet.md: .run-left
+PASS kor-passet.md: .run-nav
+PASS kor-passet.md: role=button «Kör passet»
+PASS liggande-844x390.md: .builder-actions
+PASS liggande-844x390.md: .hall-below
+PASS liggande-844x390.md: .hall-header button
+PASS liggande-844x390.md: .sheet-close
+PASS liggande-844x390.md: .more-menu > button
+PASS passbyggaren.md: .builder
+PASS passbyggaren.md: .block-card
+PASS passbyggaren.md: role=button «Lägg till övning»
+PASS passbyggaren.md: .side-panel-slot.is-open .side-panel-frame
+PASS passbyggaren.md: .builder-actions .builder-hall
+PASS passbyggaren.md: role=button «Hallöversikt»
+PASS passbyggaren.md: #hall-cta-hint
+PASS passbyggaren.md: .more-menu-panel
+PASS passbyggaren.md: .item-remove
+PASS passbyggaren.md: .item-duration input
+PASS starta-fran-mall.md: .template-card
+PASS starta-fran-mall.md: .mall-sheet
+PASS starta-fran-mall.md: section.club-templates
+PASS starta-fran-mall.md: .template-saved .template-card
+PASS starta-fran-mall.md: details.club-hidden
+PASS starta-fran-mall.md: role=button «Starta från mall»
+AC17 PASS: 65 selectors, 0 missing

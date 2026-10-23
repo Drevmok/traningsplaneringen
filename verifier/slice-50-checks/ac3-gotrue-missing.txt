@@ -1,0 +1,7 @@
+$ mv bin/gotrue/auth bin/gotrue/auth.away; doctor.sh
+PASS Postgres 17 (17.11)
+BLOCKED GoTrue (/home/box/tp-verify/bin/gotrue/auth) — kör bash verifier/tools/install-once.sh
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+Doctor: BLOCKED (23 ms)
+exit=1

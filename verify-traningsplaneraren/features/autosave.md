@@ -26,3 +26,12 @@
 ## Needs a real device (PENDING-real)
 
 iOS home-screen app swipe-away within 1 s (`pagehide`), Safari private mode, VoiceOver reading «Sparat» in order and the failure toast once.
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Sparstatus | `.save-status` | `components/SessionBuilder.tsx`, `export.css` |
+| Inte sparat | `.save-status-failed` | `components/SessionBuilder.tsx`, `export.css` |
+| Toast | `.toast` | `App.css`, `components/AdminArea.tsx` |
+| Status (skärmläsare) | `[role=status]` | `App.tsx`, `components/AdminArea.tsx` |

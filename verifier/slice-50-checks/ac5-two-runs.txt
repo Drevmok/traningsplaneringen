@@ -1,0 +1,10 @@
+# AC5 2026-10-23T21:37:18+02:00
+a1 probe rows: 1
+b1 probe table: 0
+a1 via gateway :54750 /rest/v1/redskap rows: 15
+b1 via gateway :54760 /rest/v1/redskap rows: 15
+DATABASE_URL='postgres://supabase_auth_admin:***@127.0.0.1:54741/bank_a1?sslmode=disable&search_path=auth'
+DATABASE_URL='postgres://supabase_auth_admin:***@127.0.0.1:54741/bank_b1?sslmode=disable&search_path=auth'
+dropped bank_a1 (template kept)
+dropped bank_b1 (template kept)
+dbs after: bank_template

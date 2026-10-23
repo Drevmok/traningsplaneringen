@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Slice 50: smokes call `psql … -d bank`. With a per-run database (db-new.sh → S32_DB=bank_<run>) this shim
+# rewrites "-d bank" to "-d $S32_DB" and execs the real psql. Without S32_DB it passes everything through.
+self_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+real=$(PATH=$(echo "$PATH" | tr ':' '\n' | grep -vx "$self_dir" | paste -sd:) command -v psql)
+args=(); prev=""
+for a in "$@"; do
+  if [ -n "${S32_DB:-}" ] && { [ "$prev" = "-d" ] || [ "$prev" = "--dbname" ]; } && [ "$a" = bank ]; then a="$S32_DB"; fi
+  args+=("$a"); prev="$a"
+done
+exec "$real" "${args[@]}"
