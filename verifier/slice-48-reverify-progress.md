@@ -25,3 +25,6 @@ The target is PR #53, `slice-48-code` @ **29df282**. That is fix 7dc8e8f plus a 
   - s47 29/3, s46 32/4, s40 13/5, s40-reverify 31/7: new FAIL ids **identical to the first verify run** (intended Slice 48 changes: «Ändra stationer», Pointer-Events drag, Hallöversikt out of «Mer», footer).
   - s41-bs, s42-v, s43-v, s44-v: unchanged.
 - s45 AC17 errored because my fresh smoke tree had no `app/dist`. That is a harness gap, not the product. I copied the branch build in and will rerun s45.
+
+## Chunk 3 (09:31–09:45 CEST)
+Loop ALLDONE, s45 rerun OK, s33 AC16d/AC11d otp_expired (env, not PR), netlog 0 live. Addendum finalized.

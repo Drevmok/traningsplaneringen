@@ -1,0 +1,28 @@
+slice-32-builder-smoke.txt | now 17/16 | s47 17/16 | new FAIL: – | causes: –
+slice-33-builder-smoke.txt | now 92/16 | s47 94/14 | new FAIL: [AC11d] [AC16d]  | causes: –
+slice-34-builder-smoke.txt | now 27/2 | s47 27/2 | new FAIL: – | causes: –
+slice-34-verify.txt | now 20/0 | s47 20/0 | new FAIL: – | causes: –
+slice-35-builder-smoke.txt | now 10/13 | s47 10/13 | new FAIL: – | causes: 1× Slice 48;
+slice-35-verify.txt | now 13/16 | s47 13/16 | new FAIL: – | causes: 1× Slice 48;
+slice-36-builder-smoke.txt | now 3/4 | s47 3/4 | new FAIL: – | causes: –
+slice-36-verify.txt | now 3/5 | s47 3/5 | new FAIL: – | causes: –
+slice-37-builder-smoke.txt | now 0/0 | s47 0/0 | new FAIL: – | causes: –
+slice-37-verify.txt | now 1/8 | s47 1/8 | new FAIL: – | causes: –
+slice-38-builder-smoke.txt | now 24/1 | s47 24/1 | new FAIL: – | causes: –
+slice-38-verify.txt | now 60/1 | s47 60/1 | new FAIL: – | causes: –
+slice-39-builder-smoke.txt | now 14/5 | s47 14/5 | new FAIL: – | causes: –
+slice-39-verify.txt | now 1/11 | s47 1/11 | new FAIL: – | causes: –
+slice-40-builder-smoke.txt | now 13/5 | s47 14/4 | new FAIL: [AC14]  | causes: 1× Ändra stationer;1× Slice 48;1× Hallöversikt;
+slice-40-reverify.txt | now 31/7 | s47 33/5 | new FAIL: [AC11] [AC14-controls] [AC14-drag]  | causes: 1× Slice 48;1× Hallöversikt;
+slice-41-builder-smoke.txt | now 32/2 | s47 32/2 | new FAIL: – | causes: –
+slice-41-reverify-b.txt | now 59/28 | s47 59/28 | new FAIL: – | causes: –
+slice-42-builder-smoke.txt | now 1/10 | s47 1/10 | new FAIL: – | causes: –
+slice-42-verify.txt | now 3/4 | s47 3/4 | new FAIL: – | causes: –
+slice-43-builder-smoke.txt | now 1/8 | s47 1/8 | new FAIL: – | causes: –
+slice-43-verify.txt | now 2/6 | s47 2/6 | new FAIL: – | causes: –
+slice-44-builder-smoke.txt | now 1/9 | s47 1/9 | new FAIL: – | causes: –
+slice-44-verify.txt | now 1/11 | s47 1/11 | new FAIL: – | causes: –
+slice-45-builder-smoke.txt | now 3/17 | s47 3/17 | new FAIL: – | causes: –
+slice-46-builder-smoke.txt | now 32/4 | s47 34/3 | new FAIL: [AC7-10]  | causes: 1× Slice 48;
+slice-47-builder-smoke.txt | now 29/3 | s47 32/0 | new FAIL: [AC26-footer] [AC3] [AC7]  | causes: –
+slice-48-builder-smoke.txt | now 80/0 | s47 –/– | new FAIL: – | causes: –
