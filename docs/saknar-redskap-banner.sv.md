@@ -160,3 +160,5 @@ Keep footer `no-print`.
 - Soft chrome family of `.hall-unplaced-banner`; never block Golvklart / place / Stäng.  
 - Prefer these strings over inventing synonyms (“Acceptera alla”, “Saknar utrustning”, “Fyll redskap”).  
 - Living companions updated in the same Docs pass. No Förråd file edits. No Kom igång place-heuristic.
+
+**Slice 49 (LÅST 2026-10-23):** Raden «{n} stationer saknar redskap» är bara text. Knappen i raden är borta; använd «Använd alla förslag» i verktygsraden.

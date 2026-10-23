@@ -47,13 +47,32 @@ Walked https://drevmok.github.io/traningsplaneringen/ (footer «Slice 37») at 3
 - **Simplicity test:** removes one confirm tap and one confusing message from the first-pass path.
 - **Standing lock?** No.
 
-#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)** — one button / no «Inga förslag att spara»: part of Slice 49.
 - **Effort:** S · CSS/markup only, ~0 to −30 B (drop duplicate button; fold layout notes into the select helper; hide «Inga förslag att spara» once done).
 - **Evidence:** Hallöversikt at 390×844: the hall canvas starts ~y 570 under toolbar, layout select, two notes, saknar-banner with a 2nd «Använd alla förslag», «Tips om placering» and tip card (`09-hall.png`). After applying, a dead «Inga förslag att spara» button stays in the toolbar (`10b-forrad-after.png`).
 - **Simplicity test:** fewer things to read before placing; one button instead of two.
 - **Standing lock?** No — Slice 22 quieter-chrome direction.
 
 Also noticed (not ranked): Hallöversikt hidden behind «Mer» on Passbyggaren; empty «Föreningens mallar» section («Föreningen har inga mallar än.») sits above built-in malls (`13-mallar.png`); «Spara som egen mall» appears in both Mer and Exportera/dela, and «Skriv ut passet» is both heading and button (`20-dela.png`); wizard step 1 shows a «Nivå» button under Ålder (`02-wizard-1.png`).
+
+### Scout polish pass 2026-10-23 (Slice 48 live)
+
+Source: `/workspace/scout-drafts/2026-10-23-ideas.md` #1–#3, evidence in `slice-49/evidence/` (390×844). All three are in Slice 49 (`slice-49/README.md`, LOCKED A1 B1 C1 D1 E1 F1).
+
+#### 1. **Polish** — Planera pass fyller vald passlängd — **Approved (2026-10-23) · In flight: Slice 49 (A1, B1)**
+- **Coach benefit:** When I answer «120 min» I get a 120-minute pass, not a 53-minute pass I have to fill by hand.
+- **Evidence:** Planera pass → … → 120 min → «53 / 120 min» (`10-builder-120.png`); 60 min gives «53 / 60» (`06-builder.png`); Kör passet says «Kvar: 53 min» (`16-run.png`).
+- **Slice 49:** A1 fixed table per length and block (same drills, whole minutes, sum = the length). B1: changing the length afterwards only changes the target. Replaces Slice 46 D1.
+
+#### 2. **Polish** — Redskap klara direkt efter Planera pass — **Approved (2026-10-23) · In flight: Slice 49 (C1, D1)**
+- **Coach benefit:** Förrådslista shows what to fetch straight after the wizard, instead of an empty list and a trip back to a button.
+- **Evidence:** «3 stationer saknar redskap» and «Använd alla förslag» twice (`07-hall.png`); Förrådslista empty (`13-forrad.png`).
+- **Slice 49:** C1 applies the suggestions after auto-place on the Planera pass (Frågor) path only, no toast. D1: one «Använd alla förslag» in the toolbar, saknar row text only. Deliberately replaces Slice 29 F1/D4 and Scout 2026-10-13 #1 / Slice 37 («leave Använd alla förslag manual»).
+
+#### 3. **Polish** — Dölj tom «Föreningens mallar» — **Approved (2026-10-23) · In flight: Slice 49 (E1)**
+- **Coach benefit:** In «Använd mall» the coach sees usable malls first instead of an empty club section.
+- **Evidence:** «Föreningens mallar · … · Föreningen har inga mallar än.» at the top of the sheet (`12-mall.png`).
+- **Slice 49:** E1 shows the section only with ≥1 club template; the Admin empty text stays.
 
 ### Scout run 2026-10-13 (post Slice 36 PASS)
 

@@ -32,9 +32,9 @@ export function ClubTemplateCard({ template, onPick, extra, badge }: { template:
   )
 }
 
-/** HANDOFF §2 states: none → nothing; stale + never reached + empty → nothing. */
+/** Slice 49 E1: shown only when the club has ≥1 template. */
 export function clubSectionVisible(club: ClubSnapshot): boolean {
-  return club.items.length > 0 || club.status === 'fresh'
+  return club.items.length > 0
 }
 
 /** Coach view of «Föreningens mallar» (also the admin fallback while the admin chunk loads). */
@@ -45,15 +45,11 @@ export function ClubTemplatesSection({ club, onPick }: { club: ClubSnapshot; onP
       <h3 className="template-group">{UI.clubTemplatesTitle}</h3>
       <p className="muted">{UI.clubTemplatesHint}</p>
       {club.status === 'stale' && <p className="bank-stale">{UI.clubTemplatesStale}</p>}
-      {club.items.length === 0 ? (
-        <p className="muted">{UI.clubTemplatesEmpty}</p>
-      ) : (
-        <ul className="template-list">
-          {club.items.map((t) => (
-            <ClubTemplateCard key={t.id} template={t} onPick={onPick} />
-          ))}
-        </ul>
-      )}
+      <ul className="template-list">
+        {club.items.map((t) => (
+          <ClubTemplateCard key={t.id} template={t} onPick={onPick} />
+        ))}
+      </ul>
     </section>
   )
 }

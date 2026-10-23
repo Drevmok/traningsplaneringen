@@ -443,11 +443,6 @@ export function HallBoard({
     pointAtApplyAll(UI.forradslistaPointApplyAllToast)
   }
 
-  /** Slice 25 B1 — point at Använd alla förslag from saknar banner (no auto-apply). */
-  function pointAtApplyAllFromSaknar() {
-    pointAtApplyAll(UI.hallSaknarPointApplyAllToast)
-  }
-
   if (itemCount === 0) {
     return (
       <div className="hall-board">
@@ -608,24 +603,19 @@ export function HallBoard({
             >
               {UI.forradslistaOpen}
             </button>
-            <button
-              ref={applyAllBtnRef}
-              type="button"
-              className={`btn-secondary hall-tap-target${
-                applyAllHighlight ? ' hall-apply-all--point' : ''
-              }${eligibleSuggestedCount === 0 ? ' is-idle' : ''}`}
-              aria-label={
-                eligibleSuggestedCount === 0
-                  ? UI.hallApplyAllSuggestedDisabled
-                  : UI.hallApplyAllSuggestedAria
-              }
-              disabled={eligibleSuggestedCount === 0}
-              onClick={handleApplyAllSuggested}
-            >
-              {eligibleSuggestedCount === 0
-                ? UI.hallApplyAllSuggestedIdle
-                : UI.hallApplyAllSuggested}
-            </button>
+            {eligibleSuggestedCount >= 1 && (
+              <button
+                ref={applyAllBtnRef}
+                type="button"
+                className={`btn-secondary hall-tap-target${
+                  applyAllHighlight ? ' hall-apply-all--point' : ''
+                }`}
+                aria-label={UI.hallApplyAllSuggestedAria}
+                onClick={handleApplyAllSuggested}
+              >
+                {UI.hallApplyAllSuggested}
+              </button>
+            )}
             <button
               type="button"
               className="btn-primary hall-tap-target"
@@ -645,16 +635,6 @@ export function HallBoard({
               >
                 {hallSaknarRedskapBannerText(missingSavedCompositionCount)}
               </p>
-              {eligibleSuggestedCount >= 1 && (
-                <button
-                  type="button"
-                  className="btn-secondary hall-tap-target hall-saknar-point-cta"
-                  aria-label={UI.hallSaknarPointApplyAllAria}
-                  onClick={pointAtApplyAllFromSaknar}
-                >
-                  {UI.hallSaknarPointApplyAll}
-                </button>
-              )}
             </div>
           )}
         </header>

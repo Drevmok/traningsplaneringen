@@ -129,3 +129,5 @@ Keep footer `no-print`.
 - Parent B1 handler owns close → edit → point; sheet stays read-only.  
 - Prefer these strings over inventing synonyms (“Acceptera alla”, “Fyll Förråd”, “Spara förslag här”).  
 - Living companions updated in the same Docs pass.
+
+**Slice 49 (LÅST 2026-10-23):** Den mjuka vägen (peka på «Använd alla förslag») gäller nu bara pass från mall eller Tomt pass; Planera pass sparar redskapen själv.

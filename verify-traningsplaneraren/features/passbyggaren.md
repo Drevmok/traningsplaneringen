@@ -15,3 +15,5 @@
 **Mer (Slice 47):** «Använd mall» opens the MallSheet (see starta-fran-mall.md). Admins also get «Admin» in Mer (→ admin.md); never for logged-out / non-admin.
 **Drive tip:** `lib(p, blockIdx)` = `.block-card:nth(i)` → «Lägg till övning» → `.side-panel-slot.is-open .side-panel-frame`.
 **Slice 48 (A1):** on the phone «Hallöversikt» is reached directly from the action row («Kör passet» · «Hallöversikt» · «Mer»), no longer via «Mer». Empty pass: the button is disabled with an announced hint («Lägg till minst en övning först», `#hall-cta-hint`). The Teknik block's order follows the hall's station order (Ändra stationer, see hall-redigera-redskap.md).
+
+**Slice 49:** after Planera pass the length row reads «X / X min». Changing the length later shows e.g. «90 / 60 min»; item times do not change.

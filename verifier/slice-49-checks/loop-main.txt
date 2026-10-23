@@ -1,0 +1,13 @@
+wt s47 9/22 pass
+main s35 PASS 9 / FAIL 13
+main s36 3/7 pass
+main s38 PASS 23 / FAIL 1
+main s39 PASS 13 / FAIL 5
+main s40 PASS 13 / FAIL 4
+main s41 32/34 pass
+main s42 1/11 pass
+main s43 1/9 pass
+main s44 1/10 pass
+main s45 2/20 PASS
+main s47 9/22 pass
+main s48 80/80 PASS

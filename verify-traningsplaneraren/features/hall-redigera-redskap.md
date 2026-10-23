@@ -19,3 +19,5 @@
 4. **Lägg till station** opens «Lägg till övning» filtered to Teknik (filter locked); choosing closes the sheet, the new station is last and placed on a free spot without moving others.
 5. Outside edit mode «Ta bort från hall» (chip ×) lifts the marker only.
 **Prove:** no placement lost across reorder/add/remove/undo/reload, including old Blå/Vit passes made on main with hand placements.
+
+**Slice 49:** one «Använd alla förslag» in the toolbar, only when ≥1 station has an unsaved förslag; the saknar row has no button; no «Inga förslag att spara». After Planera pass: no saknar row and no button.
