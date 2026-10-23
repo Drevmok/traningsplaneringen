@@ -13,5 +13,6 @@ Each file is a coach-facing feature: what it is, how to reach it, how to drive i
 | [autosave.md](autosave.md) | Spara passet automatiskt (Slice 39): debounce + flush, «Sparat» / «Inte sparat», save on create, replaced pass → Mina mallar, two tabs, races |
 | [admin.md](admin.md) | Admin view (Slice 47): gating, Ny egen övning / import as pending rows, Godkänn (D2), Dölj / Visa igen, offline |
 | [kor-passet.md](kor-passet.md) | Kör passet (run mode): clock, «Nästa», «Kvar: X min» (Slice 38), tone, wake lock, entry points |
+| [liggande-844x390.md](liggande-844x390.md) | Liggande läge 844×390 (Slice 48 F1): row, detail view, Biblioteket, hall edit mode and sheets reachable by scrolling |
 
 Update this index when adding/removing feature files.

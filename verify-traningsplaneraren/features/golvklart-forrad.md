@@ -12,3 +12,5 @@
 **Prove:** Coach-readable floor view; lists match **saved** composition; no edit-only chrome on floor; caption lock held.
 
 **Slice 47 (B1):** Förrådslista no longer has «Vad finns i hallen ikväll?»; `ownedEquipment.ts` and its keys (`gymnastics-planner-owned-equipment-v1`, `…-seen-v1`, `gymnastics-planner-library-tonight-v1`) are no longer read. Prove: with an old owned list in localStorage (nothing ticked, ikväll on) Biblioteket shows the same number of exercises as a clean profile; the rest of Förrådslista matches main. Golvklart, Kör passet and Skriv ut passet show own exercises.
+
+**Slice 48:** station numbers on Golvklart (and Förrådslista where it shows stations) follow the Teknik order set in Ändra stationer. Golvklart has no edit mode (no «Ändra stationer», no list, no ↑↓/Ta bort). Exit via «Avsluta golvklart».

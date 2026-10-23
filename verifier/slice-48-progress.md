@@ -26,3 +26,9 @@ Target: PR #53, `slice-48-code` @ f523774. Main: e605b3f (contains Slice 47 merg
 - p3: old Blå/Vit passes made on main (with suggestions + hand-moved marker) load unchanged on branch; ↓, add, remove+Ångra keep every placement; reload OK; Golvklart has no edit mode, print fires. Unknown-hall pass opens. No SERIOUS issue.
 - p4: AC26-sim PASS (zoom 1.25→2.00→1.50→2.00, page scale 1). **AC27-sim FAIL**: a pinch starting on the tray (or below it) zooms the page to 1.6× — the same on main; tray has touch-action:auto, while F1 asks for touch-action on the whole hall area. Needs real iPhone confirmation. AC32 PASS (detail/Dela identical to main). AC36 PASS.
 - Smoke loop running (at slice-40).
+
+## Chunk 3 (08:00–08:30 CEST)
+- The feature maps are updated as HANDOFF §12 asks: passbyggaren, hall-redigera-redskap, golvklart-forrad, README, and the new liggande-844x390.
+- Smoke loop: s48 52/0. The only new FAIL ids compared with Slice 47 come from intended Slice 48 changes: s40 AC14/AC11/AC14-controls/AC14-drag, s46 AC7-10, and s47 AC3/AC7/AC26-footer. s32 is partial because the interruption killed the loop and the session ended mid-run. It has no new FAIL ids. Details: `slice-48-checks/loop-classify.txt`.
+- Netlog: 32 logs, 6324 requests, 0 to fhzqwbdlejzohetdoluw (`slice-48-checks/netlog-count.txt`).
+- Resumed after the interruption (08:27). The stand-in and previews were still up.
