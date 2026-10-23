@@ -12,3 +12,10 @@ PR #54, slice-49-code. Code under test 43cfae4; branch tip 42f0f8d = 43cfae4 + P
 4. E1: club section hidden while loading / admin empty text (AC15) must stay; s36/s37 club smokes.
 
 Env: box had lost Postgres 17 and Playwright browsers; Postgres 17 reinstalled (stand-in only).
+
+## Chunk 2 (20:20)
+- 42f0f8d vs 43cfae4: `git diff --stat` = app/SLICE49-SHIPPED.md, backlog/IMPROVEMENTS.md, slice-49/HANDOFF.md, slice-49/verification-checklist.md — docs only, no app/src. Report goes against 42f0f8d.
+- bun test src: 263/0 (main 256/0). tsc -b 0, oxlint 0 errors (warnings same as main).
+- Own exhaustive A1 check (4 ages × 4 focus × 6 levels × 3 lengths × 2 halls = 576 compose calls): total = length, all minutes whole ≥1, 0 bad. C1: 3 Teknik placed with saved redskap, no other block gets redskap (temp test, deleted).
+- Bundle gzip -9 total vs main: plain +21 B, bank +14 B (≤512 ✓).
+- Stand-in up (/workspace/s49v/sb, 36-03 8×t). Builder smoke 34/34 on wt-plain.
