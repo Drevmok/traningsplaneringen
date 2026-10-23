@@ -1,4 +1,4 @@
-import { useRef, type DragEvent } from 'react'
+import type { PointerEvent as ReactPointerEvent } from 'react'
 import {
   hallTileA11yText,
   stationEquipmentLabelText,
@@ -13,18 +13,18 @@ import { getActivityById } from '../data/seedActivities'
 import { VisualIcon } from '../icons'
 import type { SessionItem } from '../types'
 
-export const HALL_CHIP_MIME = 'application/x-gp-hall-item'
-
 interface Props {
   item: SessionItem
   /** tray | canvas */
   variant?: 'tray' | 'canvas'
   selected?: boolean
-  draggable?: boolean
+  /** Slice 48 C1 — false on Golvklart / share / print (read-only marker). */
+  movable?: boolean
+  /** Lifted while a pointer drag moves it. */
+  dragging?: boolean
   /** 1…N among placed only — canvas chips; omit for tray */
   stationRank?: number
-  onDragStart?: (e: DragEvent, itemId: string) => void
-  onDragEnd?: () => void
+  onPointerDown?: (e: ReactPointerEvent<HTMLDivElement>, itemId: string) => void
   onClick?: (itemId: string) => void
   onRemove?: (itemId: string) => void
   showRemove?: boolean
@@ -32,17 +32,17 @@ interface Props {
 
 /**
  * Slice 12: canvas = icon-first station marker; tray stays readable.
- * Drag vs tap: HTML5 dragstart sets a suppress flag so the synthetic
- * click after dragend does not open station detail.
+ * Slice 48 C1: drag is Pointer Events (lib/pointerDrag via onPointerDown); a tap without
+ * movement still clicks and opens station detail.
  */
 export function HallChip({
   item,
   variant = 'tray',
   selected = false,
-  draggable = true,
+  movable = true,
+  dragging = false,
   stationRank,
-  onDragStart,
-  onDragEnd,
+  onPointerDown,
   onClick,
   onRemove,
   showRemove = false,
@@ -80,8 +80,6 @@ export function HallChip({
           })
       : []
 
-  const suppressClickRef = useRef(false)
-
   const a11yName = isCanvas
     ? hallTileA11yText(title, {
         rank: stationRank,
@@ -94,50 +92,24 @@ export function HallChip({
         ? `${stationRank}. ${title}`
         : title
 
-  function handleActivate() {
-    if (suppressClickRef.current) {
-      suppressClickRef.current = false
-      return
-    }
-    onClick?.(item.id)
-  }
-
   return (
     <div
-      className={`hall-chip hall-chip--${variant}${selected ? ' is-selected' : ''}${missing ? ' is-missing' : ''}${!draggable ? ' is-readonly' : ''}${experienced && isCanvas ? ' has-erfaren' : ''}`}
+      className={`hall-chip hall-chip--${variant}${selected ? ' is-selected' : ''}${missing ? ' is-missing' : ''}${!movable ? ' is-readonly' : ''}${dragging ? ' is-dragging' : ''}${experienced && isCanvas ? ' has-erfaren' : ''}`}
       style={{
         background: colors.bg,
         borderColor: colors.border,
         color: colors.text,
       }}
-      draggable={draggable}
-      onDragStart={(e) => {
-        if (!draggable) {
-          e.preventDefault()
-          return
-        }
-        // Any real drag must not open detail when the browser fires click after drop.
-        suppressClickRef.current = true
-        e.dataTransfer.setData(HALL_CHIP_MIME, item.id)
-        e.dataTransfer.setData('text/plain', item.id)
-        e.dataTransfer.effectAllowed = 'move'
-        onDragStart?.(e, item.id)
-      }}
-      onDragEnd={() => {
-        onDragEnd?.()
-        // If no click follows (cancelled drag), clear leftover suppress.
-        window.setTimeout(() => {
-          suppressClickRef.current = false
-        }, 120)
-      }}
-      onClick={handleActivate}
+      onPointerDown={
+        movable && onPointerDown ? (e) => onPointerDown(e, item.id) : undefined
+      }
+      onClick={() => onClick?.(item.id)}
       role="button"
       tabIndex={0}
       aria-label={a11yName}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          suppressClickRef.current = false
           onClick?.(item.id)
         }
       }}
@@ -204,6 +176,9 @@ export function HallChip({
           onClick={(e) => {
             e.stopPropagation()
             onRemove(item.id)
+          }}
+          onPointerDown={(e) => {
+            e.stopPropagation()
           }}
         >
           ×

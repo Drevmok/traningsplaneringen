@@ -3216,3 +3216,173 @@
     overflow-wrap: anywhere;
   }
 }
+
+/* —— Slice 48 — Hallöversikt: Ändra stationer, pointer drag, pinch, landscape —— */
+/* F1: the whole hall area owns pinch (incl. the reserved tray space); one-finger pan stays native. */
+.hall-canvas-wrap {
+  touch-action: pan-x pan-y;
+}
+
+.hall-chip--canvas:not(.is-readonly) {
+  touch-action: none;
+}
+
+.hall-chip-anchor.is-dragging {
+  z-index: 6;
+}
+
+.hall-chip.is-dragging {
+  opacity: 0.85;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.hall-station-list {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #e7e5e4;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.hall-station-list-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.hall-station-rows {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hall-station-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 2px 0;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.hall-station-row.is-dragging {
+  opacity: 0.5;
+}
+
+.hall-station-row.is-drop-target {
+  border-top-color: var(--md-primary, #1d4ed8);
+}
+
+.hall-station-row.is-drop-target.is-drop-after {
+  border-top-color: transparent;
+  border-bottom-color: var(--md-primary, #1d4ed8);
+}
+
+.hall-station-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  color: var(--md-on-surface-variant);
+}
+
+.hall-station-rank {
+  min-width: 1.5em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hall-station-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.hall-station-name:focus {
+  outline: 2px solid var(--md-primary, #1d4ed8);
+  outline-offset: 2px;
+}
+
+.hall-station-list .btn-secondary {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.hall-station-move,
+.hall-station-remove {
+  flex-shrink: 0;
+  padding: 8px 10px;
+}
+
+.hall-station-add {
+  width: 100%;
+}
+
+/* E1: «Lägg till station» reuses the Lägg till övning sheet; above 768 px it is a side drawer. */
+@media (min-width: 769px) {
+  .hall-library.side-panel-slot {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+  }
+
+  .hall-library .sheet-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    border: none;
+    padding: 0;
+    background: rgba(28, 25, 23, 0.45);
+  }
+
+  .hall-library .side-panel-frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(420px, 100%);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .hall-library .sheet-chrome {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 12px 0;
+  }
+
+  .hall-library .side-panel {
+    position: static;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .hall-library .side-body {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+/* F1: landscape phones — the sheet starts at the top and scrolls, so every action is reachable. */
+@media (max-height: 500px) {
+  .modal-backdrop {
+    align-items: start;
+    place-items: start center;
+    overflow: auto;
+    padding: 8px;
+  }
+
+  .modal {
+    max-height: calc(100svh - 16px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

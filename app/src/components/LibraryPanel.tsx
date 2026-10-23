@@ -12,9 +12,10 @@ interface Props {
   onFilterChange: (t: BlockType | 'all') => void
   onSelectActivity: (activity: Activity) => void
   ownActivities: Activity[]
-  onEditOwn: (activity: Activity) => void
-  onDeleteOwn: (activity: Activity) => void
-  ownInUse: (activityId: string) => boolean
+  /** Omitted in the hall's «Lägg till station» sheet: no own-drill edit/delete there. */
+  onEditOwn?: (activity: Activity) => void
+  onDeleteOwn?: (activity: Activity) => void
+  ownInUse?: (activityId: string) => boolean
 }
 
 export function LibraryPanel({
@@ -94,7 +95,7 @@ export function LibraryPanel({
           {filtered.map((a) => (
             <div key={a.id} className="library-entry">
               <ActivityCard activity={a} onSelect={onSelectActivity} adminBadges={adminBadgesFor(a)} />
-              {a.own && (
+              {a.own && onEditOwn && onDeleteOwn && ownInUse && (
                 <div className="own-card-actions">
                   <button type="button" className="btn-text" onClick={() => onEditOwn(a)}>
                     {UI.ownEditAction}

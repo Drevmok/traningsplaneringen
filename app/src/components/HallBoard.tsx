@@ -1,5 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import type { DragEvent } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from 'react'
 import { createPortal } from 'react-dom'
 import {
   hallApplyAllSuggestedResultText,
@@ -7,6 +13,7 @@ import {
   hallStationCountText,
   hallUnplacedBannerText,
   hallUnplacedWithCountText,
+  hallStationMovedText,
   stationEquipmentLabelText,
   UI,
 } from '../data/blockMeta'
@@ -20,6 +27,7 @@ import { getActivityById } from '../data/seedActivities'
 import { useBank } from '../lib/useBank'
 import {
   clampHallZoom,
+  clientToNormalized,
   countPlaceableItems,
   countSessionItems,
   getPreset,
@@ -31,25 +39,34 @@ import {
   listSessionItems,
   normalizeTemplateId,
   pruneHallPlacements,
+  placeableItems,
   removePlacement,
   roundHallZoom,
+  techniqueIndexFor,
   upsertPlacement,
 } from '../lib/hall'
 import { autoPlaceUnplaced } from '../lib/hallSuggest'
 import {
+  addItemToBlock,
   applyAllSuggestedStationEquipment,
   eligibleSuggestedStationEquipmentItems,
   findSessionItem,
+  moveTechniqueTo,
   placedTeknikMissingSavedEquipment,
+  removeItem,
   saveDraft,
   updateItemStationEquipment,
 } from '../lib/session'
-import type { Session, StationEquipmentSlot } from '../types'
+import type { Activity, BlockType, Session, StationEquipmentSlot } from '../types'
 import { ActivityDetail } from './ActivityDetail'
 import { CoachTipStrip } from './CoachTipStrip'
 import { HallCanvas, type HallMode } from './HallCanvas'
 import { ForradslistaSheet } from './ForradslistaSheet'
-import { HallChip, HALL_CHIP_MIME } from './HallChip'
+import { HallChip } from './HallChip'
+import { HallStationList } from './HallStationList'
+import { LibraryPanel } from './LibraryPanel'
+import { loadOwnActivities } from '../lib/ownActivities'
+import { startPointerDrag } from '../lib/pointerDrag'
 import { PassPrint } from './PassPrint'
 import { StationComposeSheet } from './StationComposeSheet'
 import { usePassPrint } from '../lib/bodyPrint'
@@ -76,7 +93,21 @@ export function HallBoard({
   const [hallMode, setHallMode] = useState<HallMode>(
     initialFloor ? 'floor' : 'edit',
   )
+  /** Slice 48 C1 — pointer drag: live marker position + which chip is lifted. */
+  const [dragPreview, setDragPreview] = useState<{ id: string; x: number; y: number } | null>(null)
   const [draggingId, setDraggingId] = useState<string | null>(null)
+  const justDraggedAt = useRef(0)
+  /** Slice 48 B1 — Ändra stationer. */
+  const [stationsEdit, setStationsEdit] = useState(false)
+  const stationsBtnRef = useRef<HTMLButtonElement | null>(null)
+  const [stationFocusId, setStationFocusId] = useState<string | null>(null)
+  const [stationLive, setStationLive] = useState('')
+  const [libraryOpen, setLibraryOpen] = useState(false)
+  const [libraryFilter, setLibraryFilter] = useState<BlockType | 'all'>('techniques')
+  const [libraryOwn] = useState(() => loadOwnActivities())
+  /** Slice 48 E1 — one undo level for «Ta bort» in the list (Slice 41 rule: any other change ends it). */
+  const [undo, setUndo] = useState<{ before: Session; after: Session } | null>(null)
+  const [undoToast, setUndoToast] = useState<{ text: string; undo: boolean } | null>(null)
   const [placeModeItemId, setPlaceModeItemId] = useState<string | null>(null)
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
   /** Slice 13 — hall detail tracks SessionItem so redskap can persist */
@@ -184,6 +215,115 @@ export function HallBoard({
     saveDraft(next)
   }
 
+  // Slice 41 rule, hall copy: any other change to the pass ends the undo.
+  useEffect(() => {
+    if (undo && session !== undo.after) {
+      setUndo(null)
+      setUndoToast((t) => (t?.undo ? null : t))
+    }
+  }, [session, undo])
+
+  useEffect(() => {
+    if (!undoToast) return
+    const timer = window.setTimeout(() => {
+      setUndoToast(null)
+      setUndo(null)
+    }, undoToast.undo ? 5000 : 2200)
+    return () => window.clearTimeout(timer)
+  }, [undoToast])
+
+  function teknikBlockId(): string | null {
+    return session.blocks.find((b) => b.type === 'techniques')?.id ?? null
+  }
+
+  function closeStationsEdit() {
+    setStationsEdit(false)
+    window.setTimeout(() => stationsBtnRef.current?.focus(), 0)
+  }
+
+  function handleStationMove(itemId: string, slot: number) {
+    const next = moveTechniqueTo(session, itemId, techniqueIndexFor(session, itemId, slot))
+    if (next === session) return
+    persist(next)
+    const n = placeableItems(next).findIndex((it) => it.id === itemId) + 1
+    const item = findSessionItem(next, itemId)
+    const title = item ? (getActivityById(item.activityId)?.title ?? '') : ''
+    setStationLive(hallStationMovedText(title, n))
+    setStationFocusId(null)
+    window.setTimeout(() => setStationFocusId(itemId), 0)
+  }
+
+  function handleStationRemove(itemId: string) {
+    const blockId = teknikBlockId()
+    if (!blockId) return
+    const after = removeItem(session, blockId, itemId)
+    setUndo({ before: session, after })
+    persist(after)
+    setUndoToast({ text: UI.undoRemoved, undo: true })
+  }
+
+  function runUndo() {
+    const u = undo
+    setUndo(null)
+    if (!u || session !== u.after) {
+      setUndoToast(null)
+      return
+    }
+    persist(u.before)
+    setUndoToast({ text: UI.undoDone, undo: false })
+  }
+
+  function handleAddStation(activity: Activity) {
+    const blockId = teknikBlockId()
+    setLibraryOpen(false)
+    if (!blockId) return
+    const before = new Set(placeableItems(session).map((it) => it.id))
+    const added = addItemToBlock(session, blockId, activity.id, activity.durationMinutesDefault)
+    const next = autoPlaceUnplaced(added)
+    persist(next)
+    const fresh = placeableItems(next).find((it) => !before.has(it.id))
+    if (fresh) window.setTimeout(() => setStationFocusId(fresh.id), 0)
+  }
+
+  /** Slice 48 C1 — pointer drag for canvas markers and tray chips (replaces HTML5 drag). */
+  function handleChipPointerDown(e: ReactPointerEvent<HTMLDivElement>, itemId: string) {
+    if (isFloor) return
+    const isPlaced = (session.hallPlacements ?? []).some((p) => p.sessionItemId === itemId)
+    const canvas = document.querySelector<HTMLElement>('.hall-board .hall-canvas')
+    const overTray = (ev: PointerEvent) =>
+      Boolean(trayRef.current && inside(trayRef.current, ev))
+    const overCanvas = (ev: PointerEvent) => Boolean(canvas && inside(canvas, ev))
+    startPointerDrag(e, {
+      onStart: () => setDraggingId(itemId),
+      onMove: (ev) => {
+        if (!isPlaced || !canvas) return
+        const { x, y } = clientToNormalized(ev, canvas)
+        setDragPreview({ id: itemId, x: clamp01(x), y: clamp01(y) })
+      },
+      onDrop: (ev) => {
+        justDraggedAt.current = performance.now()
+        setDragPreview(null)
+        setDraggingId(null)
+        if (isPlaced && overTray(ev)) {
+          handleRemove(itemId)
+          return
+        }
+        if (canvas && overCanvas(ev)) {
+          const { x, y } = clientToNormalized(ev, canvas)
+          placeAt(itemId, clamp01(x), clamp01(y))
+        }
+      },
+      onCancel: () => {
+        setDragPreview(null)
+        setDraggingId(null)
+      },
+    })
+  }
+
+  function recentlyDragged(): boolean {
+    return performance.now() - justDraggedAt.current < 400
+  }
+
   /** Shared by mouse DnD and phone Placera här — snap lives in upsertPlacement. */
   function placeAt(sessionItemId: string, x: number, y: number) {
     if (isFloor) return
@@ -213,6 +353,8 @@ export function HallBoard({
     setPlaceModeItemId(null)
     setSelectedItemId(null)
     setDraggingId(null)
+    setDragPreview(null)
+    setStationsEdit(false)
     setHallMode('floor')
     onEnterGolvklart?.()
   }
@@ -235,6 +377,7 @@ export function HallBoard({
   }
 
   function handleChipClick(itemId: string) {
+    if (recentlyDragged()) return
     const isUnplaced = unplaced.some((it) => it.id === itemId)
     if (!isFloor && isNarrow && isUnplaced) {
       setPlaceModeItemId((prev) => (prev === itemId ? null : itemId))
@@ -304,16 +447,6 @@ export function HallBoard({
   /** Slice 25 B1 — point at Använd alla förslag from saknar banner (no auto-apply). */
   function pointAtApplyAllFromSaknar() {
     pointAtApplyAll(UI.hallSaknarPointApplyAllToast)
-  }
-
-  function handleTrayDrop(e: DragEvent) {
-    if (isFloor) return
-    e.preventDefault()
-    const id =
-      e.dataTransfer.getData(HALL_CHIP_MIME) ||
-      e.dataTransfer.getData('text/plain')
-    if (id) handleRemove(id)
-    setDraggingId(null)
   }
 
   if (itemCount === 0) {
@@ -452,6 +585,15 @@ export function HallBoard({
           </div>
           <div className="hall-header-actions">
             <button
+              ref={stationsBtnRef}
+              type="button"
+              className="btn-secondary hall-tap-target hall-stations-toggle"
+              aria-expanded={stationsEdit}
+              onClick={() => (stationsEdit ? closeStationsEdit() : setStationsEdit(true))}
+            >
+              {stationsEdit ? UI.hallStationsDone : UI.hallStationsEdit}
+            </button>
+            <button
               type="button"
               className="btn-secondary hall-tap-target"
               aria-pressed={showFlow}
@@ -548,6 +690,7 @@ export function HallBoard({
           onViewZoomChange={handlePinchZoom}
           onPlaceAt={placeAt}
           onChipClick={(id) => {
+            if (recentlyDragged()) return
             if (isFloor) {
               openDetail(id)
               return
@@ -560,11 +703,24 @@ export function HallBoard({
             }
           }}
           onRemovePlacement={handleRemove}
-          onDragOverCanvas={() => {}}
-          draggingId={draggingId}
-          setDraggingId={setDraggingId}
+          onChipPointerDown={handleChipPointerDown}
+          dragPreview={dragPreview}
         />
         <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
+        {!isFloor && stationsEdit && (
+          <HallStationList
+            session={session}
+            onMoveTo={handleStationMove}
+            onRemove={handleStationRemove}
+            onAdd={() => {
+              setLibraryFilter('techniques')
+              setLibraryOpen(true)
+            }}
+            onDone={closeStationsEdit}
+            focusId={stationFocusId}
+            liveText={stationLive}
+          />
+        )}
         {!isFloor && (
           <div className="hall-below no-print">
               {headerTipVisible && (
@@ -582,11 +738,6 @@ export function HallBoard({
           <aside
             ref={trayRef}
             className={`hall-tray${isNarrow ? ' hall-tray--sticky' : ''}${isNarrow && trayCollapsed ? ' hall-tray--compact' : ''} no-print`}
-            onDragOver={(e) => {
-              e.preventDefault()
-              e.dataTransfer.dropEffect = 'move'
-            }}
-            onDrop={handleTrayDrop}
           >
             {isNarrow && trayCollapsed ? (
               <div className="hall-tray-compact-bar">
@@ -641,8 +792,8 @@ export function HallBoard({
                           item={item}
                           variant="tray"
                           selected={placeModeItemId === item.id}
-                          onDragStart={(_e, id) => setDraggingId(id)}
-                          onDragEnd={() => setDraggingId(null)}
+                          dragging={draggingId === item.id}
+                          onPointerDown={handleChipPointerDown}
                           onClick={handleChipClick}
                         />
                         {isNarrow && placeModeItemId === item.id && (
@@ -712,6 +863,62 @@ export function HallBoard({
         />
       )}
 
+      {libraryOpen && (
+        <div className="side-panel-slot is-open hall-library">
+          <button
+            type="button"
+            className="sheet-backdrop"
+            aria-label={UI.close}
+            onClick={() => setLibraryOpen(false)}
+          />
+          <div
+            className="side-panel-frame"
+            role="dialog"
+            aria-modal="true"
+            aria-label={UI.addActivity}
+          >
+            <div className="sheet-chrome">
+              <button
+                type="button"
+                className="btn-secondary sheet-close"
+                onClick={() => setLibraryOpen(false)}
+              >
+                {UI.close}
+              </button>
+            </div>
+            <LibraryPanel
+              filterBlockType={libraryFilter}
+              onFilterChange={setLibraryFilter}
+              onSelectActivity={handleAddStation}
+              ownActivities={libraryOwn}
+            />
+          </div>
+        </div>
+      )}
+
+      {undoToast && (
+        <div
+          className="toast"
+          role="status"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setUndoToast(null)
+              setUndo(null)
+            }
+          }}
+        >
+          <span>{undoToast.text}</span>
+          {undoToast.undo && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <button type="button" className="toast-action" onClick={runUndo}>
+                {UI.undoAction}
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
       {applyAllStatus && (
         <div className="toast" role="status">
           {applyAllStatus}
@@ -720,4 +927,13 @@ export function HallBoard({
       {pp.armed && createPortal(<PassPrint session={session} />, document.body)}
     </div>
   )
+}
+
+function clamp01(n: number): number {
+  return Math.max(0, Math.min(1, n))
+}
+
+function inside(el: Element, p: { clientX: number; clientY: number }): boolean {
+  const r = el.getBoundingClientRect()
+  return p.clientX >= r.left && p.clientX <= r.right && p.clientY >= r.top && p.clientY <= r.bottom
 }

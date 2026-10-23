@@ -1457,8 +1457,7 @@
   }
 
   .topbar-help,
-  .builder-label,
-  .builder-hall {
+  .builder-label {
     display: none;
   }
 

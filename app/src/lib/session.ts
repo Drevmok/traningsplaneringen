@@ -329,6 +329,33 @@ export function moveItemWithinBlock(
   return withComputedTotal({ ...session, blocks })
 }
 
+/**
+ * Slice 48 D1 — the hall's station order *is* the Teknik block's order. Move one Teknik item to
+ * `toIndex` (position in the block once the item is lifted out) and rewrite `order` to 0..n−1.
+ * Placements are untouched; ranks and flow follow passOrder.
+ */
+export function moveTechniqueTo(
+  session: Session,
+  itemId: string,
+  toIndex: number,
+): Session {
+  const block = session.blocks.find((b) => b.type === 'techniques')
+  if (!block) return session
+  const items = [...block.items].sort((a, b) => a.order - b.order)
+  const from = items.findIndex((i) => i.id === itemId)
+  if (from < 0) return session
+  const [moving] = items.splice(from, 1)
+  const to = Math.max(0, Math.min(items.length, Math.trunc(toIndex)))
+  if (to === from) return session
+  items.splice(to, 0, moving)
+  const blocks = session.blocks.map((b) =>
+    b.id === block.id
+      ? { ...b, items: items.map((it, order) => ({ ...it, order })) }
+      : b,
+  )
+  return withComputedTotal({ ...session, blocks })
+}
+
 export function moveItemToBlock(
   session: Session,
   fromBlockId: string,

@@ -142,6 +142,29 @@ export function countPlaceableItems(session: Session): number {
   return placeableItems(session).length
 }
 
+/**
+ * Slice 48 — map an insertion slot in the station list (among the *other* stations) to the
+ * Teknik-block index moveTechniqueTo expects. Same number whenever every Teknik item is placeable.
+ */
+export function techniqueIndexFor(
+  session: Session,
+  itemId: string,
+  slot: number,
+): number {
+  const block = session.blocks.find((b) => b.type === 'techniques')
+  if (!block) return slot
+  const rest = [...block.items]
+    .sort((a, b) => a.order - b.order)
+    .filter((i) => i.id !== itemId)
+  const others = placeableItems(session).filter((i) => i.id !== itemId)
+  const anchor = others[slot]
+  if (!anchor) {
+    const last = others[others.length - 1]
+    return last ? rest.findIndex((i) => i.id === last.id) + 1 : rest.length
+  }
+  return rest.findIndex((i) => i.id === anchor.id)
+}
+
 /** 1-based ranks among *placed Teknik* only, in Passbyggaren order. */
 export function stationRanks(session: Session): Map<string, number> {
   const placedIds = new Set(
@@ -507,4 +530,15 @@ export function migrateHallFields(input: Session): Session {
     hallPlacements,
     ...(hallShowFlow !== undefined ? { hallShowFlow } : {}),
   })
+}
+
+/** Pointer position → normalized 0..1 in the element's box (Slice 48: shared by canvas + drag). */
+export function clientToNormalized(
+  e: { clientX: number; clientY: number },
+  el: HTMLElement,
+): { x: number; y: number } {
+  const rect = el.getBoundingClientRect()
+  const x = rect.width > 0 ? (e.clientX - rect.left) / rect.width : 0.5
+  const y = rect.height > 0 ? (e.clientY - rect.top) / rect.height : 0.5
+  return { x, y }
 }
