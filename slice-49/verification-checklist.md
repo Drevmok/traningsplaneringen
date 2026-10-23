@@ -1,4 +1,6 @@
-# Slice 49 — verifieringslista (PROPOSED)
+# Slice 49 — verifieringslista (LOCKED)
+
+**Status:** LOCKED A1 B1 C1 D1 E1 F1 (PO 2026-10-23, se README).
 
 Viewport **390×844**, lokal förhandsvisning port 4173 (Verifier: Launch / Doctor / Drive). Rensad lagring före varje AC.
 

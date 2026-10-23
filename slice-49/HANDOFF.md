@@ -1,6 +1,6 @@
-# Slice 49 — HANDOFF (PROPOSED)
+# Slice 49 — HANDOFF (LOCKED)
 
-Gäller ★-förslagen A1 B1 C1 D1 E1 F1. Ändra efter låsning om Christoffer väljer annat. Radnummer från c86175a — sök om dem på din tip.
+**Status:** LOCKED A1 B1 C1 D1 E1 F1 (PO 2026-10-23, se README). Radnummer från c86175a — sök om dem på din tip.
 
 ## 1. A1 — passlängden fyller passet
 - `data/wizardPaths.ts`: ny `WIZARD_BLOCK_MINUTES: Record<PassLength, Record<BlockType, number>>` enligt README A1-tabellen. Ta bort `WIZARD_TEKNIK_DURATION` (:94) eller låt den bli `WIZARD_BLOCK_MINUTES[len].techniques / 3`.
