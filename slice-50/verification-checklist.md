@@ -16,7 +16,7 @@ Ingen ändring i appen. Allt körs på boxen mot lokal stand-in. Ingen SQL mot d
 | AC8 | `pick-smokes.mjs` på slice 49:s diff (c86175a..42f0f8d) | Listan innehåller s40 och s49 (Hallöversikt, Planera pass) och s48; inte s32/s33 |
 | AC9 | `pick-smokes.mjs` på en diff som rör en fil som inte finns i kartan | Hela loopen |
 | AC10 | `smoke-map.json` | Alla smoke-skript i `verifier/*-smoke.mjs` och `*-reverify*.mjs` som körs i loopen finns med; varje post har feature-fil och minst en sökväg |
-| AC11 | s33 körs 20 gånger på egen stand-in, varav 10 direkt efter s32 | AC16d/AC11d FAIL högst 0 gånger; annars karantän enligt D2 med logg (GoTrue /otp, /verify, mejltider) bifogad |
+| AC11 | s33 körs 20 gånger på egen stand-in, varav 10 direkt efter s32 | AC16d/AC11d: karantän vid ≥2/20 FAIL (D1; PO-svar), annars godkänt med logg (GoTrue /otp, /verify, mejltider) bifogad |
 | AC12 | Ordinarie verifiering av en verklig slice (nästa app-slice) med nya flödet | Total tid ≤ 25 min från start till rapport; tider per steg i rapporten |
 | AC13 | Omverifiering av samma slice efter en liten fix | ≤ 10 min; bara FAIL-AC och smokes som berörs körs |
 | AC14 | `git diff --stat origin/main -- app/` på kodgrenen | Tomt. Bundle 0 B. Sidfoten «Träningsplaneraren · Slice 49» oförändrad |

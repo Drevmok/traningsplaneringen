@@ -23,10 +23,10 @@ Branch `slice-50-code` (from `slice-50-docs` 0a3b305, base main 9a087c3). Locked
 | 8 | PASS | `ac8-pick-slice49.txt` (PO: inLoop:false on the 7 HANDOFF §4 scripts is correct) |
 | 9 | PASS | `ac9-pick-unmapped.txt` |
 | 10 | PASS | `ac10-map-coverage.txt` |
-| 11 | 1 FAIL in 20 → no karantän | AC16d FAIL 1/20 (run 3, right after s32: the resent code got 403 «token has expired or is invalid», masked debug included); AC11d 0 FAIL. Under the PO rule (karantän at ≥2) s33 is not quarantined; under the checklist text («högst 0») it is strictly 1 over. `ac11-s33-20-runs.txt` |
+| 11 | PASS (accepted per D1) | AC16d FAIL 1/20 (run 3, right after s32: the resent code got 403 «token has expired or is invalid»; masked debug included); AC11d 0 FAIL. The bar is karantän at ≥2/20 (D1, PO answer), so 1/20 is accepted and s33 is not quarantined. `ac11-s33-20-runs.txt` |
 | 12, 13, 15 | Not verifiable here | need the next real app slice |
 | 14 | PASS | `ac14-app-bundle.txt` |
-| 16 | Changed by PO | the pointer SKILL.md has the HANDOFF §5 text; the PO chose to keep the `verify-traningsplaneraren-2` folder |
+| 16 | PASS (deviation approved by PO) | the pointer SKILL.md has the HANDOFF §5 text; the PO chose to keep the `verify-traningsplaneraren-2` folder |
 | 17 | PASS | `ac17-selectors.txt` (65 selectors) |
 | 18 | PASS | text identical to HANDOFF §7 |
 | 19 | Not run | needs Christoffer's OK for the routine; `weekly.sh` is not run |
