@@ -1,7 +1,7 @@
 # Slice 49 — Planera pass fyller passet
 
 **App:** Träningsplaneraren  
-**Status:** **PROPOSED** — väntar på Christoffers val av A–F. Ingen SQL. Bara dokumentation, ingen appkod. Bas: main @ c86175a. Gren: `slice-49-docs`.
+**Status:** **LOCKED A1 B1 C1 D1 E1 F1** — låst av PO 2026-10-23 17:55 (Effort S, stående tillstånd). Öppna frågor: 2 → C1 (bara Planera pass), 3 → bara Frågor-vägen, 4 → texten behålls; 1 → tabellen A1 gäller, Christoffer kan justera minuterna i `data/wizardPaths.ts` senare. Ingen SQL. Bas: main @ c86175a. Gren: `slice-49-docs`.
 **Effort:** **S** (se nedan).  
 **Källa:** `/workspace/scout-drafts/2026-10-23-ideas.md` #1–#3 (godkända av Christoffer enligt PO) + Polish #5 (backlog 2026-10-13, «en Använd alla förslag»). Bilder i `evidence/` (Scout 2026-10-23, live Slice 48, 390×844).
 
