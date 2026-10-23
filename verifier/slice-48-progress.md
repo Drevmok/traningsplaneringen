@@ -18,3 +18,11 @@ Target: PR #53, `slice-48-code` @ f523774. Main: e605b3f (contains Slice 47 merg
 ## Remaining
 - `verifier/slice-48-verify.mjs`: hall edit flows (drag, move, add, remove, undo), old Blå/Vit/Stora/Grop passes and hand placements, autosave and reload, 390/320/844×390/desktop, landscape reach, Print/Golvklart, pinch simulation, Q2/Q3.
 - Classify the loop, count netlog requests, update feature maps (HANDOFF §12 asks the Verifier to), write the report, tear down.
+
+## Chunk 2 (07:40–07:58 CEST)
+- p1 33/33 after script fixes (AC4 id selector, AC17/AC19 label format, Golvklart exit «Avsluta golvklart», AC21 title, AC22 in-page timer → toast 5.0 s, AC25 fresh page). No product findings in p1.
+- p2 10/11: 844×390 AC5/AC29/AC30/AC31 + all hall buttons/sheets reachable PASS; AC15 desktop mouse PASS.
+  **FAIL W320**: at 320 px the edit list squeezes names to one letter per line and «Ta bort» overflows the row (right edge 331 px > 320, clipped). Major (usability), no data loss.
+- p3: old Blå/Vit passes made on main (with suggestions + hand-moved marker) load unchanged on branch; ↓, add, remove+Ångra keep every placement; reload OK; Golvklart has no edit mode, print fires. Unknown-hall pass opens. No SERIOUS issue.
+- p4: AC26-sim PASS (zoom 1.25→2.00→1.50→2.00, page scale 1). **AC27-sim FAIL**: a pinch starting on the tray (or below it) zooms the page to 1.6× — the same on main; tray has touch-action:auto, while F1 asks for touch-action on the whole hall area. Needs real iPhone confirmation. AC32 PASS (detail/Dela identical to main). AC36 PASS.
+- Smoke loop running (at slice-40).
