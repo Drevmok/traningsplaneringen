@@ -3,7 +3,11 @@
 # stand-in (e.g. the Verifier's) can run next to this one:
 #   S32_DIR=/tmp/s32vv S32_PG_PORT=54441 S32_GATEWAY_PORT=54440 ... bash setup.sh
 # Use the SAME variables for every script of one stand-in.
-S32_DIR=${S32_DIR:-/tmp/s32}
+# Slice 50: fixed home for the verify toolchain (install-once.sh, doctor.sh, template db).
+TPV_HOME=${TPV_HOME:-/home/box/tp-verify}
+TPV_STANDIN=${TPV_STANDIN:-$TPV_HOME/standin}     # fixed mode: cluster with bank_template (setup.sh --template)
+# One-off mode keeps the old throwaway default; fixed mode (--template) defaults to $TPV_STANDIN.
+if [ "${S32_TEMPLATE_MODE:-0}" = 1 ]; then S32_DIR=${S32_DIR:-$TPV_STANDIN}; else S32_DIR=${S32_DIR:-/tmp/s32}; fi
 S32_GATEWAY_PORT=${S32_GATEWAY_PORT:-54340}
 S32_PG_PORT=${S32_PG_PORT:-54341}
 S32_POSTGREST_PORT=${S32_POSTGREST_PORT:-54342}
@@ -11,11 +15,14 @@ S32_GOTRUE_PORT=${S32_GOTRUE_PORT:-54343}
 S32_SMTP_PORT=${S32_SMTP_PORT:-54345}
 S32_PREVIEW_PORT=${S32_PREVIEW_PORT:-4174}   # bank-build preview the login links return to
 PGBIN=${PGBIN:-/usr/lib/postgresql/17/bin}
-GOTRUE=${GOTRUE:-/tmp/gotrue/auth}
-POSTGREST=${POSTGREST:-/tmp/postgrest/postgrest}
+GOTRUE=${GOTRUE:-$TPV_HOME/bin/gotrue/auth}
+POSTGREST=${POSTGREST:-$TPV_HOME/bin/postgrest}
 D=$S32_DIR
+# Slice 50: a run made by db-new.sh uses the shared template cluster (S32_PG_DIR) and its own db.
+S32_PG_DIR=${S32_PG_DIR:-$D/pg}
+S32_DB=${S32_DB:-bank}
 S32_PORTS="$S32_GATEWAY_PORT $S32_PG_PORT $S32_POSTGREST_PORT $S32_GOTRUE_PORT $S32_SMTP_PORT"
-export S32_DIR
+export S32_DIR S32_PG_DIR S32_DB
 
 # Every process start.sh launches carries S32_OWNER=<dir> in its environment; stop.sh only
 # kills a pid when that marker matches THIS dir (a stale pid file can't hit a reused pid

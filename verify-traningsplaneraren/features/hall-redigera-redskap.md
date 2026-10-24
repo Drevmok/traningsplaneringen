@@ -21,3 +21,14 @@
 **Prove:** no placement lost across reorder/add/remove/undo/reload, including old Blå/Vit passes made on main with hand placements.
 
 **Slice 49:** one «Använd alla förslag» in the toolbar, only when ≥1 station has an unsaved förslag; the saknar row has no button; no «Inga förslag att spara». After Planera pass: no saknar row and no button.
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Hallöversikt | `.hall-board` | `App.css`, `components/HallBoard.tsx` |
+| Hallytan | `.hall-canvas` | `App.css`, `components/HallBoard.tsx` |
+| Redskapschip | `.hall-chip--canvas` | `App.css` |
+| Saknas-banner | `.hall-saknar-banner` | `App.css`, `components/HallBoard.tsx` |
+| Knapp «Redigera redskap» | `role=button «Redigera redskap»` | `components/ActivityDetail.tsx`, `data/blockMeta.ts` |
+| Passinfo i hallen | `.hall-session-meta` | `App.css`, `components/HallBoard.tsx` |

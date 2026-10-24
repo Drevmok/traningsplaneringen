@@ -1,0 +1,3 @@
+pick-smokes x..y: 1 filer → HELA LOOPEN (app/src/nonexistent.ts finns inte i smoke-map.json)
+slice-34-builder-smoke  [trasig]  hela loopen: app/src/nonexistent.ts finns inte i smoke-map.json
+slice-35-builder-smoke  [trasig]  hela loopen: app/src/nonexistent.ts finns inte i smoke-map.json

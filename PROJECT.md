@@ -29,12 +29,22 @@ Hallar: «Gymmix – Stora hallen» · «Gymmix – Grophallen»
 
 ## Verifieringsrecept
 
-Skill: `verify-traningsplaneraren/SKILL.md` i repot (källan), med pekaren `/home/box/agent-data/workflows/verify-traningsplaneraren/SKILL.md`. Funktionskarta: `verify-traningsplaneraren/features/`.
+Skill: `verify-traningsplaneraren/SKILL.md` i repot (källan), med pekaren `/home/box/agent-data/workflows/verify-traningsplaneraren/SKILL.md`. Funktionskarta: `verify-traningsplaneraren/features/`. Smoke-karta: `verifier/smoke-map.json`.
 
-1. **Launch** — `npm run build`, sedan preview på port 4173.
-2. **Doctor** — HTTP 200 på `/traningsplaneringen/`, rätt base, build exit 0. Faller doctor: BLOCKED, aldrig PASS.
-3. **Drive** — kör appen som tränare (390×844) via synliga svenska etiketter; varje rad i slicens `verification-checklist.md` / låsta A–F är auktoritet.
-4. **Evidence** — bevis i `verifier/` + skärmdumpar; notera blast radius (compose, Golvklart, mall, Förrådslista …). Stoppa bara den egna processen.
+En gång per box: `bash verifier/tools/install-once.sh`.
+
+1. **Doctor** — `bash verifier/tools/doctor.sh`: verktyg, malldatabas, lediga portar, main-cache för `origin/main`, HTTP 200 på `/traningsplaneringen/`, rätt base, build exit 0. Faller doctor: BLOCKED, aldrig PASS.
+2. **Launch** — `npm run build`, preview på port 4173, egen databas `verifier/tools/db-new.sh <run>`.
+3. **Drive** — kör appen som tränare via synliga svenska etiketter i 390×844 och 844×390; varje rad i slicens `verification-checklist.md` / låsta A–F får eget PASS/FAIL. Smokes enligt `verifier/tools/pick-smokes.mjs <bas> <head>`, jämförda mot main-cachen.
+4. **Evidence** — bevis i `verifier/` + skärmdumpar, bundle gzip mot main, tid per steg; notera blast radius. Stoppa bara den egna processen och ta bort den egna databasen.
+
+Omverifiering: bara FAIL-AC och smokes som berörs av fixen; samma Doctor och isolering.
+Hela smoke-loopen: varje söndag 03:00 mot main, och när pick-smokes säger «hela loopen».
+Mål: ordinarie ca 20–25 min, omverifiering ca 10 min. Ingen SQL mot det riktiga projektet.
+
+### psql-shim (Slice 50)
+
+Smoke-skripten anropar `psql -d bank`. `verifier/tools/run-smokes.sh` lägger `verifier/tools/shim/` först i PATH; shimmen skriver om `-d bank` till körningens egen databas `$S32_DB` (`bank_<run>` från `bank_template`). Utan `S32_DB` skickas anropet vidare oförändrat. Rör aldrig den riktiga Supabase-värden.
 
 ## Regler (backlog/PSTACK-OPS.md, backlog/SCOUT-PLAYBOOK.md)
 

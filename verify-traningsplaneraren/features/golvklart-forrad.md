@@ -16,3 +16,13 @@
 **Slice 48:** station numbers on Golvklart (and Förrådslista where it shows stations) follow the Teknik order set in Ändra stationer. Golvklart has no edit mode (no «Ändra stationer», no list, no ↑↓/Ta bort). Exit via «Avsluta golvklart».
 
 **Slice 49:** Förrådslista is filled straight after Planera pass (no empty state).
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Knapp «Golvklart» | `role=button «Golvklart»` | `App.css`, `App.tsx` |
+| Förrådslista | `text «Förrådslista»` | `App.css`, `components/ForradslistaSheet.tsx` |
+| Exportarket | `.export-sheet` | `App.css`, `components/ExportSheet.tsx` |
+| Stäng export | `.export-sheet .modal-close` | `App.css`, `components/ActivityDetail.tsx` |
+| Dialog | `.modal-backdrop[role=dialog]` | `App.css`, `components/ActivityDetail.tsx` |

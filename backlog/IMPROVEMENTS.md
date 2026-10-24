@@ -212,6 +212,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 ## In flight
 
 - **Slice 38** — Kör passet — «Kvar: …» for the rest of the pass (Scout run 2026-10-13 idea #3) · Effort: S
+- **Slice 50** — Snabbare verifiering (infra, no app change, bundle 0 B): tools once per box, Doctor + template database + main cache in `/home/box/tp-verify/`, `smoke-map.json` + `pick-smokes.mjs`, s33 OTP-flake fix (D1), one skill pointer, «Stabila väljare» per feature, weekly loop script (routine after Christoffer's OK) · Pack `slice-50/` · Effort: M
 
 
 ---

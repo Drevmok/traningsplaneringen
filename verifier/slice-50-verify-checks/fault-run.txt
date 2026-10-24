@@ -1,0 +1,2 @@
+slice-49-builder-smoke exit=1 24/34 pass (38 s)
+netlog: 54 requests, 0 to the live project host (all aborted)

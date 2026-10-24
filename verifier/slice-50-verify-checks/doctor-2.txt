@@ -1,0 +1,12 @@
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+PASS malldatabas sha256=c2ddf0dcd9a8dc31d6dbf14c5f780c23cc437799c7e4f1fb8f47cac360eba344
+PASS bank_template på port 54741
+PASS portar lediga (57880–57883, 54740–54745)
+PASS main-cache 9a087c3 finns (läses, byggs inte)
+PASS main build exit 0, 215152 TOTAL
+PASS main-dist: HTTP 200 på /traningsplaneringen/, base /traningsplaneringen/
+Doctor: PASS (546 ms)
+exit=0

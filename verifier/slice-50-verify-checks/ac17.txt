@@ -1,0 +1,3 @@
+PASS starta-fran-mall.md: details.club-hidden
+PASS starta-fran-mall.md: role=button «Starta från mall»
+AC17 PASS: 65 selectors, 0 missing

@@ -16,3 +16,16 @@
 **Prove:** Coaches never get `pending` rows (DB, cache, pass, share, print); hidden rows leave Biblioteket/search but old passes and `#dela=` links still show the title; admin edits keep tags/difficulty/links/visual/sort and stamp `updated_by` server-side; own exercises/passes/mallar never leave the device; no secret key, JWT or login link in repo, bundle or reports; anon cannot write and nobody can hard-delete. Stand-in recipe: `verifier/slice-32-local/` (isolate `/tmp/…` and ports if another agent's stack runs).
 
 **Slice 47 update:** admin tools moved out of Biblioteket into the **Admin view** (→ [admin.md](admin.md)). Biblioteket for an admin has no admin bar / filter chips, but an exercise's detail still has «Ändra i banken» / «Dölj för alla» (and Godkänn on pending rows). Login is a 6-digit code (Slice 36+), not a magic link: footer «Logga in som admin» → e-mail → «Skicka kod» → code from the mail subject (stand-in: `$S32_DIR/mail/*.json`, max 1 mail / 60 s per address) → «Logga in». Admins now create rows too: «Ny egen övning» and «Importera övningar» write `pending` rows (`{gather|warm|tech|strength|fun}-egen-<rand>`, `visual_key own`, `updated_by` = admin e-mail, set by the DB). D2: any admin can Godkänn, incl. their own rows. RLS (stand-in, unchanged from Slice 32/36): anon read published+hidden; authenticated non-admin = same as anon (insert/update → 42501, pending/admins unreadable); admins read all, insert, update; no delete.
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Biblioteket | `.library-entry .activity-card` | `App.css`, `components/ActivityCard.tsx` |
+| Sök | `input[type=search]` | `components/LibraryPanel.tsx` |
+| Filter | `.filter-row select` | `App.css`, `components/LibraryPanel.tsx` |
+| Övningsdetalj | `.activity-detail` | `App.css`, `components/ActivityDetail.tsx` |
+| Logga in som admin | `footer .footer-admin-login` | `App.tsx` |
+| Kodfält | `input.admin-code-input` | `components/AdminLoginSheet.tsx`, `export.css` |
+| Skicka ny kod | `.admin-resend` | `components/AdminLoginSheet.tsx`, `export.css` |
+| Kodstatus | `#admin-code-status` | `components/AdminLoginSheet.tsx` |

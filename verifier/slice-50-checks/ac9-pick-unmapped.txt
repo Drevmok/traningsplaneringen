@@ -1,0 +1,40 @@
+# AC9: PICK_FILES=app/src/icons/map.ts (not in smoke-map)
+pick-smokes x..y: 1 filer → HELA LOOPEN (app/src/icons/map.ts finns inte i smoke-map.json)
+slice-34-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-35-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-36-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-38-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-39-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-40-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-41-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-42-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-43-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-44-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-45-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-46-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-47-builder-smoke  [trasig]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json
+slice-48-builder-smoke  [ok]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json; alltid: senaste slicerna (s48); alltid: s48 (liggande 844×390)
+slice-49-builder-smoke  [ok]  hela loopen: app/src/icons/map.ts finns inte i smoke-map.json; alltid: senaste slicerna (s49)
+INFO seed-2DJ_oMM81mI-smoke: körs inte (trasig: fast port 4173 + fixtures i tools/bank/out saknas i loopen (exit 1 på main och gren)) — bara main-baslinjen; --all kör den
+INFO slice-30-builder-smoke: körs inte (trasig: fast port 4173, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-30-fix-b1-smoke: körs inte (trasig: fast port 4173, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-31-builder-smoke: körs inte (trasig: fasta portar 4173/4174, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-32-builder-smoke: körs inte (trasig: gamla väljare före slice 49 (14/18 på main och gren)) — bara main-baslinjen; --all kör den
+INFO slice-33-builder-smoke: körs inte (trasig: gamla väljare («Skicka länk», «Från mall»): 93/14 på main och gren) — bara main-baslinjen; --all kör den
+INFO slice-37-builder-smoke: körs inte (trasig: kraschar i openFromHome (0/0) på main och gren) — bara main-baslinjen; --all kör den
+RUN: slice-34-builder-smoke slice-35-builder-smoke slice-36-builder-smoke slice-38-builder-smoke slice-39-builder-smoke slice-40-builder-smoke slice-41-builder-smoke slice-42-builder-smoke slice-43-builder-smoke slice-44-builder-smoke slice-45-builder-smoke slice-46-builder-smoke slice-47-builder-smoke slice-48-builder-smoke slice-49-builder-smoke
+
+# control: PICK_FILES=app/src/components/RunPass.tsx
+pick-smokes x..y: 1 filer
+slice-34-builder-smoke  [trasig]  rör app/src/components/RunPass.tsx (features/kor-passet.md)
+slice-38-builder-smoke  [trasig]  rör app/src/components/RunPass.tsx (features/kor-passet.md)
+slice-48-builder-smoke  [ok]  alltid: senaste slicerna (s48); alltid: s48 (liggande 844×390)
+slice-49-builder-smoke  [ok]  alltid: senaste slicerna (s49)
+INFO seed-2DJ_oMM81mI-smoke: körs inte (trasig: fast port 4173 + fixtures i tools/bank/out saknas i loopen (exit 1 på main och gren)) — bara main-baslinjen; --all kör den
+INFO slice-30-builder-smoke: körs inte (trasig: fast port 4173, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-30-fix-b1-smoke: körs inte (trasig: fast port 4173, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-31-builder-smoke: körs inte (trasig: fasta portar 4173/4174, saknar fixtures (exit 1)) — bara main-baslinjen; --all kör den
+INFO slice-32-builder-smoke: körs inte (trasig: gamla väljare före slice 49 (14/18 på main och gren)) — bara main-baslinjen; --all kör den
+INFO slice-33-builder-smoke: körs inte (trasig: gamla väljare («Skicka länk», «Från mall»): 93/14 på main och gren) — bara main-baslinjen; --all kör den
+INFO slice-37-builder-smoke: körs inte (trasig: kraschar i openFromHome (0/0) på main och gren) — bara main-baslinjen; --all kör den
+RUN: slice-34-builder-smoke slice-38-builder-smoke slice-48-builder-smoke slice-49-builder-smoke

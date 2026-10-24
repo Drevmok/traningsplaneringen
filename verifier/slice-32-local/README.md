@@ -11,6 +11,17 @@ bun  verifier/slice-32-local/check-grants.ts    # C2: bot key rights, bot insert
 bash verifier/slice-32-local/stop.sh    # stop THIS dir's processes + its Postgres
 ```
 
+## Template database (Slice 50)
+
+```bash
+bash verifier/slice-32-local/setup.sh --template     # once (Doctor does it): /home/box/tp-verify/standin, pg :54741, bank_template (~1 s)
+eval "$(bash verifier/tools/db-new.sh <run>)"        # bank_<run> = copy of bank_template + own config in standin/runs/<run>/
+bash verifier/slice-32-local/start.sh && bash verifier/slice-32-local/users.sh
+bash verifier/tools/db-drop.sh <run>                # stop the run's processes, drop bank_<run>, remove runs/<run>
+```
+
+`standin/template.sha256` = sha256 over the sha256s of `roles.sql`, `schema-31.sql`, the seed and `schema-32.sql`. Doctor rebuilds the template when it differs (never while runs exist). The template holds no keys; `db-new.sh` generates them per run (chmod 600). Smokes that call `psql -d bank` need `verifier/tools/shim/psql` first on `PATH` (it rewrites `-d bank` to `-d $S32_DB`). Without `--template` / `db-new` everything works as before (`/tmp/s32`, own cluster).
+
 ## Dir and ports come from the environment (`env.sh`)
 
 | Variable | Default | What |
@@ -25,7 +36,9 @@ bash verifier/slice-32-local/stop.sh    # stop THIS dir's processes + its Postgr
 | `S32_SCHEMA32` | `slice-31/content/schema-32.sql` | setup.sh only: the schema-32 file to apply (e.g. an older 01 to test a patch) |
 | `S32_OTP_LENGTH` / `S32_OTP_EXP` | `6` / `3600` | Slice 33: GoTrue e-mail code length and expiry (s) |
 | `S32_MAGIC_LINK_TEMPLATE` | unset | Slice 33: login-mail body file (e.g. `../slice-33-local/magic-link.html` = setup 12c with `{{ .Token }}`). Copied to `<dir>/templates/` and served by the gateway at `/__templates/magic_link.html`; also sets the 12c subject (`S32_MAGIC_LINK_SUBJECT` overrides). Unset = GoTrue's default link mail |
-| `PGBIN`, `GOTRUE`, `POSTGREST` | `/usr/lib/postgresql/17/bin`, `/tmp/gotrue/auth`, `/tmp/postgrest/postgrest` | Binaries |
+| `PGBIN`, `GOTRUE`, `POSTGREST` | `/usr/lib/postgresql/17/bin`, `/home/box/tp-verify/bin/gotrue/auth`, `/home/box/tp-verify/bin/postgrest` (Slice 50; installed by `verifier/tools/install-once.sh`) | Binaries |
+| `S32_PG_DIR` / `S32_DB` | `$S32_DIR/pg` / `bank` | Slice 50: a run made by `db-new.sh` points these at the shared template cluster (`/home/box/tp-verify/standin/pg`) and its own database `bank_<run>`; `start.sh` then never starts or stops that cluster |
+| `TPV_BANK_SEED` | `tools/bank/out/bank-seed.sql` | Slice 50: `setup.sh --template` only — the seed for the template database |
 
 A second stand-in next to the default one, e.g. for the Verifier:
 

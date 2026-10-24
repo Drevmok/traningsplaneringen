@@ -17,3 +17,18 @@
 **Slice 48 (A1):** on the phone «Hallöversikt» is reached directly from the action row («Kör passet» · «Hallöversikt» · «Mer»), no longer via «Mer». Empty pass: the button is disabled with an announced hint («Lägg till minst en övning först», `#hall-cta-hint`). The Teknik block's order follows the hall's station order (Ändra stationer, see hall-redigera-redskap.md).
 
 **Slice 49:** after Planera pass the length row reads «X / X min». Changing the length later shows e.g. «90 / 60 min»; item times do not change.
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Passbyggaren | `.builder` | `App.css`, `App.tsx` |
+| Block | `.block-card` | `App.css`, `components/BlockCard.tsx` |
+| Lägg till övning | `role=button «Lägg till övning»` | `App.css`, `components/LibraryPanel.tsx` |
+| Biblioteket (öppen sidopanel) | `.side-panel-slot.is-open .side-panel-frame` | `App.css`, `components/HallBoard.tsx` |
+| Hallöversikt i åtgärdsraden | `.builder-actions .builder-hall` | `App.css`, `components/SessionBuilder.tsx` |
+| Knapp «Hallöversikt» | `role=button «Hallöversikt»` | `App.css`, `App.tsx` |
+| Tom-pass-tips | `#hall-cta-hint` | `components/SessionBuilder.tsx` |
+| Mer-menyn | `.more-menu-panel` | `components/SessionBuilder.tsx`, `export.css` |
+| Ta bort övning | `.item-remove` | `components/BlockCard.tsx`, `components/SessionBuilder.tsx` |
+| Minuter per övning | `.item-duration input` | `App.css`, `components/ActivityTip.tsx` |

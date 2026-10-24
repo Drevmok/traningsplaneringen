@@ -32,3 +32,14 @@ Headless Chromium, 390×844 (+320, 360), `page.clock.install` then `runFor`. See
 VoiceOver reading order/announcements, audible tone and vibration, real wake-lock behaviour with screen-off timers.
 
 **Slice 49:** a fresh Planera pass starts at «Kvar: 60/90/120 min» (the chosen length).
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Körläget | `.run-pass` | `components/RunPass.tsx`, `export.css` |
+| Klockan | `.run-clock` | `components/RunPass.tsx`, `export.css` |
+| Nästa | `.run-next` | `components/RunPass.tsx`, `export.css` |
+| Kvar: X min | `.run-left` | `components/RunPass.tsx`, `export.css` |
+| Navigering | `.run-nav` | `components/RunPass.tsx`, `export.css` |
+| Knapp «Kör passet» | `role=button «Kör passet»` | `components/SessionBuilder.tsx`, `data/blockMeta.ts` |

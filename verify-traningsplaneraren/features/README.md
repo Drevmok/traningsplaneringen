@@ -16,3 +16,14 @@ Each file is a coach-facing feature: what it is, how to reach it, how to drive i
 | [liggande-844x390.md](liggande-844x390.md) | Liggande läge 844×390 (Slice 48 F1): row, detail view, Biblioteket, hall edit mode and sheets reachable by scrolling |
 
 Update this index when adding/removing feature files.
+
+**Stabila väljare** (Slice 50): every feature file ends with a table *Vad | Väljare | Källa*. Order: role + visible Swedish label (`role=button «Hallöversikt»`), `aria-label`, id, class — the ones smokes already use. No `data-testid` in the app. Shared across features:
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Sidfot | `footer.app-footer` | `App.tsx` |
+| Toast | `.toast` | `App.tsx` |
+| Stäng ark | `.sheet-close` | `components/` |
+| Dialog | `.modal-backdrop[role=dialog]` | `components/` |
+
+Check: `node verifier/tools/check-selectors.mjs` greps every selector in these tables in `app/src` (AC17). Update the table when a smoke starts using a new handle.

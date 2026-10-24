@@ -1,0 +1,10 @@
+new-a
+new-b
+bank_s50va bank_s50vb bank_template 
+rows=51
+a=1/1 b=0/0 template=0/0
+dropped bank_s50va (template kept)
+dropped bank_s50vb (template kept)
+fresh run c: leak=0 leftover-table=0 rows=51
+dropped bank_s50vc (template kept)
+bank_template:true runs=0

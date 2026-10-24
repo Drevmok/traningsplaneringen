@@ -16,3 +16,14 @@
 9. Start page «Hämta ett pass» with an exercise file → «Det här är en fil med övningar. En admin lägger in den under Admin.», nothing imported.
 
 **Prove:** Non-admins never see or reach Admin; every write lands as `pending` in the DB only; counts in toasts match DB rows; no partial rows; no request to the live project (record the browser network: Verifier used a PW_CORE shim that logs every request and blocks the live host). Real two-admin run (two people) is PENDING-real on stand-in runs.
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Adminvyn | `.admin-area` | `components/AdminArea.tsx`, `export.css` |
+| Admin-detalj | `.admin-detail` | `components/AdminDetailPanel.tsx`, `export.css` |
+| Formulär (ny övning) | `.admin-bank-form` | `components/AdminBankForm.tsx` |
+| Importera | `.own-import` | `components/OwnImportSheet.tsx`, `export.css` |
+| Öppna admin i sidfoten | `.footer-admin-open` | `App.tsx` |
+| Logga ut | `footer .footer-admin-logout` | `App.tsx` |

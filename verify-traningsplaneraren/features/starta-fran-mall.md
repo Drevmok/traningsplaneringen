@@ -17,3 +17,14 @@
 **Slice 47 — Använd mall sheet (A1):** Passbyggaren → Mer → **Använd mall** opens a sheet «Använd mall» (replaces the old Mallar tab of the library): Föreningens mallar (club, when the bank has any; cards not tappable for admin tools), Mina mallar (each with «Kopiera delningskod» and «Ta bort»), Nybörjare, Kort pass. No admin tools in the sheet (those live in Admin → Föreningens mallar). Picking on a non-fresh pass → «Ersätta det här passet?» → toast «Mallen är i Passbyggaren. · Ångra»; Ångra restores the previous pass. The Planera pass → Starta från mall step (Slice 46) is unchanged — compare its text/geometry with main.
 
 **Slice 49:** no empty «Föreningens mallar» section (shown only with ≥1 club template). A mall start does not fill redskap (C1): text-only saknar row + one «Använd alla förslag».
+
+**Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
+
+| Vad | Väljare | Källa |
+|---|---|---|
+| Mallkort | `.template-card` | `App.css`, `components/ClubTemplates.tsx` |
+| Mallarket | `.mall-sheet` | `components/MallSheet.tsx`, `export.css` |
+| Klubbens mallar | `section.club-templates` | `components/ClubAdminSection.tsx`, `components/ClubTemplates.tsx` |
+| Mina mallar | `.template-saved .template-card` | `App.css`, `components/ClubAdminSection.tsx` |
+| Dolda klubbmallar | `details.club-hidden` | `components/ClubAdminSection.tsx`, `export.css` |
+| Knapp «Starta från mall» | `role=button «Starta från mall»` | `components/HomeWizard.tsx`, `data/blockMeta.ts` |
