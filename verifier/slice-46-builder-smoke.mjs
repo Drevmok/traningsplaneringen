@@ -128,7 +128,8 @@ await attempt('AC7-10', async () => {
   const body = await p.locator('body').innerText(); const len = await lengthOf(p)
   await shot(p, '08_builder_after_wizard')
   const hn = await hallName(p)
-  check('AC10', 'Passlängd 60/90/120 none preselected → «Pass — trampett», «53 / 90 min», Grophallen', (await Promise.resolve(true)) && JSON.stringify(lens) === '["60 min","90 min","120 min"]' && pre === 0 && (await draft(p)).title === 'Pass — trampett' && len === '53 / 90 min' && hn === GROP, `${lens.join('|')} pre=${pre} len=${len} hall=${hn}`)
+  // Slice 52: A1 — Slice 49 A1 «längden styr tiderna»: the sum is exactly the chosen length.
+  check('AC10', 'Passlängd 60/90/120 none preselected → «Pass — trampett», «90 / 90 min», Grophallen', JSON.stringify(lens) === '["60 min","90 min","120 min"]' && pre === 0 && (await draft(p)).title === 'Pass — trampett' && len === '90 / 90 min' && hn === GROP, `${lens.join('|')} pre=${pre} len=${len} hall=${hn}`)
   const d = await draft(p)
   check('AC10-placed', 'Teknik items placed on the Grophallen grid', d.hallTemplateId === 'forening-vit' && (d.hallPlacements ?? []).length >= 1, `${d.hallTemplateId} ${(d.hallPlacements ?? []).length}`)
   await shot(p, '09_hall_grophallen')
@@ -246,11 +247,12 @@ await attempt('AC16', async () => {
 await attempt('AC17', async () => {
   const p = await page({ club: true }); await home(p, BR, { [TPL]: JSON.stringify(FIX.saved), [DRAFT]: draftLS })
   await p.getByRole('button', { name: /^Fortsätt passet/ }).click(); await p.locator('.builder').waitFor()
-  await p.getByRole('button', { name: /Lägg till övning/ }).first().click(); await p.waitForTimeout(300)
-  await p.getByRole('tab', { name: 'Mallar' }).click(); await p.waitForTimeout(400)
-  const t = await p.locator('body').innerText()
-  await shot(p, '16_mallar_tab')
-  check('AC17-tab', 'Mallar tab still lists all three groups and keeps Kopiera delningskod / Ta bort on Mina mallar', /Föreningens mallar/.test(t) && /Mina mallar/.test(t) && /Kopiera delningskod/.test(t) && /Ta bort/.test(t), t.replace(/\s+/g, ' ').match(/Föreningens mallar.{0,300}/)?.[0])
+  // Slice 52: A1 — Slice 47 A1 removed the tab row in Lägg till övning; the mall groups and the Mina mallar actions
+  // live in «Använd mall» (MallSheet) in Passbyggaren.
+  await menu(p, 'Använd mall'); await p.locator('.mall-sheet').waitFor(); await p.waitForTimeout(400)
+  const t = await p.locator('.mall-sheet').innerText()
+  await shot(p, '16_anvand_mall')
+  check('AC17-usemall', '«Använd mall» lists Föreningens mallar and Mina mallar and keeps Kopiera delningskod / Ta bort on Mina mallar', /Föreningens mallar/.test(t) && /Mina mallar/.test(t) && /Kopiera delningskod/.test(t) && /Ta bort/.test(t), t.replace(/\s+/g, ' ').match(/Föreningens mallar.{0,300}/)?.[0])
 })
 
 await attempt('AC18', async () => {

@@ -52,25 +52,31 @@ for (const [tag, base] of [['main', MAIN], ['branch', BR]]) {
       await shot(p, `${tag}_${h}`)
     }
     if (tag === 'branch') {
-      for (const h of HALLS) {
-        const g = measure.branch[h], id = { 'forening-bla': 'AC1', 'forening-vit': 'AC2' }[h] ?? 'AC3'
-        const ratioOk = true || // Slice 51: Slice 45 B1 removed the legacy halls; the 2/3 ratio for them no longer applies
-          id !== 'AC3' || Math.abs(g.canvas[2] - 358 * 2 / 3) <= 3
-        check(`${id}-${h}`, `${h}: canvas bottom ≤ ${FOLD} with saknar banner`, g.canvas[1] <= FOLD && g.saknar && ratioOk, `canvas ${g.canvas.join('/')} saknar ${g.saknar}`)
+      // Slice 52: C1 — Slice 45 B1 removed the legacy halls, so AC3 (2/3 ratio) is gone; only the Gymmix halls are checked.
+      for (const h of ['forening-bla', 'forening-vit']) {
+        const g = measure.branch[h], id = { 'forening-bla': 'AC1', 'forening-vit': 'AC2' }[h]
+        check(`${id}-${h}`, `${h}: canvas bottom ≤ ${FOLD} with saknar banner`, g.canvas[1] <= FOLD && g.saknar, `canvas ${g.canvas.join('/')} saknar ${g.saknar}`)
       }
       const g = measure.branch['forening-vit']
       const above = ['back', 'title', 'meta', 'actions', 'zoom'] /* Slice 51: layout picker removed (Slice 45 B1) */.every((k) => g[k] && g[k][1] <= g.canvas[0])
       check('AC4', 'canvas top ≥ 0, tray (collapsed) does not cover the canvas, no horizontal overflow', g.canvas[0] >= 0 && (!g.tray || g.tray[0] >= g.canvas[1] || (await p.evaluate(() => getComputedStyle(document.querySelector('.hall-tray')).position)) !== 'fixed' || g.tray[0] >= g.canvas[1]) && g.sw <= 390, `tray ${g.tray} sw ${g.sw}`)
       const small = await p.evaluate(() => [...document.querySelectorAll('.hall-header button, .hall-header select')].filter((e) => { const r = e.getBoundingClientRect(); return r.width && (r.height < 44 || r.width < 44) }).map((e) => e.textContent.trim() || e.className))
-      check('AC5', 'back, title, meta, 4 actions and zoom −/+ above the hall; all ≥ 44×44', above && small.length === 0 && (await p.locator('.hall-header-actions button').count()) === 4, `small=${small.join('|')}`)
+      // Slice 52: A1 — exact action labels per state instead of count() === 4: «Ändra stationer» (Slice 48 B1),
+      // «Använd alla förslag» only with the saknar banner (kept in the header, Slice 49 D1).
+      const acts = await p.locator('.hall-header-actions button').evaluateAll((bs) => bs.map((b) => b.textContent.trim()) /* visible label */)
+      const hasSug = (await p.locator('.hall-saknar-banner').count()) > 0
+      const want = ['Ändra stationer', /^(Visa|Dölj) flöde$/, 'Förrådslista', 'Golvklart', ...(hasSug ? ['Använd alla förslag'] : [])]
+      const actsOk = acts.length === want.length && want.every((w) => acts.some((a) => (typeof w === 'string' ? a === w : w.test(a))))
+      check('AC5', 'back, title, meta, header actions (exact labels for the state) and zoom −/+ above the hall; all ≥ 44×44', above && small.length === 0 && actsOk, `small=${small.join('|')} actions=${acts.join('|')}`)
       const s = await p.evaluate(() => { const e = document.querySelector('.hall-saknar-banner .hall-unplaced-banner'); const lh = parseFloat(getComputedStyle(e).lineHeight) || 20; return { text: e.textContent, title: e.title, cut: e.scrollWidth > e.clientWidth, lines: Math.round((e.clientHeight - 16) / lh) } })
       check('AC6-oneline', 'saknar banner one line; title holds the full text', s.lines <= 1 && s.title === s.text, JSON.stringify(s))
       check('AC6-notcut', 'saknar text not cut at 390', !s.cut, JSON.stringify(s))
       const cta = p.locator('.hall-saknar-point-cta')
       if (await cta.count()) { await cta.click(); await p.waitForTimeout(300); check('AC6-cta', 'CTA «Använd alla förslag» still points at the action (Slice 37)', (await p.locator('.hall-apply-all--point').count()) > 0) }
       const order = await p.evaluate(() => { const c = document.querySelector('.hall-canvas').getBoundingClientRect().bottom; return ['.hall-preset-note', '.hall-preset-coach-tip', '.hall-hints-info', '.hall-flow-coach-tip'].map((s) => { const e = document.querySelector(s); return [s, e ? e.getBoundingClientRect().top > c : null] }) })
-      // Slice 51: preset note and Blå/Vit coach tip removed with the legacy halls (Slice 45 B1); absent tips are OK.
-      check('AC7', 'tips that remain sit under the hall', order.every(([, v]) => v !== false), JSON.stringify(order))
+      // Slice 52: C1 — the flow coach tip still exists (s45 AC6) and is required under the hall; the preset note and
+      // Blå/Vit coach tip were removed with the legacy halls (Slice 45 B1), so those may be absent (null).
+      check('AC7', 'flow coach tip under the hall; other tips absent or under the hall', order.every(([s, v]) => s === '.hall-flow-coach-tip' ? v === true : v === null || v === true), JSON.stringify(order))
       await shot(p, 'branch_below_hall_scrolled'.replace('_scrolled', '')); await p.locator('.hall-below').scrollIntoViewIfNeeded(); await p.screenshot({ path: '/workspace/screenshots/slice43_branch_below.png' }); copyFileSync('/workspace/screenshots/slice43_branch_below.png', `${shotsDir}/slice43_branch_below.png`)
       const tipBtn = p.locator('.hall-flow-coach-tip button').last()
       if (await tipBtn.count()) { await tipBtn.click(); await p.waitForTimeout(200); check('AC7-dismiss', 'flow tip dismiss still works', (await p.locator('.hall-flow-coach-tip').count()) === 0) }

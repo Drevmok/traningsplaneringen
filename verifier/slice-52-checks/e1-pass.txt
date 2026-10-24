@@ -1,0 +1,7 @@
+PASS [IMP1] Admin → «Importera övningar» syns
+PASS [IMP2] fil → 3 rader — [{"title":"Hopprep-stafett","state":"Ny","choice":"include"},{"title":"Balansgång på bänk","state":"Ny","choice":"include"},{"title":"Välkomstcheck-in","state":"Samma namn finns redan","choice":"skip"}]
+PASS [IMP3] dubbletten «Välkomstcheck-in» visar «Samma namn finns redan» och står på «Hoppa över» — {"title":"Välkomstcheck-in","state":"Samma namn finns redan","choice":"skip"}
+PASS [IMP4] «Ta med» på två → «Importera 2 övningar» → två POST med status 'pending' mot fejken, inga mot live — ["bank-mock.supabase.co {\"title\":\"Hopprep-stafett\",\"block_type\":\"warmup\",\"duration_minutes_default\":6,\"s","bank-mock.supabase.co {\"title\":\"Balansgång på bänk\",\"block_type\":\"strength\",\"duration_minutes_default\""]
+PASS [IMP5] raderna syns under «Väntar på godkännande (2)» med «Väntar» — ["Hopprep-stafettVäntarBehöver granskas6 minPulshöjande start med rep i lag.","Balansgång på bänkVäntarBehöver granskas8 minBålstyrka och balans på låg höjd."]
+PASS [IMP6] kod-input ger samma lista som filen — [{"title":"Hopprep-stafett","state":"Samma namn finns redan","choice":"skip"},{"title":"Balansgång på bänk","state":"Samma namn finns redan","choice":"skip"},{"title":"Välkomstcheck-in","state":"Samma namn finns redan","choice":"skip"}]
+PASS 6 / FAIL 0

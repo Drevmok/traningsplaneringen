@@ -1,0 +1,12 @@
+# AC13: ownImport.ts rad 238 'false && titles.has(...)' i scratch-worktree från 84b44e7 (bank-build)
+slice-52-admin-import-smoke exit=1 PASS 2 / FAIL 4 (14 s)
+netlog: 42 requests, 0 to the live project host (all aborted)
+rc=1
+--- log
+PASS [IMP1] Admin → «Importera övningar» syns
+PASS [IMP2] fil → 3 rader — [{"title":"Hopprep-stafett","state":"Ny","choice":"include"},{"title":"Balansgång på bänk","state":"Ny","choice":"include"},{"title":"Välkomstcheck-in","state":"Ny","choice":"include"}]
+FAIL [IMP3] dubbletten «Välkomstcheck-in» visar «Samma namn finns redan» och står på «Hoppa över» — {"title":"Välkomstcheck-in","state":"Ny","choice":"include"}
+FAIL [IMP4] «Ta med» på två → «Importera 3 övningar» → två POST med status 'pending' mot fejken, inga mot live — ["bank-mock.supabase.co {\"title\":\"Hopprep-stafett\",\"block_type\":\"warmup\",\"duration_minutes_default\":6,\
+FAIL [IMP1] error — locator.waitFor: Timeout 8000ms exceeded.
+FAIL [IMP6] kod-input ger samma lista som filen — [{"title":"Hopprep-stafett","state":"Ny","choice":"include"},{"title":"Balansgång på bänk","state":"Ny","choice":"include"},{"title":"Välkomstcheck-in","state":"Ny","choice":"include"}
+PASS 2 / FAIL 4

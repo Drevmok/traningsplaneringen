@@ -4,11 +4,12 @@ const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/p
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { sliceNumber } from './tools/smoke-login.mjs'
 import { startMall } from './tools/smoke-start.mjs'
-import { writeFileSync } from 'node:fs'
+import { writeFileSync, readFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 const BR = process.env.S44_BR ?? 'http://127.0.0.1:4444/traningsplaneringen/'
 const MAIN = process.env.S44_MAIN ?? 'http://127.0.0.1:4410/traningsplaneringen/'
 const ROOT = process.env.S44_ROOT ?? '/workspace/gp-s44'
+const OLD_LINKS = JSON.parse(readFileSync(new URL('./fixtures/old-share-links.json', import.meta.url), 'utf8')) // Slice 52: B1 frozen old #dela= tokens
 const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const PDF = `${ROOT}/verifier/slice-44-print`
 const results = []
@@ -159,15 +160,15 @@ await attempt('Golvklart', async () => {
   await p.context().close()
 })
 await attempt('AC6', async () => {
-  const p = await page('webkit'); await mall(p, MAIN)
-  await menu(p, 'Exportera / dela'); await sheet(p).waitFor()
-  await sheet(p).getByRole('button', { name: 'Kopiera länk' }).click(); await p.waitForTimeout(300)
-  const old = await p.evaluate(() => navigator.clipboard.readText())
-  const p2 = await page('webkit'); await p2.goto(old.replace('4410', '4444')); await p2.waitForTimeout(800)
-  check('AC6', 'link made on main 0d88da5 opens on the branch (SharePass v1)', (await p2.locator('body').innerText()).includes('Pass från en annan enhet.'), old.slice(0, 70))
+  // Slice 52: B1 (Slice 44 renamed the menu row to «Dela»; ports come from the env since Slice 51 B1) — the old link
+  // is a token made once by the real 0d88da5 app (verifier/fixtures/old-share-links.json), opened on BR.
+  const p = await page('webkit')
+  const old = BR + '#dela=' + OLD_LINKS.s44.token
+  const p2 = await page('webkit'); await p2.goto(old); await p2.waitForTimeout(800)
+  check('AC6', `link made on 0d88da5 (${OLD_LINKS.s44.made}) opens on the branch (SharePass v1)`, (await p2.locator('body').innerText()).includes('Pass från en annan enhet.'), old.slice(0, 70))
   // AC12: paste link on Home
   await p2.goto(BR); await p2.evaluate(() => localStorage.clear()); await p2.reload(); await p2.locator('.home').waitFor()
-  await p2.getByRole('button', { name: 'Hämta ett pass' }).click(); await p2.locator('.home-receive textarea').fill(old.replace('4410', '4444'))
+  await p2.getByRole('button', { name: 'Hämta ett pass' }).click(); await p2.locator('.home-receive textarea').fill(old) // Slice 52: B1 same frozen URL
   await p2.locator('.home-receive .btn-primary').click(); await p2.waitForTimeout(800)
   const t12 = await p2.getByRole('textbox', { name: 'Passets titel' }).inputValue().catch(() => '')
   check('AC12-paste', 'Home «Hämta ett pass» pasted link still opens the pass (in Passbyggaren)', t12.includes('Nybörjare'), t12)

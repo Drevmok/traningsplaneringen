@@ -4,11 +4,12 @@ const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { openMallList, openWizard, startMall, startTomt } from './tools/smoke-start.mjs'
 import { sliceNumber } from './tools/smoke-login.mjs'
-import { writeFileSync } from 'node:fs'
+import { writeFileSync, readFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 const BR = process.env.S45_BR ?? 'http://127.0.0.1:4545/traningsplaneringen/'
 const MAIN = process.env.S45_MAIN ?? 'http://127.0.0.1:4510/traningsplaneringen/'
 const ROOT = process.env.S45_ROOT ?? '/workspace/gp-s45'
+const OLD_LINKS = JSON.parse(readFileSync(new URL('./fixtures/old-share-links.json', import.meta.url), 'utf8')) // Slice 52: B1 frozen old #dela= tokens
 const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const SHOTS = `${ROOT}/verifier/slice-45-screenshots`
 const DRAFT = 'gymnastics-planner-draft-v1'
@@ -55,10 +56,11 @@ let gridRef = null // placements of a fresh Nybörjare pass on Stora hallen (Sli
 await attempt('wizard', async () => {
   const p = await page(); await home(p)
   await openWizard(p) // Slice 51: question path, one tap per answer (Ålder → Fokus → Hall → Passlängd)
-  await p.getByRole('option').first().click(); await p.waitForTimeout(200)
+  // Slice 52: A1 — the wizard advances after ADVANCE_MS 250 (Slice 46); wait for the next heading, not 200 ms.
+  await p.getByRole('option').first().click(); await p.locator('.home-wizard-sheet h2', { hasText: /^Fokus$/ }).waitFor()
   const t2 = await p.locator('.home-wizard-sheet').innerText()
   await shot(p, '01_wizard_q2')
-  await p.getByRole('option', { name: 'Trampett' }).click(); await p.waitForTimeout(200)
+  await p.getByRole('option', { name: 'Trampett' }).click(); await p.locator('.home-wizard-sheet h2', { hasText: /^Hall$/ }).waitFor() // Slice 52: A1
   const title = (await p.locator('.home-wizard-sheet h2').innerText()).trim()
   const opts = (await p.getByRole('option').allInnerTexts()).map((s) => s.trim())
   const t3 = await p.locator('.home-wizard-sheet').innerText()
@@ -175,13 +177,10 @@ await attempt('AC12', async () => {
 
 let oldLink = null
 await attempt('AC10', async () => {
-  const m = await page(); await mall(m, MAIN)
-  await menu(m, 'Hallöversikt'); await m.locator('#hall-layout-select').waitFor(); await m.locator('#hall-layout-select').selectOption('standard-trupp'); await m.waitForTimeout(300)
-  const md = await draft(m)
-  await m.getByRole('button', { name: /Tillbaka|Passbyggaren/ }).first().click(); await m.waitForTimeout(300)
-  await menu(m, 'Dela'); await m.locator('.export-sheet').getByRole('button', { name: 'Kopiera länk' }).click(); await m.waitForTimeout(300)
-  oldLink = await m.evaluate(() => navigator.clipboard.readText())
-  const token = oldLink.split('#')[1]
+  // Slice 52: B1 — the hall picker on main is gone (Slice 45 B1); the old link is a token made once by the real app
+  // before Slice 45 (parent of cd19319) on Standard trupp, frozen in verifier/fixtures/old-share-links.json.
+  const md = { hallTemplateId: OLD_LINKS.s45.hall }
+  const token = 'dela=' + OLD_LINKS.s45.token; oldLink = BR + '#' + token
   const p = await page(); await p.goto(BR + '#' + token); await p.waitForTimeout(1200)
   const body = await p.locator('body').innerText()
   const markers = await p.locator('.hall-canvas .hall-chip, .hall-canvas [class*=chip]').count()
@@ -192,7 +191,7 @@ await attempt('AC10', async () => {
   const rep = await rect(p, '.modal--compact')
   if (rep) { await shot(p, '10_ersatt_utkast_compact'); await p.locator('.modal--compact').getByRole('button', { name: 'Ersätt utkast' }).click(); await p.waitForTimeout(500) }
   const saved = await draft(p)
-  check('AC10', 'old #dela= link made on main on Standard trupp → Delat pass shows markers on Stora hallen; «Spara på den här enheten» stores forening-bla', md.hallTemplateId === 'standard-trupp' && markers > 0 && saved?.hallTemplateId === 'forening-bla' && saved.hallPlacements.every((x) => x.zoneId === 'open'), `main=${md.hallTemplateId} markers=${markers} saved=${saved?.hallTemplateId} stora=${body.includes(STORA)}`)
+  check('AC10', 'old #dela= link made before Slice 45 on Standard trupp → Delat pass shows markers on Stora hallen; «Spara på den här enheten» stores forening-bla', md.hallTemplateId === 'standard-trupp' && markers > 0 && saved?.hallTemplateId === 'forening-bla' && saved.hallPlacements.every((x) => x.zoneId === 'open'), `old=${OLD_LINKS.s45.commit.slice(0, 7)} ${md.hallTemplateId} markers=${markers} saved=${saved?.hallTemplateId} stora=${body.includes(STORA)}`)
   check('AC14-replace', '«Ersätta utkastet här?» is a compact bottom sheet', rep && rep.bottom === 844 && rep.h <= 300, JSON.stringify(rep))
 })
 
@@ -254,9 +253,11 @@ await attempt('AC14', async () => {
   await p.goto(BR); await p.getByRole('button', { name: 'Fortsätt passet' }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(300)
   await hall(p)
   await p.getByRole('button', { name: 'Visa förrådslista för passet' }).first().dispatchEvent('click'); await p.waitForTimeout(400)
-  const fl = await p.evaluate(() => { const e = document.querySelector('.forradslista-sheet'); if (!e) return null; const r = e.getBoundingClientRect(); return { h: Math.round(r.height), compact: e.classList.contains('modal--compact') } })
+  // Slice 52: A1 — Slice 47 B1 removed «Vad finns i hallen ikväll?», so the sheet height follows its content; check the
+  // sheet's class and shape (bottom sheet, max-height ≥ 85 % of the window), not a pixel height.
+  const fl = await p.evaluate(() => { const e = document.querySelector('.forradslista-sheet'); if (!e) return null; const r = e.getBoundingClientRect(); return { h: Math.round(r.height), bottom: Math.round(r.bottom), maxH: parseFloat(getComputedStyle(e).maxHeight) || 0, vh: innerHeight, compact: e.classList.contains('modal--compact') } })
   await shot(p, '14_forradslista_tall')
-  check('AC14-tall', 'Förrådslista stays a tall sheet (not compact)', fl && !fl.compact && fl.h > 400, JSON.stringify(fl))
+  check('AC14-tall', 'Förrådslista stays a tall sheet (not compact)', fl && !fl.compact && fl.bottom === 844 && fl.maxH >= 0.85 * fl.vh, JSON.stringify(fl))
   const src = execFileSync('rg', ['-l', 'modal--compact', `${ROOT}/app/src/components`], { encoding: 'utf8' }).split('\n').filter(Boolean).map((f) => f.split('/').pop()).sort()
   check('AC14-admin', 'AdminHideConfirm carries the compact classes (source; Dölj needs an admin login)', ['AdminHideConfirm.tsx', 'ExportSheet.tsx', 'Home.tsx', 'NewWeekConfirm.tsx', 'ReplaceDraftConfirm.tsx', 'TemplateConfirm.tsx'].every((f) => src.includes(f)), src.join(','))
 })
