@@ -14,7 +14,12 @@ Base: main 84b44e7 · docs: slice-52-docs 1ec4ed8 · branch: slice-52-code. App 
 - `before/` — s37, s43–s46 on 84b44e7 (from the Doctor baseline run): 7 FAIL (s43 AC5; s44 AC6; s45 AC1, AC10, AC14-tall; s46 AC10, AC17), same causes as the README table. s37 was 24/24 already (the weak checks let it pass).
 - `c1-fault.txt` (AC8), `e1-fault.txt` (AC13), `d1-rc.txt` (AC9/AC10/AC14a), `d1-install.txt` (AC11), `f1-doctor-blocked.txt` (AC14b), `greps.txt` (AC3/AC4/AC6/AC15), `loop.txt` (AC16).
 
-## Deviation (AC16)
+## QM fix (PR #57)
+- IMP6 waits on sheet state (bank loaded, textarea filled, «Läs in» enabled, all rows with a state) instead of the 8 s default timeout; IMP2 uses the same row wait.
+- s44 has no 4410/4444 fallback any more: `S44_BR` is required (set by run-smokes), `S44_MAIN` removed.
+- AC16 rerun 3× (`loop.txt`): s37, s43–s46 and admin-import 0 FAIL / exit 0 all three runs; 0 live calls.
+
+## Deviation (AC16) — PO-approved
 The runner (Slice 51 rule) calls «fewer PASS than the baseline» NY FAIL. s43 has 18 checks now instead of 21 (AC3 removed and AC1/AC2 only over the two Gymmix halls, per C1), so against the 84b44e7 baseline (20/21) s43 is reported `NY FAIL (PASS 20→18, FAIL 1→0)` in every run although it is 18/18, exit 0. Not changed (out of scope); it goes away with the next main cache after merge. Suggestion for Slice 53: count removed check ids separately.
 
 ## Open for Slice 53

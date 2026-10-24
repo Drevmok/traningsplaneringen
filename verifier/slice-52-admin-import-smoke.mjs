@@ -44,7 +44,7 @@ await attempt('IMP1', async () => {
   check('IMP1', `Admin → «${T.import}» syns`, (await btn.count()) === 1 && (await btn.innerText()).trim() === T.import)
   await btn.click(); await sheet(p).waitFor()
   await sheet(p).locator('input[type=file]').setInputFiles({ name: 's52-import.json', mimeType: 'application/json', buffer: Buffer.from(FIX) })
-  await sheet(p).locator('.own-import-row').nth(FIXJ.exercises.length - 1).waitFor()
+  await p.waitForFunction((n) => { const r = document.querySelectorAll('.own-import .own-import-row'); return r.length === n && [...r].every((l) => l.querySelector('.own-import-state')?.textContent.trim()) }, FIXJ.exercises.length, { timeout: 30000 })
   fileRows = await rows(p)
   check('IMP2', `fil → ${FIXJ.exercises.length} rader`, fileRows.length === FIXJ.exercises.length && FIXJ.exercises.every((e, i) => fileRows[i].title === e.title), JSON.stringify(fileRows))
   const d = fileRows.find((r) => r.title === DUP?.title)
@@ -65,8 +65,16 @@ await attempt('IMP1', async () => {
 await attempt('IMP6', async () => {
   const p = await page(); await openImport(p)
   await p.locator('.admin-area').getByRole('button', { name: T.importAria }).click(); await sheet(p).waitFor()
-  await sheet(p).getByLabel(T.paste).fill(FIX); await sheet(p).getByRole('button', { name: T.read, exact: true }).click()
-  await sheet(p).locator('.own-import-row').first().waitFor()
+  // Slice 52 (QM): wait on sheet state, not a fixed timeout — bank loaded (list headings), textarea filled, «Läs in»
+  // enabled, then all rows rendered with a state text.
+  await p.locator('.admin-area-list h2').first().waitFor({ timeout: 30000 })
+  const area = sheet(p).getByLabel(T.paste)
+  await area.waitFor({ state: 'visible', timeout: 30000 }); await area.fill(FIX)
+  await p.waitForFunction((n) => (document.querySelector('.own-import textarea')?.value.length ?? 0) === n, FIX.length, { timeout: 30000 })
+  const read = sheet(p).getByRole('button', { name: T.read, exact: true })
+  await p.waitForFunction((t) => [...document.querySelectorAll('.own-import button')].some((b) => b.textContent.trim() === t && !b.disabled), T.read, { timeout: 30000 })
+  await read.click({ timeout: 30000 })
+  await p.waitForFunction((n) => { const r = document.querySelectorAll('.own-import .own-import-row'); return r.length === n && [...r].every((l) => l.querySelector('.own-import-state')?.textContent.trim()) }, FIXJ.exercises.length, { timeout: 30000 })
   const codeRows = await rows(p)
   // after IMP4 the two new titles exist in the bank too, so compare titles; the duplicate row is the same as from the file
   check('IMP6', 'kod-input ger samma lista som filen', JSON.stringify(codeRows.map((r) => r.title)) === JSON.stringify(fileRows?.map((r) => r.title)) && codeRows.find((r) => r.title === DUP.title)?.state === T.same, JSON.stringify(codeRows))

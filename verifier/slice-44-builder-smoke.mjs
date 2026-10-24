@@ -1,13 +1,12 @@
 // Slice 44 — Builder self-smoke: Dela = Kopiera länk + Skriv ut passet; print stays armed (WebKit timing); card fields in the pass print.
-// Branch on :4444, main on :4410 (old-link check). 390×844, DPR 2. Print checked with emulateMedia('print') + page.pdf (A4).
+// Branch build from $S44_BR (set by tools/run-smokes.sh); old links from fixtures/old-share-links.json (Slice 52: B1). 390×844, DPR 2. Print checked with emulateMedia('print') + page.pdf (A4).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { sliceNumber } from './tools/smoke-login.mjs'
 import { startMall } from './tools/smoke-start.mjs'
 import { writeFileSync, readFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
-const BR = process.env.S44_BR ?? 'http://127.0.0.1:4444/traningsplaneringen/'
-const MAIN = process.env.S44_MAIN ?? 'http://127.0.0.1:4410/traningsplaneringen/'
+const BR = process.env.S44_BR ?? (() => { throw new Error('S44_BR saknas — kör via verifier/tools/run-smokes.sh') })()  // Slice 52: B1, no port fallback
 const ROOT = process.env.S44_ROOT ?? '/workspace/gp-s44'
 const OLD_LINKS = JSON.parse(readFileSync(new URL('./fixtures/old-share-links.json', import.meta.url), 'utf8')) // Slice 52: B1 frozen old #dela= tokens
 const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
