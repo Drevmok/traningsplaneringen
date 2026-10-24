@@ -1,7 +1,7 @@
 # Slice 51 — Laga trasiga smokes
 
 **App:** Träningsplaneraren (appen ändras inte)
-**Status:** **FÖRESLAGEN**. Gäller A1 B1 C1 D1 E1 F1 om de låses. Bas: main @ 055af39 (Slice 50 via PR #55). Gren: `slice-51-docs`.
+**Status:** **LÅST** 2026-10-24 av Christoffer (svar via PO-chatten: «Lås enligt rekommendationerna»): A1 B1 C1 D1 E1 F1. Bas: main @ 055af39. Gren: `slice-51-docs`. Se `decisions.md`.
 **Effort:** **L** (se nedan).
 **Källa:** PO-uppdrag 2026-10-24. Underlag: `verifier/smoke-map.json`, `verifier/slice-50-checks/main-smoke-baseline.txt`, `verifier/slice-50-verify-checks/loop.txt`, `verifier/slice-50-verify-report.md` (Quality Masters fynd M1, M2 och Info), `verifier/tools/`.
 
