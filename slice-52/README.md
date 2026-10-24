@@ -1,7 +1,7 @@
 # Slice 52 — Kvarvarande smoke-fel
 
 **App:** Träningsplaneraren (appen ändras inte)
-**Status:** **FÖRESLAGEN** 2026-10-24. Bas: main @ 84b44e7 (Slice 51 mergad via PR #56). Gren: `slice-52-docs`. Väntar på Christoffers lås av A–F.
+**Status:** **LÅST** 2026-10-24 av Christoffer (svar via PO-chatten: «Lås enligt rekommendationerna»): A1 B1 C1 D1 E1 F1. Bas: main @ 84b44e7. Gren: `slice-52-docs`. Se `decisions.md`.
 **Effort:** **M** (se nedan).
 **Källa:** Quality Masters rapport för Slice 51 (`verifier/slice-51-verify-report.md`, AC4/AC7-avvikelsen och M1–M4, Info) och Builders lista i `SLICE51-SHIPPED.md` («Remaining FAIL», «More open findings»).
 
