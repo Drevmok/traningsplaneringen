@@ -1,0 +1,13 @@
+slice-30-builder-smoke ok inLoop=default OK
+slice-30-fix-b1-smoke ok inLoop=default OK
+seed-2DJ_oMM81mI-smoke ok inLoop=default OK
+slice-31-builder-smoke ok inLoop=default OK
+slice-32-builder-smoke ok inLoop=default OK
+slice-37-builder-smoke ok inLoop=default OK
+slice-42-builder-smoke ok inLoop=default OK
+slice-43-builder-smoke ok inLoop=default OK
+slice-44-builder-smoke ok inLoop=default OK
+slice-45-builder-smoke ok inLoop=default OK
+slice-46-builder-smoke ok inLoop=default OK
+trasig: inga
+AC6 PASS

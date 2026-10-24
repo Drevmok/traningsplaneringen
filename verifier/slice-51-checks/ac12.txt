@@ -1,0 +1,37 @@
+=== körning 1
+slice-33-builder-smoke exit=1 PASS 94 / FAIL 13 (181 s)
+  slice-33-builder-smoke: KARANTÄN-FAIL AC16d (räknas inte; rad i /tmp/ac12-q.tsv)
+  slice-33-builder-smoke: SAMMA
+netlog: 299 requests, 0 to the live project host (all aborted)
+baslinje: inga NY FAIL (/home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/smoke-baseline.txt)
+runner rc=0
+KARANTÄN-FAIL [AC16d] The new code logs in
+=== körning 2
+slice-33-builder-smoke exit=1 PASS 94 / FAIL 13 (181 s)
+  slice-33-builder-smoke: NY FAIL (karantän AC16d två körningar i rad, se /tmp/ac12-q.tsv)
+  slice-33-builder-smoke: SAMMA
+netlog: 299 requests, 0 to the live project host (all aborted)
+baslinje: NY FAIL mot /home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/smoke-baseline.txt
+runner rc=1
+KARANTÄN-FAIL [AC16d] The new code logs in
+=== quarantine.tsv
+2026-10-24T09:12:16+02:00	422f145	slice-33-builder-smoke	AC16d
+2026-10-24T09:15:18+02:00	422f145	slice-33-builder-smoke	AC16d
+=== testkarta karantan
+{"ids":["AC16d"],"limit":"≥2/20","note":"Slice 51 E1: AC-id som räknas som KARANTÄN-FAIL (inte FAIL). Samma id två körningar i rad → NY FAIL. Rader loggas i $TPV_HOME/quarantine.tsv."}
+=== tvingad FAIL (scratch-worktree diff)
+diff --git a/verifier/slice-33-builder-smoke.mjs b/verifier/slice-33-builder-smoke.mjs
+index 17f410f..705690f 100644
+--- a/verifier/slice-33-builder-smoke.mjs
++++ b/verifier/slice-33-builder-smoke.mjs
+@@ -670,8 +670,8 @@ await attempt('AC16', 'Resend after 60 s, replaced code, login (admin)', async (
+   const loggedIn = await p.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 }).then(() => true, () => false)
+   const ok16d = loggedIn && (await dialog(p).count()) === 0
+   if (!ok16d) otpDebug({ a1: codeA1, a2: codeA2 })
+-  check('AC16d', 'The new code logs in', ok16d)
+-  if (!ok16d) throw new Error('AC16d: the new code did not log in (see slice-33-otp-debug.txt)')
++  check('AC16d', 'The new code logs in', false /* AC12 tvingad FAIL */)
++// AC12:   if (!ok16d) throw new Error('AC16d: the new code did not log in (see slice-33-otp-debug.txt)')
+   check('AC11d', 'Focus moves to the footer «Logga ut»', String((await active(p)).cls).includes('footer-admin-logout'))
+   check('AC24b', 'Verifier + pending keys removed after login, session stored', (await store(p, VERIFIER_KEY)) === null && (await store(p, PENDING_KEY)) === null && (await store(p, AUTH_KEY)) !== null)
+   await startBlank(p)

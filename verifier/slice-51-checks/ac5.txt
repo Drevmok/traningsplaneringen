@@ -1,0 +1,19 @@
+$ grep -c "Från mall\|'Tomt pass'" verifier/slice-4[2-5]-builder-smoke.mjs verifier/slice-37-builder-smoke.mjs
+verifier/slice-42-builder-smoke.mjs:1
+verifier/slice-43-builder-smoke.mjs:1
+verifier/slice-44-builder-smoke.mjs:0
+verifier/slice-45-builder-smoke.mjs:1
+verifier/slice-37-builder-smoke.mjs:0
+
+$ grep -n (träffar)
+verifier/slice-42-builder-smoke.mjs:60:  check('AC3', 'first visit via Från mall → mall pass with stations and no tip', !(await tipShown()) && (await p.locator('.item-remove').count()) > 2, `confirm=${c}`)
+verifier/slice-43-builder-smoke.mjs:2:// Main build on :4310 (before), branch on :4343 (after). Pass = Från mall → Nybörjare → Hallöversikt.
+verifier/slice-45-builder-smoke.mjs:102:  check('AC4', 'Tomt pass and Från mall → Nybörjare on Stora hallen; every Teknik marker on the grid in pass order', (dt?.hallTemplateId ?? 'forening-bla') === 'forening-bla' && d.hallTemplateId === 'forening-bla' && meta.includes(STORA) && pl.length === ids.length && pl.every((x) => x.zoneId === 'open') && JSON.stringify(pl.map((x) => x.sessionItemId)) === JSON.stringify(ids), `tomt=${dt?.hallTemplateId} mall=${d.hallTemplateId} n=${pl.length}/${ids.length}`)
+
+$ grep -c smoke-start
+verifier/slice-42-builder-smoke.mjs:2
+verifier/slice-43-builder-smoke.mjs:2
+verifier/slice-44-builder-smoke.mjs:2
+verifier/slice-45-builder-smoke.mjs:2
+verifier/slice-37-builder-smoke.mjs:2
+Not: träffarna är check-etiketter/kommentarer, inga klick; start-klick går via smoke-start.mjs.

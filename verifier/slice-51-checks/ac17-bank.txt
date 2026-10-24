@@ -1,0 +1,17 @@
+start rc=0
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > dry-run against the DB writes nothing [63.64ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > inserts pending rows; second run skips (no overwrite); anon cannot see them [29.73ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > --replace changes text but not status [14.67ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > the bot key cannot DELETE (permission denied, row still there) [6.23ms]
+(pass) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > a revoked key fails clearly [1.89ms]
+
+tools/bank/export-seed.test.ts:
+(pass) export-seed --chunked > committed parts equal a fresh run, each ≤ 16 000 bytes, own begin/commit [43.79ms]
+(pass) export-seed --chunked > --new-only never updates existing rows and fills only empty links [24.24ms]
+(pass) export-seed --chunked > single-file output is unchanged by the chunked mode [20.56ms]
+
+ 26 pass
+ 0 fail
+ 143 expect() calls
+Ran 26 tests across 2 files. [266.00ms]
+bun rc=0

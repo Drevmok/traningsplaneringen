@@ -1,0 +1,10 @@
+# HOME=/tmp/ac13home (ingen chromium_headless_shell-*), simulerar bortflyttad Chromium utan att störa pågående körningar
+$ ls ~/.cache/ms-playwright
+ls: cannot access '/tmp/ac13home/.cache/ms-playwright': No such file or directory
+$ doctor.sh
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+BLOCKED Playwright Chromium — kör bash verifier/tools/install-once.sh
+Doctor: BLOCKED (33 ms)
+doctor rc=1

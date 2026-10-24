@@ -1,0 +1,18 @@
+slice-49-builder-smoke exit=1 24/34 pass (37 s)
+  slice-49-builder-smoke: NY FAIL (PASS 34→24, FAIL 0→10)
+netlog: 54 requests, 0 to the live project host (all aborted)
+baslinje: NY FAIL mot /home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/smoke-baseline.txt
+runner rc=1
+diff --git a/app/src/data/wizardPaths.ts b/app/src/data/wizardPaths.ts
+index 7fb829e..e807950 100644
+--- a/app/src/data/wizardPaths.ts
++++ b/app/src/data/wizardPaths.ts
+@@ -97,7 +97,7 @@ export function teknikActivityIdsFor(
+ /** Slice 49 A1: minutes per block for each pass length (sum = the length). Edit freely. */
+ export const WIZARD_BLOCK_MINUTES: Record<PassLength, Record<BlockType, number>> = {
+   60: { gathering: 6, warmup: 10, techniques: 21, strength: 15, fun_and_games: 8 },
+-  90: { gathering: 6, warmup: 15, techniques: 36, strength: 20, fun_and_games: 13 },
++  90: { gathering: 6, warmup: 15, techniques: 30, strength: 20, fun_and_games: 13 },
+   120: { gathering: 8, warmup: 20, techniques: 45, strength: 27, fun_and_games: 20 },
+ }
+ 

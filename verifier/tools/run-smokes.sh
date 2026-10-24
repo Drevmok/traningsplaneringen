@@ -31,7 +31,7 @@ compare() { # <script> <exit> <summary> <karantän-fails>
   local s=$1 e=$2 sum=$3 k=$4 bl be bc cc bp bf cp cf
   bl=$(grep -m1 "^$s exit=" "$BASELINE"); [ -z "$bl" ] && { echo "  $s: UTAN BASLINJE"; return; }
   be=$(echo "$bl" | sed -E 's/^[^ ]+ exit=([0-9]+).*/\1/'); bc=$(counts "$bl"); cc=$(counts "$sum")
-  read -r bp bf <<<"${bc:-x x}"; read -r cp cf <<<"${cc:-x x}"; [ "$cf" != x ] && cf=$((cf - k))
+  read -r bp bf <<<"${bc:-x x}"; read -r cp cf <<<"${cc:-x x}"; [ "$cf" != x ] && { cf=$((cf - k)); cp=$((cp + k)); }  # Slice 51 E1: a KARANTÄN-FAIL is neither FAIL nor a lost PASS (AC12)
   local v=SAMMA why=""
   if [ -z "$cc" ] && [ -n "$bc" ]; then v="NY FAIL"; why="kraschar (baslinjen $bp/$bf)"
   elif [ -n "$cc" ] && [ -n "$bc" ] && { [ "$cf" -gt "$bf" ] || [ "$cp" -lt "$bp" ]; }; then v="NY FAIL"; why="PASS $bp→$cp, FAIL $bf→$cf"
