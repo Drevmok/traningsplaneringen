@@ -1,0 +1,23 @@
+FAIL [wizard] error — locator.click: Timeout 10000ms exceeded. @54
+FAIL [tomt+mall] error — locator.click: Timeout 10000ms exceeded. @89
+FAIL [AC8] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC9-tavling] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC9-liten] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC9-generic] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC9-none] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC12] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC10] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC11] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC13] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC14] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [Dela] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [Dela-toast] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [Dela-grow] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC15/21] error — locator.click: Timeout 10000ms exceeded. @34
+FAIL [AC16] error — locator.click: Timeout 10000ms exceeded. @34
+PASS [AC17-ids] legacy ids only in the legacy alias (types.ts LegacyHallTemplateId, lib/hall.ts LEGACY_TEMPLATES) and tests
+cat: '/home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/wt/app/dist/assets/index-*.js': No such file or directory
+FAIL [AC17] error — Command failed: bash -c cat /home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/wt/app/dist/assets/index-*.js @364
+PASS [errors] no page errors
+
+2/20 PASS

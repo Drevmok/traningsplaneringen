@@ -9,6 +9,7 @@
 // go into the results file, the console or a screenshot (code field masked on step-2 shots).
 // Run on a FRESH stand-in (the Slice 32 regression part edits seeded rows): down.sh && up.sh first.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
@@ -59,8 +60,8 @@ const results = []
 const notes = []
 const seenTexts = [] // every sheet text seen (AC 26)
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
 }
 const note = (s) => {
   notes.push(s)
@@ -1038,3 +1039,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-33-smoke-results.json`, JSON.stringify({ results, notes, bankRequests: bankLog.length }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

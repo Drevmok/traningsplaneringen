@@ -2,6 +2,7 @@
 // Plain build preview on :4199 (S39_URL). localStorage writes to the draft key are counted by an init-script spy;
 // __failDraft = true makes those writes throw (storage full).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
@@ -15,8 +16,8 @@ const S = { saved: md('autosaveSaved'), failed: md('autosaveFailed'), toast: md(
 
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
 }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 
@@ -332,3 +333,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-39-builder-smoke-results.json`, JSON.stringify({ at: new Date().toISOString(), results }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

@@ -1,14 +1,18 @@
 // Slice 44 — Builder self-smoke: Dela = Kopiera länk + Skriv ut passet; print stays armed (WebKit timing); card fields in the pass print.
 // Branch on :4444, main on :4410 (old-link check). 390×844, DPR 2. Print checked with emulateMedia('print') + page.pdf (A4).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs'
+import { startMall } from './tools/smoke-start.mjs'
 import { writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 const BR = process.env.S44_BR ?? 'http://127.0.0.1:4444/traningsplaneringen/'
 const MAIN = process.env.S44_MAIN ?? 'http://127.0.0.1:4410/traningsplaneringen/'
 const ROOT = process.env.S44_ROOT ?? '/workspace/gp-s44'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const PDF = `${ROOT}/verifier/slice-44-print`
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 500) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 260) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 500) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 260) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -31,9 +35,7 @@ async function page(mode = 'webkit', vp = { width: 390, height: 844 }) {
 const shot = (p, n) => p.screenshot({ path: `/workspace/screenshots/slice44_${n}.png` })
 async function mall(p, base = BR) {
   await p.goto(base); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(300)
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(400)
-  const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
+  await startMall(p, /Nybörjare/) // Slice 51 (A1): «Planera pass» → «Starta från mall» → Hall → Nybörjare (smoke-start.mjs)
   await p.waitForTimeout(5600)
 }
 async function menu(p, name) { await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel').getByRole('button', { name, exact: true }).click() }
@@ -88,7 +90,7 @@ await attempt('Dela', async () => {
   check('AC18', 'second tap prints again; no stall line', (await p.evaluate(() => window.__prints.length)) === 2 && (await sheet(p).locator('[role=status]').count()) === 0)
   await sheet(p).locator('.modal-close').click(); await p.waitForTimeout(300)
   check('AC8', 'close → back in Passbyggaren, no stray is-print-pass, page scrolls', !(await p.evaluate(() => document.body.className)).includes('is-print-pass') && (await p.locator('.builder').count()) === 1 && (await p.evaluate(() => { window.scrollTo(0, 400); return window.scrollY > 0 })))
-  check('AC22-footer', 'footer «Träningsplaneraren · Slice 44»', (await p.locator('body').innerText()).includes('Träningsplaneraren · Slice 44'))
+  check('AC22-footer', `footer «Träningsplaneraren · Slice ${SLICE}»`, (await p.locator('body').innerText()).includes(`Träningsplaneraren · Slice ${SLICE}`))
   await menu(p, 'Spara som egen mall'); await p.waitForTimeout(300)
   const dlg = await p.locator('.modal-actions .btn-primary').count(); if (dlg) await p.locator('.modal-actions .btn-primary').last().click(); await p.waitForTimeout(300)
   const n = await p.evaluate(() => JSON.parse(localStorage.getItem('gymnastics-planner-templates-v1') || '[]').length)
@@ -224,3 +226,4 @@ check('no-errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-44-builder-smoke-results.json`, JSON.stringify({ when: new Date().toISOString(), results, measure }, null, 2))
 console.log(JSON.stringify(measure)); console.log(`${results.filter((r) => r.ok).length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

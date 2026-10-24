@@ -7,8 +7,11 @@
 // no redirect following) to the local gateway → PostgREST (schema-31 + 32, real RLS) / GoTrue (real
 // magic-link + PKCE). Login mails land in $S32_DIR/mail (default /tmp/s32/mail) via a local SMTP sink.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { startFragor, startMall, startTomt } from './tools/smoke-start.mjs'
+import { codeLogin, requestCode, sliceNumber } from './tools/smoke-login.mjs'
 
 // Override when another agent's preview holds a port: S32_OFF_URL / S32_ON_URL (ON must match the stand-in's S32_PREVIEW_PORT).
 const OFF = process.env.S32_OFF_URL ?? 'http://127.0.0.1:4173/traningsplaneringen/'
@@ -24,14 +27,12 @@ const AUTH_KEY = 'gymnastics-planner-admin-auth-v1'
 const STALE = 'Visar sparade övningar. Du kan planera som vanligt.'
 const ADMIN = 'admin@test.local'
 const NONADMIN = 'nonadmin@test.local'
+const SLICE = sliceNumber(ROOT) // Slice 51 (C1): footer follows SLICE_NUMBER in blockMeta.ts
 const SHARE_TOKEN = execFileSync('bun', [`${ROOT}/verifier/slice-32-local/mktoken.ts`], { encoding: 'utf8' }).trim()
 const UI = {
   login: 'Logga in som admin',
   logout: 'Logga ut',
   notAdmin: 'Du är inloggad men inte admin.',
-  sent: 'Om adressen hör till en admin kommer en länk strax. Öppna den i den här webbläsaren. Den gäller i en timme.',
-  wait: 'Vänta en stund innan du ber om en ny länk.',
-  failed: 'Länken fungerar inte längre. Be om en ny.',
   offline: 'Du behöver nät för att ändra i banken.',
   conflict: 'Någon annan har ändrat övningen. Stäng och öppna den igen.',
   usedIn: 'Övningen finns också i en mall eller i Planera pass. Där ligger den kvar tills appen ändras.',
@@ -42,8 +43,8 @@ const UI = {
 const results = []
 const notes = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
 }
 const note = (s) => {
   notes.push(s)
@@ -151,24 +152,9 @@ function mails(to) {
     .filter((x) => JSON.stringify(x.m.to).includes(to))
     .sort((a, b) => a.t - b.t)
 }
-async function waitMail(to, after) {
-  for (let i = 0; i < 40; i++) {
-    const m = mails(to).filter((x) => x.t > after)
-    if (m.length) return m.at(-1).m
-    await new Promise((r) => setTimeout(r, 250))
-  }
-  throw new Error(`no mail for ${to}`)
-}
-const verifyLink = (m) => m.links.find((l) => l.includes('/auth/v1/verify'))
 
-async function sendLogin(page, email) {
-  await page.getByRole('button', { name: UI.login }).click()
-  const dlg = page.getByRole('dialog', { name: UI.login })
-  await dlg.waitFor()
-  await dlg.locator('input[type=email]').fill(email)
-  await dlg.getByRole('button', { name: 'Skicka länk' }).click()
-  return dlg
-}
+// Slice 51 (C1): login is the 6-digit code (Slice 33) via tools/smoke-login.mjs; «Skicka länk» is gone.
+const sendLogin = (page, email) => requestCode(page, email)
 async function builderAction(page, name) {
   const direct = page.locator('.builder-actions > button, .builder-extra > button').filter({ hasText: name })
   for (const b of await direct.all()) if (await b.isVisible()) return b.click()
@@ -176,7 +162,7 @@ async function builderAction(page, name) {
   await page.locator('.more-menu-panel').getByRole('button', { name }).click()
 }
 async function startBlank(page) {
-  await page.getByRole('button', { name: 'Tomt pass' }).click()
+  await startTomt(page) // Slice 51 (A1): «Planera pass» → «Tomt pass» → Hall → Längd
 }
 
 // ───────────── reset the local DB to the seeded state (local stand-in only) ─────────────
@@ -196,7 +182,7 @@ await attempt('AC26', 'Coach visit', async () => {
   const off = await newPage(ctx, OFF)
   await startBlank(off)
   const f0 = await footerText(off)
-  check('AC50a', 'Plain build footer: Träningsplaneraren · Slice 32, no admin link (vars unset)', f0.startsWith('Träningsplaneraren · Slice 32') && !f0.includes(UI.login), f0)
+  check('AC50a', `Plain build footer: Träningsplaneraren · Slice ${SLICE}, no admin link (vars unset)`, f0.includes(`Träningsplaneraren · Slice ${SLICE}`) && !f0.includes(UI.login), f0) // Slice 51 (C1): footer gained Tyck till/Visa tips/Uppdatera links in later slices
   await ctx.close()
 
   const c = await newCtx('coach')
@@ -206,13 +192,14 @@ await attempt('AC26', 'Coach visit', async () => {
   await shot(page, 'coach_home_footer')
   await startBlank(page)
   const f = await footerText(page)
-  check('AC50', 'Bank build footer reads «Träningsplaneraren · Slice 32 · Logga in som admin»', f.startsWith('Träningsplaneraren · Slice 32 · Logga in som admin'), f)
+  check('AC50', `Bank build footer reads «Träningsplaneraren · Slice ${SLICE} · Logga in som admin»`, f.includes(`Träningsplaneraren · Slice ${SLICE}`) && f.includes('Logga in som admin'), f) // Slice 51 (C1): footer gained links in later slices
   await shot(page, 'coach_builder_footer')
   await openLibrary(page)
   await page.waitForTimeout(500)
   const js = assetLog.filter((a) => a.ctx === 'coach').map((a) => a.url.split('/').pop())
   check('AC26a', 'No supabase-js / admin chunk downloaded on a coach visit', !js.some((n) => /^(dist|session|adminBank|bankWrite|AdminLoginSheet|AdminDetailPanel|AdminBankForm)-/.test(n)), js.join(', '))
-  const reqs = bankLog.slice(before)
+  // Slice 51 (C1): Slice 36 added the club_templates GET to the coach build — not a Slice 31 bank GET
+  const reqs = bankLog.slice(before).filter((r) => !new URL(r.url).pathname.startsWith('/rest/v1/club_templates'))
   check('AC26b', 'Coach requests: only the two Slice 31 GETs, publishable key, no Authorization', reqs.length === 2 && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
   check('AC26c', 'No admin UI in Biblioteket (no Admin chip, no filter chips, no badges)', (await page.locator('.admin-bar, .admin-filter-chip, .admin-badge').count()) === 0)
   check('AC26d', 'No auth key in storage', (await store(page, AUTH_KEY)) === null)
@@ -226,41 +213,28 @@ await attempt('AC24', 'Unknown e-mail', async () => {
   const page = await newPage(ctx, ON)
   const usersBefore = sql(`select count(*) from auth.users`)
   const t0 = Date.now()
-  const dlg = await sendLogin(page, 'okand@test.local')
-  await dlg.getByRole('status').waitFor()
-  check('AC24a', 'Same adminLinkSent text for an unknown address', (await dlg.getByRole('status').innerText()) === UI.sent)
+  await sendLogin(page, 'okand@test.local')
+  // Slice 51 (C1): AC24a (adminLinkSent text) removed — magic-link only; the code step is covered by s33.
   await shot(page, 'login_sent_unknown')
   await page.waitForTimeout(800)
   check('AC24b', 'No user created (sign-ups off)', sql(`select count(*) from auth.users`) === usersBefore && sql(`select count(*) from auth.users where email = 'okand@test.local'`) === '0')
   check('AC24c', 'No mail sent to the unknown address', mails('okand@test.local').filter((x) => x.t > t0).length === 0)
   const otp = bankLog.filter((r) => r.ctx === 'unknown' && r.url.includes('/auth/v1/otp'))
-  check('AC24d', 'OTP request asks never to create users and returns to the app', otp.length === 1 && JSON.parse(otp[0].body).create_user === false && decodeURIComponent(otp[0].url).includes(`redirect_to=${ON}`), otp[0]?.body)
+  // Slice 51 (C1): the redirect_to part of AC24d was magic-link only (a code login has no return link).
+  check('AC24d', 'OTP request asks never to create users', otp.length === 1 && JSON.parse(otp[0].body).create_user === false, otp[0]?.body)
   await ctx.close()
 })
 
-// ───────────────────────── AC 25: magic link round trip ─────────────────────────
+// ───────────────────────── AC 25: admin login (code) ─────────────────────────
+// Slice 51 (C1): AC25a–e and AC28a–e removed — they tested the magic link (PKCE link, code verifier, ?code= in the
+// address, #dela= kept on the link return, used/expired link, 60 s link limit, link in another browser). The code
+// login replacing it is covered by slice-33. Kept: AC25f–h (session key, reload, Logga ut).
 const admin = await newCtx('admin')
 let adminPage
-let adminLink
-let lastAdminSend = 0
-await attempt('AC25', 'Magic link round trip', async () => {
+await attempt('AC25', 'Admin login with code', async () => {
   adminPage = await newPage(admin, ON)
-  const t0 = Date.now()
-  lastAdminSend = t0
-  const dlg = await sendLogin(adminPage, ADMIN)
-  await dlg.getByRole('status').waitFor()
-  await shot(adminPage, 'login_sheet_sent')
-  const m = await waitMail(ADMIN, t0)
-  adminLink = verifyLink(m)
-  check('AC25a', 'Mail arrives with a verify link back to the app (PKCE token)', adminLink && adminLink.includes('token=pkce_') && decodeURIComponent(adminLink).includes(`redirect_to=${ON}`), adminLink?.replace(/token=[^&]+/, 'token=…'))
-  check('AC25b', 'Code verifier saved in this browser before the mail', (await store(adminPage, `${AUTH_KEY}-code-verifier`)) !== null)
-  await adminPage.goto(`${adminLink}#dela=${SHARE_TOKEN}`)
+  await codeLogin(adminPage, ADMIN, S32)
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  const url = new URL(adminPage.url())
-  check('AC25c', '?code= removed from the address', !url.search.includes('code='), url.pathname + url.search)
-  check('AC25d', 'Existing #dela= hash survives the login return', url.hash === `#dela=${SHARE_TOKEN}`, url.hash.slice(0, 30))
-  check('AC25e', 'Shared pass still opens from the kept hash', (await adminPage.getByText('Delat testpass').count()) > 0)
-  await shot(adminPage, 'login_return_shared_pass')
   check('AC25f', 'Session stored under gymnastics-planner-admin-auth-v1', (await store(adminPage, AUTH_KEY)) !== null)
   await adminPage.goto(ON)
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
@@ -269,54 +243,11 @@ await attempt('AC25', 'Magic link round trip', async () => {
   await shot(adminPage, 'admin_home_footer')
 })
 
-// ───────────────────────── AC 28: used link + rate limit ─────────────────────────
-await attempt('AC28', 'Used link, then a second request within 60 s', async () => {
-  const ctx = await newCtx('expired')
-  const page = await newPage(ctx, ON)
-  await page.goto(adminLink)
-  const dlg = page.getByRole('dialog', { name: UI.login })
-  await dlg.waitFor({ timeout: 15000 })
-  check('AC28a', 'Used link → login sheet opens with adminLinkFailed', (await dlg.locator('.admin-link-failed').innerText()) === UI.failed)
-  const url = new URL(page.url())
-  check('AC28b', 'Error parameters removed from the address', !/error|code=/.test(url.search + url.hash), url.search + url.hash)
-  await shot(page, 'login_link_failed')
-  await dlg.locator('input[type=email]').fill(ADMIN)
-  await dlg.getByRole('button', { name: 'Skicka länk' }).click()
-  await dlg.locator('.admin-send-error').waitFor()
-  check('AC28c', '2nd request within 60 s → adminWait', (await dlg.locator('.admin-send-error').innerText()) === UI.wait)
-  await shot(page, 'login_wait')
-  // failed exchange (link opened in another browser: no code verifier there)
-  const waitMs = Math.max(0, lastAdminSend + 62000 - Date.now())
-  note(`waiting ${Math.round(waitMs / 1000)} s for the 60 s per-address mail limit before the cross-browser test`)
-  await new Promise((r) => setTimeout(r, waitMs))
-  const t0 = Date.now()
-  const other = await newCtx('other-browser')
-  const op = await newPage(other, ON)
-  const d2 = await sendLogin(op, ADMIN)
-  await d2.getByRole('status').waitFor()
-  const m = await waitMail(ADMIN, t0)
-  const link = verifyLink(m)
-  const third = await newCtx('third-browser')
-  const tp = await newPage(third)
-  await tp.goto(link)
-  const d3 = tp.getByRole('dialog', { name: UI.login })
-  await d3.waitFor({ timeout: 15000 })
-  check('AC28d', 'Link opened in another browser (failed ?code= exchange) → adminLinkFailed', (await d3.locator('.admin-link-failed').innerText()) === UI.failed && !new URL(tp.url()).search.includes('code='))
-  check('AC28e', 'No session created in that browser', (await store(tp, AUTH_KEY)) === null)
-  await ctx.close()
-  await other.close()
-  await third.close()
-})
-
 // ───────────────────────── AC 27: non-admin ─────────────────────────
 await attempt('AC27', 'Logged-in user who is not admin', async () => {
   const ctx = await newCtx('nonadmin')
   const page = await newPage(ctx, ON)
-  const t0 = Date.now()
-  const dlg = await sendLogin(page, NONADMIN)
-  await dlg.getByRole('status').waitFor()
-  const link = verifyLink(await waitMail(NONADMIN, t0))
-  await page.goto(link)
+  await codeLogin(page, NONADMIN, S32) // Slice 51 (C1)
   await page.locator('footer .footer-admin-not').waitFor({ timeout: 15000 })
   const f = await footerText(page)
   check('AC27a', 'Footer: adminNotAdmin + Logga ut', f.includes(`${UI.notAdmin} · Logga ut`), f)
@@ -377,6 +308,20 @@ await attempt('AC41', 'Bot push of the 2-exercise fixture', async () => {
 })
 
 // ───────────────────────── AC 29–33: admin UI ─────────────────────────
+// Slice 51 (C1): the Slice 32 admin filter chips in Biblioteket moved to the Admin view in
+// Slice 47 (C1, «the Slice 32 lists»): one heading per non-empty list instead of a chip.
+async function adminArea(page) {
+  await page.goto(ON)
+  await page.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
+  await page.locator('.footer-admin-open').first().click()
+  await page.locator('.admin-area').waitFor()
+  await page.waitForTimeout(300)
+}
+const adminList = (page, re) => page.locator('.admin-area-list').filter({ has: page.locator('h2', { hasText: re }) })
+const listTitles = (list) =>
+  list.locator('.activity-title').evaluateAll((els) =>
+    els.map((el) => Array.from(el.childNodes).filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim()),
+  )
 const TA = 'Test: formhopp över lågt block'
 const TB = 'Test: äggrullning nerför kil'
 await attempt('AC29', 'Admin mode lists', async () => {
@@ -384,15 +329,16 @@ await attempt('AC29', 'Admin mode lists', async () => {
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
   await startBlank(adminPage)
   await openLibrary(adminPage)
-  await adminPage.locator('.admin-bar').waitFor()
-  const chips = await adminPage.locator('.admin-bar').innerText()
-  check('AC29a', `Admin chip + «Väntar på godkännande (2)» + «Behöver granskas (${REVIEW_N})»; no Dolda chip at 0`, chips.includes('Admin') && chips.includes('Väntar på godkännande (2)') && chips.includes(`Behöver granskas (${REVIEW_N})`) && !chips.includes('Dolda'), chips.replace(/\s+/g, ' '))
   const plain = await libraryTitles(adminPage)
   check('AC29b', 'Pending rows not in the normal list', !plain.includes(TA) && !plain.includes(TB), `${plain.length} titles`)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Väntar på godkännande' }).click()
-  const pend = await titleTexts(adminPage)
-  check('AC29c', 'Pending chip shows exactly the two bot rows with «Väntar» badge', pend.length === 2 && pend.includes(TA) && pend.includes(TB) && (await adminPage.locator('.library-entry .admin-badge-pending').count()) === 2, pend.join(', '))
-  check('AC29d', 'Väntar chip is pressed (aria-pressed)', (await adminPage.locator('.admin-filter-chip.active').getAttribute('aria-pressed')) === 'true')
+  await adminArea(adminPage) // Slice 51 (C1): lists live in the Admin view since Slice 47 C1
+  const heads = await adminPage.locator('.admin-area-list h2').allInnerTexts()
+  const chips = heads.join(' | ')
+  check('AC29a', `Admin view + «Väntar på godkännande (2)» + «Behöver granskas (${REVIEW_N})»; no Dolda list at 0`, (await adminPage.locator('.admin-area-top h1').innerText()) === 'Admin' && heads.includes('Väntar på godkännande (2)') && heads.includes(`Behöver granskas (${REVIEW_N})`) && !chips.includes('Dolda'), chips)
+  const pendList = adminList(adminPage, /^Väntar på godkännande/)
+  const pend = await listTitles(pendList)
+  check('AC29c', 'Pending list shows exactly the two bot rows with «Väntar» badge', pend.length === 2 && pend.includes(TA) && pend.includes(TB) && (await pendList.locator('.library-entry .admin-badge-pending').count()) === 2, pend.join(', '))
+  check('AC29d', 'Väntar list comes first (was: chip pressed; Slice 47 C1 has no chips)', heads[0]?.startsWith('Väntar på godkännande'), heads[0])
   await shot(adminPage, 'admin_pending_list')
   await card(adminPage, TA).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
@@ -400,7 +346,8 @@ await attempt('AC29', 'Admin mode lists', async () => {
   await d.locator('.admin-detail').waitFor()
   check('AC29e', 'Pending detail: not addable to a pass', (await d.getByRole('button', { name: 'Lägg till i valt block' }).count()) === 0)
   const btns = await d.locator('.admin-actions button').allInnerTexts()
-  check('AC29f', 'Pending detail: Godkänn · Ändra i banken; review hint; last changed by Planner', btns.join('|') === 'Godkänn|Ändra i banken' && (await d.innerText()).includes('Läs igenom texten.') && (await d.locator('.admin-last-changed').innerText()).includes('av Planner'), btns.join('|'))
+  // Slice 51 (C1): Slice 47 (D2) added «Dölj för alla» to pending rows
+  check('AC29f', 'Pending detail: Godkänn · Ändra i banken · Dölj för alla; review hint; last changed by Planner', btns.join('|') === 'Godkänn|Ändra i banken|Dölj för alla' && (await d.innerText()).includes('Läs igenom texten.') && (await d.locator('.admin-last-changed').innerText()).includes('av Planner'), btns.join('|'))
   await shot(adminPage, 'admin_pending_detail')
   await d.getByRole('button', { name: 'Godkänn' }).click()
   await adminPage.getByText(UI.approved).waitFor()
@@ -428,11 +375,8 @@ await attempt('AC30', 'Another (anon) profile sees the approved row', async () =
 
 await attempt('AC31', 'Ändra i banken', async () => {
   const before = JSON.parse(sql(`select row_to_json(e) from (select tags, difficulty, progression_of, regression_of, visual_key, sort_order, status from public.exercises where id = 'tech-test-aggrullning-kil') e`))
-  await adminPage.goto(ON)
-  await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  await startBlank(adminPage)
-  await openLibrary(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Väntar på godkännande (1)' }).click()
+  await adminArea(adminPage) // Slice 51 (C1): Slice 47 C1 Admin view
+  await adminList(adminPage, 'Väntar på godkännande (1)').waitFor()
   await card(adminPage, TB).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
   await d.locator('.admin-detail').waitFor()
@@ -486,20 +430,17 @@ await attempt('AC31', 'Ändra i banken', async () => {
 await attempt('AC33', 'Markera som granskad', async () => {
   const REVIEW_N = Number(sql(`select count(*) from public.exercises where status = 'published' and needs_coach_review`))
   note(`review count now ${REVIEW_N} (16 seed rows + the approved bot row)`)
-  await adminPage.goto(ON)
-  await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  await startBlank(adminPage)
-  await openLibrary(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: `Behöver granskas (${REVIEW_N})` }).click()
-  const list = await titleTexts(adminPage)
-  check('AC33b0', 'Review chip lists the flagged published rows with the review badge (admin only)', list.length === REVIEW_N && (await adminPage.locator('.library-entry .review-badge').count()) === REVIEW_N, `${list.length}`)
+  await adminArea(adminPage) // Slice 51 (C1): Slice 47 C1 Admin view
+  const revList = adminList(adminPage, `Behöver granskas (${REVIEW_N})`)
+  const list = await listTitles(revList)
+  check('AC33b0', 'Review list shows the flagged published rows with the review badge (admin only)', list.length === REVIEW_N && (await revList.locator('.library-entry .review-badge').count()) === REVIEW_N, `${list.length}`)
   await shot(adminPage, 'admin_review_chip')
   await card(adminPage, REVIEW_TITLE).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
   await d.locator('.admin-detail').waitFor()
   const textBefore = sql(`select md5(title || summary || how_to) from public.exercises where id = '${REVIEW_ID}'`)
   await d.locator('.admin-detail button', { hasText: 'Markera som granskad' }).click()
-  await adminPage.locator('.admin-filter-chip', { hasText: `Behöver granskas (${REVIEW_N - 1})` }).waitFor()
+  await adminPage.locator('.admin-area-list h2', { hasText: `Behöver granskas (${REVIEW_N - 1})` }).waitFor()
   check('AC33b', 'Markera som granskad clears it without edit (text unchanged, count −1)', sql(`select needs_coach_review::text || '|' || updated_by from public.exercises where id = '${REVIEW_ID}'`) === `false|${ADMIN}` && sql(`select md5(title || summary || how_to) from public.exercises where id = '${REVIEW_ID}'`) === textBefore)
   await closeDetail(adminPage)
 })
@@ -509,10 +450,7 @@ await attempt('AC34', 'Dölj för alla + Visa igen', async () => {
   // a coach saves a pass from the mall first (old pass that uses the drill)
   const cctx = await newCtx('coach3')
   const cp = await newPage(cctx, ON)
-  await cp.getByRole('button', { name: 'Från mall' }).click()
-  await cp.getByRole('button', { name: /Nybörjare/ }).first().click()
-  const use = cp.getByRole('button', { name: 'Använd mall' })
-  if (await use.isVisible().catch(() => false)) await use.click()
+  await startMall(cp, /Nybörjare/) // Slice 51 (A1)
   // Slice 39: no Spara utkast; the mall pass is saved on apply and «Sparat» shows.
   await cp.locator('.builder-actions .save-status', { hasText: 'Sparat' }).waitFor({ timeout: 5000 })
   await cp.waitForFunction(() => localStorage.getItem('gymnastics-planner-draft-v1') !== null, null, { timeout: 5000 })
@@ -548,8 +486,8 @@ await attempt('AC34', 'Dölj för alla + Visa igen', async () => {
   await cctx.close()
   // admin: Dolda (1) → Visa igen
   await closeDetail(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Dolda (1)' }).click()
-  await adminPage.locator('.library-entry .activity-card').first().click()
+  await adminArea(adminPage) // Slice 51 (C1): Slice 47 C1 Admin view
+  await adminList(adminPage, 'Dolda (1)').locator('.library-entry .activity-card').first().click()
   const d2 = adminPage.locator('.activity-detail')
   await d2.locator('.admin-detail').waitFor()
   check('AC34f', 'Hidden detail: «Dold» badge, Visa igen · Ändra i banken', (await d2.locator('.admin-badge-hidden').count()) === 1 && (await d2.locator('.admin-actions button').allInnerTexts()).join('|') === 'Visa igen|Ändra i banken')
@@ -561,6 +499,11 @@ await attempt('AC34', 'Dölj för alla + Visa igen', async () => {
 })
 
 await attempt('AC35', 'No delete control', async () => {
+  // Slice 51 (C1): AC34 now ends in the Admin view (Slice 47 C1) — back to Biblioteket
+  await adminPage.goto(ON)
+  await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
+  await startBlank(adminPage)
+  await openLibrary(adminPage)
   const d = await openDetail(adminPage, 'Kullerbytta')
   await d.locator('.admin-detail').waitFor()
   const txt = await d.locator('.admin-detail').innerText()
@@ -641,7 +584,7 @@ await attempt('AC39', 'No coach data leaves the device as admin', async () => {
   const writes = bankLog.filter((r) => r.ctx === 'admin' && r.method !== 'GET' && r.method !== 'OPTIONS')
   const allowed = writes.every((r) => {
     const p = new URL(r.url).pathname
-    if (p === '/auth/v1/otp' || p === '/auth/v1/token' || p === '/auth/v1/logout') return true
+    if (p === '/auth/v1/otp' || p === '/auth/v1/token' || p === '/auth/v1/verify' || p === '/auth/v1/logout') return true // Slice 51 (C1): code login verifies via /auth/v1/verify
     if (p === '/rest/v1/exercises' && r.method === 'PATCH') {
       const keys = Object.keys(JSON.parse(r.body ?? '{}'))
       return keys.every((k) => ['title', 'block_type', 'duration_minutes_default', 'summary', 'how_to', 'watch_for', 'safety_line', 'default_station_equipment', 'source', 'experienced_coach_only', 'status', 'needs_coach_review'].includes(k))
@@ -709,14 +652,7 @@ await attempt('AC48', 'Slice 31 behaviour', async () => {
   // wizard + mall
   const w = await newCtx('regress-wizard')
   const wp = await newPage(w, ON)
-  await wp.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = wp.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /Standard trupp/ }).first().click()
-  await wz.getByRole('button', { name: 'Skapa pass' }).click()
+  await startFragor(wp, { age: /7–9/, focus: /^Trampett/ }) // Slice 51: question path; Standard trupp left the hall list (Slice 45)
   const draft = JSON.parse(await store(wp, 'gymnastics-planner-draft-v1'))
   check('AC48e', 'Planera pass wizard still fills five blocks', draft.blocks.filter((b) => b.items.length > 0).length === 5)
   await w.close()
@@ -743,3 +679,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-32-smoke-results.json`, JSON.stringify({ results, notes, bankRequests: bankLog.length, botOutput: botOut }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

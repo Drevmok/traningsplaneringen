@@ -2,6 +2,7 @@
 // Branch build with the bank env on :4747, main 9aa3996 (same env) on :4710. Supabase is faked in the
 // browser by verifier/slice-47-fake-supabase.mjs (in-memory rows, fake admin sessions) — no real backend.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { writeFileSync } from 'node:fs'
 import { fakeBank, fakeSessionValue } from './slice-47-fake-supabase.mjs'
 const BR = process.env.S47_BR ?? 'http://127.0.0.1:4747/traningsplaneringen/'
@@ -15,7 +16,7 @@ const A = 'a@test.local', B = 'b@test.local', NA = 'coach@test.local'
 const bank = fakeBank(SEED); bank.admins.add(A); bank.admins.add(B)
 for (const row of bank.rows) row.needs_coach_review = false // start with nothing waiting (AC11 empty state)
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0] + ' @' + ((e.stack || '').match(/smoke\.mjs:(\d+)/) || [])[1]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -453,3 +454,4 @@ check('errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-47-smoke-results.json`, JSON.stringify(results, null, 2))
 const fail = results.filter((r) => !r.ok); console.log(`\n${results.length - fail.length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

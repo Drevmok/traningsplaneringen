@@ -1,0 +1,12 @@
+FAIL [AC1/2] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC3] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC4/AC9-wizard] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC5] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC6] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC7/9/14/15] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC8-egen] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC11/16] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC13] error — locator.click: Timeout 10000ms exceeded.
+FAIL [AC18-footer] footer «Träningsplaneraren · Slice 42»
+PASS [no-errors] no page errors
+1/11 pass

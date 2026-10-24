@@ -2,11 +2,12 @@
 // Branch build (bank off, seeds) on :4849. All supabase.co traffic is blocked in the browser — no real backend.
 // AC13–14 (club with ≥1 template / admin text) need a club backend: covered by unit tests only.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 const BR = process.env.S49_BR ?? 'http://127.0.0.1:4849/traningsplaneringen/'
 const SHOTS = process.env.S49_SHOTS ?? '/tmp/slice-49-screenshots'
 const DRAFT = 'gymnastics-planner-draft-v1'
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, ok: Boolean(ok) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), ok: Boolean(ok) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -96,4 +97,5 @@ check('errors', 'no page errors', errors.length === 0, errors.join(' | '))
 await browser.close()
 const fail = results.filter((r) => !r.ok).length
 console.log(`\n${results.length - fail}/${results.length} pass`)
-process.exit(fail ? 1 : 0)
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1
+process.exit(process.exitCode)

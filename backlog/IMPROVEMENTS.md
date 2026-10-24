@@ -213,6 +213,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 - **Slice 38** — Kör passet — «Kvar: …» for the rest of the pass (Scout run 2026-10-13 idea #3) · Effort: S
 - **Slice 50** — Snabbare verifiering (infra, no app change, bundle 0 B): tools once per box, Doctor + template database + main cache in `/home/box/tp-verify/`, `smoke-map.json` + `pick-smokes.mjs`, s33 OTP-flake fix (D1), one skill pointer, «Stabila väljare» per feature, weekly loop script (routine after Christoffer's OK) · Pack `slice-50/` · Effort: M
+- **Slice 51** — Laga trasiga smokes (infra, no app change, bundle 0 B): seed/s30/s30-fix/s31/s32/s37/s42–46 green on the stand-in, one start path (`smoke-start.mjs`) and code login (`smoke-login.mjs`), exit 1 on FAIL, `run-smokes --baseline` (SAMMA/NY FAIL/LAGAD) + crash line, karantän list + `quarantine.tsv`, `lib.sh pw_ok`, per-TPV_HOME template port, `bun test src`/`tools/bank` split · Pack `slice-51/` · Effort: M
 
 
 ---

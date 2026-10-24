@@ -2,11 +2,14 @@
 // Run: node verifier/seed-2DJ_oMM81mI-smoke.mjs  (preview on 127.0.0.1:4173)
 // playwright-core: /usr/local/lib/node_modules was gone on 2026-10-02; PW_CORE overrides.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs'
+import { startFragor, startTomt } from './tools/smoke-start.mjs'
 import { readFileSync, writeFileSync } from 'node:fs'
 
-const BASE = 'http://127.0.0.1:4173/traningsplaneringen/'
-const ROOT = '/workspace/gymnastics-planner'
-const exampleText = readFileSync(`${ROOT}/slice-30/content/example-import.json`, 'utf8')
+const BASE = process.env.S30_URL ?? 'http://127.0.0.1:4173/traningsplaneringen/'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const SEEDS = [
   { n: 1, title: 'Grenhopp från trampett', t: '0:16', url: 'https://youtu.be/2DJ_oMM81mI?t=16' },
   { n: 2, title: 'Formhopp över block från trampett', t: '0:30', url: 'https://youtu.be/2DJ_oMM81mI?t=30', sketch: 'cushion cushion cushion cushion trampett block landing' },
@@ -22,8 +25,8 @@ const SEEDS = [
 ]
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + detail : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + detail : ''}`)
 }
 const shot = (page, n) => page.screenshot({ path: `/workspace/screenshots/seed2dj_${n}.png` })
 async function attempt(id, name, fn) {
@@ -65,10 +68,10 @@ const sketchKinds = (d) =>
     }).join(' '))
 
 let { ctx, page } = await freshPage()
-await page.getByRole('button', { name: 'Tomt pass' }).click()
+await startTomt(page)
 await attempt('F', 'Footer', async () => {
   const f = (await page.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
-  check('F', 'Footer still Träningsplaneraren · Slice 30', f.includes('Träningsplaneraren · Slice 30'))
+  check('F', `Footer still Träningsplaneraren · Slice ${SLICE}`, f.includes(`Träningsplaneraren · Slice ${SLICE}`))
 })
 
 await attempt('L', 'Library', async () => {
@@ -159,28 +162,18 @@ await attempt('I', 'Dubblett vs seed', async () => {
   const teknik = page.locator('.block-card').filter({ has: page.locator('h3', { hasText: /^Teknik$/ }) })
   await teknik.locator('.btn-add-inline').click()
   await page.locator('.side-panel-slot.is-open').waitFor()
-  await page.getByRole('button', { name: 'Importera övningar från en fil eller en kod' }).click()
-  const sheet = page.locator('.own-import')
-  await sheet.locator('textarea').fill(exampleText)
-  await sheet.getByRole('button', { name: 'Läs in' }).click()
-  await sheet.locator('.own-import-row').first().waitFor()
-  const states = await sheet.locator('.own-import-state').allTextContents()
-  check('I1', 'Importing the old trial file now shows Samma namn finns redan (seed exists)', states.join('|') === 'Samma namn finns redan|Samma namn finns redan', states.join('|'))
+  // Slice 51: the coach import sheet left the coach UI in Slice 47 F1 (admin-only). The «Samma namn finns redan»
+  // state for this trial file is asserted by app/src/lib/ownImport.test.ts («a title already in the bank»), which
+  // runs in AC15; here the smoke checks the coach side has no import entry.
+  const imp = await page.getByRole('button', { name: 'Importera övningar från en fil eller en kod' }).count()
+  check('I1', 'Coach Biblioteket has no Importera övningar (Slice 47 F1); same-name state covered by ownImport.test.ts', imp === 0, `buttons=${imp}`)
   await shot(page, 'import_samename')
-  await sheet.getByRole('button', { name: 'Avbryt' }).click()
 })
 await ctx.close()
 
 await attempt('W', 'Planera pass', async () => {
   ;({ ctx, page } = await freshPage())
-  await page.getByRole('button', { name: 'Planera pass' }).click()
-  const w = page.locator('[aria-labelledby="home-wizard-title"]')
-  await w.getByRole('option', { name: /7–9/ }).first().click()
-  await w.getByRole('button', { name: 'Nästa' }).click()
-  await w.getByRole('option', { name: /^Trampett/ }).first().click()
-  await w.getByRole('button', { name: 'Nästa' }).click()
-  await w.getByRole('option', { name: /Standard trupp/ }).first().click()
-  await w.getByRole('button', { name: 'Skapa pass' }).click()
+  await startFragor(page, { age: /7–9/, focus: /^Trampett/ }) // Slice 51: question path; Standard trupp left the hall list (Slice 45)
   const draft = JSON.parse(await page.evaluate(() => localStorage.getItem('gymnastics-planner-draft-v1')))
   const filled = draft.blocks.filter((b) => b.items.length > 0).length
   const zones = (draft.hallPlacements ?? []).map((p) => p.zoneId)
@@ -194,3 +187,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/seed-2DJ_oMM81mI-results.json`, JSON.stringify(results, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

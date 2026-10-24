@@ -1,6 +1,7 @@
 // Slice 40 — Builder self-smoke: Teknik markers spread in Blå / Vit, 390×844.
 // Main build on :4210 (before), branch build on :4211 (after). Drafts are seeded via slice-40-seed.ts.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 
@@ -13,8 +14,8 @@ const seedMall = (hall, n) => spawnSync('bun', [`${ROOT}/verifier/slice-40-seed.
 
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
 }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const near = (a, b) => Math.abs(a - b) <= 0.001
@@ -234,3 +235,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-40-builder-smoke-results.json`, JSON.stringify({ at: new Date().toISOString(), results }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

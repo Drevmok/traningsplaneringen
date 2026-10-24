@@ -2,6 +2,7 @@
 // Plain build preview on :4197 (S34_URL). AudioContext + navigator.vibrate are replaced by spies
 // (init script) and time runs on Playwright's fake clock, so "once, never loops, never advances" is counted.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
@@ -14,8 +15,8 @@ const S = { next: md('runNextLabel'), last: md('runLastActivity'), footer: md('f
 
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
 }
 async function attempt(id, fn) {
   try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) }
@@ -190,3 +191,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-34-smoke-results.json`, JSON.stringify({ results }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

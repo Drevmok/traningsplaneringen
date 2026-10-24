@@ -1,17 +1,21 @@
 // Slice 45 — Builder self-smoke «Hallar och städning» (A1 B1 C1 D1 E1 F1 F3). 390×844, DPR 2, touch.
 // Branch preview on :4545, main 4fe44c0 on :4510 (old #dela= link + baseline sizes).
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { openMallList, openWizard, startMall, startTomt } from './tools/smoke-start.mjs'
+import { sliceNumber } from './tools/smoke-login.mjs'
 import { writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 const BR = process.env.S45_BR ?? 'http://127.0.0.1:4545/traningsplaneringen/'
 const MAIN = process.env.S45_MAIN ?? 'http://127.0.0.1:4510/traningsplaneringen/'
 const ROOT = process.env.S45_ROOT ?? '/workspace/gp-s45'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const SHOTS = `${ROOT}/verifier/slice-45-screenshots`
 const DRAFT = 'gymnastics-planner-draft-v1'
 const TPL = 'gymnastics-planner-templates-v1'
 const STORA = 'Gymmix – Stora hallen', GROP = 'Gymmix – Grophallen'
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0] + ' @' + ((e.stack || '').match(/smoke\.mjs:(\d+)/) || [])[1]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -31,30 +35,30 @@ const draft = (p) => p.evaluate((k) => JSON.parse(localStorage.getItem(k) || 'nu
 async function home(p, base = BR) { await p.goto(base); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor() }
 async function mall(p, base = BR) {
   await home(p, base)
-  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(300)
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(400)
-  const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
+  await startMall(p, /Nybörjare/) // Slice 51 (A1): «Planera pass» → «Starta från mall» → Hall → Nybörjare (smoke-start.mjs)
   await p.waitForTimeout(600)
 }
 // the mall «Ångra» toast (Slice 41) can sit over the lower menu rows for ~5 s; dispatch the tap on the row itself
 async function menu(p, name) {
   const mer = p.getByRole('button', { name: 'Fler saker med passet' })
+  const direct = p.locator('.builder-actions > button:visible, .builder-extra > button:visible').filter({ hasText: new RegExp(`^${name}$`) }) // Slice 51: header actions since Slice 46
+  if (await direct.count()) { await direct.first().dispatchEvent('click'); return }
   if (!(await mer.isVisible())) { await p.locator('button:visible').filter({ hasText: new RegExp(`^${name}$`) }).first().dispatchEvent('click'); return } // ≥ 769 px: actions inline
   await mer.click(); await p.locator('.more-menu-panel button').filter({ hasText: new RegExp(`^${name}$`) }).first().dispatchEvent('click') }
 async function hall(p) { await menu(p, 'Hallöversikt'); await p.locator('.hall-canvas').first().waitFor(); await p.waitForTimeout(500) }
 const teknikIds = (d) => d.blocks.find((b) => b.type === 'techniques').items.slice().sort((a, b) => a.order - b.order).map((i) => i.id)
 const sheet = (p) => p.locator('.export-sheet')
-const footerOk = async (p) => (await p.locator('body').innerText()).includes('Träningsplaneraren · Slice 45')
+const footerOk = async (p) => (await p.locator('body').innerText()).includes(`Träningsplaneraren · Slice ${SLICE}`)
 
 let gridRef = null // placements of a fresh Nybörjare pass on Stora hallen (Slice 40 grid, pass order)
 
 await attempt('wizard', async () => {
   const p = await page(); await home(p)
-  await p.getByRole('button', { name: 'Planera pass' }).click(); await p.locator('.home-wizard-sheet').waitFor()
-  await p.getByRole('option').first().click(); await p.getByRole('button', { name: 'Nästa' }).click(); await p.waitForTimeout(200)
+  await openWizard(p) // Slice 51: question path, one tap per answer (Ålder → Fokus → Hall → Passlängd)
+  await p.getByRole('option').first().click(); await p.waitForTimeout(200)
   const t2 = await p.locator('.home-wizard-sheet').innerText()
   await shot(p, '01_wizard_q2')
-  await p.getByRole('option', { name: 'Trampett' }).click(); await p.getByRole('button', { name: 'Nästa' }).click(); await p.waitForTimeout(200)
+  await p.getByRole('option', { name: 'Trampett' }).click(); await p.waitForTimeout(200)
   const title = (await p.locator('.home-wizard-sheet h2').innerText()).trim()
   const opts = (await p.getByRole('option').allInnerTexts()).map((s) => s.trim())
   const t3 = await p.locator('.home-wizard-sheet').innerText()
@@ -65,12 +69,12 @@ await attempt('wizard', async () => {
   check('AC2-texts', 'Q2 and Q3 show no «Stationerna är förslag…» / «Välj den layout…» line', !bad(t2) && !bad(t3))
   await p.getByRole('button', { name: 'Tillbaka' }).click(); await p.waitForTimeout(150)
   const backTitle = (await p.locator('.home-wizard-sheet h2').innerText()).trim()
-  await p.getByRole('button', { name: 'Nästa' }).click(); await p.waitForTimeout(150)
-  await p.getByRole('option', { name: GROP }).click()
-  await p.getByRole('button', { name: 'Skapa pass' }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(600)
+  await p.getByRole('option', { name: 'Trampett' }).click(); await p.waitForTimeout(150)
+  await p.getByRole('option', { name: GROP }).click(); await p.waitForTimeout(150)
+  await p.getByRole('option', { name: '60 min', exact: true }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(600)
   const d = await draft(p)
-  check('AC18-footer', 'footer «Träningsplaneraren · Slice 45» (Passbyggaren)', await footerOk(p))
-  check('AC2-nav', 'Tillbaka → Fokus, Nästa → Hall, Skapa pass → Passbyggaren on Grophallen', backTitle === 'Fokus' && d.hallTemplateId === 'forening-vit', `${backTitle} ${d.hallTemplateId}`)
+  check('AC18-footer', `footer «Träningsplaneraren · Slice ${SLICE}» (Passbyggaren)`, await footerOk(p))
+  check('AC2-nav', 'Tillbaka → Fokus, Trampett → Hall, Grophallen → Passlängd → Passbyggaren on Grophallen', backTitle === 'Fokus' && d.hallTemplateId === 'forening-vit', `${backTitle} ${d.hallTemplateId}`)
   await hall(p)
   const meta = await p.locator('.hall-session-meta').innerText()
   const vb = await p.locator('.hall-canvas svg').first().getAttribute('viewBox').catch(() => null)
@@ -86,7 +90,7 @@ await attempt('wizard', async () => {
 
 await attempt('tomt+mall', async () => {
   const p = await page(); await home(p)
-  await p.getByRole('button', { name: 'Tomt pass' }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(400)
+  await startTomt(p); await p.waitForTimeout(150) // Slice 51 (A1)
   const dt = await draft(p)
   await mall(p)
   await hall(p)
@@ -199,9 +203,9 @@ await attempt('AC11', async () => {
   const pass = { v: 1, title: 'Gammal mall', notes: '', hallTemplateId: 'liten-hall', hallPlacements: ids.map((sid) => ({ sessionItemId: sid, x: 0.9, y: 0.1, zoneId: 'mattberg' })), blocks: d.blocks.map((b) => ({ type: b.type, durationMinutes: b.durationMinutes, items: b.items.map((i) => ({ id: i.id, activityId: i.activityId, durationMinutes: i.durationMinutes, note: '', order: i.order })) })) }
   await p.evaluate(([k, v]) => localStorage.setItem(k, JSON.stringify(v)), [TPL, [{ id: 'tpl-old', title: 'Gammal mall', totalMinutes: 60, savedAt: '2026-09-01T10:00:00Z', pass }]])
   await p.evaluate((k) => localStorage.removeItem(k), DRAFT)
-  await p.goto(BR); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(300)
-  await p.locator('.template-card').filter({ hasText: 'Gammal mall' }).first().click(); await p.waitForTimeout(400)
+  await p.goto(BR); await p.reload()
+  const list = await openMallList(p)
+  await list.locator('.template-card').filter({ hasText: 'Gammal mall' }).first().click(); await p.waitForTimeout(400)
   const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
   await p.waitForTimeout(500)
   await hall(p)
@@ -361,7 +365,7 @@ await attempt('AC17', async () => {
   const ok = hits.every((l) => /types\.ts|lib\/hall\.ts/.test(l))
   check('AC17-ids', 'legacy ids only in the legacy alias (types.ts LegacyHallTemplateId, lib/hall.ts LEGACY_TEMPLATES) and tests', ok, hits.join(' || '))
   const removed = ['Hallayout', 'Tips om placering', 'Placerade övningar flyttas', 'Blå hall', 'Vit hall', 'Standard trupp', 'Tävling / linjer', 'Liten hall', 'Teknik fäster i zon', 'Stationerna är förslag för ditt valda fokus', 'Stationerna föreslås i zonen']
-  const js = execFileSync('bash', ['-c', `cat ${ROOT}/app/dist/assets/index-*.js`], { encoding: 'utf8' })
+  const js = execFileSync('bash', ['-c', `cat ${process.env.TPV_PLAIN ?? `${ROOT}/app/dist`}/assets/index-*.js`], { encoding: 'utf8' })
   const left = removed.filter((s) => js.includes(s))
   check('AC17-strings', 'removed strings are gone from the built bundle; Gymmix names present', left.length === 0 && js.includes(STORA) && js.includes(GROP), left.join(','))
 })
@@ -371,3 +375,4 @@ await browser.close()
 const pass = results.filter((r) => r.ok).length
 writeFileSync(`${ROOT}/verifier/slice-45-builder-smoke-results.json`, JSON.stringify({ pass, total: results.length, results }, null, 2))
 console.log(`\n${pass}/${results.length} PASS`)
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

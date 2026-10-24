@@ -2,6 +2,7 @@
 // Plain build on :4198 (S35_OFF), bank build on :4199 (S35_ON, VITE_SUPABASE_URL=https://bank-mock.supabase.co)
 // with a mocked admin session (Playwright routes; no real project) for the admin footer check.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const OFF = process.env.S35_OFF ?? 'http://127.0.0.1:4198/traningsplaneringen/'
@@ -14,8 +15,8 @@ const S = { link: md('feedbackLink'), aria: md('feedbackLinkAria'), subject: md(
 
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
 }
 async function attempt(id, fn) {
   try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n').slice(0, 8).join(' ⏎ ')) }
@@ -233,3 +234,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-35-smoke-results.json`, JSON.stringify({ results }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

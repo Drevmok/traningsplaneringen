@@ -5,14 +5,18 @@
 // slice-31/content/schema-31.sql + tools/bank/out/bank-seed.sql. Requests to
 // https://bank-mock.supabase.co/rest/v1/* are routed to that PostgREST (anon role, real RLS).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs'
+import { startFragor, startTomt, startMall } from './tools/smoke-start.mjs'
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
-const OFF = 'http://127.0.0.1:4173/traningsplaneringen/'
-const ON = 'http://127.0.0.1:4174/traningsplaneringen/'
+const OFF = process.env.S31_OFF_URL ?? 'http://127.0.0.1:4173/traningsplaneringen/'
+const ON = process.env.S31_ON_URL ?? 'http://127.0.0.1:4174/traningsplaneringen/'
 const BANK_HOST = 'https://bank-mock.supabase.co'
-const PGRST = 'http://127.0.0.1:54332'
-const ROOT = '/workspace/gymnastics-planner'
+const PGRST = `http://127.0.0.1:${process.env.S32_POSTGREST_PORT ?? 54332}` // Slice 51 B1: stand-in from run-smokes
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const CACHE_KEY = 'gymnastics-planner-bank-cache-v1'
 const STALE = 'Visar sparade övningar. Du kan planera som vanligt.'
 const seedJson = JSON.parse(readFileSync(`${ROOT}/tools/bank/out/bank-seed.json`, 'utf8'))
@@ -21,8 +25,8 @@ const BUNDLED_TITLES = seedJson.exercises.map((e) => e.title)
 const results = []
 const notes = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 300) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 200) : ''}`)
 }
 const note = (s) => {
   notes.push(s)
@@ -36,7 +40,7 @@ async function attempt(id, name, fn) {
   }
 }
 const sql = (q) =>
-  execFileSync('psql', ['-h', '/tmp', '-p', '54331', '-U', 'postgres', '-d', 'bank', '-v', 'ON_ERROR_STOP=1', '-qAt', '-c', q], { encoding: 'utf8' }).trim()
+  execFileSync('psql', ['-h', process.env.S32_PG_PORT ? '127.0.0.1' : '/tmp', '-p', process.env.S32_PG_PORT ?? '54331', '-U', 'postgres', '-d', process.env.S32_DB ?? 'bank', '-v', 'ON_ERROR_STOP=1', '-qAt', '-c', q], { encoding: 'utf8' }).trim()
 
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const phone = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true }
@@ -72,7 +76,8 @@ async function newPage(ctx, url) {
   page.setDefaultTimeout(8000)
   page.on('pageerror', (e) => pageErrors.push(e.message))
   page.on('request', (r) => {
-    if (r.url().includes('supabase.co') || r.url().includes('/rest/v1/'))
+    // Slice 51 (C1): Slice 36 added a club_templates GET to the bank build — not part of the Slice 31 bank contract
+    if ((r.url().includes('supabase.co') || r.url().includes('/rest/v1/')) && !r.url().includes('/rest/v1/club_templates'))
       bankLog.push({ page: url, method: r.method(), url: r.url(), headers: r.headers(), body: r.postData() })
   })
   await page.goto(url)
@@ -107,7 +112,7 @@ async function runPassText(page, wanted) {
   return seen.join('\n')
 }
 async function startBlank(page) {
-  await page.getByRole('button', { name: 'Tomt pass' }).click()
+  await startTomt(page)
 }
 async function continuePass(page) {
   await page.getByRole('button', { name: /Fortsätt/ }).first().click()
@@ -164,7 +169,7 @@ await attempt('A', 'Bank off', async () => {
   await shot(page, 'off_home')
   await startBlank(page)
   const footer = (await page.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
-  check('A1', 'Footer reads Träningsplaneraren · Slice 31 (AC 22)', footer.includes('Träningsplaneraren · Slice 31'), footer)
+  check('A1', `Footer reads Träningsplaneraren · Slice ${SLICE} (AC 22)`, footer.includes(`Träningsplaneraren · Slice ${SLICE}`), footer)
   await shot(page, 'off_builder_footer')
   await openLibrary(page)
   const titles = await libraryTitles(page)
@@ -180,22 +185,14 @@ await attempt('A', 'Bank off', async () => {
 await attempt('R', 'Regression on the plain build', async () => {
   const ctx = await newCtx()
   const page = await newPage(ctx, OFF)
-  await page.getByRole('button', { name: 'Planera pass' }).click()
-  const w = page.locator('[aria-labelledby="home-wizard-title"]')
-  await w.getByRole('option', { name: /7–9/ }).first().click()
-  await w.getByRole('button', { name: 'Nästa' }).click()
-  await w.getByRole('option', { name: /^Trampett/ }).first().click()
-  await w.getByRole('button', { name: 'Nästa' }).click()
-  await w.getByRole('option', { name: /Standard trupp/ }).first().click()
-  await w.getByRole('button', { name: 'Skapa pass' }).click()
+  await startFragor(page, { age: /7–9/, focus: /^Trampett/ }) // Slice 51: question path; Standard trupp left the hall list (Slice 45)
   const draft = JSON.parse(await store(page, 'gymnastics-planner-draft-v1'))
   const filled = draft.blocks.filter((b) => b.items.length > 0).length
   const zones = (draft.hallPlacements ?? []).map((p) => p.zoneId)
-  check('R1', 'Planera pass wizard → five blocks, Teknik pre-placed (AC 21)', filled === 5 && zones.includes('trampett'), `filled=${filled} zones=${zones}`)
+  check('R1', 'Planera pass wizard → five blocks, Teknik pre-placed (AC 21)', filled === 5 && zones.length > 0 /* Slice 51: Stora hallen grid (zoneId open) since Slice 45 */, `filled=${filled} zones=${zones}`)
   await shot(page, 'regress_wizard')
   await page.goto(OFF)
-  await page.getByRole('button', { name: 'Från mall' }).click()
-  await page.getByRole('button', { name: /Nybörjare/ }).first().click()
+  await startMall(page, /Nybörjare/)
   const d2 = JSON.parse(await store(page, 'gymnastics-planner-draft-v1'))
   const n = d2.blocks.reduce((s, b) => s + b.items.length, 0)
   check('R2', 'Från mall → Nybörjare fills the pass (AC 21)', n >= 5, `items=${n}`)
@@ -248,7 +245,8 @@ await attempt('C1', 'Fresh profile, bank reachable', async () => {
   check('C1a', 'Startup: exactly one GET exercises + one GET redskap (AC 6)',
     gets.length === 2 && paths.join(',') === '/rest/v1/exercises,/rest/v1/redskap', paths.join(','))
   check('C1b', 'Header apikey = publishable key, no Authorization (AC 6)',
-    gets.every((g) => g.headers.apikey === 'sb_publishable_smoke_local_only' && !('authorization' in g.headers)))
+    gets.every((g) => /^sb_publishable_/.test(g.headers.apikey ?? '') /* Slice 51 B1: key comes from the stand-in env, not a fixed string */ && !('authorization' in g.headers)),
+    JSON.stringify(gets.map((g) => ({ apikey: g.headers.apikey, auth: 'authorization' in g.headers ? String(g.headers.authorization).slice(0, 20) : null }))))
   check('C1c', 'Query asks for published+hidden in sort order', gets.some((g) => g.url.includes('status=in.(published,hidden)&order=sort_order.asc')))
   const cache = JSON.parse(await store(pageC, CACHE_KEY))
   check('C1d', 'Cache written (v 1, 51 exercises, 15 redskap labels)', cache.v === 1 && cache.exercises.length === 51 && Object.keys(cache.redskapLabels).length === 15)
@@ -263,8 +261,7 @@ await attempt('C1', 'Fresh profile, bank reachable', async () => {
   await addToTeknik(pageC, 'Hjul')
   const r1 = (await pageC.locator('.session-item').allInnerTexts()).join(' | ')
   check('C1g', 'Two Teknik drills in the pass', r1.includes('Kullerbytta framåt') && /Hjul(?! \()/.test(r1), r1.replace(/\s+/g, ' ').slice(0, 160))
-  await builderAction(pageC, 'Spara utkast')
-  await pageC.waitForTimeout(300)
+  await pageC.waitForTimeout(800) // Slice 51: Spara utkast left in Slice 39 — autosave keeps the draft
 })
 
 await attempt('C2', 'Edit, hide and insert in the DB → reload', async () => {
@@ -305,21 +302,20 @@ await attempt('C2', 'Edit, hide and insert in the DB → reload', async () => {
 await attempt('C3', 'New bank row: add, zone, Förrådslista, safety', async () => {
   const detail = await addToTeknik(pageC, 'Banktest trampett')
   check('C3a', 'New bank row is addable; detail shows its Säkerhet line (AC 15)', detail.includes('Matta bakom trampetten. En i taget.'))
-  await builderAction(pageC, 'Spara utkast')
-  await pageC.waitForTimeout(300)
+  await pageC.waitForTimeout(800) // Slice 51: Spara utkast left in Slice 39 — autosave keeps the draft
   await builderAction(pageC, 'Hallöversikt')
   await pageC.getByText('Schematisk hall — inte exakt mått').first().waitFor()
   const draft = JSON.parse(await store(pageC, 'gymnastics-planner-draft-v1'))
   const items = draft.blocks.flatMap((b) => b.items)
   const it = items.find((i) => i.activityId === 'tech-banktest-trampett')
   const zone = draft.hallPlacements?.find((p) => p.sessionItemId === it?.id)?.zoneId
-  check('C3b', 'New row auto-zones to Trampett (AC 15)', zone === 'trampett', `zone=${zone}`)
+  check('C3b', 'New row auto-places on the hall (AC 15)', Boolean(zone), `zone=${zone}`) // Slice 51: Stora hallen grid (zoneId open) since Slice 45
   const chips = (await pageC.locator('.hall-chip-anchor [aria-label]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')))).join(' | ')
   check('C3c', 'Hall chips show bank titles incl. the hidden drill (AC 8/13)', chips.includes('Kullerbytta TEST') && chips.includes('Hjul (dold)') && chips.includes('Banktest trampett'), chips.replace(/\s+/g, ' '))
   await shot(pageC, 'hall_bank_titles')
   await pageC.locator('button.hall-tap-target').filter({ hasText: /^Använd alla förslag$/ }).first().click()
   await pageC.getByRole('button', { name: 'Visa förrådslista för passet' }).first().click()
-  await pageC.getByText('Vad finns i hallen ikväll?').first().waitFor()
+  await pageC.locator('.forradslista-row').first().waitFor() // Slice 51: «ikväll» heading removed (Slice 47 B1)
   const rows = await pageC.locator('.forradslista-row').allTextContents()
   check('C3d', 'Förrådslista counts the new row\'s redskap (AC 15)', rows.includes('Trampett') && rows.some((r) => /Landningsmatta/.test(r)), rows.join(' · '))
   await shot(pageC, 'forradslista_bank')
@@ -337,13 +333,8 @@ await attempt('C4', 'Golvklart, stationskort, Kör passet with bank text', async
   await shot(pageC, 'golvklart_bank')
   await pageC.goto(ON)
   await continuePass(pageC)
-  await builderAction(pageC, 'Exportera / dela')
-  await pageC.locator('.export-sheet').waitFor()
-  await pageC.getByRole('button', { name: 'Helskär' }).click()
-  await pageC.waitForTimeout(400)
-  const deck = await pageC.locator('body').innerText()
-  check('C4b', 'Stationskort show the bank titles (AC 8/13)', deck.includes('Kullerbytta TEST') && deck.includes('Hjul (dold)'))
-  await shot(pageC, 'stationskort_bank')
+  // Slice 51: C4b (stationskort via Exportera / dela → Helskär) removed — Slice 44 made Dela = länk + utskrift and
+  // dropped stationskort; Golvklart (C4a) and Kör passet (C4c) still show the bank titles.
   await pageC.goto(ON)
   await continuePass(pageC)
   await pageC.getByRole('button', { name: 'Kör passet, en övning i taget' }).click()
@@ -402,17 +393,22 @@ await attempt('C6', 'Fresh data arriving later updates in place', async () => {
   const scrollAfter = await body.evaluate((el) => el.scrollTop)
   check('C6d', 'Library scroll position kept across the update (AC 16)', scrollBefore > 0 && Math.abs(scrollAfter - scrollBefore) < 2, `${scrollBefore} → ${scrollAfter}`)
   await shot(pageC, 'inplace_scroll_kept')
-  // Part 2: open Ny egen övning form, slow answer.
+  // Part 2: open own-drill form, slow answer. Slice 51: «Ny egen övning» left the coach UI in Slice 47 E1
+  // (OwnActivityForm is edit-only), so the form is opened via Ändra on a seeded own drill.
   sql(`update public.exercises set title = 'Kullerbytta LIVE 2' where id = 'tech-kullerbytta';`)
+  const ownSeed = JSON.parse(readFileSync(`${ROOT}/verifier/fixtures/s30own.json`, 'utf8'))[1]
+  await pageC.evaluate((o) => localStorage.setItem('gymnastics-planner-own-activities-v1', JSON.stringify([o])),
+    { ...ownSeed, id: 'own-s31-form', title: 'Egen formtest' })
   await pageC.goto(ON)
   await continuePass(pageC)
   await openLibrary(pageC)
-  await pageC.getByRole('button', { name: 'Ny egen övning' }).click()
+  await pageC.locator('.filter-row select').selectOption('all')
+  await pageC.locator('.library-entry').filter({ hasText: 'Egen formtest' }).first().getByRole('button', { name: 'Ändra' }).click()
   const nameInput = pageC.locator('label.own-field').filter({ hasText: 'Namn' }).locator('input')
   await nameInput.fill('Min halvfärdiga övning')
   await waitTitle('Kullerbytta LIVE 2')
   await pageC.waitForTimeout(300)
-  check('C6b', 'Open Ny egen övning form keeps its input across the update (AC 16)', (await nameInput.inputValue()) === 'Min halvfärdiga övning' && (await nameInput.isVisible()))
+  check('C6b', 'Open own-drill form (Ändra) keeps its input across the update (AC 16)', (await nameInput.inputValue()) === 'Min halvfärdiga övning' && (await nameInput.isVisible()))
   await shot(pageC, 'inplace_form_kept')
 })
 await ctxC.close()
@@ -437,3 +433,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-31-smoke-results.json`, JSON.stringify({ results, notes, bankRequests: bankLog.length }, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

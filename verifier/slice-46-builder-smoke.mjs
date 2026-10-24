@@ -1,16 +1,20 @@
 // Slice 46 — self-smoke «Startsidan + Planera pass» (A1 B1 C1 D1 E1 F1). 390×844, DPR 2, touch.
 // Branch preview with bank env on :4647 (admin row + club list; Supabase mocked/aborted), plain branch :4646, main bc8cce0 :4611 (bank) for layout compare.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { writeFileSync, readFileSync } from 'node:fs'
+import { sliceNumber } from './tools/smoke-login.mjs'
 const BR = process.env.S46_BR ?? 'http://127.0.0.1:4647/traningsplaneringen/'
 const MAIN = process.env.S46_MAIN ?? 'http://127.0.0.1:4611/traningsplaneringen/'
 const ROOT = process.env.S46_ROOT ?? '/workspace/gp-s46'
-const FIX = JSON.parse(readFileSync(process.env.S46_FIX ?? '/tmp/s46fix.json', 'utf8'))
-const SHOTS = `${ROOT}/verifier/slice-46-screenshots`
+const FOOT = `Träningsplaneraren · Slice ${sliceNumber(ROOT)}` // Slice 51 C1: footer follows SLICE_NUMBER
+// Slice 51: the fixture is in the repo (verifier/fixtures/s46fix.json, rebuilt by make-s46fix.ts); S46_FIX_FILE overrides.
+const FIX = JSON.parse(readFileSync(process.env.S46_FIX_FILE ?? new URL('./fixtures/s46fix.json', import.meta.url), 'utf8'))
+const SHOTS = process.env.S46_SHOTS ?? `${ROOT}/verifier/slice-46-screenshots`
 const DRAFT = 'gymnastics-planner-draft-v1', TPL = 'gymnastics-planner-templates-v1'
 const STORA = 'Gymmix – Stora hallen', GROP = 'Gymmix – Grophallen'
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0] + ' @' + ((e.stack || '').match(/smoke\.mjs:(\d+)/) || [])[1]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -37,6 +41,8 @@ const footRows = (p, root) => p.evaluate((root) => [...document.querySelectorAll
 const lengthOf = (p) => p.evaluate(() => { const t = document.body.innerText.match(/(\d+) \//)?.[1]; const sel = [...document.querySelectorAll('[aria-pressed=true],[aria-checked=true]')].map((e) => e.textContent.trim()).find((x) => /^\d+$/.test(x)); return t && sel ? `${t} / ${sel} min` : null })
 async function menu(p, name) {
   const mer = p.getByRole('button', { name: 'Fler saker med passet' })
+  const direct = p.locator('.builder-actions > button:visible, .builder-extra > button:visible').filter({ hasText: new RegExp(`^${name}$`) }) // Slice 51: header actions since Slice 46
+  if (await direct.count()) { await direct.first().dispatchEvent('click'); return }
   if (!(await mer.isVisible())) { await p.locator('button:visible').filter({ hasText: new RegExp(`^${name}$`) }).first().dispatchEvent('click'); return }
   await mer.click(); await p.locator('.more-menu-panel button').filter({ hasText: new RegExp(`^${name}$`) }).first().dispatchEvent('click') }
 async function hallName(p) { await menu(p, 'Hallöversikt'); await p.waitForTimeout(900); const t = await p.locator('body').innerText(); return t.includes(GROP) ? GROP : t.includes(STORA) ? STORA : '?' }
@@ -262,14 +268,14 @@ await attempt('AC20', async () => {
   await shot(p, '17_builder_footer')
   const tx = rows.map((r) => r.text)
   const seps = rows.every((r) => !/sep/.test(r.first) && !/sep/.test(r.last))
-  check('AC20', 'builder footer: Tyck till · Visa tips igen · Uppdatera appen / Logga in som admin / «Träningsplaneraren · Slice 46»; no edge «·»', tx[0] === 'Tyck till · Visa tips igen · Uppdatera appen' && tx.includes('Logga in som admin') && tx.at(-1) === 'Träningsplaneraren · Slice 46' && seps, JSON.stringify(tx))
+  check('AC20', 'builder footer: Tyck till · Visa tips igen · Uppdatera appen / Logga in som admin / «Träningsplaneraren · Slice 46»; no edge «·»', tx[0] === 'Tyck till · Visa tips igen · Uppdatera appen' && tx.includes('Logga in som admin') && tx.at(-1) === FOOT && seps, JSON.stringify(tx))
   await p.locator('.footer-visa-tips').click(); await p.waitForTimeout(300)
   const st = await p.locator('.visa-tips-feedback').innerText().catch(() => '')
   check('AC20-tips', 'Visa tips igen shows its status line', st.length > 0, st)
   await hallName(p); await p.locator('footer').scrollIntoViewIfNeeded().catch(() => {})
   const hr = await footRows(p, 'footer.app-footer')
   await shot(p, '18_hall_footer')
-  check('AC20-hall', 'Hallöversikt footer ends with «Träningsplaneraren · Slice 46»', hr.at(-1)?.text === 'Träningsplaneraren · Slice 46', JSON.stringify(hr.map((r) => r.text)))
+  check('AC20-hall', 'Hallöversikt footer ends with «Träningsplaneraren · Slice 46»', hr.at(-1)?.text === FOOT, JSON.stringify(hr.map((r) => r.text)))
 })
 
 await attempt('AC21', async () => {
@@ -339,3 +345,4 @@ check('errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-46-smoke-results.json`, JSON.stringify(results, null, 2))
 const fail = results.filter((r) => !r.ok); console.log(`\n${results.length - fail.length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

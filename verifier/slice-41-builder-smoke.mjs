@@ -1,5 +1,6 @@
 // Slice 41 — Builder self-smoke: Ångra after × and Använd mall, 390×844. Branch build on :4241.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 const BR = process.env.S41_BR ?? 'http://127.0.0.1:4241/traningsplaneringen/'
@@ -8,7 +9,7 @@ const DK = 'gymnastics-planner-draft-v1', TK = 'gymnastics-planner-templates-v1'
 const seed = (t, n) => execFileSync('bun', [`${ROOT}/verifier/slice-41-seed.ts`, t, String(n)], { encoding: 'utf8' }).trim()
 const seedMall = () => spawnSync('bun', [`${ROOT}/verifier/slice-41-seed.ts`, 'S41 egen mall', '2', 'mall'], { encoding: 'utf8' }).stderr.trim()
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true })
@@ -182,3 +183,4 @@ check('no-errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-41-builder-smoke-results.json`, JSON.stringify({ when: new Date().toISOString(), results }, null, 2))
 console.log(`${results.filter((r) => r.ok).length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

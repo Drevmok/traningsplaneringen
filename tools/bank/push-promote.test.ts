@@ -205,10 +205,12 @@ describe('run (mocked bank)', () => {
 // ---------------------------------------------------------------- live: local stand-in only
 const GATEWAY = process.env.S32_GATEWAY
 const liveDescribe = GATEWAY && /^http:\/\/127\.0\.0\.1:\d+$/.test(GATEWAY) ? describe : describe.skip
+// Slice 51 (F1): stand-in dir from the run env (db-new.sh exports S32_DIR), not a fixed path under /tmp.
+const S32 = process.env.S32_DIR ?? '/home/box/tp-verify/standin'
 liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway)', () => {
-  const localKey = () => readFileSync('/tmp/s32/bot-keys.txt', 'utf8').split('\n').filter(Boolean)[0]
+  const localKey = () => readFileSync(`${S32}/bot-keys.txt`, 'utf8').split('\n').filter(Boolean)[0]
   const envLocal = () => ({ SUPABASE_PLANNER_BOT_KEY: localKey(), SUPABASE_URL: GATEWAY })
-  const pub = () => JSON.parse(readFileSync('/tmp/s32/env.json', 'utf8')).publishableKey as string
+  const pub = () => JSON.parse(readFileSync(`${S32}/env.json`, 'utf8')).publishableKey as string
   const rest = (path: string, key: string, init: RequestInit = {}) =>
     fetch(`${GATEWAY}/rest/v1/${path}`, { ...init, headers: { apikey: key, 'Content-Type': 'application/json', ...(init.headers as Record<string, string>) } })
 
@@ -234,7 +236,7 @@ liveDescribe('run (local stand-in: PostgREST + schema-31/32 behind a Supabase-li
   it('--replace changes text but not status', async () => {
     const d = JSON.parse(fixtureText)
     d.exercises[1].summary = 'Ändrad sammanfattning från boten (test).'
-    const tmp = '/tmp/s32/promote-replace.json'
+    const tmp = `${S32}/promote-replace.json`
     await Bun.write(tmp, JSON.stringify(d))
     const r = await run([tmp, '--replace', 'tech-test-aggrullning-kil'], envLocal(), fetch, () => {})
     expect(r.replaced).toEqual(['tech-test-aggrullning-kil'])
