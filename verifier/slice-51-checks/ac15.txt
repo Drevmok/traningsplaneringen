@@ -1,0 +1,19 @@
+AC15: test suites in a fresh home (/tmp/tpvh-b/main/055af395ba04b89c558915d81e5fc7b2ccf38624)
+== test.txt
+(pass) verifyLoginCode (Slice 33) > wrong / expired code → wrong, pending kept, still none [0.07ms]
+(pass) verifyLoginCode (Slice 33) > 429 → wait; 5xx → failed; no session in answer → failed [0.09ms]
+
+ 263 pass
+ 0 fail
+ 4 expect() calls
+Ran 263 tests across 32 files. [275.00ms]
+exit=0
+== test-bank.txt
+(skip) run (local stand-in: PostgREST + schema-31/32 behind a Supabase-like gateway) > a revoked key fails clearly
+
+ 21 pass
+ 5 skip
+ 0 fail
+ 127 expect() calls
+Ran 26 tests across 2 files. [89.00ms]
+exit=0

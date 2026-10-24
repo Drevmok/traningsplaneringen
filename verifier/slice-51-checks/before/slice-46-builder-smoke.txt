@@ -1,0 +1,14 @@
+node:fs:448
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open 'http://127.0.0.1:57881/traningsplaneringen/'
+    at readFileSync (node:fs:448:20)
+    at file:///home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/wt/verifier/slice-46-builder-smoke.mjs:8:24 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'http://127.0.0.1:57881/traningsplaneringen/'
+}
+
+Node.js v20.19.2

@@ -33,7 +33,7 @@ Skill: `verify-traningsplaneraren/SKILL.md` i repot (källan), med pekaren `/hom
 
 En gång per box: `bash verifier/tools/install-once.sh`.
 
-1. **Doctor** — `bash verifier/tools/doctor.sh`: verktyg, malldatabas, lediga portar, main-cache för `origin/main`, HTTP 200 på `/traningsplaneringen/`, rätt base, build exit 0. Faller doctor: BLOCKED, aldrig PASS.
+1. **Doctor** — `bash verifier/tools/doctor.sh`: verktyg, malldatabas, lediga portar, main-cache för `origin/main`, HTTP 200 på `/traningsplaneringen/`, rätt base, build exit 0. Faller doctor: BLOCKED, aldrig PASS. Main-cachen har `test.txt` (`bun test src`), `test-bank.txt` (`bun test tools/bank`) och `smoke-baseline.txt`; jämför egna smokes med `run-smokes.sh --baseline`.
 2. **Launch** — `npm run build`, preview på port 4173, egen databas `verifier/tools/db-new.sh <run>`.
 3. **Drive** — kör appen som tränare via synliga svenska etiketter i 390×844 och 844×390; varje rad i slicens `verification-checklist.md` / låsta A–F får eget PASS/FAIL. Smokes enligt `verifier/tools/pick-smokes.mjs <bas> <head>`, jämförda mot main-cachen.
 4. **Evidence** — bevis i `verifier/` + skärmdumpar, bundle gzip mot main, tid per steg; notera blast radius. Stoppa bara den egna processen och ta bort den egna databasen.

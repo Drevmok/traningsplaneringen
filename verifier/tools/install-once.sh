@@ -23,8 +23,10 @@ if [ "$(cat "$BIN/postgrest.VERSION" 2>/dev/null)" != "$POSTGREST_VERSION" ] || 
   curl -fsSL "https://github.com/PostgREST/postgrest/releases/download/$POSTGREST_VERSION/postgrest-$POSTGREST_VERSION-linux-static-x64.tar.xz" | tar -xJ -C "$BIN"
   echo "$POSTGREST_VERSION" > "$BIN/postgrest.VERSION"; did=1
 else echo "ok: PostgREST $POSTGREST_VERSION"; fi
-if ! ls -d "$HOME"/.cache/ms-playwright/chromium* >/dev/null 2>&1; then
-  echo "install: Playwright Chromium"; npx -y playwright install chromium; did=1
-else echo "ok: Playwright Chromium ($(ls -d "$HOME"/.cache/ms-playwright/chromium* | head -1 | xargs basename))"; fi
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib.sh"   # Slice 51 (F1): pw_ok = the same check as Doctor
+if ! pw_ok; then
+  echo "install: Playwright Chromium (chromium_headless_shell)"; npx -y playwright install chromium; did=1
+  pw_ok || echo "install-once: chromium_headless_shell or /usr/bin/google-chrome still missing" >&2
+else echo "ok: Playwright Chromium ($(ls -d "$HOME"/.cache/ms-playwright/chromium_headless_shell-* | head -1 | xargs basename))"; fi
 mkdir -p "$TPV_HOME/main" "$TPV_HOME/weekly"
 [ $did = 1 ] && echo "install-once: installed" || echo "install-once: nothing to install"

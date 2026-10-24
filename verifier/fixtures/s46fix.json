@@ -1,0 +1,260 @@
+{
+ "saved": [
+  {
+   "id": "tpl-s46-test",
+   "title": "Min testmall",
+   "totalMinutes": 53,
+   "savedAt": "2026-10-16T10:00:00.000Z",
+   "pass": {
+    "v": 1,
+    "title": "Min testmall",
+    "notes": "",
+    "hallTemplateId": "forening-bla",
+    "hallPlacements": [
+     {
+      "sessionItemId": "item-idm1v0zu-mvlz8lgs",
+      "x": 0.21,
+      "y": 0.28,
+      "zoneId": "open"
+     },
+     {
+      "sessionItemId": "item-p5mmsckz-mvlz8lgs",
+      "x": 0.37,
+      "y": 0.28,
+      "zoneId": "open"
+     },
+     {
+      "sessionItemId": "item-09h674i1-mvlz8lgs",
+      "x": 0.53,
+      "y": 0.28,
+      "zoneId": "open"
+     }
+    ],
+    "blocks": [
+     {
+      "type": "gathering",
+      "durationMinutes": 6,
+      "items": [
+       {
+        "id": "item-yeocqidd-mvlz8lgs",
+        "activityId": "gather-narvaro",
+        "durationMinutes": 3,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-u4qs9nak-mvlz8lgs",
+        "activityId": "gather-dagens-teknik",
+        "durationMinutes": 3,
+        "note": "",
+        "order": 1
+       }
+      ]
+     },
+     {
+      "type": "warmup",
+      "durationMinutes": 10,
+      "items": [
+       {
+        "id": "item-cis7nqw3-mvlz8lgs",
+        "activityId": "warm-hall-varv",
+        "durationMinutes": 10,
+        "note": "",
+        "order": 0
+       }
+      ]
+     },
+     {
+      "type": "techniques",
+      "durationMinutes": 20,
+      "items": [
+       {
+        "id": "item-idm1v0zu-mvlz8lgs",
+        "activityId": "tech-ljushopp-satsbrada",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-p5mmsckz-mvlz8lgs",
+        "activityId": "tech-handstaende-falla-rygg",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 1
+       },
+       {
+        "id": "item-09h674i1-mvlz8lgs",
+        "activityId": "tech-falla-bakat-hojd",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 2
+       }
+      ]
+     },
+     {
+      "type": "strength",
+      "durationMinutes": 15,
+      "items": [
+       {
+        "id": "item-09m7nzw1-mvlz8lgs",
+        "activityId": "strength-styrkelatar",
+        "durationMinutes": 5,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-zruaxbgz-mvlz8lgs",
+        "activityId": "strength-burpee-emom",
+        "durationMinutes": 8,
+        "note": "",
+        "order": 1
+       }
+      ]
+     },
+     {
+      "type": "fun_and_games",
+      "durationMinutes": 10,
+      "items": [
+       {
+        "id": "item-ounjt13j-mvlz8lgs",
+        "activityId": "fun-rundpingis-medicinboll",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 0
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "placements": [
+  {
+   "sessionItemId": "item-idm1v0zu-mvlz8lgs",
+   "x": 0.21,
+   "y": 0.28,
+   "zoneId": "open"
+  },
+  {
+   "sessionItemId": "item-p5mmsckz-mvlz8lgs",
+   "x": 0.37,
+   "y": 0.28,
+   "zoneId": "open"
+  },
+  {
+   "sessionItemId": "item-09h674i1-mvlz8lgs",
+   "x": 0.53,
+   "y": 0.28,
+   "zoneId": "open"
+  }
+ ],
+ "club": [
+  {
+   "id": "00000000-0000-4000-8000-000000000046",
+   "title": "Klubbmall test",
+   "total_minutes": 53,
+   "payload": {
+    "v": 1,
+    "title": "Klubbmall test",
+    "notes": "",
+    "hallTemplateId": "forening-bla",
+    "blocks": [
+     {
+      "type": "gathering",
+      "durationMinutes": 6,
+      "items": [
+       {
+        "id": "item-yeocqidd-mvlz8lgs",
+        "activityId": "gather-narvaro",
+        "durationMinutes": 3,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-u4qs9nak-mvlz8lgs",
+        "activityId": "gather-dagens-teknik",
+        "durationMinutes": 3,
+        "note": "",
+        "order": 1
+       }
+      ]
+     },
+     {
+      "type": "warmup",
+      "durationMinutes": 10,
+      "items": [
+       {
+        "id": "item-cis7nqw3-mvlz8lgs",
+        "activityId": "warm-hall-varv",
+        "durationMinutes": 10,
+        "note": "",
+        "order": 0
+       }
+      ]
+     },
+     {
+      "type": "techniques",
+      "durationMinutes": 20,
+      "items": [
+       {
+        "id": "item-idm1v0zu-mvlz8lgs",
+        "activityId": "tech-ljushopp-satsbrada",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-p5mmsckz-mvlz8lgs",
+        "activityId": "tech-handstaende-falla-rygg",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 1
+       },
+       {
+        "id": "item-09h674i1-mvlz8lgs",
+        "activityId": "tech-falla-bakat-hojd",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 2
+       }
+      ]
+     },
+     {
+      "type": "strength",
+      "durationMinutes": 15,
+      "items": [
+       {
+        "id": "item-09m7nzw1-mvlz8lgs",
+        "activityId": "strength-styrkelatar",
+        "durationMinutes": 5,
+        "note": "",
+        "order": 0
+       },
+       {
+        "id": "item-zruaxbgz-mvlz8lgs",
+        "activityId": "strength-burpee-emom",
+        "durationMinutes": 8,
+        "note": "",
+        "order": 1
+       }
+      ]
+     },
+     {
+      "type": "fun_and_games",
+      "durationMinutes": 10,
+      "items": [
+       {
+        "id": "item-ounjt13j-mvlz8lgs",
+        "activityId": "fun-rundpingis-medicinboll",
+        "durationMinutes": 6,
+        "note": "",
+        "order": 0
+       }
+      ]
+     }
+    ]
+   },
+   "updated_at": "2026-10-16T10:00:00+00:00"
+  }
+ ]
+}

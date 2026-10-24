@@ -1,0 +1,35 @@
+AC16: two Doctors at once (A: TPV_HOME=/tmp/tpvh-a PB 62000; B: /tmp/tpvh-b PB 63000)
+== A
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (… → c2ddf0dcd9a8…), bygger om
+PASS malldatabas ombyggd sha256=c2ddf0dcd9a8dc31d6dbf14c5f780c23cc437799c7e4f1fb8f47cac360eba344
+PASS bank_template på port 54746
+PASS portar lediga (62080–62083, 54740–54745)
+INFO main-cache 055af39 saknas, bygger (en gång per SHA)
+PASS main-cache 055af39 byggd (/tmp/tpvh-a/main/055af395ba04b89c558915d81e5fc7b2ccf38624)
+PASS main build exit 0, 215152 TOTAL
+PASS main-dist: HTTP 200 på /traningsplaneringen/, base /traningsplaneringen/
+Doctor: PASS (1271937 ms)
+doctor rc=0
+== B
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (… → c2ddf0dcd9a8…), bygger om
+PASS malldatabas ombyggd sha256=c2ddf0dcd9a8dc31d6dbf14c5f780c23cc437799c7e4f1fb8f47cac360eba344
+PASS bank_template på port 54747
+PASS portar lediga (63080–63083, 54740–54745)
+INFO main-cache 055af39 saknas, bygger (en gång per SHA)
+PASS main-cache 055af39 byggd (/tmp/tpvh-b/main/055af395ba04b89c558915d81e5fc7b2ccf38624)
+PASS main build exit 0, 215152 TOTAL
+PASS main-dist: HTTP 200 på /traningsplaneringen/, base /traningsplaneringen/
+Doctor: PASS (1271723 ms)
+doctor rc=0
+== env.json a
+"pgPort": 54746
+== env.json b
+"pgPort": 54747

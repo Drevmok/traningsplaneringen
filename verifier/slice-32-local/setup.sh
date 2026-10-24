@@ -11,7 +11,10 @@
 # TPV_BANK_SEED (optional) = the bank-seed.sql to use (default tools/bank/out/bank-seed.sql).
 set -euo pipefail
 TEMPLATE=0
-if [ "${1:-}" = "--template" ]; then TEMPLATE=1; export S32_TEMPLATE_MODE=1; export S32_PG_PORT=${S32_PG_PORT:-54741}; fi
+# Slice 51 (F1): without S32_PG_PORT the template port is 54741 + (cksum of TPV_HOME) % 100, so two TPV_HOMEs on one box
+# get different clusters (written to env.json → Doctor/db-new read it). Ports used by runs (54742/43/45) are skipped.
+tpv_pg_port() { local p=$(( 54741 + $(printf %s "${TPV_HOME:-/home/box/tp-verify}" | cksum | cut -d' ' -f1) % 100 )); while case $p in 54742|54743|54745) true;; *) ss -ltn "sport = :$p" | grep -q LISTEN;; esac; do p=$((p+1)); done; echo $p; }  # skip run ports and busy ports (AC16)
+if [ "${1:-}" = "--template" ]; then TEMPLATE=1; export S32_TEMPLATE_MODE=1; export S32_PG_PORT=${S32_PG_PORT:-$(tpv_pg_port)}; fi
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 HERE="$REPO/verifier/slice-32-local"
 . "$HERE/env.sh"

@@ -1,0 +1,3 @@
+slice-33-builder-smoke exit=1 PASS 95 / FAIL 12 (181 s)
+netlog: 299 requests, 0 to the live project host (all aborted)
+runner rc=0

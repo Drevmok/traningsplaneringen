@@ -1,0 +1,2 @@
+$ grep -rn "/tmp/s32" tools/bank/
+exit=1 (1 = inga träffar)

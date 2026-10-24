@@ -12,7 +12,7 @@
 | F | F1 — ny verifieringstext i PROJECT.md (HANDOFF §7); full smoke varje vecka |
 
 ## Svar på öppna frågor
-1. Karantän för s33 om testet faller i 2 av 20 körningar.
+1. Karantän för s33 om testet faller i ≥2 av 20 körningar (2/20 eller fler).
 2. Full smoke söndag 03:00 (Stockholm), besked bara vid nytt fel. PO skapar rutinen efter merge.
 3. Smokes som redan fallerar på main (s30/s31/seed, s32, s37) märks bara «trasig» i kartan och fixas i egna slices.
 4. Builder och Verifier läser cachen i `/home/box/tp-verify/`; bara Doctor skriver.

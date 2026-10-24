@@ -1,0 +1,92 @@
+[
+ {
+  "id": "own-imp-2dj-02-formhopp-over-block",
+  "title": "Formhopp över block från trampett",
+  "blockType": "techniques",
+  "durationMinutesDefault": 6,
+  "summary": "Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.",
+  "howTo": "1. Ställ ett lågt skumblock mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.",
+  "watchFor": "Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.",
+  "watchForRequired": true,
+  "visualKey": "own",
+  "own": true,
+  "newCoachOk": true,
+  "stub": false,
+  "tags": [
+   "teknik",
+   "trampett",
+   "hopp",
+   "former",
+   "landning",
+   "egen"
+  ],
+  "difficulty": "easy",
+  "experiencedCoachOnly": false,
+  "progressionOf": "tech-ljushopp-trampett",
+  "needsCoachReview": true,
+  "source": {
+   "url": "https://youtu.be/2DJ_oMM81mI?t=30",
+   "creator": "Prime Coaching Sport",
+   "title": "Fun gymnastics stations",
+   "startSeconds": 30
+  },
+  "safetyLine": "Bara mjuka block, aldrig hårda kanter. Landningsmattan ska räcka långt bakom blocket. En i taget.",
+  "defaultStationEquipment": [
+   {
+    "pieceId": "eq-trampett",
+    "count": 1
+   },
+   {
+    "pieceId": "eq-skumblock",
+    "count": 1
+   },
+   {
+    "pieceId": "eq-landningsmatta",
+    "count": 1
+   }
+  ]
+ },
+ {
+  "id": "own-imp-2dj-03-aggrullning-kil",
+  "title": "Äggrullning nerför kil",
+  "blockType": "techniques",
+  "durationMinutesDefault": 6,
+  "summary": "Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.",
+  "howTo": "1. Lägg kilmattan på en madrass. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.",
+  "watchFor": "Formen som släpper (ben eller armar åker ut), hakan som åker upp.",
+  "watchForRequired": true,
+  "visualKey": "own",
+  "own": true,
+  "newCoachOk": true,
+  "stub": false,
+  "tags": [
+   "teknik",
+   "rullning",
+   "kil",
+   "form",
+   "nybörjare",
+   "egen"
+  ],
+  "difficulty": "intro",
+  "experiencedCoachOnly": false,
+  "regressionOf": "tech-kullerbytta",
+  "needsCoachReview": true,
+  "source": {
+   "url": "https://youtu.be/2DJ_oMM81mI?t=50",
+   "creator": "Prime Coaching Sport",
+   "title": "Fun gymnastics stations",
+   "startSeconds": 50
+  },
+  "safetyLine": "Kilen ligger stadigt på en matta. Bara en i taget i backen.",
+  "defaultStationEquipment": [
+   {
+    "pieceId": "eq-kilmatta",
+    "count": 1
+   },
+   {
+    "pieceId": "eq-madrass",
+    "count": 1
+   }
+  ]
+ }
+]

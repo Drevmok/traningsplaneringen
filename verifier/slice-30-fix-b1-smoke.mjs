@@ -1,21 +1,31 @@
 // Slice 30 — B1 fix smoke: Golvklart chip detail hides Källa + Behöver granskas;
 // Hallöversikt edit mode and Bibliotek keep them. Run with preview on 127.0.0.1:4173.
-import { chromium } from '/usr/local/lib/node_modules/playwright-core/index.mjs'
+const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs') // Slice 51 B1
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs'
+import { startTomt } from './tools/smoke-start.mjs'
 import { readFileSync, writeFileSync } from 'node:fs'
 
-const BASE = 'http://127.0.0.1:4173/traningsplaneringen/'
-const ROOT = '/workspace/gymnastics-planner'
-const exampleText = readFileSync(`${ROOT}/slice-30/content/example-import.json`, 'utf8')
+const BASE = process.env.S30_URL ?? 'http://127.0.0.1:4173/traningsplaneringen/'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
+// Slice 51: coach import is admin-only since Slice 47 F1 — seed the own list the old import produced.
+const OWN_SEED = JSON.stringify(JSON.parse(readFileSync(`${ROOT}/verifier/fixtures/s30own.json`, 'utf8')))
 const TITLE = 'Formhopp över block från trampett'
 const results = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + detail : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + detail : ''}`)
 }
 const shot = (page, n) => page.screenshot({ path: `/workspace/screenshots/slice30_fix_${n}.png` })
 
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true })
+await ctx.addInitScript((v) => {
+  if (sessionStorage.getItem('own-seeded')) return
+  sessionStorage.setItem('own-seeded', '1')
+  localStorage.setItem('gymnastics-planner-own-activities-v1', v)
+}, OWN_SEED)
 const page = await ctx.newPage()
 page.setDefaultTimeout(8000)
 const errors = []
@@ -29,22 +39,17 @@ async function builderAction(name) {
   await page.locator('.more-menu-panel').getByRole('button', { name }).click()
 }
 const libraryCard = (t) =>
-  page.locator('.library-entry').filter({ has: page.locator('.activity-title', { hasText: t }) }).first()
+  // Slice 51: the seed bank holds a same-titled row (2DJ), so pick the own card by its Egen badge.
+  page.locator('.library-entry').filter({ has: page.locator('.activity-title', { hasText: t }) }).filter({ has: page.locator('.own-badge') }).first()
 
 try {
-  // Setup: blank pass, import the example (own drills with source + needsCoachReview)
-  await page.getByRole('button', { name: 'Tomt pass' }).click()
+  // Setup: blank pass, seeded example (own drills with source + needsCoachReview)
+  await startTomt(page)
   const footer = (await page.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
-  check('F1', 'Footer still Träningsplaneraren · Slice 30', footer.includes('Träningsplaneraren · Slice 30'), footer)
+  check('F1', `Footer still Träningsplaneraren · Slice ${SLICE}`, footer.includes(`Träningsplaneraren · Slice ${SLICE}`), footer)
   const teknik = page.locator('.block-card').filter({ has: page.locator('h3', { hasText: /^Teknik$/ }) })
   await teknik.getByRole('button', { name: 'Lägg till övning', exact: true }).first().click()
   await page.locator('.side-panel-slot.is-open').waitFor()
-  await page.getByRole('button', { name: 'Importera övningar från en fil eller en kod' }).click()
-  const sheet = page.locator('.own-import')
-  await sheet.locator('textarea').fill(exampleText)
-  await sheet.getByRole('button', { name: 'Läs in' }).click()
-  await sheet.getByRole('button', { name: 'Importera 2 övningar' }).click()
-  await page.locator('.toast').waitFor({ state: 'detached', timeout: 5000 }).catch(() => {})
   const stored = JSON.parse(await page.evaluate(() => localStorage.getItem('gymnastics-planner-own-activities-v1')))
   const fh = stored.find((a) => a.title === TITLE)
   check('S0', 'Own drill has source + needsCoachReview, Teknik', fh?.source?.creator === 'Prime Coaching Sport' && fh?.needsCoachReview === true && fh?.blockType === 'techniques')
@@ -109,3 +114,4 @@ const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)
 writeFileSync(`${ROOT}/verifier/slice-30-fix-b1-results.json`, JSON.stringify(results, null, 2))
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

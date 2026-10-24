@@ -6,6 +6,7 @@
 // Browser requests to https://bank-mock.supabase.co/** go unchanged to the local gateway (real PostgREST + RLS,
 // real GoTrue e-mail code). Login codes are read from the mail sink and never printed or screenshotted.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { execFileSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
@@ -33,8 +34,8 @@ const R = { hide: 'Dölj för alla', hideYes: 'Dölj', hidden: 'Dold för alla.'
 const results = []
 const notes = []
 const check = (id, name, ok, detail = '') => {
-  results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
-  console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
+  results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) })
+  console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`)
 }
 const note = (s) => {
   notes.push(s)
@@ -473,3 +474,4 @@ await browser.close()
 const pass = results.filter((r) => r.ok).length
 writeFileSync(`${ROOT}/verifier/slice-36-builder-smoke-results.json`, JSON.stringify({ at: new Date().toISOString(), pass, fail: results.length - pass, results, notes }, null, 2))
 console.log(`\n${pass}/${results.length} pass`)
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

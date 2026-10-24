@@ -1,0 +1,14 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4173/traningsplaneringen/
+Call log:
+  - navigating to "http://127.0.0.1:4173/traningsplaneringen/", waiting until "load"
+
+    at freshPage (/home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/wt/verifier/seed-2DJ_oMM81mI-smoke.mjs:41:14)
+    at async file:///home/box/tp-verify/main/055af395ba04b89c558915d81e5fc7b2ccf38624/wt/verifier/seed-2DJ_oMM81mI-smoke.mjs:67:21 {
+  name: 'Error'
+}
+
+Node.js v20.19.2

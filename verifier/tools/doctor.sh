@@ -21,7 +21,8 @@ PGBIN="$(ls -d /usr/lib/postgresql/17/bin 2>/dev/null)"
 if [ -x "$PGBIN/initdb" ]; then pass "Postgres 17 ($("$PGBIN/postgres" --version | awk '{print $3}'))"; else block "Postgres 17 (initdb)" "$INSTALL"; fi
 if [ -x "$BIN/gotrue/auth" ]; then pass "GoTrue $(cat "$BIN/gotrue/VERSION" 2>/dev/null || echo '?')"; else block "GoTrue ($BIN/gotrue/auth)" "$INSTALL"; fi
 if [ -x "$BIN/postgrest" ]; then pass "PostgREST $("$BIN/postgrest" --version 2>/dev/null | head -1 | awk '{print $2}')"; else block "PostgREST ($BIN/postgrest)" "$INSTALL"; fi
-if ls -d "$HOME"/.cache/ms-playwright/chromium_headless_shell-* >/dev/null 2>&1 && [ -x /usr/bin/google-chrome ]; then pass "Playwright Chromium + /usr/bin/google-chrome"; else block "Playwright Chromium" "$INSTALL"; fi
+. "$HERE/lib.sh"   # Slice 51 (F1): pw_ok shared with install-once
+if pw_ok; then pass "Playwright Chromium + /usr/bin/google-chrome"; else block "Playwright Chromium" "$INSTALL"; fi
 [ -f "$SEED" ] || block "bank-seed ($SEED)" "node tools/bank/build.mjs (eller sätt TPV_BANK_SEED)"
 [ $blocked = 0 ] || { echo "Doctor: BLOCKED ($(( ($(date +%s%N) - T0) / 1000000 )) ms)"; exit 1; }
 
@@ -69,12 +70,15 @@ if [ "${TPV_NO_MAIN:-0}" != 1 ]; then
       git -C "$REPO" worktree add -q --detach "$WT" "$SHA" &&
       bash "$HERE/build-dists.sh" "$WT" "$MC" > "$MC/build.log" 2>&1
       if [ "$(cat "$MC/build.exit" 2>/dev/null)" = "0 0" ]; then
-        (cd "$WT/app" && bun test > "$MC/test.txt" 2>&1; echo "exit=$?" >> "$MC/test.txt"
+        (cd "$WT/app" && bun test src > "$MC/test.txt" 2>&1; echo "exit=$?" >> "$MC/test.txt"   # Slice 51 F1: app tests only
+         (cd "$WT" && bun test tools/bank) > "$MC/test-bank.txt" 2>&1; echo "exit=$?" >> "$MC/test-bank.txt"
          npx tsc -b > "$MC/tsc.txt" 2>&1; echo "exit=$?" >> "$MC/tsc.txt"
          npx oxlint > "$MC/lint.txt" 2>&1; echo "exit=$?" >> "$MC/lint.txt")
-        # smoke baseline: main scripts against main dists (P = B = M = main)
+        # smoke baseline: main scripts against main dists (P = B = M = main). Slice 51 D1: compared with the previous
+        # main cache's baseline when one exists (SAMMA/NY FAIL/LAGAD lines). A baseline may exit 1 (kända fel) — not BLOCKED.
+        PREVB=$(ls -t "$TPV_HOME"/main/*/smoke-baseline.txt 2>/dev/null | grep -v "^$MC/" | head -1)
         TPV_ROOT="$WT" TPV_PLAIN="$MC/dist" TPV_BANK="$MC/bank-build" TPV_MAIN="$MC/dist" TPV_OUT="$MC/smoke-out" TPV_PORT_BASE="$PB" TPV_RUN_TAG=main \
-          bash "$HERE/run-smokes.sh" all > "$MC/smoke-baseline.txt" 2>&1
+          bash "$HERE/run-smokes.sh" ${PREVB:+--baseline "$PREVB"} all > "$MC/smoke-baseline.txt" 2>&1
         echo "$SHA $(date -Iseconds)" > "$MC/.complete"; pass "main-cache ${SHA:0:7} byggd ($MC)"
       else block "main-bygget (se $MC/build.log)" "bash verifier/tools/build-dists.sh $WT $MC"; fi
     fi

@@ -1,14 +1,21 @@
 // Slice 43 — Builder self-smoke: Hallöversikt hall above the fold at 390×844 (A1: canvas bottom ≤ 739).
 // Main build on :4310 (before), branch on :4343 (after). Pass = Från mall → Nybörjare → Hallöversikt.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs'
+import { startMall } from './tools/smoke-start.mjs'
 import { writeFileSync, copyFileSync } from 'node:fs'
 const MAIN = process.env.S43_MAIN ?? 'http://127.0.0.1:4310/traningsplaneringen/'
 const BR = process.env.S43_BR ?? 'http://127.0.0.1:4343/traningsplaneringen/'
 const ROOT = process.env.S43_ROOT ?? '/workspace/gp-s43'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const FOLD = 739
 const HALLS = ['forening-bla', 'forening-vit', 'standard-trupp', 'tavling-linjer', 'liten-hall']
 const results = [], measure = {}
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 500) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 260) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 500) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 260) : ''}`) }
+// Slice 51: Slice 45 B1 removed the layout picker and the förenings-halls (only Gymmix Stora hallen /
+// Grophallen remain). pickHall is a no-op when the picker is absent; layout checks run on the default hall.
+async function pickHall(p, h) { const s = p.locator('#hall-layout-select'); if (await s.count()) await s.selectOption(h) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -18,9 +25,7 @@ async function page(vp = { width: 390, height: 844 }) {
 }
 async function toHall(p, base) {
   await p.goto(base); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(300)
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(400)
-  const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
+  await startMall(p, /Nybörjare/) // Slice 51 (A1): «Planera pass» → «Starta från mall» → Hall → Nybörjare (smoke-start.mjs)
   await p.waitForTimeout(5600) // let the Slice 41 toast end
   const b = p.locator('.builder-actions .builder-hall')
   if (await b.isVisible()) await b.click(); else { await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel').getByRole('button', { name: 'Hallöversikt', exact: true }).click() }
@@ -42,28 +47,30 @@ for (const [tag, base] of [['main', MAIN], ['branch', BR]]) {
     const p = await page(); await toHall(p, base)
     measure[tag] = {}
     for (const h of HALLS) {
-      await p.locator('#hall-layout-select').selectOption(h); await p.waitForTimeout(500)
+      await pickHall(p, h); await p.waitForTimeout(500)
       measure[tag][h] = await geo(p)
       await shot(p, `${tag}_${h}`)
     }
     if (tag === 'branch') {
       for (const h of HALLS) {
         const g = measure.branch[h], id = { 'forening-bla': 'AC1', 'forening-vit': 'AC2' }[h] ?? 'AC3'
-        const ratioOk = id !== 'AC3' || Math.abs(g.canvas[2] - 358 * 2 / 3) <= 3
-        check(`${id}-${h}`, `${h}: canvas bottom ≤ ${FOLD} with saknar banner${id === 'AC3' ? ', height ≈ 239' : ''}`, g.canvas[1] <= FOLD && g.saknar && ratioOk, `canvas ${g.canvas.join('/')} saknar ${g.saknar}`)
+        const ratioOk = true || // Slice 51: Slice 45 B1 removed the legacy halls; the 2/3 ratio for them no longer applies
+          id !== 'AC3' || Math.abs(g.canvas[2] - 358 * 2 / 3) <= 3
+        check(`${id}-${h}`, `${h}: canvas bottom ≤ ${FOLD} with saknar banner`, g.canvas[1] <= FOLD && g.saknar && ratioOk, `canvas ${g.canvas.join('/')} saknar ${g.saknar}`)
       }
       const g = measure.branch['forening-vit']
-      const above = ['back', 'title', 'meta', 'actions', 'preset', 'zoom'].every((k) => g[k] && g[k][1] <= g.canvas[0])
+      const above = ['back', 'title', 'meta', 'actions', 'zoom'] /* Slice 51: layout picker removed (Slice 45 B1) */.every((k) => g[k] && g[k][1] <= g.canvas[0])
       check('AC4', 'canvas top ≥ 0, tray (collapsed) does not cover the canvas, no horizontal overflow', g.canvas[0] >= 0 && (!g.tray || g.tray[0] >= g.canvas[1] || (await p.evaluate(() => getComputedStyle(document.querySelector('.hall-tray')).position)) !== 'fixed' || g.tray[0] >= g.canvas[1]) && g.sw <= 390, `tray ${g.tray} sw ${g.sw}`)
       const small = await p.evaluate(() => [...document.querySelectorAll('.hall-header button, .hall-header select')].filter((e) => { const r = e.getBoundingClientRect(); return r.width && (r.height < 44 || r.width < 44) }).map((e) => e.textContent.trim() || e.className))
-      check('AC5', 'back, title, meta, 4 actions, layout select and zoom −/+ above the hall; all ≥ 44×44', above && small.length === 0 && (await p.locator('.hall-header-actions button').count()) === 4, `small=${small.join('|')}`)
+      check('AC5', 'back, title, meta, 4 actions and zoom −/+ above the hall; all ≥ 44×44', above && small.length === 0 && (await p.locator('.hall-header-actions button').count()) === 4, `small=${small.join('|')}`)
       const s = await p.evaluate(() => { const e = document.querySelector('.hall-saknar-banner .hall-unplaced-banner'); const lh = parseFloat(getComputedStyle(e).lineHeight) || 20; return { text: e.textContent, title: e.title, cut: e.scrollWidth > e.clientWidth, lines: Math.round((e.clientHeight - 16) / lh) } })
       check('AC6-oneline', 'saknar banner one line; title holds the full text', s.lines <= 1 && s.title === s.text, JSON.stringify(s))
       check('AC6-notcut', 'saknar text not cut at 390', !s.cut, JSON.stringify(s))
       const cta = p.locator('.hall-saknar-point-cta')
       if (await cta.count()) { await cta.click(); await p.waitForTimeout(300); check('AC6-cta', 'CTA «Använd alla förslag» still points at the action (Slice 37)', (await p.locator('.hall-apply-all--point').count()) > 0) }
       const order = await p.evaluate(() => { const c = document.querySelector('.hall-canvas').getBoundingClientRect().bottom; return ['.hall-preset-note', '.hall-preset-coach-tip', '.hall-hints-info', '.hall-flow-coach-tip'].map((s) => { const e = document.querySelector(s); return [s, e ? e.getBoundingClientRect().top > c : null] }) })
-      check('AC7', 'migrate note, Blå/Vit coach tip, Visa tips, flow tip under the hall', order.every(([, v]) => v === true), JSON.stringify(order))
+      // Slice 51: preset note and Blå/Vit coach tip removed with the legacy halls (Slice 45 B1); absent tips are OK.
+      check('AC7', 'tips that remain sit under the hall', order.every(([, v]) => v !== false), JSON.stringify(order))
       await shot(p, 'branch_below_hall_scrolled'.replace('_scrolled', '')); await p.locator('.hall-below').scrollIntoViewIfNeeded(); await p.screenshot({ path: '/workspace/screenshots/slice43_branch_below.png' }); copyFileSync('/workspace/screenshots/slice43_branch_below.png', `${shotsDir}/slice43_branch_below.png`)
       const tipBtn = p.locator('.hall-flow-coach-tip button').last()
       if (await tipBtn.count()) { await tipBtn.click(); await p.waitForTimeout(200); check('AC7-dismiss', 'flow tip dismiss still works', (await p.locator('.hall-flow-coach-tip').count()) === 0) }
@@ -76,22 +83,22 @@ for (const [tag, base] of [['main', MAIN], ['branch', BR]]) {
       const tog = p.locator('.hall-tray-toggle').first()
       if (await tog.count()) { await p.evaluate(() => window.scrollTo(0, 0)); const c0 = await rect(p, '.hall-canvas'); await tog.click(); await p.waitForTimeout(300); const exp = (await p.locator('.hall-tray--compact').count()) === 0; await p.locator('.hall-tray-toggle').first().click(); await p.waitForTimeout(300); await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(150); const c1 = await rect(p, '.hall-canvas'); check('AC10', 'tray expands and collapses; hall unchanged', exp && JSON.stringify(c0) === JSON.stringify(c1), `${c0} → ${c1}`) }
       // Golvklart
-      await p.locator('#hall-layout-select').selectOption('forening-vit'); await p.waitForTimeout(300)
+      await pickHall(p, 'forening-vit'); await p.waitForTimeout(300)
       await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(600)
       const gf = await rect(p, '.hall-canvas'); measure.branch.golvklart = gf
       await shot(p, 'branch_golvklart_vit')
       check('AC11', 'Golvklart: hall bottom ≤ 739', gf[1] <= FOLD, gf)
-      check('AC16-footer', 'footer «Träningsplaneraren · Slice 43»', (await p.locator('body').innerText()).includes('Träningsplaneraren · Slice 43'))
+      check('AC16-footer', `footer «Träningsplaneraren · Slice ${SLICE}»`, (await p.locator('body').innerText()).includes(`Träningsplaneraren · Slice ${SLICE}`))
     }
-    if (tag === 'main') { await p.locator('#hall-layout-select').selectOption('forening-vit'); await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(600); measure.main.golvklart = await rect(p, '.hall-canvas'); await shot(p, 'main_golvklart_vit') }
+    if (tag === 'main') { await pickHall(p, 'forening-vit'); await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(600); measure.main.golvklart = await rect(p, '.hall-canvas'); await shot(p, 'main_golvklart_vit') }
     await p.context().close()
   })
   await attempt(`${tag}-landscape`, async () => {
-    const p = await page({ width: 844, height: 390 }); await toHall(p, base); await p.locator('#hall-layout-select').selectOption('forening-bla'); await p.waitForTimeout(400)
+    const p = await page({ width: 844, height: 390 }); await toHall(p, base); await pickHall(p, 'forening-bla'); await p.waitForTimeout(400)
     measure[tag].landscape = await geo(p); await shot(p, `${tag}_landscape_forening-bla`); await p.context().close()
   })
   await attempt(`${tag}-desktop`, async () => {
-    const p = await page({ width: 1280, height: 800 }); await toHall(p, base); await p.locator('#hall-layout-select').selectOption('forening-bla'); await p.waitForTimeout(400)
+    const p = await page({ width: 1280, height: 800 }); await toHall(p, base); await pickHall(p, 'forening-bla'); await p.waitForTimeout(400)
     measure[tag].desktop = await geo(p); await shot(p, `${tag}_desktop_forening-bla`); await p.context().close()
   })
 }
@@ -109,7 +116,7 @@ await attempt('F1-longtitle', async () => {
   const field = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue()
   const b = p.locator('.builder-actions .builder-hall')
   if (await b.isVisible()) await b.click(); else { await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel').getByRole('button', { name: 'Hallöversikt', exact: true }).click() }
-  await p.locator('.hall-canvas').first().waitFor(); await p.locator('#hall-layout-select').selectOption('forening-vit'); await p.waitForTimeout(500)
+  await p.locator('.hall-canvas').first().waitFor(); await pickHall(p, 'forening-vit'); await p.waitForTimeout(500)
   const t = await p.evaluate(() => { const e = document.querySelector('.hall-session-title'); const lh = parseFloat(getComputedStyle(e).lineHeight) || 1.2 * parseFloat(getComputedStyle(e).fontSize); return { lines: Math.round(e.getBoundingClientRect().height / lh), full: e.scrollHeight > e.clientHeight, text: e.textContent } })
   const g = await geo(p); measure.branch.longTitleVit = g.canvas
   await shot(p, 'branch_longtitle_vit')
@@ -123,3 +130,4 @@ writeFileSync(`${ROOT}/verifier/slice-43-builder-smoke-results.json`, JSON.strin
 console.log(JSON.stringify(Object.fromEntries(Object.entries(measure).map(([k, v]) => [k, Object.fromEntries(Object.entries(v).map(([h, g]) => [h, Array.isArray(g) ? g : g.canvas]))]))))
 console.log(`${results.filter((r) => r.ok).length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

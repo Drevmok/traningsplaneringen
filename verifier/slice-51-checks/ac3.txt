@@ -1,0 +1,3 @@
+slice-32-builder-smoke exit=0 PASS 78 / FAIL 0 (58 s)
+  slice-32-builder-smoke: LAGAD (FAIL 16→0)
+Borttagna AC: se SLICE51-SHIPPED.md (magic-link-only)

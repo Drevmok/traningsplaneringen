@@ -4,7 +4,8 @@
 HERE36="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export S32_DIR=${S32_DIR:-/tmp/s36}
 export S32_GATEWAY_PORT=${S32_GATEWAY_PORT:-54740}
-export S32_PG_PORT=${S32_PG_PORT:-54741}
+# Slice 51 (F1): 54741 + (cksum of S32_DIR) % 100 instead of a fixed 54741 (the template cluster's old port).
+export S32_PG_PORT=${S32_PG_PORT:-$(( 54741 + $(printf %s "$S32_DIR" | cksum | cut -d' ' -f1) % 100 ))}
 export S32_POSTGREST_PORT=${S32_POSTGREST_PORT:-54742}
 export S32_GOTRUE_PORT=${S32_GOTRUE_PORT:-54743}
 export S32_SMTP_PORT=${S32_SMTP_PORT:-54745}

@@ -1,0 +1,3 @@
+zz-ac11-crash-smoke exit=1 KRASCH: Error: AC11 tvingad krasch: page.goto ECONNREFUSED (1 s)
+netlog: 0 requests, 0 to the live project host (all aborted)
+runner rc=0

@@ -1,14 +1,18 @@
 // Slice 42 — Builder self-smoke: «Tomt pass?» tip only at 0 coach stations; confirm skipped on a fresh pass. 390×844, branch on :4242.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { openMallList, startFragor, startTomt } from './tools/smoke-start.mjs'
+import { sliceNumber } from './tools/smoke-login.mjs'
 import { execFileSync, spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 const BR = process.env.S42_BR ?? 'http://127.0.0.1:4242/traningsplaneringen/'
 const ROOT = process.env.S42_ROOT ?? '/workspace/gp-s42'
+const SLICE = sliceNumber(ROOT) // Slice 51: footer follows SLICE_NUMBER
 const DK = 'gymnastics-planner-draft-v1', TK = 'gymnastics-planner-templates-v1'
 const seed = (t, n) => execFileSync('bun', [`${ROOT}/verifier/slice-42-seed.ts`, t, String(n)], { encoding: 'utf8' }).trim()
 const seedMall = () => spawnSync('bun', [`${ROOT}/verifier/slice-42-seed.ts`, 'S42 egen mall', '2', 'mall'], { encoding: 'utf8' }).stderr.trim()
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, name, ok: Boolean(ok), detail: String(detail).slice(0, 400) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), name, ok: Boolean(ok), detail: String(detail).slice(0, 400) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 220) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true })
@@ -27,7 +31,7 @@ const tekCard = () => p.locator('.block-card').filter({ hasText: 'Teknik' }).fir
 async function menu(name) { await p.getByRole('button', { name: 'Fler saker med passet' }).click(); await p.locator('.more-menu-panel').getByRole('button', { name, exact: true }).click() }
 async function clean() { await p.goto(BR); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor() }
 async function load(json, tmpl) { await p.goto(BR); await p.evaluate(([k, v, t, tv]) => { localStorage.clear(); localStorage.setItem(k, v); if (tv) localStorage.setItem(t, tv) }, [DK, json, TK, tmpl ?? null]); await p.reload(); await p.locator('.home').waitFor(); await p.getByRole('button', { name: /Fortsätt passet/ }).click(); await builder().waitFor() }
-async function tomt() { await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor(); await p.waitForTimeout(250) }
+async function tomt() { await startTomt(p) } // Slice 51 (A1): via «Planera pass» → «Tomt pass» (smoke-start.mjs)
 async function pickBuiltIn(re = /Nybörjare/) { await menu('Använd mall'); await p.locator('.template-card').filter({ hasText: re }).first().click(); await p.waitForTimeout(500) }
 async function confirmShown() { return (await confirmDlg().count()) > 0 }
 async function addTeknik() {
@@ -49,8 +53,8 @@ await attempt('AC1/2', async () => {
   check('AC2-back', '× it → tip shows again', await tipShown())
 })
 await attempt('AC3', async () => {
-  await clean(); await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click(); await builder().waitFor(); await p.waitForTimeout(400)
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.waitForTimeout(500)
+  await clean(); const list = await openMallList(p)
+  await list.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await builder().waitFor(); await p.waitForTimeout(500)
   const c = await confirmShown(); if (c) await confirmDlg().getByRole('button', { name: 'Använd mall', exact: true }).click()
   await p.waitForTimeout(400)
   check('AC3', 'first visit via Från mall → mall pass with stations and no tip', !(await tipShown()) && (await p.locator('.item-remove').count()) > 2, `confirm=${c}`)
@@ -58,11 +62,7 @@ await attempt('AC3', async () => {
   await shot('03_mall_firstvisit_no_tip')
 })
 await attempt('AC4/AC9-wizard', async () => {
-  await clean(); await p.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = p.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option').first().click(); await wz.getByRole('button', { name: 'Skapa pass' }).click(); await builder().waitFor(); await p.waitForTimeout(300)
+  await clean(); await startFragor(p, { age: /7–9/, focus: /^Trampett/ }); await p.waitForTimeout(300)
   check('AC4', 'wizard pass → no tip', !(await tipShown())); await shot('04_wizard_no_tip')
   const n0 = (await mallar()).length
   await pickBuiltIn()
@@ -134,9 +134,10 @@ await attempt('AC13', async () => {
   check('AC13', 'untouched mall pass after reload → confirm shows', await confirmShown())
 })
 await attempt('AC18', async () => {
-  check('AC18-footer', 'footer «Träningsplaneraren · Slice 42»', (await p.locator('body').innerText()).includes('Träningsplaneraren · Slice 42'))
+  check('AC18-footer', `footer «Träningsplaneraren · Slice ${SLICE}»`, (await p.locator('body').innerText()).includes(`Träningsplaneraren · Slice ${SLICE}`))
 })
 check('no-errors', 'no page errors', errors.length === 0, errors.join(' | '))
 writeFileSync(`${ROOT}/verifier/slice-42-builder-smoke-results.json`, JSON.stringify({ when: new Date().toISOString(), results }, null, 2))
 console.log(`${results.filter((r) => r.ok).length}/${results.length} pass`)
 await browser.close()
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1

@@ -7,7 +7,7 @@
 //   - otherwise: every script whose "paths" include a changed file, plus changed verifier/<script>.mjs
 // "Hela loopen" = every entry with inLoop ≠ false. Entries with inLoop=false (no fixtures / stale selectors /
 // crash, see smoke-map "note") are listed as INFO and compared only against the main baseline; --all runs them too.
-// Entries with "karantan" print those AC ids as INFO (D1/D2). Output: one line per script with its reason;
+// smoke-map "karantan".ids print as INFO (Slice 51 E1: KARANTÄN-FAIL, gräns ≥2/20). Output: one line per script with its reason;
 // the last line is "RUN: <script> …" (machine-readable; --json gives the same as JSON).
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
@@ -18,7 +18,8 @@ const args = process.argv.slice(2)
 const [base, head] = args.filter((a) => !a.startsWith('--'))
 if (!base || !head) { console.error('usage: pick-smokes.mjs <base> <head> [--all] [--json]'); process.exit(2) }
 const ALL = args.includes('--all'), JSON_OUT = args.includes('--json')
-const map = JSON.parse(readFileSync(process.env.SMOKE_MAP ?? join(REPO, 'verifier', 'smoke-map.json'), 'utf8'))
+// Slice 51 (E1): the top-level "karantan" key is not a script.
+const { karantan: KQ = { ids: [], limit: '≥2/20' }, ...map } = JSON.parse(readFileSync(process.env.SMOKE_MAP ?? join(REPO, 'verifier', 'smoke-map.json'), 'utf8'))
 const files = (process.env.PICK_FILES ?? execFileSync('git', ['-C', REPO, 'diff', '--name-only', `${base}...${head}`], { encoding: 'utf8' }))
   .split('\n').map((s) => s.trim()).filter(Boolean)
 const CORE = ['app/src/lib/session.ts', 'app/src/data/blockMeta.ts', 'app/src/App.css']

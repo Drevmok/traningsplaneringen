@@ -2,13 +2,14 @@
 // Branch build (bank off, seeds) on :4848. All supabase.co traffic is blocked in the browser — no real backend.
 // AC26–27 (real iPhone pinch / long-press) are NOT covered here: pending a real device.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
+import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 const BR = process.env.S48_BR ?? 'http://127.0.0.1:4848/traningsplaneringen/'
 const SHOTS = process.env.S48_SHOTS ?? '/tmp/slice-48-screenshots'
 const DRAFT = 'gymnastics-planner-draft-v1'
 const TECH = ['tech-ljushopp-satsbrada', 'tech-satsbrada-volt-rygg', 'tech-trampett-volt-mattberg']
 const NAMES = ['t0', 't1', 't2']
 const results = []
-const check = (id, name, ok, detail = '') => { results.push({ id, ok: Boolean(ok) }); console.log(`${ok ? 'PASS' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
+const check = (id, name, ok, detail = '') => { results.push({ id, karantan: !ok && KARANTAN.includes(id), ok: Boolean(ok) }); console.log(`${ok ? 'PASS' : KARANTAN.includes(id) ? 'KARANTÄN-FAIL' : 'FAIL'} [${id}] ${name}${detail ? ' — ' + String(detail).slice(0, 300) : ''}`) }
 async function attempt(id, fn) { try { await fn() } catch (e) { check(id, 'error', false, String(e.message).split('\n')[0]) } }
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] })
 const errors = []
@@ -135,4 +136,5 @@ check('console', 'no page errors', errors.length === 0, errors.join(' | '))
 await browser.close()
 const pass = results.filter((r) => r.ok).length
 console.log(`\n${pass}/${results.length} PASS`)
-process.exit(pass === results.length ? 0 : 1)
+process.exitCode = results.some((r) => !r.ok && !r.karantan) ? 1 : 0 // Slice 51 D1
+process.exit(process.exitCode)
