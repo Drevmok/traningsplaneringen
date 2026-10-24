@@ -1,0 +1,8 @@
+slice-30-fix-b1-smoke exit=1 PASS 10 / FAIL 1 (3 s)
+  slice-30-fix-b1-smoke: NY FAIL (PASS 11→10, FAIL 0→1)
+seed-2DJ_oMM81mI-smoke exit=1 PASS 52 / FAIL 12 (8 s)
+  seed-2DJ_oMM81mI-smoke: NY FAIL (PASS 64→52, FAIL 0→12)
+slice-37-builder-smoke exit=1 21/24 pass (25 s)
+  slice-37-builder-smoke: NY FAIL (PASS 24→21, FAIL 0→3)
+netlog: 108 requests, 0 to the live project host (all aborted)
+baslinje: NY FAIL mot /workspace/s51v/wt/verifier/slice-51-checks/after/final-run.txt
