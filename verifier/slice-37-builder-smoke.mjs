@@ -104,6 +104,7 @@ await p.locator('.builder').waitFor()
 await p.waitForTimeout(400)
 // Slice 39: the built-in mall is saved the moment it is applied (no Spara utkast); wait for «Sparat».
 const toastAfterApply = await toast.count()
+const toastTextAfterApply = toastAfterApply ? (await toast.innerText().catch(() => '')).trim() : ''
 await p.locator('.builder-actions .save-status', { hasText: 'Sparat' }).waitFor({ timeout: 5000 })
 let d = await draft()
 check('note', 'Built-in apply is saved at once (Slice 39 C1): draft present right after apply', !!d)
@@ -111,7 +112,8 @@ check('AC1a', `Built-in «${builtTitle}»: draft has one marker per Teknik item 
 check('AC4a', 'Built-in: no non-Teknik markers; hall template = the guide hall (forening-bla since Slice 45)', nonTeknikPlaced(d) === 0 && d.hallTemplateId === 'forening-bla', d.hallTemplateId)
 check('AC5', 'Använd alla förslag not triggered: no station redskap saved on Teknik items', d.blocks.flatMap((b) => b.items).every((i) => !i.stationEquipment))
 // Slice 51: since Slice 46 (Starta-flödet) a built-in mall also gets «Mallen är i Passbyggaren. · Ångra».
-check('AC9a', 'Built-in apply shows only the Slice 46 undo toast', toastAfterApply === 0 || (await toast.innerText().catch(() => '')).includes(TOAST))
+// Slice 52: C1 — the Slice 46 undo toast is required (it always shows), not optional.
+check('AC9a', 'Built-in apply shows the Slice 46 undo toast «Mallen är i Passbyggaren.»', toastAfterApply > 0 && toastTextAfterApply.startsWith(TOAST), toastTextAfterApply || 'no toast')
 check('AC6a', 'Markers do not stack (distinct spots)', noStack(d))
 await shot('01_builtin_applied')
 const before = JSON.stringify(d.hallPlacements)
@@ -138,7 +140,9 @@ await p.locator('section.club-templates .template-club .template-card').first().
 const cdlg = confirmDlg()
 await Promise.race([cdlg.waitFor({ timeout: 2500 }), toast.waitFor({ timeout: 2500 })]).catch(() => {})
 const hasDlg = (await cdlg.count()) > 0
-check('AC9b', 'Club confirm (if any) has no «Stationerna placerar du själv i Hallöversikt.» line', !hasDlg || !(await cdlg.innerText()).includes(OLD_NOTE), hasDlg ? 'confirm' : 'no confirm (Slice 46)')
+// Slice 52: C1 — without a confirm the undo toast must be there; with a confirm it must not carry OLD_NOTE.
+const clubToast = hasDlg ? '' : (await toast.innerText().catch(() => '')).trim()
+check('AC9b', 'Club apply: toast «Mallen är i Passbyggaren.» (Slice 46), and a confirm (if any) has no «Stationerna placerar du själv i Hallöversikt.» line', hasDlg ? !(await cdlg.innerText()).includes(OLD_NOTE) : clubToast.startsWith(TOAST), hasDlg ? 'confirm' : `no confirm (Slice 46), toast «${clubToast}»`)
 await shot('03_club_confirm')
 if (hasDlg) await cdlg.getByRole('button', { name: 'Använd mall', exact: true }).click()
 await toast.waitFor()
@@ -185,7 +189,8 @@ await p.locator('.template-saved:not(.template-club) .template-card').filter({ h
 await useMall()
 await p.waitForTimeout(500)
 // Slice 51: Använd mall in the builder arms «Ångra» since Slice 41 A1 (undo toast); no other toast.
-check('AC9e', 'Egen mall apply shows only the undo toast', (await toast.count()) === 0 || (await toast.innerText()).trim().startsWith(TOAST))
+// Slice 52: C1 — the undo toast is required.
+check('AC9e', 'Egen mall apply shows the undo toast', (await toast.count()) > 0 && (await toast.innerText()).trim().startsWith(TOAST))
 d = await draft()
 // Item ids are kept from the mall for Egen mall (Slice 20 behaviour), so the first saved spot can be matched by order.
 const firstTek = d.blocks.find((b) => b.type === 'techniques').items.slice().sort((a, b) => a.order - b.order)

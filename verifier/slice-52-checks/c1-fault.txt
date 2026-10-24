@@ -1,0 +1,11 @@
+# AC8: blockMeta.ts clubTemplateApplied 'Mallen är i Passbyggaren.' → 'Mallen ligger i Passbyggaren.' i scratch-worktree från 84b44e7; s37 med --baseline mot 84b44e7-cachen
+slice-37-builder-smoke exit=1 20/24 pass (25 s)
+  slice-37-builder-smoke: NY FAIL (PASS 24→20, FAIL 0→4)
+netlog: 90 requests, 0 to the live project host (all aborted)
+baslinje: NY FAIL mot /home/box/tp-verify/main/84b44e73dcd7c96aa4c27bdc98d159258af64030/smoke-baseline.txt
+rc=1
+--- FAIL-rader
+FAIL [AC9a] Built-in apply shows the Slice 46 undo toast «Mallen är i Passbyggaren.» — Mallen ligger i Passbyggaren.
+FAIL [AC9b] Club apply: toast «Mallen är i Passbyggaren.» (Slice 46), and a confirm (if any) has no «Stationerna placerar du själv i Hallöversikt.» line — no confirm (Slice 46), toast «Mallen ligger i Passbyggaren.
+FAIL [AC9c] Club toast reads «Mallen är i Passbyggaren.» (+ Ångra)
+FAIL [AC9e] Egen mall apply shows the undo toast

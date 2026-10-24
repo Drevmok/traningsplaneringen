@@ -1,0 +1,15 @@
+# AC9: utan --baseline, s34 (känd exit 1)
+slice-34-builder-smoke exit=1 PASS 26 / FAIL 2 (16 s)
+netlog: 24 requests, 0 to the live project host (all aborted)
+rc=1
+# AC10: utan --baseline, s48 + s49
+slice-48-builder-smoke exit=0 80/80 PASS (24 s)
+slice-49-builder-smoke exit=0 34/34 pass (37 s)
+netlog: 78 requests, 0 to the live project host (all aborted)
+rc=0
+# AC14a: --baseline med 055af39-filen (syntaxfelsraden)
+baseline_ok: rad saknas: slice-52-admin-import-smoke exit=
+baseline_ok: netlog-raden saknas
+baseline_ok: «syntax error» i filen
+baseline /tmp/s52-055-baseline.txt är ogiltig (baseline_ok, se ovan); kör Doctor för en ny main-cache
+rc=2

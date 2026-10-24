@@ -1,0 +1,9 @@
+{
+  "format": "traningsplaneraren.ovningar",
+  "schemaVersion": 1,
+  "exercises": [
+    { "id": "own-s52-hopprep-stafett", "title": "Hopprep-stafett", "blockType": "warmup", "durationMinutesDefault": 6, "summary": "Pulshöjande start med rep i lag.", "howTo": "1. Dela in i två lag.\n2. Hoppa fem hopp och växla.", "watchFor": "Avstånd mellan repen.", "safetyLine": "Fri yta runt varje rep." },
+    { "id": "own-s52-balans-bank", "title": "Balansgång på bänk", "blockType": "strength", "durationMinutesDefault": 8, "summary": "Bålstyrka och balans på låg höjd.", "howTo": "1. Gå bänken framåt.\n2. Gå bakåt med armarna ut.", "watchFor": "Blicken framåt.", "safetyLine": "Mattor längs bänken." },
+    { "id": "own-s52-valkomst", "title": "Välkomstcheck-in", "blockType": "gathering", "durationMinutesDefault": 5, "summary": "Samma namn som en bankövning.", "howTo": "1. Samla gruppen.\n2. Kort runda.", "watchFor": "Alla hörs." }
+  ]
+}

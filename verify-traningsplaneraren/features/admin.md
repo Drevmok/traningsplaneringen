@@ -17,6 +17,8 @@
 
 **Prove:** Non-admins never see or reach Admin; every write lands as `pending` in the DB only; counts in toasts match DB rows; no partial rows; no request to the live project (record the browser network: Verifier used a PW_CORE shim that logs every request and blocks the live host). Real two-admin run (two people) is PENDING-real on stand-in runs.
 
+**Smoke (Slice 52, E1):** `verifier/slice-52-admin-import-smoke.mjs` kör punkt 6 (import) på bank-bygget med Supabase fejkad i webbläsaren (`slice-47-fake-supabase.mjs`, ingen stand-in): IMP1 «Importera övningar» i Admin, IMP2 fil → 3 rader, IMP3 «Samma namn finns redan» startar på «Hoppa över», IMP4 «Ta med» på två → två `pending`-POST, IMP5 «Väntar på godkännande (2)» + «Väntar», IMP6 kod-input ger samma lista. Fixtur `verifier/fixtures/s52-import.json`. Texterna läses från `app/src/data/blockMeta.ts`.
+
 **Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
 
 | Vad | Väljare | Källa |
