@@ -1,0 +1,34 @@
+# AC11: HOME=/tmp/s52pwhome (inga chromium_headless_shell-*), install-once.sh
+ok: postgres 17 (/usr/lib/postgresql/17/bin)
+ok: GoTrue v2.197.0
+ok: PostgREST v12.2.3
+install: Playwright 1.63.0-alpha-2026-08-31 chromium-headless-shell (revision 1243)
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║ WARNING: It looks like you are running 'npx playwright install' without first ║
+║ installing your project's dependencies.                                       ║
+║                                                                               ║
+║ To avoid unexpected behavior, please install your dependencies first, and     ║
+║ then run Playwright's install command:                                        ║
+║                                                                               ║
+║     npm install                                                               ║
+║     npx playwright install                                                    ║
+║                                                                               ║
+║ If your project does not yet depend on Playwright, first install the          ║
+║ applicable npm package (most commonly @playwright/test), and                  ║
+║ then run Playwright's install command to download the browsers:               ║
+║                                                                               ║
+║     npm install @playwright/test                                              ║
+║     npx playwright install                                                    ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /tmp/s52pwhome/.cache/ms-playwright/chromium_headless_shell-1243
+Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+FFmpeg (playwright ffmpeg v1011) downloaded to /tmp/s52pwhome/.cache/ms-playwright/ffmpeg-1011
+install-once: installed
+rc=0
+--- ls $HOME/.cache/ms-playwright
+chromium_headless_shell-1243
+ffmpeg-1011
+--- pw_ok
+pw_ok PASS (1243)

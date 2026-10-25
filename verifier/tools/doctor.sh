@@ -78,12 +78,17 @@ if [ "${TPV_NO_MAIN:-0}" != 1 ]; then
         # main cache's baseline when one exists (SAMMA/NY FAIL/LAGAD lines). A baseline may exit 1 (kända fel) — not BLOCKED.
         PREVB=$(ls -t "$TPV_HOME"/main/*/smoke-baseline.txt 2>/dev/null | grep -v "^$MC/" | head -1)
         TPV_ROOT="$WT" TPV_PLAIN="$MC/dist" TPV_BANK="$MC/bank-build" TPV_MAIN="$MC/dist" TPV_OUT="$MC/smoke-out" TPV_PORT_BASE="$PB" TPV_RUN_TAG=main \
-          bash "$HERE/run-smokes.sh" ${PREVB:+--baseline "$PREVB"} all > "$MC/smoke-baseline.txt" 2>&1
+          bash "$MC/wt/verifier/tools/run-smokes.sh" ${PREVB:+--baseline "$PREVB"} all > "$MC/smoke-baseline.txt" 2>&1   # Slice 52 F1: main's own runner, not this checkout's
         echo "$SHA $(date -Iseconds)" > "$MC/.complete"; pass "main-cache ${SHA:0:7} byggd ($MC)"
       else block "main-bygget (se $MC/build.log)" "bash verifier/tools/build-dists.sh $WT $MC"; fi
     fi
     flock -u 9
   fi
+  # Slice 52 F1: the baseline must be usable (lib.sh baseline_ok against main's map); else rename it and BLOCK.
+  if [ -f "$MC/.complete" ] && [ -f "$MC/smoke-baseline.txt" ]; then
+    if baseline_ok "$MC/smoke-baseline.txt" "$MC/wt/verifier/smoke-map.json"; then pass "smoke-baseline ${SHA:0:7} giltig"
+    else mv "$MC/smoke-baseline.txt" "$MC/smoke-baseline.invalid.txt"; block "smoke-baseline ${SHA:0:7} ogiltig → smoke-baseline.invalid.txt" "rm -rf $MC && bash verifier/tools/doctor.sh"; fi
+  elif [ -f "$MC/smoke-baseline.invalid.txt" ]; then block "smoke-baseline ${SHA:0:7} ogiltig (smoke-baseline.invalid.txt)" "rm -rf $MC && bash verifier/tools/doctor.sh"; fi
   [ -f "$MC/.complete" ] && { [ "$(cat "$MC/build.exit")" = "0 0" ] && pass "main build exit 0, $(grep TOTAL "$MC/bundle.txt")" ; http_check "main-dist" "$MC/dist"; }
 fi
 [ -n "${TPV_DIST:-}" ] && http_check "TPV_DIST" "$TPV_DIST"

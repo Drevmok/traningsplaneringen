@@ -1,0 +1,23 @@
+PASS [AC1-forening-bla] forening-bla: canvas bottom ≤ 739 with saknar banner — canvas 387/651/264 saknar 336,375,39
+PASS [AC2-forening-vit] forening-vit: canvas bottom ≤ 739 with saknar banner — canvas 387/651/264 saknar 336,375,39
+PASS [AC3-standard-trupp] standard-trupp: canvas bottom ≤ 739 with saknar banner — canvas 387/651/264 saknar 336,375,39
+PASS [AC3-tavling-linjer] tavling-linjer: canvas bottom ≤ 739 with saknar banner — canvas 387/651/264 saknar 336,375,39
+PASS [AC3-liten-hall] liten-hall: canvas bottom ≤ 739 with saknar banner — canvas 387/651/264 saknar 336,375,39
+PASS [AC4] canvas top ≥ 0, tray (collapsed) does not cover the canvas, no horizontal overflow — tray 909,967,58 sw 390
+FAIL [AC5] back, title, meta, 4 actions and zoom −/+ above the hall; all ≥ 44×44 — small=
+PASS [AC6-oneline] saknar banner one line; title holds the full text — {"text":"3 stationer saknar redskap","title":"3 stationer saknar redskap","cut":false,"lines":1}
+PASS [AC6-notcut] saknar text not cut at 390 — {"text":"3 stationer saknar redskap","title":"3 stationer saknar redskap","cut":false,"lines":1}
+PASS [AC7] tips that remain sit under the hall — [[".hall-preset-note",null],[".hall-preset-coach-tip",null],[".hall-hints-info",null],[".hall-flow-coach-tip",true]]
+PASS [AC7-dismiss] flow tip dismiss still works
+PASS [AC12-zoom] zoom + grows the hall, − shrinks back — w after + 447.5
+PASS [AC10] tray expands and collapses; hall unchanged — 387,651,264 → 387,651,264
+PASS [AC11] Golvklart: hall bottom ≤ 739 — 241,505,264
+PASS [AC16-footer] footer «Träningsplaneraren · Slice 49»
+PASS [AC13] landscape 844×390: hall top ≤ main (507) — main 209,619,411 branch 209,619,411
+PASS [AC14] desktop 1280×800: header and hall geometry unchanged except moved items (hall moves up by their height only) — main [209,803,595] branch [209,803,595]
+PASS [F1-lines] long title shows ≤ 2 lines in Hallöversikt (clamped, full text in DOM) — {"lines":2,"clamped":true}
+PASS [F1-fold] Vit hall bottom ≤ 739 with the long title — 409,673,264
+PASS [F1-field] Passets titel field holds the full title — 180
+PASS [no-errors] no page errors
+{"main":{"forening-bla":[387,651,264],"forening-vit":[387,651,264],"standard-trupp":[387,651,264],"tavling-linjer":[387,651,264],"liten-hall":[387,651,264],"golvklart":[241,505,264],"landscape":[209,619,411],"desktop":[209,803,595]},"branch":{"forening-bla":[387,651,264],"forening-vit":[387,651,264],"standard-trupp":[387,651,264],"tavling-linjer":[387,651,264],"liten-hall":[387,651,264],"golvklart":[241,505,264],"landscape":[209,619,411],"desktop":[209,803,595],"longTitleVit":[409,673,264]}}
+20/21 pass

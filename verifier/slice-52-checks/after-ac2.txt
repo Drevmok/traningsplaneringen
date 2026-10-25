@@ -1,0 +1,15 @@
+slice-37-builder-smoke exit=0 24/24 pass (25 s)
+  slice-37-builder-smoke: SAMMA
+slice-43-builder-smoke exit=1 17/18 pass (69 s)
+  slice-43-builder-smoke: NY FAIL (PASS 20→17, FAIL 1→1)
+slice-44-builder-smoke exit=0 32/32 pass (71 s)
+  slice-44-builder-smoke: LAGAD (FAIL 1→0)
+slice-45-builder-smoke exit=0 41/41 PASS (80 s)
+  slice-45-builder-smoke: LAGAD (FAIL 3→0)
+slice-46-builder-smoke exit=0 37/37 pass (140 s)
+  slice-46-builder-smoke: LAGAD (FAIL 2→0)
+slice-52-admin-import-smoke exit=0 PASS 6 / FAIL 0 (6 s)
+  slice-52-admin-import-smoke: UTAN BASLINJE
+netlog: 2005 requests, 0 to the live project host (all aborted)
+baslinje: NY FAIL mot /home/box/tp-verify/main/84b44e73dcd7c96aa4c27bdc98d159258af64030/smoke-baseline.txt
+rc=1

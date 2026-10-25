@@ -1,0 +1,26 @@
+PASS [note] Built-in apply is saved at once (Slice 39 C1): draft present right after apply
+PASS [AC1a] Built-in «Nybörjare — ca 55 min»: draft has one marker per Teknik item right after apply (hall not opened) — 3/3
+PASS [AC4a] Built-in: no non-Teknik markers; hall template = the guide hall (forening-bla since Slice 45) — forening-bla
+PASS [AC5] Använd alla förslag not triggered: no station redskap saved on Teknik items
+PASS [AC9a] Built-in apply shows only the Slice 46 undo toast
+PASS [AC6a] Markers do not stack (distinct spots)
+PASS [AC8a] Reload: built-in placements still in the draft
+PASS [AC1b] Open Hallöversikt: same markers, no extra or duplicate — canvas chips 3
+PASS [AC9b] Club confirm (if any) has no «Stationerna placerar du själv i Hallöversikt.» line — no confirm (Slice 46)
+PASS [AC9c] Club toast reads «Mallen är i Passbyggaren.» (+ Ångra)
+PASS [AC2] Club mall (≥ 2 Teknik): all Teknik placed on apply, in the pass hall template; only Teknik — 3/3
+PASS [AC11] Club row in the DB still has no hallPlacements
+PASS [AC9d] Toast disappears after the undo window (~5 s, Slice 41) — 4841 ms after seen
+PASS [AC8b] Reload: club placements still in the draft
+PASS [AC9e] Egen mall apply shows only the undo toast
+PASS [AC3a] Egen mall with placements: the saved marker keeps its exact spot; the unplaced Teknik item gets one; all Teknik placed once — kept 1, placed 3/3, first teknik item-x5ts1f7r-mvmvenkx
+PASS [AC8c] Reload: Egen mall placements still in the draft
+PASS [AC3b] Egen mall saved without placements: all Teknik placed, nothing else
+PASS [AC7] Remove one marker → reopen Hallöversikt: it stays removed (no re-placement) — before 3, after reopen 2
+PASS [AC12] Footer «Träningsplaneraren · Slice 49»; mail ends «Version: Slice 49»
+PASS [AC14a] Planera pass still places all Teknik
+PASS [AC14b] Tomt pass: nothing stored yet (Slice 39 E1), so no hall placements; «Sparat» hidden — no draft
+PASS [AC22] 390 wide: no horizontal scroll
+PASS [errors] No page errors
+
+24/24 pass

@@ -1,0 +1,18 @@
+# AC4
+verifier/slice-44-builder-smoke.mjs:2:// Branch on :4444, main on :4410 (old-link check). 390×844, DPR 2. Print checked with emulateMedia('print') + page.pdf (A4).
+verifier/slice-44-builder-smoke.mjs:9:const BR = process.env.S44_BR ?? 'http://127.0.0.1:4444/traningsplaneringen/'
+verifier/slice-44-builder-smoke.mjs:10:const MAIN = process.env.S44_MAIN ?? 'http://127.0.0.1:4410/traningsplaneringen/'
+verifier/slice-44-builder-smoke.mjs:63:  check('AC1-menu', 'Mer shows «Dela», not «Exportera / dela»', items.includes('Dela') && !items.some((t) => t.includes('Exportera')), items.join('|'))
+verifier/slice-45-builder-smoke.mjs:109:  check('AC5', 'no «Hallayout» label / select; zoom − / + ≥ 44×44; canvas top ≤ 310', (await p.locator('select, #hall-layout-select').count()) === 0 && !/Hallayout/.test(txt) && zoom.length === 2 && zoom.every((z) => z[1] >= 44 && z[2] >= 44) && canvas.top <= mainCanvas.top && (canvas.top <= 310 || (await p.locator('.hall-saknar-banner').count()) > 0), `zoom=${JSON.stringify(zoom)} canvasTop=${canvas.top} main=${mainCanvas.top} (saknar banner above the hall on both: ${await p.locator('.hall-saknar-banner').count()})`)
+# AC6
+(rc=1 ; 1 = inga träffar)
+# AC15
+(tomt)
+app/src/data/blockMeta.ts:97:export const SLICE_NUMBER = '49'
+# AC3: Slice 52-kommentarer per fil
+verifier/slice-37-builder-smoke.mjs 3
+verifier/slice-43-builder-smoke.mjs 3
+verifier/slice-44-builder-smoke.mjs 3
+verifier/slice-45-builder-smoke.mjs 5
+verifier/slice-46-builder-smoke.mjs 2
+AC4: träffarna ligger i rad 2/9/10 (huvud/env-standard), AC1-menu (frånvarokontroll) och s45 AC5 (frånvarokontroll) — ingen i AC6/AC10-blocken.
