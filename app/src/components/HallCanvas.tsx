@@ -255,6 +255,7 @@ export function HallCanvas({
             </svg>
           )}
 
+          <div className="hall-chip-layer">
           {placed.map(({ item, placement }) => {
             const live = dragPreview?.id === item.id ? dragPreview : null
             return (
@@ -281,6 +282,7 @@ export function HallCanvas({
             </div>
             )
           })}
+          </div>
         </div>
       </div>
     </div>

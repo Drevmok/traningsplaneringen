@@ -1878,12 +1878,20 @@
   margin: 0 0 10px;
 }
 
+/* Slice 53 AC9: one layer for all markers; anchors make no stacking context (margin, not transform),
+   so every number plate (z-index 2) is drawn above every marker body. */
+.hall-chip-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
 .hall-chip-anchor {
   position: absolute;
-  z-index: 5;
-  transform: translate(-50%, -50%);
+  margin: -26px 0 0 -26px;
   max-width: none;
   width: auto;
+  pointer-events: auto;
 }
 
 .hall-chip {
@@ -2000,7 +2008,6 @@
   position: absolute;
   bottom: -5px;
   right: -4px;
-  z-index: 2;
   font-size: 0.55rem;
   font-weight: 700;
   padding: 1px 4px;
@@ -2020,7 +2027,6 @@
   position: absolute;
   top: -14px;
   right: -14px;
-  z-index: 3;
   /* Slice 20 B1 — ≥44×44 hit target (edit canvas only) */
   width: 44px;
   height: 44px;
@@ -2587,6 +2593,7 @@
 
   .hall-chip-anchor {
     max-width: none;
+    margin: -24px 0 0 -24px;
   }
 
   .hall-chip--canvas {
