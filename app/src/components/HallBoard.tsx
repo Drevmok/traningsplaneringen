@@ -58,6 +58,7 @@ import {
   updateItemStationEquipment,
 } from '../lib/session'
 import type { Activity, Session, StationEquipmentSlot } from '../types'
+import type { SaveStatus } from '../lib/useAutosave'
 import { ActivityDetail } from './ActivityDetail'
 import { CoachTipStrip } from './CoachTipStrip'
 import { HallCanvas, type HallMode } from './HallCanvas'
@@ -79,6 +80,8 @@ interface Props {
   onDismissTip: (tipId: string) => void
   initialFloor?: boolean
   onEnterGolvklart?: () => void
+  /** Slice 53 A1: same quiet «Sparat» / «Inte sparat» as Passbyggaren. */
+  saveStatus?: SaveStatus
 }
 
 export function HallBoard({
@@ -89,6 +92,7 @@ export function HallBoard({
   onDismissTip,
   initialFloor = false,
   onEnterGolvklart,
+  saveStatus = 'idle',
 }: Props) {
   const [hallMode, setHallMode] = useState<HallMode>(
     initialFloor ? 'floor' : 'edit',
@@ -623,6 +627,11 @@ export function HallBoard({
             >
               {UI.hallFloorReady}
             </button>
+            {saveStatus !== 'idle' && (
+              <span className={`save-status${saveStatus === 'failed' ? ' save-status-failed' : ''}`}>
+                {saveStatus === 'failed' ? UI.autosaveFailed : UI.autosaveSaved}
+              </span>
+            )}
           </div>
           {/* Slice 45 B1: no layout picker; the row keeps the zoom − / + (Slice 43 place). */}
           {zoomBar && <div className="hall-preset-row">{zoomBar}</div>}

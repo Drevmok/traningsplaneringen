@@ -81,7 +81,7 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     await applyBtn(p).click(); await p.waitForTimeout(250)
     const t = await p.locator('.hall-board').innerText()
     check(`${tag}-AC10`, 'toast «Sparade redskap på …», button gone', /Sparade redskap på \d+ station/.test(t) && (await applyBtn(p).count()) === 0)
-    check(`${tag}-AC16`, 'footer «Träningsplaneraren · Slice 49»', await p.evaluate(() => document.body.innerText.includes('Träningsplaneraren · Slice 49')) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return /Träningsplaneraren · Slice 49/.test(await p.locator('body').innerText()) })())
+    check(`${tag}-AC16`, 'footer «Träningsplaneraren · Slice 53»', await p.evaluate(() => document.body.innerText.includes('Träningsplaneraren · Slice 53')) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return /Träningsplaneraren · Slice 53/.test(await p.locator('body').innerText()) })())
     await p.context().close()
   })
 }
