@@ -339,11 +339,35 @@ export function markerOverlap(a: { x: number; y: number }, b: { x: number; y: nu
   return Math.max(0, OPEN_MARKER_W - Math.abs(a.x - b.x)) * Math.max(0, OPEN_MARKER_H - Math.abs(a.y - b.y))
 }
 
-/** First cell (row order) that overlaps no placed marker; if none, the least-overlapping (ties → row order). */
+/**
+ * Slice 53 C1: half-cell points between grid cells, in row order — first the centers between four
+ * cells, then between two cells in a row, then between two cells in a column. Stays inside the grid.
+ */
+export function openGridMidpoints(cells: { x: number; y: number }[]): { x: number; y: number }[] {
+  const xs = [...new Set(cells.map((c) => c.x))].sort((a, b) => a - b)
+  const ys = [...new Set(cells.map((c) => c.y))].sort((a, b) => a - b)
+  const mid = (v: number[]) => v.slice(1).map((b, i) => Math.round(((v[i] + b) / 2) * 1e4) / 1e4)
+  const mx = mid(xs), my = mid(ys)
+  const out: { x: number; y: number }[] = []
+  for (const y of my) for (const x of mx) out.push({ x, y })
+  for (const y of ys) for (const x of mx) out.push({ x, y })
+  for (const y of my) for (const x of xs) out.push({ x, y })
+  return out
+}
+
+/**
+ * First cell (row order) that overlaps no placed marker. If none (Slice 53 C1): the first half-cell
+ * midpoint not exactly on a placed marker; if none, the least-overlapping cell (ties → row order).
+ */
 export function pickOpenCell(
   cells: { x: number; y: number }[],
   placed: { x: number; y: number }[],
 ): { x: number; y: number } {
+  const open = cells.find((c) => placed.every((p) => markerOverlap(c, p) === 0))
+  if (open) return open
+  const same = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.abs(a.x - b.x) < 1e-6 && Math.abs(a.y - b.y) < 1e-6
+  const free = openGridMidpoints(cells).find((m) => !placed.some((p) => same(m, p)))
+  if (free) return free
   let best = cells[0]
   let bestScore = Infinity
   for (const cell of cells) {

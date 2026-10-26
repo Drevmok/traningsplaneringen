@@ -396,6 +396,7 @@ export default function App() {
           onDismissTip={handleDismissTip}
           initialFloor={hallStartFloor}
           onEnterGolvklart={handleEnterGolvklart}
+          saveStatus={autosave.status}
         />
       ) : (
         <SessionBuilder

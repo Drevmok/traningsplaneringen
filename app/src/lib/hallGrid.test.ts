@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import { HALL_PRESET_ORDER, HALL_PRESETS } from '../data/hallPresets.ts'
-import { markerOverlap, openGridCells, pickOpenCell } from './hall.ts'
+import { markerOverlap, openGridCells, openGridMidpoints, pickOpenCell } from './hall.ts'
 import { autoPlaceItems, autoPlaceUnplaced } from './hallSuggest.ts'
 import { goldenSession } from './hallGoldenFixture.ts'
 import type { Session } from '../types.ts'
@@ -33,8 +33,9 @@ const GOLDEN: Record<string, Row[]> = {
     ["g-open-2", 0.135, 0.63, "open"],
     ["g-open-3", 0.295, 0.63, "open"],
     ["g-open-4", 0.455, 0.63, "open"],
-    ["g-vault-2", 0.135, 0.19, "open"],
-    ["g-vault-3", 0.295, 0.19, "open"],
+    // Slice 53 C1: beyond the 9 cells → half-cell midpoints (was 0.135/0.19 and 0.295/0.19, on top of cells 1 and 2)
+    ["g-vault-2", 0.215, 0.3, "open"],
+    ["g-vault-3", 0.375, 0.3, "open"],
   ],
 }
 
@@ -98,11 +99,12 @@ describe('Slice 40 fixed open grid', () => {
     assert.deepEqual(autoPlaceUnplaced(passOf('forening-bla', 1)).hallPlacements![0], { sessionItemId: 'g-0', x: 0.21, y: 0.28, zoneId: 'open' })
     assert.deepEqual(autoPlaceUnplaced(passOf('forening-vit', 1)).hallPlacements![0], { sessionItemId: 'g-0', x: 0.135, y: 0.19, zoneId: 'open' })
   })
-  it('fallback: all cells taken → least-overlapping cell, ties → row order', () => {
+  it('fallback: all cells and midpoints taken → least-overlapping cell, ties → row order', () => {
     const cells = [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }]
-    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }]), cells[0])
-    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }, { x: 0.21, y: 0.21 }]), cells[1])
-    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.55, y: 0.25 }]), cells[1])
+    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }]), { x: 0.35, y: 0.2 }) // Slice 53 C1 midpoint
+    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }, { x: 0.35, y: 0.2 }]), cells[0])
+    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.5, y: 0.2 }, { x: 0.35, y: 0.2 }, { x: 0.21, y: 0.21 }]), cells[1])
+    assert.deepEqual(pickOpenCell(cells, [{ x: 0.2, y: 0.2 }, { x: 0.35, y: 0.2 }, { x: 0.55, y: 0.25 }]), cells[1])
   })
 })
 
@@ -114,9 +116,10 @@ describe('Slice 40 placing in Blå / Vit', () => {
       assert.equal(pts.length, 16)
       const cap = CAPACITY[hall]
       for (let n = 1; n <= cap; n++) assert.equal(pairOverlap(pts.slice(0, n)), 0, `n = ${n}`)
-      // beyond capacity: each extra one sits on a cell, and the whole layout is the cells in order, wrapped
+      // Slice 53 C1: beyond capacity each extra one takes the next half-cell midpoint, in row order
       const cells = openGridCells(box(hall))
-      for (let i = 0; i < 16; i++) assert.deepEqual({ x: pts[i].x, y: pts[i].y }, cells[i % cap], `marker ${i}`)
+      const order = [...cells, ...openGridMidpoints(cells)]
+      for (let i = 0; i < 16; i++) assert.deepEqual({ x: pts[i].x, y: pts[i].y }, order[i], `marker ${i}`)
       assert.ok(pts.every((p) => Number.isFinite(p.x) && Number.isFinite(p.y)))
     })
     it(`${hall}: batch place of N = 1-by-1 result (N = 1…16)`, () => {
@@ -154,5 +157,36 @@ describe('Slice 40 placing in Blå / Vit', () => {
     const s = passOf('forening-vit', 1)
     s.hallPlacements = [{ sessionItemId: 'g-warm', x: 0.135, y: 0.19, zoneId: 'open' }]
     assert.deepEqual(autoPlaceUnplaced(s).hallPlacements![1], { sessionItemId: 'g-0', x: 0.135, y: 0.19, zoneId: 'open' })
+  })
+})
+
+// Slice 53 C1: positions recorded on main @ 7bf99cd (Slice 40 grid) — first 9 / 12 must not change.
+const MAIN_GRID: Record<string, [number, number][]> = {
+  'forening-bla': [[0.21, 0.28], [0.37, 0.28], [0.53, 0.28], [0.69, 0.28], [0.21, 0.5], [0.37, 0.5], [0.53, 0.5], [0.69, 0.5], [0.21, 0.72], [0.37, 0.72], [0.53, 0.72], [0.69, 0.72]],
+  'forening-vit': [[0.135, 0.19], [0.295, 0.19], [0.455, 0.19], [0.135, 0.41], [0.295, 0.41], [0.455, 0.41], [0.135, 0.63], [0.295, 0.63], [0.455, 0.63]],
+}
+describe('Slice 53 C1 full grid', () => {
+  for (const hall of ['forening-bla', 'forening-vit']) {
+    it(`${hall}: golden — 1…${CAPACITY[hall]} stations give the same positions as main`, () => {
+      for (let n = 1; n <= CAPACITY[hall]; n++) {
+        assert.deepEqual(autoPlaceUnplaced(passOf(hall, n)).hallPlacements!.map((p) => [p.x, p.y]), MAIN_GRID[hall].slice(0, n), `n = ${n}`)
+      }
+    })
+  }
+  for (const [hall, n] of [['forening-vit', 14], ['forening-vit', 12], ['forening-bla', 16]] as const) {
+    it(`${hall}: ${n} Teknikstationer → no two markers on the same point, all inside Öppen yta`, () => {
+      const pts = autoPlaceUnplaced(passOf(hall, n)).hallPlacements!
+      assert.equal(pts.length, n)
+      assert.equal(new Set(pts.map((p) => `${p.x},${p.y}`)).size, n)
+      const b = box(hall)
+      for (const p of pts) assert.ok(p.x - 0.145 / 2 >= b.x && p.x + 0.145 / 2 <= b.x + b.w && p.y - 0.218 / 2 >= b.y && p.y + 0.218 / 2 <= b.y + b.h)
+    })
+  }
+  it('pre-placed markers never move when the grid is full (D1)', () => {
+    const s = passOf('forening-vit', 11)
+    s.hallPlacements = MAIN_GRID['forening-vit'].map(([x, y], i) => ({ sessionItemId: `g-${i}`, x, y, zoneId: 'open' as const }))
+    const out = autoPlaceUnplaced(s).hallPlacements!
+    assert.deepEqual(out.slice(0, 9), s.hallPlacements)
+    assert.deepEqual(out.slice(9).map((p) => [p.x, p.y]), [[0.215, 0.3], [0.375, 0.3]])
   })
 })
