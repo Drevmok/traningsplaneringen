@@ -1,7 +1,7 @@
 # Slice 53 — Auto-spara + Teknikmarkörer (det som återstår)
 
 **App:** Träningsplaneraren  
-**Status:** **FÖRESLAGEN** — inget låst. Docs-paket, ingen appkod. Gren `slice-53-docs` från `origin/main` @ `7bf99cd` (efter Slice 52).  
+**Status:** **LOCKED 2026-10-26** — A1 B1 C1 D1 E1 F1 (★), låst av PO enligt Effort S-regeln. Docs-paket, ingen appkod. Gren `slice-53-docs` från `origin/main` @ `7bf99cd` (efter Slice 52).  
 **Effort:** **S** (★-vägen), se nedan.  
 **Källa:** `backlog/IMPROVEMENTS.md` Scout polish 2026-10-13 #1 och #2 (Approved), Christoffer 2026-10-26 «Hellre polish / produkt», «Båda i samma slice».
 

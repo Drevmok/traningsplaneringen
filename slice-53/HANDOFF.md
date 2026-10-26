@@ -1,6 +1,6 @@
-# Slice 53 — HANDOFF (FÖRESLAGEN)
+# Slice 53 — HANDOFF (LOCKED)
 
-**Status:** FÖRESLAGEN, inte låst. Bygg inte förrän README visar LOCKED. Radnummer från `7bf99cd`, sök om dem på din tip.
+**Status:** LOCKED 2026-10-26 (A1 B1 C1 D1 E1 F1). Bygg. Radnummer från `7bf99cd`, sök om dem på din tip.
 
 Bygg **inte om** autosparning (Slice 39) eller rutnätet (Slice 40). Båda finns och fungerar.
 

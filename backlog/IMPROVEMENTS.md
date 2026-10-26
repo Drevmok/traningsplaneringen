@@ -23,31 +23,31 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 Walked https://drevmok.github.io/traningsplaneringen/ (footer «Slice 37») at 390×844, fresh localStorage, headless Chrome, as a brand-new coach. Screenshots: `/workspace/screenshots/polish-2026-10/` (box). Ranked by impact on feel. Bundle headroom ~43 B (+3 029 / 3 072 B) — anything beyond copy/CSS needs a byte trim elsewhere. Not re-proposing Parked/Declined/Shipped.
 
-#### 1. **Polish** — Spara passet automatiskt (no silent loss on ←) — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 1. **Polish** — Spara passet automatiskt (no silent loss on ←) — **Shipped → Slice 39 (rest: Slice 53 A1)**
 - **Effort:** S–M · bundle ~+80–150 B (persist draft on change instead of only via «Spara utkast»; hide/rename the button to «Sparat ✓»). Over cap → needs a trim.
 - **Evidence:** Passbyggaren → apply Nybörjare mall → Hallöversikt → back → ← to Home: no prompt, localStorage has no session (only bank cache + tips) — the pass is gone. Verifier known item: built-in mall not saved until «Spara utkast». `16-mall-applied.png`, `18-leave.png`.
 - **Simplicity test:** removes a step (remember to tap «Spara utkast») and the worst new-coach dead end.
 - **Standing lock?** No — still local-only storage.
 
-#### 2. **Polish** — Teknik markers stack in Blå/Vit hall — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 2. **Polish** — Teknik markers stack in Blå/Vit hall — **Shipped → Slice 40 (rest: Slice 53 C1)**
 - **Effort:** S · bundle ~+40–80 B (fan out auto-placed markers in a small grid/offset inside the open area).
 - **Evidence:** Wizard (7–9 år · Blandat · Blå hall) → Mer → Hallöversikt: 3 stations auto-placed on one spot; only «3» visible, 1–2 hidden under it (Verifier known item; same after mall apply in Slice 37). `09-hall.png`, `17-hall-from-mall.png`.
 - **Simplicity test:** coach no longer has to drag markers apart to find them — shortens the place step.
 - **Standing lock?** No — one marker per station kept.
 
-#### 3. **Polish** — Ångra after ×-remove (and after «Använd mall») — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 3. **Polish** — Ångra after ×-remove (and after «Använd mall») — **Shipped → Slice 41**
 - **Effort:** S · bundle ~+90–120 B (toast «Borttagen · Ångra» holding last session snapshot ~5 s).
 - **Evidence:** Passbyggaren → tap × on «Ljushopp på satsbräda»: removed instantly, no confirm, no undo (53→47 min). × sits next to ⓘ on every row — easy mis-tap on phone. Verifier known item: no undo. `19-after-delete.png`.
 - **Simplicity test:** replaces fear/re-adding from Bibliotek with one tap; no confirm dialog added.
 - **Standing lock?** No.
 
-#### 4. **Polish** — Right tip for the moment: drop «Tomt pass?» on full passes; skip «Ersätta det här passet?» on a fresh pass — **Approved (2026-10-13, Christoffer; do in rank order 1→5)**
+#### 4. **Polish** — Right tip for the moment: drop «Tomt pass?» on full passes; skip «Ersätta det här passet?» on a fresh pass — **Shipped → Slice 42**
 - **Effort:** S · bundle ~+10–30 B (condition on session pristine/empty).
 - **Evidence:** Wizard → Skapa pass shows «Tomt pass? Börja från en mall…» above a full 53-min pass (`07-passbyggaren.png`). Home → «Från mall» → pick Nybörjare asks «Ersätta det här passet?» although the coach just started (only default Samling) (`14-mall-confirm.png`).
 - **Simplicity test:** removes one confirm tap and one confusing message from the first-pass path.
 - **Standing lock?** No.
 
-#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Approved (2026-10-13, Christoffer; do in rank order 1→5)** — one button / no «Inga förslag att spara»: part of Slice 49.
+#### 5. **Polish** — Hallöversikt: hall above the fold, one «Använd alla förslag» — **Shipped → Slice 43 + 49** — one button / no «Inga förslag att spara»: part of Slice 49.
 - **Effort:** S · CSS/markup only, ~0 to −30 B (drop duplicate button; fold layout notes into the select helper; hide «Inga förslag att spara» once done).
 - **Evidence:** Hallöversikt at 390×844: the hall canvas starts ~y 570 under toolbar, layout select, two notes, saknar-banner with a 2nd «Använd alla förslag», «Tips om placering» and tip card (`09-hall.png`). After applying, a dead «Inga förslag att spara» button stays in the toolbar (`10b-forrad-after.png`).
 - **Simplicity test:** fewer things to read before placing; one button instead of two.
