@@ -2,8 +2,10 @@
 // Main build on :4210 (before), branch build on :4211 (after). Drafts are seeded via slice-40-seed.ts.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { openMallList, startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync, spawnSync } from 'node:child_process'
-import { writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 
 const MAIN = process.env.S40_MAIN ?? 'http://127.0.0.1:4210/traningsplaneringen/'
 const BR = process.env.S40_BR ?? 'http://127.0.0.1:4211/traningsplaneringen/'
@@ -65,15 +67,13 @@ async function hallFromSeed(base, hall, n, mode, tag) {
   return { d, cs, pts: placed(d) }
 }
 
+const GOLDEN = JSON.parse(readFileSync(new URL('./slice-40-golden-main-45cce9b.json', import.meta.url), 'utf8')) // Slice 54 E1
+const HALL_NAME = { 'Blå hall': 'Gymmix – Stora hallen', 'Vit hall': 'Gymmix – Grophallen' } // Slice 54 A1
 async function wizard(base, hallLabel) {
   await p.goto(base)
   await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = p.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: new RegExp(hallLabel) }).first().click(); await wz.getByRole('button', { name: 'Skapa pass' }).click()
-  await builder().waitFor()
+  // Slice 54 A1: one tap per answer (Slice 46). The halls were renamed in Slice 45: Blå = «Gymmix – Stora hallen», Vit = «Gymmix – Grophallen».
+  await startFragor(p, { age: /7–9/, focus: /^Trampett/, hall: HALL_NAME[hallLabel] })
   const d = await draft()
   await openHall()
   return { d, cs: await chips() }
@@ -82,12 +82,12 @@ async function wizard(base, hallLabel) {
 // ── AC1 / AC2: wizard in Blå and Vit, before (main) and after (branch)
 await attempt('W', async () => {
   for (const [hall, label, ac] of [['forening-bla', 'Blå hall', 'AC1'], ['forening-vit', 'Vit hall', 'AC2']]) {
-    const before = await wizard(MAIN, label)
-    await shot(`0${ac === 'AC1' ? 1 : 3}_${hall}_wizard_before_main`)
+    // Slice 54 E1 (widened to AC1/AC2): «before» = the golden file from main @ 45cce9b, same as AC8-main; no main build is opened.
+    const gold = GOLDEN[hall].filter(([id]) => id.startsWith('g-')).slice(0, 3)
     const after = await wizard(BR, label)
     await shot(`0${ac === 'AC1' ? 2 : 4}_${hall}_wizard_after`)
     const n = teknikIds(after.d).length
-    check(`${ac}-main`, `${label} wizard on main: markers overlap (the bug)`, overlaps(before.cs), `${before.cs.length} chips`)
+    check(`${ac}-main`, `${label} on main (golden 45cce9b): first Teknik markers share one spot (the bug)`, new Set(gold.map(([, x, y]) => `${x},${y}`)).size < gold.length, JSON.stringify(gold.map(([, x, y]) => [x, y])))
     check(ac, `${label} wizard on branch: ${n} Teknik markers, each separate, none on top of another`, after.d.hallTemplateId === hall && after.cs.length === n && n >= 3 && !overlaps(after.cs), `${after.cs.length} chips / ${n} Teknik`)
   }
 })
@@ -100,8 +100,9 @@ await attempt('G', async () => {
   check('AC8', 'Mixed redskap (satsbräda, trampett, tumbling, open) in Blå → no shared spot', new Set(bla.pts.map((x) => `${x.x},${x.y}`)).size === 5 && !overlaps(bla.cs))
   const ranks = [...bla.cs].sort((a, b) => (Math.abs(a.cy - b.cy) > 5 ? a.cy - b.cy : a.cx - b.cx)).map((c) => c.rank)
   check('AC5', 'Rank numbers read 1, 2, 3… left→right, top→bottom', ranks.join(',') === '1,2,3,4,5', ranks.join(','))
-  const blaMain = await hallFromSeed(MAIN, 'forening-bla', 5, 'mixed', '06_bla5_before_main')
-  check('AC8-main', 'Same pass on main: markers stack', new Set(blaMain.pts.map((x) => `${x.x},${x.y}`)).size < 5, JSON.stringify(blaMain.pts.map((x) => [x.x, x.y])))
+  // Slice 54 E1: «before» = the golden file recorded on main @ 45cce9b (today's main has the fix, so it can no longer show the bug).
+  const golden = GOLDEN['forening-bla'].slice(0, 5)
+  check('AC8-main', 'Same pass on main (golden 45cce9b): markers stack', new Set(golden.map(([, x, y]) => `${x},${y}`)).size < 5, JSON.stringify(golden.map(([, x, y]) => [x, y])))
   const vit = await hallFromSeed(BR, 'forening-vit', 4, '', '07_vit4_after')
   const want4 = [[0.135, 0.19], [0.295, 0.19], [0.455, 0.19], [0.135, 0.41]]
   check('AC4', 'Vit, 4 Teknik: stored positions = first 4 fixed cells (3 + 1)', vit.pts.every((pt, i) => pt && near(pt.x, want4[i][0]) && near(pt.y, want4[i][1])), JSON.stringify(vit.pts.map((x) => [x?.x, x?.y])))
@@ -165,9 +166,11 @@ await attempt('M', async () => {
   const tl = seedMall('forening-bla', 5)
   await loadDraftAndOpen(BR, seed('standard-trupp', 1), tl)
   await p.getByRole('button', { name: 'Till startsidan' }).click(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: /^(Starta f|F)rån mall$/ }).click()
+  await openMallList(p, { hall: 'Gymmix – Stora hallen' }) // Slice 54 A1 (Blå)
   await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: 'S40 Blå mall' }).first().click()
-  await p.getByRole('dialog').getByRole('button', { name: 'Använd mall', exact: true }).click()
+  await p.waitForTimeout(400)
+  const use = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true })
+  if (await use.count()) await use.click()
   await builder().waitFor(); await p.waitForTimeout(300)
   const d = await draft()
   const want = [[0.21, 0.28], [0.37, 0.28], [0.53, 0.28], [0.69, 0.28], [0.21, 0.5]]
@@ -192,7 +195,7 @@ await attempt('L', async () => {
   check('AC14', 'No new buttons or text in Hallöversikt (same visible buttons as main)', br === mn && br.length > 0, br === mn ? `${br.split('|').length} buttons` : `branch ${br} / main ${mn}`)
   await loadDraftAndOpen(BR, json)
   const f = (await p.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
-  check('AC16-footer', 'Footer «Träningsplaneraren · Slice 40»', f.includes('Träningsplaneraren · Slice 40'), f)
+  check('AC16-footer', `Footer «Träningsplaneraren · Slice ${sliceNumber(ROOT)}»`, f.includes(`Träningsplaneraren · Slice ${sliceNumber(ROOT)}`), f) // Slice 54 B1
 })
 
 // ── F1: add stations one at a time from the bank (the coach's main path) — Blå up to 12, Vit up to 9

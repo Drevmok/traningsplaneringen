@@ -1,0 +1,43 @@
+PASS [AC1a] Home: «Tyck till» in the footer, before «Uppdatera appen» — ["Tyck till","Uppdatera appen"]
+PASS [AC1b] Exactly one a[href^="mailto:"] in the DOM, inside footer
+PASS [AC2a] href: To drevmok@gmail.com, subject, %0D%0A, no "+", åäö as UTF-8 escapes — mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D
+PASS [AC2b] Body decodes to the microcopy body exactly (blank lines, åäö, CRLF) — "att du tar dig tid.\r\n\r\nVersion: Slice 53"
+PASS [AC3] Last body line «Version: Slice N» = footer label number (N = SLICE_NUMBER)
+PASS [AC13a] Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel
+PASS [AC11a] No feedback popup / banner / prompt on load
+PASS [AC13b] Tab reaches «Tyck till» with a visible focus ring — tabs 2
+PASS [AC13c] Enter follows the mailto (same href)
+PASS [AC6a] After the tap: one grey line «Hittar du ingen e-postapp? Skriv till drevmok@gmail.com» + «Kopiera adressen» — Hittar du ingen e-postapp? Skriv till drevmok@gmail.com Kopiera adressen
+PASS [AC6b] Address is selectable text (user-select text, selection = the address); grey — {"us":"text","txt":"drevmok@gmail.com","color":"rgb(120, 113, 108)"}
+PASS [AC6c] Fallback line is plain text (no live region); sits on its own row under the footer
+PASS [AC7a] Kopiera adressen → clipboard = address, «Kopierad» in role=status
+PASS [AC7b] «Kopierad» reverts to «Kopiera adressen» after ~2 s
+PASS [AC6d] A second tap: still exactly one line (not stacked)
+PASS [AC10a] Tapping made no network request (only the blocked mailto navigation) — mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D%0A%0D%0AH%C3%A4r%20%C3%A4r%20vad%20jag%20tycker%20om%20Tr%C3%A4ningsplaneraren.%0D%0A%0D%0AVad%20fungerade%20bra%3F%0D%0A%0D%0A%0
+PASS [AC10b] No new localStorage / sessionStorage / IndexedDB / cookie keys — {"ls":[],"ss":[],"cookie":"","idb":[]}
+PASS [AC8] Reload → fallback line gone
+PASS [AC1c] Passbyggaren footer: row Tyck till · Visa tips igen · Uppdatera appen, label row «Träningsplaneraren · Slice N» — ["Tyck till","Visa tips igen","Uppdatera appen"] | Träningsplaneraren · Slice 53
+PASS [AC16a] Footer reads «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)
+PASS [AC1e] Hallöversikt: link in the footer — Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53
+PASS [AC1d] Bibliotek open: link still in the footer, still one mailto
+PASS [AC1f] Kör passet open: footer (with the one mailto) still in the DOM, nothing new in the overlay
+PASS [AC16b] Kör passet still shows «Nästa: …» (Slice 34)
+PASS [AC16c] Print: footer hidden
+PASS [AC12a] Builder footer at 390: no horizontal scroll, no item split mid-word — {"sw":390,"split":[],"right":352.53125}
+PASS [AC11b] Still no feedback popup/banner anywhere
+PASS [AC7c] Clipboard API missing: no error, button unchanged, line + address still there
+PASS [AC7d] Clipboard denied (rejects): nothing visible, no error
+PASS [AC9-local] Offline: tap still follows the mailto + shows the line
+PASS [AC12-admina] admin: Tyck till · Visa tips igen · Uppdatera appen, then Admin · Logga ut, then label — ["Tyck till","Visa tips igen","Uppdatera appen","Admin · Logga ut","Träningsplaneraren · Slice 53"]
+PASS [AC12-adminb] admin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":352.53125}
+PASS [AC12-adminc] admin with the fallback line: still no horizontal scroll — {"sw":390,"split":[],"right":352.53125}
+PASS [AC12-notadmina] notadmin: Tyck till · Visa tips igen · Uppdatera appen, then inte admin · Logga ut, then label — ["Tyck till","Visa tips igen","Uppdatera appen","Du är inloggad men inte admin. · Logga ut","Träningsplaneraren · Slice 53"]
+PASS [AC12-notadminb] notadmin footer at 390: no horizontal scroll, nothing split mid-word — {"sw":390,"split":[],"right":352.53125}
+PASS [AC12-notadminc] notadmin with the fallback line: still no horizontal scroll — {"sw":390,"split":[],"right":352.53125}
+PASS [AC1g] Bank build logged out: Tyck till · Visa tips igen · Uppdatera appen, then Logga in som admin, then label — ["Tyck till","Visa tips igen","Uppdatera appen","Logga in som admin","Träningsplaneraren · Slice 53"]
+PASS [AC12d] Logged out at 390: «Logga in som admin» visible, no horizontal scroll, no split — {"sw":390,"split":[],"right":352.53125}
+PASS [AC16d] Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings
+PASS [AC10c] No fetch / beacon / storage / window.open / location in the feedback code
+PASS [E] No page errors
+
+PASS 41 / FAIL 0

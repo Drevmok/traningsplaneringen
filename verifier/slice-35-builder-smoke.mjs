@@ -3,15 +3,18 @@
 // with a mocked admin session (Playwright routes; no real project) for the admin footer check.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const OFF = process.env.S35_OFF ?? 'http://127.0.0.1:4198/traningsplaneringen/'
 const ON = process.env.S35_ON ?? 'http://127.0.0.1:4199/traningsplaneringen/'
-const ROOT = '/workspace/gymnastics-planner'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner' // Slice 54: run-smokes sets SMOKE_ROOT
+const SLICE = sliceNumber(ROOT) // Slice 54 B1: footer + mail version follow SLICE_NUMBER
 const MD = readFileSync(`${ROOT}/slice-35/content/microcopy.sv.md`, 'utf8')
 const md = (k) => MD.match(new RegExp('^\\| `' + k + '`(?: \\*\\*[^*]+\\*\\*)? \\| ([^|]+?) \\|', 'm'))[1].trim()
-const BODY = MD.match(/## Mail body \(verbatim\)[\s\S]*?```\n([\s\S]*?)\n```/)[1].split('\n').join('\r\n')
-const S = { link: md('feedbackLink'), aria: md('feedbackLinkAria'), subject: md('feedbackMailSubject'), fallback: md('feedbackFallback').replace('{email}', 'drevmok@gmail.com'), copy: md('feedbackCopy'), copied: md('feedbackCopied'), footer: md('footerSliceLabel') }
+const BODY = MD.match(/## Mail body \(verbatim\)[\s\S]*?```\n([\s\S]*?)\n```/)[1].split('\n').join('\r\n').replace(/Version: Slice \d+$/, `Version: Slice ${SLICE}`)
+const S = { link: md('feedbackLink'), aria: md('feedbackLinkAria'), subject: md('feedbackMailSubject'), fallback: md('feedbackFallback').replace('{email}', 'drevmok@gmail.com'), copy: md('feedbackCopy'), copied: md('feedbackCopied'), footer: md('footerSliceLabel').replace(/Slice \d+$/, `Slice ${SLICE}`) }
 
 const results = []
 const check = (id, name, ok, detail = '') => {
@@ -42,11 +45,17 @@ const shot = (p, n) => p.screenshot({ path: `/workspace/screenshots/slice35_${n}
 const foot = (p) => p.locator('footer.app-footer')
 const footerText = async (p) => (await foot(p).innerText()).replace(/\s+/g, ' ').trim()
 const link = (p) => foot(p).getByRole('link', { name: S.aria })
-const order = (p) => foot(p).evaluate((f) => [...f.children].filter((c) => !c.classList.contains('app-footer-sep')).map((c) => c.textContent.replace(/\s*·\s*/g, ' · ').replace(/\s+/g, ' ').trim()))
+// Slice 54 C1: since Slice 46 E1 «Tyck till» and `after` share row 1 (.app-footer-row); the admin row (.footer-admin),
+// the address line (.footer-feedback-hint) and the label/note <p> are separate rows. order() = links/buttons of row 1.
+const row1 = (p) => foot(p).locator('.app-footer-row:not(.footer-admin)').first()
+const order = (p) => row1(p).evaluate((r) => [...r.children].filter((c) => !c.classList.contains('app-footer-sep')).map((c) => c.textContent.replace(/\s+/g, ' ').trim()))
+const adminRow = async (p) => (await foot(p).locator('.footer-admin').count()) ? (await foot(p).locator('.footer-admin').evaluate((r) => r.textContent.replace(/\s*·\s*/g, ' · ').replace(/\s+/g, ' ').trim())) : ''
+const sliceLabel = async (p) => (await foot(p).locator('.app-footer-slice').count()) ? (await foot(p).locator('.app-footer-slice').innerText()).trim() : ''
+const hintLine = (p) => foot(p).locator('.footer-feedback-hint')
 const storageKeys = (p) => p.evaluate(async () => ({ ls: Object.keys(localStorage).sort(), ss: Object.keys(sessionStorage).sort(), cookie: document.cookie, idb: indexedDB.databases ? (await indexedDB.databases()).map((d) => d.name).sort() : [] }))
 async function layout(p) {
   return foot(p).evaluate((f) => {
-    const items = [...f.children].filter((c) => !c.classList.contains('app-footer-sep') && c.tagName !== 'P')
+    const items = [...f.querySelectorAll('.app-footer-row > *')].filter((c) => !c.classList.contains('app-footer-sep')) // Slice 54 C1
     const lineH = (el) => parseFloat(getComputedStyle(el).lineHeight) || 20
     return {
       sw: document.documentElement.scrollWidth,
@@ -56,14 +65,8 @@ async function layout(p) {
   })
 }
 async function startBlank(p) {
-  await p.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = p.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /Standard trupp/ }).first().click()
-  await wz.getByRole('button', { name: 'Skapa pass' }).click()
+  // Slice 54 A1: one tap per answer (Slice 46); «Standard trupp» left the hall list in Slice 45 → default hall.
+  await startFragor(p, { age: /7–9/, focus: /^Trampett/ })
 }
 
 // ───────── AC1/2/3/6/7/8/10/11/13 on the plain build ─────────
@@ -77,9 +80,9 @@ await attempt('A', async () => {
   const body = decodeURIComponent(q[1].replace(/^body=/, ''))
   check('AC2a', 'href: To drevmok@gmail.com, subject, %0D%0A, no "+", åäö as UTF-8 escapes', href.startsWith('mailto:drevmok@gmail.com?subject=') && href.includes('%0D%0A') && !href.includes('+') && href.includes('%C3%A4') && subj === S.subject, href.slice(0, 90))
   check('AC2b', 'Body decodes to the microcopy body exactly (blank lines, åäö, CRLF)', body === BODY && !/Ã/.test(body), JSON.stringify(body.slice(-40)))
-  check('AC3', 'Last body line «Version: Slice 35» = footer label number', body.split('\r\n').at(-1) === 'Version: Slice 35' && S.footer.endsWith('Slice 35'))
+  check('AC3', 'Last body line «Version: Slice N» = footer label number (N = SLICE_NUMBER)', body.split('\r\n').at(-1) === `Version: Slice ${SLICE}` && S.footer.endsWith(`Slice ${SLICE}`))
   check('AC13a', 'Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel', (await link(p).evaluate((a) => a.tagName === 'A' && !a.target && !a.rel && a.textContent === 'Tyck till')))
-  check('AC11a', 'No feedback popup / banner / prompt on load', (await p.locator('[role=dialog], .toast, .footer-feedback-hint, .app-footer > p').count()) === 0)
+  check('AC11a', 'No feedback popup / banner / prompt on load', (await p.locator('[role=dialog], .toast').count()) === 0 && (await hintLine(p).count()) === 0) // Slice 54 C1
   await shot(p, 'home_footer')
   const keysBefore = await storageKeys(p)
   const reqBefore = ctx.reqs.length
@@ -93,7 +96,7 @@ await attempt('A', async () => {
   await p.keyboard.press('Enter')
   await p.waitForTimeout(400)
   check('AC13c', 'Enter follows the mailto (same href)', ctx.mailto.length === 1 && ctx.mailto[0] === href)
-  const hint = foot(p).locator('p')
+  const hint = hintLine(p) // Slice 54 C1
   check('AC6a', 'After the tap: one grey line «Hittar du ingen e-postapp? Skriv till drevmok@gmail.com» + «Kopiera adressen»', (await hint.count()) === 1 && (await hint.innerText()).replace(/\s+/g, ' ').trim() === `${S.fallback} ${S.copy}`, await hint.innerText())
   const sel = await hint.evaluate((el) => { const cs = getComputedStyle(el); const span = el.querySelector('span'); const r = document.createRange(); r.selectNodeContents(span); const s = getSelection(); s.removeAllRanges(); s.addRange(r); return { us: cs.userSelect, txt: s.toString(), color: cs.color } })
   check('AC6b', 'Address is selectable text (user-select text, selection = the address); grey', sel.us !== 'none' && sel.txt === 'drevmok@gmail.com', JSON.stringify(sel))
@@ -110,17 +113,17 @@ await attempt('A', async () => {
   // tap again with a touch tap
   await link(p).tap()
   await p.waitForTimeout(300)
-  check('AC6d', 'A second tap: still exactly one line (not stacked)', (await foot(p).locator('p').count()) === 1 && ctx.mailto.length === 2)
+  check('AC6d', 'A second tap: still exactly one line (not stacked)', (await hintLine(p).count()) === 1 && ctx.mailto.length === 2)
   const keysAfter = await storageKeys(p)
   check('AC10a', 'Tapping made no network request (only the blocked mailto navigation)', ctx.reqs.slice(reqBefore).every((u) => u.startsWith('mailto:')), ctx.reqs.slice(reqBefore).join(', '))
   check('AC10b', 'No new localStorage / sessionStorage / IndexedDB / cookie keys', JSON.stringify(keysBefore) === JSON.stringify(keysAfter), JSON.stringify(keysAfter))
   await p.reload()
-  check('AC8', 'Reload → fallback line gone', (await foot(p).locator('p').count()) === 0 && (await link(p).count()) === 1)
+  check('AC8', 'Reload → fallback line gone', (await hintLine(p).count()) === 0 && (await link(p).count()) === 1)
   // views: planner, bibliotek, hall, run
   await startBlank(p)
   const o = await order(p)
-  check('AC1c', 'Passbyggaren footer order: label · Tyck till · Visa tips igen · Uppdatera appen', JSON.stringify(o) === JSON.stringify([S.footer, S.link, 'Visa tips igen', 'Uppdatera appen']), JSON.stringify(o))
-  check('AC16a', 'Footer reads «Träningsplaneraren · Slice 35»', (await footerText(p)).startsWith(S.footer))
+  check('AC1c', 'Passbyggaren footer: row Tyck till · Visa tips igen · Uppdatera appen, label row «Träningsplaneraren · Slice N»', JSON.stringify(o) === JSON.stringify([S.link, 'Visa tips igen', 'Uppdatera appen']) && (await sliceLabel(p)) === S.footer, JSON.stringify(o) + ' | ' + (await sliceLabel(p)))
+  check('AC16a', 'Footer reads «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)', (await footerText(p)).includes(S.footer))
   await shot(p, 'builder_footer')
   if (await p.locator('.builder-hall').isVisible()) await p.locator('.builder-hall').click()
   else {
@@ -157,15 +160,15 @@ await attempt('A', async () => {
 await attempt('B', async () => {
   const { ctx, page: p } = await open(OFF, { init: () => { Object.defineProperty(Navigator.prototype, 'clipboard', { configurable: true, get: () => undefined }) } })
   await link(p).click()
-  await foot(p).locator('p').getByRole('button', { name: S.copy }).click()
+  await hintLine(p).getByRole('button', { name: S.copy }).click()
   await p.waitForTimeout(300)
-  check('AC7c', 'Clipboard API missing: no error, button unchanged, line + address still there', (await foot(p).locator('p').getByRole('status').count()) === 0 && (await foot(p).locator('p').innerText()).includes('drevmok@gmail.com'))
+  check('AC7c', 'Clipboard API missing: no error, button unchanged, line + address still there', (await hintLine(p).getByRole('status').count()) === 0 && (await hintLine(p).innerText()).includes('drevmok@gmail.com'))
   await ctx.close()
   const d = await open(OFF, { ctx: { permissions: [] } , init: () => { navigator.clipboard.writeText = () => Promise.reject(new DOMException('denied', 'NotAllowedError')) } })
   await link(d.page).click()
-  await foot(d.page).locator('p').getByRole('button', { name: S.copy }).click()
+  await hintLine(d.page).getByRole('button', { name: S.copy }).click()
   await d.page.waitForTimeout(300)
-  check('AC7d', 'Clipboard denied (rejects): nothing visible, no error', (await foot(d.page).locator('p').getByRole('status').count()) === 0)
+  check('AC7d', 'Clipboard denied (rejects): nothing visible, no error', (await hintLine(d.page).getByRole('status').count()) === 0)
   await d.ctx.close()
 })
 
@@ -176,7 +179,7 @@ await attempt('C', async () => {
   await ctx.setOffline(true)
   await link(p).click()
   await p.waitForTimeout(300)
-  check('AC9-local', 'Offline: tap still follows the mailto + shows the line', ctx.mailto.length === 1 && (await foot(p).locator('p').count()) === 1)
+  check('AC9-local', 'Offline: tap still follows the mailto + shows the line', ctx.mailto.length === 1 && (await hintLine(p).count()) === 1)
   await ctx.close()
 })
 
@@ -200,9 +203,10 @@ for (const [label, isAdmin] of [['admin', true], ['notadmin', false]]) {
     await p.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
     await startBlank(p).catch(() => {})
     await p.waitForTimeout(400)
-    const o = await order(p)
-    const want = isAdmin ? [S.footer, 'Admin · Logga ut ·', S.link, 'Visa tips igen', 'Uppdatera appen'] : [S.footer, 'Du är inloggad men inte admin. · Logga ut ·', S.link, 'Visa tips igen', 'Uppdatera appen']
-    check(`AC12-${label}a`, `${label}: order label · ${isAdmin ? 'Admin · Logga ut' : 'inte admin · Logga ut'} · Tyck till · Visa tips igen · Uppdatera appen`, JSON.stringify(o) === JSON.stringify(want), JSON.stringify(o))
+    // Slice 54 C1: row 1 = Tyck till · Visa tips igen · Uppdatera appen; admin row; label row.
+    const o = [...(await order(p)), await adminRow(p), await sliceLabel(p)]
+    const want = [S.link, 'Visa tips igen', 'Uppdatera appen', isAdmin ? 'Admin · Logga ut' : 'Du är inloggad men inte admin. · Logga ut', S.footer]
+    check(`AC12-${label}a`, `${label}: Tyck till · Visa tips igen · Uppdatera appen, then ${isAdmin ? 'Admin · Logga ut' : 'inte admin · Logga ut'}, then label`, JSON.stringify(o) === JSON.stringify(want), JSON.stringify(o))
     const lay = await layout(p)
     check(`AC12-${label}b`, `${label} footer at 390: no horizontal scroll, nothing split mid-word`, lay.sw <= 390 && lay.split.length === 0 && lay.right <= 390, JSON.stringify(lay))
     await link(p).click()
@@ -216,8 +220,8 @@ for (const [label, isAdmin] of [['admin', true], ['notadmin', false]]) {
 await attempt('E', async () => {
   const { ctx, page: p } = await open(ON, { route: (c) => c.route('https://bank-mock.supabase.co/**', (r) => r.abort()) })
   await startBlank(p)
-  const o = await order(p)
-  check('AC1g', 'Bank build logged out: label · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen', JSON.stringify(o) === JSON.stringify([S.footer, 'Logga in som admin ·', S.link, 'Visa tips igen', 'Uppdatera appen']), JSON.stringify(o))
+  const o = [...(await order(p)), await adminRow(p), await sliceLabel(p)] // Slice 54 C1
+  check('AC1g', 'Bank build logged out: Tyck till · Visa tips igen · Uppdatera appen, then Logga in som admin, then label', JSON.stringify(o) === JSON.stringify([S.link, 'Visa tips igen', 'Uppdatera appen', 'Logga in som admin', S.footer]), JSON.stringify(o))
   const lay = await layout(p)
   check('AC12d', 'Logged out at 390: «Logga in som admin» visible, no horizontal scroll, no split', (await p.locator('footer .footer-admin-login').isVisible()) && lay.sw <= 390 && lay.split.length === 0, JSON.stringify(lay))
   await shot(p, 'loggedout_footer_390')
@@ -226,7 +230,7 @@ await attempt('E', async () => {
 
 const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')
 const keys = ['feedbackLink', 'feedbackLinkAria', 'feedbackMailSubject', 'feedbackMailVersion', 'feedbackFallback', 'feedbackCopy', 'feedbackCopied']
-check('AC16d', 'Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings', keys.every((k) => meta.includes(`${k}: '${md(k)}'`)) && meta.includes("export const SLICE_NUMBER = '35'") && meta.includes('footerSliceLabel: `Träningsplaneraren · Slice ${SLICE_NUMBER}`') && !/[!]|feedback |formulär|betyg|mejlklient/i.test(keys.map(md).join(' ')))
+check('AC16d', 'Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings', keys.every((k) => meta.includes(`${k}: '${md(k)}'`)) && meta.includes("export const SLICE_NUMBER = '") && meta.includes('footerSliceLabel: `Träningsplaneraren · Slice ${SLICE_NUMBER}`') && !/[!]|feedback |formulär|betyg|mejlklient/i.test(keys.map(md).join(' ')))
 const src = readFileSync(`${ROOT}/app/src/components/FooterFeedback.tsx`, 'utf8') + readFileSync(`${ROOT}/app/src/lib/feedback.ts`, 'utf8')
 check('AC10c', 'No fetch / beacon / storage / window.open / location in the feedback code', !/fetch\(|sendBeacon|localStorage|sessionStorage|indexedDB|document\.cookie|window\.open|location\./.test(src))
 check('E', 'No page errors', errors.length === 0, errors.join(' | '))

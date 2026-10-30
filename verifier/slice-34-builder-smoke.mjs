@@ -3,15 +3,18 @@
 // (init script) and time runs on Playwright's fake clock, so "once, never loops, never advances" is counted.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const URL0 = process.env.S34_URL ?? 'http://127.0.0.1:4197/traningsplaneringen/'
-const ROOT = '/workspace/gymnastics-planner'
+const ROOT = process.env.SMOKE_ROOT ?? '/workspace/gymnastics-planner' // Slice 54: run-smokes sets SMOKE_ROOT
 const { token, titles } = JSON.parse(execFileSync('bun', [`${ROOT}/verifier/slice-34-mktoken.ts`], { encoding: 'utf8' }))
 const MD = readFileSync(`${ROOT}/slice-34/content/microcopy.sv.md`, 'utf8')
 const md = (k) => MD.match(new RegExp('^\\| `' + k + '`(?: \\*\\*[^*]+\\*\\*)? \\| ([^|]+?) \\|', 'm'))[1].trim()
 const S = { next: md('runNextLabel'), last: md('runLastActivity'), footer: md('footerSliceLabel') }
+const FOOT = `Träningsplaneraren · Slice ${sliceNumber(ROOT)}` // Slice 54 B1: footer follows SLICE_NUMBER
 
 const results = []
 const check = (id, name, ok, detail = '') => {
@@ -152,16 +155,10 @@ await attempt('A', async () => {
 await attempt('B', async () => {
   const { ctx, page: p } = await open()
   await p.goto(URL0)
-  await p.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = p.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click()
-  await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /Standard trupp/ }).first().click()
-  await wz.getByRole('button', { name: 'Skapa pass' }).click()
+  // Slice 54 A1: one tap per answer (Slice 46); «Standard trupp» left the hall list in Slice 45 → default hall.
+  await startFragor(p, { age: /7–9/, focus: /^Trampett/ })
   const f = (await p.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
-  check('AC20a', 'Footer «Träningsplaneraren · Slice 34»', f.startsWith(S.footer), f)
+  check('AC20a', 'Footer «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)', f.includes(FOOT), f) // Slice 54 B1: the slice label is the last footer line, after «Tyck till» (Slice 46)
   check('AC16b', 'Home → Planera pass → Passbyggaren: no AudioContext', (await sig(p)).ctx === 0)
   await shot(p, 'builder')
   await runBtn(p).click()
@@ -185,7 +182,7 @@ await attempt('C', async () => {
 })
 
 const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')
-check('AC20b', 'Strings verbatim in blockMeta.ts; no «!»', meta.includes(`runNextLabel: '${S.next}'`) && meta.includes(`runLastActivity: '${S.last}'`) && meta.includes(`footerSliceLabel: '${S.footer}'`) && !/[!]/.test(S.next + S.last + S.footer))
+check('AC20b', 'Strings verbatim in blockMeta.ts; no «!»', meta.includes(`runNextLabel: '${S.next}'`) && meta.includes(`runLastActivity: '${S.last}'`) && meta.includes('footerSliceLabel: `Träningsplaneraren · Slice ${SLICE_NUMBER}`') && meta.includes("export const SLICE_NUMBER = '") && !/[!]/.test(S.next + S.last + S.footer)) // Slice 54 B1
 check('E', 'No page or console errors', errors.length === 0, errors.join(' | '))
 const pass = results.filter((r) => r.ok).length
 console.log(`\nPASS ${pass} / FAIL ${results.length - pass}`)

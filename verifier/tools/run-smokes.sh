@@ -68,7 +68,7 @@ for s in "$@"; do
     run="${TAG}_$(echo "$s" | tr -c 'a-z0-9\n' '_' | cut -c1-30)"
     bash "$HERE/db-drop.sh" "$run" >/dev/null 2>&1 || true
     envs=$(S32_GATEWAY_PORT=$((PB+70)) S32_POSTGREST_PORT=$((PB+72)) S32_GOTRUE_PORT=$((PB+73)) S32_SMTP_PORT=$((PB+75)) S32_PREVIEW_PORT=$((PB+80)) \
-      S32_MAGIC_LINK_TEMPLATE=$(case $standin in s32|s33) echo "$REPO/verifier/slice-33-local/magic-link.html";; esac) bash "$HERE/db-new.sh" "$run") || { echo "$s exit=125 db-new failed"; ANYFAIL=1; continue; }
+      S32_MAGIC_LINK_TEMPLATE=$(case $standin in s32|s33|s36) echo "$REPO/verifier/slice-33-local/magic-link.html";; esac) bash "$HERE/db-new.sh" "$run") || { echo "$s exit=125 db-new failed"; ANYFAIL=1; continue; }
     ( eval "$envs"; bash "$REPO/verifier/slice-32-local/start.sh" && bash "$REPO/verifier/slice-32-local/users.sh"
       if [ "$standin" = s36 ]; then Q="psql -h 127.0.0.1 -p $S32_PG_PORT -U postgres -d $S32_DB -v ON_ERROR_STOP=1 -qAt"
         $Q -f "$REPO/slice-36/sql/36-01-table.sql" && $Q -f "$REPO/slice-36/sql/36-02-rls-grants.sql" && $Q -c "notify pgrst, 'reload schema';"; fi

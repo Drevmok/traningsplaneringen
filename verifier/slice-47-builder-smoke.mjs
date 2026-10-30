@@ -3,6 +3,7 @@
 // browser by verifier/slice-47-fake-supabase.mjs (in-memory rows, fake admin sessions) — no real backend.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { writeFileSync } from 'node:fs'
 import { fakeBank, fakeSessionValue } from './slice-47-fake-supabase.mjs'
 const BR = process.env.S47_BR ?? 'http://127.0.0.1:4747/traningsplaneringen/'
@@ -126,7 +127,7 @@ await attempt('AC3', async () => {
   check('AC3', 'own drills show «Egen»; Ändra opens «Ändra egen övning» and saves; Ta bort works; disabled when in the pass', egen && disabledB && /Ändra egen övning/.test(formT) && !/Så ni gör i er hall/.test(formT) && saved && JSON.stringify(left) === '["own-s47-b"]', `egen=${egen} disabledB=${disabledB} saved=${saved} left=${left}`)
   // AC4: the pass with the own drill opens and runs (Hallöversikt → Golvklart, Kör passet, Skriv ut passet)
   await p.locator('.sheet-close').click(); await p.waitForTimeout(200)
-  await menu(p, 'Hallöversikt'); await p.waitForTimeout(700)
+  await p.locator('.builder').getByRole('button', { name: 'Hallöversikt' }).first().click(); await p.waitForTimeout(700) // Slice 54 E1: header button (Slice 46)
   const hallOk = await p.locator('.hall-canvas, .hall-board').count()
   await p.getByRole('button', { name: 'Golvklart' }).first().click(); await p.waitForTimeout(500)
   const floor = await text(p)
@@ -171,7 +172,7 @@ await attempt('AC7', async () => {
   const shown = await sheet.locator('.library-entry').count()
   const published = bank.rows.filter((r) => r.status === 'published').length
   await p.locator('.sheet-close').click(); await p.waitForTimeout(200)
-  await menu(p, 'Hallöversikt'); await p.waitForTimeout(700)
+  await p.locator('.builder').getByRole('button', { name: 'Hallöversikt' }).first().click(); await p.waitForTimeout(700) // Slice 54 E1: header button (Slice 46)
   await p.getByRole('button', { name: 'Visa förrådslista för passet' }).first().click(); await p.waitForTimeout(400)
   const ft = await text(p, '.forradslista-sheet')
   await shot(p, '04_forradslista')
@@ -445,7 +446,7 @@ await attempt('AC24', async () => {
 
 await attempt('AC26-footer', async () => {
   const p = await page(); await go(p); await nybörjare(p); await closeToast(p)
-  check('AC26-footer', 'footer «Träningsplaneraren · Slice 47»', (await text(p)).includes('Träningsplaneraren · Slice 47'))
+  check('AC26-footer', `footer «Träningsplaneraren · Slice ${sliceNumber(ROOT)}»`, (await text(p)).includes(`Träningsplaneraren · Slice ${sliceNumber(ROOT)}`)) // Slice 54 B1
   const sb = bank.log.filter((l) => /^(POST|PATCH|DELETE)/.test(l)).length
   check('AC26-nobackend', 'all writes went to the in-browser fake (no real Supabase); count of faked writes', sb > 0, `faked writes=${sb}`)
 })

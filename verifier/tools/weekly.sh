@@ -14,13 +14,14 @@ SHA=$(git -C "$REPO" rev-parse origin/main); MC="$TPV_HOME/main/$SHA"
 rm -rf "$OUT"
 TPV_ROOT="$MC/wt" TPV_PLAIN="$MC/dist" TPV_BANK="$MC/bank-build" TPV_MAIN="$MC/dist" TPV_OUT="$OUT" TPV_RUN_TAG=weekly \
   bash "$HERE/run-smokes.sh" --baseline "$MC/smoke-baseline.txt" all > "$OUT.summary.txt" 2>&1   # Slice 51 D1: SAMMA/NY FAIL/LAGAD mot main
+cnt() { local n; n=$(grep -c "$1" "$2" 2>/dev/null); echo "${n:-0}"; }   # Slice 54 F1: grep -c prints 0 and exits 1, so «|| echo 0» gave «0 0»
 {
   echo "# Veckokörning $WEEK — main ${SHA:0:7} ($(date '+%Y-%m-%d %H:%M %Z'))"
   echo; echo '| Skript | Baslinje | Exit | PASS | FAIL | KARANTÄN |'; echo '|---|---|---|---|---|---|'
   for s in $(node -e "console.log(Object.keys(require('$REPO/verifier/smoke-map.json')).filter((k) => k !== 'karantan').join(' '))"); do
     l="$OUT/logs/$s.txt"; e=$(grep -m1 "^$s exit=" "$OUT.summary.txt" | sed 's/.* exit=\([0-9]*\).*/\1/')
     b=$(node -e "console.log(require('$REPO/verifier/smoke-map.json')['$s'].baseline)")
-    echo "| $s | $b | ${e:-?} | $(grep -c '^PASS \[' "$l" 2>/dev/null || echo 0) | $(grep -c '^FAIL \[' "$l" 2>/dev/null || echo 0) | $(grep -c '^KARANTÄN-FAIL \[' "$l" 2>/dev/null || echo 0) |"
+    echo "| $s | $b | ${e:-?} | $(cnt '^PASS \[' "$l") | $(cnt '^FAIL \[' "$l") | $(cnt '^KARANTÄN-FAIL \[' "$l") |"
   done
   echo; echo '## FAIL-id'; echo
   for l in "$OUT"/logs/*.txt; do s=$(basename "$l" .txt); case $s in *.standin|*.gotrue) continue;; esac

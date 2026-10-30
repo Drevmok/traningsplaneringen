@@ -2,246 +2,287 @@
   "results": [
     {
       "id": "AC1a",
+      "karantan": false,
       "name": "Home: «Tyck till» in the footer, before «Uppdatera appen»",
       "ok": true,
       "detail": "[\"Tyck till\",\"Uppdatera appen\"]"
     },
     {
       "id": "AC1b",
+      "karantan": false,
       "name": "Exactly one a[href^=\"mailto:\"] in the DOM, inside footer",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC2a",
+      "karantan": false,
       "name": "href: To drevmok@gmail.com, subject, %0D%0A, no \"+\", åäö as UTF-8 escapes",
       "ok": true,
       "detail": "mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D"
     },
     {
       "id": "AC2b",
+      "karantan": false,
       "name": "Body decodes to the microcopy body exactly (blank lines, åäö, CRLF)",
       "ok": true,
-      "detail": "\"att du tar dig tid.\\r\\n\\r\\nVersion: Slice 35\""
+      "detail": "\"att du tar dig tid.\\r\\n\\r\\nVersion: Slice 53\""
     },
     {
       "id": "AC3",
-      "name": "Last body line «Version: Slice 35» = footer label number",
+      "karantan": false,
+      "name": "Last body line «Version: Slice N» = footer label number (N = SLICE_NUMBER)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC13a",
+      "karantan": false,
       "name": "Real <a> element (link role), aria-label «Tyck till om appen via e-post», visible text «Tyck till», no target/rel",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC11a",
+      "karantan": false,
       "name": "No feedback popup / banner / prompt on load",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC13b",
+      "karantan": false,
       "name": "Tab reaches «Tyck till» with a visible focus ring",
       "ok": true,
-      "detail": "tabs 4"
+      "detail": "tabs 2"
     },
     {
       "id": "AC13c",
+      "karantan": false,
       "name": "Enter follows the mailto (same href)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC6a",
+      "karantan": false,
       "name": "After the tap: one grey line «Hittar du ingen e-postapp? Skriv till drevmok@gmail.com» + «Kopiera adressen»",
       "ok": true,
       "detail": "Hittar du ingen e-postapp? Skriv till drevmok@gmail.com Kopiera adressen"
     },
     {
       "id": "AC6b",
+      "karantan": false,
       "name": "Address is selectable text (user-select text, selection = the address); grey",
       "ok": true,
       "detail": "{\"us\":\"text\",\"txt\":\"drevmok@gmail.com\",\"color\":\"rgb(120, 113, 108)\"}"
     },
     {
       "id": "AC6c",
+      "karantan": false,
       "name": "Fallback line is plain text (no live region); sits on its own row under the footer",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7a",
+      "karantan": false,
       "name": "Kopiera adressen → clipboard = address, «Kopierad» in role=status",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7b",
+      "karantan": false,
       "name": "«Kopierad» reverts to «Kopiera adressen» after ~2 s",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC6d",
+      "karantan": false,
       "name": "A second tap: still exactly one line (not stacked)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC10a",
+      "karantan": false,
       "name": "Tapping made no network request (only the blocked mailto navigation)",
       "ok": true,
       "detail": "mailto:drevmok@gmail.com?subject=Tyck%20till%20om%20Tr%C3%A4ningsplaneraren&body=Hej%2C%0D%0A%0D%0AH%C3%A4r%20%C3%A4r%20vad%20jag%20tycker%20om%20Tr%C3%A4ningsplaneraren.%0D%0A%0D%0AVad%20fungerade%20bra%3F%0D%0A%0D%0A%0D%0AVad%20var%20kr%C3%A5ngligt%3F%0D%0A%0D%0A%0D%0AVad%20saknade%20du%3F%0D%0A%0"
     },
     {
       "id": "AC10b",
+      "karantan": false,
       "name": "No new localStorage / sessionStorage / IndexedDB / cookie keys",
       "ok": true,
       "detail": "{\"ls\":[],\"ss\":[],\"cookie\":\"\",\"idb\":[]}"
     },
     {
       "id": "AC8",
+      "karantan": false,
       "name": "Reload → fallback line gone",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1c",
-      "name": "Passbyggaren footer order: label · Tyck till · Visa tips igen · Uppdatera appen",
+      "karantan": false,
+      "name": "Passbyggaren footer: row Tyck till · Visa tips igen · Uppdatera appen, label row «Träningsplaneraren · Slice N»",
       "ok": true,
-      "detail": "[\"Träningsplaneraren · Slice 35\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"] | Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC16a",
-      "name": "Footer reads «Träningsplaneraren · Slice 35»",
+      "karantan": false,
+      "name": "Footer reads «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1e",
+      "karantan": false,
       "name": "Hallöversikt: link in the footer",
       "ok": true,
-      "detail": "Träningsplaneraren · Slice 35 · Tyck till · Visa tips igen · Uppdatera appen"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC1d",
+      "karantan": false,
       "name": "Bibliotek open: link still in the footer, still one mailto",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1f",
+      "karantan": false,
       "name": "Kör passet open: footer (with the one mailto) still in the DOM, nothing new in the overlay",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC16b",
+      "karantan": false,
       "name": "Kör passet still shows «Nästa: …» (Slice 34)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC16c",
+      "karantan": false,
       "name": "Print: footer hidden",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC12a",
+      "karantan": false,
       "name": "Builder footer at 390: no horizontal scroll, no item split mid-word",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":324.21875}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC11b",
+      "karantan": false,
       "name": "Still no feedback popup/banner anywhere",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7c",
+      "karantan": false,
       "name": "Clipboard API missing: no error, button unchanged, line + address still there",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7d",
+      "karantan": false,
       "name": "Clipboard denied (rejects): nothing visible, no error",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9-local",
+      "karantan": false,
       "name": "Offline: tap still follows the mailto + shows the line",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC12-admina",
-      "name": "admin: order label · Admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen",
+      "karantan": false,
+      "name": "admin: Tyck till · Visa tips igen · Uppdatera appen, then Admin · Logga ut, then label",
       "ok": true,
-      "detail": "[\"Träningsplaneraren · Slice 35\",\"Admin · Logga ut ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Admin · Logga ut\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12-adminb",
+      "karantan": false,
       "name": "admin footer at 390: no horizontal scroll, nothing split mid-word",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC12-adminc",
+      "karantan": false,
       "name": "admin with the fallback line: still no horizontal scroll",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC12-notadmina",
-      "name": "notadmin: order label · inte admin · Logga ut · Tyck till · Visa tips igen · Uppdatera appen",
+      "karantan": false,
+      "name": "notadmin: Tyck till · Visa tips igen · Uppdatera appen, then inte admin · Logga ut, then label",
       "ok": true,
-      "detail": "[\"Träningsplaneraren · Slice 35\",\"Du är inloggad men inte admin. · Logga ut ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Du är inloggad men inte admin. · Logga ut\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12-notadminb",
+      "karantan": false,
       "name": "notadmin footer at 390: no horizontal scroll, nothing split mid-word",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":362.265625}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC12-notadminc",
+      "karantan": false,
       "name": "notadmin with the fallback line: still no horizontal scroll",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":362.265625}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC1g",
-      "name": "Bank build logged out: label · Logga in som admin · Tyck till · Visa tips igen · Uppdatera appen",
+      "karantan": false,
+      "name": "Bank build logged out: Tyck till · Visa tips igen · Uppdatera appen, then Logga in som admin, then label",
       "ok": true,
-      "detail": "[\"Träningsplaneraren · Slice 35\",\"Logga in som admin ·\",\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Logga in som admin\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12d",
+      "karantan": false,
       "name": "Logged out at 390: «Logga in som admin» visible, no horizontal scroll, no split",
       "ok": true,
-      "detail": "{\"sw\":390,\"split\":[],\"right\":368.53125}"
+      "detail": "{\"sw\":390,\"split\":[],\"right\":352.53125}"
     },
     {
       "id": "AC16d",
+      "karantan": false,
       "name": "Strings verbatim in blockMeta.ts; SLICE_NUMBER drives the footer; no «!» or banned words in the UI strings",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC10c",
+      "karantan": false,
       "name": "No fetch / beacon / storage / window.open / location in the feedback code",
       "ok": true,
       "detail": ""
     },
     {
       "id": "E",
+      "karantan": false,
       "name": "No page errors",
       "ok": true,
       "detail": ""

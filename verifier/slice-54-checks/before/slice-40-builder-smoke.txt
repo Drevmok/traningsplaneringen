@@ -1,0 +1,19 @@
+FAIL [W] error — locator.click: Timeout 10000ms exceeded.
+PASS [AC3/AC10] Blå, 5 Teknik, empty hall → Hallöversikt: stored positions = first 5 fixed cells (4 + 1) — [[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]
+PASS [AC8] Mixed redskap (satsbräda, trampett, tumbling, open) in Blå → no shared spot
+PASS [AC5] Rank numbers read 1, 2, 3… left→right, top→bottom — 1,2,3,4,5
+FAIL [AC8-main] Same pass on main: markers stack — [[0.21,0.28],[0.37,0.28],[0.53,0.28],[0.69,0.28],[0.21,0.5]]
+PASS [AC4] Vit, 4 Teknik: stored positions = first 4 fixed cells (3 + 1) — [[0.135,0.19],[0.295,0.19],[0.455,0.19],[0.135,0.41]]
+PASS [AC6] Blå and Vit, n = 1/4/8: every marker fully inside the hall canvas; no overlap where the grid has room
+PASS [AC7] Vit, 12 Teknik: all inside, no hang; the 9 free cells (capacity) do not overlap; markers 10–12 use the least-overlap fallback — 919 ms
+PASS [AC9] Standard trupp, Tävling / linjer, Liten hall: same seeded pass gives the same positions on main and branch
+PASS [AC11] Blå, 3 placed (1 dragged) + add from bank: the 3 stay; the new one takes the first free cell (0.21, 0.28), no overlap — [[0.29,0.5],[0.45,0.5],[0.7,0.83],[0.21,0.28]]
+FAIL [M] error — locator.click: Timeout 10000ms exceeded.
+PASS [AC13] Stacked pass saved on main → opens with the stored positions, nothing re-laid out
+PASS [AC14] No new buttons or text in Hallöversikt (same visible buttons as main) — 14 buttons
+FAIL [AC16-footer] Footer «Träningsplaneraren · Slice 40» — Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53
+PASS [F1-forening-bla] forening-bla: 12 stations added one by one from the bank → 0 overlapping markers (stored + on screen), all inside — 12 placed, 0 overlapping pairs
+PASS [F1-forening-vit] forening-vit: 9 stations added one by one from the bank → 0 overlapping markers (stored + on screen), all inside — 9 placed, 0 overlapping pairs
+PASS [E] No page errors
+
+PASS 13 / FAIL 4
