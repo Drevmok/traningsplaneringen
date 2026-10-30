@@ -1,6 +1,8 @@
 // Slice 41 — Builder self-smoke: Ångra after × and Använd mall, 390×844. Branch build on :4241.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { startTomt } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 const BR = process.env.S41_BR ?? 'http://127.0.0.1:4241/traningsplaneringen/'
@@ -119,10 +121,11 @@ await attempt('AC10', async () => {
 })
 await attempt('AC16', async () => {
   await p.goto(BR); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.locator('.home').waitFor()
-  await p.getByRole('button', { name: 'Tomt pass' }).click(); await builder().waitFor(); await p.waitForTimeout(300)
+  await startTomt(p); await p.waitForTimeout(300) // Slice 54 A1
   const blank = await p.getByRole('textbox', { name: 'Passets titel' }).inputValue(), n16 = await p.locator('.item-remove').count()
   await menu('Använd mall'); await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click()
-  await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click(); await p.waitForTimeout(400)
+  await p.waitForTimeout(400); const use16 = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }) // Slice 54: a blank pass is replaced without asking
+  if (await use16.count()) await use16.click(); await p.waitForTimeout(400)
   const mid16 = await p.locator('.item-remove').count(), m16 = (await mallar()).length
   await undo().click(); await p.waitForTimeout(400)
   check('AC16', 'mall over blank (Tomt pass, only its Samling rows) → Ångra → blank pass back, Mina mallar unchanged', mid16 !== n16 && m16 === 0 && (await p.locator('.item-remove').count()) === n16 && (await mallar()).length === 0 && (await p.getByRole('textbox', { name: 'Passets titel' }).inputValue()) === blank)
@@ -146,7 +149,7 @@ await attempt('AC18', async () => {
 })
 await attempt('AC20/22', async () => {
   await load(seed('S41 tre', 1))
-  check('AC22-footer', 'footer «Träningsplaneraren · Slice 41»', (await p.locator('body').innerText()).includes('Träningsplaneraren · Slice 41'))
+  check('AC22-footer', `footer «Träningsplaneraren · Slice ${sliceNumber(ROOT)}»`, (await p.locator('body').innerText()).includes(`Träningsplaneraren · Slice ${sliceNumber(ROOT)}`)) // Slice 54 B1
   await menu('Spara som egen mall'); await p.waitForTimeout(300)
   await p.locator('.modal-actions .btn-primary').last().click(); await p.waitForTimeout(200)
   const t = await toast().count() ? await toast().innerText() : ''

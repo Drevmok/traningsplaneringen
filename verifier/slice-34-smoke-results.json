@@ -2,186 +2,217 @@
   "results": [
     {
       "id": "AC16a",
+      "karantan": false,
       "name": "No AudioContext created on load / share view",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC6-local",
+      "karantan": false,
       "name": "Kör passet tap creates + resumes the AudioContext and plays the silent prime inside the tap",
       "ok": true,
       "detail": "{\"ctx\":1,\"prime\":1,\"resume\":1,\"osc\":0,\"start\":0,\"stops\":[],\"loops\":0,\"vib\":[]}"
     },
     {
       "id": "AC11a",
+      "karantan": false,
       "name": "Step 1: «Nästa: <step 2 title>»",
       "ok": true,
       "detail": "Nästa: Uppvärmningsdans"
     },
     {
       "id": "AC11b",
+      "karantan": false,
       "name": "Nästa line is plain text (no role / aria-live)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1a",
+      "karantan": false,
       "name": "No tone before 0",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1b",
+      "karantan": false,
       "name": "At 00:00: exactly one tone (one oscillator, started once, stop scheduled ~0.3 s later)",
       "ok": true,
-      "detail": "{\"ctx\":1,\"prime\":1,\"resume\":1,\"osc\":1,\"start\":1,\"stops\":[60.315],\"loops\":0,\"vib\":[200]}"
+      "detail": "{\"ctx\":1,\"prime\":1,\"resume\":1,\"osc\":1,\"start\":1,\"stops\":[60.05],\"loops\":0,\"vib\":[200]}"
     },
     {
       "id": "AC8-sim",
+      "karantan": false,
       "name": "navigator.vibrate(200) called once with the tone",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC3",
+      "karantan": false,
       "name": "No auto-advance: same step, «Tiden är ute» shown, clock 00:00",
       "ok": true,
       "detail": ""
     },
     {
       "id": "C-placement",
+      "karantan": false,
       "name": "Order: clock → «Tiden är ute» → Nästa line → script",
       "ok": true,
-      "detail": "run-top > H1 > run-clock > run-status > run-next > run-script > run-nav"
+      "detail": "run-top > H1 > run-clock > run-status > run-next > run-left > run-script > run-nav"
     },
     {
       "id": "AC2",
+      "karantan": false,
       "name": "Still one tone after 35 s more at 00:00; no loop ever set; step unchanged",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC5a",
+      "karantan": false,
       "name": "Manual Nästa övning: no tone",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC11c",
+      "karantan": false,
       "name": "Block boundary: last warm-up step shows the first Teknik step",
       "ok": true,
       "detail": "Nästa: Landningar upp på och ner från plint"
     },
     {
       "id": "AC4a",
+      "karantan": false,
       "name": "Paused at ~00:05: no tone while paused",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC4b",
+      "karantan": false,
       "name": "Resumed: no tone before 0",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC4c",
+      "karantan": false,
       "name": "Resumed → exactly one tone at 0",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC4d",
+      "karantan": false,
       "name": "Pause after 0 + resume → no second tone",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC5b",
+      "karantan": false,
       "name": "0-minute step: no tone on open or after",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC11d",
+      "karantan": false,
       "name": "Step 3 → «Nästa: <step 4 title>»",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC12",
+      "karantan": false,
       "name": "Last step: «Sista aktiviteten»; nav shows «Sista övningen» (disabled)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC5c",
+      "karantan": false,
       "name": "Föregående + arrow keys: no tone",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC14",
+      "karantan": false,
       "name": "Overlay controls unchanged: Avsluta, clock, Föregående, Nästa/Sista övningen only",
       "ok": true,
       "detail": "Avsluta | 01:00 | Föregående | Sista övningen"
     },
     {
       "id": "AC13",
+      "karantan": false,
       "name": "Long title: one line, ellipsis, no horizontal scroll, no overlap with clock or nav",
       "ok": true,
       "detail": "{\"ws\":\"nowrap\",\"to\":\"ellipsis\",\"oneLine\":true,\"overflowing\":true,\"sw\":390,\"overlapClock\":false,\"overlapNav\":false,\"right\":374}"
     },
     {
       "id": "AC5d",
+      "karantan": false,
       "name": "Avsluta: no tone (also not later)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC10-sim",
+      "karantan": false,
       "name": "Wall clock jumps 10 min past the deadline (backgrounded) → exactly one tone on return",
       "ok": true,
       "detail": "{\"osc\":3,\"ctx\":1}"
     },
     {
       "id": "AC20a",
-      "name": "Footer «Träningsplaneraren · Slice 34»",
+      "karantan": false,
+      "name": "Footer «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)",
       "ok": true,
-      "detail": "Träningsplaneraren · Slice 34 · Visa tips igen · Uppdatera appen"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC16b",
+      "karantan": false,
       "name": "Home → Planera pass → Passbyggaren: no AudioContext",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC6b-local",
+      "karantan": false,
       "name": "Passbyggaren Kör passet tap creates + resumes the context",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC19a",
+      "karantan": false,
       "name": "Clock starts automatically as before (counts down)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9-sim",
+      "karantan": false,
       "name": "No AudioContext / no vibrate: time-up still shows, no error, no extra UI",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC20b",
+      "karantan": false,
       "name": "Strings verbatim in blockMeta.ts; no «!»",
       "ok": true,
       "detail": ""
     },
     {
       "id": "E",
+      "karantan": false,
       "name": "No page or console errors",
       "ok": true,
       "detail": ""

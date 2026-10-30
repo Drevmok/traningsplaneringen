@@ -1,6 +1,8 @@
 // Slice 38 — Builder self-smoke: Kör passet «Kvar: X min», 390×844, Playwright fake clock.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 
@@ -9,7 +11,8 @@ const ROOT = process.env.S38_ROOT ?? '/workspace/gp-s38'
 const { token, titles } = JSON.parse(execFileSync('bun', [`${ROOT}/verifier/slice-38-mktoken.ts`], { encoding: 'utf8' }))
 const MD = readFileSync(`${ROOT}/slice-38/content/microcopy.sv.md`, 'utf8')
 const md = (k) => MD.match(new RegExp('^\\| `' + k + '`(?: \\*\\*[^*]+\\*\\*)?(?: \\([^)]*\\))? \\| ([^|]+?) \\|', 'm'))[1].trim()
-const LBL = md('runLeftLabel'), FOOT = md('footerSliceLabel')
+const SLICE = sliceNumber(ROOT) // Slice 54 B1: footer + mail version follow SLICE_NUMBER
+const LBL = md('runLeftLabel'), FOOT = `Träningsplaneraren · Slice ${SLICE}`
 const K = (n) => LBL.replace('{n}', String(n))
 
 const results = []
@@ -114,15 +117,11 @@ await attempt('A', async () => {
 await attempt('B', async () => {
   const { ctx, page: p } = await open()
   await p.goto(URL0)
-  await p.getByRole('button', { name: 'Planera pass' }).click()
-  const wz = p.locator('[aria-labelledby="home-wizard-title"]')
-  await wz.getByRole('option', { name: /7–9/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /^Trampett/ }).first().click(); await wz.getByRole('button', { name: 'Nästa' }).click()
-  await wz.getByRole('option', { name: /Standard trupp/ }).first().click(); await wz.getByRole('button', { name: 'Skapa pass' }).click()
-  await p.locator('.builder').waitFor()
+  // Slice 54 A1: one tap per answer (Slice 46); «Standard trupp» left the hall list in Slice 45 → default hall.
+  await startFragor(p, { age: /7–9/, focus: /^Trampett/ })
   const f = (await p.locator('footer.app-footer').innerText()).replace(/\s+/g, ' ')
   const href = await p.locator('footer a.footer-feedback').getAttribute('href')
-  check('AC18a', `Footer «${FOOT}»; mail «Version: Slice 38»`, f.includes(FOOT) && decodeURIComponent(href.split('body=')[1]).includes('Version: Slice 38'), f)
+  check('AC18a', `Footer «${FOOT}»; mail «Version: Slice ${SLICE}»`, f.includes(FOOT) && decodeURIComponent(href.split('body=')[1]).includes(`Version: Slice ${SLICE}`), f)
   check('AC14', 'Passbyggaren has no «Kvar:» line', (await p.locator('.run-left').count()) === 0 && !(await p.locator('body').innerText()).includes('Kvar: '))
   await shot(p, '06_builder_footer')
   await runBtn(p).click(); await run(p).waitFor()

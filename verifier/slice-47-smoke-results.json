@@ -1,0 +1,226 @@
+[
+  {
+    "id": "AC1",
+    "karantan": false,
+    "name": "sheet = Stäng, Sök, Filter, list; no tabs/own buttons/hint/«ikväll»; aria-label «Lägg till övning»",
+    "ok": true,
+    "detail": "tabs=0 bad= aria=Lägg till övning"
+  },
+  {
+    "id": "AC2",
+    "karantan": false,
+    "name": "first card top ≤ 240; filter preselects the block (gathering); Sök narrows; a tap adds as before",
+    "ok": true,
+    "detail": "top=239 sel=gathering n=5→1 items 2→3"
+  },
+  {
+    "id": "AC2-ref",
+    "karantan": false,
+    "name": "reference: main first card top",
+    "ok": true,
+    "detail": "main=239 branch=239"
+  },
+  {
+    "id": "AC3",
+    "karantan": false,
+    "name": "own drills show «Egen»; Ändra opens «Ändra egen övning» and saves; Ta bort works; disabled when in the pass",
+    "ok": true,
+    "detail": "egen=true disabledB=true saved=true left=own-s47-b"
+  },
+  {
+    "id": "AC4",
+    "karantan": false,
+    "name": "pass with an own drill opens in Hallöversikt and Golvklart (as main)",
+    "ok": true,
+    "detail": "hall=2 errors=0"
+  },
+  {
+    "id": "AC5",
+    "karantan": false,
+    "name": "Använd mall → sheet with Mina mallar (Kopiera delningskod, Ta bort), Nybörjare, Kort pass; not fresh → «Ersätta …»; toast «Mallen är i Passbyggaren. · Ångra»",
+    "ok": true,
+    "detail": "groups=true confirm=Ersätta det här passet?\n\nOm du börjar från en mall ersätts b toast=Mallen är i Passbyggaren.\n·\nÅngra title=Kort pass — ca 45 min sheetBottom=812"
+  },
+  {
+    "id": "AC5-club",
+    "karantan": false,
+    "name": "Föreningens mallar shown when the club list has rows (fake list empty → section hidden as coach main)",
+    "ok": true,
+    "detail": "club_templates faked empty; Slice 36 rendering unchanged (MallList)"
+  },
+  {
+    "id": "AC6",
+    "karantan": false,
+    "name": "Planera pass Mall step unchanged: Fråga 2 av 2 «Mall», Nybörjare + Kort pass, no tools",
+    "ok": true,
+    "detail": "Fråga 2 av 2 Mall Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort "
+  },
+  {
+    "id": "AC7",
+    "karantan": false,
+    "name": "Förrådslista has no «Vad finns i hallen ikväll?»; Biblioteket shows every exercise despite an old unticked owned list; old keys left alone",
+    "ok": true,
+    "detail": "shown=51 published=51 ls=[\"eq-landningsmatta\"],1"
+  },
+  {
+    "id": "AC8",
+    "karantan": false,
+    "name": "logged out / not admin: no Admin button on the start page or in Mer",
+    "ok": true,
+    "detail": "[{\"label\":\"logged out\",\"homeBtn\":0,\"mer\":false,\"foot\":\"Tyck till · Uppdatera appen Logga in som admin Passen sparas bara på den här enheten.\"},{\"label\":\"not admin\",\"homeBtn\":0,\"mer\":false,\"foot\":\"Tyck till · Uppdatera appen Du är inloggad men inte admin. · Logga ut Passen sparas bara på den här enheten.\"}]"
+  },
+  {
+    "id": "AC9",
+    "karantan": false,
+    "name": "admin: footer row 2 «Admin · Logga ut»; «Admin» is a button ≥ 44 px (aria «Öppna Admin»); page fits 844",
+    "ok": true,
+    "detail": "rows=[\"Tyck till · Uppdatera appen\",\"Admin · Logga ut\"] h=44 doc=844"
+  },
+  {
+    "id": "AC11-empty",
+    "karantan": false,
+    "name": "Admin view: «Inget väntar just nu.» then Ny egen övning, Importera övningar, Föreningens mallar",
+    "ok": true,
+    "detail": "[11,41,174,254]"
+  },
+  {
+    "id": "AC10",
+    "karantan": false,
+    "name": "Mer shows «Admin»; footer and Mer both open Admin; Tillbaka → start page / Passbyggaren, pass unchanged",
+    "ok": true,
+    "detail": "items=Spara som egen mall|Publicera som föreningsmall|Admin|Ny vecka|Använd mall|Dela"
+  },
+  {
+    "id": "AC12",
+    "karantan": false,
+    "name": "admin Biblioteket: no admin bar/chips; published detail shows «Ändra i banken» and «Dölj för alla»",
+    "ok": true,
+    "detail": "bar=0 detail=Ändra i banken Dölj för alla Oförändrad sedan 1 okt"
+  },
+  {
+    "id": "AC11",
+    "karantan": false,
+    "name": "Admin view order: Väntar på godkännande (n), Behöver granskas (n) (only lists with rows), then Ny egen övning, Importera övningar, Föreningens mallar",
+    "ok": true,
+    "detail": "[17,94,258,391,471]"
+  },
+  {
+    "id": "AC13",
+    "karantan": false,
+    "name": "Teknik with redskap → «Spara och skicka till granskning» → toast «Sparad. Den väntar på godkännande.»; row under «Väntar på godkännande (1)» with «Väntar»",
+    "ok": true,
+    "detail": "toast=Sparad. Den väntar på godkännande. id=tech-egen-mvvdzu7rwrml eq=[{\"pieceId\":\"eq-trampett\",\"count\":1}]"
+  },
+  {
+    "id": "AC14",
+    "karantan": false,
+    "name": "Samling saves without Säkerhet; Styrka refuses without it, saves with it",
+    "ok": true,
+    "detail": "gather-egen-mvvdzukp7mjw:null strength-egen-mvvdzv9onbrr:Rak rygg"
+  },
+  {
+    "id": "AC15",
+    "karantan": false,
+    "name": "(D2) author opens own pending row: Godkänn, Ändra i banken, Dölj för alla; no «Väntar på att en annan admin…»",
+    "ok": true,
+    "detail": "Godkänn Ändra i banken Dölj för alla Senast ändrad 1 okt av a@test.local"
+  },
+  {
+    "id": "AC15-approve",
+    "karantan": false,
+    "name": "author Godkänn → published («Godkänd. Tränarna ser den…»)",
+    "ok": true,
+    "detail": "Godkänd. Tränarna ser den nästa gång de öppnar appen."
+  },
+  {
+    "id": "AC17-D2",
+    "karantan": false,
+    "name": "per D2 (no peer rule): after B «Ändra i banken» on A’s pending row, B and A both still see Godkänn",
+    "ok": true,
+    "detail": "updated_by=b@test.local"
+  },
+  {
+    "id": "AC16",
+    "karantan": false,
+    "name": "B Godkänn → «Godkänd. …»; leaves Väntar; coach (logged out) sees it after reload, never before",
+    "ok": true,
+    "detail": "before=0 after=Smoke trampettövning|Smoke samling"
+  },
+  {
+    "id": "AC18",
+    "karantan": false,
+    "name": "Dölj för alla (confirm) → «Dold för alla.»; row under «Dolda (n)» in Admin; Visa igen → «Syns igen för alla.»",
+    "ok": true,
+    "detail": "title=Välkomstcheck-in t1=Dold för alla. t2=Syns igen för alla."
+  },
+  {
+    "id": "AC19",
+    "karantan": false,
+    "name": "file read; rows offer only Ta med / Hoppa över; no «Plats för…», no «Ersätt»; same title → «Samma namn finns redan», starts on Hoppa över, bank note",
+    "ok": true,
+    "detail": "opts=Ta med,Hoppa över choice=skip"
+  },
+  {
+    "id": "AC20",
+    "karantan": false,
+    "name": "«Importera 3 övningar» (pasted code) → «3 övningar väntar på godkännande.»; 3 pending rows with new ids, nothing in the local own list",
+    "ok": true,
+    "detail": "3 övningar väntar på godkännande. warm-egen-mvve0goytc2j|pending tech-egen-mvve0gpbcaba|pending gather-egen-mvve0gpeax1c|pending"
+  },
+  {
+    "id": "AC21",
+    "karantan": false,
+    "name": "offline: both actions show «Du behöver nät för att ändra i banken.» and are disabled; nothing saved or queued",
+    "ok": true,
+    "detail": "dis=true idis=true"
+  },
+  {
+    "id": "AC22",
+    "karantan": false,
+    "name": "Hämta ett pass with an exercise file → «Det här är en fil med övningar. En admin lägger in den under Admin.»; nothing imported",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "AC23",
+    "karantan": false,
+    "name": "Logga ut in Admin → back where you came from (Passbyggaren / start page); no admin view left",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "AC24-landscape",
+    "karantan": false,
+    "name": "landscape: Lägg till övning, Använd mall sheet, Admin view + form usable",
+    "ok": true,
+    "detail": "add: side column tabs=0 search=174 card=267 · mall: 8–366 stang=32 scroll=403,358 · admin back=12 form=20+1022 cancel=322"
+  },
+  {
+    "id": "AC24-desktop",
+    "karantan": false,
+    "name": "desktop: Lägg till övning, Använd mall sheet, Admin view + form usable; side panel without tabs",
+    "ok": true,
+    "detail": "side tabs=0 list=true · mall: 199–601 stang=223 scroll=403,403 · admin back=12 form=28+1022 cancel=704"
+  },
+  {
+    "id": "AC26-footer",
+    "karantan": false,
+    "name": "footer «Träningsplaneraren · Slice 53»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "id": "AC26-nobackend",
+    "karantan": false,
+    "name": "all writes went to the in-browser fake (no real Supabase); count of faked writes",
+    "ok": true,
+    "detail": "faked writes=13"
+  },
+  {
+    "id": "errors",
+    "karantan": false,
+    "name": "no page errors",
+    "ok": true,
+    "detail": ""
+  }
+]

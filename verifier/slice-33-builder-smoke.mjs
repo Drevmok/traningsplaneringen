@@ -10,6 +10,8 @@
 // Run on a FRESH stand-in (the Slice 32 regression part edits seeded rows): down.sh && up.sh first.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { startMall, startTomt } from './tools/smoke-start.mjs' // Slice 54 A1
+import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 
@@ -44,6 +46,8 @@ const md = (key) => {
 const S = Object.fromEntries(
   ['adminLoginTitle', 'adminLoginHint', 'adminEmailLabel', 'adminSendCode', 'adminWait', 'adminSendFailed', 'adminCodeSent', 'adminCodeLabel', 'adminCodePlaceholder', 'adminVerify', 'adminCodeWrong', 'adminVerifyWait', 'adminVerifyFailed', 'adminResend', 'adminResendSoon', 'adminCodeResent', 'adminChangeEmail', 'adminCloseAria', 'footerSliceLabel'].map((k) => [k, md(k)]),
 )
+// Slice 54 B1: the footer follows SLICE_NUMBER (blockMeta.ts template literal), not the Slice 33 microcopy number.
+S.footerSliceLabel = `Träningsplaneraren · Slice ${sliceNumber(ROOT)}`
 const sentTo = (email) => S.adminCodeSent.replace('{email}', email)
 const UI = {
   login: 'Logga in som admin',
@@ -161,6 +165,21 @@ async function openDetail(page, title) {
   await d.waitFor()
   return d
 }
+// Slice 54 (widen): Slice 47 moved the admin lists out of Biblioteket into the Admin view (footer «Admin»).
+async function openAdminArea(page) {
+  await page.goto(ON)
+  await page.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
+  await page.locator('footer .footer-admin-open').first().click()
+  await page.locator('.admin-area').waitFor()
+  await page.waitForTimeout(500)
+}
+const areaHeads = (page) => page.locator('.admin-area .admin-area-list h2').allInnerTexts()
+const areaList = (page, prefix) => page.locator('.admin-area-list').filter({ has: page.locator('h2', { hasText: prefix }) })
+const areaTitles = (list) =>
+  list.locator('.library-entry .activity-title').evaluateAll((els) =>
+    els.map((el) => Array.from(el.childNodes).filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim()),
+  )
+const areaCard = (list, t) => list.locator('.library-entry').filter({ has: list.page().locator('.activity-title', { hasText: new RegExp(`^${esc(t)}`) }) })
 async function closeDetail(page) {
   const d = page.locator('.activity-detail')
   if (await d.count()) await d.getByRole('button', { name: /Stäng/ }).first().click()
@@ -173,7 +192,7 @@ async function builderAction(page, name) {
   await page.locator('.more-menu-panel').getByRole('button', { name }).click()
 }
 async function startBlank(page) {
-  await page.getByRole('button', { name: 'Tomt pass' }).click()
+  await startTomt(page) // Slice 54 A1: «Planera pass» → «Tomt pass» in the guide (Slice 46)
 }
 
 
@@ -319,7 +338,7 @@ await attempt('AC21', 'Coach visit', async () => {
   const op = await newPage(off, OFF)
   await startBlank(op)
   const f0 = await footerText(op)
-  check('AC26a', 'Plain build footer: «Träningsplaneraren · Slice 33», no admin link (vars unset)', f0.startsWith(S.footerSliceLabel) && !f0.includes(UI.login), f0)
+  check('AC26a', 'Plain build footer: «Träningsplaneraren · Slice N» (SLICE_NUMBER), no admin link (vars unset)', f0.includes(S.footerSliceLabel) && !f0.includes(UI.login), f0) // Slice 54 B1: label is the last footer line
   await off.close()
 
   const c = await newCtx('coach')
@@ -330,13 +349,13 @@ await attempt('AC21', 'Coach visit', async () => {
   await shot(page, 'coach_home')
   await startBlank(page)
   const f = await footerText(page)
-  check('AC26b', 'Bank build footer reads «Träningsplaneraren · Slice 33 · Logga in som admin»', f.startsWith(`${S.footerSliceLabel} · ${UI.login}`), f)
+  check('AC26b', 'Bank build footer: «Logga in som admin» row, then «Träningsplaneraren · Slice N»', f.includes(`${UI.login} ${S.footerSliceLabel}`), f) // Slice 54 B1: admin row sits above the label (Slice 46)
   await openLibrary(page)
   await page.waitForTimeout(500)
   const js = chunksOf('coach')
   check('AC21b', 'No supabase-js / admin chunk downloaded on a coach visit', !js.some((n) => ADMIN_CHUNK.test(n)), js.join(', '))
   const reqs = bankLog.filter((r) => r.ctx === 'coach')
-  check('AC21c', 'Coach requests: only the two Slice 31 GETs (publishable key, no Authorization), no auth request', reqs.length === 2 && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization && r.url.includes('/rest/v1/')), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
+  check('AC21c', 'Coach requests: the two Slice 31 GETs + the Slice 36 club_templates GET (publishable key, no Authorization), no auth request', reqs.length === 3 && reqs.map((r) => new URL(r.url).pathname).sort().join() === '/rest/v1/club_templates,/rest/v1/exercises,/rest/v1/redskap' && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization && r.url.includes('/rest/v1/')), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
   check('AC21d', 'No admin UI in Biblioteket (no chip, filter, badge)', (await page.locator('.admin-bar, .admin-filter-chip, .admin-badge, .admin-detail').count()) === 0)
   check('AC21e', 'No auth / verifier / pending key in storage', (await store(page, AUTH_KEY)) === null && (await store(page, VERIFIER_KEY)) === null && (await store(page, PENDING_KEY)) === null)
   await shot(page, 'coach_library')
@@ -676,12 +695,11 @@ await attempt('AC16', 'Resend after 60 s, replaced code, login (admin)', async (
   check('AC24b', 'Verifier + pending keys removed after login, session stored', (await store(p, VERIFIER_KEY)) === null && (await store(p, PENDING_KEY)) === null && (await store(p, AUTH_KEY)) !== null)
   await startBlank(p)
   const f = await footerText(p)
-  check('AC4-local', 'Footer «Träningsplaneraren · Slice 33 · Admin · Logga ut» (desktop Chrome; installed app = real device)', f.startsWith(`${S.footerSliceLabel} · Admin · ${UI.logout}`), f)
-  await openLibrary(p)
-  await p.locator('.admin-bar').waitFor()
-  check('AC4b-local', 'Admin chip in Biblioteket', (await p.locator('.admin-bar').innerText()).includes('Admin'))
-  await shot(p, 'admin_library_after_code_login')
-  await closeLibrary(p)
+  check('AC4-local', 'Footer «Admin · Logga ut» row, then «Träningsplaneraren · Slice N» (desktop Chrome; installed app = real device)', f.includes(`Admin · ${UI.logout} ${S.footerSliceLabel}`), f) // Slice 54 B1
+  await p.locator('footer .footer-admin-open').first().click() // Slice 54: Admin view (Slice 47) replaces the Biblioteket chip
+  await p.locator('.admin-area').waitFor()
+  check('AC4b-local', 'Footer «Admin» opens the Admin view', (await p.locator('.admin-area h1').innerText()) === 'Admin')
+  await shot(p, 'admin_area_after_code_login')
   check('AC4c-local', 'No new page/tab opened during the whole login', admin.pages().length === 1)
   await p.reload()
   await p.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
@@ -737,23 +755,25 @@ await attempt('S32-AC29', 'Admin mode lists', async () => {
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
   await startBlank(adminPage)
   await openLibrary(adminPage)
-  await adminPage.locator('.admin-bar').waitFor()
-  const chips = await adminPage.locator('.admin-bar').innerText()
-  check('S32-AC29a', `Admin chip + «Väntar på godkännande (2)» + «Behöver granskas (${REVIEW_N})»; no Dolda chip at 0`, chips.includes('Admin') && chips.includes('Väntar på godkännande (2)') && chips.includes(`Behöver granskas (${REVIEW_N})`) && !chips.includes('Dolda'), chips.replace(/\s+/g, ' '))
   const plain = await libraryTitles(adminPage)
   check('S32-AC29b', 'Pending rows not in the normal list', !plain.includes(TA) && !plain.includes(TB), `${plain.length} titles`)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Väntar på godkännande' }).click()
-  const pend = await titleTexts(adminPage)
-  check('S32-AC29c', 'Pending chip shows exactly the two bot rows with «Väntar» badge', pend.length === 2 && pend.includes(TA) && pend.includes(TB) && (await adminPage.locator('.library-entry .admin-badge-pending').count()) === 2, pend.join(', '))
-  check('S32-AC29d', 'Väntar chip is pressed (aria-pressed)', (await adminPage.locator('.admin-filter-chip.active').getAttribute('aria-pressed')) === 'true')
+  await closeLibrary(adminPage)
+  // Slice 54 (widen): the Slice 32 chips are list headings in the Admin view since Slice 47
+  await openAdminArea(adminPage)
+  const heads = await areaHeads(adminPage)
+  check('S32-AC29a', `Admin view lists «Väntar på godkännande (2)» + «Behöver granskas (${REVIEW_N})»; no Dolda list at 0`, heads.includes('Väntar på godkännande (2)') && heads.includes(`Behöver granskas (${REVIEW_N})`) && !heads.some((h) => h.startsWith('Dolda')), heads.join(' | '))
+  const pl = areaList(adminPage, 'Väntar på godkännande')
+  const pend = await areaTitles(pl)
+  check('S32-AC29c', 'Pending list shows exactly the two bot rows with «Väntar» badge', pend.length === 2 && pend.includes(TA) && pend.includes(TB) && (await pl.locator('.library-entry .admin-badge-pending').count()) === 2, pend.join(', '))
+  check('S32-AC29d', 'Pending list comes first in the Admin view', heads[0] === 'Väntar på godkännande (2)', heads.join(' | '))
   await shot(adminPage, 'admin_pending_list')
-  await card(adminPage, TA).first().locator('.activity-card').click()
+  await areaCard(pl, TA).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
   await d.waitFor()
   await d.locator('.admin-detail').waitFor()
   check('S32-AC29e', 'Pending detail: not addable to a pass', (await d.getByRole('button', { name: 'Lägg till i valt block' }).count()) === 0)
   const btns = await d.locator('.admin-actions button').allInnerTexts()
-  check('S32-AC29f', 'Pending detail: Godkänn · Ändra i banken; review hint; last changed by Planner', btns.join('|') === 'Godkänn|Ändra i banken' && (await d.innerText()).includes('Läs igenom texten.') && (await d.locator('.admin-last-changed').innerText()).includes('av Planner'), btns.join('|'))
+  check('S32-AC29f', 'Pending detail: Godkänn · Ändra i banken · Dölj för alla (Slice 47 D2); review hint; last changed by Planner', btns.join('|') === 'Godkänn|Ändra i banken|Dölj för alla' && (await d.innerText()).includes('Läs igenom texten.') && (await d.locator('.admin-last-changed').innerText()).includes('av Planner'), btns.join('|'))
   await shot(adminPage, 'admin_pending_detail')
   await d.getByRole('button', { name: 'Godkänn' }).click()
   await adminPage.getByText(UI.approved).waitFor()
@@ -783,10 +803,8 @@ await attempt('S32-AC31', 'Ändra i banken', async () => {
   const before = JSON.parse(sql(`select row_to_json(e) from (select tags, difficulty, progression_of, regression_of, visual_key, sort_order, status from public.exercises where id = 'tech-test-aggrullning-kil') e`))
   await adminPage.goto(ON)
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  await startBlank(adminPage)
-  await openLibrary(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Väntar på godkännande (1)' }).click()
-  await card(adminPage, TB).first().locator('.activity-card').click()
+  await openAdminArea(adminPage) // Slice 54 (widen): pending rows live in the Admin view
+  await areaCard(areaList(adminPage, 'Väntar på godkännande (1)'), TB).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
   await d.locator('.admin-detail').waitFor()
   await d.getByRole('button', { name: 'Ändra i banken' }).click()
@@ -841,18 +859,17 @@ await attempt('S32-AC33', 'Markera som granskad', async () => {
   note(`review count now ${REVIEW_N} (16 seed rows + the approved bot row)`)
   await adminPage.goto(ON)
   await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
-  await startBlank(adminPage)
-  await openLibrary(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: `Behöver granskas (${REVIEW_N})` }).click()
-  const list = await titleTexts(adminPage)
-  check('S32-AC33b0', 'Review chip lists the flagged published rows with the review badge (admin only)', list.length === REVIEW_N && (await adminPage.locator('.library-entry .review-badge').count()) === REVIEW_N, `${list.length}`)
+  await openAdminArea(adminPage) // Slice 54 (widen)
+  const rl = areaList(adminPage, `Behöver granskas (${REVIEW_N})`)
+  const list = await areaTitles(rl)
+  check('S32-AC33b0', 'Review list (Admin view) shows the flagged published rows with the review badge (admin only)', list.length === REVIEW_N && (await rl.locator('.library-entry .review-badge').count()) === REVIEW_N, `${list.length}`)
   await shot(adminPage, 'admin_review_chip')
-  await card(adminPage, REVIEW_TITLE).first().locator('.activity-card').click()
+  await areaCard(rl, REVIEW_TITLE).first().locator('.activity-card').click()
   const d = adminPage.locator('.activity-detail')
   await d.locator('.admin-detail').waitFor()
   const textBefore = sql(`select md5(title || summary || how_to) from public.exercises where id = '${REVIEW_ID}'`)
   await d.locator('.admin-detail button', { hasText: 'Markera som granskad' }).click()
-  await adminPage.locator('.admin-filter-chip', { hasText: `Behöver granskas (${REVIEW_N - 1})` }).waitFor()
+  await adminPage.locator('.admin-area-list h2', { hasText: `Behöver granskas (${REVIEW_N - 1})` }).waitFor()
   check('S32-AC33b', 'Markera som granskad clears it without edit (text unchanged, count −1)', sql(`select needs_coach_review::text || '|' || updated_by from public.exercises where id = '${REVIEW_ID}'`) === `false|${ADMIN}` && sql(`select md5(title || summary || how_to) from public.exercises where id = '${REVIEW_ID}'`) === textBefore)
   await closeDetail(adminPage)
 })
@@ -862,10 +879,7 @@ await attempt('S32-AC34', 'Dölj för alla + Visa igen', async () => {
   // a coach saves a pass from the mall first (old pass that uses the drill)
   const cctx = await newCtx('coach3')
   const cp = await newPage(cctx, ON)
-  await cp.getByRole('button', { name: 'Från mall' }).click()
-  await cp.getByRole('button', { name: /Nybörjare/ }).first().click()
-  const use = cp.getByRole('button', { name: 'Använd mall' })
-  if (await use.isVisible().catch(() => false)) await use.click()
+  await startMall(cp, /Nybörjare/) // Slice 54 A1: mall list lives in the guide (Slice 46)
   // Slice 39: no Spara utkast; the mall pass is saved on apply and «Sparat» shows.
   await cp.locator('.builder-actions .save-status', { hasText: 'Sparat' }).waitFor({ timeout: 5000 })
   await cp.waitForFunction(() => localStorage.getItem('gymnastics-planner-draft-v1') !== null, null, { timeout: 5000 })
@@ -901,8 +915,8 @@ await attempt('S32-AC34', 'Dölj för alla + Visa igen', async () => {
   await cctx.close()
   // admin: Dolda (1) → Visa igen
   await closeDetail(adminPage)
-  await adminPage.locator('.admin-filter-chip', { hasText: 'Dolda (1)' }).click()
-  await adminPage.locator('.library-entry .activity-card').first().click()
+  await openAdminArea(adminPage) // Slice 54 (widen): Dolda list in the Admin view
+  await areaList(adminPage, 'Dolda (1)').locator('.library-entry .activity-card').first().click()
   const d2 = adminPage.locator('.activity-detail')
   await d2.locator('.admin-detail').waitFor()
   check('S32-AC34f', 'Hidden detail: «Dold» badge, Visa igen · Ändra i banken', (await d2.locator('.admin-badge-hidden').count()) === 1 && (await d2.locator('.admin-actions button').allInnerTexts()).join('|') === 'Visa igen|Ändra i banken')
@@ -914,6 +928,10 @@ await attempt('S32-AC34', 'Dölj för alla + Visa igen', async () => {
 })
 
 await attempt('S32-AC35', 'No delete control', async () => {
+  await adminPage.goto(ON) // Slice 54 (widen): AC34 now ends in the Admin view; reopen Biblioteket
+  await adminPage.locator('footer .footer-admin-logout').waitFor({ timeout: 15000 })
+  await startBlank(adminPage)
+  await openLibrary(adminPage)
   const d = await openDetail(adminPage, 'Kullerbytta')
   await d.locator('.admin-detail').waitFor()
   const txt = await d.locator('.admin-detail').innerText()
@@ -1022,9 +1040,11 @@ await attempt('AC26', 'Copy', async () => {
   check('AC26j', 'Login sheet never says «länk», no «!»', !/länk/i.test(all) && !all.includes('!'))
   check('AC26k', 'Login sheet never says Supabase / OTP / token / session / server / databas', !/supabase|\botp\b|token|session|server|databas/i.test(all))
   const meta = readFileSync(`${ROOT}/app/src/data/blockMeta.ts`, 'utf8')
-  const keys = Object.keys(S).filter((k) => k !== 'adminCodeSent')
-  const verbatim = keys.every((k) => meta.includes(`'${S[k]}'`)) && meta.includes(`'${S.adminCodeSent}'`)
-  check('AC26l', 'Every Slice 33 key in blockMeta.ts matches microcopy.sv.md verbatim', verbatim, keys.filter((k) => !meta.includes(`'${S[k]}'`)).join(', '))
+  // Slice 54 B1: footerSliceLabel is a template literal (`Träningsplaneraren · Slice ${SLICE_NUMBER}`), never '…'.
+  const keys = Object.keys(S).filter((k) => k !== 'adminCodeSent' && k !== 'footerSliceLabel')
+  const footerTpl = meta.includes('`Träningsplaneraren · Slice ${SLICE_NUMBER}`') && meta.includes("export const SLICE_NUMBER = '")
+  const verbatim = keys.every((k) => meta.includes(`'${S[k]}'`)) && meta.includes(`'${S.adminCodeSent}'`) && footerTpl
+  check('AC26l', 'Every Slice 33 key in blockMeta.ts matches microcopy.sv.md verbatim', verbatim, keys.filter((k) => !meta.includes(`'${S[k]}'`)).concat(footerTpl ? [] : ['footerSliceLabel']).join(', '))
   const adminLines = meta.split('\n').filter((l) => /^\s*admin\w*:/.test(l) || /footerSliceLabel/.test(l))
   check('AC26m', 'No admin UI string says Supabase / OTP / token / session; none has «!»', adminLines.every((l) => !/supabase|\botp\b|token|session|!/i.test(l.split(':').slice(1).join(':'))), adminLines.filter((l) => /supabase|\botp\b|token|session|!/i.test(l)).join(' | '))
   check('AC26n', 'Every Slice 33 status/error line seen in the sheet is a microcopy string', ['adminCodeSent', 'adminCodeWrong', 'adminVerifyWait', 'adminVerifyFailed', 'adminCodeResent', 'adminWait', 'adminSendFailed', 'adminResendSoon'].every((k) => k === 'adminCodeSent' ? all.includes(sentTo(ADMIN)) : all.includes(S[k])))
