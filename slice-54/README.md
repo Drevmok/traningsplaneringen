@@ -1,7 +1,7 @@
 # Slice 54 — Smoke-resterna
 
 **App:** Träningsplaneraren (appen ändras inte)
-**Status:** **FÖRESLAGEN** 2026-10-30. Väntar på Christoffers lås av A–F. Bas: main @ 03c0864. Gren: `slice-54-docs`.
+**Status:** **LÅST** 2026-10-30 av Christoffer (svar via PO-chatten: «Ja, lås A1 B1 C1 D1 E1 F1»): A1 B1 C1 D1 E1 F1. Bas: main @ 03c0864. Gren: `slice-54-docs`. Se `decisions.md`.
 **Effort:** **M** (se nedan).
 **Källa:** Christoffer 2026-10-30: «Kör smoke-resterna». Underlag: `SLICE52-SHIPPED.md` («Open for Slice 53»), main-cachens baslinje för 7bf99cd (`/home/box/tp-verify/main/7bf99cd…/smoke-baseline.txt` och `smoke-out/logs/`), `verifier/tools/weekly.sh`, skripten nedan.
 
