@@ -1,6 +1,6 @@
-# Slice 54 — HANDOFF (FÖRESLAGEN)
+# Slice 54 — HANDOFF (LÅST, breddad)
 
-**Status:** FÖRESLAGEN. Gäller A1 B1 C1 D1 E1 F1 om de låses. Bas main @ 03c0864.
+**Status:** LÅST A1–F1 + breddning 2026-10-30. Levererad i PR #59 (e911064). Bas main @ 03c0864.
 
 Gränser: rör inte `app/`. Ingen SQL mot det riktiga projektet, inga anrop till live-värden (netlog ska visa 0). Inga nycklar i repot eller i incheckade loggar. Inget push till main, ingen force-push, ingen `--no-verify`. Kör allt via `verifier/tools/run-smokes.sh` mot lokal stand-in. `SLICE_NUMBER` stannar på `'53'`.
 
@@ -42,3 +42,9 @@ Byt hjälparen rad 120–137 mot `codeLogin(page, email, S32)` från `smoke-logi
 - `verifier/README.md`: en rad om att alla skript i kartan är `ok`.
 - `backlog/IMPROVEMENTS.md`: post «Smoke-resterna» → Slice 54.
 - Ship notes: `SLICE54-SHIPPED.md` i samma form som `SLICE52-SHIPPED.md`.
+
+## 8. Breddning (2026-10-30)
+- s33: skriv om admin-kontroller till AdminArea (Slice 47): AC4b-local, S32-AC29a/c/d/f, AC31, AC33, AC34, AC35.
+- s33 AC21c: tillåt GET mot `club_templates` (utöver `exercises`, `redskap`).
+- s40 AC1-main/AC2-main: läs `GOLDEN[hall]` som AC8-main.
+- s36: utred kvarvarande fel; fixa i skriptet, inte i appen. Utfall: kaskadfel, inget appfel.

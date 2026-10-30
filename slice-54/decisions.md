@@ -12,3 +12,16 @@
 | F | F1 — `weekly.sh` får `cnt()` (fixar dubbel-0); `smoke-map.json` får baseline ok för de nio skripten |
 
 Bundle 0 B. `SLICE_NUMBER` stannar på 53. Bara `verifier/` ändras. Inga anrop mot live-projektet. Appen orörd.
+
+## Breddning 2026-10-30
+
+Christoffer i PO-chatten, ordagrant: «Bredda: skriv om s33 admin→AdminArea, tillåt club_templates-GET, utöka E1 till s40 AC1/AC2, utred s36 — sedan PR».
+
+| Fråga | Val |
+|---|---|
+| s33 | Skriv om admin-kontroller → AdminArea |
+| AC21c | Tillåt club_templates-GET |
+| E1 | Även s40 AC1/AC2 (golden) |
+| s36 | Utred och fixa (skript) |
+
+Levererat i PR #59 (e911064): nio smokes 0 FAIL, appen orörd, `SLICE_NUMBER` 53.

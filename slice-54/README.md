@@ -5,6 +5,17 @@
 **Effort:** **M** (se nedan).
 **Källa:** Christoffer 2026-10-30: «Kör smoke-resterna». Underlag: `SLICE52-SHIPPED.md` («Open for Slice 53»), main-cachens baslinje för 7bf99cd (`/home/box/tp-verify/main/7bf99cd…/smoke-baseline.txt` och `smoke-out/logs/`), `verifier/tools/weekly.sh`, skripten nedan.
 
+## Breddning 2026-10-30
+
+Christoffer breddade sliten efter låsningen (via PO-chatten): «Bredda: skriv om s33 admin→AdminArea, tillåt club_templates-GET, utöka E1 till s40 AC1/AC2, utred s36 — sedan PR». Status är fortfarande **LÅST**.
+
+Landat i PR #59 (commit e911064, gren `slice-54-smoke-resterna`), bara `verifier/`:
+- **s33 → AdminArea (Slice 47):** hjälpare `openAdminArea/areaHeads/areaList/areaTitles/areaCard`; AC4b-local, S32-AC29a/c/d, AC31, AC33, AC34 «Dolda» går via Admin-vyn; AC29f väntar «Godkänn | Ändra i banken | Dölj för alla»; AC35 öppnar Biblioteket först.
+- **s33 AC21c:** tre GET tillåtna (`club_templates`, `exercises`, `redskap`).
+- **E1 utökad:** s40 AC1-main och AC2-main läser `GOLDEN[hall]` (första 3 `g-`-punkterna), som AC8-main.
+- **s36 utredd:** mallsheet, Admin-vy för klubbadminverktyg, redskapsjämförelse oberoende av nyckelordning (jsonb), AC12 = ingen sektion när allt är dolt (Slice 49 E1). C-fasens «stale»-fel var en kaskad (B kraschade på AC12 före avdöljning). Inget appfel.
+- **Resultat:** alla nio smokes exit 0, 0 FAIL (s33 146, s34 31, s35 41, s36 46, s38 26, s39 38, s40 20, s41 34, s47 32 PASS). Netlog 0 anrop mot live. Appen orörd, `SLICE_NUMBER` = 53. Avvikelser: s36 i `s32|s33`-fallet i run-smokes.sh rad 71; s41 AC16 ersätt-bekräftelse valfri. Se `SLICE54-SHIPPED.md` på PR-grenen.
+
 ## Varför
 
 Efter Slice 52 faller nio skript fortfarande på main: s33 (12), s34 (2), s35 (13), s36 (4), s38 (1), s39 (5), s40 (4), s41 (2) och s47 (3). Totalt 46 FAIL. Så länge de står som `kända-fel` döljer de en riktig regression i samma område. Slice 53 rörde inte skripten utom s49.
