@@ -51,9 +51,9 @@
   {
     "id": "AC6",
     "karantan": false,
-    "name": "Planera pass Mall step unchanged: Fråga 2 av 2 «Mall», Nybörjare + Kort pass, no tools",
+    "name": "Planera pass Mall step: Fråga 2 av 3 «Mall» (Slice 55), Nybörjare + Kort pass, no tools",
     "ok": true,
-    "detail": "Fråga 2 av 2 Mall Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort "
+    "detail": "Fråga 2 av 3 Mall Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort "
   },
   {
     "id": "AC7",
@@ -109,14 +109,14 @@
     "karantan": false,
     "name": "Teknik with redskap → «Spara och skicka till granskning» → toast «Sparad. Den väntar på godkännande.»; row under «Väntar på godkännande (1)» with «Väntar»",
     "ok": true,
-    "detail": "toast=Sparad. Den väntar på godkännande. id=tech-egen-mvvdzu7rwrml eq=[{\"pieceId\":\"eq-trampett\",\"count\":1}]"
+    "detail": "toast=Sparad. Den väntar på godkännande. id=tech-egen-mvwpdidtpysl eq=[{\"pieceId\":\"eq-trampett\",\"count\":1}]"
   },
   {
     "id": "AC14",
     "karantan": false,
     "name": "Samling saves without Säkerhet; Styrka refuses without it, saves with it",
     "ok": true,
-    "detail": "gather-egen-mvvdzukp7mjw:null strength-egen-mvvdzv9onbrr:Rak rygg"
+    "detail": "gather-egen-mvwpdiqsbgr3:null strength-egen-mvwpdjgac561:Rak rygg"
   },
   {
     "id": "AC15",
@@ -165,7 +165,7 @@
     "karantan": false,
     "name": "«Importera 3 övningar» (pasted code) → «3 övningar väntar på godkännande.»; 3 pending rows with new ids, nothing in the local own list",
     "ok": true,
-    "detail": "3 övningar väntar på godkännande. warm-egen-mvve0goytc2j|pending tech-egen-mvve0gpbcaba|pending gather-egen-mvve0gpeax1c|pending"
+    "detail": "3 övningar väntar på godkännande. warm-egen-mvwpe5xx1izb|pending tech-egen-mvwpe5ybleux|pending gather-egen-mvwpe5ydsh21|pending"
   },
   {
     "id": "AC21",
@@ -205,7 +205,7 @@
   {
     "id": "AC26-footer",
     "karantan": false,
-    "name": "footer «Träningsplaneraren · Slice 53»",
+    "name": "footer «Träningsplaneraren · Slice 56»",
     "ok": true,
     "detail": ""
   },

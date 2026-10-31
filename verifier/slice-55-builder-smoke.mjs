@@ -68,7 +68,7 @@ for (const [tag, vp] of [['390', { width: 390, height: 844 }], ['844', { width: 
     check(`${tag}-AC2`, '«60 / 60 min», toast «Mallen är i Passbyggaren.» with Ångra', (await filled(p)) === '60 /' && (await pressed(p)) === '60' && d.totalMinutes === 60 && /Mallen är i Passbyggaren\./.test(toast) && /Ångra/.test(toast), `${await filled(p)} ${await pressed(p)} total=${d.totalMinutes} toast=${toast}`)
     await p.screenshot({ path: `${SHOTS}/s55_${tag}_builder60.png` }).catch(() => {})
     const foot = await p.locator('body').innerText()
-    check(`${tag}-AC14`, 'footer «Träningsplaneraren · Slice 55»', true) // footer checked on start page below
+    check(`${tag}-AC14`, 'footer «Träningsplaneraren · Slice 56»', true) // footer checked on start page below
     // AC8 Ångra
     await p.locator('.toast').getByRole('button', { name: 'Ångra' }).click(); await p.waitForTimeout(500)
     const after = await draft(p)
@@ -76,7 +76,7 @@ for (const [tag, vp] of [['390', { width: 390, height: 844 }], ['844', { width: 
     // E1 «som i dag»: App.tsx armMallUndo (unchanged from main) restores createBlankSession — no mall exercise left.
     check(`${tag}-AC8`, 'Ångra → mall pass gone (blank as on main)', !after || (after.title === 'Nytt pass' && after.title !== d.title && allIds(after).length < mallIds.size), `home=${onHome} title=${after?.title} ids=${after && allIds(after)}`)
     const home = await p.locator('body').innerText()
-    check(`${tag}-AC14b`, 'footer «Träningsplaneraren · Slice 55»', /Träningsplaneraren · Slice 55/.test(home) || /Träningsplaneraren · Slice 55/.test(foot))
+    check(`${tag}-AC14b`, 'footer «Träningsplaneraren · Slice 56»', /Träningsplaneraren · Slice 56/.test(home) || /Träningsplaneraren · Slice 56/.test(foot))
     await p.context().close()
   })
 }

@@ -240,12 +240,14 @@ await attempt('D', async () => {
   const eqCount = (d) => d.blocks.flatMap((b) => b.items).filter((i) => i.stationEquipment?.length).length
   const pre = eqCount(await draft())
   const aa = p.getByRole('button', { name: 'Spara redskapsförslag på alla stationer som fortfarande saknar sparade redskap', exact: true })
-  const dis = await aa.isDisabled()
+  // Slice 56 A1/B1: adding to Teknik saves the förslag at once, so the button is gone when nothing is left unsaved.
+  const shown = (await aa.count()) > 0
+  const dis = shown ? await aa.isDisabled() : true
   await shot('06_hall')
   if (!dis) await aa.click()
   await p.waitForTimeout(200)
   const post = eqCount(await draft())
-  check('AC19', 'Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them', pre === 0 && !dis && post > 0, `before ${pre}, disabled ${dis}, after ${post}`)
+  check('AC19', 'Hallöversikt works; redskap saved (Slice 56: on Teknik add, no button; before: one tap on «Använd alla förslag»)', shown ? (pre === 0 && !dis && post > 0) : (pre > 0 && post === pre), `shown ${shown}, before ${pre}, disabled ${dis}, after ${post}`)
   await p.getByRole('button', { name: '← Tillbaka till Passbyggaren' }).click()
   await builder().waitFor()
 })
