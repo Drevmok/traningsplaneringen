@@ -59,7 +59,7 @@ export function PassPrint({ session }: Props) {
                       <span>{item.durationMinutes} min</span>
                       <div className="pass-station-body">
                         {card.equipmentSlots && card.equipmentSlots.length > 0 && (
-                          <StationSketch slots={card.equipmentSlots} />
+                          <StationSketch slots={card.equipmentSlots} layout={card.equipmentLayout} />
                         )}
                         {card.watch && (
                           <p>

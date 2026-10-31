@@ -401,3 +401,30 @@ describe('admin writes update this device without pending rows (Slice 32 AC 38)'
     assert.equal(applyBankEntries([]), false)
   })
 })
+
+describe('Slice 57 — bank without default_station_layout (AC 14)', () => {
+  it('a fetch that fails on the column is retried without it; bank loads, heuristic', async () => {
+    setBankEnvForTests(ENV)
+    mockFetch((url) => {
+      if (!url.includes('/rest/v1/exercises')) return json(redskapRows)
+      if (url.includes('default_station_layout')) {
+        return json({ code: '42703', message: 'column exercises.default_station_layout does not exist' }, 400)
+      }
+      return json(bankRows().map(({ default_station_layout: _drop, ...r }) => r))
+    })
+    initBank()
+    assert.equal(await refreshBank(), 'fresh')
+    const ex = calls.filter((c) => c.url.includes('/rest/v1/exercises'))
+    assert.equal(ex.length, 2)
+    assert.ok(!ex[1].url.includes('default_station_layout'))
+    assert.ok(ex[1].url.includes('default_station_equipment'))
+    assert.ok(listBankActivities().every((a) => a.defaultStationLayout === undefined))
+  })
+  it('any other failure is not retried', async () => {
+    setBankEnvForTests(ENV)
+    mockFetch((url) => (url.includes('/rest/v1/exercises') ? json({ message: 'boom' }, 500) : json(redskapRows)))
+    initBank()
+    assert.equal(await refreshBank(), 'stale')
+    assert.equal(calls.filter((c) => c.url.includes('/rest/v1/exercises')).length, 1)
+  })
+})

@@ -6,7 +6,8 @@
  */
 import { BLOCK_ORDER } from '../data/blockMeta'
 import { sanitizeStationEquipment } from '../data/equipmentPieces'
-import type { Activity, ActivitySource, BlockType, Difficulty, StationEquipmentSlot } from '../types'
+import type { Activity, ActivitySource, BlockType, Difficulty, StationEquipmentSlot, StationLayout } from '../types'
+import { sanitizeStationLayout } from '../data/stationLayout'
 import { parseHowLines, sanitizeLinkId } from './ownActivities'
 import { sanitizeSource } from './source'
 
@@ -28,6 +29,8 @@ export interface BankRow {
   difficulty: Difficulty
   tags: string[]
   default_station_equipment: StationEquipmentSlot[] | null
+  /** Slice 57 — absent until schema-57.sql is pasted (fallback fetch strips it). */
+  default_station_layout?: StationLayout | null
   legacy_equipment: string[] | null
   progression_of: string | null
   regression_of: string | null
@@ -54,6 +57,7 @@ export const BANK_EXERCISE_COLUMNS = [
   'difficulty',
   'tags',
   'default_station_equipment',
+  'default_station_layout',
   'legacy_equipment',
   'progression_of',
   'regression_of',
@@ -172,7 +176,11 @@ export function rowToEntry(raw: unknown, options?: { allowPending?: boolean }): 
   if (raw.needs_coach_review === true) activity.needsCoachReview = true
   if (blockType === 'techniques') {
     const slots = sanitizeStationEquipment(raw.default_station_equipment)
-    if (slots && slots.length > 0) activity.defaultStationEquipment = slots
+    if (slots && slots.length > 0) {
+      activity.defaultStationEquipment = slots
+      const layout = sanitizeStationLayout(raw.default_station_layout, slots)
+      if (layout) activity.defaultStationLayout = layout
+    }
   }
   const progressionOf = sanitizeLinkId(raw.progression_of)
   if (progressionOf) activity.progressionOf = progressionOf
@@ -219,6 +227,7 @@ export function activityToBankRow(
     difficulty: a.difficulty,
     tags: a.tags,
     default_station_equipment: a.defaultStationEquipment ?? null,
+    default_station_layout: a.defaultStationLayout ?? null,
     legacy_equipment: a.equipment ?? null,
     progression_of: a.progressionOf ?? null,
     regression_of: a.regressionOf ?? null,

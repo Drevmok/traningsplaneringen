@@ -3392,3 +3392,26 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Slice 57 — «Ställ upp stationen» sheet (A2) */
+.station-layout-floor {
+  width: 100%;
+  touch-action: none;
+  user-select: none;
+}
+.station-layout-piece {
+  cursor: grab;
+  outline: none;
+}
+.station-layout-piece.is-selected,
+.station-layout-piece:focus-visible {
+  filter: drop-shadow(0 0 3px #1d6fd8);
+}
+.station-layout-actions {
+  flex-wrap: wrap;
+}
+@media print {
+  .station-layout-backdrop {
+    display: none !important;
+  }
+}
