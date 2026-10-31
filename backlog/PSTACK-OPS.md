@@ -64,12 +64,13 @@ Before claiming shipped:
 
 ## Verifier minimum bar (Slice 21+)
 
-1. Wait for Planner ping after Builder ships.  
+1. Wait for **Planner (PO)** ping after Builder ships — never start a formal verify from Bob.  
 2. Read `verify-traningsplaneraren/SKILL.md` + relevant `features/*`.  
 3. Doctor (dev or preview up, correct base path).  
-4. Drive every locked checklist row; capture evidence under `verifier/` + screenshots.  
-5. Note blast-radius: what else could this break (compose, Golvklart, mall, Förrådslista, …).  
-6. Report PASS/FAIL to Planner only.
+4. Drive every locked checklist row; capture evidence under `verifier/` + screenshots. Checkpoint long smoke loops; resume after interrupt; mark **loop pending** if reporting early.  
+5. Reuse Bob’s unit+smoke evidence for the same head SHA when present; re-run only independent recipe items (criteria grading, viewports, gaps).  
+6. Note blast-radius: what else could this break (compose, Golvklart, mall, Förrådslista, …).  
+7. Report PASS/FAIL to Planner only.
 
 ---
 
