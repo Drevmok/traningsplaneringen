@@ -22,6 +22,7 @@ import {
   setSessionLength,
   updateItemDuration,
   withComputedTotal,
+  applyAllSuggestedStationEquipment,
 } from '../lib/session'
 import {
   activityIdInTemplates,
@@ -273,7 +274,10 @@ export function SessionBuilder({
         .flatMap((block) => block.items.map((item) => item.id))
         .filter((id) => !before.has(id)),
     )
-    const next = autoPlaceItems(addedSession, added)
+    const placed = autoPlaceItems(addedSession, added)
+    const next = dest.type === 'techniques'
+      ? applyAllSuggestedStationEquipment(placed).session
+      : placed
     onChange(next)
     if (detailActivity.blockType !== dest.type) {
       setMismatch({
