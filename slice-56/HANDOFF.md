@@ -1,6 +1,6 @@
-# Slice 56 — HANDOFF (FÖRESLAGEN)
+# Slice 56 — HANDOFF (LÅST)
 
-**Status:** FÖRESLAGEN — bygg inte förrän Christoffer låst A–F. Radnummer från `6a75ec1`; sök om dem på din tip. ★-vägen: A1 B1 C1 D1 E1 F1.
+**Status:** **LÅST** 2026-10-31 («Ja, lås A1 B1 C1 D1 E1 F1», se `decisions.md`) — Builder får bygga. Ingen merge utan Christoffers OK. Radnummer från `6a75ec1`; sök om dem på din tip. ★-vägen: A1 B1 C1 D1 E1 F1.
 
 ## 1. A1 + B1 — Passbyggaren → Biblioteket → Lägg till
 - `components/SessionBuilder.tsx` `handleAddFromDetail` (256–286), rad 276:
@@ -23,7 +23,7 @@
 ## 3. C1 + D1 + E1 — rör inte
 - Ingen toast, ingen ny text. Ändra inte helpern i `lib/session.ts:278`.
 - `lib/wizard.ts:148` och `lib/mallApply.ts` oförändrade.
-- Om Christoffer väljer «bara den nya stationen» (öppen fråga 3): lägg en valfri parameter `onlyIds?: ReadonlySet<string>` i helpern i stället för ny funktion.
+- Öppen fråga 3 låst på ★: kör hela helpern `applyAllSuggestedStationEquipment` på hela passet. **Inte** `onlyIds`, ingen ny parameter. Efter Starta från mall fyller första tillägget alla stationer utan redskap.
 
 ## 4. SLICE_NUMBER '55' → '56'
 - `data/blockMeta.ts:97`.

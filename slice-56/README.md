@@ -1,7 +1,7 @@
 # Slice 56 — Redskap-förslag även vid «Lägg till» Teknik
 
 **App:** Träningsplaneraren  
-**Status:** **FÖRESLAGEN** — inte låst. Bygg inte förrän Christoffer låst A–F. Bas: main @ `6a75ec1` (Slice 55 mergad, sidfot Slice 55). Gren: `slice-56-docs`.  
+**Status:** **LÅST** 2026-10-31 av Christoffer: «Ja, lås A1 B1 C1 D1 E1 F1». Se [`decisions.md`](decisions.md). Öppen fråga 3 → alla stationer (★), 4 → egen senare slice. Bas: main @ `6a75ec1` (Slice 55 mergad, sidfot Slice 55). Gren: `slice-56-docs`.  
 **Effort:** **S**  
 **Källa:** Scout 2026-10-30 idé 2 (`/workspace/scout-drafts/2026-10-30-ideas.md`). Bilder: `/workspace/screenshots/scout-2026-10-30/` — främst `35-hall-4stations.png` («1 station saknar redskap» efter manuellt tillagd Kullerbytta), även `33-after-add.png`, `34-hall-after-add.png`, `36-forrad-after-manual-add.png`.
 

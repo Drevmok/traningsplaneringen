@@ -1,4 +1,4 @@
-# Slice 56 — verifieringslista (FÖRESLAGEN)
+# Slice 56 — verifieringslista (LÅST)
 
 Viewport **390×844**, och **844×390** där det står. Lokal förhandsvisning port 4173. Rensad lagring före varje AC. ★-vägen (A1 B1 C1 D1 E1 F1).
 
@@ -13,7 +13,7 @@ Viewport **390×844**, och **844×390** där det står. Lokal förhandsvisning p
 | AC7 | AC1 → Redigera redskap → egen lista → spara. Lägg till Teknik | Egna listan oförändrad |
 | AC8 | AC2 → Redigera redskap på nya stationen | Förslaget kan ändras och rensas som vanligt |
 | AC9 | Starta från mall → «Gymmix – Grophallen» → en mall → Hallöversikt (inget tillägg) | Som main: stationer utan redskap, saknar-raden syns (E1) |
-| AC10 | AC9 → lägg till en Teknik-övning | Enligt låst svar på öppen fråga 3 (★: alla stationer får förslag) |
+| AC10 | AC9 → lägg till en Teknik-övning | Alla stationer utan redskap får förslag (låst öppen fråga 3 ★) |
 | AC11 | AC2 och AC4 | Ingen toast, inga nya texter (C1) |
 | AC12 | AC2 och AC4 i **844×390** | Lägg till går att trycka; saknar-raden försvinner; inget hopp i sidan |
 | AC13 | Sidfoten | «Träningsplaneraren · Slice 56» |
