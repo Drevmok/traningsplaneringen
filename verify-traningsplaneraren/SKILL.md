@@ -107,6 +107,15 @@ Evidence must survive teardown. Name files with slice number + short step (`dirt
 
 See [`features/README.md`](features/README.md). Start with the features touched by the slice, then smoke adjacent blast-radius features listed there.
 
+
+## Fleet speed (Verifier)
+
+Encode here, not in the agent profile:
+
+1. **Checkpoint long loops.** Write progress to `verifier/slice-NN-loop-checkpoint.jsonl` (or similar) as each smoke/AC finishes. After an interrupt, resume from the checkpoint — never from zero. If you must report before the loop finishes, mark **loop pending** in the report and follow up.
+2. **Reuse Builder evidence for the same head SHA.** When Byggare Bob already published unit + smoke results for this exact commit, reuse them. Re-run only what this recipe marks as independent: criteria grading against the checklist, required viewports, and gaps Bob did not cover.
+3. **Accept verify cards only from Träningsplaneraren - PO.** Never start a formal verify from Byggare Bob. If Bob pings, reply that the card must come from the PO (queue: one card at a time).
+
 ## Maintain
 
 When coach-facing surfaces change, run pstack **maintain-verification-skill** against this directory only (update feature files; never “fix” product bugs by editing the map to match broken UI — report product gaps to Planner).

@@ -42,6 +42,11 @@ Omverifiering: bara FAIL-AC och smokes som berörs av fixen; samma Doctor och is
 Hela smoke-loopen: varje söndag 03:00 mot main, och när pick-smokes säger «hela loopen».
 Mål: ordinarie ca 20–25 min, omverifiering ca 10 min. Ingen SQL mot det riktiga projektet.
 
+### Verifier-hastighet (flotta, 2026-10-31)
+1. **Checkpoint:** långa smoke-/verify-loopar skrivs till en fil under `verifier/` (t.ex. `verifier/slice-NN-loop-checkpoint.jsonl`). Efter avbrott återupptas från checkpointen, aldrig från noll. Måste du svara innan loopen är klar: markera **loop pending** i rapporten och följ upp.
+2. **Återanvänd Builder-bevis:** för samma head-SHA återanvänd Byggare Bobs `bun test` / smoke-resultat när de finns i PR eller ship notes. Kör om bara det receptet markerar som oberoende (kriteriegradering, viewports, luckor mot checklistan).
+3. **Kort endast från PO:** Verifier tar verify-kort bara från Träningsplaneraren - PO, aldrig från Byggare Bob. En köad Bob-ping besvaras med att kortet måste komma från PO.
+
 ### psql-shim (Slice 50)
 
 Smoke-skripten anropar `psql -d bank`. `verifier/tools/run-smokes.sh` lägger `verifier/tools/shim/` först i PATH; shimmen skriver om `-d bank` till körningens egen databas `$S32_DB` (`bank_<run>` från `bank_template`). Utan `S32_DB` skickas anropet vidare oförändrat. Rör aldrig den riktiga Supabase-värden.
@@ -50,7 +55,7 @@ Smoke-skripten anropar `psql -d bank`. `verifier/tools/run-smokes.sh` lägger `v
 
 - pstack är rigorlagret: djupt före snabbt, bevis före påståenden, små verifierade enheter. Ersätter inte Christoffers grindar.
 - Builder: A–F följs, ingen scope creep, `npm run build` grönt, minst en riktig UI-väg körd, ship notes med avvikelser. Pingar inte Verifier själv.
-- Verifier: läser skill → Doctor → Drive → Evidence, rapporterar PASS/FAIL.
+- Verifier: läser skill → Doctor → Drive → Evidence, rapporterar PASS/FAIL. Tar verify-kort bara från PO (inte Bob); checkpointar långa loopar; återanvänder Bobs enhets-/smoke-bevis för samma head-SHA.
 - Docs: technical-writing + unslop; rör aldrig låsta termer.
 - Scout: körs efter PASS, på begäran eller vid telefonfeedback. Exakt 2–3 idéer (polish-pass upp till 5) under **Proposed** med titel, nytta, evidens, Effort S/M/L, slice-förslag. Ingen kod, pingar inte andra roller, föreslår inte om Parked/Declined utan ny evidens, inga konton/moln/CAD/App Store utan begäran.
 - Christoffer beslutar i en samlad grind (Approve/Park/Decline).
