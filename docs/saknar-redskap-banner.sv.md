@@ -162,3 +162,5 @@ Keep footer `no-print`.
 - Living companions updated in the same Docs pass. No Förråd file edits. No Kom igång place-heuristic.
 
 **Slice 49 (LÅST 2026-10-23):** Raden «{n} stationer saknar redskap» är bara text. Knappen i raden är borta; använd «Använd alla förslag» i verktygsraden.
+
+**Slice 56 (LÅST 2026-10-31):** Redskapsförslagen fylls nu också i när du lägger till en övning i Teknik (Passbyggaren → Biblioteket → Lägg till, eller Hallöversikt → «Lägg till station») — inte bara vid Planera pass. Hela passet fylls: efter Starta från mall får alla stationer utan redskap förslag vid första Teknik-tillägget. Rensade (tomma) och egna listor ändras inte. Ingen toast, ingen ny text.

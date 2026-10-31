@@ -178,3 +178,5 @@ Keep footer `no-print`. When Slice 24 ships, footer becomes **Träningsplanerare
 - Companion: this file under `docs/forradslista.sv.md`. Compose chrome stays in `station-compose.sv.md`; floor lines in `golvklart-redskap.sv.md`; apply-all in `anvand-alla-forslag.sv.md`.
 
 **Slice 49 (LÅST 2026-10-23):** Efter Planera pass är Förrådslistan fylld direkt. Tomtexten gäller nu bara pass från mall eller Tomt pass.
+
+**Slice 56 (LÅST 2026-10-31):** Redskapsförslagen fylls nu också i när du lägger till en övning i Teknik (Passbyggaren → Biblioteket → Lägg till, eller Hallöversikt → «Lägg till station») — inte bara vid Planera pass. Hela passet fylls: efter Starta från mall får alla stationer utan redskap förslag vid första Teknik-tillägget. Rensade (tomma) och egna listor ändras inte. Ingen toast, ingen ny text.

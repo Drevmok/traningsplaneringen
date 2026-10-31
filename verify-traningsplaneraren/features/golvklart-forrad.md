@@ -26,3 +26,5 @@
 | Exportarket | `.export-sheet` | `App.css`, `components/ExportSheet.tsx` |
 | Stäng export | `.export-sheet .modal-close` | `App.css`, `components/ActivityDetail.tsx` |
 | Dialog | `.modal-backdrop[role=dialog]` | `App.css`, `components/ActivityDetail.tsx` |
+
+**Slice 56:** Lägg till i Teknik (Biblioteket eller «Lägg till station») kör `applyAllSuggestedStationEquipment` på hela passet → ingen saknar-rad för nya stationen; rensad `[]` och egen lista står kvar. Tillägg i andra block ändrar inga redskap. Starta från mall utan tillägg: saknar-raden syns som förut.

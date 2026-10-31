@@ -18,6 +18,7 @@ Coach-facing help, activity library copy, empty-state guidance, and internal pro
 | `../slice-48/` | Slice 48 Hallöversikt: Hallöversikt i raden, ändra-läge, dra med fingret, nypningen på iPhone, liggande detaljvy (LÅST 2026-10-22) |
 | `../slice-49/` | Slice 49 Planera pass fyller passet: längden styr tiderna, redskapen sparas, en «Använd alla förslag», Föreningens mallar bara med mallar (LÅST 2026-10-23) |
 | `../slice-55/` | Slice 55 Passlängd även på Starta från mall: Hall → Mall → Passlängd, passet skalas till 60/90/120 min med mallens proportioner (LÅST 2026-10-31) |
+| `../slice-56/` | Slice 56 Redskap-förslag även vid «Lägg till» i Teknik (Passbyggaren och Hallöversikt) (LÅST 2026-10-31) |
 | `dela-och-utskrift.sv.md` | Coach doc: Dela — Kopiera länk and Skriv ut passet (Slice 44, PROPOSED) |
 | `planera-pass.sv.md` | Coach doc: Planera pass — fyra frågor, mall eller tomt pass, startsidans fot (Slice 46, PROPOSED) |
 
