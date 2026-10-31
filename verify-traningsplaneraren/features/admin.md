@@ -29,3 +29,6 @@
 | Importera | `.own-import` | `components/OwnImportSheet.tsx`, `export.css` |
 | Öppna admin i sidfoten | `.footer-admin-open` | `App.tsx` |
 | Logga ut | `footer .footer-admin-logout` | `App.tsx` |
+| Skissblad | `.station-layout-sheet` | `components/StationLayoutSheet.tsx`, `App.css` |
+
+**Slice 57 (A2 B1 C1 D1 E1 F1):** I «Ny egen övning» / «Ändra i banken» (bara Teknik, efter «Välj redskap») finns knappen **«Ställ upp stationen»**. Den öppnar ett eget blad «Så ska stationen stå» (`StationLayoutSheet`, inte en yta i Välj redskap): dra redskap (pekare), piltangenter flyttar, «Vrid» (+90°), «Ställ i rad igen», «Klar». Layouten sparas i `exercises.default_station_layout` (jsonb `{v:1,poses}`) — kräver `slice-57/content/schema-57.sql`. Ändrade redskap synkar poserna (C1). Icke-Teknik: ingen knapp, `null` skickas bara om raden hade en layout. Offline: samma skrivspärr som övrigt.

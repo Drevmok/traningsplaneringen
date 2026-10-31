@@ -29,3 +29,5 @@
 | Kodfält | `input.admin-code-input` | `components/AdminLoginSheet.tsx`, `export.css` |
 | Skicka ny kod | `.admin-resend` | `components/AdminLoginSheet.tsx`, `export.css` |
 | Kodstatus | `#admin-code-status` | `components/AdminLoginSheet.tsx` |
+
+**Slice 57:** Banken hämtar `default_station_layout`. Saknas kolumnen (SQL ej inklistrad) och felet nämner den → ny hämtning utan kolumnen, skiss med heuristik. Trasig layout (fel `v`, NaN, okänt `pieceId`, fel antal) → saneras bort, heuristik. Detaljvy och utskrift ritar layouten bara när stationens redskap matchar receptet (E1); annars heuristiken som på main. Layouten följer med i cache (offline) och i delade egna övningar.

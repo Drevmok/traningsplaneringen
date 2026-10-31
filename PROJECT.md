@@ -54,7 +54,7 @@ Smoke-skripten anropar `psql -d bank`. `verifier/tools/run-smokes.sh` lägger `v
 ## Regler (backlog/PSTACK-OPS.md, backlog/SCOUT-PLAYBOOK.md)
 
 - pstack är rigorlagret: djupt före snabbt, bevis före påståenden, små verifierade enheter. Ersätter inte Christoffers grindar.
-- Builder: A–F följs, ingen scope creep, `npm run build` grönt, minst en riktig UI-väg körd, ship notes med avvikelser. Pingar inte Verifier själv.
+- Builder: A–F följs, ingen scope creep, `npm run build` grönt, minst en riktig UI-väg körd, ship notes med avvikelser; claim shipped först när slicens AC är PASS, bifoga unit+smoke-bevis och head-SHA till PO (QM återanvänder). Pingar inte Verifier själv — bara PO skickar verify-kort. Checkpointa långa byggen och återuppta därifrån.
 - Verifier: läser skill → Doctor → Drive → Evidence, rapporterar PASS/FAIL. Tar verify-kort bara från PO (inte Bob); checkpointar långa loopar; återanvänder Bobs enhets-/smoke-bevis för samma head-SHA.
 - Docs: technical-writing + unslop; rör aldrig låsta termer.
 - Scout: körs efter PASS, på begäran eller vid telefonfeedback. Exakt 2–3 idéer (polish-pass upp till 5) under **Proposed** med titel, nytta, evidens, Effort S/M/L, slice-förslag. Ingen kod, pingar inte andra roller, föreslår inte om Parked/Declined utan ny evidens, inga konton/moln/CAD/App Store utan begäran.

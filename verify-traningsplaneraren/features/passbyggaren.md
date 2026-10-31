@@ -34,3 +34,5 @@
 | Minuter per övning | `.item-duration input` | `App.css`, `components/ActivityTip.tsx` |
 
 **Slice 56:** Lägg till i Teknik (Biblioteket eller «Lägg till station») kör `applyAllSuggestedStationEquipment` på hela passet → ingen saknar-rad för nya stationen; rensad `[]` och egen lista står kvar. Tillägg i andra block ändrar inga redskap. Starta från mall utan tillägg: saknar-raden syns som förut.
+
+**Slice 57 (egen övning):** «Ny egen övning» (Teknik) har «Ställ upp stationen» efter «Välj redskap» → skissbladet; layouten sparas lokalt med övningen, följer med vid «Skicka till banken» och i delning.

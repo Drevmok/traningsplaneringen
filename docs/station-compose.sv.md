@@ -213,3 +213,7 @@ Keep **Visa tips igen** / **Om utkast**. Footer remains `no-print`.
 - Slice 20: wire `composeDirty*` for in-sheet Stäng confirm; keep `hallRemove` aria on enlarged canvas × (edit only).
 - Optional soft tip `tipRedskapForslag` exists in the seed file — **not** required for PASS; prefer quiet.
 - Full tip pack: align `coach-tips.sv.md` / `station-tiles.sv.md` hallTileHint with the soft-hint table above.
+
+---
+
+**Slice 57 (LÅST A2 B1 C1 D1 E1 F1):** Redskapsbladet «Välj redskap» är oförändrat. Skissen ställs upp i ett **eget blad** «Så ska stationen stå» via knappen «Ställ upp stationen» (admin och egen övning, Teknik). Hint: «Dra redskapen dit de ska stå. Ansats till vänster, landning till höger.» Tomt: «Välj redskap först, sedan kan du ställa upp dem här.» Knappar: «Vrid», «Ställ i rad igen», «Klar». Hallöversikt → Redigera redskap har ingen sådan knapp.
