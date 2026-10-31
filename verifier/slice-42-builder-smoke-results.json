@@ -1,170 +1,146 @@
 {
-  "when": "2026-10-31T17:48:10.444Z",
+  "when": "2026-10-15T23:44:36.861Z",
   "results": [
     {
       "id": "AC1",
-      "karantan": false,
       "name": "Tomt pass (Närvaro + Dagens pass) → tip shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC2-hide",
-      "karantan": false,
       "name": "add one bank station → tip hides",
       "ok": true,
       "detail": "1"
     },
     {
       "id": "AC2-back",
-      "karantan": false,
       "name": "× it → tip shows again",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC3",
-      "karantan": false,
       "name": "first visit via Från mall → mall pass with stations and no tip",
       "ok": true,
       "detail": "confirm=false"
     },
     {
       "id": "AC7-firstvisit",
-      "karantan": false,
       "name": "that pick over the untouched Tomt pass had no confirm; toast with Ångra",
       "ok": true,
       "detail": "Mallen är i Passbyggaren. · Ångra"
     },
     {
       "id": "AC4",
-      "karantan": false,
       "name": "wizard pass → no tip",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9-wizard",
-      "karantan": false,
       "name": "untouched wizard pass → pick a mall → no confirm",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC15-wizard",
-      "karantan": false,
       "name": "no auto-copy of the untouched wizard pass",
       "ok": true,
       "detail": "0"
     },
     {
       "id": "AC5-soft",
-      "karantan": false,
       "name": "Närvaro and Dagens pass removed → tip still shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC5-title",
-      "karantan": false,
       "name": "title only → tip still shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC10-title",
-      "karantan": false,
       "name": "Tomt pass with typed title → pick a mall → confirm shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC6",
-      "karantan": false,
       "name": "dismissed tip stays hidden on a later empty pass",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7",
-      "karantan": false,
       "name": "untouched Tomt pass → built-in mall applied at once, no confirm, toast with Ångra",
       "ok": true,
       "detail": "Mallen är i Passbyggaren. · Ångra"
     },
     {
       "id": "AC14",
-      "karantan": false,
       "name": "Ångra → Tomt pass back",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9",
-      "karantan": false,
       "name": "untouched mall pass → pick another mall → no confirm",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC15",
-      "karantan": false,
       "name": "Mina mallar: no auto-copy of the blank or untouched pass",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC8-egen",
-      "karantan": false,
       "name": "Mina mallar over untouched Tomt pass → no confirm, same toast",
       "ok": true,
       "detail": "Mallen är i Passbyggaren. · Ångra"
     },
     {
       "id": "AC11",
-      "karantan": false,
       "name": "mall pass with a minute changed → confirm shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC11-keep",
-      "karantan": false,
       "name": "Fortsätt redigera keeps the pass",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC12",
-      "karantan": false,
       "name": "value put back by hand → confirm still shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC16",
-      "karantan": false,
       "name": "confirm → Använd mall → Mina mallar +1 auto-copy",
       "ok": true,
       "detail": "0 → 1"
     },
     {
       "id": "AC13",
-      "karantan": false,
       "name": "untouched mall pass after reload → confirm shows",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC18-footer",
-      "karantan": false,
-      "name": "footer «Träningsplaneraren · Slice 56»",
+      "name": "footer «Träningsplaneraren · Slice 42»",
       "ok": true,
       "detail": ""
     },
     {
       "id": "no-errors",
-      "karantan": false,
       "name": "no page errors",
       "ok": true,
       "detail": ""

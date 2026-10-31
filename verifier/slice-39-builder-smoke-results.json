@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-31T18:01:19.763Z",
+  "at": "2026-10-30T19:48:22.619Z",
   "results": [
     {
       "id": "AC13a",
@@ -151,9 +151,9 @@
     {
       "id": "AC22a",
       "karantan": false,
-      "name": "Footer «Träningsplaneraren · Slice 56»",
+      "name": "Footer «Träningsplaneraren · Slice 53»",
       "ok": true,
-      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 56"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC12a",
@@ -207,16 +207,16 @@
     {
       "id": "AC19",
       "karantan": false,
-      "name": "Hallöversikt works; redskap saved (Slice 56: on Teknik add, no button; before: one tap on «Använd alla förslag»)",
+      "name": "Hallöversikt: no redskap stored by autosave before the tap; one tap on the real «Använd alla förslag» stores them",
       "ok": true,
-      "detail": "shown false, before 1, disabled true, after 1"
+      "detail": "before 0, disabled false, after 1"
     },
     {
       "id": "F1-mall",
       "karantan": false,
       "name": "Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar",
       "ok": true,
-      "detail": "{\"ms\":469,\"onScreen\":\"Kort pass — ca 45 min\",\"stored\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Mall gammal\"]}"
+      "detail": "{\"ms\":136,\"onScreen\":\"Kort pass — ca 45 min\",\"stored\":\"Kort pass — ca 45 min\",\"storedIsOld\":false,\"home\":\"Kort pass — ca 45 min\",\"mallar\":[\"Mall gammal\"]}"
     },
     {
       "id": "F1-nyvecka",

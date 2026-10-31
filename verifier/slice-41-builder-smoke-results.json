@@ -1,5 +1,5 @@
 {
-  "when": "2026-10-31T17:47:14.381Z",
+  "when": "2026-10-30T19:49:33.207Z",
   "results": [
     {
       "id": "AC1",
@@ -41,7 +41,7 @@
       "karantan": false,
       "name": "hallPlacements entry back, same x/y",
       "ok": true,
-      "detail": "[{\"sessionItemId\":\"item-et3mj8od-mvwp0j0e\",\"x\":0.2,\"y\":0.4},{\"sessionItemId\":\"item-50s1s5xh-mvwp0j0e\",\"x\":0.35,\"y\":0.4},{\"sessionItemId\":\"item-apimi1vw-mvwp0j0e\",\"x\":0.5,\"y\":0.4}]"
+      "detail": "[{\"sessionItemId\":\"item-anosa79y-mvvdxyzt\",\"x\":0.2,\"y\":0.4},{\"sessionItemId\":\"item-yf9zw9ir-mvvdxyzt\",\"x\":0.35,\"y\":0.4},{\"sessionItemId\":\"item-ieroju96-mvvdxyzt\",\"x\":0.5,\"y\":0.4}]"
     },
     {
       "id": "AC5",
@@ -186,7 +186,7 @@
     {
       "id": "AC22-footer",
       "karantan": false,
-      "name": "footer «Träningsplaneraren · Slice 56»",
+      "name": "footer «Träningsplaneraren · Slice 53»",
       "ok": true,
       "detail": ""
     },
