@@ -1,5 +1,5 @@
 -- Slice 57 — default_station_layout (redigerbar 2,5D-stationsskiss, redo för 3D senare)
--- Christoffer klistrar in själv i Supabase SQL Editor efter OK. Körs INTE av agenter.
+-- Christoffer klistrar in själv i Supabase SQL Editor före merge/deploy. Körs INTE av agenter.
 -- Additiv: ny kolumn, null för alla befintliga rader. Idempotent (kan köras igen).
 -- Bygger på slice-31/content/schema-31.sql (exercises, redskap, check_exercise_redskap).
 

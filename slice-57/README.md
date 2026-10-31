@@ -1,7 +1,7 @@
 # Slice 57 — Redigerbar 2,5D-stationsskiss (fas 1 av 2,5D→3D)
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** 2026-10-31. Inget låst, inget byggt. Bas: main @ `9a452c7` (Slice 56 live, footer «Slice 56»). Gren: `slice-57-docs`.
+**Status:** **LÅST** 2026-10-31 av Christoffer: «Ja, lås A2 B1 C1 D1 E1 F1. OK över +512 B. SQL före merge. 3D senare.» Se [`decisions.md`](decisions.md). **Obs: A2 (eget skissblad), inte det föreslagna A1 (skissyta i redskapsbladet).** Inget byggt. Bas: main @ `9a452c7` (Slice 56 live, footer «Slice 56»). Gren: `slice-57-docs`.
 **Effort:** **M**
 **Källa:** Scout 2026-10-31 vinkel 1 (`/workspace/scout-drafts/2026-10-31-3d-stationsbyggare.md`). Christoffer valde **2,5D nu → 3D senare** (vinkel 3). Bilder i `evidence/`: `mock-a-2d5-builder.png` (wireframe), `c2-detail.png`, `c3-detail-scrolled.png`, `c5-print.png` (live i dag).
 
@@ -11,7 +11,7 @@ I dag ritar appen stationsskissen själv. Den tar redskapen i chip-listan och st
 
 **Vad ledaren får:** «Jag öppnar övningen och ser stationen som den som skrev övningen byggde den: ansats, redskap och landning i rätt ordning.»
 
-**Vad admin får:** I «Ändra i banken» (Teknik) finns en liten skissyta under chip-listan. Där flyttar du redskapen och vrider dem. Sparar du, ser alla ledare samma skiss, även offline.
+**Vad admin får:** I «Ändra i banken» (Teknik) finns en knapp som öppnar ett eget blad för skissen (A2). Där flyttar du redskapen och vrider dem. Sparar du, ser alla ledare samma skiss, även offline.
 
 ## Fas 1 av 2,5D → 3D
 
@@ -31,11 +31,11 @@ Detta är första steget. Skissytan sparar varje redskap som en position på gol
 
 **Gapet:** skissen är heuristik. Admin kan inte styra ordning, placering eller vridning.
 
-## A–F (★ = förslag)
+## A–F (★ = Docs förslag; **låst: A2 B1 C1 D1 E1 F1**, se `decisions.md`)
 
 ### A. Var redigerar admin layouten?
-- **A1 ★** På samma ställe som i dag: i «Ändra i banken» och Ny egen övning (Teknik), under chip-listan i `StationComposeSheet`. En skissyta där du drar redskapen (`EquipmentMark`) och vrider dem. Ingen ny sida. Ytan visas bara när formuläret skickar med layout, så **Redigera redskap** i Hallöversikt ser ut som i dag.
-- A2 Ett eget helskärmsblad bara för skissen. Mer plats, men ett steg till.
+- A1 ★ (avvisat) På samma ställe som i dag: i «Ändra i banken» och Ny egen övning (Teknik), under chip-listan i `StationComposeSheet`. En skissyta där du drar redskapen (`EquipmentMark`) och vrider dem. Ingen ny sida. Ytan visas bara när formuläret skickar med layout, så **Redigera redskap** i Hallöversikt ser ut som i dag.
+- **A2 — LÅST.** Ett eget blad bara för skissen. Mer plats, men ett steg till.
 - A3 Ledaren får också flytta redskap i **Redigera redskap**. Utanför omfånget.
 
 ### B. Hur sparas layouten (redo för 3D)?
@@ -56,7 +56,7 @@ Detta är första steget. Skissytan sparar varje redskap som en position på gol
 - E2 Skissytan även för ledare. Nej.
 
 ### F. Omfång, budget, SQL
-- **F1 ★** A1 B1 C1 D1 E1. Hall orörd. Inga nya redskap i `EQUIPMENT_PIECES`. Ingen WebGL/Three.js/GLB. Footer «Slice 57». Ny kolumn `default_station_layout` + trigger (`content/schema-57.sql`); Christoffer klistrar in SQL själv efter OK. Offline-cache och banksynk följer Slice 31-mönstret. Bundle: se nedan.
+- **F1 ★** A2 B1 (låst; förslaget var A1) C1 D1 E1. Hall orörd. Inga nya redskap i `EQUIPMENT_PIECES`. Ingen WebGL/Three.js/GLB. Footer «Slice 57». Ny kolumn `default_station_layout` + trigger (`content/schema-57.sql`); Christoffer klistrar in SQL själv **före merge/deploy**. Offline-cache och banksynk följer Slice 31-mönstret. Bundle: se nedan.
 - F2 Ingen SQL nu, layout bara lokalt. Fel för banken: ledarna skulle aldrig se admins skiss.
 
 ## Effort: M
@@ -73,7 +73,7 @@ Skissyta + serialisering + gren i `StationSketch` + schema/SQL + cache + Verifie
 - Ledare som redigerar layout (Redigera redskap är oförändrat).
 - Ändrad logik i Planera pass eller redskapsförslag.
 
-## Öppna frågor till Christoffer
+## Öppna frågor till Christoffer (besvarade, se `decisions.md`)
 
 1. **A:** skissytan i befintligt bankblad (A1 ★) eller eget helskärmsblad (A2)?
 2. **Bundle:** OK att gå över +512 B gzip (uppskattat +0,9–1,4 kB med fri drag)? Annars tunnaste varianten med knappar (+0,5–0,8 kB).
