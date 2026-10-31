@@ -1,7 +1,7 @@
 # Slice 55 — Passlängd även på Starta från mall
 
 **App:** Träningsplaneraren  
-**Status:** **FÖRESLAGEN** — väntar på Christoffers lås av A–F. Bas: main @ `5e57fd0` (efter Slice 54). Gren: `slice-55-docs`. Live-sidfot: Slice 53.
+**Status:** **LÅST** 2026-10-31 av Christoffer (svar via PO-chatten: «Ja, lås A1 B1 C1 D1 E1 F1»): A1 B1 C1 D1 E1 F1. Bas: main @ 5e57fd0. Gren: `slice-55-docs`. Se `decisions.md`.
 **Effort:** **S–M** (se nedan).  
 **Källa:** Scout 2026-10-30 idé 3 (`/workspace/scout-drafts/2026-10-30-ideas.md`), vald av Christoffer. Bilder: `/workspace/screenshots/scout-2026-10-30/` (`30-starta-mall.png`, `39-mall-replace.png` «53 /»).
 
