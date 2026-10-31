@@ -15,7 +15,7 @@ import { MallList } from './MallList'
 export type PlanResult =
   | { path: 'questions'; answers: WizardAnswers & { hallTemplateId: HallTemplateId } }
   | { path: 'empty'; hallTemplateId: HallTemplateId; targetMinutes: PassLength }
-  | { path: 'mall'; hallTemplateId: HallTemplateId; pick: MallPick }
+  | { path: 'mall'; hallTemplateId: HallTemplateId; pick: MallPick; targetMinutes: PassLength }
 
 interface Props {
   onFinish: (result: PlanResult) => void
@@ -51,8 +51,8 @@ const ADVANCE_MS = 250
 
 function result(pos: WizardPos, a: Answers, pick: MallPick | null): PlanResult | null {
   if (!a.hall) return null
-  if (pos.path === 'mall') return pick ? { path: 'mall', hallTemplateId: a.hall, pick } : null
   if (!a.length) return null
+  if (pos.path === 'mall') return pick ? { path: 'mall', hallTemplateId: a.hall, pick, targetMinutes: a.length } : null
   if (pos.path === 'empty') return { path: 'empty', hallTemplateId: a.hall, targetMinutes: a.length }
   if ((!a.age && !a.level) || !a.focus) return null
   return { path: 'questions', answers: { age: a.age, level: a.level, focus: a.focus, hallTemplateId: a.hall, targetMinutes: a.length } }
@@ -66,6 +66,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
   const [pos, setPos] = useState<WizardPos>(WIZARD_START)
   const [showLevels, setShowLevels] = useState(false)
   const [answers, setAnswers] = useState<Answers>({ age: null, level: null, focus: null, hall: null, length: null })
+  const [pick, setPick] = useState<MallPick | null>(null)
   const busy = useRef(false)
   const timer = useRef(0)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -78,11 +79,12 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
   }, [pos, showLevels])
 
   /** C1: a tap is the answer; further taps are ignored until the next step opens (no double advance). */
-  function choose(patch: Partial<Answers>, pick: MallPick | null = null) {
+  function choose(patch: Partial<Answers>, picked?: MallPick) {
     if (busy.current) return
     busy.current = true
     const next = { ...answers, ...patch }
     setAnswers(next)
+    if (picked) setPick(picked)
     timer.current = window.setTimeout(() => {
       busy.current = false
       const to = wizardAdvance(pos)
@@ -90,7 +92,7 @@ export function HomeWizard({ onFinish, onCancel }: Props) {
         setPos(to)
         return
       }
-      const done = result(pos, next, pick)
+      const done = result(pos, next, picked ?? pick)
       if (done) onFinish(done)
     }, ADVANCE_MS)
   }

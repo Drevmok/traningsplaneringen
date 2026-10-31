@@ -11,6 +11,8 @@
 Pack mirror: [`slice-29/content/home-wizard.sv.md`](../slice-29/content/home-wizard.sv.md).  
 **Slice 46 (FÖRESLAGEN 2026-10-17, inte låst):** Planera pass blir den enda knappen på startsidan. Frågorna blir fyra: Ålder → Fokus → Hall → Passlängd (60, 90 eller 120 min), och ett tryck går vidare till nästa fråga, utan Nästa och Skapa pass. Starta från mall och Tomt pass flyttar in under åldrarna. Tillbaka och Avbryt står längst ner; på första frågan finns bara Avbryt. Se [`slice-46/`](../slice-46/README.md) och [`planera-pass.sv.md`](./planera-pass.sv.md).
 
+**Slice 55 (LÅST 2026-10-31):** Starta från mall: Hall → Mall → Passlängd («Fråga 3 av 3»). Passet skalas till 60, 90 eller 120 min med mallens proportioner (minst 1 min per övning). Se [`slice-55/`](../slice-55/README.md).
+
 Living companions: [`copy-home-polish.sv.md`](./copy-home-polish.sv.md) · [`ui-chrome.sv.md`](./ui-chrome.sv.md) · [`hall-presets-copy.sv.md`](./hall-presets-copy.sv.md) · [`soft-samling.sv.md`](./soft-samling.sv.md) · [`mall-samling-budget.sv.md`](./mall-samling-budget.sv.md).
 
 ---

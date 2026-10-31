@@ -7,7 +7,7 @@
 // real GoTrue e-mail code). Login codes are read from the mail sink and never printed or screenshotted.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { openMallList, startFragor, pickLength } from './tools/smoke-start.mjs' // Slice 54 A1
 import { codeLogin, sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1 + D1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -322,7 +322,7 @@ await attempt('B', async () => {
 
   // AC16 — apply from Starta från mall (Home path).
   const pickRow = r.find((x) => x.title === TITLE)
-  await sec.getByRole('button', { name: S.clubTemplateCardAria.replace('{title}', pickRow.title).replace('{n}', String(pickRow.total_minutes)) }).click()
+  await sec.getByRole('button', { name: S.clubTemplateCardAria.replace('{title}', pickRow.title).replace('{n}', String(pickRow.total_minutes)) }).click(); await pickLength(p) /* Slice 55 */
   // Slice 54 (widen): with no pass yet the guide applies at once (Slice 46); the placements note left in Slice 37 (auto-place).
   const conf = p.locator('.modal-backdrop[role=dialog]').filter({ hasText: R.tTitle })
   await p.waitForTimeout(500)
@@ -379,7 +379,7 @@ await attempt('B', async () => {
   await sec2.locator('.bank-stale').waitFor()
   check('AC13-local', 'Refresh fails → cards still listed from the device copy + «Visar sparade mallar. …»', (await sec2.locator('.bank-stale').innerText()) === S.clubTemplatesStale && (await sec2.locator('.template-club').count()) === 2)
   await shot(p, '13_stale_from_cache')
-  await sec2.locator('.template-club .template-card').first().click()
+  await sec2.locator('.template-club .template-card').first().click(); await pickLength(p) /* Slice 55 */
   await p.waitForTimeout(400) // Slice 54 (widen): confirm only if asked (Slice 41 Ångra); toast text from Slice 41
   const c13 = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: R.tConfirm, exact: true })
   if (await c13.count()) await c13.click()

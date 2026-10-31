@@ -40,7 +40,7 @@ export type WizardStep = 'age' | 'focus' | 'hall' | 'length' | 'mall'
 export const WIZARD_STEPS: Record<WizardPath, readonly WizardStep[]> = {
   questions: ['age', 'focus', 'hall', 'length'],
   empty: ['hall', 'length'],
-  mall: ['hall', 'mall'],
+  mall: ['hall', 'mall', 'length'],
 }
 export interface WizardPos {
   path: WizardPath

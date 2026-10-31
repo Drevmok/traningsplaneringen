@@ -4,6 +4,7 @@ const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { writeFileSync, readFileSync } from 'node:fs'
 import { sliceNumber } from './tools/smoke-login.mjs'
+import { pickLength } from './tools/smoke-start.mjs' // Slice 55
 const BR = process.env.S46_BR ?? 'http://127.0.0.1:4647/traningsplaneringen/'
 const MAIN = process.env.S46_MAIN ?? 'http://127.0.0.1:4611/traningsplaneringen/'
 const ROOT = process.env.S46_ROOT ?? '/workspace/gp-s46'
@@ -219,11 +220,11 @@ await attempt('AC15', async () => {
   const lists = /Föreningens mallar/.test(t) && /Klubbmall test/.test(t) && /Mina mallar/.test(t) && /Min testmall/.test(t) && /Nybörjare/.test(t) && /Kort pass/.test(t)
   const tools = !/Kopiera delningskod|Ta bort|Hantera|Lägg till i föreningen/.test(t)
   check('AC17-sheet', 'Mall step has no admin tools, no Kopiera delningskod, no Ta bort', tools, t.replace(/\s+/g, ' ').slice(0, 400))
-  await sheet(p).locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(500)
+  await sheet(p).locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await pickLength(p) /* Slice 55 */; await p.locator('.builder').waitFor(); await p.waitForTimeout(500)
   const toast = await p.locator('body').innerText()
   await shot(p, '14_builder_mall_toast')
   const d = await draft(p)
-  check('AC15', 'Starta från mall: Fråga 1 av 2 Hall → Fråga 2 av 2 Mall listing Föreningens/Mina/Nybörjare/Kort pass → Nybörjare on Grophallen with toast «Mallen är i Passbyggaren. · Ångra»', a.join() === 'Fråga 1 av 2,Hall' && b.join() === 'Fråga 2 av 2,Mall' && lists && /Mallen är i Passbyggaren\./.test(toast) && /Ångra/.test(toast) && d.hallTemplateId === 'forening-vit' && (d.hallPlacements ?? []).length >= 1, `${a} ${b} lists=${lists} hall=${d.hallTemplateId} pl=${(d.hallPlacements ?? []).length}`)
+  check('AC15', 'Starta från mall: Fråga 1 av 3 Hall → Fråga 2 av 3 Mall (Slice 55: then Passlängd) listing Föreningens/Mina/Nybörjare/Kort pass → Nybörjare on Grophallen with toast «Mallen är i Passbyggaren. · Ångra»', a.join() === 'Fråga 1 av 3,Hall' && b.join() === 'Fråga 2 av 3,Mall' && lists && /Mallen är i Passbyggaren\./.test(toast) && /Ångra/.test(toast) && d.hallTemplateId === 'forening-vit' && (d.hallPlacements ?? []).length >= 1, `${a} ${b} lists=${lists} hall=${d.hallTemplateId} pl=${(d.hallPlacements ?? []).length}`)
   await p.getByRole('button', { name: 'Ångra' }).first().click(); await p.waitForTimeout(400)
   const u = await draft(p)
   check('AC15-undo', 'Ångra returns to a blank pass on the answered hall', u.hallTemplateId === 'forening-vit' && !/Nybörjare/.test(u.title), `${u.title} ${u.hallTemplateId}`)
@@ -234,7 +235,7 @@ await attempt('AC16', async () => {
   for (const [hall, kind, name] of [[STORA, 'saved', 'Min testmall'], [GROP, 'saved', 'Min testmall'], [GROP, 'club', 'Klubbmall test'], [STORA, 'club', 'Klubbmall test']]) {
     const p = await page({ club: true }); await home(p, BR, { [TPL]: JSON.stringify(FIX.saved) }); await openPlan(p)
     await sheet(p).getByRole('button', { name: 'Starta från mall', exact: true }).click(); await p.waitForTimeout(300); await tap(p, hall); await p.waitForTimeout(500)
-    await sheet(p).locator('.template-card').filter({ hasText: name }).first().click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(500)
+    await sheet(p).locator('.template-card').filter({ hasText: name }).first().click(); await pickLength(p) /* Slice 55 */; await p.locator('.builder').waitFor(); await p.waitForTimeout(500)
     const d = await draft(p); const got = xy(d.hallPlacements ?? [])
     out.push({ hall, kind, hallId: d.hallTemplateId, n: (d.hallPlacements ?? []).length, kept: got === want })
     if (kind === 'saved' && hall === GROP) await shot(p, '15_builder_mina_grophallen')

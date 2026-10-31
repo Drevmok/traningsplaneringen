@@ -68,7 +68,7 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     await chip(p, 'Gymmix – Grophallen'); await p.waitForTimeout(400)
     const mallTxt = await p.locator('.home-wizard-sheet').innerText()
     check(`${tag}-AC12`, '«Föreningens mallar» hidden with no club templates', !/Föreningens mallar/.test(mallTxt))
-    await p.locator('.home-wizard-malls .template-card').first().click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(400)
+    await p.locator('.home-wizard-malls .template-card').first().click(); await p.waitForTimeout(400); if (await p.locator('.home-wizard-chip').filter({ hasText: /^60 min$/ }).count()) await chip(p, '60 min') /* Slice 55 */; await p.locator('.builder').waitFor(); await p.waitForTimeout(400)
     await openHall(p)
     const banner = p.locator('.hall-saknar-banner')
     check(`${tag}-AC9`, 'saknar row is text only; one toolbar «Använd alla förslag»', (await banner.count()) === 1 && (await banner.locator('button').count()) === 0 && (await applyBtn(p).count()) === 1, await banner.innerText().catch(() => ''))
@@ -81,7 +81,7 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     await applyBtn(p).click(); await p.waitForTimeout(250)
     const t = await p.locator('.hall-board').innerText()
     check(`${tag}-AC10`, 'toast «Sparade redskap på …», button gone', /Sparade redskap på \d+ station/.test(t) && (await applyBtn(p).count()) === 0)
-    check(`${tag}-AC16`, 'footer «Träningsplaneraren · Slice 53»', await p.evaluate(() => document.body.innerText.includes('Träningsplaneraren · Slice 53')) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return /Träningsplaneraren · Slice 53/.test(await p.locator('body').innerText()) })())
+    check(`${tag}-AC16`, 'footer «Träningsplaneraren · Slice 55»', await p.evaluate(() => document.body.innerText.includes('Träningsplaneraren · Slice 55')) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return /Träningsplaneraren · Slice 55/.test(await p.locator('body').innerText()) })())
     await p.context().close()
   })
 }

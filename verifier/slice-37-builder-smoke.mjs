@@ -3,7 +3,7 @@
 // One club mall row is inserted by the DB owner on the LOCAL stand-in (never the real project).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, startFragor, startTomt } from './tools/smoke-start.mjs'
+import { openMallList, startFragor, startTomt, pickLength } from './tools/smoke-start.mjs'
 import { sliceNumber } from './tools/smoke-login.mjs'
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -98,7 +98,7 @@ await p.waitForTimeout(600)
 // ── AC1/AC4/AC5/AC8 — built-in mall from Home «Starta från mall».
 const homeList = await openFromHome()
 const builtTitle = (await homeList.locator('.template-list').last().locator('.template-card strong').first().innerText()).trim()
-await homeList.locator('.template-list').last().locator('.template-card').first().click()
+await homeList.locator('.template-list').last().locator('.template-card').first().click(); await pickLength(p) /* Slice 55 */
 await useMall()
 await p.locator('.builder').waitFor()
 await p.waitForTimeout(400)
@@ -134,7 +134,7 @@ sql(`insert into public.club_templates (title, total_minutes, payload) values ('
 await p.goto(ON)
 await p.waitForTimeout(900)
 await openFromHome()
-await p.locator('section.club-templates .template-club .template-card').first().click()
+await p.locator('section.club-templates .template-club .template-card').first().click(); await pickLength(p) /* Slice 55 */
 // Slice 51: since Slice 46 the Starta flow applies a club mall with «Ångra» instead of a confirm; when no confirm
 // shows, the old line cannot show either.
 const cdlg = confirmDlg()
@@ -185,7 +185,7 @@ await p.waitForTimeout(600)
 if (!(await p.locator('.builder').count())) await p.getByRole('button', { name: /Fortsätt/ }).first().click()
 await menu('Använd mall')
 await p.locator('.mall-sheet').waitFor() // Slice 51: Använd mall opens MallSheet (Slice 46), not the side panel
-await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: keep.title }).first().click()
+await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: keep.title }).first().click(); await pickLength(p) /* Slice 55 */
 await useMall()
 await p.waitForTimeout(500)
 // Slice 51: Använd mall in the builder arms «Ångra» since Slice 41 A1 (undo toast); no other toast.
@@ -204,7 +204,7 @@ check('AC8c', 'Reload: Egen mall placements still in the draft', JSON.stringify(
 if (!(await p.locator('.builder').count())) await p.getByRole('button', { name: /Fortsätt/ }).first().click()
 await menu('Använd mall')
 await p.locator('.mall-sheet').waitFor() // Slice 51: Använd mall opens MallSheet (Slice 46), not the side panel
-await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: 'Egen utan placering' }).first().click()
+await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: 'Egen utan placering' }).first().click(); await pickLength(p) /* Slice 55 */
 await useMall()
 await p.waitForTimeout(500)
 d = await draft()

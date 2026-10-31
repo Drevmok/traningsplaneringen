@@ -2,7 +2,7 @@
 // Main build on :4210 (before), branch build on :4211 (after). Drafts are seeded via slice-40-seed.ts.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, startFragor } from './tools/smoke-start.mjs' // Slice 54 A1
+import { openMallList, startFragor, pickLength } from './tools/smoke-start.mjs' // Slice 54 A1
 import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -167,7 +167,7 @@ await attempt('M', async () => {
   await loadDraftAndOpen(BR, seed('standard-trupp', 1), tl)
   await p.getByRole('button', { name: 'Till startsidan' }).click(); await p.locator('.home').waitFor()
   await openMallList(p, { hall: 'Gymmix – Stora hallen' }) // Slice 54 A1 (Blå)
-  await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: 'S40 Blå mall' }).first().click()
+  await p.locator('.template-saved:not(.template-club) .template-card').filter({ hasText: 'S40 Blå mall' }).first().click(); await pickLength(p) /* Slice 55 */
   await p.waitForTimeout(400)
   const use = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true })
   if (await use.count()) await use.click()
