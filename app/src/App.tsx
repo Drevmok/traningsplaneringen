@@ -194,7 +194,7 @@ export default function App() {
       setSession(markFreshed(setSessionLength({ ...createBlankSession(), hallTemplateId: plan.hallTemplateId }, plan.targetMinutes)))
     } else {
       // As Använd mall in the Mallar tab: saved on apply, fresh, «Mallen är i Passbyggaren. · Ångra».
-      const mall = applyMall(plan.pick, plan.hallTemplateId)
+      const mall = applyMall(plan.pick, plan.hallTemplateId, plan.targetMinutes)
       let next = mall
       if (plan.pick.kind === 'builtin') trySaveDraft(mall)
       else next = adoptAsDraft(mall)

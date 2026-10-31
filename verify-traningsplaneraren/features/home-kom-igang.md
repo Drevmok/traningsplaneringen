@@ -13,6 +13,8 @@
 
 **Slice 49:** Planera pass with 60/90/120 → builder «60 / 60 min», «90 / 90 min» (Teknik 3×12), «120 / 120 min» (was «53 / X»).
 
+**Slice 55:** Starta från mall now has three steps: «Fråga 3 av 3» = Passlängd; after mall → «60 / 60 min» (resp. 90/120).
+
 **Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
 
 | Vad | Väljare | Källa |

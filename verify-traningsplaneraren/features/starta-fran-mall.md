@@ -16,6 +16,8 @@
 
 **Slice 47 — Använd mall sheet (A1):** Passbyggaren → Mer → **Använd mall** opens a sheet «Använd mall» (replaces the old Mallar tab of the library): Föreningens mallar (club, when the bank has any; cards not tappable for admin tools), Mina mallar (each with «Kopiera delningskod» and «Ta bort»), Nybörjare, Kort pass. No admin tools in the sheet (those live in Admin → Föreningens mallar). Picking on a non-fresh pass → «Ersätta det här passet?» → toast «Mallen är i Passbyggaren. · Ångra»; Ångra restores the previous pass. The Planera pass → Starta från mall step (Slice 46) is unchanged — compare its text/geometry with main.
 
+**Slice 55:** Planera pass → Starta från mall is Hall → Mall → Passlängd («Fråga 3 av 3», 60/90/120 min, no preselect). After the pick Passbyggaren shows «60 / 60 min» (resp. 90/120); each exercise ≈ its share of the mall (≤1 min off), ≥1 min. Tillbaka on Passlängd → Mall step. Saved mall unchanged. The Använd mall sheet (D1) is unchanged: mall's own times, no length question.
+
 **Slice 49:** no empty «Föreningens mallar» section (shown only with ≥1 club template). A mall start does not fill redskap (C1): text-only saknar row + one «Använd alla förslag».
 
 **Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)

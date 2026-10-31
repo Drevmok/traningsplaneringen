@@ -12,7 +12,7 @@ describe('Slice 46 — Planera pass steps', () => {
   it('three paths', () => {
     assert.deepEqual(WIZARD_STEPS.questions, ['age', 'focus', 'hall', 'length'])
     assert.deepEqual(WIZARD_STEPS.empty, ['hall', 'length'])
-    assert.deepEqual(WIZARD_STEPS.mall, ['hall', 'mall'])
+    assert.deepEqual(WIZARD_STEPS.mall, ['hall', 'mall', 'length'])
     assert.equal(wizardStepAt(WIZARD_START), 'age')
   })
   it('an answer moves on; the last step of each path finishes', () => {
@@ -26,7 +26,8 @@ describe('Slice 46 — Planera pass steps', () => {
     }
     assert.deepEqual(seen, ['age', 'focus', 'hall', 'length'])
     assert.equal(wizardAdvance({ path: 'empty', index: 1 }), 'finish')
-    assert.equal(wizardAdvance({ path: 'mall', index: 1 }), 'finish')
+    assert.deepEqual(wizardAdvance({ path: 'mall', index: 1 }), { path: 'mall', index: 2 })
+    assert.equal(wizardAdvance({ path: 'mall', index: 2 }), 'finish')
   })
   it('Tillbaka: none on Ålder; one step back; Hall of Tomt pass / mall returns to Ålder', () => {
     assert.equal(wizardBack(WIZARD_START), null)
@@ -34,6 +35,7 @@ describe('Slice 46 — Planera pass steps', () => {
     assert.deepEqual(wizardBack({ path: 'empty', index: 0 }), WIZARD_START)
     assert.deepEqual(wizardBack({ path: 'mall', index: 0 }), WIZARD_START)
     assert.deepEqual(wizardBack({ path: 'mall', index: 1 }), { path: 'mall', index: 0 })
+    assert.deepEqual(wizardBack({ path: 'mall', index: 2 }), { path: 'mall', index: 1 })
   })
   it('progress line', () => {
     assert.equal(wizardStepProgressText(2, 4), 'Fråga 2 av 4')

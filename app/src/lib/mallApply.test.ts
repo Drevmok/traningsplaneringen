@@ -119,3 +119,62 @@ describe('Slice 46 B1 — applyMall with the Hall answer', () => {
     assertOnlyTeknikPlaced(s)
   })
 })
+
+// Slice 55 A1/C1 — Starta från mall scales the whole pass to the chosen Passlängd.
+const LENGTHS = [60, 90, 120] as const
+const mins = (s: Session) => s.blocks.flatMap((b) => b.items.map((i) => i.durationMinutes))
+const ids = (s: Session) => s.blocks.flatMap((b) => b.items.map((i) => i.activityId))
+function assertScaled(orig: Session, scaled: Session, length: number) {
+  assert.equal(scaled.totalMinutes, length)
+  assert.equal(scaled.targetMinutes, length)
+  assert.deepEqual(ids(scaled), ids(orig))
+  const w = mins(orig).map((m) => Math.max(1, m))
+  const sum = w.reduce((a, b) => a + b, 0)
+  mins(scaled).forEach((m, i) => {
+    assert.ok(Number.isInteger(m) && m >= 1, `item ${i}: ${m}`)
+    assert.ok(Math.abs(m - (length * w[i]) / sum) <= 1, `item ${i}: ${m} vs ${(length * w[i]) / sum}`)
+  })
+}
+
+describe('Slice 55 — applyMall with Passlängd', () => {
+  it('every built-in mall × 60/90/120: exact total, whole ≥1 min, proportions ≤1 min off', () => {
+    for (const t of seedTemplates) {
+      const orig = applyMall({ kind: 'builtin', item: t })
+      for (const L of LENGTHS) assertScaled(orig, applyMall({ kind: 'builtin', item: t }, 'forening-bla', L), L)
+    }
+  })
+
+  it('Mina mall and föreningsmall: same checks; the mall itself is unchanged', () => {
+    const src = autoPlaceUnplaced(cloneTemplate(mall))
+    const saved: SavedTemplate = { id: 's55', title: 'Egen', totalMinutes: src.totalMinutes, savedAt: '', pass: sessionToShare(src) }
+    const club = toClubTemplate({ id: 'c55', title: 'Klubb', total_minutes: 50, payload: clubPayload(src, 'Klubb'), updated_at: '' }) as ClubTemplate
+    const before = JSON.stringify([saved, club, mall])
+    for (const L of LENGTHS) {
+      assertScaled(applyMall({ kind: 'saved', item: saved }), applyMall({ kind: 'saved', item: saved }, undefined, L), L)
+      assertScaled(applyMall({ kind: 'club', item: club }), applyMall({ kind: 'club', item: club }, 'forening-vit', L), L)
+    }
+    assert.equal(JSON.stringify([saved, club, mall]), before)
+  })
+
+  it('without length: same times as main (golden, D1 Mallar tab)', () => {
+    const s = applyMall({ kind: 'builtin', item: mall })
+    assert.deepEqual(mins(s), mins(cloneTemplate(mall)))
+    assert.equal(s.targetMinutes, cloneTemplate(mall).targetMinutes)
+  })
+
+  it('mall without exercises: only targetMinutes is set', () => {
+    const empty = { ...mall, blocks: mall.blocks.map((b) => ({ ...b, items: [] })) }
+    const s = applyMall({ kind: 'builtin', item: empty }, undefined, 90)
+    assert.equal(s.targetMinutes, 90)
+    assert.equal(s.totalMinutes, 0)
+  })
+
+  it('more exercises than minutes would need: still ≥1 each and exact total', async () => {
+    const { scaleToLength } = await import('./mallApply.ts')
+    const base = cloneTemplate(mall)
+    const many = { ...base, blocks: base.blocks.map((b, i) => (i === 0 ? { ...b, items: [...b.items, ...Array.from({ length: 5 }, (_, k) => ({ ...b.items[0] ?? base.blocks.find((x) => x.items.length)!.items[0], id: `x${k}`, durationMinutes: 0 }))] } : b)) }
+    const s = scaleToLength(many, 60)
+    assert.equal(s.totalMinutes, 60)
+    assert.ok(mins(s).every((m) => m >= 1))
+  })
+})
