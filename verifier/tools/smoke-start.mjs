@@ -3,7 +3,7 @@
 // (Stabila väljare) — role + visible Swedish label first.
 //   startTomt(p, { hall, minutes })      → «Planera pass» → «Tomt pass» → Hall → Passlängd → .builder
 //   openMallList(p, { hall })            → «Planera pass» → «Starta från mall» → Hall → returns .home-wizard-malls
-//   startMall(p, namn = 'Nybörjare', { hall }) → «Planera pass» → «Starta från mall» → Hall → mallkort → «Använd mall» if asked → .builder
+//   startMall(p, namn = 'Nybörjare', { hall, minutes }) → «Planera pass» → «Starta från mall» → Hall → mallkort → Passlängd (Slice 55) → «Använd mall» if asked → .builder
 // Defaults = what the old start-page «Tomt pass» gave (createBlankSession: forening-bla «Gymmix – Stora hallen», 60 min).
 export const DEFAULT_HALL = 'Gymmix – Stora hallen'
 export const DEFAULT_MINUTES = 60
@@ -39,11 +39,20 @@ export async function openMallList(p, { hall = DEFAULT_HALL } = {}) {
   return list
 }
 
-export async function startMall(p, namn = 'Nybörjare', { hall = DEFAULT_HALL } = {}) {
+/** Slice 55 B1: after a mall card in the guide, Passlängd follows. No-op where there is no length step (Mallar sheet, main before 55). */
+export async function pickLength(p, minutes = DEFAULT_MINUTES) {
+  await p.waitForTimeout(350)
+  const o = sheet(p).getByRole('option', { name: `${minutes} min`, exact: true })
+  if (await o.count()) { await o.click(); await p.waitForTimeout(400) }
+}
+
+export async function startMall(p, namn = 'Nybörjare', { hall = DEFAULT_HALL, minutes = DEFAULT_MINUTES } = {}) {
   await openMallList(p, { hall })
   const re = namn instanceof RegExp ? namn : new RegExp(namn)
   await sheet(p).locator('.home-wizard-malls .template-card').filter({ hasText: re }).first().click()
   await p.waitForTimeout(400)
+  // Slice 55 B1: the mall path ends with Passlängd (absent on main before 55).
+  await pickLength(p, minutes)
   const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true })
   if (await c.count()) await c.click()
   await p.locator('.builder').waitFor()

@@ -2,7 +2,7 @@
 // Branch preview on :4545, main 4fe44c0 on :4510 (old #dela= link + baseline sizes).
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, openWizard, startMall, startTomt } from './tools/smoke-start.mjs'
+import { openMallList, openWizard, startMall, startTomt, pickLength } from './tools/smoke-start.mjs'
 import { sliceNumber } from './tools/smoke-login.mjs'
 import { writeFileSync, readFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
@@ -204,7 +204,7 @@ await attempt('AC11', async () => {
   await p.evaluate((k) => localStorage.removeItem(k), DRAFT)
   await p.goto(BR); await p.reload()
   const list = await openMallList(p)
-  await list.locator('.template-card').filter({ hasText: 'Gammal mall' }).first().click(); await p.waitForTimeout(400)
+  await list.locator('.template-card').filter({ hasText: 'Gammal mall' }).first().click(); await pickLength(p) /* Slice 55 */
   const c = p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }); if (await c.count()) await c.click()
   await p.waitForTimeout(500)
   await hall(p)

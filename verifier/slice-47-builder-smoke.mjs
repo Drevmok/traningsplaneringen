@@ -6,6 +6,7 @@ import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
 import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { writeFileSync } from 'node:fs'
 import { fakeBank, fakeSessionValue } from './slice-47-fake-supabase.mjs'
+import { pickLength } from './tools/smoke-start.mjs' // Slice 55
 const BR = process.env.S47_BR ?? 'http://127.0.0.1:4747/traningsplaneringen/'
 const MAIN = process.env.S47_MAIN ?? 'http://127.0.0.1:4710/traningsplaneringen/'
 const ROOT = process.env.S47_ROOT ?? '/workspace/gp-s47'
@@ -45,7 +46,7 @@ async function nybörjare(p) {
   await p.getByRole('button', { name: 'Planera pass', exact: true }).click(); await p.locator('.home-wizard-sheet').waitFor()
   await p.locator('.home-wizard-sheet').getByRole('button', { name: 'Starta från mall', exact: true }).click(); await p.waitForTimeout(300)
   await p.locator('.home-wizard-sheet [role=option]').first().click(); await p.waitForTimeout(500)
-  await p.locator('.home-wizard-sheet .template-card').filter({ hasText: /Nybörjare/ }).first().click(); await p.locator('.builder').waitFor(); await p.waitForTimeout(600)
+  await p.locator('.home-wizard-sheet .template-card').filter({ hasText: /Nybörjare/ }).first().click(); await pickLength(p) /* Slice 55 */; await p.locator('.builder').waitFor(); await p.waitForTimeout(600)
 }
 async function closeToast(p) { await p.evaluate(() => document.querySelector('.toast')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))); await p.waitForTimeout(150) }
 async function menuItems(p) {
@@ -146,7 +147,7 @@ await attempt('AC5', async () => {
   const box = await ms.boundingBox()
   await shot(p, '03_anvand_mall_sheet')
   const groups = /Använd mall/.test(t) && /Mina mallar/.test(t) && /Kopiera delningskod/.test(t) && /Ta bort/.test(t) && /Nybörjare/.test(t) && /Kort pass/.test(t)
-  await ms.locator('.template-card').filter({ hasText: /Kort pass/ }).first().click(); await p.waitForTimeout(400)
+  await ms.locator('.template-card').filter({ hasText: /Kort pass/ }).first().click(); await pickLength(p) /* Slice 55 */; await p.waitForTimeout(400)
   const confirm = await text(p, '[role=dialog]:last-of-type')
   await p.locator('[role=dialog] button').filter({ hasText: /^(Använd mall|Ersätt)/ }).last().click(); await p.waitForTimeout(700)
   const tt = await toastText(p).catch(() => '')
@@ -161,7 +162,7 @@ await attempt('AC6', async () => {
   await p.locator('.home-wizard-sheet').getByRole('button', { name: 'Starta från mall', exact: true }).click(); await p.waitForTimeout(300)
   await p.locator('.home-wizard-sheet [role=option]').first().click(); await p.waitForTimeout(500)
   const t = await text(p, '.home-wizard-sheet')
-  check('AC6', 'Planera pass Mall step unchanged: Fråga 2 av 2 «Mall», Nybörjare + Kort pass, no tools', /Fråga 2 av 2/.test(t) && /Nybörjare/.test(t) && /Kort pass/.test(t) && !/Kopiera delningskod|Ta bort/.test(t), t.replace(/\s+/g, ' ').slice(0, 160))
+  check('AC6', 'Planera pass Mall step: Fråga 2 av 3 «Mall» (Slice 55), Nybörjare + Kort pass, no tools', /Fråga 2 av 3/.test(t) && /Nybörjare/.test(t) && /Kort pass/.test(t) && !/Kopiera delningskod|Ta bort/.test(t), t.replace(/\s+/g, ' ').slice(0, 160))
 })
 
 await attempt('AC7', async () => {

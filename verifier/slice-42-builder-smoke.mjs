@@ -1,7 +1,7 @@
 // Slice 42 — Builder self-smoke: «Tomt pass?» tip only at 0 coach stations; confirm skipped on a fresh pass. 390×844, branch on :4242.
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, startFragor, startTomt } from './tools/smoke-start.mjs'
+import { openMallList, startFragor, startTomt, pickLength } from './tools/smoke-start.mjs'
 import { sliceNumber } from './tools/smoke-login.mjs'
 import { execFileSync, spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
@@ -54,7 +54,7 @@ await attempt('AC1/2', async () => {
 })
 await attempt('AC3', async () => {
   await clean(); const list = await openMallList(p)
-  await list.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await builder().waitFor(); await p.waitForTimeout(500)
+  await list.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await pickLength(p) /* Slice 55 */; await builder().waitFor(); await p.waitForTimeout(500)
   const c = await confirmShown(); if (c) await confirmDlg().getByRole('button', { name: 'Använd mall', exact: true }).click()
   await p.waitForTimeout(400)
   check('AC3', 'first visit via Från mall → mall pass with stations and no tip', !(await tipShown()) && (await p.locator('.item-remove').count()) > 2, `confirm=${c}`)

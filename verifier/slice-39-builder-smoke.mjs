@@ -3,7 +3,7 @@
 // __failDraft = true makes those writes throw (storage full).
 const { chromium } = await import(process.env.PW_CORE ?? '/tmp/pw/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
-import { openMallList, startFragor, startTomt } from './tools/smoke-start.mjs' // Slice 54 A1
+import { openMallList, startFragor, startTomt, pickLength } from './tools/smoke-start.mjs' // Slice 54 A1
 import { sliceNumber } from './tools/smoke-login.mjs' // Slice 54 B1
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -153,7 +153,7 @@ await attempt('C', async () => {
   await openMallList(p) // Slice 54 A1
   const card = p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first()
   const mallTitle = (await card.locator('h3, .template-title, strong').first().innerText().catch(() => 'Nybörjare')).trim()
-  await card.click()
+  await card.click(); await pickLength(p) /* Slice 55 */
   await useIfAsked() // Slice 54 A1: the guide asks only when a pass would be replaced
   await builder().waitFor()
   await toHome()
@@ -167,13 +167,13 @@ await attempt('C', async () => {
   check('AC9c/guard', 'Replaced «Torsdag nytt» landed in Mina mallar', t.some((x) => x.title === 'Torsdag nytt'), t.map((x) => x.title).join(','))
   // AC11 — replace again with the same old contents → no duplicate
   await openMallList(p) // Slice 54 A1
-  await p.locator('.template-saved .template-card').filter({ hasText: 'Torsdag nytt' }).first().click()
+  await p.locator('.template-saved .template-card').filter({ hasText: 'Torsdag nytt' }).first().click(); await pickLength(p) /* Slice 55 */
   await useIfAsked() // Slice 54 A1: the guide asks only when a pass would be replaced
   await builder().waitFor()
   await toHome()
   // now Torsdag nytt (copy) is on Home; replace it with the same built-in → Torsdag copy archived? same signature → dedupe
   await openMallList(p) // Slice 54 A1
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click()
+  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await pickLength(p) /* Slice 55 */
   await useIfAsked() // Slice 54 A1: the guide asks only when a pass would be replaced
   await builder().waitFor(); await toHome()
   const t2 = await tmpls()
@@ -256,7 +256,7 @@ async function race(label, act) {
   await p.evaluate(([dk, tk]) => { localStorage.removeItem(dk); localStorage.removeItem(tk) }, [DK, TK])
   await p.goto(URL0); await p.locator('.home').waitFor()
   await openMallList(p) // Slice 54 A1
-  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click()
+  await p.locator('.template-card').filter({ hasText: /Nybörjare/ }).first().click(); await pickLength(p) /* Slice 55 */
   await useIfAsked() // Slice 54 A1: the guide asks only when a pass would be replaced
   await builder().waitFor()
   const oldId = (await draft()).id
@@ -274,7 +274,7 @@ async function race(label, act) {
 await attempt('F', async () => {
   const r1 = await race('Mall', async () => {
     await moreBtn('Använd mall')
-    await p.locator('.template-card').filter({ hasText: /Kort/ }).first().click()
+    await p.locator('.template-card').filter({ hasText: /Kort/ }).first().click(); await pickLength(p) /* Slice 55 */
     await p.locator('.modal-backdrop[role=dialog]').getByRole('button', { name: 'Använd mall', exact: true }).click()
   })
   check('F1-mall', 'Edit → Använd mall within the debounce: Home = pass on screen; old pass (with the edit) in Mina mallar', r1.ms < 800 && r1.home === r1.onScreen && r1.stored === r1.onScreen && !r1.storedIsOld && r1.mallar.includes('Mall gammal'), JSON.stringify(r1))
