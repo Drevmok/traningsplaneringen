@@ -124,3 +124,5 @@ Eligibility, persist path, and Hall chrome for **Använd alla förslag** stay as
 - Netlify / konton / moln
 
 **Slice 49 (LÅST 2026-10-23):** Efter Planera pass är redskapen redan sparade. «Använd alla förslag» finns en gång, i verktygsraden, och bara när minst en station har ett osparat förslag (t.ex. efter Starta från mall). «Inga förslag att spara» finns inte längre. Toasten «Sparade redskap på {n} stationer» är kvar.
+
+**Slice 56 (LÅST 2026-10-31):** Redskapsförslagen fylls nu också i när du lägger till en övning i Teknik (Passbyggaren → Biblioteket → Lägg till, eller Hallöversikt → «Lägg till station») — inte bara vid Planera pass. Hela passet fylls: efter Starta från mall får alla stationer utan redskap förslag vid första Teknik-tillägget. Rensade (tomma) och egna listor ändras inte. Ingen toast, ingen ny text.

@@ -288,3 +288,5 @@ Keep footer `no-print`. Ship when Builder lands the wizard. Docs owns the string
 **Slice 45 (FÖRESLAGEN 2026-10-17):** I home-wizard tas även `wizardQ3Hint` och `wizardFocusHonesty` bort (de förklarar zoner som bara fanns i de generella hallarna).
 
 **Slice 49 (LÅST 2026-10-23):** Svaret på Passlängd styr tiderna: förslaget blir 60, 90 eller 120 min (inte 53 min), och redskapsförslagen sparas på stationerna.
+
+**Slice 56 (LÅST 2026-10-31):** Redskapsförslagen fylls nu också i när du lägger till en övning i Teknik (Passbyggaren → Biblioteket → Lägg till, eller Hallöversikt → «Lägg till station») — inte bara vid Planera pass. Hela passet fylls: efter Starta från mall får alla stationer utan redskap förslag vid första Teknik-tillägget. Rensade (tomma) och egna listor ändras inte. Ingen toast, ingen ny text.

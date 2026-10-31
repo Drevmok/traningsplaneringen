@@ -32,3 +32,5 @@
 | Saknas-banner | `.hall-saknar-banner` | `App.css`, `components/HallBoard.tsx` |
 | Knapp «Redigera redskap» | `role=button «Redigera redskap»` | `components/ActivityDetail.tsx`, `data/blockMeta.ts` |
 | Passinfo i hallen | `.hall-session-meta` | `App.css`, `components/HallBoard.tsx` |
+
+**Slice 56:** Lägg till i Teknik (Biblioteket eller «Lägg till station») kör `applyAllSuggestedStationEquipment` på hela passet → ingen saknar-rad för nya stationen; rensad `[]` och egen lista står kvar. Tillägg i andra block ändrar inga redskap. Starta från mall utan tillägg: saknar-raden syns som förut.

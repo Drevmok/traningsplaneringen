@@ -282,7 +282,7 @@ export function HallBoard({
     if (!blockId) return
     const before = new Set(placeableItems(session).map((it) => it.id))
     const added = addItemToBlock(session, blockId, activity.id, activity.durationMinutesDefault)
-    const next = autoPlaceUnplaced(added)
+    const next = applyAllSuggestedStationEquipment(autoPlaceUnplaced(added)).session
     persist(next)
     const fresh = placeableItems(next).find((it) => !before.has(it.id))
     if (fresh) window.setTimeout(() => setStationFocusId(fresh.id), 0)

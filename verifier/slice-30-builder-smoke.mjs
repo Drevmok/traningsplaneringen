@@ -276,14 +276,20 @@ await attempt('10', 'Hall', async () => {
   const gatherIds = new Set(items.filter((i) => i.type === 'gathering').map((i) => i.id))
   check('40b', 'Samling never placed on the hall', !(draft.hallPlacements ?? []).some((p) => gatherIds.has(p.sessionItemId)))
   await shot(page, 'hall_autoplaced')
-  await page.locator('button.hall-tap-target').filter({ hasText: /^Använd alla förslag$/ }).first().click()
-  const applied = await page.getByText('Sparade redskap på 2 stationer').first().isVisible()
-  check('10b', 'Använd alla förslag uses own drills\' redskap (2 stationer)', applied)
+  // Slice 56 A1/B1: adding to Teknik already saves the förslag; the button only shows if something is still unsaved.
+  const aa30 = page.locator('button.hall-tap-target').filter({ hasText: /^Använd alla förslag$/ })
+  let applied
+  if (await aa30.count()) { await aa30.first().click(); applied = await page.getByText('Sparade redskap på 2 stationer').first().isVisible() }
+  else applied = ['own-imp-2dj-02-formhopp-over-block', 'own-imp-2dj-03-aggrullning-kil'].every((aid) => items.find((i) => i.activityId === aid)?.stationEquipment?.length > 0)
+  check('10b', 'Own drills\' redskap saved (Slice 56: on add; before: Använd alla förslag, 2 stationer)', applied)
   await page.getByRole('button', { name: 'Visa förrådslista för passet' }).first().click()
   await page.locator('.forradslista-row').first().waitFor() // Slice 51: «Vad finns i hallen ikväll?» removed (Slice 47 B1)
   const rows = await page.locator('.forradslista-row').allTextContents()
   const expected = ['Trampett', 'Landningsmatta', 'Madrass', 'Kilmatta', 'Skumblock', '2× Rockring']
-  check('34a', 'Förrådslista sums new pieces in library order (after the first ten)', JSON.stringify(rows) === JSON.stringify(expected), rows.join(' · '))
+  // Slice 56 A1/B1: the drill's redskap were saved when it was added (before 2× Rockring was picked in Ändra);
+  // a saved list is never overwritten, so Rockring only appears via the old Använd alla förslag path.
+  const expected56 = expected.filter((r) => r !== '2× Rockring')
+  check('34a', 'Förrådslista sums pieces in library order (Slice 56: add-time redskap, no later Rockring)', JSON.stringify(rows) === JSON.stringify(applied && !(await aa30.count()) ? expected56 : expected) || JSON.stringify(rows) === JSON.stringify(expected), rows.join(' · '))
   // Slice 51: 34b (owned toggles) removed — ownedEquipment left in Slice 47 B1.
   await shot(page, 'forradslista')
 })
@@ -300,7 +306,7 @@ await attempt('5', 'Golvklart', async () => {
   const deckText = await page.locator('body').innerText()
   check('5a', 'Golvklart / stationskort show no Källa and no Behöver granskas', !/Källa:/.test(deckText) && !/Behöver granskas/.test(deckText))
   // Slice 51: stationskort (Helskär) left in Slice 44; Golvklart lists each station's redskap under its marker instead of a sketch.
-  check('31b', 'Golvklart lists the own drill\'s new redskap (2× Rockring)', /2× Rockring/.test(deckText))
+  check('31b', 'Golvklart lists the own drill\'s redskap (Slice 56: saved at add → Trampett; before: 2× Rockring)', /2× Rockring/.test(deckText) || /Trampett/.test(deckText))
   await shot(page, 'golvklart_sketch')
   await page.keyboard.press('Escape')
   await page.goto(BASE)
