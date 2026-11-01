@@ -217,3 +217,5 @@ Keep **Visa tips igen** / **Om utkast**. Footer remains `no-print`.
 ---
 
 **Slice 57 (LÅST A2 B1 C1 D1 E1 F1):** Redskapsbladet «Välj redskap» är oförändrat. Skissen ställs upp i ett **eget blad** «Så ska stationen stå» via knappen «Ställ upp stationen» (admin och egen övning, Teknik). Hint: «Dra redskapen dit de ska stå. Ansats till vänster, landning till höger.» Tomt: «Välj redskap först, sedan kan du ställa upp dem här.» Knappar: «Vrid», «Ställ i rad igen», «Klar». Hallöversikt → Redigera redskap har ingen sådan knapp.
+
+**Slice 58 (A1 B1 C1 D1 E1 F1):** I skissbladet «Så ska stationen stå» höjer och sänker du valt redskap med **«Höjd +»** / **«Höjd −»** (ett lager per tryck, max 8; PageUp/PageDown). «Lager N» visas när N > 0. Drag och piltangenter ändrar bara x/djup. Ytan växer med uppställningen (aldrig lägre än förut, minst 320 bred, klipper aldrig); **«Bredare yta»** / **«Högre yta»** (0–2 steg) och **«Standardyta»**. Sparas som valfri `y` per pose och `surface` i samma `{v:1}`-jsonb — ingen SQL. «Ställ i rad igen» nollar höjd och yta. Detaljvy och Skriv ut passet ritar stapel och yta lika.

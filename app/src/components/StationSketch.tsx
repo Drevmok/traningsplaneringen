@@ -1,5 +1,5 @@
 import { UI } from '../data/blockMeta'
-import { expand, kindOf, sanitizeStationLayout } from '../data/stationLayout'
+import { expand, kindOf, layoutBounds, sanitizeStationLayout } from '../data/stationLayout'
 import type { StationEquipmentSlot, StationLayout } from '../types'
 import { LAYOUT_VIEW_W, poseTransform, sortedPoses } from './stationPose'
 import { EQUIPMENT_ROW_WIDTH, EquipmentMark } from './equipmentMark'
@@ -14,16 +14,17 @@ export function StationSketch({ slots, layout }: Props) {
   const valid = layout ? sanitizeStationLayout(layout, slots) : undefined
   if (valid) {
     const vbW = LAYOUT_VIEW_W
+    const b = layoutBounds(valid)
     return (
       <figure className="station-sketch-wrap">
         <svg
           className="station-sketch"
-          viewBox={`0 78 ${vbW} 112`}
+          viewBox={`${b.x0} ${b.y0} ${b.w} ${b.h}`}
           role="img"
           aria-label={UI.stationSketchCaption}
         >
-          <rect x="0" y="78" width={vbW} height="112" fill="#e7e5e1" />
-          <rect x="16" y="142" width={vbW - 32} height="28" fill="#d7d4ce" />
+          <rect x={b.x0} y={b.y0} width={b.w} height={b.h} fill="#e7e5e1" />
+          <rect x={b.x0 + 16} y="142" width={b.w - 32} height="28" fill="#d7d4ce" />
           {sortedPoses(valid).map((pose, index) => {
             const kind = kindOf(pose.pieceId)
             if (!kind) return null

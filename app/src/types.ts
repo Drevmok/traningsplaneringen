@@ -21,12 +21,16 @@ export interface StationPose {
   x: number
   z: number
   yaw: number
+  /** Slice 58 (A1) — height 0–1 in 1/8 layers. Missing = 0 (the floor). */
+  y?: number
 }
 
 /** Slice 57 (B1) — admin-set station sketch. Missing → the Slice 13 heuristic. */
 export interface StationLayout {
   v: 1
   poses: StationPose[]
+  /** Slice 58 (D1) — extra surface steps, integers 0–2. Missing = 0. */
+  surface?: { w: number; h: number }
 }
 
 /** Slice 13 — fixed catalog piece (Swedish redskap library) */

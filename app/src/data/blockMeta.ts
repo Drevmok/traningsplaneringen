@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '57'
+export const SLICE_NUMBER = '58'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -336,7 +336,15 @@ export const UI = {
   stationLayoutOpen: 'Ställ upp stationen',
   stationLayoutTitle: 'Så ska stationen stå',
   stationLayoutDone: 'Klar',
-  stationLayoutHint: 'Dra redskapen dit de ska stå. Ansats till vänster, landning till höger.',
+  stationLayoutHint: 'Dra redskapen dit de ska stå. Ansats till vänster, landning till höger. Stapla med Höjd.',
+  stationLayoutRaise: 'Höjd +',
+  stationLayoutRaiseAria: (label: string) => `Lägg ${label} högre`,
+  stationLayoutLower: 'Höjd −',
+  stationLayoutLowerAria: (label: string) => `Lägg ${label} lägre`,
+  stationLayoutLayer: (n: number) => `Lager ${n}`,
+  stationLayoutWider: 'Bredare yta',
+  stationLayoutTaller: 'Högre yta',
+  stationLayoutSurfaceReset: 'Standardyta',
   stationLayoutRotate: 'Vrid',
   stationLayoutRotateAria: (label: string) => `Vrid ${label}`,
   stationLayoutReset: 'Ställ i rad igen',

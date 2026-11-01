@@ -234,3 +234,5 @@ Också oförändrat: övningarnas titlar och texter (de kommer nu från banken m
 ---
 
 **Slice 57:** Övningar i banken kan ha en uppställd station. Den syns även utan nät när banken är synkad. En egen övning du delar tar med sin uppställning.
+
+**Slice 58 (A1 B1 C1 D1 E1 F1):** I skissbladet «Så ska stationen stå» höjer och sänker du valt redskap med **«Höjd +»** / **«Höjd −»** (ett lager per tryck, max 8; PageUp/PageDown). «Lager N» visas när N > 0. Drag och piltangenter ändrar bara x/djup. Ytan växer med uppställningen (aldrig lägre än förut, minst 320 bred, klipper aldrig); **«Bredare yta»** / **«Högre yta»** (0–2 steg) och **«Standardyta»**. Sparas som valfri `y` per pose och `surface` i samma `{v:1}`-jsonb — ingen SQL. «Ställ i rad igen» nollar höjd och yta. Detaljvy och Skriv ut passet ritar stapel och yta lika.
