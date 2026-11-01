@@ -34,3 +34,5 @@
 | Passinfo i hallen | `.hall-session-meta` | `App.css`, `components/HallBoard.tsx` |
 
 **Slice 56:** Lägg till i Teknik (Biblioteket eller «Lägg till station») kör `applyAllSuggestedStationEquipment` på hela passet → ingen saknar-rad för nya stationen; rensad `[]` och egen lista står kvar. Tillägg i andra block ändrar inga redskap. Starta från mall utan tillägg: saknar-raden syns som förut.
+
+**Slice 57:** Oförändrad. **Ingen** knapp «Ställ upp stationen», inget skissblad här. Ändrar ledaren redskap för passet ritas heuristiken (E1); «Använd förslag» → receptets layout igen.

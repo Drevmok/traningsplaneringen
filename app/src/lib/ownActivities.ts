@@ -7,7 +7,9 @@ import type {
   Difficulty,
   Session,
   StationEquipmentSlot,
+  StationLayout,
 } from '../types'
+import { sanitizeStationLayout } from '../data/stationLayout'
 import { sanitizeSource } from './source'
 
 const KEY = 'gymnastics-planner-own-activities-v1'
@@ -39,6 +41,8 @@ export interface OwnDraft {
   safety: string
   /** Redskap förslag. Saved only when the block is Teknik. */
   equipment: StationEquipmentSlot[]
+  /** Slice 57 — «Ställ upp stationen»; follows `equipment` (C1). Teknik only. */
+  layout?: StationLayout
 }
 
 export interface ShareOwn {
@@ -54,6 +58,7 @@ export interface ShareOwn {
   tags?: string[]
   difficulty?: Difficulty
   defaultStationEquipment?: StationEquipmentSlot[]
+  defaultStationLayout?: StationLayout
   progressionOf?: string
   regressionOf?: string
   needsCoachReview?: boolean
@@ -203,7 +208,11 @@ export function sanitizeOwnActivity(raw: Partial<Activity> | null | undefined): 
   const safety = clip(raw.safetyLine, OWN_LIMITS.text)
   if (safety) activity.safetyLine = safety
   const equipment = sanitizeOwnEquipment(blockType, raw.defaultStationEquipment)
-  if (equipment) activity.defaultStationEquipment = equipment
+  if (equipment) {
+    activity.defaultStationEquipment = equipment
+    const layout = sanitizeStationLayout(raw.defaultStationLayout, equipment)
+    if (layout) activity.defaultStationLayout = layout
+  }
   return activity
 }
 
@@ -265,6 +274,7 @@ function build(draft: OwnDraft, id: string, base?: Activity): Activity {
     watchFor: draft.watchFor,
     safetyLine: draft.safety,
     defaultStationEquipment: draft.equipment,
+    defaultStationLayout: draft.layout,
     // D1 — saving an edit counts as reviewed.
     needsCoachReview: false,
   })
@@ -365,6 +375,7 @@ export function activityToShareOwn(activity: Activity): ShareOwn {
     ...(activity.defaultStationEquipment?.length
       ? { defaultStationEquipment: activity.defaultStationEquipment }
       : {}),
+    ...(activity.defaultStationLayout ? { defaultStationLayout: activity.defaultStationLayout } : {}),
     ...(activity.progressionOf ? { progressionOf: activity.progressionOf } : {}),
     ...(activity.regressionOf ? { regressionOf: activity.regressionOf } : {}),
     ...(activity.needsCoachReview ? { needsCoachReview: true } : {}),

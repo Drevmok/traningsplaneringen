@@ -6,7 +6,7 @@
  * "Dölj" is status = 'hidden' (the database refuses deletes too).
  * Network needed: offline → 'offline', nothing queued.
  */
-import type { Activity, ActivitySource, BlockType, Difficulty, StationEquipmentSlot } from '../../types'
+import type { Activity, ActivitySource, BlockType, Difficulty, StationEquipmentSlot, StationLayout } from '../../types'
 import { loadAdminBank, refreshAdminRow, ADMIN_TIMEOUT_MS, type AdminEntry } from './adminBank'
 import { getAdminClient } from './client'
 
@@ -22,6 +22,8 @@ export interface BankPatch {
   watch_for: string
   safety_line: string | null
   default_station_equipment: StationEquipmentSlot[] | null
+  /** Slice 57 — Teknik with redskap only; else null. */
+  default_station_layout?: StationLayout | null
   source: ActivitySource | null
   experienced_coach_only: boolean
 }
@@ -89,13 +91,18 @@ export interface PendingExtra {
 /** The row a new exercise becomes: pending, visual 'own', redskap only on Teknik. updated_by is stamped by the database. */
 export function pendingRow(patch: BankPatch, extra: PendingExtra = {}, id = newBankId(patch.block_type)) {
   const teknik = patch.block_type === 'techniques'
+  const { default_station_layout: layout, ...rest } = patch
   return {
-    ...patch,
+    ...rest,
     id,
     status: 'pending' as const,
     visual_key: 'own',
     safety_line: patch.block_type === 'gathering' ? patch.safety_line : patch.safety_line?.trim() || null,
     default_station_equipment: teknik && patch.default_station_equipment?.length ? patch.default_station_equipment : null,
+    // Slice 57: only sent when there is one, so inserts keep working on a bank without the column.
+    ...(teknik && patch.default_station_equipment?.length && layout
+      ? { default_station_layout: layout }
+      : {}),
     tags: (extra.tags ?? []).filter((t) => t !== 'egen').slice(0, 8),
     ...(extra.difficulty ? { difficulty: extra.difficulty } : {}),
     needs_coach_review: extra.needs_coach_review ?? false,
@@ -142,6 +149,7 @@ export function activityPatch(a: Activity): { patch: BankPatch; extra: PendingEx
       watch_for: a.watchFor,
       safety_line: a.safetyLine?.trim() || null,
       default_station_equipment: a.defaultStationEquipment ?? null,
+      ...(a.blockType === 'techniques' && a.defaultStationLayout ? { default_station_layout: a.defaultStationLayout } : {}),
       source: a.source ?? null,
       experienced_coach_only: a.experiencedCoachOnly === true,
     },

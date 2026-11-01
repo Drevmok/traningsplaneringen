@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '56'
+export const SLICE_NUMBER = '57'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -332,6 +332,15 @@ export const UI = {
   hallFloorEquipmentOne: '{label}',
   stationEquipmentSuggested: 'Förslag — du kan ändra',
   stationEquipmentUseSuggested: 'Använd förslag',
+  // Slice 57 — saved station sketch (A2 own sheet; slice-57/content/microcopy.sv.md)
+  stationLayoutOpen: 'Ställ upp stationen',
+  stationLayoutTitle: 'Så ska stationen stå',
+  stationLayoutDone: 'Klar',
+  stationLayoutHint: 'Dra redskapen dit de ska stå. Ansats till vänster, landning till höger.',
+  stationLayoutRotate: 'Vrid',
+  stationLayoutRotateAria: (label: string) => `Vrid ${label}`,
+  stationLayoutReset: 'Ställ i rad igen',
+  stationLayoutEmpty: 'Välj redskap först, sedan kan du ställa upp dem här.',
   stationSketchCaption: 'Skiss — så kan stationen stå.',
   stationSketchApproach:
     'Ansatskuddarna framför trampett och satsbräda är en skiss, inte en rad i förrådet.',

@@ -35,3 +35,7 @@ Stationskorten (**Skriv ut kort**, en station per sida) och **Helskär** finns i
 ---
 
 **Slice 45 F3 (FÖRESLAGEN 2026-10-17, inte låst):** På telefonen blir Dela ett kort ark nertill, lika högt som innehållet. Passet syns ovanför. Texterna är desamma. Se [`slice-45/`](../slice-45/README.md).
+
+---
+
+**Slice 57:** Utskriften ritar stationen som admin ställde upp den, om passets redskap är desamma som övningens. Har du ändrat redskapen för passet ritas de i rad som förut.

@@ -230,3 +230,7 @@ Också oförändrat: övningarnas titlar och texter (de kommer nu från banken m
 ---
 
 **Slice 44-anteckning (FÖRESLAGEN 2026-10-17, inte låst):** Stationskorten tas bort; deras innehåll finns i «Skriv ut passet». Raden «Också oförändrat: … stationskort …» ovan gäller då passutskriften. Se [`slice-44/`](../slice-44/README.md).
+
+---
+
+**Slice 57:** Övningar i banken kan ha en uppställd station. Den syns även utan nät när banken är synkad. En egen övning du delar tar med sin uppställning.

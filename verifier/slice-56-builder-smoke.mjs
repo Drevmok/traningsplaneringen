@@ -111,7 +111,7 @@ await attempt('AC9-10', async () => {
 })
 await attempt('AC13', async () => {
   const p = await page({ width: 390, height: 844 }); await plan(p)
-  check('AC13', 'footer «Träningsplaneraren · Slice 56»', /Träningsplaneraren · Slice 56/.test(await p.locator('body').innerText()))
+  check('AC13', 'footer «Träningsplaneraren · Slice 57»', /Träningsplaneraren · Slice 57/.test(await p.locator('body').innerText()))
   await p.context().close()
 })
 await browser.close()

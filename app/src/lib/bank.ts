@@ -17,6 +17,8 @@ import type { Activity } from '../types'
 import { bankConfig, bankEnabled } from './bankConfig'
 import { activityToBankRow, BANK_EXERCISE_COLUMNS, rowToEntry, type BankEntry } from './bankRow'
 
+const LAYOUT_COLUMN = 'default_station_layout'
+
 export type BankStatus = 'bundled' | 'cached' | 'fresh' | 'stale'
 
 export interface BankSnapshot {
@@ -154,7 +156,11 @@ async function getJson(url: string, key: string, signal: AbortSignal): Promise<u
     signal,
     cache: 'no-store',
   })
-  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  if (!res.ok) {
+    // Keep PostgREST's message so a missing column (Slice 57) can be told apart.
+    const body = typeof res.text === 'function' ? await res.text().catch(() => '') : ''
+    throw new Error(`HTTP ${res.status} ${body.slice(0, 300)}`)
+  }
   return res.json()
 }
 
@@ -178,13 +184,14 @@ export async function refreshBank(options: RefreshOptions = {}): Promise<BankSta
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? BANK_TIMEOUT_MS)
   try {
-    const select = BANK_EXERCISE_COLUMNS.join(',')
+    const exercisesUrl = (cols: readonly string[]) =>
+      `${config.url}/rest/v1/exercises?select=${cols.join(',')}&status=in.(published,hidden)&order=sort_order.asc`
     const [rows, redskap] = await Promise.all([
-      getJson(
-        `${config.url}/rest/v1/exercises?select=${select}&status=in.(published,hidden)&order=sort_order.asc`,
-        config.key,
-        controller.signal,
-      ),
+      getJson(exercisesUrl(BANK_EXERCISE_COLUMNS), config.key, controller.signal).catch((err: unknown) => {
+        // Slice 57: schema-57.sql not pasted yet → ask again without that one column (heuristic sketch).
+        if (!(err instanceof Error) || !err.message.includes(LAYOUT_COLUMN)) throw err
+        return getJson(exercisesUrl(BANK_EXERCISE_COLUMNS.filter((c) => c !== LAYOUT_COLUMN)), config.key, controller.signal)
+      }),
       getJson(`${config.url}/rest/v1/redskap?select=id,label_sv,visual_key,sort_order&order=sort_order.asc`, config.key, controller.signal),
     ])
     if (!Array.isArray(rows) || !Array.isArray(redskap)) throw new Error('shape')

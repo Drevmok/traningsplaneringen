@@ -15,6 +15,20 @@ export interface StationEquipmentSlot {
   count: number
 }
 
+/** Slice 57 — one placed redskap in the saved sketch. x/z 0–1 across/into the floor strip, yaw radians. */
+export interface StationPose {
+  pieceId: string
+  x: number
+  z: number
+  yaw: number
+}
+
+/** Slice 57 (B1) — admin-set station sketch. Missing → the Slice 13 heuristic. */
+export interface StationLayout {
+  v: 1
+  poses: StationPose[]
+}
+
 /** Slice 13 — fixed catalog piece (Swedish redskap library) */
 export interface EquipmentPiece {
   id: string
@@ -52,6 +66,8 @@ export interface Activity {
    * Shown as förslag when SessionItem.stationEquipment is unset (undefined).
    */
   defaultStationEquipment?: StationEquipmentSlot[]
+  /** Slice 57 — Teknik only; poses match defaultStationEquipment one-to-one (C1). */
+  defaultStationLayout?: StationLayout
   progressionOf?: string
   regressionOf?: string
   stub?: boolean

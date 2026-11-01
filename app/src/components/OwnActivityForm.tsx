@@ -12,6 +12,8 @@ import {
 import type { Activity, BlockType, StationEquipmentSlot } from '../types'
 import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
+import { StationLayoutSheet } from './StationLayoutSheet'
+import { syncLayout } from '../data/stationLayout'
 
 interface Props {
   /** Slice 47 E1: edit only — coaches cannot add new own exercises. */
@@ -39,8 +41,10 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
     watchFor: initial.watchFor,
     safety: initial.safetyLine ?? '',
     equipment: initial.defaultStationEquipment ?? [],
+    layout: initial.defaultStationLayout,
   }))
   const [picking, setPicking] = useState(false)
+  const [placing, setPlacing] = useState(false)
   const [issues, setIssues] = useState<OwnIssue[]>([])
   useBodyScrollLock(true)
 
@@ -148,6 +152,9 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
             <button type="button" className="btn-secondary" onClick={() => setPicking(true)}>
               {UI.ownEquipmentPick}
             </button>
+            <button type="button" className="btn-secondary station-layout-open" onClick={() => setPlacing(true)}>
+              {UI.stationLayoutOpen}
+            </button>
             <p className="own-equipment-hint">{UI.ownEquipmentHint}</p>
           </div>
         )}
@@ -178,6 +185,17 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
           </button>
         </div>
       </form>
+      {placing && (
+        <StationLayoutSheet
+          slots={draft.equipment}
+          initialLayout={draft.layout}
+          onClose={() => setPlacing(false)}
+          onDone={(layout) => {
+            set('layout', layout)
+            setPlacing(false)
+          }}
+        />
+      )}
       {picking && (
         <StationComposeSheet
           activityTitle={draft.title}
@@ -186,7 +204,12 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
           initialSlots={draft.equipment}
           onClose={() => setPicking(false)}
           onSave={(slots) => {
-            set('equipment', slots)
+            // C1: the sketch follows the chip list.
+            setDraft((prev) => ({
+              ...prev,
+              equipment: slots,
+              layout: prev.layout && slots.length > 0 ? syncLayout(prev.layout, slots) : undefined,
+            }))
             setPicking(false)
           }}
         />

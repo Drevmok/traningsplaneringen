@@ -80,3 +80,35 @@ describe('rowToActivity — guards (AC 11)', () => {
     assert.equal(e?.sortOrder, 50)
   })
 })
+
+describe('Slice 57 — default_station_layout', () => {
+  const slots = teknik.defaultStationEquipment ?? []
+  const layout = {
+    v: 1 as const,
+    poses: slots.flatMap((s) =>
+      Array.from({ length: s.count }, (_, i) => ({ pieceId: s.pieceId, x: 0.1 + i * 0.1, z: 0.3, yaw: Math.PI / 2 })),
+    ),
+  }
+  it('round-trips row ↔ activity with a layout', () => {
+    assert.ok(slots.length > 0)
+    const withLayout: Activity = { ...teknik, defaultStationLayout: layout }
+    const row = rowOf(withLayout)
+    assert.deepEqual(row.default_station_layout, layout)
+    assert.deepEqual(rowToActivity(row)?.defaultStationLayout, layout)
+  })
+  it('non-Teknik row never gets a layout', () => {
+    const fun = seedActivities.find((a) => a.blockType === 'fun_and_games') as Activity
+    const row = { ...rowOf(fun), default_station_equipment: slots, default_station_layout: layout }
+    assert.equal(rowToActivity(row)?.defaultStationLayout, undefined)
+  })
+  it('missing column / broken layout → no layout, row still loads', () => {
+    const row = rowOf(teknik) as Partial<BankRow>
+    delete row.default_station_layout
+    const a = rowToActivity(row) as Activity
+    assert.ok(a)
+    assert.equal(a.defaultStationLayout, undefined)
+    const broken = silently(() => rowToActivity({ ...rowOf(teknik), default_station_layout: { v: 2, poses: [] } }))
+    assert.ok(broken)
+    assert.equal(broken?.defaultStationLayout, undefined)
+  })
+})

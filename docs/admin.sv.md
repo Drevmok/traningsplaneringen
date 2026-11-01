@@ -32,3 +32,7 @@ Längst ner finns föreningens mallar, med samma verktyg som förut.
 ## För tränare som inte är admin
 
 **Lägg till övning** visar bara Biblioteket. Egna övningar du redan har ligger kvar på din telefon. Du kan använda, ändra och ta bort dem, men inte lägga till nya.
+
+---
+
+**Slice 57:** I «Ändra i banken» och «Ny egen övning» (Teknik) trycker du **«Ställ upp stationen»** och drar redskapen dit de ska stå. Tryck «Vrid» för att vrida, «Klar» när du är nöjd. Ledarna ser samma uppställning i övningen och på utskriften.

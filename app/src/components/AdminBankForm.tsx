@@ -10,6 +10,8 @@ import { formatSourceTime, sanitizeSource } from '../lib/source'
 import type { BlockType, StationEquipmentSlot } from '../types'
 import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
+import { StationLayoutSheet } from './StationLayoutSheet'
+import { syncLayout } from '../data/stationLayout'
 
 interface Props {
   /** Slice 47: 'new' = «Ny egen övning» in Admin → a pending bank row; 'edit' = «Ändra i banken» on row `id`. */
@@ -48,6 +50,7 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
     watchFor: a?.watchFor ?? '',
     safety: a?.safetyLine ?? '',
     equipment: a?.defaultStationEquipment ?? [],
+    layout: a?.defaultStationLayout,
   }))
   const [sourceUrl, setSourceUrl] = useState(a?.source?.url ?? '')
   const [sourceCreator, setSourceCreator] = useState(a?.source?.creator ?? '')
@@ -57,6 +60,7 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
   const [experienced, setExperienced] = useState(a?.experiencedCoachOnly === true)
   const [issues, setIssues] = useState<OwnIssue[]>([])
   const [picking, setPicking] = useState(false)
+  const [placing, setPlacing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<'conflict' | 'failed' | null>(null)
 
@@ -100,6 +104,11 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
       source,
       experienced_coach_only: experienced,
     }
+    // Slice 57: send the layout on Teknik with redskap; send null only to clear a saved one
+    // (keeps saves working on a bank where schema-57.sql is not pasted yet).
+    const teknik = blockType === 'techniques' && draft.equipment.length > 0
+    if (teknik && draft.layout) patch.default_station_layout = draft.layout
+    else if (a?.defaultStationLayout) patch.default_station_layout = null
     setSaving(true)
     setError(null)
     const result = current && !isNew ? await saveRow(current, patch) : await insertPendingRow(patch)
@@ -178,6 +187,9 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
             <button type="button" className="btn-secondary" onClick={() => setPicking(true)}>
               {UI.ownEquipmentPick}
             </button>
+            <button type="button" className="btn-secondary station-layout-open" onClick={() => setPlacing(true)}>
+              {UI.stationLayoutOpen}
+            </button>
           </div>
         )}
         <label className="own-field">
@@ -232,6 +244,17 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
           </p>
         )}
       </form>
+      {placing && (
+        <StationLayoutSheet
+          slots={draft.equipment}
+          initialLayout={draft.layout}
+          onClose={() => setPlacing(false)}
+          onDone={(layout) => {
+            set('layout', layout)
+            setPlacing(false)
+          }}
+        />
+      )}
       {picking && (
         <StationComposeSheet
           activityTitle={draft.title}
@@ -240,7 +263,12 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
           initialSlots={draft.equipment}
           onClose={() => setPicking(false)}
           onSave={(slots) => {
-            set('equipment', slots)
+            // C1: the sketch follows the chip list.
+            setDraft((prev) => ({
+              ...prev,
+              equipment: slots,
+              layout: prev.layout && slots.length > 0 ? syncLayout(prev.layout, slots) : undefined,
+            }))
             setPicking(false)
           }}
         />

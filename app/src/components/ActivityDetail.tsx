@@ -18,6 +18,7 @@ import { CoachTipStrip } from './CoachTipStrip'
 import { VisualIcon } from '../icons'
 import { EquipmentIcon } from './equipmentMark'
 import { StationSketch } from './StationSketch'
+import { layoutForStation } from '../data/stationLayout'
 import { floorTip, validateActivityTip } from '../data/activityTips'
 import { getActivityById } from '../data/seedActivities'
 import type { Activity, StationEquipmentSlot } from '../types'
@@ -140,7 +141,7 @@ export function ActivityDetail({
           {BLOCK_LABELS[activity.blockType]} · {activity.durationMinutesDefault}{' '}
           min
         </p>
-        {sketchSlots.length > 0 && <StationSketch slots={sketchSlots} />}
+        {sketchSlots.length > 0 && <StationSketch slots={sketchSlots} layout={layoutForStation(activity, stationEquipment)} />}
 
         {needsReview && onMarkReviewed && (
           <div className="review-hint">

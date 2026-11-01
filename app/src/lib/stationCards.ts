@@ -3,7 +3,8 @@ import { floorTip } from '../data/activityTips'
 import { getEquipmentPiece } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
 import { placeableItems } from './hall'
-import type { Session, StationEquipmentSlot } from '../types'
+import { layoutForStation } from '../data/stationLayout'
+import type { Session, StationEquipmentSlot, StationLayout } from '../types'
 
 export interface StationCardModel {
   rank: number
@@ -14,6 +15,8 @@ export interface StationCardModel {
   safety?: string
   equipment?: string
   equipmentSlots?: StationEquipmentSlot[]
+  /** Slice 57 E1 — admin layout while the station uses the suggested list. */
+  equipmentLayout?: StationLayout
   experienced: boolean
 }
 
@@ -42,6 +45,7 @@ export function stationCards(session: Session): StationCardModel[] {
       safety: tip?.safety,
       equipment: equipmentLine(slots),
       equipmentSlots: slots,
+      equipmentLayout: layoutForStation(activity, item.stationEquipment),
       experienced: Boolean(activity?.experiencedCoachOnly),
     }
   })
