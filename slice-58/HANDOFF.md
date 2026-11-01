@@ -1,8 +1,9 @@
-# Slice 58 — HANDOFF till Builder (FÖRESLAGEN: ★ A1 B1 C1 D1 E1 F1)
+# Slice 58 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1)
 
-**Status:** **FÖRESLAGEN** — bygg inte förrän PO/Christoffer låst A–F (`decisions.md` skrivs vid lås). Bas main @ `b610103`, docs-gren `slice-58-docs`.
+**Status:** **LÅST** 2026-11-01 — «Ja, lås A1 B1 C1 D1 E1 F1» (Christoffer via PO). Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Builder). Bas main @ `b610103`, docs-gren `slice-58-docs` (tips = denna låscommit). **Ingen merge utan Christoffers OK.**
+**Bundle:** undantag över +512 B gzip godkänt — rapportera exakta byte mot main i PR.
 Rör inte Hallöversikt, `EQUIPMENT_PIECES`, Planera pass, Redigera redskap eller heuristikgrenen i `StationSketch`. Ingen hall-CAD, ingen `three`/WebGL. Städning (Scout #2) och Admin-kö (Scout #3) ingår inte.
-**SQL:** ingen med A1 + D1. Byter Christoffer till A2 (`v: 2`) måste triggern i `slice-57/content/schema-57.sql` uppdateras och klistras in **före merge** (Docs skriver då om `schema-58.sql`).
+**SQL:** ingen. A1 + D1 ryms i befintlig jsonb och trigger. Valfria `content/schema-58.sql` hoppas över i detta lås och ska inte klistras in.
 
 ## 1. Typer och sanering (A1, D1)
 - `types.ts:19–30`: `StationPose.y?: number` (0–1, saknas = 0). `StationLayout.surface?: { w: number; h: number }` (heltal 0–2). `v` stannar `1`.
@@ -41,4 +42,4 @@ Rör inte Hallöversikt, `EQUIPMENT_PIECES`, Planera pass, Redigera redskap elle
 - `verify-traningsplaneraren/features/admin.md`, `delad-bank.md`, egen-övning: höjdknappar, ytknappar.
 - `docs/station-compose.sv.md`, `docs/admin.sv.md`; rad i `docs/README.md` för Slice 58.
 - `data/blockMeta.ts:97` `SLICE_NUMBER = '58'`. Strängar enligt `content/microcopy.sv.md`.
-- `npm run build`, `npm run lint`, `bun test src` gröna. Bundle gz mot main i PR. Över +512 B kräver Christoffers OK (öppen fråga 5).
+- `npm run build`, `npm run lint`, `bun test src` gröna. Bundle gz mot main i PR. Över +512 B är godkänt (decisions.md fråga 5); exakt siffra i PR.

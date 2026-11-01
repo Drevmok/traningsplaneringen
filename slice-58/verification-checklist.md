@@ -1,6 +1,6 @@
-# Slice 58 — verifieringschecklista (FÖRESLAGEN: ★ A1 B1 C1 D1 E1 F1)
+# Slice 58 — verifieringschecklista (LÅST 2026-11-01: A1 B1 C1 D1 E1 F1)
 
-Telefon 390×844 om inget annat sägs. Admin-konto för bladraderna. Ingen SQL krävs (A1). Uppdateras vid lås.
+Telefon 390×844 om inget annat sägs. Admin-konto för bladraderna. Ingen SQL (A1; valfria `schema-58.sql` hoppas över). Bundle över +512 B OK, exakt siffra i PR.
 
 | # | Kontroll | Förväntat |
 |---|---|---|

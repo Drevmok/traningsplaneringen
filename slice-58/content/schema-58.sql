@@ -1,5 +1,6 @@
 -- Slice 58 — VALFRI skärpning av check_exercise_layout (y + surface). Behövs INTE för ★ A1.
 -- Christoffer klistrar in själv i Supabase SQL Editor om han vill. Körs INTE av agenter.
+-- LÅST 2026-11-01: HOPPAS ÖVER. Krävs inte för Slice 58 och ska inte klistras in nu (bara referens).
 -- Idempotent. Ändrar bara funktionen; trigger och kolumn från schema-57.sql ligger kvar.
 
 create or replace function public.check_exercise_layout() returns trigger

@@ -1,7 +1,7 @@
 # Slice 58 — migrering och offline-cache
 
 ## SQL
-Ingen med ★ A1. Valfri skärpning `content/schema-58.sql` (Christoffer, manuellt, före eller efter merge — den avvisar bara värden appen ändå aldrig skriver). Med A2 (`v: 2`): ny trigger **före merge**, Docs skriver om filen vid lås.
+**Ingen** (LÅST A1, 2026-11-01). Valfria `content/schema-58.sql` hoppas över i detta lås — krävs inte och klistras inte in. Filen ligger kvar som referens för en ev. senare skärpning.
 
 ## Bakåtkompatibilitet
 - Befintliga layouter (Slice 57): ingen `y`, ingen `surface` → golvet, auto-yta. Ingen backfill.

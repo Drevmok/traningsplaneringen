@@ -1,6 +1,6 @@
 # Slice 58 — mikrotext (sv)
 
-**Status:** FÖRESLAGEN 2026-11-01. Ändras vid lås.
+**Status:** LÅST 2026-11-01 (A1 B1 C1 D1 E1 F1).
 
 Befintliga Slice 57-strängar (`stationLayout*`, `stationSketchCaption`) behålls. Hinten får en mening till.
 

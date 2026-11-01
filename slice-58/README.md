@@ -1,7 +1,7 @@
 # Slice 58 — Stationsskiss y + yta (stapling + anpassad bakgrund)
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** 2026-11-01. Inte låst, inget byggt. Christoffer låser A–F i Docs-/PO-chatten innan Builder börjar. Bas: main @ `b610103` (Slice 57 live, footer «Slice 57»). Gren: `slice-58-docs`.
+**Status:** **LÅST** 2026-11-01 av Christoffer via PO: «Ja, lås A1 B1 C1 D1 E1 F1». Se [`decisions.md`](decisions.md). Bundle över +512 B OK, ingen SQL (valfria `schema-58.sql` hoppas över). Bas: main @ `b610103` (Slice 57 live, footer «Slice 57»). Gren: `slice-58-docs`.
 **Effort:** **M** (gränsfall S–M: ingen SQL, men drag/höjd/viewBox i två komponenter)
 **Källa:** Scout 2026-11-01 idé 1 (`/workspace/scout-drafts/2026-11-01-s57-followup.md`). Christoffer valde idé 1. Bild: `evidence/s57-detail-live.png` (live i dag, 390×844).
 
@@ -26,7 +26,7 @@ Slice 57 lät admin ställa upp stationen, men allt står på samma golv. Två l
 
 **Gapet:** ingen höjd, ritordning bara på z, fast skissyta.
 
-## A–F (★ = Docs förslag)
+## A–F (★ = Docs förslag, **alla ★ låsta**)
 
 ### A. Hur sparas höjden?
 - **A1 ★** Valfri `y` (0–1) på varje pose i **`v: 1`**. Saknas `y` → 0 (golvet). Gamla layouter ritas exakt som i dag. Ingen SQL krävs. En äldre app (cache/gammal flik) läser en ny layout utan höjd, platt, i stället för att falla till heuristik.
@@ -62,7 +62,10 @@ Pose-fält + sanering + sync, höjdknappar och tangenter, ny ritordning, bounds-
 
 **Bundle, ärligt:** uppskattat **+0,5–0,9 kB gzip** (bounds-funktion, tre–fem knappar, sortering, strängar). Troligen över mjuka +512 B. ★ Förslag: samma undantag som Slice 57 — Christoffer OK:ar, Builder rapporterar exakt siffra i PR. Tunnare (D2, utan manuella ytknappar) ≈ +0,4–0,6 kB.
 
-## Öppna frågor till Christoffer
+## Öppna frågor till Christoffer — **besvarade 2026-11-01** (se `decisions.md`)
+
+Svar: 1 A1 · 2 B1, 8 lager räcker · 3 C1 OK · 4 D1 · 5 bundle OK · 6 ingen SQL nu.
+
 
 1. **A:** valfri `y` i `v: 1` (A1 ★, ingen SQL) eller `v: 2` (A2, SQL före merge)?
 2. **B:** knappar «Höjd +/−» i lager (B1 ★) eller reglage (B2)? Räcker 8 lager?
