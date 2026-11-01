@@ -4,7 +4,8 @@
  * layout sheet share one order and the same caps.
  */
 import type { StationEquipmentSlot, StationLayout, StationPose } from '../types'
-import type { EquipmentKind } from '../components/equipmentMark'
+import { EQUIPMENT_ROW_WIDTH, type EquipmentKind } from '../components/equipmentMark'
+import { poseGeometry } from '../components/stationPose'
 
 export const LAYOUT_ORDER: ReadonlyArray<readonly [string, EquipmentKind, number]> = [
   ['eq-airtrack', 'air', 1],
@@ -86,13 +87,105 @@ export function sanitizeStationLayout(
     const { x, z, yaw } = p
     if (typeof x !== 'number' || typeof z !== 'number' || typeof yaw !== 'number') return undefined
     if (!Number.isFinite(x) || !Number.isFinite(z) || !Number.isFinite(yaw)) return undefined
-    poses.push({ pieceId: p.pieceId, x: clamp01(x), z: clamp01(z), yaw: normalizeYaw(yaw) })
+    const pose: StationPose = { pieceId: p.pieceId, x: clamp01(x), z: clamp01(z), yaw: normalizeYaw(yaw) }
+    const y = sanitizeY(p.y)
+    if (y !== undefined) pose.y = y
+    poses.push(pose)
   }
   const have = new Map<string, number>()
   for (const p of poses) have.set(p.pieceId, (have.get(p.pieceId) ?? 0) + 1)
   if (have.size !== want.size) return undefined
   for (const [id, n] of want) if (have.get(id) !== n) return undefined
-  return { v: 1, poses }
+  const surface = sanitizeSurface(r.surface)
+  return surface ? { v: 1, poses, surface } : { v: 1, poses }
+}
+
+export const MAX_LAYERS = 8
+
+/** A1: finite → clamped 0–1, rounded to 1/8; anything else → undefined (floor). */
+export function sanitizeY(raw: unknown): number | undefined {
+  if (typeof raw !== 'number' || !Number.isFinite(raw)) return undefined
+  return Math.round(clamp01(raw) * MAX_LAYERS) / MAX_LAYERS
+}
+
+const step02 = (n: unknown) =>
+  typeof n === 'number' && Number.isFinite(n) ? Math.min(2, Math.max(0, Math.round(n))) : undefined
+
+/** D1: w/h integers 0–2; invalid or both 0 → undefined so old layouts round-trip unchanged. */
+export function sanitizeSurface(raw: unknown): { w: number; h: number } | undefined {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return undefined
+  const r = raw as Record<string, unknown>
+  const w = step02(r.w)
+  const h = step02(r.h)
+  if (w === undefined || h === undefined || (w === 0 && h === 0)) return undefined
+  return { w, h }
+}
+
+export interface LayoutBox {
+  x0: number
+  y0: number
+  w: number
+  h: number
+}
+
+/** Today's fixed areas (Slice 57): sheet and detail view. */
+export const SHEET_FLOOR: LayoutBox = { x0: 0, y0: 60, w: 640, h: 130 }
+export const DETAIL_FLOOR: LayoutBox = { x0: 0, y0: 78, w: 640, h: 112 }
+const MARK_TOP = 56
+const MARK_BOTTOM = 4
+const MARGIN = 16
+const MIN_W = 320
+export const SURFACE_STEP_W = 80
+export const SURFACE_STEP_H = 40
+
+/**
+ * D1: viewBox from the marks (after poseTransform, yaw as bounding box) + margin + surface steps.
+ * Height never below `floor`; width never below 320 and never clips a mark.
+ */
+export function layoutBounds(layout: StationLayout, floor: LayoutBox = DETAIL_FLOOR): LayoutBox {
+  let left = Infinity
+  let right = -Infinity
+  let top = floor.y0
+  let bottom = floor.y0 + floor.h
+  for (const p of layout.poses) {
+    const kind = kindOf(p.pieceId)
+    if (!kind) continue
+    const { cx, cy, scale } = poseGeometry(p)
+    const hw = (EQUIPMENT_ROW_WIDTH[kind] / 2) * scale
+    // Local rect x −hw..hw, y −MARK_TOP..MARK_BOTTOM, rotated about (0,0).
+    const corners: Array<[number, number]> = [
+      [-hw, -MARK_TOP * scale],
+      [hw, -MARK_TOP * scale],
+      [-hw, MARK_BOTTOM * scale],
+      [hw, MARK_BOTTOM * scale],
+    ]
+    const cos = Math.cos(p.yaw)
+    const sin = Math.sin(p.yaw)
+    for (const [lx, ly] of corners) {
+      const X = cx + lx * cos - ly * sin
+      const Y = cy + lx * sin + ly * cos
+      left = Math.min(left, X - MARGIN)
+      right = Math.max(right, X + MARGIN)
+      top = Math.min(top, Y - MARGIN)
+      bottom = Math.max(bottom, Y + MARGIN)
+    }
+  }
+  if (!Number.isFinite(left)) {
+    left = floor.x0
+    right = floor.x0 + floor.w
+  }
+  if (right - left < MIN_W) {
+    const mid = (left + right) / 2
+    left = mid - MIN_W / 2
+    right = mid + MIN_W / 2
+  }
+  const sw = layout.surface?.w ?? 0
+  const sh = layout.surface?.h ?? 0
+  left -= (sw * SURFACE_STEP_W) / 2
+  right += (sw * SURFACE_STEP_W) / 2
+  top -= sh * SURFACE_STEP_H
+  const r1 = (n: number) => Math.round(n * 10) / 10
+  return { x0: r1(left), y0: r1(top), w: r1(right - left), h: r1(bottom - top) }
 }
 
 /** C1: the layout follows the chip list. New/more → appended at the end; fewer/removed → last poses dropped. */
@@ -114,7 +207,7 @@ export function syncLayout(layout: StationLayout, slots: readonly StationEquipme
       kept.push({ pieceId: id, x: lastX, z: 0.5, yaw: 0 })
     }
   }
-  return { v: 1, poses: kept }
+  return layout.surface ? { v: 1, poses: kept, surface: layout.surface } : { v: 1, poses: kept }
 }
 
 /** Start state in the sheet: the heuristic order (no approach mats — they are not in the list), spread over 0–1. */

@@ -31,3 +31,5 @@
 | Kodstatus | `#admin-code-status` | `components/AdminLoginSheet.tsx` |
 
 **Slice 57:** Banken hämtar `default_station_layout`. Saknas kolumnen (SQL ej inklistrad) och felet nämner den → ny hämtning utan kolumnen, skiss med heuristik. Trasig layout (fel `v`, NaN, okänt `pieceId`, fel antal) → saneras bort, heuristik. Detaljvy och utskrift ritar layouten bara när stationens redskap matchar receptet (E1); annars heuristiken som på main. Layouten följer med i cache (offline) och i delade egna övningar.
+
+**Slice 58 (A1 B1 C1 D1 E1 F1):** I skissbladet «Så ska stationen stå» höjer och sänker du valt redskap med **«Höjd +»** / **«Höjd −»** (ett lager per tryck, max 8; PageUp/PageDown). «Lager N» visas när N > 0. Drag och piltangenter ändrar bara x/djup. Ytan växer med uppställningen (aldrig lägre än förut, minst 320 bred, klipper aldrig); **«Bredare yta»** / **«Högre yta»** (0–2 steg) och **«Standardyta»**. Sparas som valfri `y` per pose och `surface` i samma `{v:1}`-jsonb — ingen SQL. «Ställ i rad igen» nollar höjd och yta. Detaljvy och Skriv ut passet ritar stapel och yta lika.

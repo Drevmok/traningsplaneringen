@@ -3415,3 +3415,7 @@
     display: none !important;
   }
 }
+.station-layout-layer {
+  align-self: center;
+  font-size: 0.9rem;
+}

@@ -57,7 +57,7 @@ export PATH="$HERE/shim:$PATH"
 export PW_CORE="$HERE/pw-netlog.mjs" SMOKE_ROOT=$ROOT S30_URL=$P S31_OFF_URL=$P S31_ON_URL=$B S32_OFF_URL=$P S32_ON_URL=$B S33_OFF_URL=$P S33_ON_URL=$B S34_URL=$P \
   S35_OFF=$P S35_ON=$B S36_OFF_URL=$P S36_ON_URL=$B S37_URL=$B S38_URL=$P S38_ROOT=$ROOT S39_URL=$P S39_ROOT=$ROOT \
   S47_SEED=$ROOT/tools/bank/out/bank-seed.json
-for n in 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57; do export S${n}_BR=$P S${n}_MAIN=$M S${n}_ROOT=$ROOT S${n}_FIX=$P S${n}_SHOTS=$OUT/shots; done
+for n in 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58; do export S${n}_BR=$P S${n}_MAIN=$M S${n}_ROOT=$ROOT S${n}_FIX=$P S${n}_SHOTS=$OUT/shots; done
 export S46_BR=$B S47_BR=$B S47_MAIN=$M S52_BR=$B   # bank-env builds (see smoke-map "build")
 cd "$ROOT"
 for s in "$@"; do
