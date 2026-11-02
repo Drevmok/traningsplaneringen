@@ -19,44 +19,7 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 ## Proposed
 
-### Scout outside sweep 2026-11 (similar apps + unmet demand)
-
-Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
-
-#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — Effort **M**
-
-- **Title:** On a Teknik pass item (Passbyggaren; optionally Kör passet), chips «Lättare» / «Svårare» swap the activity in place when `regressionOf` / `progressionOf` links exist.
-- **Coach benefit:** Mixed-ability group — station too hard/easy → one tap instead of Bibliotek search; minutes and hall marker stay.
-- **Evidence (A):** [PatioLab](https://patiolab.us/) «easier/harder variations» on activity cards; [Pembee gymnastics lesson plans](https://www.pembee.app/blog/gymnastics-lesson-plans) differentiation grid (forward roll wedge → flat → dive) + «Reuse the same lesson template every week and swap only the station progression»; [MyTeams](https://myteams.no/en/artikler/differensiering-pa-trening/) «one drill, three levels»; [Kunskapsarenan – Teknik och metodik](https://kunskapsarenan.se/gymnastik/barngymnastik-leka-och-lara/teknik-och-metodik) progression by making the same station harder.
-- **Evidence (B):** New coaches ask for station/drill ideas when lost ([r/GymnasticsCoaching «New to Coaching»](https://www.reddit.com/r/GymnasticsCoaching/comments/1kdvga7/new_to_coaching_please_help/) — quote from search index; Reddit blocks live fetch); ChalkBucket [Do you write lesson plans?](https://chalkbucket.com/threads/do-you-write-lesson-plans.42403/) marie83 on 12-week progressions (thread verified in browser).
-- **Repo fact:** Fields already exist (`Activity.progressionOf` / `regressionOf`, ActivityDetail «Bygger på» / «Lättare variant av», bank import). Local seeds have ~6 links; bank seed SQL parts write `progression_of`/`regression_of` as null — content work is the bulk.
-- **Effort:** M (small UI; ~15–25 Teknik pairs in the bank + admin link fields that already exist on import).
-- **Simplicity check:** Replaces a bank search with one tap; chips only when a link exists; no new screen or setting.
-- **Standing lock?** No fight. Not skill-assessment / roster tracking (Oct drop). Hall/CAD/accounts untouched.
-- **Suggested slice shape:** Fill bank links first (or same pack). Pass-row chips → replace `activityId`, keep duration + hall placement, refresh redskap proposals. ActivityDetail labels stay. Optional phase 2 = idea #3. Verifier: Lättare/Svårare changes title, same minutes/marker; no chip when unlinked.
-
-#### 2. **B** — «Medan du väntar» i Teknik-text — Effort **S**
-
-- **Title:** One line in existing Teknik `how_to` (or the same surface coaches already see) with a waiting drill tied to the main skill — **text only**, not an extra hall marker.
-- **Coach benefit:** Kids in queue have something to do without the new coach inventing side work mid-floor.
-- **Evidence:** Kunskapsarenan Stationsträning: «För att barnen ska slippa stå och vänta på sin tur ska du även bygga två sidostationer bredvid som är direkt kopplade till huvudstationen»; ChalkBucket [Bar Rotation–Waiting/Sitting](https://chalkbucket.com/threads/bar-rotation-waiting-sitting.19005/) (bogwoppit / Harv — verified in browser); Swedish youth-coach guidance against köbildning (e.g. Svensk fotboll ny-tränare guide via search).
-- **Effort:** S if content lives inside `how_to` (preferred); M if a new bank field.
-- **Simplicity check:** Bank content only — no new step, screen, or marker. Sidostation-as-marker would fight one-marker-per-station; text does not.
-- **Standing lock?** No fight when text-only.
-- **Suggested slice shape:** Content pass on ~10–20 Teknik rows: append «Medan du väntar: …». Show wherever how_to already shows (detail / Kör if already there). No schema change if text suffices. Verifier: sample rows show the line; hall still one marker.
-
-#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1)
-
-- **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a `progressionOf` link.
-- **Coach benefit:** Week 2 without rebuilding — same template, one level up (Pembee term ladder).
-- **Evidence:** Pembee «Reuse the same lesson template every week and swap only the station progression»; Kunskapsarenan «Kör gärna en och samma redskapsbana några gånger i rad…»; ChalkBucket marie83 12-week progressions (same thread as #1).
-- **Effort:** S once #1 links exist; M alone (would need the links anyway).
-- **Simplicity check:** Borderline (one optional action) — only worth it after #1; otherwise a no-op.
-- **Standing lock?** No fight. Bundle / phase 2 of #1, not a separate large pack without #1.
-- **Suggested slice shape:** Only if #1 Approved. One control on the Ny-vecka result; skip items without links. Verifier: with links → level up; without → no change / control hidden.
-
-**Dropped this month (simplicity / locks / already shipped):** Gymnastikförbundet Inex (accounts); KINETIC / Sportplan / PlanSport Pro (accounts); Gymnastics Tools floor planner (hall CAD); auto-advance at 00:00 (Slice 34 D1); sidostation as extra markers; purpose/syfte field (Oct drop); TeamSnap roster features; Coach K «3 clicks» (= wizard already); available-equipment filter (adds a step + fights fixed EQUIPMENT_PIECES). **Note for PO (not Proposed):** new ChalkBucket setup-time quotes could reopen parked «Förråd station breakdown» later — held out to keep this run at 3 ideas.
-
+_(none open — Scout outside sweep 2026-11 #1–#3 **Approved 2026-11-02** by Christoffer; full text moved to **Approved** below)_
 
 ### Scout polish pass 2026-10-13 (Slice 37 live)
 
@@ -260,7 +223,45 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## Approved (ready for a slice pack)
 
-_(none — 2026-10-13 polish #1–#5 shipped in Slices 39–43; see Shipped)_
+### Scout outside sweep 2026-11 (similar apps + unmet demand) — **Approved 2026-11-02**
+
+**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** after PR #65 (`72690c1`). No slice pack yet; Planner drafts one when Christoffer says “what’s next?”. #3 is phase 2 of #1 (bundle or after #1).
+
+Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
+
+#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — Effort **M** — **Approved 2026-11-02**
+
+- **Title:** On a Teknik pass item (Passbyggaren; optionally Kör passet), chips «Lättare» / «Svårare» swap the activity in place when `regressionOf` / `progressionOf` links exist.
+- **Coach benefit:** Mixed-ability group — station too hard/easy → one tap instead of Bibliotek search; minutes and hall marker stay.
+- **Evidence (A):** [PatioLab](https://patiolab.us/) «easier/harder variations» on activity cards; [Pembee gymnastics lesson plans](https://www.pembee.app/blog/gymnastics-lesson-plans) differentiation grid (forward roll wedge → flat → dive) + «Reuse the same lesson template every week and swap only the station progression»; [MyTeams](https://myteams.no/en/artikler/differensiering-pa-trening/) «one drill, three levels»; [Kunskapsarenan – Teknik och metodik](https://kunskapsarenan.se/gymnastik/barngymnastik-leka-och-lara/teknik-och-metodik) progression by making the same station harder.
+- **Evidence (B):** New coaches ask for station/drill ideas when lost ([r/GymnasticsCoaching «New to Coaching»](https://www.reddit.com/r/GymnasticsCoaching/comments/1kdvga7/new_to_coaching_please_help/) — quote from search index; Reddit blocks live fetch); ChalkBucket [Do you write lesson plans?](https://chalkbucket.com/threads/do-you-write-lesson-plans.42403/) marie83 on 12-week progressions (thread verified in browser).
+- **Repo fact:** Fields already exist (`Activity.progressionOf` / `regressionOf`, ActivityDetail «Bygger på» / «Lättare variant av», bank import). Local seeds have ~6 links; bank seed SQL parts write `progression_of`/`regression_of` as null — content work is the bulk.
+- **Effort:** M (small UI; ~15–25 Teknik pairs in the bank + admin link fields that already exist on import).
+- **Simplicity check:** Replaces a bank search with one tap; chips only when a link exists; no new screen or setting.
+- **Standing lock?** No fight. Not skill-assessment / roster tracking (Oct drop). Hall/CAD/accounts untouched.
+- **Suggested slice shape:** Fill bank links first (or same pack). Pass-row chips → replace `activityId`, keep duration + hall placement, refresh redskap proposals. ActivityDetail labels stay. Optional phase 2 = idea #3. Verifier: Lättare/Svårare changes title, same minutes/marker; no chip when unlinked.
+
+#### 2. **B** — «Medan du väntar» i Teknik-text — Effort **S** — **Approved 2026-11-02**
+
+- **Title:** One line in existing Teknik `how_to` (or the same surface coaches already see) with a waiting drill tied to the main skill — **text only**, not an extra hall marker.
+- **Coach benefit:** Kids in queue have something to do without the new coach inventing side work mid-floor.
+- **Evidence:** Kunskapsarenan Stationsträning: «För att barnen ska slippa stå och vänta på sin tur ska du även bygga två sidostationer bredvid som är direkt kopplade till huvudstationen»; ChalkBucket [Bar Rotation–Waiting/Sitting](https://chalkbucket.com/threads/bar-rotation-waiting-sitting.19005/) (bogwoppit / Harv — verified in browser); Swedish youth-coach guidance against köbildning (e.g. Svensk fotboll ny-tränare guide via search).
+- **Effort:** S if content lives inside `how_to` (preferred); M if a new bank field.
+- **Simplicity check:** Bank content only — no new step, screen, or marker. Sidostation-as-marker would fight one-marker-per-station; text does not.
+- **Standing lock?** No fight when text-only.
+- **Suggested slice shape:** Content pass on ~10–20 Teknik rows: append «Medan du väntar: …». Show wherever how_to already shows (detail / Kör if already there). No schema change if text suffices. Verifier: sample rows show the line; hall still one marker.
+
+#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02**
+
+- **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a `progressionOf` link.
+- **Coach benefit:** Week 2 without rebuilding — same template, one level up (Pembee term ladder).
+- **Evidence:** Pembee «Reuse the same lesson template every week and swap only the station progression»; Kunskapsarenan «Kör gärna en och samma redskapsbana några gånger i rad…»; ChalkBucket marie83 12-week progressions (same thread as #1).
+- **Effort:** S once #1 links exist; M alone (would need the links anyway).
+- **Simplicity check:** Borderline (one optional action) — only worth it after #1; otherwise a no-op.
+- **Standing lock?** No fight. Bundle / phase 2 of #1, not a separate large pack without #1.
+- **Suggested slice shape:** Only if #1 Approved. One control on the Ny-vecka result; skip items without links. Verifier: with links → level up; without → no change / control hidden.
+
+**Dropped this month (simplicity / locks / already shipped):** Gymnastikförbundet Inex (accounts); KINETIC / Sportplan / PlanSport Pro (accounts); Gymnastics Tools floor planner (hall CAD); auto-advance at 00:00 (Slice 34 D1); sidostation as extra markers; purpose/syfte field (Oct drop); TeamSnap roster features; Coach K «3 clicks» (= wizard already); available-equipment filter (adds a step + fights fixed EQUIPMENT_PIECES). **Note for PO (not Proposed):** new ChalkBucket setup-time quotes could reopen parked «Förråd station breakdown» later — held out to keep this run at 3 ideas.
 
 
 ---
