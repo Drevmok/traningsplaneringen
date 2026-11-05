@@ -17,6 +17,8 @@ interface Props {
   /** Slice 47: 'new' = «Ny egen övning» in Admin → a pending bank row; 'edit' = «Ändra i banken» on row `id`. */
   mode?: 'edit' | 'new'
   id?: string
+  /** Slice 59 D1 — open «Så ska stationen stå» immediately (the Saknar skiss queue). */
+  openLayout?: boolean
   onSaved: () => void
   onCancel: () => void
 }
@@ -35,7 +37,7 @@ const ISSUE_TEXT: Record<OwnIssue, string> = {
  * plus Källa and Bara för erfarna. Tags, difficulty, links, visual and order are never sent,
  * so the database keeps them. Saving clears Behöver granskas. Lazy chunk (admins only).
  */
-export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCancel }: Props) {
+export default function AdminBankForm({ mode = 'edit', id = '', openLayout, onSaved, onCancel }: Props) {
   useBodyScrollLock(true)
   const bank = useAdminBank()
   const online = useOnline()
@@ -60,7 +62,9 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
   const [experienced, setExperienced] = useState(a?.experiencedCoachOnly === true)
   const [issues, setIssues] = useState<OwnIssue[]>([])
   const [picking, setPicking] = useState(false)
-  const [placing, setPlacing] = useState(false)
+  const [placing, setPlacing] = useState(
+    openLayout === true && draft.blockType === 'techniques' && draft.equipment.length > 0,
+  )
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<'conflict' | 'failed' | null>(null)
 
@@ -104,11 +108,13 @@ export default function AdminBankForm({ mode = 'edit', id = '', onSaved, onCance
       source,
       experienced_coach_only: experienced,
     }
-    // Slice 57: send the layout on Teknik with redskap; send null only to clear a saved one
-    // (keeps saves working on a bank where schema-57.sql is not pasted yet).
+    // Slice 57 + 59 G1: send a layout only when this edit replaced the object.
+    // The same reference as the loaded row leaves the column untouched (Klar without a change,
+    // including fields sanitizing would drop). Null only clears a saved layout.
     const teknik = blockType === 'techniques' && draft.equipment.length > 0
-    if (teknik && draft.layout) patch.default_station_layout = draft.layout
-    else if (a?.defaultStationLayout) patch.default_station_layout = null
+    if (teknik && draft.layout) {
+      if (draft.layout !== a?.defaultStationLayout) patch.default_station_layout = draft.layout
+    } else if (a?.defaultStationLayout) patch.default_station_layout = null
     setSaving(true)
     setError(null)
     const result = current && !isNew ? await saveRow(current, patch) : await insertPendingRow(patch)

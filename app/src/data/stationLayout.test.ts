@@ -7,11 +7,15 @@ import { seedActivities } from './seedActivities.ts'
 import {
   defaultLayoutFrom,
   DETAIL_FLOOR,
+  doneLayout,
   layoutBounds,
   layoutForStation,
+  MAX_LAYERS,
+  normalizeYaw,
   SHEET_FLOOR,
   SURFACE_STEP_H,
   SURFACE_STEP_W,
+  sameLayout,
   sanitizeStationLayout,
   syncLayout,
 } from './stationLayout.ts'
@@ -247,5 +251,97 @@ describe('Slice 58 y + yta (A1 C1 D1)', () => {
     const l = base({ surface: { w: 1, h: 2 } }, 0.25)
     const json = JSON.parse(JSON.stringify(sanitizeStationLayout(l, two)))
     assert.deepEqual(sanitizeStationLayout(json, two), sanitizeStationLayout(l, two))
+  })
+})
+
+describe('Slice 59 sameLayout (G1)', () => {
+  const s: StationEquipmentSlot[] = [
+    { pieceId: 'eq-trampett', count: 1 },
+    { pieceId: 'eq-landningsmatta', count: 1 },
+  ]
+  const pose = (over: Partial<StationLayout['poses'][number]> = {}): StationLayout => ({
+    v: 1,
+    poses: [{ pieceId: 'eq-trampett', x: 0.4, z: 0.5, yaw: 0.3, ...over }],
+  })
+
+  it('identical and defaultLayoutFrom against itself', () => {
+    const row = defaultLayoutFrom(s)
+    assert.equal(sameLayout(row, row), true)
+    assert.equal(sameLayout(defaultLayoutFrom(s), defaultLayoutFrom(s)), true)
+    assert.equal(sameLayout(good, structuredClone(good)), true)
+  })
+
+  it('x +0.02 is a change; +0.02 then −0.02 is not', () => {
+    const row = defaultLayoutFrom(s)
+    const moved: StationLayout = { ...row, poses: row.poses.map((p, i) => (i === 0 ? { ...p, x: p.x + 0.02 } : p)) }
+    assert.equal(sameLayout(row, moved), false)
+    const back: StationLayout = { ...moved, poses: moved.poses.map((p, i) => (i === 0 ? { ...p, x: p.x - 0.02 } : p)) }
+    assert.equal(sameLayout(row, back), true)
+  })
+
+  it('yaw +π/2 four times via normalizeYaw is the same turn', () => {
+    let yaw = 0.3
+    for (let i = 0; i < 4; i++) yaw = normalizeYaw(yaw + Math.PI / 2)
+    assert.equal(sameLayout(pose(), pose({ yaw })), true)
+  })
+
+  it('one layer up is a change; up and back down is not', () => {
+    assert.equal(sameLayout(pose(), pose({ y: 1 / MAX_LAYERS })), false)
+    const down = pose({ y: 1 / MAX_LAYERS })
+    delete down.poses[0].y
+    assert.equal(sameLayout(pose(), down), true)
+    assert.equal(sameLayout(pose(), pose({ y: 0 })), true)
+  })
+
+  it('surface {w:1,h:0} differs from none; {w:0,h:0} matches a missing surface', () => {
+    assert.equal(sameLayout(pose(), { ...pose(), surface: { w: 1, h: 0 } }), false)
+    assert.equal(sameLayout(pose(), { ...pose(), surface: { w: 0, h: 0 } }), true)
+  })
+
+  it('different pieceId order or length is a change', () => {
+    const swapped: StationLayout = {
+      v: 1,
+      poses: [
+        { pieceId: 'eq-landningsmatta', x: 0.2, z: 0.5, yaw: 0 },
+        { pieceId: 'eq-trampett', x: 0.8, z: 0.5, yaw: 0 },
+      ],
+    }
+    const ordered: StationLayout = { v: 1, poses: [swapped.poses[1], swapped.poses[0]] }
+    assert.equal(sameLayout(swapped, ordered), false)
+    assert.equal(sameLayout(swapped, { v: 1, poses: swapped.poses.slice(0, 1) }), false)
+  })
+})
+
+describe('Slice 59 doneLayout (G1 H1)', () => {
+  const s: StationEquipmentSlot[] = [{ pieceId: 'eq-trampett', count: 1 }]
+  const start = defaultLayoutFrom(s)
+  const saved: StationLayout = {
+    v: 1,
+    poses: [{ pieceId: 'eq-trampett', x: 0.2, z: 0.3, yaw: 0, y: 0.25 }],
+    surface: { w: 1, h: 1 },
+  }
+
+  it('empty, reset, unchanged and edited', () => {
+    assert.equal(doneLayout(start, start, undefined, false, true), undefined)
+    assert.equal(doneLayout(saved, start, saved, true, false), undefined)
+    assert.equal(doneLayout(start, start, undefined, false, false), undefined)
+    assert.equal(doneLayout(saved, saved, saved, false, false), saved)
+    const edited: StationLayout = { v: 1, poses: [{ ...start.poses[0], x: 0.9 }] }
+    assert.equal(doneLayout(start, edited, undefined, false, false), edited)
+  })
+
+  it('move and move back returns the exact initialLayout object', () => {
+    const startSaved = syncLayout(saved, s)
+    const nudged: StationLayout = {
+      v: 1,
+      poses: startSaved.poses.map((p) => ({ ...p, x: p.x + 0.02 })),
+      surface: startSaved.surface,
+    }
+    const back: StationLayout = {
+      v: 1,
+      poses: nudged.poses.map((p) => ({ ...p, x: p.x - 0.02 })),
+      surface: nudged.surface,
+    }
+    assert.equal(doneLayout(startSaved, back, saved, false, false), saved)
   })
 })
