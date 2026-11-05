@@ -1,6 +1,6 @@
 # Slice 59 — mikrotext (sv)
 
-**Status:** FÖRESLAGEN 2026-11-05 (★ A1 B1 C1 D1 E1 F1 G1 H1). Låses med A–H.
+**Status:** LÅST 2026-11-05 (A1 B1 C1 D1 E1 F1 G1 H1). Se `../decisions.md`.
 
 Två nya strängar. Allt annat återanvänds. **G1/H1 (rev) behöver ingen ny text:** «Klar» utan ändring gör ingenting, och bladet visar ingen extra hint.
 

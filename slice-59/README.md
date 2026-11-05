@@ -1,8 +1,8 @@
 # Slice 59 — Städning av stationsskisser + Admin-kö «Saknar skiss»
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** 2026-11-05. Christoffers «Kör på med Slice 59!» (via PO) startar slicen men är inget A–F-lås. Låset går via PO och Christoffer, ordagrant. `decisions.md` skrivs först vid lås. Bas: main @ `3f0a729` (Slice 58 live, footer «Slice 58»). Gren: `slice-59-docs`.
-**Rev 2026-11-05 (PO-kort):** «Klar» utan ändring ska inte skapa eller spara en uppställning. Nya bokstäver **G** (vad som är en ändring) och **H** (var regeln gäller). A–F har samma innebörd som PO redan fått, med en not i E1 och F1. Fortfarande FÖRESLAGEN, inget lås.
+**Status:** **LÅST** 2026-11-05 av Christoffer via PO: «Ja, lås A1 B1 C1 D1 E1 F1 G1 H1. Ändra Slice 57-flödet så Klar utan ändring bevarar skissen i alla skissvyer.». Se [`decisions.md`](decisions.md). Ingen SQL. Bundle inom +512 B gzip (inget undantag). Bas: main @ `3f0a729` (Slice 58 live, footer «Slice 58»). Gren: `slice-59-docs`.
+**Rev 2026-11-05 (PO-kort → lås):** «Klar» utan ändring ska inte skapa eller spara en uppställning. Nya bokstäver **G** (vad som är en ändring) och **H** (var regeln gäller). A–F oförändrade. Låst A1 B1 C1 D1 E1 F1 G1 H1; H1 ersätter Slice 57 «Klar»-beteendet i alla skissvyer.
 **Effort:** **S** (två rena hjälpfunktioner, en hopfälld lista i Admin, en prop i `AdminBankForm`, en jämförelse i «Klar» i skissbladet, två strängar. Ingen SQL.)
 **Källa:** Scout 2026-11-01 idé 2 och 3 (`/workspace/scout-drafts/2026-11-01-s57-followup.md`). Scout föreslog att de två idéerna buntas («Bundle med #2»). Slice 58 lämnade dem uttryckligen utanför (`slice-58/decisions.md`).
 
@@ -135,7 +135,9 @@ Ren funktion `needsLayout` + test, en sektion i `AdminArea`, en prop `openLayout
 - **Sparning nollställer «Behöver granskas».** Befintligt beteende i `saveRow`. Notera i ship notes.
 - **Smokes:** `AdminArea.tsx` och `AdminBankForm.tsx` finns i `verifier/smoke-map.json` (slice-32, slice-47). C1 lägger sektionen mellan «Importera övningar» och «Föreningens mallar», så ordningskollen i slice-47 AC11 håller. Verifier kör ändå båda mot baslinjen.
 
-## Öppna frågor till Christoffer (★ = förslag om du inte svarar)
+## Öppna frågor till Christoffer — **besvarade 2026-11-05** (se `decisions.md`)
+
+Svar: 1 «Saknar skiss (n)» · 2 B1 (published + pending) · 3 D1 · 4 inte F2 · 5 nej «skissen räcker» · 6 städpass efter live · 7 låscitat · 8 G1 · 9 H1 (uttryckligt ja) · 10 nej i denna slice. Fråga 9 besvarades uttryckligen i citatet; 1–6, 8, 10 togs som ★ genom A1–H1-låset.
 
 1. **Rubrik:** «Saknar skiss (n)» ★, «Saknar layout (n)» eller «Saknar uppställning (n)»?
 2. **Väntande rader:** ska Teknik som väntar på godkännande också stå i kön? ★ Ja, published + pending, inte dolda (B1).

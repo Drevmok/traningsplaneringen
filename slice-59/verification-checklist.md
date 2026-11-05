@@ -1,4 +1,4 @@
-# Slice 59 — verifieringschecklista (FÖRESLAGEN, ★ A1 B1 C1 D1 E1 F1 G1 H1)
+# Slice 59 — verifieringschecklista (LÅST 2026-11-05: A1 B1 C1 D1 E1 F1 G1 H1)
 
 Telefon 390×844 om inget annat sägs. Admin-konto i testbank (fake bank / egen databas), **aldrig** den riktiga banken. Ingen SQL. Fixtur: minst 3 published Teknik med redskap utan layout, 1 pending Teknik med redskap utan layout, 1 hidden Teknik med redskap utan layout, 1 Teknik med giltig layout, 1 Teknik utan redskap, 1 published Teknik med layout där antalet inte stämmer mot redskapen, 1 uppvärmning med redskap. En av de 3 published utan layout har trampett utan bana (visar ansatsmattor). Ytterligare 1 Teknik med Slice 58-layout (`y` och `surface`), och 1 egen övning med layout i localStorage.
 
@@ -8,7 +8,7 @@ Telefon 390×844 om inget annat sägs. Admin-konto i testbank (fake bank / egen 
 
 **34 kontroller** (21 före rev 2026-11-05). Nya: 11–23 (G1 H1). Gamla 11–21 är nu 24–34. Kontroll 6 har fått kontrollen av sparad layout.
 
-Raderna skrivs om vid låset om Christoffer väljer annat än ★.
+Låst ★ A1 B1 C1 D1 E1 F1 G1 H1 — raderna oförändrade.
 
 | # | Kontroll | Förväntat |
 |---|---|---|

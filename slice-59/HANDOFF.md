@@ -1,11 +1,11 @@
-# Slice 59 — HANDOFF till Builder (FÖRESLAGEN, ★ A1 B1 C1 D1 E1 F1 G1 H1)
+# Slice 59 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1 G1 H1)
 
-**Status:** **FÖRESLAGEN** 2026-11-05. **Bygg inte förrän låst.** Christoffer låser via PO, ordagrant. Då skrivs `decisions.md` och HANDOFF uppdateras. PO skickar byggkortet; Docs pingar inte Builder. Bas main @ `3f0a729`, docs-gren `slice-59-docs`. **Ingen merge utan Christoffers OK.**
-**Rev 2026-11-05:** G1 H1 tillagda (avsnitt 3b). A–F oförändrade.
-**SQL:** ingen. **Bundle:** väntas inom +512 B gzip (uppskattat +0,25–0,45 kB); rapportera exakt siffra mot main i PR.
+**Status:** **LÅST** 2026-11-05 — «Ja, lås A1 B1 C1 D1 E1 F1 G1 H1. Ändra Slice 57-flödet så Klar utan ändring bevarar skissen i alla skissvyer.» (Christoffer via PO). Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `3f0a729`, docs-gren `slice-59-docs`. **Ingen merge utan Christoffers OK.**
+**Rev 2026-11-05:** G1 H1 tillagda (avsnitt 3b). A–F oförändrade. H1 ersätter Slice 57 «Klar» utan ändring i alla skissvyer; «Ställ i rad igen» behåller 57-betydelsen.
+**SQL:** ingen. **Bundle:** inom +512 B gzip (uppskattat +0,25–0,45 kB) — **inget undantag**; rapportera exakta byte mot main i PR.
 Rör inte ledarens vy (`StationSketch`, `ActivityDetail`, `PassPrint`/`stationCards`), Hallöversikt, Redigera redskap, Planera pass eller `EQUIPMENT_PIECES`. I `StationLayoutSheet` och `data/stationLayout.ts` ändras **bara** det som står i 3b. `syncLayout`, `defaultLayoutFrom`, sanering och ritning rörs inte. Månadssvep 2026-11 #1–#3 ingår inte.
 
-Texten nedan följer ★. Väljer Christoffer något annat skriver Docs om avsnittet vid låset.
+Texten nedan följer det låsta ★-valet A1 B1 C1 D1 E1 F1 G1 H1.
 
 ## 1. Urval (B1) — ny ren fil i admin-chunken
 - `app/src/lib/admin/layoutQueue.ts`:
