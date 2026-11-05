@@ -3,6 +3,7 @@ import { UI } from '../data/blockMeta'
 import { getEquipmentPiece } from '../data/equipmentPieces'
 import {
   defaultLayoutFrom,
+  doneLayout,
   kindOf,
   layoutBounds,
   MAX_LAYERS,
@@ -19,7 +20,7 @@ import { layerLift, LAYOUT_VIEW_W, poseOrder, poseTransform, SKETCH_FLOOR_Y } fr
 interface Props {
   slots: StationEquipmentSlot[]
   initialLayout?: StationLayout
-  /** undefined = «Ställ i rad igen» (back to the heuristic). */
+  /** undefined = automatic sketch (no layout, or «Ställ i rad igen»). Unchanged = `initialLayout` back. */
   onDone: (layout?: StationLayout) => void
   onClose: () => void
 }
@@ -244,9 +245,10 @@ export function StationLayoutSheet({ slots, initialLayout, onDone, onClose }: Pr
           <button
             type="button"
             className="btn-primary"
-            onClick={() =>
-              onDone(empty || reset ? undefined : surfaceOut ? { v: 1, poses, surface: surfaceOut } : { v: 1, poses })
-            }
+            onClick={() => {
+              const result = surfaceOut ? { v: 1 as const, poses, surface: surfaceOut } : { v: 1 as const, poses }
+              onDone(doneLayout(start, result, initialLayout, reset, empty))
+            }}
           >
             {UI.stationLayoutDone}
           </button>

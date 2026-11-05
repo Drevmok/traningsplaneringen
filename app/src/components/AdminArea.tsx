@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { adminImportDoneText, UI } from '../data/blockMeta'
+import { needsLayout } from '../lib/admin/layoutQueue'
 import { useAdminBank } from '../lib/admin/useAdmin'
 import type { AdminEntry } from '../lib/admin/state'
 import { ActivityCard } from './ActivityCard'
@@ -34,7 +35,7 @@ function badges(e: AdminEntry) {
 export default function AdminArea({ onBack }: { onBack: () => void }) {
   const bank = useAdminBank()
   const [openId, setOpenId] = useState<string | null>(null)
-  const [form, setForm] = useState<{ mode: 'new' } | { mode: 'edit'; id: string } | null>(null)
+  const [form, setForm] = useState<{ mode: 'new' } | { mode: 'edit'; id: string; layout?: boolean } | null>(null)
   const [importOpen, setImportOpen] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
 
@@ -48,6 +49,7 @@ export default function AdminArea({ onBack }: { onBack: () => void }) {
   }, [toast])
 
   const lists = LISTS.map(([id, label, test]) => [id, label, bank.entries.filter(test)] as const).filter(([, , rows]) => rows.length > 0)
+  const queue = bank.loaded ? bank.entries.filter(needsLayout) : []
   const open = openId ? bank.byId.get(openId) : undefined
 
   return (
@@ -86,6 +88,28 @@ export default function AdminArea({ onBack }: { onBack: () => void }) {
         <p className="muted">{UI.adminImportHint}</p>
       </section>
 
+      {queue.length > 0 && (
+        <section className="admin-area-section admin-layout-queue">
+          <details>
+            <summary>
+              <h2>{UI.adminLayoutQueue.replace('{n}', String(queue.length))}</h2>
+            </summary>
+            <p className="muted">{UI.adminLayoutQueueHint}</p>
+            <div className="library-list">
+              {queue.map((e) => (
+                <div key={e.activity.id} className="library-entry">
+                  <ActivityCard
+                    activity={e.activity}
+                    onSelect={() => setForm({ mode: 'edit', id: e.activity.id, layout: true })}
+                    adminBadges={badges(e)}
+                  />
+                </div>
+              ))}
+            </div>
+          </details>
+        </section>
+      )}
+
       <section className="admin-area-section">
         <ClubAdminSection onToast={setToast} />
       </section>
@@ -102,6 +126,7 @@ export default function AdminArea({ onBack }: { onBack: () => void }) {
           <AdminBankForm
             mode={form.mode}
             id={form.mode === 'edit' ? form.id : undefined}
+            openLayout={form.mode === 'edit' && form.layout === true}
             onCancel={() => setForm(null)}
             onSaved={() => {
               setToast(form.mode === 'new' ? UI.adminNewSaved : UI.adminSaved)

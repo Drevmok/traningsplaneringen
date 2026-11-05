@@ -21,6 +21,7 @@ Coach-facing help, activity library copy, empty-state guidance, and internal pro
 | `../slice-56/` | Slice 56 Redskap-förslag även vid «Lägg till» i Teknik (Passbyggaren och Hallöversikt) (LÅST 2026-10-31) |
 | `../slice-57/` | Slice 57 Redigerbar 2,5D-stationsskiss: eget skissblad «Ställ upp stationen» för admin och egen övning, layout i banken (LÅST 2026-10-31, SQL `slice-57/content/schema-57.sql` före merge) |
 | `../slice-58/` | Slice 58 Stationsskiss y + yta: «Höjd +/−» (stapling i 8 lager) och «Bredare yta»/«Högre yta»/«Standardyta» i skissbladet; auto-yta i detaljvy och utskrift (LÅST 2026-11-01, ingen SQL) |
+| `../slice-59/` | Slice 59 Städning av stationsskisser: hopfälld Admin-kö «Saknar skiss (n)», och «Klar» utan ändring behåller skissen i alla skissvyer (LÅST 2026-11-05, ingen SQL) |
 | `dela-och-utskrift.sv.md` | Coach doc: Dela — Kopiera länk and Skriv ut passet (Slice 44, PROPOSED) |
 | `planera-pass.sv.md` | Coach doc: Planera pass — fyra frågor, mall eller tomt pass, startsidans fot (Slice 46, PROPOSED) |
 

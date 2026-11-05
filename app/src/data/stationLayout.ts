@@ -210,6 +210,46 @@ export function syncLayout(layout: StationLayout, slots: readonly StationEquipme
   return layout.surface ? { v: 1, poses: kept, surface: layout.surface } : { v: 1, poses: kept }
 }
 
+/** G1: |Δx| and |Δz| at or under this are the same place. */
+const SAME_POS = 0.005
+/** G1: |normalizeYaw(Δyaw)| at or under this is the same turn. */
+const SAME_YAW = 0.01
+
+/**
+ * G1: same sketch, index by index. Moving a piece and moving it back counts as unchanged.
+ * Surface 0 and a missing surface are the same. Order is not sorted.
+ */
+export function sameLayout(a: StationLayout, b: StationLayout): boolean {
+  if (a.poses.length !== b.poses.length) return false
+  for (let i = 0; i < a.poses.length; i++) {
+    const p = a.poses[i]
+    const q = b.poses[i]
+    if (p.pieceId !== q.pieceId) return false
+    if (Math.abs(p.x - q.x) > SAME_POS || Math.abs(p.z - q.z) > SAME_POS) return false
+    if (Math.abs(normalizeYaw(p.yaw - q.yaw)) > SAME_YAW) return false
+    if (Math.round((p.y ?? 0) * MAX_LAYERS) !== Math.round((q.y ?? 0) * MAX_LAYERS)) return false
+  }
+  return (a.surface?.w ?? 0) === (b.surface?.w ?? 0) && (a.surface?.h ?? 0) === (b.surface?.h ?? 0)
+}
+
+/**
+ * G1/H1 — what «Klar» returns.
+ * Empty sheet or «Ställ i rad igen» → undefined (automatic sketch, Slice 57).
+ * Unchanged against the sheet's start → the exact `initialLayout` the sheet was given.
+ * Otherwise the edited result.
+ */
+export function doneLayout(
+  start: StationLayout,
+  result: StationLayout,
+  initialLayout: StationLayout | undefined,
+  reset: boolean,
+  empty: boolean,
+): StationLayout | undefined {
+  if (empty || reset) return undefined
+  if (sameLayout(result, start)) return initialLayout
+  return result
+}
+
 /** Start state in the sheet: the heuristic order (no approach mats — they are not in the list), spread over 0–1. */
 export function defaultLayoutFrom(slots: readonly StationEquipmentSlot[]): StationLayout {
   const want = counts(slots)

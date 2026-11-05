@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '58'
+export const SLICE_NUMBER = '59'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -456,6 +456,10 @@ export const UI = {
   adminArea: 'Admin',
   adminAreaOpenAria: 'Öppna Admin',
   adminAreaEmpty: 'Inget väntar just nu.',
+  // Slice 59 — collapsed queue of Teknik that still show the automatic sketch
+  adminLayoutQueue: 'Saknar skiss ({n})',
+  adminLayoutQueueHint:
+    'Teknik med redskap som visar den automatiska skissen. Tryck på en övning, ställ upp stationen och spara.',
   adminNewHint: 'Övningen väntar under Väntar på godkännande tills en admin har godkänt den. Sedan finns den i Biblioteket för alla.',
   adminImportHint: 'Övningarna från filen väntar på godkännande på samma sätt.',
   adminNewSave: 'Spara och skicka till granskning',

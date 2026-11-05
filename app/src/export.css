@@ -2216,9 +2216,15 @@
   padding: 12px 0;
   border-top: 1px solid var(--md-outline-variant, #e7e5e4);
 }
-.admin-area-list h2 {
+.admin-area-list h2,
+.admin-layout-queue h2 {
   margin: 4px 0 8px;
   font-size: 16px;
+}
+.admin-layout-queue summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 .admin-area-section > p {
   margin: 0 0 4px;
