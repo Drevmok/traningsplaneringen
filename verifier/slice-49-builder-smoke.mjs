@@ -3,7 +3,9 @@
 // AC13–14 (club with ≥1 template / admin text) need a club backend: covered by unit tests only.
 const { chromium } = await import(process.env.PW_CORE ?? '/usr/local/lib/pnpm/5/.pnpm/playwright-core@1.59.1/node_modules/playwright-core/index.mjs')
 import { KARANTAN } from './tools/smoke-exit.mjs' // Slice 51 E1
+import { sliceNumber } from './tools/smoke-login.mjs' // footer follows SLICE_NUMBER (Slice 54 B1, Slice 59)
 const BR = process.env.S49_BR ?? 'http://127.0.0.1:4849/traningsplaneringen/'
+const ROOT = process.env.S49_ROOT ?? '/workspace'
 const SHOTS = process.env.S49_SHOTS ?? '/tmp/slice-49-screenshots'
 const DRAFT = 'gymnastics-planner-draft-v1'
 const results = []
@@ -81,7 +83,8 @@ for (const [tag, vp, touch] of [['390', { width: 390, height: 844 }, true], ['84
     await applyBtn(p).click(); await p.waitForTimeout(250)
     const t = await p.locator('.hall-board').innerText()
     check(`${tag}-AC10`, 'toast «Sparade redskap på …», button gone', /Sparade redskap på \d+ station/.test(t) && (await applyBtn(p).count()) === 0)
-    check(`${tag}-AC16`, 'footer «Träningsplaneraren · Slice 58»', await p.evaluate(() => document.body.innerText.includes('Träningsplaneraren · Slice 58')) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return /Träningsplaneraren · Slice 58/.test(await p.locator('body').innerText()) })())
+    const slice = sliceNumber(ROOT)
+    check(`${tag}-AC16`, `footer «Träningsplaneraren · Slice ${slice}»`, await p.evaluate((n) => document.body.innerText.includes(`Träningsplaneraren · Slice ${n}`), slice) || await (async () => { await p.goto(BR); await p.locator('.home').waitFor(); return new RegExp(`Träningsplaneraren · Slice ${slice}`).test(await p.locator('body').innerText()) })())
     await p.context().close()
   })
 }

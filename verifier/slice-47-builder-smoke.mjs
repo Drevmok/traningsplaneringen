@@ -257,7 +257,8 @@ await attempt('AC13-14', async () => {
   await p.waitForTimeout(300)
   const at = await text(p, '.admin-area')
   const row = bank.rows.find((r) => r.title === rowTitle)
-  const card = p.locator('.admin-area .library-entry').filter({ hasText: rowTitle })
+  // Slice 59: the same pending row is also in «Saknar skiss». The badge lives on the Väntar list, not the queue.
+  const card = p.locator('.admin-area-list .library-entry').filter({ hasText: rowTitle })
   const badge = await card.innerText()
   const ord = ['Väntar på godkännande (1)', 'Behöver granskas (1)', 'Ny egen övning', 'Importera övningar', 'Föreningens mallar'].map((x) => at.indexOf(x))
   check('AC11', 'Admin view order: Väntar på godkännande (n), Behöver granskas (n) (only lists with rows), then Ny egen övning, Importera övningar, Föreningens mallar', ord.every((x, i) => x >= 0 && (i === 0 || x > ord[i - 1])) && !/Dolda \(/.test(at) && !/Inget väntar/.test(at), JSON.stringify(ord))
