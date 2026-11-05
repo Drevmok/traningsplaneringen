@@ -1,8 +1,8 @@
 # Slice 59 — mikrotext (sv)
 
-**Status:** FÖRESLAGEN 2026-11-05 (★ A1 B1 C1 D1 E1 F1). Låses med A–F.
+**Status:** FÖRESLAGEN 2026-11-05 (★ A1 B1 C1 D1 E1 F1 G1 H1). Låses med A–H.
 
-Två nya strängar. Allt annat återanvänds.
+Två nya strängar. Allt annat återanvänds. **G1/H1 (rev) behöver ingen ny text:** «Klar» utan ändring gör ingenting, och bladet visar ingen extra hint.
 
 | Nyckel (`UI.`) | Text | Var |
 |---|---|---|
