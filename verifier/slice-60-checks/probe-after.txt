@@ -1,0 +1,9 @@
+# Slice 60 — PostgREST-probe EFTER ändringen (mall sha256 7cd50f797cf6eb6284bd2a8983cbea1fd503f9ea3fb4a2db1af4bd09e1343644)
+# 2026-11-10T06:47:53+01:00 · bank_s60probe via gateway :54740 · nyckel: lokal publishable (redigerad)
+
+## GET /rest/v1/exercises?select=default_station_layout&limit=1
+HTTP/1.1 200 OK
+[{"default_station_layout":null}]
+
+## null-rader / alla rader
+51 / 51

@@ -1,0 +1,27 @@
+# Slice 60 F1 — Doctor mot en mall UTAN schema-57 (egen TPV_HOME=/tmp/tpv-s60-f1, inte den delade; TPV_SCHEMA57=/dev/null; TPV_NO_MAIN=1)
+# 2026-11-10T06:47:27+01:00 · head: 34ec865 + arbetskopia
+
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (… → 7ccf209e1fe1…), bygger om
+PASS malldatabas ombyggd sha256=7ccf209e1fe101acdeca8adac05bc1b952f60ae403b18c5a2d6829ce06cf7614
+PASS bank_template på port 54791
+BLOCKED stand-in saknar kolumn default_station_layout — lägg schemafilen i verifier/slice-32-local/setup.sh
+PASS portar lediga (57880–57883, 54740–54745)
+Doctor: BLOCKED (1188 ms)
+exit=1
+
+## Samma egna TPV_HOME, nu MED schema-57 (standard)
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (7ccf209e1fe1… → 7cd50f797cf6…), bygger om
+PASS malldatabas ombyggd sha256=7cd50f797cf6eb6284bd2a8983cbea1fd503f9ea3fb4a2db1af4bd09e1343644
+PASS bank_template på port 54791
+PASS stand-in har appens exercises-kolumner (25)
+PASS portar lediga (57880–57883, 54740–54745)
+Doctor: PASS (1350 ms)
+exit=0

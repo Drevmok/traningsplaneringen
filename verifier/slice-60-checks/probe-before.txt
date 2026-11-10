@@ -1,0 +1,13 @@
+# Slice 60 E1 — PostgREST-probe FÖRE ändringen (34ec865, mall sha256 c2ddf0dcd9a8dc31d6dbf14c5f780c23cc437799c7e4f1fb8f47cac360eba344)
+# 2026-11-10T06:40:31+01:00 · körningsdatabas bank_s60probe (kopia av bank_template) · via gateway 127.0.0.1:54740 · nyckel: lokal publishable (redigerad)
+
+## 1. GET /rest/v1/exercises?select=default_station_layout&limit=1
+HTTP/1.1 400 Bad Request
+content-type: application/json; charset=utf-8
+{"code":"42703","details":null,"hint":null,"message":"column exercises.default_station_layout does not exist"}
+
+## 2. Kontroll: GET /rest/v1/exercises?select=id&limit=1 (utan kolumnen)
+HTTP 200
+
+## 3. information_schema i bank_s60probe
+0

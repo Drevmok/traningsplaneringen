@@ -1,0 +1,14 @@
+PASS Postgres 17 (17.11)
+PASS GoTrue v2.197.0
+PASS PostgREST 12.2.3
+PASS Playwright Chromium + /usr/bin/google-chrome
+INFO malldatabas inaktuell (c2ddf0dcd9a8… → 7cd50f797cf6…), bygger om
+PASS malldatabas ombyggd sha256=7cd50f797cf6eb6284bd2a8983cbea1fd503f9ea3fb4a2db1af4bd09e1343644
+PASS bank_template på port 54807
+PASS stand-in har appens exercises-kolumner (25)
+PASS portar lediga (57880–57883, 54740–54745)
+PASS main-cache 34ec865 finns (läses, byggs inte)
+PASS smoke-baseline 34ec865 giltig
+PASS main build exit 0, 219746 TOTAL
+PASS main-dist: HTTP 200 på /traningsplaneringen/, base /traningsplaneringen/
+Doctor: PASS (2723 ms)

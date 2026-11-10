@@ -1,0 +1,47 @@
+PASS [A2] Home: no stale line
+PASS [A1] Footer reads Träningsplaneraren · Slice 59 (AC 22) — Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 59
+PASS [A3] Biblioteket: bundled 51 in bundled order (AC 12) — 51 titles
+PASS [A4] Old cache ignored when bank is off
+PASS [A5] No stale line in Biblioteket (AC 12)
+PASS [A6] No request to Supabase / rest/v1 (AC 12) — 0 requests
+PASS [R1] Planera pass wizard → five blocks, Teknik pre-placed (AC 21) — filled=5 zones=open,open,open
+PASS [R2] Från mall → Nybörjare fills the pass (AC 21) — items=9
+PASS [B1] Home: no stale line (AC 9/10)
+PASS [B2] Bundled 51 shown at once, same order (AC 10)
+PASS [B3] Stale line in Biblioteket with the exact text, plain text (no role/aria-live)
+PASS [B4] No error dialog
+PASS [B5] Nothing cached after a failed fetch
+PASS [B6] HTTP 500 → bundled 51 + stale line (AC 11)
+FAIL [C1a] Startup: exactly one GET exercises + one GET redskap (AC 6) — /rest/v1/exercises,/rest/v1/exercises,/rest/v1/redskap
+PASS [C1b] Header apikey = publishable key, no Authorization (AC 6) — [{"apikey":"sb_publishable_local_s32","auth":null},{"apikey":"sb_publishable_local_s32","auth":null},{"apikey":"sb_publishable_local_s32","auth":null}]
+PASS [C1c] Query asks for published+hidden in sort order
+PASS [C1d] Cache written (v 1, 51 exercises, 15 redskap labels)
+PASS [C1e] Biblioteket: 51 from the bank, same order and wording as before (AC 6/7) — 51
+PASS [C1f] No stale line after a fresh fetch
+PASS [C1g] Two Teknik drills in the pass — Närvaro × | Dagens pass — snabb genomgång × | Kullerbytta framåt × | Hjul ×
+FAIL [C2a] Reload makes one new pair of GETs
+PASS [C2b] Pass row shows the edited title Kullerbytta TEST (AC 8) — Närvaro × | Dagens pass — snabb genomgång × | Kullerbytta TEST × | Hjul (dold) ×
+PASS [C2c] Hidden drill still renders in the old pass, with bank text (AC 13)
+PASS [C2d] Biblioteket: edited title, new row, hidden gone (51 = 50 + 1 new) (AC 8/13/15) — 51
+PASS [C2e] Search "hjul" → only Minihjul (hidden not searchable) (AC 13) — Minihjul (krabbhjul)
+PASS [C2f] Teknik filter: no hidden drill (AC 13)
+PASS [C2g] Info panel of the edited drill opens (title row)
+PASS [C3a] New bank row is addable; detail shows its Säkerhet line (AC 15)
+PASS [C3b] New row auto-places on the hall (AC 15) — zone=open
+PASS [C3c] Hall chips show bank titles incl. the hidden drill (AC 8/13) — Station 1: Kullerbytta TEST. Redskap angivna. Tryck för detaljer. | Ta bort från hall | Station 2: Hjul (dold). Tryck för detaljer. | Ta bort från hall | Station 3: Banktest trampett. Redskap angivna.
+PASS [C3d] Förrådslista counts the new row's redskap (AC 15) — Trampett · Landningsmatta · Madrass
+PASS [C4a] Golvklart shows Kullerbytta TEST + Hjul (dold) (AC 8/13)
+PASS [C4c] Kör passet steps use the bank titles, incl. the hidden drill (AC 8/13)
+PASS [C5a] Home: no stale line (AC 9)
+PASS [C5b] Cached bank shown (edited title, new row, hidden still hidden) (AC 9)
+PASS [C5c] Stale line in Biblioteket (AC 9)
+PASS [C5d] Golvklart: no stale line (AC 9)
+PASS [C5e] Kör passet: no stale line, cached title (AC 9) — stale=0 run=true
+PASS [C6a] Before the answer: cached title
+PASS [C6c] List updated in place to Kullerbytta LIVE (AC 16)
+PASS [C6d] Library scroll position kept across the update (AC 16) — 600 → 600
+PASS [C6b] Open own-drill form (Ändra) keeps its input across the update (AC 16)
+PASS [D1] Corrupt cache ignored, then refreshed and rewritten (AC 17) — 52 exercises (51 published + 1 hidden)
+PASS [N1] Every bank request was a GET without a body (AC 18) — 32 requests
+PASS [N2] Bank requests carry only select/status/order params (nothing from coach storage)
+PASS [E] No page errors

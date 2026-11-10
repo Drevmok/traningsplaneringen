@@ -1,0 +1,25 @@
+# Slice 60 — enhetstester/bygg på 34ec865+arbetskopia (app/ orörd), 2026-11-10T06:53:40+01:00
+
+## test
+ 0 fail
+ 4 expect() calls
+Ran 319 tests across 36 files. [393.00ms]
+exit=0
+
+## testbank
+ 0 fail
+ 127 expect() calls
+Ran 26 tests across 2 files. [90.00ms]
+exit=0
+
+## build
+dist/assets/index-Bob8IH65.js             462.47 kB │ gzip: 138.56 kB
+
+✓ built in 229ms
+exit=0
+
+## lint
+src/components/equipmentMark.tsx:110:14: warning react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+src/components/ClubTemplates.tsx:36:17: warning react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+src/components/StationSketch.s57-fixture.tsx:66:11: warning react(immutability): Cannot reassign variable after render completes help: Reassigning `cursor` after render has completed can cause inconsistent behavior on subsequent renders. Consider using state instead
+exit=0

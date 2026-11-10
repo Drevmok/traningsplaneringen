@@ -1,0 +1,13 @@
+slice-31-builder-smoke exit=0 PASS 47 / FAIL 0 (27 s)
+  slice-31-builder-smoke: LAGAD (FAIL 2→0)
+slice-32-builder-smoke exit=0 PASS 78 / FAIL 0 (57 s)
+  slice-32-builder-smoke: LAGAD (FAIL 14→0)
+slice-33-builder-smoke exit=0 PASS 146 / FAIL 0 (120 s)
+  slice-33-builder-smoke: LAGAD (FAIL 13→0)
+slice-36-builder-smoke exit=0 46/46 pass (50 s)
+  slice-36-builder-smoke: SAMMA
+slice-37-builder-smoke exit=0 24/24 pass (26 s)
+  slice-37-builder-smoke: SAMMA
+netlog: 1231 requests, 0 to the live project host (all aborted)
+baslinje: inga NY FAIL (/home/box/tp-verify/main/34ec86555f494f67d26b5dd961819b1f05eca37d/smoke-baseline.txt)
+exit=0
