@@ -6,4 +6,4 @@
 - Den lokala stand-in-mallen (`bank_template`) får samma fil, körd av `verifier/slice-32-local/setup.sh --template` via Doctor. Det är en lokal testdatabas och påverkar inte live.
 - `schema-58.sql` ingår inte: låst «HOPPAS ÖVER» i Slice 58 och inte inklistrad live. Mallen ska spegla live, inte valfria filer.
 - Seedens rader har ingen layout. Kolumnen blir `null` för alla rader, och triggern `check_exercise_layout` släpper igenom `null`.
-- Med G2 (inte ★) ändras inget schema heller. Reservhämtningen gäller bara en bank utan kolumnen.
+- **LÅST 2026-11-10** (A1–H1): G1, ingen admin-reserv nu. Den blir en backlograd och ändrar inget schema heller.

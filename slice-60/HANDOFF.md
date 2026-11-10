@@ -1,9 +1,10 @@
-# Slice 60 — HANDOFF till Builder (FÖRESLAGEN, inte låst)
+# Slice 60 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1 G1 H1)
 
-**Status:** FÖRESLAGEN 2026-11-10. **Bygg inte** förrän Christoffer låst via PO och PO skickat byggkortet (Docs pingar inte Builder). Bas main @ `34ec865`, docs-gren `slice-60-docs`. **Ingen merge utan Christoffers OK.**
-**Beskrivningen nedan gäller ★ A1 B1 C1 D1 E1 F1 G1 H1.** Avvikande lås: se slutet.
+**Status:** **LÅST** 2026-11-10 — «Ja, lås A1 B1 C1 D1 E1 F1 G1 H1» (Christoffer via PO). Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `34ec865`, docs-gren `slice-60-docs`. **Ingen merge utan Christoffers OK.**
+Texten nedan följer det låsta ★-valet A1 B1 C1 D1 E1 F1 G1 H1.
 **Rör inte:** `app/` (D1: tom diff), smokernas förväntningar i `verifier/slice-3{1,2,3}-builder-smoke.mjs`, `slice-57/content/schema-57.sql`, `slice-58/content/schema-58.sql`. Ingen SQL mot riktiga projektet.
-**Kör från egen worktree.** Huvudklonen har oincheckade borttagningar av `tools/bank/out/*` (bl.a. `bank-seed.sql`, som mallen byggs av).
+**Egen worktree från `34ec865`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är (oincheckade borttagningar av `tools/bank/out/*`, bl.a. `bank-seed.sql`, som mallen byggs av). Kör inte Doctor eller smokes därifrån, och städa den inte.
+**Utanför slicen:** admin-reserv och felrad i Admin-vyn (backlograd), B2-processluckorna (senare infra-slice), ändringar på `slice-59-docs`.
 
 ## 1. Bekräfta orsaken först (E1)
 
@@ -39,7 +40,7 @@ I `doctor.sh`, efter malldatabasen (avsnitt 2):
 - `verifier/README.md`: tabellraden för `standin/` säger vilka schemafiler mallen har (31, seed, 32, 57) och att Doctor stoppar när en kolumn saknas.
 - `verify-traningsplaneraren/SKILL.md` steg 1 (Doctor): en mening om kolumnkontrollen.
 - `verifier/smoke-map.json`: `note` för s31, s32 och s33 → «lagad i Slice 60 (stand-in schema-57)».
-- `SLICE60-SHIPPED.md` i roten: utfallet av steg 1, diffen, smokes före och efter, och att `app/` är orörd.
+- `SLICE60-SHIPPED.md` i roten: utfallet av steg 1, diffen, smokes före och efter, och att `app/` är orörd. Lägg till en not: meningen om reserv i Slice 59 `content/schema-notes.md` («ingenting kraschar») gäller bara ledarvägen; adminvägen har ingen reserv (`adminBank.ts:50–56`), uppföljning i backloggen. Rör inte `slice-59-docs`.
 
 ## 5. Bevis
 
@@ -53,9 +54,6 @@ I `doctor.sh`, efter malldatabasen (avsnitt 2):
 
 - Gren `slice-60-code` från `34ec865`, PR mot main med `SLICE60-SHIPPED.md`. Ingen merge. Head-SHA och bevis till PO, inte till Verifier direkt.
 
-## Andra lås
+## Avvisat i låset
 
-- **A2/G2:** reservhämtning i `loadAdminBank` och `refreshAdminRow` (`adminBank.ts:46–89`) med samma villkor som `bank.ts:190–193` (felet nämner `default_station_layout` → fråga utan den). Enhetstest i `lib/admin/` med mockad klient. Kräver D2 (bundle mot main i PR) och H2 (`SLICE_NUMBER = '60'`, footer-smokes följer `sliceNumber()`).
-- **A3:** avråds. Packen beskriver inte hur.
-- **B2:** (a) `run-smokes.sh compare()` skriver `SAMMA (baslinjen röd: n FAIL)` när baslinjen har FAIL. (b) regel i `backlog/PSTACK-OPS.md`: säger `pick-smokes` HELA LOOPEN, kör Builder och Verifier hela loopen före claim.
-- **F2:** ny `verifier/slice-60-standin-smoke.mjs` med `"standin": "s32"` i smoke-map: admin-inloggning, «Väntar på godkännande (n)» och «Saknar skiss (n)» syns, ledarstart exakt två GET.
+A2, A3, B2, D2, E2, F2, F3, G2 och H2 byggs inte. Se `decisions.md`.

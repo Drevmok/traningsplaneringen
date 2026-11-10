@@ -1,4 +1,4 @@
-# Slice 60 — verifieringschecklista (FÖRESLAGEN, ★ A1 B1 C1 D1 E1 F1 G1 H1)
+# Slice 60 — verifieringschecklista (LÅST 2026-11-10: A1 B1 C1 D1 E1 F1 G1 H1)
 
 Ingen SQL mot riktiga projektet. Allt körs mot den lokala stand-in-mallen och körningarnas egna databaser. Netlog: 0 anrop till live-projektet. Bas main @ `34ec865`.
 
@@ -20,5 +20,5 @@ Ingen SQL mot riktiga projektet. Allt körs mot den lokala stand-in-mallen och k
 | 14 | `slice-57/content/schema-57.sql` | Oförändrad |
 | 15 | `npm run build`, `npm run lint`, `bun test src`, `bun test tools/bank` | Gröna, samma antal som main-cachen |
 | 16 | `verifier/README.md`, `verify-traningsplaneraren/SKILL.md`, `verifier/smoke-map.json` | Uppdaterade enligt HANDOFF 4 |
-| 17 | `SLICE60-SHIPPED.md` | Utfallet av 1–2, smokes före och efter, head-SHA |
+| 17 | `SLICE60-SHIPPED.md` | Utfallet av 1–2, smokes före och efter, head-SHA, och noten om Slice 59 schema-notes (reserv bara i ledarvägen) |
 | 18 | Nästa veckokörning efter merge (Christoffer/rutinen, inte Verifier-grind) | 0 FAIL, «Diff mot förra veckan» listar 29 lagade |

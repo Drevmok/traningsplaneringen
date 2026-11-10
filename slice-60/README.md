@@ -1,7 +1,7 @@
 # Slice 60 — Utred och laga s31–33-felen från veckokörning v45
 
 **App:** Träningsplaneraren (★ = appen ändras inte)
-**Status:** **FÖRESLAGEN** 2026-11-10. Väntar på Christoffers lås via PO. Bas: main @ `34ec865` (Slice 59 live, footer «Slice 59»). Gren: `slice-60-docs`. `decisions.md` skrivs först vid lås.
+**Status:** **LÅST** 2026-11-10 av Christoffer via PO: «Ja, lås A1 B1 C1 D1 E1 F1 G1 H1». Se [`decisions.md`](decisions.md). Bas: main @ `34ec865` (Slice 59 live, footer «Slice 59»). Gren: `slice-60-docs`.
 **Uppdrag:** Christoffer 2026-11-10 06:15 (via PO), ordagrant: «Kör Slice 60: utred och laga s31–33-felen först».
 **Effort:** **S** med ★ (två skalfiler i stand-in, en Doctor-kontroll, inga appfiler, ingen ny smoke). Med G2 fortfarande S, men då ändras admin-chunken och footern.
 **Underlag:** `/home/box/tp-verify/weekly/2026-v45.md` och `2026-v45-out/` (loggar, netlog), `2026-v44.md`, main-cachens `smoke-baseline.txt` per SHA under `/home/box/tp-verify/main/`, skripten `verifier/slice-3{1,2,3}-builder-smoke.mjs`, `verifier/slice-32-local/setup.sh`, `verifier/tools/{doctor,run-smokes,db-new}.sh`. Inga smokes kördes för den här texten. Allt nedan är läst ur loggar och kod.
@@ -30,7 +30,7 @@ Veckokörningen v44 (main `9564c69`) var grön. v45 (main `34ec865`, 2026-11-08 
 
 **Varför säkerheten är hög och inte säker:** punkterna 1–4 syns direkt i kod, netlog och baslinjer. PostgREST-svaret (400, «column exercises.default_station_layout does not exist») står inte i loggarna, eftersom netloggen inte sparar status. Builder bekräftar med AC 1 i checklistan innan något ändras.
 
-**Appen gör rätt mot live.** Live har kolumnen, så ledaren gör två GET och admin laddar. Ingen av de 29 är en bugg i produktion. En svaghet finns kvar: på en bank utan schema-57 får admin en tom vy utan felrad (se G och öppen fråga 1). Slice 59 `content/schema-notes.md` säger «Då hamnar alla Teknik med redskap i kön, och ingenting kraschar». Det gäller ledarvägen, inte adminvägen.
+**Appen gör rätt mot live.** Live har kolumnen, så ledaren gör två GET och admin laddar. Ingen av de 29 är en bugg i produktion. En svaghet finns kvar: på en bank utan schema-57 får admin en tom vy utan felrad (se G och uppföljning 1). Slice 59 `content/schema-notes.md` säger «Då hamnar alla Teknik med redskap i kön, och ingenting kraschar». Det gäller ledarvägen, inte adminvägen.
 
 Tabell per AC: [`evidence/root-cause.md`](evidence/root-cause.md).
 
@@ -76,13 +76,13 @@ Tabell per AC: [`evidence/root-cause.md`](evidence/root-cause.md).
 - **H1 ★** Ingen ändring. `SLICE_NUMBER` stannar `'59'`, som i infraslicerna 50–52 («SLICE_NUMBER stays 49»).
 - H2 `SLICE_NUMBER = '60'`. Krävs om G2 väljs, eftersom appen då ändras.
 
-## Öppna frågor
+## Uppföljning (besvarade frågor, se `decisions.md`)
 
-1. **Admin utan admin-bank:** när `loadAdminBank` misslyckas visar Admin-vyn ingenting, varken listor eller felrad (`AdminArea.tsx:65` kräver `bank.loaded`). Ska det bli en egen backlograd (felrad + «Försök igen»), eller ingå i G2?
-2. **B2:** ska processluckorna (röd baslinje visas som «SAMMA», hela loopen kördes inte i Slice 57/58) lagas nu eller som egen infra-slice?
-3. **Slice 59 schema-notes:** meningen om reserv gäller bara ledarvägen. Rätta den i `slice-59/content/schema-notes.md` på `slice-59-docs`, eller räcker en not i `SLICE60-SHIPPED.md`?
-4. **Huvudklonen** `/workspace/gymnastics-planner` har oincheckade borttagningar av `tools/bank/out/*`, bland annat `bank-seed.sql`. Doctor bygger mallen från `$REPO/tools/bank/out/bank-seed.sql`. Builder kör Doctor från egen worktree. Ska borttagningarna städas av den som gjorde dem?
+1. **Backlog:** tom Admin-vy utan felrad när `loadAdminBank` misslyckas (`AdminArea.tsx:65` kräver `bank.loaded`) blir en egen backlograd tillsammans med admin-reserven från G1. Inte i Slice 60.
+2. **Infra-slice senare:** B2-processluckorna (röd baslinje visas som «SAMMA», hela loopen kördes inte i Slice 57/58).
+3. **Slice 59 schema-notes:** bara en not i `SLICE60-SHIPPED.md`. `slice-59-docs` rörs inte.
+4. **Huvudklonen** lämnas som den är. Builder arbetar i egen worktree från `34ec865`.
 
 ## Lås
 
-Förslag: «Ja, lås A1 B1 C1 D1 E1 F1 G1 H1»
+«Ja, lås A1 B1 C1 D1 E1 F1 G1 H1» — Christoffer 2026-11-10 via PO.
