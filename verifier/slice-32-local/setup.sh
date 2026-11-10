@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-# Slice 32 local stand-in: Postgres 17 + Supabase-style roles + GoTrue schema + schema-31/32 + seed.
+# Slice 32 local stand-in: Postgres 17 + Supabase-style roles + GoTrue schema + schema-31/32/57 + seed.
 # Everything lives in $S32_DIR (default /tmp/s32, throwaway); ports from S32_*_PORT (see env.sh / README.md).
 # Generated local-only keys/secrets stay in that dir, never in git.
 #   bash verifier/slice-32-local/setup.sh      then   bash verifier/slice-32-local/start.sh
 # S32_SCHEMA32 (optional) = the schema-32 file to apply (default: slice-31/content/schema-32.sql).
+# S32_SCHEMA57 (optional) = the schema-57 file to apply (default: slice-57/content/schema-57.sql). Slice 60 (A1).
 # Slice 50 (A1): `setup.sh --template` builds the fixed cluster in $TPV_STANDIN (default
 # /home/box/tp-verify/standin) with ONE database, bank_template (roles → GoTrue migrate → schema-31 →
-# bank-seed → schema-32), and writes <dir>/template.sha256 (sha256 of the four sql files). Runs then
+# bank-seed → schema-32 → schema-57, som live sedan Slice 57), and writes <dir>/template.sha256 (sha256 of the five sql files). Runs then
 # copy it with verifier/tools/db-new.sh <run> (createdb -T bank_template bank_<run>).
 # TPV_BANK_SEED (optional) = the bank-seed.sql to use (default tools/bank/out/bank-seed.sql).
 set -euo pipefail
@@ -19,6 +20,7 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 HERE="$REPO/verifier/slice-32-local"
 . "$HERE/env.sh"
 SCHEMA32=${S32_SCHEMA32:-$REPO/slice-31/content/schema-32.sql}
+SCHEMA57=${S32_SCHEMA57:-$REPO/slice-57/content/schema-57.sql}
 SEED=${TPV_BANK_SEED:-$REPO/tools/bank/out/bank-seed.sql}
 PGPORT=$S32_PG_PORT
 DB=bank; [ $TEMPLATE = 1 ] && { DB=bank_template; S32_PORTS=$S32_PG_PORT; }
@@ -91,6 +93,7 @@ chmod 600 "$D/gotrue.env"
 $P -d $DB -f "$REPO/slice-31/content/schema-31.sql" >/dev/null
 $P -d $DB -f "$SEED" >/dev/null
 $P -d $DB -f "$SCHEMA32" >/dev/null
+$P -d $DB -f "$SCHEMA57" >/dev/null   # Slice 60 (A1): default_station_layout, som live
 if [ $TEMPLATE = 1 ]; then
   # Template cluster: no services of its own, no keys kept (runs get their own from db-new.sh).
   rm -f "$D/bot-keys.txt" "$D/gotrue.env"
@@ -98,7 +101,7 @@ if [ $TEMPLATE = 1 ]; then
 import json,sys; p=sys.argv[1]; c=json.load(open(p)); c.pop("jwtSecret",None); c["template"]="bank_template"; json.dump(c,open(p,"w"))
 PY
   $P -c "alter database bank_template is_template true" >/dev/null
-  sha256sum "$HERE/roles.sql" "$REPO/slice-31/content/schema-31.sql" "$SEED" "$SCHEMA32" | awk '{print $1}' | sha256sum | awk '{print $1}' > "$D/template.sha256"
+  sha256sum "$HERE/roles.sql" "$REPO/slice-31/content/schema-31.sql" "$SEED" "$SCHEMA32" "$SCHEMA57" | awk '{print $1}' | sha256sum | awk '{print $1}' > "$D/template.sha256"
   echo "template ok ($D, pg :$PGPORT, sha256 $(cat "$D/template.sha256")): $($P -d $DB -c "select count(*) from public.exercises where status='published'") published"
   exit 0
 fi
@@ -111,4 +114,4 @@ server-host = "127.0.0.1"
 server-port = $S32_POSTGREST_PORT
 CONF
 chmod 600 "$D/postgrest.conf"
-echo "setup ok ($D, pg :$PGPORT, schema-32: ${SCHEMA32#$REPO/}): $($P -d $DB -c "select count(*) from public.exercises where status='published'") published, $($P -d $DB -c "select count(*) from public.redskap") redskap"
+echo "setup ok ($D, pg :$PGPORT, schema-32: ${SCHEMA32#$REPO/}, schema-57: ${SCHEMA57#$REPO/}): $($P -d $DB -c "select count(*) from public.exercises where status='published'") published, $($P -d $DB -c "select count(*) from public.redskap") redskap"

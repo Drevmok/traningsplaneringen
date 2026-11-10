@@ -1,0 +1,49 @@
+seed-2DJ_oMM81mI-smoke exit=0 PASS 64 / FAIL 0 (7 s)
+  seed-2DJ_oMM81mI-smoke: SAMMA
+slice-30-builder-smoke exit=0 TOTAL PASS 46 FAIL 0 (15 s)
+  slice-30-builder-smoke: SAMMA
+slice-30-fix-b1-smoke exit=0 PASS 11 / FAIL 0 (2 s)
+  slice-30-fix-b1-smoke: SAMMA
+slice-31-builder-smoke exit=0 PASS 47 / FAIL 0 (27 s)
+  slice-31-builder-smoke: LAGAD (FAIL 2→0)
+slice-32-builder-smoke exit=0 PASS 78 / FAIL 0 (58 s)
+  slice-32-builder-smoke: LAGAD (FAIL 14→0)
+slice-33-builder-smoke exit=0 PASS 146 / FAIL 0 (119 s)
+  slice-33-builder-smoke: LAGAD (FAIL 13→0)
+slice-34-builder-smoke exit=0 PASS 31 / FAIL 0 (8 s)
+  slice-34-builder-smoke: SAMMA
+slice-35-builder-smoke exit=0 PASS 41 / FAIL 0 (18 s)
+  slice-35-builder-smoke: SAMMA
+slice-36-builder-smoke exit=0 46/46 pass (49 s)
+  slice-36-builder-smoke: SAMMA
+slice-37-builder-smoke exit=0 24/24 pass (27 s)
+  slice-37-builder-smoke: SAMMA
+slice-38-builder-smoke exit=0 PASS 26 / FAIL 0 (7 s)
+  slice-38-builder-smoke: SAMMA
+slice-39-builder-smoke exit=0 PASS 38 / FAIL 0 (47 s)
+  slice-39-builder-smoke: SAMMA
+slice-40-builder-smoke exit=0 PASS 20 / FAIL 0 (32 s)
+  slice-40-builder-smoke: SAMMA
+slice-41-builder-smoke exit=0 34/34 pass (40 s)
+  slice-41-builder-smoke: SAMMA
+slice-42-builder-smoke exit=0 24/24 pass (56 s)
+  slice-42-builder-smoke: SAMMA
+slice-43-builder-smoke exit=0 18/18 pass (74 s)
+  slice-43-builder-smoke: SAMMA
+slice-44-builder-smoke exit=0 32/32 pass (75 s)
+  slice-44-builder-smoke: SAMMA
+slice-45-builder-smoke exit=0 41/41 PASS (95 s)
+  slice-45-builder-smoke: SAMMA
+slice-46-builder-smoke exit=0 37/37 pass (141 s)
+  slice-46-builder-smoke: SAMMA
+slice-47-builder-smoke exit=0 32/32 pass (114 s)
+  slice-47-builder-smoke: SAMMA
+slice-48-builder-smoke exit=0 80/80 PASS (24 s)
+  slice-48-builder-smoke: SAMMA
+slice-49-builder-smoke exit=0 34/34 pass (38 s)
+  slice-49-builder-smoke: SAMMA
+slice-52-admin-import-smoke exit=0 PASS 6 / FAIL 0 (6 s)
+  slice-52-admin-import-smoke: SAMMA
+netlog: 4470 requests, 0 to the live project host (all aborted)
+baslinje: inga NY FAIL (/home/box/tp-verify/main/34ec86555f494f67d26b5dd961819b1f05eca37d/smoke-baseline.txt)
+exit=0

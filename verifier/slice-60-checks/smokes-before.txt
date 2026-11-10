@@ -1,0 +1,9 @@
+slice-31-builder-smoke exit=1 PASS 45 / FAIL 2 (35 s)
+  slice-31-builder-smoke: SAMMA
+slice-32-builder-smoke exit=1 PASS 42 / FAIL 14 (122 s)
+  slice-32-builder-smoke: SAMMA
+slice-33-builder-smoke exit=1 PASS 111 / FAIL 13 (185 s)
+  slice-33-builder-smoke: SAMMA
+netlog: 899 requests, 0 to the live project host (all aborted)
+baslinje: inga NY FAIL (/home/box/tp-verify/main/34ec86555f494f67d26b5dd961819b1f05eca37d/smoke-baseline.txt)
+exit=0

@@ -3,6 +3,7 @@
 # Doctor never installs anything (that is install-once.sh). It is the ONLY writer of /home/box/tp-verify/{standin,main}:
 # it rebuilds a stale template database and builds the main cache once per origin/main SHA. Builder/Verifier only read.
 #   TPV_BANK_SEED   seed for the template (default tools/bank/out/bank-seed.sql)   AC4
+#   TPV_SCHEMA57    schema-57 for the template (default slice-57/content/schema-57.sql); Slice 60 F1 test: /dev/null in an own TPV_HOME
 #   TPV_PORT_BASE   port base for run-smokes (default 57800)
 #   TPV_DIST        optional: also check this dist (HTTP 200 + base) — e.g. the branch build
 #   TPV_NO_MAIN=1   skip the main cache (tools/template only)
@@ -10,7 +11,7 @@ set -uo pipefail
 for v in $(compgen -e | grep -E "^S3[0-9]_"); do unset "$v"; done   # a leaked run env (db-new eval) must not redirect the template
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; REPO="$(cd "$HERE/../.." && pwd)"
 TPV_HOME="${TPV_HOME:-/home/box/tp-verify}"; ST="$TPV_HOME/standin"; BIN="$TPV_HOME/bin"
-SEED="${TPV_BANK_SEED:-$REPO/tools/bank/out/bank-seed.sql}"; PB="${TPV_PORT_BASE:-57800}"
+SEED="${TPV_BANK_SEED:-$REPO/tools/bank/out/bank-seed.sql}"; SCHEMA57="${TPV_SCHEMA57:-$REPO/slice-57/content/schema-57.sql}"; PB="${TPV_PORT_BASE:-57800}"
 T0=$(date +%s%N); blocked=0
 pass() { echo "PASS $*"; }
 block() { echo "BLOCKED $1 — kör $2"; blocked=1; }
@@ -26,22 +27,32 @@ if pw_ok; then pass "Playwright Chromium + /usr/bin/google-chrome"; else block "
 [ -f "$SEED" ] || block "bank-seed ($SEED)" "node tools/bank/build.mjs (eller sätt TPV_BANK_SEED)"
 [ $blocked = 0 ] || { echo "Doctor: BLOCKED ($(( ($(date +%s%N) - T0) / 1000000 )) ms)"; exit 1; }
 
-# 2. template database (sha256 of roles.sql, schema-31, seed, schema-32 — same formula as setup.sh --template)
+# 2. template database (sha256 of roles.sql, schema-31, seed, schema-32, schema-57 — same formula as setup.sh --template)
 S32="$REPO/verifier/slice-32-local"
-want=$(sha256sum "$S32/roles.sql" "$REPO/slice-31/content/schema-31.sql" "$SEED" "${S32_SCHEMA32:-$REPO/slice-31/content/schema-32.sql}" | awk '{print $1}' | sha256sum | awk '{print $1}')
+want=$(sha256sum "$S32/roles.sql" "$REPO/slice-31/content/schema-31.sql" "$SEED" "${S32_SCHEMA32:-$REPO/slice-31/content/schema-32.sql}" "$SCHEMA57" | awk '{print $1}' | sha256sum | awk '{print $1}')
 have=$(cat "$ST/template.sha256" 2>/dev/null || true)
 if [ "$want" != "$have" ]; then
   if ls "$ST/runs"/*/ >/dev/null 2>&1; then block "malldatabas inaktuell men körningar pågår ($(ls "$ST/runs" | tr '\n' ' '))" "bash verifier/tools/db-drop.sh <run> för varje, sedan Doctor igen"
   else
     echo "INFO malldatabas inaktuell (${have:0:12}… → ${want:0:12}…), bygger om"
     [ -f "$ST/pg/postmaster.pid" ] && "$PGBIN/pg_ctl" -D "$ST/pg" -m fast -w stop >/dev/null 2>&1
-    if TPV_BANK_SEED="$SEED" bash "$S32/setup.sh" --template > "$TPV_HOME/template-build.log" 2>&1; then pass "malldatabas ombyggd sha256=$want"
+    if TPV_BANK_SEED="$SEED" S32_SCHEMA57="$SCHEMA57" bash "$S32/setup.sh" --template > "$TPV_HOME/template-build.log" 2>&1; then pass "malldatabas ombyggd sha256=$want"
     else block "malldatabas (se $TPV_HOME/template-build.log)" "TPV_BANK_SEED=$SEED bash verifier/slice-32-local/setup.sh --template"; fi
   fi
 else pass "malldatabas sha256=$want"; fi
 PGP=$(node -e "console.log(require('$ST/env.json').pgPort)" 2>/dev/null || echo 54741)
 if ! "$PGBIN/pg_isready" -q -h 127.0.0.1 -p "$PGP"; then "$PGBIN/pg_ctl" -D "$ST/pg" -l "$ST/pg.log" -w start >/dev/null 2>&1; fi
 if "$PGBIN/psql" -h 127.0.0.1 -p "$PGP" -U postgres -tAc "select 1 from pg_database where datname='bank_template' and datistemplate" postgres 2>/dev/null | grep -q 1; then pass "bank_template på port $PGP"; else block "bank_template" "bash verifier/slice-32-local/setup.sh --template"; fi
+# Slice 60 (F1): the template must have every exercises column the app asks for (BANK_EXERCISE_COLUMNS in
+# app/src/lib/bankRow.ts + updated_at/updated_by from adminBank.ts ADMIN_COLUMNS). Local, read-only query on bank_template.
+appcols=$(node -e 'const m=require("fs").readFileSync(process.argv[1],"utf8").match(/BANK_EXERCISE_COLUMNS\s*=\s*\[([^\]]*)\]/); if (m) console.log([...m[1].matchAll(/["'\'']([a-z0-9_]+)["'\'']/g)].map((x) => x[1]).concat("updated_at", "updated_by").join(" "))' "$REPO/app/src/lib/bankRow.ts" 2>/dev/null)
+tplcols=" $("$PGBIN/psql" -h 127.0.0.1 -p "$PGP" -U postgres -tAc "select column_name from information_schema.columns where table_schema='public' and table_name='exercises'" bank_template 2>/dev/null | tr '\n' ' ')"
+if [ -z "$appcols" ]; then echo "BLOCKED kolumnlistan BANK_EXERCISE_COLUMNS gick inte att läsa ur app/src/lib/bankRow.ts — uppdatera kolumnkontrollen i verifier/tools/doctor.sh"; blocked=1
+elif [ "$tplcols" = " " ]; then echo "BLOCKED stand-in: inga exercises-kolumner i bank_template — bash verifier/slice-32-local/setup.sh --template"; blocked=1
+else
+  miss=0; for c in $appcols; do case "$tplcols" in *" $c "*) ;; *) echo "BLOCKED stand-in saknar kolumn $c — lägg schemafilen i verifier/slice-32-local/setup.sh"; blocked=1; miss=1;; esac; done
+  [ $miss = 0 ] && pass "stand-in har appens exercises-kolumner ($(echo $appcols | wc -w))"
+fi
 
 # 3. ports (run-smokes: +80 bank/preview, +81 plain, +83 main; db-new defaults 54740/42/43/45)
 busy=""; for p in $((PB+80)) $((PB+81)) $((PB+83)) 54740 54742 54743 54745; do ss -ltn "sport = :$p" | grep -q LISTEN && busy="$busy $p"; done

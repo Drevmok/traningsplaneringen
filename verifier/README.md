@@ -7,7 +7,7 @@ Evidence and smokes per slice (`slice-NN-*`), the local Supabase stand-in (`slic
 | Path | What | Written by |
 |---|---|---|
 | `bin/gotrue/auth`, `bin/postgrest` | GoTrue v2.197.0, PostgREST v12.2.3 | `tools/install-once.sh` |
-| `standin/` | template cluster (pg :54741) with `bank_template`, `template.sha256`, `runs/<run>/` | Doctor (`setup.sh --template`), `db-new.sh` / `db-drop.sh` for runs |
+| `standin/` | template cluster (pg :54741) with `bank_template` (roles → GoTrue → schema-31 → bank-seed → schema-32 → schema-57, same columns as live; Slice 60), `template.sha256` (all five files), `runs/<run>/` | Doctor (`setup.sh --template`), `db-new.sh` / `db-drop.sh` for runs. Doctor stops (`BLOCKED stand-in saknar kolumn <x>`) when `bank_template.public.exercises` lacks a column from `BANK_EXERCISE_COLUMNS` (`app/src/lib/bankRow.ts`) + `updated_at`/`updated_by` |
 | `main/<sha>/` | main cache per `origin/main` SHA: `dist/`, `bank-build/`, `bundle.txt`, `test.txt`, `tsc.txt`, `lint.txt`, `smoke-baseline.txt`, `smoke-out/`, `.complete` | Doctor only (under `flock`) |
 | `weekly/<år>-v<vecka>.md` | weekly full loop against main | `tools/weekly.sh` |
 

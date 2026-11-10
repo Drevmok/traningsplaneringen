@@ -1,0 +1,30 @@
+s31 C1a: FAIL → PASS
+s31 C2a: FAIL → PASS
+s32 AC26b: FAIL → PASS
+s32 AC29a: FAIL → PASS
+s32 AC29c: FAIL → PASS
+s32 AC29d: FAIL → PASS
+s32 AC29: FAIL → PASS (blocket körde utan fel; delkontroller AC29b,AC29a,AC29c,AC29d,AC29e,AC29f PASS)
+s32 AC30b: FAIL → PASS
+s32 AC31: FAIL → PASS (blocket körde utan fel; delkontroller AC31a,AC31b,AC31c PASS)
+s32 AC33b0: FAIL → PASS
+s32 AC33: FAIL → PASS (blocket körde utan fel; delkontroller AC33c,AC33a,AC33b0,AC33b PASS)
+s32 AC34: FAIL → PASS (blocket körde utan fel; delkontroller AC34a,AC34b,AC34c,AC34d,AC34e,AC34f,AC34g PASS)
+s32 AC35: FAIL → PASS (blocket körde utan fel; delkontroller AC35a PASS)
+s32 AC36: FAIL → PASS (blocket körde utan fel; delkontroller AC36a,AC36b,AC36c,AC36d PASS)
+s32 AC37: FAIL → PASS (blocket körde utan fel; delkontroller AC37a,AC37b,AC37c,AC37d PASS)
+s32 AC48c: FAIL → PASS
+s33 AC21c: FAIL → PASS
+s33 S32-AC29a: FAIL → PASS
+s33 S32-AC29c: FAIL → PASS
+s33 S32-AC29d: FAIL → PASS
+s33 S32-AC29: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC29b,S32-AC29a,S32-AC29c,S32-AC29d,S32-AC29e,S32-AC29f PASS)
+s33 S32-AC30b: FAIL → PASS
+s33 S32-AC31: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC31a,S32-AC31b,S32-AC31c PASS)
+s33 S32-AC33b0: FAIL → PASS
+s33 S32-AC33: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC33c,S32-AC33a,S32-AC33b0,S32-AC33b PASS)
+s33 S32-AC34: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC34a,S32-AC34b,S32-AC34c,S32-AC34d,S32-AC34e,S32-AC34f,S32-AC34g PASS)
+s33 S32-AC35: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC35a PASS)
+s33 S32-AC36: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC36a,S32-AC36b,S32-AC36c,S32-AC36d PASS)
+s33 S32-AC37: FAIL → PASS (blocket körde utan fel; delkontroller S32-AC37a,S32-AC37b,S32-AC37c,S32-AC37d PASS)
+totalt 29, PASS 29
