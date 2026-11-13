@@ -1,9 +1,9 @@
 # Slice 61 — «Medan du väntar» i Teknik-text
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** (ej låst). Bas: main @ `9d4813b` (Slice 60 live, men footern är fortfarande «Slice 59» — Slice 60 rörde inte appen). Gren: `slice-61-docs`.
-**Uppdrag:** Scout 2026-11 #2, Approved av Christoffer 2026-11-02 i `backlog/IMPROVEMENTS.md` via PR #66. PO-kort 2026-11-12: packa som Slice 61, autonomt budgetläge, ingen ny «kör»-fras.
-**Effort:** **S** (en hjälpfunktion, ett valfritt fält i två formulär, en visningsrad på tre ytor, 16 korta innehållsrader, footer. Ingen SQL.)
+**Status:** **LÅST** 2026-11-12 av Christoffer i egen widget (12:35, Europe/Stockholm): «A1 B1C2 D1 E1 F1». Se [`decisions.md`](decisions.md). **Obs: C2, inte det föreslagna C1.** Bas: main @ `9d4813b` (Slice 60 live, men footern är fortfarande «Slice 59» — Slice 60 rörde inte appen). Gren: `slice-61-docs`.
+**Uppdrag:** Scout 2026-11 #2, Approved av Christoffer 2026-11-02 i `backlog/IMPROVEMENTS.md` via PR #66 (`3f0a729`). PO-kort 2026-11-12: packa som Slice 61, autonomt budgetläge, ingen ny «kör»-fras.
+**Effort:** **S** (en hjälpfunktion, ett valfritt fält i två formulär, en visningsrad på tre ytor, 16 korta innehållsrader, footer. Ingen schema-SQL. Data-UPDATE efter merge, C2.)
 **Källa:** `backlog/IMPROVEMENTS.md` (Approved, Scout outside sweep 2026-11 #2) och Scout-utkastet `/workspace/scout-drafts/2026-11-monthly-sweep.md`. Scout-formen: innehållspass på ~10–20 Teknik, «Medan du väntar: …» i `how_to`, visa där how_to redan syns, inget nytt schema om text räcker, hallen fortfarande ett märke.
 
 **Tidigare A–F:** inga. Scout gav bara «Suggested slice shape». A–F nedan är nya.
@@ -30,7 +30,7 @@ När barn står i kön vid en Teknik-station hittar en ny ledare på sidouppgift
 - En hjälpfunktion som känner igen en onumrerad sista rad «Medan du väntar: …», så den inte räknas som steg och inte blir en femte punkt i golvkortet.
 - 16 Teknik i de bundlade seederna får en sådan rad (listan i `content/microcopy.sv.md`). De övriga 8, och ev. fler rader bara i live-banken, ingår inte.
 - Visning i detaljvy, golvkort och Kör passet. Valfritt fält i Admin och egen övning.
-- `SLICE_NUMBER = '61'`. Ingen schema-SQL, inget extra hallmärke, ingen ändring i Hallöversikt, Redigera redskap, Planera pass eller Skriv ut passet. Scout #1 och #3 (Lättare/Svårare, Ny vecka) ingår inte.
+- `SLICE_NUMBER = '61'`. Ingen schema-SQL, inget extra hallmärke, ingen ändring i Hallöversikt, Redigera redskap, Planera pass eller Skriv ut passet. Scout #1 och #3 (Lättare/Svårare, Ny vecka) ingår inte. Efter merge: `content/update-how-to-waiting.sql` (C2), bara efter Christoffers ja.
 
 ## Ej scope
 
@@ -39,9 +39,9 @@ När barn står i kön vid en Teknik-station hittar en ny ledare på sidouppgift
 - Att lägga raden på **Skriv ut passet** (how_to syns inte där i dag).
 - `push-promote --replace` mot live-banken (skriver fler fält än `how_to` och sätter `needs_coach_review`).
 - Innehåll i uppvärmning, styrka, lek, samling.
-- De fem mer spotting-tunga Teknikerna (rondat–flickis, flickis kudde, falla bakåt, salto från höjd, handstående falla till rygg) — se öppen fråga 3.
+- De fem mer spotting-tunga Teknikerna (rondat–flickis, flickis kudde, falla bakåt, salto från höjd, handstående falla till rygg) — låst utanför (B1).
 
-## A–F (★ = Docs förslag)
+## A–F (★ = Docs förslag; **låst: A1 B1 C2 D1 E1 F1**, se `decisions.md`)
 
 ### A. Var texten bor
 - **A1 ★** I befintlig `how_to` som onumrerad sista rad `Medan du väntar: …`. Ingen ny kolumn. En liten hjälpfunktion gör att raden inte räknas som steg. Effort stannar S, som Scout föredrog.
@@ -49,13 +49,13 @@ När barn står i kön vid en Teknik-station hittar en ny ledare på sidouppgift
 - A3 Nytt bankfält (t.ex. `waiting_drill`). Effort M, schema-SQL och reservhämtning. PO bad att undvika SQL.
 
 ### B. Urval
-- **B1 ★** 16 Teknik där kön typiskt uppstår (trampett, satsbräda, räcke, bom, plint, kullerbytta, hjul/minihjul, landning, äggrullning, rockringar). Exakta id och texter i `content/microcopy.sv.md`. Inte de fem spotting-tunga (öppen fråga 3) och inte bro eller balansgång i den här ronden.
+- **B1 ★** 16 Teknik där kön typiskt uppstår (trampett, satsbräda, räcke, bom, plint, kullerbytta, hjul/minihjul, landning, äggrullning, rockringar). Exakta id och texter i `content/microcopy.sv.md`. Inte de fem spotting-tunga (låst utanför) och inte bro eller balansgång i den här ronden.
 - B2 Alla 24 Teknik i seederna. Större bundle-risk, och spotting-tunga övningar får sidouppgift bredvid övningar som kräver aktiv spotting.
 - B3 Bara 10 (nedre Scout-spannet). Mindre nytta, samma hjälpfunktion ändå.
 
 ### C. SQL och live-banken
-- **C1 ★** Ingen SQL. Seederna i PR:en uppdateras (offline-reserv och tester). Live-banken, som är sanningen, uppdaterar Christoffer efter merge via det nya fältet i Admin — en rad per övning, utan att rören stegen. Builder kör varken SQL eller `push-promote --replace`.
-- C2 Ingen schema-SQL, men packen får en färdig `how_to`-endast UPDATE för de 16 id:na som Christoffer klistrar in (eller PO via Supabase MCP efter hans OK). Snabbare live-uppdatering, men det är data-SQL mot riktiga banken.
+- C1 Ingen SQL. Seederna i PR:en uppdateras (offline-reserv och tester). Live-banken uppdaterar Christoffer efter merge via det nya fältet i Admin. Avvisat — Docs förslag.
+- **C2 — LÅST.** Ingen schema-SQL. Packen har `content/update-how-to-waiting.sql`: en idempotent `how_to`-endast UPDATE för de 16 id:na som Christoffer klistrar in **efter merge**, när appen är live (eller PO via Supabase MCP efter hans OK). Builder kör varken SQL eller `push-promote --replace`. Agenter kör aldrig filen.
 - C3 Builder kör `push-promote --replace` efter Christoffers OK. `replaceBody` skickar alla textfält utom status/id/sort och sätter `needs_coach_review`. Layout-kolumnen nämns inte (PATCH lämnar den), men title, summary, redskap och länkar skrivs från seedfilen. Avråds.
 
 ### D. Visning
@@ -73,13 +73,11 @@ När barn står i kön vid en Teknik-station hittar en ny ledare på sidouppgift
 - F2 Ny egen smoke. Onödigt för en textrad.
 - F3 Bara den manuella checklistan, inga nya enhetstester. Avråds — steggränsen är lätt att bryta.
 
-## Öppna frågor
+## Öppna frågor — besvarade vid lås
 
-1. **Live-banken:** fyller du vänt-fältet i Admin för de 16 efter merge (C1 ★), eller vill du ha en `how_to`-endast UPDATE att klistra in (C2)?
-2. **Texterna** i `content/microcopy.sv.md` — ska någon formuleras om innan lås?
-3. **Spotting-tunga Teknik** (rondat–flickis, flickis kudde, falla bakåt, salto från höjd, handstående falla till rygg): ska de också få en rad i den här slicen? ★ Nej (B1).
-4. **Lås:** Effort S kan enligt PROJECT.md låsas av Planner, men kortet följer samma rutin som 59–60. Svara t.ex. «Ja, lås A1 B1 C1 D1 E1 F1».
+Se `decisions.md`. Kort:
 
-## Lås-sträng (förslag)
-
-«Ja, lås A1 B1 C1 D1 E1 F1»
+1. **Live-banken:** C2 (inte C1). `content/update-how-to-waiting.sql` efter merge, bara efter Christoffers ja.
+2. **Texterna** i `content/microcopy.sv.md`: oförändrade.
+3. **Spotting-tunga Teknik:** kvar utanför (B1).
+4. **Lås:** «A1 B1C2 D1 E1 F1» (egen widget 2026-11-12 12:35).

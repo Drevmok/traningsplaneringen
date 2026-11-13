@@ -1,6 +1,6 @@
 # Slice 61 — mikrotext (sv)
 
-**Status:** FÖRESLAGEN (A1 B1 C1 D1 E1 F1). Ej låst.
+**Status:** **LÅST** 2026-11-12 (A1 B1 C2 D1 E1 F1). Texterna oförändrade vid lås.
 
 Prefixet `Medan du väntar:` är låst (Scout / IMPROVEMENTS). Ändra inte formuleringen och översätt den inte. Låsta termer orörda (Passbyggaren, Hallöversikt, Kör passet, Redigera redskap, …). «redskap», inte «utrustning». Ingen sidostation, inget extra hallmärke i texten.
 
@@ -38,4 +38,4 @@ Sista raden i `howTo` ska vara exakt `Medan du väntar: ` + payloaden nedan. Om 
 | 15 | `tech-aggrullning-kil` | Äggrullning nerför kil | sitt, dra upp knäna och håll äggformen i fem andetag. |
 | 16 | `tech-ljushopp-rockringar` | Ljushopp i rockringar | hoppa jämfota på stället: armarna upp, benen ihop. |
 
-**Inte i den här ronden (8 Teknik):** `tech-rondat-flickis`, `tech-flickis-kudde`, `tech-falla-bakat-hojd`, `tech-salto-fran-hojd`, `tech-handstaende-falla-rygg` (spotting-tunga, öppen fråga 3), samt `tech-bro`, `tech-balansgang`, `tech-asnesparkar`.
+**Inte i den här ronden (8 Teknik):** `tech-rondat-flickis`, `tech-flickis-kudde`, `tech-falla-bakat-hojd`, `tech-salto-fran-hojd`, `tech-handstaende-falla-rygg` (spotting-tunga, låst utanför med B1), samt `tech-bro`, `tech-balansgang`, `tech-asnesparkar`.

@@ -225,7 +225,7 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ### Scout outside sweep 2026-11 (similar apps + unmet demand) — **Approved 2026-11-02**
 
-**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** after PR #65 (`72690c1`). No slice pack yet; Planner drafts one when Christoffer says “what’s next?”. #3 is phase 2 of #1 (bundle or after #1).
+**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** after PR #66 (`3f0a729`). Slice 61 packs idea #2 («Medan du väntar») on `slice-61-docs`. #3 is phase 2 of #1 (bundle or after #1).
 
 Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
 

@@ -1,7 +1,7 @@
-# Slice 61 — HANDOFF till Builder (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 61 — HANDOFF till Builder (LÅST: A1 B1 C2 D1 E1 F1)
 
-**Status:** **FÖRESLAGEN** — inte låst. Texten följer Docs ★-val A1 B1 C1 D1 E1 F1. **Builder får bygga först när PO skickat byggkortet efter lås** (Docs pingar inte Bob). Bas main @ `9d4813b`, docs-gren `slice-61-docs`. **Ingen merge utan Christoffers OK.**
-**SQL:** ingen (C1). **Bundle:** inom +512 B gzip (uppskattat +0,30–0,50 kB) — **inget undantag**; rapportera exakta byte mot main i PR.
+**Status:** **LÅST** 2026-11-12 — «A1 B1C2 D1 E1 F1» (Christoffer i egen widget, 12:35, reläat av PO). **Obs: C2, inte C1.** Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `9d4813b`, docs-gren `slice-61-docs`. **Ingen merge utan Christoffers OK.**
+**SQL:** ingen schema-SQL. Data-UPDATE `content/update-how-to-waiting.sql` (C2) — Christoffer klistrar in **efter merge**, när appen är live, och bara efter sitt ja. **Builder kör varken SQL eller `push-promote --replace`.** Agenter kör aldrig filen. Ta med filen oförändrad i bygg-PR:en (så den finns på main efter merge); skriv inte en ny. **Bundle:** inom +512 B gzip (uppskattat +0,30–0,50 kB) — **inget undantag**; rapportera exakta byte mot main i PR.
 **Egen worktree från `9d4813b`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är (oincheckade borttagningar av `tools/bank/out/*`). Städa den inte, och kör inte Doctor eller smokes därifrån.
 Rör inte Hallöversikt, Redigera redskap, Planera pass, `EQUIPMENT_PIECES`, `PassPrint` eller scoutidéerna #1 och #3. Inget extra hallmärke. Ingen `push-promote --replace`, ingen SQL mot riktiga projektet.
 
@@ -37,7 +37,7 @@ export function composeHowTo(howText: string, waiting: string): string
 - CSS: återanvänd muted/tip-typ, knapp storlek som övrig brödtext. Ingen ny färgskala. Klassen ska inte se ut som ett femte `li` i steglistan.
 - Ingen ny `UI.`-etikett för själva raden — prefixet i texten räcker. Fältetikett och hint: se `content/microcopy.sv.md`.
 
-## 3. Formulär (C1, A1)
+## 3. Formulär (A1)
 
 - `AdminBankForm.tsx` och `OwnActivityForm.tsx`: efter textarea «Så gör du» (`:174–176` resp. motsvarande `:127–128`), ett valfritt fält `<label class="own-field">` med `UI.waitingLabel` / `UI.waitingHint`, `maxLength={120}`. Synligt för alla block (texten är ofarlig även på samling), men microcopy och seedrunda gäller Teknik.
 - Sparning via `composeHowTo` som i avsnitt 1. Rör inte layout-, redskap- eller källfälten. En 4-stegs rad med ifylld vänt-text ska gå att spara och läsas tillbaka utan att `rowToEntry` släpper den.
@@ -47,7 +47,7 @@ export function composeHowTo(howText: string, waiting: string): string
 
 - `data/seedActivities.ts`: lägg till exakt raden i `content/microcopy.sv.md` som sista rad i `howTo` för de 16 id:na, med riktigt nyrad-tecken i strängen (samma `\n`-stil som de befintliga stegen). Rör inte de andra fälten.
 - `data/blockMeta.ts`: `SLICE_NUMBER = '61'`. Nya nycklar `waitingLabel` och `waitingHint` enligt microcopy.
-- Live-banken rörs inte i PR:en (C1). Skriv i `SLICE61-SHIPPED.md` att Christoffer fyller fältet i Admin efter merge för samma 16 id (så länge C1 står kvar vid lås).
+- Live-banken rörs inte i bygg-PR:en. Ta med `content/update-how-to-waiting.sql` oförändrad. Skriv i `SLICE61-SHIPPED.md` att Christoffer (inte Builder) klistrar in den **efter merge**, när appen är live, och bara efter sitt ja; att den bara rör `how_to` för de 16 id:na, är idempotent, och aldrig körs av bottar. Körs den före appen är live försvinner 14 Teknik med redan fyra steg ur Biblioteket.
 
 ## 5. Tester (`bun test src`)
 
@@ -67,7 +67,7 @@ Ny `lib/waitingLine.test.ts` (eller motsvarande i `ownActivities.test.ts`):
 - `verify-traningsplaneraren/features/kor-passet.md`: en kort not att Kör visar «Medan du väntar: …» under cue när raden finns; cue oförändrad. Ev. en rad i en befintlig detalj-/biblioteksfil om en sådan beskriver «Så gör du». Ingen ny feature-fil krävs.
 - Ingen ny `docs/*.sv.md` krävs. En mening i `docs/planera-pass.sv.md` eller motsvarande om «Så gör du» redan nämns där är nog.
 - `verifier/smoke-map.json`: ingen ny smoke. `pick-smokes 9d4813b <head>` styr. Förväntade träffar när filerna ovan ändras: `seed-2DJ_oMM81mI-smoke`, `slice-30-builder-smoke`, `slice-30-fix-b1-smoke`, `slice-34-builder-smoke`, `slice-38-builder-smoke`, `slice-47-builder-smoke`. Jämför mot main-cachen; SAMMA förutom footern 59→61.
-- `SLICE61-SHIPPED.md` i roten: urval (16 id), att hjälpfunktionen fanns för att 14 Teknik redan har 4 steg, bundle-byte mot main, att live-banken väntar på Christoffers Admin-runda (C1), head-SHA.
+- `SLICE61-SHIPPED.md` i roten: urval (16 id), att hjälpfunktionen fanns för att 14 Teknik redan har 4 steg, bundle-byte mot main, att live-banken väntar på Christoffers ja att klistra in `content/update-how-to-waiting.sql` efter merge (C2; inte ifyllning i Admin), head-SHA.
 
 ## 7. Bygg och PR
 
@@ -75,6 +75,6 @@ Ny `lib/waitingLine.test.ts` (eller motsvarande i `ownActivities.test.ts`):
 - Bundle gz (assets js+css) mot main i PR; gå inte över +512 B (E1: korta eller stryk från listans slut).
 - Gren `slice-61-code` från `9d4813b`, PR mot main med `SLICE61-SHIPPED.md`. Ingen merge. Head-SHA och bevis till PO, inte till Verifier direkt.
 
-## Avvisat i förslaget (byggs inte om ★ låses)
+## Avvisat (byggs inte)
 
-A2, A3, B2, B3, C2, C3, D2, D3, E2, E3, F2 och F3.
+A2, A3, B2, B3, C1, C3, D2, D3, E2, E3, F2 och F3.
