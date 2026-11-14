@@ -3,6 +3,7 @@ import { UI } from '../data/blockMeta'
 import { floorTip, validateActivityTip } from '../data/activityTips'
 import type { Activity } from '../types'
 import { SourceLine } from './SourceLine'
+import { waitingLine } from '../lib/waitingLine'
 
 interface Props {
   activity: Activity
@@ -14,13 +15,6 @@ interface Props {
 }
 
 const WIDE = '(min-width: 769px)'
-
-function howSteps(howTo: string): string[] {
-  return howTo
-    .split('\n')
-    .map((line) => line.replace(/^\s*\d+\.\s*/, '').trim())
-    .filter(Boolean)
-}
 
 /** Scannable floor card: why, how, watch, safety. Folded on a phone. */
 export function ActivityTip({
@@ -72,7 +66,8 @@ export function ActivityTip({
       </label>
     ) : null
 
-  const steps = howSteps(activity.howTo)
+  const steps = tip.steps
+  const waiting = waitingLine(activity.howTo)
 
   const fullBody = (
     <div className="activity-tip">
@@ -97,6 +92,7 @@ export function ActivityTip({
           )}
         </div>
       )}
+      {waiting && <p className="activity-tip-copy activity-tip-waiting">{waiting}</p>}
       {activity.watchFor && (
         <div className="activity-tip-block">
           <p className="activity-tip-kicker">{UI.watchFor}</p>

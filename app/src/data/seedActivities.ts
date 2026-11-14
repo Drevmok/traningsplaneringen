@@ -250,7 +250,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Ljushopp från satsbräda — grundstuds och hoppteknik med fokus på timing, inte höjd först.',
     howTo:
-      '1. Visa sats → bräda → ljushopp med kontrollerad landning.\n2. En i taget; tydlig kö.\n3. Cue: timing och rak kropp före höjd.',
+      '1. Visa sats → bräda → ljushopp med kontrollerad landning.\n2. En i taget; tydlig kö.\n3. Cue: timing och rak kropp före höjd.\nMedan du väntar: stå på en fot och fäll kroppen fram som till sats.',
     watchFor:
       'Fel fotisättning på brädan; landning bakom/framför mattan; köhållning så ingen springer in för tidigt.',
     watchForRequired: true,
@@ -273,7 +273,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Ljushopp på trampett — tydlig ansats, studs i mitten, sträckt hopp och mjuk landning.',
     howTo:
-      '1. Visa tydlig ansats och studs i mitten av trampetten.\n2. Sträckt ljushopp, mjuk landning.\n3. En i taget; vänta tills landningen är klar.',
+      '1. Visa tydlig ansats och studs i mitten av trampetten.\n2. Sträckt ljushopp, mjuk landning.\n3. En i taget; vänta tills landningen är klar.\nMedan du väntar: öva ljushopp på stället: armarna upp, landa mjukt.',
     watchFor:
       'Ansats för lång/snabb; studs nära kanten; landning utan madrasskydd där det behövs.',
     watchForRequired: true,
@@ -296,7 +296,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Volt från satsbräda till landning på rygg — progressiv volt med madrass.',
     howTo:
-      '1. Säkerställ madrass som räcker bakåt innan första försöket.\n2. Satsbräda → rotation → landning på rygg.\n3. Bygg från kortare rotation innan fullare volt; spotta efter nivå.\n4. En i taget.',
+      '1. Säkerställ madrass som räcker bakåt innan första försöket.\n2. Satsbräda → rotation → landning på rygg.\n3. Bygg från kortare rotation innan fullare volt; spotta efter nivå.\n4. En i taget.\nMedan du väntar: sitt i kön, haka i och öva rund rygg.',
     watchFor:
       'För lite rotation (nacke/huvud); för mycket höjd utan kontroll; madrassen måste räcka bakåt.',
     watchForRequired: true,
@@ -319,7 +319,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Volt från trampett upp på mattberg — progressiv höjd och rotation.',
     howTo:
-      '1. Kolla att mattberget är stabilt och högt nog.\n2. Ansats → trampett → volt → landning högt på mattberg.\n3. Progressera höjd/rotation efter nivå.\n4. En i taget; nästa väntar tills landningen är klar.',
+      '1. Kolla att mattberget är stabilt och högt nog.\n2. Ansats → trampett → volt → landning högt på mattberg.\n3. Progressera höjd/rotation efter nivå.\n4. En i taget; nästa väntar tills landningen är klar.\nMedan du väntar: sitt i kön, rulla ihop och öppna igen.',
     watchFor:
       'Mattberg som tippar eller är för lågt; underrotation; att nästa gymnast startar för tidigt.',
     watchForRequired: true,
@@ -456,7 +456,7 @@ export const seedActivities: Activity[] = [
     tags: ['teknik', 'floor', 'new-coach-ok'],
     summary: 'En trygg kullerbytta framåt på matta — rund rygg, inte ett kast.',
     howTo:
-      '1. Lägg madrassen fram. Visa haka i och rund rygg.\n2. En i taget från huk, händerna i mattan.\n3. Rulla upp till fötterna utan att sätta fart i väggen.\n4. Nästa startar först när mattan är fri.',
+      '1. Lägg madrassen fram. Visa haka i och rund rygg.\n2. En i taget från huk, händerna i mattan.\n3. Rulla upp till fötterna utan att sätta fart i väggen.\n4. Nästa startar först när mattan är fri.\nMedan du väntar: sitt på huk i kön, haka i och håll ryggen rund.',
     watchFor: 'Platt rygg, hakan upp, eller någon som skjuter på bakifrån.',
     watchForRequired: true,
     visualKey: 'tech-roll',
@@ -474,7 +474,7 @@ export const seedActivities: Activity[] = [
     tags: ['teknik', 'floor', 'new-coach-ok'],
     summary: 'Hjul åt båda håll på en fri linje — händer och fötter i en bana.',
     howTo:
-      '1. Markera en linje på golvet.\n2. Visa hjul med magen in och blicken på händerna.\n3. En i taget, först ett håll och sedan det andra.\n4. Ingen står i landningen.',
+      '1. Markera en linje på golvet.\n2. Visa hjul med magen in och blicken på händerna.\n3. En i taget, först ett håll och sedan det andra.\n4. Ingen står i landningen.\nMedan du väntar: stå i stjärna och flytta blicken mot händerna.',
     watchFor: 'Böjd bana, någon i vägen, eller bara ett håll.',
     watchForRequired: true,
     visualKey: 'tech-cartwheel',
@@ -532,7 +532,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Grenform i luften och en stabil landning. Första steget mot att hoppa former från trampett med kontroll, inte höjd.',
     howTo:
-      '1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.',
+      '1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.\nMedan du väntar: öva grenhopp på golvet, landa mjukt på två fötter.',
     watchFor:
       'Lång eller snabb ansats, studs nära kanten, benen kvar isär i landningen.',
     watchForRequired: true,
@@ -564,7 +564,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Ett lågt block mellan trampett och matta ger gymnasten ett mål att hoppa över. Tränar höjd, form i luften och landning.',
     howTo:
-      '1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.',
+      '1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.\nMedan du väntar: hoppa ljushopp på stället och landa stilla på två fötter.',
     watchFor:
       'Fötter som tar i blocket, gymnaster som tittar ner, att svårigheten höjs innan landningen är stabil.',
     watchForRequired: true,
@@ -596,7 +596,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Gymnasten håller en hopkrupen form medan kroppen rullar nerför kilen. Bygger spänning, rund form och trygghet i att rotera.',
     howTo:
-      '1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.',
+      '1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.\nMedan du väntar: sitt, dra upp knäna och håll äggformen i fem andetag.',
     watchFor:
       'Formen som släpper (ben eller armar åker ut), hakan som åker upp.',
     watchForRequired: true,
@@ -626,7 +626,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Gymnasten hänger med raka armar och lyfter benen framåt. Tränar bål och grepp som behövs i räckesövningar.',
     howTo:
-      '1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.',
+      '1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.\nMedan du väntar: sitt med raka ben och håll L-formen i fem andetag.',
     watchFor:
       'Gungande kropp, böjda armar, ben som faller ner okontrollerat.',
     watchForRequired: true,
@@ -656,7 +656,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Upp i stöd på räcket med raka armar och spänd kropp. Grunden för alla räckesövningar och en trygg nedgång.',
     howTo:
-      '1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.',
+      '1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.\nMedan du väntar: stå i plankan på golvet och räkna till fem.',
     watchFor:
       'Böjda armar, axlar som sjunker, höfter som viker sig vid stången, landning för nära räcket.',
     watchForRequired: true,
@@ -715,7 +715,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Ett litet hjul nära golvet: hand, hand, fot, fot. Lär rytmen och handisättningen i hjulet utan höjd.',
     howTo:
-      '1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.',
+      '1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.\nMedan du väntar: på huk, sätt händerna i golvet en i taget och tillbaka.',
     watchFor:
       'Fel ordning på händer och fötter, händer som hamnar för långt bort, bara ett håll.',
     watchForRequired: true,
@@ -745,7 +745,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Gå längs bommen och sparka fram med raka ben. Tränar balans, raka ben och spänd kropp på smal yta.',
     howTo:
-      '1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.',
+      '1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.\nMedan du väntar: öva soldatsparkar på golvet, armarna ut.',
     watchFor:
       'Böjda ben, blicken ner i bommen, för snabbt tempo.',
     watchForRequired: true,
@@ -776,7 +776,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Bakåtstöd med händerna på bommen och förflyttning i sidled. Bygger stark axelposition och raka armar.',
     howTo:
-      '1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.',
+      '1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.\nMedan du väntar: gå krabbgång på golvet, i kön.',
     watchFor:
       'Böjda armar, höfter som sjunker mot golvet, axlar som åker upp mot öronen.',
     watchForRequired: true,
@@ -805,7 +805,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Raka ljushopp från ring till ring i sicksack. Tränar spänd kropp, samlade ben och rytm i hoppen.',
     howTo:
-      '1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.',
+      '1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.\nMedan du väntar: hoppa jämfota på stället: armarna upp, benen ihop.',
     watchFor:
       'Armar som åker ner, ben isär, hårda landningar.',
     watchForRequired: true,
@@ -834,7 +834,7 @@ export const seedActivities: Activity[] = [
     summary:
       'Hopp upp på en låg plint, stabil landning, sedan hopp ner med en form. Grunden för alla trygga landningar.',
     howTo:
-      '1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.',
+      '1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.\nMedan du väntar: hoppa på stället och landa stilla: böjda knän, armarna fram.',
     watchFor:
       'Raka ben i landningen, knän som faller inåt, att gymnasten tar steg efter landningen.',
     watchForRequired: true,

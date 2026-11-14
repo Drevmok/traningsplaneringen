@@ -49,6 +49,7 @@ Kort ordlista för Träningsplanerarens gränssnitt. Inga nya funktioner — bar
 | Replace session — cancel | Fortsätt redigera |
 | Summary (section) | Sammanfattning |
 | How to (section) | Så gör du |
+| Waiting line (Slice 61) | «Medan du väntar: …» as its own line under Så gör du (detail, floor card, Kör passet). Not a step. Form field: Medan du väntar |
 | Watch for (section) | Se upp för |
 | Add to current block | Lägg till i valt block |
 | Add and edit duration | Lägg till och ändra tid |

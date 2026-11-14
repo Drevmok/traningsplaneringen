@@ -14,6 +14,7 @@ import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
 import { StationLayoutSheet } from './StationLayoutSheet'
 import { syncLayout } from '../data/stationLayout'
+import { waitingText } from '../lib/waitingLine'
 
 interface Props {
   /** Slice 47 E1: edit only — coaches cannot add new own exercises. */
@@ -38,6 +39,7 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
     durationMinutes: initial.durationMinutesDefault,
     summary: initial.summary,
     howText: parseHowLines(initial.howTo).join('\n'),
+    waiting: waitingText(initial.howTo),
     watchFor: initial.watchFor,
     safety: initial.safetyLine ?? '',
     equipment: initial.defaultStationEquipment ?? [],
@@ -128,6 +130,11 @@ export function OwnActivityForm({ initial, onSaved, onCancel }: Props) {
             onChange={(e) => set('howText', e.target.value)}
             placeholder={UI.ownStepsHint}
           />
+        </label>
+        <label className="own-field">
+          <span>{UI.waitingLabel}</span>
+          <input value={draft.waiting ?? ''} onChange={(e) => set('waiting', e.target.value)} maxLength={120} />
+          <span className="own-equipment-hint">{UI.waitingHint}</span>
         </label>
         {draft.blockType === 'techniques' && (
           <div className="own-field own-equipment" role="group" aria-labelledby="own-equipment-label">

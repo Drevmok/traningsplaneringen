@@ -24,6 +24,7 @@ import { getActivityById } from '../data/seedActivities'
 import type { Activity, StationEquipmentSlot } from '../types'
 import { SourceLine } from './SourceLine'
 import { detailCoachMeta } from '../lib/source'
+import { howToSteps, waitingLine } from '../lib/waitingLine'
 
 interface Props {
   activity: Activity
@@ -77,6 +78,7 @@ export function ActivityDetail({
 
   const suggested = activity.defaultStationEquipment
   const tip = floorTip(activity)
+  const waiting = waitingLine(activity.howTo)
   const tipIssues = validateActivityTip(activity)
   const equipmentUnset = stationEquipment === undefined
   const equipmentList =
@@ -189,7 +191,8 @@ export function ActivityDetail({
         </section>
         <section>
           <h3>{UI.howTo}</h3>
-          <p className="howto-steps">{activity.howTo}</p>
+          <p className="howto-steps">{howToSteps(activity.howTo)}</p>
+          {waiting && <p className="howto-waiting">{waiting}</p>}
         </section>
         <section>
           <h3>{UI.watchFor}</h3>

@@ -4,6 +4,7 @@ import { EQUIPMENT_PIECES } from './equipmentPieces.ts'
 import { seedActivities } from './seedActivities.ts'
 import { validateTipCatalog } from './activityTips.ts'
 import { sanitizeSource } from '../lib/source.ts'
+import { parseHowLines } from '../lib/ownActivities.ts'
 import { VISUAL_ICON } from '../icons/map.ts'
 
 /** Seed promotion 2DJ_oMM81mI — Prime Coaching Sport, "Fun gymnastics stations" (all except #4). */
@@ -60,7 +61,7 @@ describe('seed promotion 2DJ_oMM81mI', () => {
       assert.ok(a)
       assert.equal(a.blockType, 'techniques', a.id)
       assert.equal(a.durationMinutesDefault, 6, a.id)
-      const steps = a.howTo.split('\n').filter((l) => l.trim())
+      const steps = parseHowLines(a.howTo)
       assert.ok(steps.length >= 1 && steps.length <= 4, `${a.id}: ${steps.length} steps`)
       assert.ok(a.difficulty === 'intro' || a.difficulty === 'easy', a.id)
       assert.equal(a.newCoachOk, true, a.id)
