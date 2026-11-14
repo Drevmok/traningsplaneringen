@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '59'
+export const SLICE_NUMBER = '61'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -590,6 +590,8 @@ export const UI = {
   ownMinutes: 'Minuter',
   ownSteps: 'Så gör du',
   ownStepsHint: 'Ett steg per rad. Högst fyra.',
+  waitingLabel: 'Medan du väntar',
+  waitingHint: 'Valfri. En övning i kön, kopplad till huvudövningen. Inget extra märke i hallen.',
   ownSave: 'Spara övning',
   ownDelete: 'Ta bort',
   ownEditAction: 'Ändra',

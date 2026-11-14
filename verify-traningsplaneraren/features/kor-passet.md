@@ -1,6 +1,6 @@
 # Kör passet (run mode)
 
-**What:** full-screen overlay that walks the pass one övning at a time: kicker `n / N · block`, title, big step clock (tap = pause/resume), «Pausad» / «Tiden är ute», «Nästa: {title}» or «Sista aktiviteten» (Slice 34), **«Kvar: X min»** (Slice 38), then `.run-script` (Varför / Så gör du / Säkerhet) and the nav (**Föregående** / **Nästa övning**). Time-up tone + vibrate once per step at 00:00 (Slice 34); screen wake lock while open.
+**What:** full-screen overlay that walks the pass one övning at a time: kicker `n / N · block`, title, big step clock (tap = pause/resume), «Pausad» / «Tiden är ute», «Nästa: {title}» or «Sista aktiviteten» (Slice 34), **«Kvar: X min»** (Slice 38), then `.run-script` (Varför / Så gör du / Säkerhet; Slice 61: `.run-waiting` «Medan du väntar: …» directly under the cue when the drill has that line — the cue stays the first step) and the nav (**Föregående** / **Nästa övning**). Time-up tone + vibrate once per step at 00:00 (Slice 34); screen wake lock while open.
 
 ## Reach it (all entry points)
 

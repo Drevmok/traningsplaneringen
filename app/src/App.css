@@ -3419,3 +3419,10 @@
   align-self: center;
   font-size: 0.9rem;
 }
+
+/* Slice 61 — «Medan du väntar» line under the steps; not a step. */
+.howto-waiting,
+.activity-tip-waiting,
+.run-waiting {
+  color: #78716c;
+}

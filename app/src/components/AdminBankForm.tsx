@@ -5,13 +5,14 @@ import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import { parseStartTime } from '../lib/admin/adminFormat'
 import { useAdminBank, useOnline } from '../lib/admin/useAdmin'
 import { insertPendingRow, saveRow, type BankPatch } from '../lib/admin/bankWrite'
-import { ownActivityIssues, normalizeHowTo, parseHowLines, type OwnDraft, type OwnIssue } from '../lib/ownActivities'
+import { ownActivityIssues, parseHowLines, type OwnDraft, type OwnIssue } from '../lib/ownActivities'
 import { formatSourceTime, sanitizeSource } from '../lib/source'
 import type { BlockType, StationEquipmentSlot } from '../types'
 import { EquipmentIcon } from './equipmentMark'
 import { StationComposeSheet } from './StationComposeSheet'
 import { StationLayoutSheet } from './StationLayoutSheet'
 import { syncLayout } from '../data/stationLayout'
+import { composeHowTo, waitingText } from '../lib/waitingLine'
 
 interface Props {
   /** Slice 47: 'new' = «Ny egen övning» in Admin → a pending bank row; 'edit' = «Ändra i banken» on row `id`. */
@@ -49,6 +50,7 @@ export default function AdminBankForm({ mode = 'edit', id = '', openLayout, onSa
     durationMinutes: a?.durationMinutesDefault ?? 5,
     summary: a?.summary ?? '',
     howText: a ? parseHowLines(a.howTo).join('\n') : '',
+    waiting: a ? waitingText(a.howTo) : '',
     watchFor: a?.watchFor ?? '',
     safety: a?.safetyLine ?? '',
     equipment: a?.defaultStationEquipment ?? [],
@@ -101,7 +103,7 @@ export default function AdminBankForm({ mode = 'edit', id = '', openLayout, onSa
       block_type: blockType,
       duration_minutes_default: Math.max(1, Math.min(180, Math.round(draft.durationMinutes) || 1)),
       summary: draft.summary.trim(),
-      how_to: normalizeHowTo(draft.howText),
+      how_to: composeHowTo(draft.howText, draft.waiting ?? ''),
       watch_for: draft.watchFor.trim(),
       safety_line: draft.safety.trim() || null,
       default_station_equipment: blockType === 'techniques' && draft.equipment.length > 0 ? draft.equipment : null,
@@ -174,6 +176,11 @@ export default function AdminBankForm({ mode = 'edit', id = '', openLayout, onSa
         <label className="own-field">
           <span>{UI.ownSteps}</span>
           <textarea rows={4} value={draft.howText} onChange={(e) => set('howText', e.target.value)} placeholder={UI.ownStepsHint} />
+        </label>
+        <label className="own-field">
+          <span>{UI.waitingLabel}</span>
+          <input value={draft.waiting ?? ''} onChange={(e) => set('waiting', e.target.value)} maxLength={120} />
+          <span className="own-equipment-hint">{UI.waitingHint}</span>
         </label>
         {draft.blockType === 'techniques' && (
           <div className="own-field own-equipment" role="group" aria-labelledby="admin-equipment-label">

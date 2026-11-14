@@ -208,6 +208,7 @@ export function RunPass({ session, onClose }: Props) {
             {step.cue}
           </p>
         )}
+        {step.waiting && <p className="run-waiting">{step.waiting}</p>}
         {step.safety ? (
           <p className="run-safety">
             <span className="run-label">{UI.safety}</span>

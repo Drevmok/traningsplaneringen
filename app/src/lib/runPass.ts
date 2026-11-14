@@ -2,6 +2,7 @@ import { BLOCK_LABELS, BLOCK_ORDER } from '../data/blockMeta'
 import { floorTip } from '../data/activityTips'
 import { getActivityById } from '../data/seedActivities'
 import type { Session } from '../types'
+import { waitingLine } from './waitingLine'
 
 /** One exercise in pass order. The cue is the first how-step, not the whole sheet. */
 export interface RunStep {
@@ -14,6 +15,8 @@ export interface RunStep {
   watch: string
   safety?: string
   experienced: boolean
+  /** Slice 61 — «Medan du väntar: …» when the drill has one. */
+  waiting?: string
 }
 
 export function runSeconds(minutes: number): number {
@@ -52,6 +55,7 @@ export function runSteps(session: Session): RunStep[] {
         watch: tip?.watchFor ?? '',
         safety: tip?.safety,
         experienced: Boolean(activity?.experiencedCoachOnly),
+        waiting: activity ? waitingLine(activity.howTo) : undefined,
       })
     }
   }

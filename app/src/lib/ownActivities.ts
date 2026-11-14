@@ -11,6 +11,7 @@ import type {
 } from '../types'
 import { sanitizeStationLayout } from '../data/stationLayout'
 import { sanitizeSource } from './source'
+import { composeHowTo, isWaitingLine } from './waitingLine'
 
 const KEY = 'gymnastics-planner-own-activities-v1'
 /** E1 — room for several imported videos. */
@@ -37,6 +38,8 @@ export interface OwnDraft {
   durationMinutes: number
   summary: string
   howText: string
+  /** Slice 61 — optional «Medan du väntar» text; not a step. */
+  waiting?: string
   watchFor: string
   safety: string
   /** Redskap förslag. Saved only when the block is Teknik. */
@@ -94,6 +97,7 @@ function clampMinutes(value: number): number {
 export function parseHowLines(howText: string): string[] {
   return howText
     .split('\n')
+    .filter((line) => !isWaitingLine(line))
     .map((line) => line.replace(/^\s*\d+\.\s*/, '').trim())
     .filter(Boolean)
 }
@@ -270,7 +274,7 @@ function build(draft: OwnDraft, id: string, base?: Activity): Activity {
     blockType: draft.blockType,
     durationMinutesDefault: draft.durationMinutes,
     summary: draft.summary,
-    howTo: normalizeHowTo(draft.howText),
+    howTo: composeHowTo(draft.howText, draft.waiting ?? ''),
     watchFor: draft.watchFor,
     safetyLine: draft.safety,
     defaultStationEquipment: draft.equipment,

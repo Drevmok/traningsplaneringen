@@ -1,4 +1,5 @@
 import type { Activity } from '../types'
+import { parseHowLines } from '../lib/ownActivities'
 
 /**
  * One-line safety, only where the existing drill copy already states a
@@ -177,10 +178,7 @@ export function validateTipCatalog(activities: Activity[]): TipIssue[] {
 }
 
 export function floorTip(activity: Activity): FloorTip {
-  const steps = activity.howTo
-    .split('\n')
-    .map((line) => line.replace(/^\s*\d+\.\s*/, '').trim())
-    .filter(Boolean)
+  const steps = parseHowLines(activity.howTo)
 
   const safety = activity.safetyLine?.trim() || ACTIVITY_SAFETY[activity.id]
 
