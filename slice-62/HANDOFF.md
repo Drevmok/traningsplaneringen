@@ -1,7 +1,7 @@
-# Slice 62 — HANDOFF till Builder (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 62 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1)
 
-**Status:** **FÖRESLAGEN**, inte låst. Builder får bygga först när PO skickat byggkortet efter lås (Docs pingar inte Bob). Bas main @ `04af122`, docs-gren `slice-62-docs`. **Ingen merge utan Christoffers OK.**
-**SQL:** ingen schema-SQL. Data-UPDATE `content/update-progression-links.sql` (A1) — Christoffer klistrar in **efter merge**, när appen är live, och bara efter sitt ja. **Builder kör varken SQL eller `push-promote --replace`.** Agenter kör aldrig filen. Ta med filen oförändrad i bygg-PR:en; skriv inte en ny.
+**Status:** **LÅST** 2026-11-15 — «Ja, lås A1 B1 C1 D1 E1 F1» (Christoffer, 09:41, Europe/Stockholm, reläat av PO). Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `04af122`, docs-gren `slice-62-docs`. **Ingen merge utan Christoffers OK.**
+**SQL:** ingen schema-SQL. Data-UPDATE `content/update-progression-links.sql` (A1) — Christoffer klistrar in **efter merge**, när appen är live, och bara efter sitt **separata** ja. **Builder kör varken SQL eller `push-promote --replace`.** Agenter kör aldrig filen. Ta med filen oförändrad i bygg-PR:en; skriv inte en ny.
 **Bundle:** inom +512 B gzip (uppskattat +0,30–0,50 kB) — **inget undantag**; rapportera exakta byte mot main i PR. Går det över: stryk par 9, sedan 8, enligt microcopy.
 **Egen worktree från `04af122`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är (oincheckade borttagningar av `tools/bank/out/*`). Städa den inte, och kör inte Doctor eller smokes därifrån.
 Rör inte Hallöversikt, Redigera redskap, Planera pass, `EQUIPMENT_PIECES`, `PassPrint`, Kör passet eller Scout #3. Inget extra hallmärke. Inga nya länkfält i Admin eller egen övning. Ingen `push-promote --replace`, ingen SQL mot riktiga projektet.
@@ -36,7 +36,7 @@ export function swapSessionActivity(session: Session, itemId: string, nextActivi
 
 - `data/seedActivities.ts`: sätt exakt `progressionOf` / `regressionOf` enligt tabellen i `content/microcopy.sv.md`. Rör inga andra fält. Komplettera de två ensidiga (`hjul.progressionOf = minihjul`, `balansgang.regressionOf = soldatsparkar-bom`). Skriv reciprokt åt båda håll.
 - `data/blockMeta.ts`: `SLICE_NUMBER = '62'`. Nya nycklar `easier` och `harder` enligt microcopy. Inga andra typ- eller lock-strängar.
-- Live-banken rörs inte i bygg-PR:en. Ta med `content/update-progression-links.sql` oförändrad. Skriv i `SLICE62-SHIPPED.md` att Christoffer (inte Builder) klistrar in den **efter merge**, när appen är live, och bara efter sitt ja; att den bara rör de två länkkolumnerna för de 16 id:na, är idempotent, och aldrig körs av bottar.
+- Live-banken rörs inte i bygg-PR:en. Ta med `content/update-progression-links.sql` oförändrad. Skriv i `SLICE62-SHIPPED.md` att Christoffer (inte Builder) klistrar in den **efter merge**, när appen är live, och bara efter sitt **separata** ja; att den bara rör de två länkkolumnerna för de 16 id:na, är idempotent, och aldrig körs av bottar.
 
 ## 4. Import-fix (D1)
 

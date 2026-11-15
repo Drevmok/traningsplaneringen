@@ -1,7 +1,7 @@
 # Slice 62 — Lättare / Svårare på Teknik-rad
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN.** Inte låst. Bas: main @ `04af122` (Slice 61 live, footer «Slice 61», smoke v46 grön). Gren: `slice-62-docs`.
+**Status:** **LÅST** 2026-11-15 av Christoffer (09:41, Europe/Stockholm), reläat av Träningsplaneraren - PO, ordagrant: «Ja, lås A1 B1 C1 D1 E1 F1». Se [`decisions.md`](decisions.md). Bas: main @ `04af122` (Slice 61 live, footer «Slice 61», smoke v46 grön). Gren: `slice-62-docs`.
 **Uppdrag:** Scout 2026-11 #1, Approved av Christoffer 2026-11-02 i `backlog/IMPROVEMENTS.md` via PR #66 (`3f0a729`). Christoffer valde den som Slice 62 den 15 nov 09:23 (Europe/Stockholm), reläat av PO. Sidofix: JSON-import tappar «Medan du väntar» (QM-fynd i `SLICE61-SHIPPED.md`).
 **Effort:** **M** (Scout). Liten UI, befintliga länkfält, 9 par i seederna, en import-rad, footer. Ingen schema-SQL. Data-UPDATE efter merge, A1.
 **Källa:** `backlog/IMPROVEMENTS.md` (Approved, Scout outside sweep 2026-11 #1) och Scout-utkastet `/workspace/scout-drafts/2026-11-monthly-sweep.md`. Scout-formen: chip «Lättare» / «Svårare» som byter övning på plats när `progressionOf` / `regressionOf` finns; fyll ~15–25 Teknik-par; behåll minuter och hallmärke; ActivityDetail-etiketter kvar; ev. Kör passet; fas 2 = idé #3 (ingår inte här).
@@ -14,7 +14,7 @@ I en blandad grupp är en station ibland för svår eller för lätt. Ny ledare 
 
 **Vad ledaren får:** På en Teknik-rad i Passbyggaren, när en länk finns, chip «Lättare» och/eller «Svårare». Ett tryck byter övning på plats. Minuter och hallmärke är kvar.
 
-**Vad admin får:** Inga nya formulärfält i den här slicen (länkar skickas medvetet inte från «Ändra i banken», Slice 32). Live-banken fylls med en länk-UPDATE efter merge, A1.
+**Vad admin får:** Inga nya formulärfält i den här slicen (länkar skickas medvetet inte från «Ändra i banken», Slice 32). Live-banken fylls med en länk-UPDATE efter merge, A1, bara efter Christoffers separata ja.
 
 ## Kod i dag (main @ `04af122`, läst — ingenting byggt)
 
@@ -31,7 +31,7 @@ I en blandad grupp är en station ibland för svår eller för lätt. Ny ledare 
 - Hjälpfunktion som slår upp lättare/svårare (eget fält, annars omvänd länk). Chip i Passbyggaren som byter `activityId`, behåller `item.id`, minuter och anteckning.
 - 9 reciproka par i seederna (16 Teknik; listan i `content/microcopy.sv.md`). De övriga 8 Teknik får inga nya länkar.
 - Import av egna övningar behåller «Medan du väntar» via samma hjälpfunktion som Slice 61.
-- `SLICE_NUMBER = '62'`. Ingen schema-SQL, inga nya Admin-länkfält, ingen ändring i Hallöversikt, Redigera redskap, Planera pass, Skriv ut passet eller Kör passet. Scout #3 (Ny vecka ett steg svårare) ingår inte. Efter merge: `content/update-progression-links.sql` (A1), bara efter Christoffers ja.
+- `SLICE_NUMBER = '62'`. Ingen schema-SQL, inga nya Admin-länkfält, ingen ändring i Hallöversikt, Redigera redskap, Planera pass, Skriv ut passet eller Kör passet. Scout #3 (Ny vecka ett steg svårare) ingår inte. Efter merge, när appen är live: `content/update-progression-links.sql` (A1), bara efter Christoffers separata ja.
 
 ## Ej scope
 
@@ -43,12 +43,10 @@ I en blandad grupp är en station ibland för svår eller för lätt. Ny ledare 
 - Innehåll i uppvärmning, styrka, lek, samling.
 - Att visa varianter utan att kunna byta (B2) — det ersätter inte Bibliotek-söket.
 
-## Decisions-utkast (A–F, inte låst)
-
-★ = Docs förslag. Inte en `decisions.md` — den skrivs vid lås.
+## A–F (★ = Docs förslag; **låst: A1 B1 C1 D1 E1 F1**, se `decisions.md`)
 
 ### A. Datamodell och bank-SQL
-- **A1 ★** Befintliga `progressionOf` / `regressionOf`. Ingen schema-SQL. Seederna i PR:en uppdateras (offline-reserv och tester). Packen har `content/update-progression-links.sql`: en idempotent UPDATE som **bara** sätter `progression_of` och `regression_of` för de 16 id:na, som Christoffer klistrar in **efter merge**, när appen är live (eller PO via Supabase MCP efter hans OK). Builder kör varken SQL eller `push-promote --replace`. Agenter kör aldrig filen. Länkar kan inte fyllas i Admin i dag (Slice 32), därför behövs pasten för live-banken.
+- **A1 ★** Befintliga `progressionOf` / `regressionOf`. Ingen schema-SQL. Seederna i PR:en uppdateras (offline-reserv och tester). Packen har `content/update-progression-links.sql`: en idempotent UPDATE som **bara** sätter `progression_of` och `regression_of` för de 16 id:na, som Christoffer klistrar in **efter merge**, när appen är live, och bara efter sitt **separata** ja (eller PO via Supabase MCP efter hans OK). Builder kör varken SQL eller `push-promote --replace`. Agenter kör aldrig filen. Ta med filen oförändrad i bygg-PR:en. Länkar kan inte fyllas i Admin i dag (Slice 32), därför behövs pasten för live-banken.
 - A2 Ingen SQL. Bara seederna. Live-banken förblir utan länkar tills någon skriver kolumnerna på annat sätt. Chip syns då knappt för ledare mot banken. Avråds.
 - A3 Nytt fält eller schema-SQL, eller `push-promote --replace`. Onödigt — kolumnerna finns. `replace` skriver fler fält och sätter `needs_coach_review`. Avråds.
 
@@ -58,7 +56,7 @@ I en blandad grupp är en station ibland för svår eller för lätt. Ny ledare 
 - B3 Samma som B1, plus chip i Kör passet. Scout sa «ev.»; spräcker lätt +512 B. Inte nu.
 
 ### C. Vilka övningar får innehåll
-- **C1 ★** 9 reciproka par (16 Teknik) i `content/microcopy.sv.md`: komplettera de två ensidiga befintliga, behåll trampett-kedjan, lägg fem nya kedjor (äggrullning→kullerbytta, två ljushopp-steg, flickis kudde→rondat–flickis, falla bakåt→salto). Scout skrev ~15–25 par, men det finns bara 24 Teknik och budgeten är +512 B — 9 tydliga par är nog. De spotting-tunga paren ingår med avsikt: här är poängen att kunna byta till lättare, till skillnad från Slice 61 där sidouppgift bredvid spotting lämnades utanför.
+- **C1 ★ — LÅST.** 9 reciproka par (16 Teknik) i `content/microcopy.sv.md`: komplettera de två ensidiga befintliga, behåll trampett-kedjan, lägg fem nya kedjor (äggrullning→kullerbytta, två ljushopp-steg, flickis kudde→rondat–flickis, falla bakåt→salto). Scout skrev ~15–25 par, men det finns bara 24 Teknik och budgeten är +512 B — 9 tydliga par är nog. De spotting-tunga paren ingår med avsikt (fråga 1: ja): här är poängen att kunna byta till lättare, till skillnad från Slice 61 där sidouppgift bredvid spotting lämnades utanför.
 - C2 Försök länka alla 24. Tvingar tveksamma par (t.ex. bro, L-häng, volt mot olika redskap). Avråds.
 - C3 Bara komplettera de två ensidiga och lämna de 4 redan reciproka fälten. För lite nytta för en M-slice.
 
@@ -77,10 +75,10 @@ I en blandad grupp är en station ibland för svår eller för lätt. Ny ledare 
 - F2 Ny egen smoke. Onödigt; befintliga Passbyggar- och importsmokes räcker.
 - F3 Bara den manuella checklistan, inga nya enhetstester. Avråds.
 
-## Öppna frågor
+## Öppna frågor — besvarade vid lås
 
-1. **Spotting-tunga par** (prio 8–9 i microcopy: flickis kudde↔rondat–flickis, falla bakåt↔salto). Docs rekommenderar att de ingår (C1). Stryk dem vid lås om de ska vänta.
-2. **Kör passet.** Docs rekommenderar inte chip där i den här slicen (B1, budget). Scout sa «ev.».
-3. **Live-banken.** Docs rekommenderar A1 (SQL-paste efter merge, samma mönster som Slice 61 C2). A2 lämnar ledare utan chip mot banken.
+Se `decisions.md`. Kort:
 
-**Låssträng (förslag):** `A1 B1 C1 D1 E1 F1`
+1. **Spotting-tunga par** (prio 8–9): ja, de ingår (C1).
+2. **Kör passet:** nej, chippen visas inte där (B1).
+3. **Live-banken:** ja, A1. `content/update-progression-links.sql` efter merge, när appen är live, bara efter Christoffers separata ja.

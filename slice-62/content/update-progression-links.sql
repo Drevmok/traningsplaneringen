@@ -1,7 +1,10 @@
 -- Slice 62 — länk-endast UPDATE: progression_of / regression_of på 16 Teknik
 -- Christoffer klistrar in själv i Supabase SQL Editor EFTER merge, när Slice 62-appen
--- är live, och bara efter sitt eget ja. Körs INTE av agenter (Docs, Builder, Verifier, PO).
--- PO får köra den via Supabase MCP bara efter Christoffers ja.
+-- är live, och bara efter sitt eget SEPARATA ja. Körs INTE av agenter
+-- (Docs, Builder, Verifier, PO). PO får köra den via Supabase MCP bara efter
+-- Christoffers ja.
+-- Builder tar med den här filen OFÖRÄNDRAD i bygg-PR:en; skriver inte en ny.
+-- Builder kör den inte.
 --
 -- Ingen schemaändring. Rör bara public.exercises.progression_of och
 -- public.exercises.regression_of för de 16 id:na. Övriga kolumner orörda.
@@ -10,8 +13,9 @@
 -- saknad id, eller värdena fanns redan).
 --
 -- Till skillnad från Slice 61-vänt-raden är pasten inte farlig före live-appen
--- (kolumnerna finns redan). Kör den ändå efter merge, så chip och data kommer
--- samtidigt. Målen är befintliga seed-id; saknas ett mål slår FK:n,
+-- (kolumnerna finns redan). Kör den ÄNDÅ bara efter merge, när appen är live,
+-- och bara efter Christoffers separata ja, så chip och data kommer samtidigt.
+-- Målen är befintliga seed-id; saknas ett mål slår FK:n,
 -- och inget i satsen ska tvingas igenom.
 
 UPDATE public.exercises AS e

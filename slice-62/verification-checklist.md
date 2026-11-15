@@ -1,8 +1,8 @@
-# Slice 62 — verifieringschecklista (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 62 — verifieringschecklista (LÅST: A1 B1 C1 D1 E1 F1)
 
 Telefon 390×844 om inget annat sägs. Testdata: bundlade seederna räcker för 1–8 och 10–12 (offline eller stand-in med samma länkar som seederna). Admin-konto bara i testbank / egen databas, **aldrig** den riktiga banken. Ingen SQL. Fixtur för 8: en JSON-övning med 3 steg plus raden «Medan du väntar: hoppa».
 
-**14 kontroller.** Föreslaget lås A1 B1 C1 D1 E1 F1.
+**14 kontroller.** Låst A1 B1 C1 D1 E1 F1.
 
 | # | Kontroll | Förväntat |
 |---|---|---|
@@ -19,4 +19,4 @@ Telefon 390×844 om inget annat sägs. Testdata: bundlade seederna räcker för 
 | 11 | `npm run build`, `npm run lint`, `bun test src` (inkl. hjälpfunktion, byte, seed-9-par, import med vänt-rad). `pick-smokes 04af122 <head>` och de träffade smokes mot baslinjen | Gröna. Troligen hela loopen p.g.a. `blockMeta.ts`. Smokes SAMMA förutom footer 61→62 och att chip syns på länkade rader |
 | 12 | Bundle gz (js+css) mot main @ `04af122` | Rapporterad, väntat ≤ +512 B. Annars stryk par enligt E1, inget undantag |
 | 13 | Skriv ut passet för ett pass med en länkad Teknik | Som på main: ingen ny Lättare/Svårare-rad |
-| 14 | Efter live (Christoffer, inte Verifier-grind, A1): `content/update-progression-links.sql` inklistrad på riktiga banken, efter Christoffers ja, och först när appen är live | Ledare ser chip på samma 16 övningar efter nästa banksynk. RETURNING kan visa färre än 16 (id saknas, eller värdena fanns redan) — då är det OK. Verifier kör inte SQL och inte mot riktiga banken |
+| 14 | Efter live (Christoffer, inte Verifier-grind, A1): `content/update-progression-links.sql` inklistrad på riktiga banken, efter Christoffers **separata** ja, och först när appen är live | Ledare ser chip på samma 16 övningar efter nästa banksynk. RETURNING kan visa färre än 16 (id saknas, eller värdena fanns redan) — då är det OK. Verifier kör inte SQL och inte mot riktiga banken |

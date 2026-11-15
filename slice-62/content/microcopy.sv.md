@@ -1,6 +1,6 @@
 # Slice 62 — mikrotext (sv)
 
-**Status:** **FÖRESLAGEN.** Inte låst.
+**Status:** **LÅST** 2026-11-15 (A1 B1 C1 D1 E1 F1). Texterna oförändrade vid lås. Par 8–9 ingår (fråga 1).
 
 «Lättare» och «Svårare» är Scout-/IMPROVEMENTS-formuleringarna. Ändra inte och översätt dem inte. Låsta termer orörda (Passbyggaren, Hallöversikt, Kör passet, Redigera redskap, Biblioteket, …). «redskap», inte «utrustning». Inget extra hallmärke i texten. ActivityDetail behåller «Bygger på» och «Lättare variant av».
 
@@ -28,8 +28,8 @@ Varje par är reciprokt. `progressionOf` = lättare underlag («Bygger på»). `
 | 5 | `tech-aggrullning-kil` · Äggrullning nerför kil | `tech-kullerbytta` · Kullerbytta framåt | Ny. Kil → plan (Pembee-leden Scout pekade på) |
 | 6 | `tech-ljushopp-rockringar` · Ljushopp i rockringar | `tech-ljushopp-satsbrada` · Ljushopp på satsbräda | Ny |
 | 7 | `tech-ljushopp-satsbrada` · Ljushopp på satsbräda | `tech-ljushopp-trampett` · Ljushopp på trampett | Ny. Satsbräda är mittled (både prio 6 och 7) |
-| 8 | `tech-flickis-kudde` · Flickis med flickiskudde | `tech-rondat-flickis` · Rondat–flickis | Ny, spotting-tung. Öppen fråga 1 |
-| 9 | `tech-falla-bakat-hojd` · Falla bakåt från höjd till rygg | `tech-salto-fran-hojd` · Salto från höjd | Ny, spotting-tung. Öppen fråga 1 |
+| 8 | `tech-flickis-kudde` · Flickis med flickiskudde | `tech-rondat-flickis` · Rondat–flickis | Ny, spotting-tung. Ingår (låst, fråga 1) |
+| 9 | `tech-falla-bakat-hojd` · Falla bakåt från höjd till rygg | `tech-salto-fran-hojd` · Salto från höjd | Ny, spotting-tung. Ingår (låst, fråga 1) |
 
 **Seed-fält per id** (tom cell = fältet sätts inte / lämnas borta):
 
