@@ -10,12 +10,12 @@ import type { Activity, ActivitySource, BlockType } from '../types'
 import {
   MAX_OWN,
   OWN_LIMITS,
-  normalizeHowTo,
   parseHowLines,
   sanitizeLinkId,
   sanitizeOwnActivity,
 } from './ownActivities'
 import { sanitizeSource } from './source'
+import { composeHowTo, waitingText } from './waitingLine'
 import { EXERCISE_FORMAT, EXERCISE_SCHEMA_VERSION, isRecord, parseJson } from './exerciseFile'
 
 export { EXERCISE_FORMAT, EXERCISE_SCHEMA_VERSION, isExerciseFile, stripFence } from './exerciseFile'
@@ -159,7 +159,7 @@ function readRow(raw: unknown, knownIds: ReadonlySet<string>): RowDraft {
     blockType,
     durationMinutesDefault: minutes,
     summary: str(raw.summary),
-    howTo: normalizeHowTo(raw.howTo as string),
+    howTo: composeHowTo(raw.howTo as string, waitingText(raw.howTo as string)),
     watchFor: str(raw.watchFor),
     safetyLine: str(raw.safetyLine),
     tags: Array.isArray(raw.tags) ? (raw.tags as string[]) : undefined,

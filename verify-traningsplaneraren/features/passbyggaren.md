@@ -18,6 +18,8 @@
 
 **Slice 49:** after Planera pass the length row reads «X / X min». Changing the length later shows e.g. «90 / 60 min»; item times do not change.
 
+**Slice 62 (B1):** a Teknik row shows «Lättare» / «Svårare» (`role=button`, class `item-tip-more` under the title) only when a progressionOf/regressionOf link (or the reverse link) hits. One tap swaps the drill; `item.id`, minutes, note and the hall marker stay. Unset redskap follows the new drill's förslag. Not in Kör passet or Skriv ut passet.
+
 **Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
 
 | Vad | Väljare | Källa |

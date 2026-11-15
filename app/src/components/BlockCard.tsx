@@ -8,6 +8,7 @@ import { BLOCK_ICON_IDS, VisualIcon } from '../icons'
 import type { MismatchWarning, SessionBlock } from '../types'
 import { MismatchBanner } from './MismatchBanner'
 import { ActivityTip } from './ActivityTip'
+import { easierOf, harderOf } from '../lib/variantLinks'
 
 interface Props {
   block: SessionBlock
@@ -17,6 +18,8 @@ interface Props {
   onDismissMismatch: () => void
   onRemoveItem: (itemId: string) => void
   onDurationChange: (itemId: string, minutes: number) => void
+  /** Slice 62 — «Lättare» / «Svårare» on a linked Teknik row. */
+  onSwapActivity: (itemId: string, activityId: string) => void
 }
 
 export function BlockCard({
@@ -27,6 +30,7 @@ export function BlockCard({
   onDismissMismatch,
   onRemoveItem,
   onDurationChange,
+  onSwapActivity,
 }: Props) {
   const empty = block.items.length === 0
   const tip = EMPTY_TIPS[block.type]
@@ -80,6 +84,13 @@ export function BlockCard({
             .sort((a, b) => a.order - b.order)
             .map((item) => {
               const activity = getActivityById(item.activityId)
+              const teknik = activity?.blockType === 'techniques'
+              const variants = teknik
+                ? ([
+                    [UI.easier, easierOf(activity, getActivityById)],
+                    [UI.harder, harderOf(activity, getActivityById)],
+                  ] as const).filter(([, a]) => a)
+                : []
               return (
                 <li key={item.id} className="session-item">
                   <div className="session-item-main">
@@ -99,6 +110,23 @@ export function BlockCard({
                         <span className="stub-badge">{UI.stub}</span>
                       )}
                     </span>
+                    {variants.length > 0 && (
+                      <span>
+                        {variants.map(([label, a]) => (
+                          <button
+                            key={label}
+                            type="button"
+                            className="item-tip-more"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onSwapActivity(item.id, a!.id)
+                            }}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </span>
+                    )}
                   </div>
                   <div
                     className="item-actions"

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { describe, it } from 'node:test'
-import { clearOwnActivities } from './ownActivities.ts'
+import { clearOwnActivities, normalizeHowTo, parseHowLines } from './ownActivities.ts'
 import {
   chosenActivities,
   isExerciseFile,
@@ -187,5 +187,20 @@ describe('edge fixture (AC 19–23, 26)', () => {
     assert.equal(rows[0].activity?.summary.length, 240)
     const firstStep = rows[0].activity?.howTo.split('\n')[0] ?? ''
     assert.equal(firstStep.replace(/^1\. /, '').length, 180)
+  })
+})
+
+describe('Slice 62 D1 — import keeps «Medan du väntar»', () => {
+  it('3 steps + waiting line → line kept, 3 steps; without it same as before', () => {
+    fresh()
+    const doc = JSON.parse(example)
+    const howTo = 'Ett\nTvå\nTre\nMedan du väntar: hoppa'
+    const { rows } = rowsOf(JSON.stringify({ ...doc, exercises: [{ ...doc.exercises[0], howTo }] }))
+    const a = rows[0].activity
+    assert.ok(a?.howTo.includes('Medan du väntar: hoppa'))
+    assert.equal(parseHowLines(a?.howTo ?? '').length, 3)
+    assert.equal(a?.howTo, '1. Ett\n2. Två\n3. Tre\nMedan du väntar: hoppa')
+    const plain = rowsOf(JSON.stringify({ ...doc, exercises: [{ ...doc.exercises[0], howTo: 'Ett\nTvå\nTre' }] }))
+    assert.equal(plain.rows[0].activity?.howTo, normalizeHowTo('Ett\nTvå\nTre'))
   })
 })
