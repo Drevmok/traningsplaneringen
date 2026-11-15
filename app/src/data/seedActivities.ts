@@ -255,6 +255,8 @@ export const seedActivities: Activity[] = [
       'Fel fotisättning på brädan; landning bakom/framför mattan; köhållning så ingen springer in för tidigt.',
     watchForRequired: true,
     visualKey: 'tech-ljushopp-board',
+    regressionOf: 'tech-ljushopp-trampett',
+    progressionOf: 'tech-ljushopp-rockringar',
     defaultStationEquipment: [
       { pieceId: 'eq-satsbrada', count: 1 },
       { pieceId: 'eq-landningsmatta', count: 1 },
@@ -278,6 +280,7 @@ export const seedActivities: Activity[] = [
       'Ansats för lång/snabb; studs nära kanten; landning utan madrasskydd där det behövs.',
     watchForRequired: true,
     visualKey: 'tech-ljushopp-trampett',
+    progressionOf: 'tech-ljushopp-satsbrada',
     defaultStationEquipment: [
       { pieceId: 'eq-trampett', count: 1 },
       { pieceId: 'eq-landningsmatta', count: 1 },
@@ -348,6 +351,7 @@ export const seedActivities: Activity[] = [
       'Handplacering, axellinje, underrotation, nacke. Avbryt om tekniken fallerar under setet.',
     watchForRequired: true,
     visualKey: 'tech-rondat-flickis',
+    progressionOf: 'tech-flickis-kudde',
     defaultStationEquipment: [
       { pieceId: 'eq-tumblingmatta', count: 1 },
       { pieceId: 'eq-landningsmatta', count: 1 },
@@ -371,6 +375,7 @@ export const seedActivities: Activity[] = [
       'Kudden rätt placerad; inte ”kasta” bakåt utan aktivt handstöd från gymnasten där metoden kräver det.',
     watchForRequired: true,
     visualKey: 'tech-flickis-pad',
+    regressionOf: 'tech-rondat-flickis',
     defaultStationEquipment: [
       { pieceId: 'eq-flickiskudde', count: 1 },
       { pieceId: 'eq-madrass', count: 1 },
@@ -394,6 +399,7 @@ export const seedActivities: Activity[] = [
       'Huvudet får inte ta emot; madrass tillräckligt tjock/lång; ingen höjdtävling utan teknikfokus.',
     watchForRequired: true,
     visualKey: 'tech-fall-back',
+    regressionOf: 'tech-salto-fran-hojd',
     defaultStationEquipment: [
       { pieceId: 'eq-plint', count: 1 },
       { pieceId: 'eq-madrass', count: 1 },
@@ -417,6 +423,7 @@ export const seedActivities: Activity[] = [
       'Under-/överrotation; landningszon; trötthet i kön. Stoppa tidigt vid osäkra försök.',
     watchForRequired: true,
     visualKey: 'tech-salto-height',
+    progressionOf: 'tech-falla-bakat-hojd',
     defaultStationEquipment: [
       { pieceId: 'eq-plint', count: 1 },
       { pieceId: 'eq-landningsmatta', count: 1 },
@@ -460,6 +467,7 @@ export const seedActivities: Activity[] = [
     watchFor: 'Platt rygg, hakan upp, eller någon som skjuter på bakifrån.',
     watchForRequired: true,
     visualKey: 'tech-roll',
+    progressionOf: 'tech-aggrullning-kil',
     defaultStationEquipment: [{ pieceId: 'eq-madrass', count: 1 }],
     stub: false,
     newCoachOk: true,
@@ -478,6 +486,7 @@ export const seedActivities: Activity[] = [
     watchFor: 'Böjd bana, någon i vägen, eller bara ett håll.',
     watchForRequired: true,
     visualKey: 'tech-cartwheel',
+    progressionOf: 'tech-minihjul',
     stub: false,
     newCoachOk: true,
     experiencedCoachOnly: false,
@@ -513,6 +522,7 @@ export const seedActivities: Activity[] = [
     watchFor: 'De tittar i golvet och tappar linjen. Ingen kliver upp på plint eller bänk.',
     watchForRequired: true,
     visualKey: 'tech-balance',
+    regressionOf: 'tech-soldatsparkar-bom',
     defaultStationEquipment: [{ pieceId: 'eq-kon', count: 4 }],
     stub: false,
     newCoachOk: true,
@@ -601,6 +611,7 @@ export const seedActivities: Activity[] = [
       'Formen som släpper (ben eller armar åker ut), hakan som åker upp.',
     watchForRequired: true,
     visualKey: 'tech-egg-roll-wedge',
+    regressionOf: 'tech-kullerbytta',
     defaultStationEquipment: [
       { pieceId: 'eq-kilmatta', count: 1 },
       { pieceId: 'eq-madrass', count: 1 },
@@ -810,6 +821,7 @@ export const seedActivities: Activity[] = [
       'Armar som åker ner, ben isär, hårda landningar.',
     watchForRequired: true,
     visualKey: 'tech-hoop-jumps',
+    regressionOf: 'tech-ljushopp-satsbrada',
     defaultStationEquipment: [
       { pieceId: 'eq-rockring', count: 4 },
     ],

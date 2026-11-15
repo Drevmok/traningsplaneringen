@@ -31,3 +31,5 @@ Under åldrarna finns **Starta från mall** och **Tomt pass**.
 **Tyck till** och **Uppdatera appen** står på en rad, **Logga in som admin** under. Sist en liten rad: *Passen sparas bara på den här enheten.*
 
 **Slice 49 (LÅST 2026-10-23):** Passlängden fyller passet. 60, 90 eller 120 min ger ett förslag på 60, 90 eller 120 min (90: Teknik 3×12 min), inte längre 53 min. Planera pass sparar också redskapsförslagen på stationerna, så Förrådslistan är fylld direkt. Byter du längd i Passbyggaren efteråt ändras inte tiderna. Tomt pass och Starta från mall är som förut. **Slice 55 (LÅST 2026-10-31):** Starta från mall frågar också Passlängd (Fråga 3 av 3) och skalar passet till vald längd. Mallar-fliken i Passbyggaren (Använd mall) behåller mallens egna tider.
+
+**Slice 62 (LÅST 2026-11-15):** På en Teknik-rad i Passbyggaren visas «Lättare» eller «Svårare» när övningen har en lättare eller svårare variant. Ett tryck byter övningen och behåller minuterna och märket i hallen.

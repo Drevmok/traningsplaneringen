@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
+import { swapSessionActivity } from '../lib/variantLinks'
 import {
   isTipDismissed,
   TIP_BUILDER_EMPTY,
@@ -593,6 +594,7 @@ export function SessionBuilder({
                   updateItemDuration(session, block.id, itemId, minutes),
                 )
               }
+              onSwapActivity={(itemId, id) => onChange(swapSessionActivity(session, itemId, id))}
             />
           ))}
         </div>
