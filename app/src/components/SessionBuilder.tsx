@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { PASS_LENGTHS, UI, type PassLength } from '../data/blockMeta'
-import { swapSessionActivity } from '../lib/variantLinks'
+import { getActivityById } from '../data/seedActivities'
+import { stepTeknikHarder, swapSessionActivity, teknikItemsWithHarder } from '../lib/variantLinks'
 import {
   isTipDismissed,
   TIP_BUILDER_EMPTY,
@@ -65,6 +66,8 @@ type Toast = CarriedToast
 const samePass = (a: Session, b: Session) => JSON.stringify(a) === JSON.stringify(b)
 /** Slice 39: pass ids that already got the «kunde inte sparas» toast (once per pass). */
 const failToasted = new Set<string>()
+/** Slice 63: id of the copy Ny vecka just made, while «Gör Teknik ett steg svårare» is still offered. */
+let stepWeekId: string | null = null
 
 const ClubPublishDialog = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.ClubPublishDialog })))
 const AdminDetailPanel = lazy(() => import('./AdminDetailPanel').then((m) => ({ default: m.AdminDetailPanel })))
@@ -116,6 +119,9 @@ export function SessionBuilder({
     if (!carry.toast?.undo) carry.undo = null
     return carry.toast
   })
+  // Slice 63: «Gör Teknik ett steg svårare» lives on the copy Ny vecka just made (survives the remount).
+  const [stepOpen, setStepOpen] = useState(() => stepWeekId === session.id)
+  const stepped = useRef<Session | null>(null)
   const [toastHeld, setToastHeld] = useState(false)
   const undoBtn = useRef<HTMLButtonElement>(null)
   useEffect(() => {
@@ -219,6 +225,10 @@ export function SessionBuilder({
       return
     }
     const saved = restoreDraft(u.before)
+    if (u.after === stepped.current) {
+      stepWeekId = u.before.id
+      setStepOpen(true)
+    }
     setSelectedBlockId(u.blockId ?? u.before.blocks[0]?.id ?? null)
     const done = saved ? { text: UI.undoDone } : null
     if (u.before.id !== session.id) carry.toast = done
@@ -300,6 +310,7 @@ export function SessionBuilder({
   function handleNewWeek() {
     const started = startNewWeek(session)
     saveDraft(started.session)
+    stepWeekId = started.session.id
     setShowNewWeek(false)
     onChange(started.session)
   }
@@ -580,6 +591,23 @@ export function SessionBuilder({
       <div className="builder-main">
         <div className="blocks-column">
           <p className="builder-label">{UI.sessionBuilder}</p>
+          {stepOpen && teknikItemsWithHarder(session, getActivityById).length > 0 && (
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                const after = stepTeknikHarder(session, getActivityById)
+                stepped.current = after
+                stepWeekId = null
+                setStepOpen(false)
+                armUndo(after, session.blocks.find((b) => b.type === 'techniques')?.id ?? null)
+                onChange(after)
+                setToast(undoToast(false, UI.stepTeknikHarderDone))
+              }}
+            >
+              {UI.stepTeknikHarder}
+            </button>
+          )}
           {session.blocks.map((block) => (
             <BlockCard
               key={block.id}
