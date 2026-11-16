@@ -225,35 +225,26 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ### Scout outside sweep 2026-11 (similar apps + unmet demand) — **Approved 2026-11-02**
 
-**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** after PR #65 (`72690c1`). No slice pack yet; Planner drafts one when Christoffer says “what’s next?”. #3 is phase 2 of #1 (bundle or after #1).
+**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** in PR #66 (`3f0a729`); first listed as Proposed in PR #65 (`72690c1`).
+
+- **#1** Lättare / Svårare → **Shipped** as **Slice 62** (PR #70, merge `2917296`, 2026-11-15). Full write-up under **Shipped**.
+- **#2** «Medan du väntar» → **Shipped** as **Slice 61** (PR #69, merge `04af122`, 2026-11-14). Full write-up under **Shipped**.
+- **#3** Ny vecka «ett steg svårare» — packed in **Slice 63** (`slice-63/`, **FÖRESLAGEN** on `slice-63-docs`). Phase 2 of #1; #1 is live.
 
 Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
 
-#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — Effort **M** — **Approved 2026-11-02**
+#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — **Shipped → Slice 62** (PR #70, `2917296`)
 
-- **Title:** On a Teknik pass item (Passbyggaren; optionally Kör passet), chips «Lättare» / «Svårare» swap the activity in place when `regressionOf` / `progressionOf` links exist.
-- **Coach benefit:** Mixed-ability group — station too hard/easy → one tap instead of Bibliotek search; minutes and hall marker stay.
-- **Evidence (A):** [PatioLab](https://patiolab.us/) «easier/harder variations» on activity cards; [Pembee gymnastics lesson plans](https://www.pembee.app/blog/gymnastics-lesson-plans) differentiation grid (forward roll wedge → flat → dive) + «Reuse the same lesson template every week and swap only the station progression»; [MyTeams](https://myteams.no/en/artikler/differensiering-pa-trening/) «one drill, three levels»; [Kunskapsarenan – Teknik och metodik](https://kunskapsarenan.se/gymnastik/barngymnastik-leka-och-lara/teknik-och-metodik) progression by making the same station harder.
-- **Evidence (B):** New coaches ask for station/drill ideas when lost ([r/GymnasticsCoaching «New to Coaching»](https://www.reddit.com/r/GymnasticsCoaching/comments/1kdvga7/new_to_coaching_please_help/) — quote from search index; Reddit blocks live fetch); ChalkBucket [Do you write lesson plans?](https://chalkbucket.com/threads/do-you-write-lesson-plans.42403/) marie83 on 12-week progressions (thread verified in browser).
-- **Repo fact:** Fields already exist (`Activity.progressionOf` / `regressionOf`, ActivityDetail «Bygger på» / «Lättare variant av», bank import). Local seeds have ~6 links; bank seed SQL parts write `progression_of`/`regression_of` as null — content work is the bulk.
-- **Effort:** M (small UI; ~15–25 Teknik pairs in the bank + admin link fields that already exist on import).
-- **Simplicity check:** Replaces a bank search with one tap; chips only when a link exists; no new screen or setting.
-- **Standing lock?** No fight. Not skill-assessment / roster tracking (Oct drop). Hall/CAD/accounts untouched.
-- **Suggested slice shape:** Fill bank links first (or same pack). Pass-row chips → replace `activityId`, keep duration + hall placement, refresh redskap proposals. ActivityDetail labels stay. Optional phase 2 = idea #3. Verifier: Lättare/Svårare changes title, same minutes/marker; no chip when unlinked.
+Full write-up under **Shipped**. Not re-listed here.
 
-#### 2. **B** — «Medan du väntar» i Teknik-text — Effort **S** — **Approved 2026-11-02**
+#### 2. **B** — «Medan du väntar» i Teknik-text — **Shipped → Slice 61** (PR #69, `04af122`)
 
-- **Title:** One line in existing Teknik `how_to` (or the same surface coaches already see) with a waiting drill tied to the main skill — **text only**, not an extra hall marker.
-- **Coach benefit:** Kids in queue have something to do without the new coach inventing side work mid-floor.
-- **Evidence:** Kunskapsarenan Stationsträning: «För att barnen ska slippa stå och vänta på sin tur ska du även bygga två sidostationer bredvid som är direkt kopplade till huvudstationen»; ChalkBucket [Bar Rotation–Waiting/Sitting](https://chalkbucket.com/threads/bar-rotation-waiting-sitting.19005/) (bogwoppit / Harv — verified in browser); Swedish youth-coach guidance against köbildning (e.g. Svensk fotboll ny-tränare guide via search).
-- **Effort:** S if content lives inside `how_to` (preferred); M if a new bank field.
-- **Simplicity check:** Bank content only — no new step, screen, or marker. Sidostation-as-marker would fight one-marker-per-station; text does not.
-- **Standing lock?** No fight when text-only.
-- **Suggested slice shape:** Content pass on ~10–20 Teknik rows: append «Medan du väntar: …». Show wherever how_to already shows (detail / Kör if already there). No schema change if text suffices. Verifier: sample rows show the line; hall still one marker.
+Full write-up under **Shipped**. Not re-listed here.
 
-#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02**
+#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02** · packed in **Slice 63 (FÖRESLAGEN)**
 
-- **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a `progressionOf` link.
+- **Status:** Packed in **Slice 63** (`slice-63/`, **FÖRESLAGEN** on `slice-63-docs`). #1 is live (Slice 62), so this phase-2 idea is in scope.
+- **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a harder variant (`harderOf` from Slice 62).
 - **Coach benefit:** Week 2 without rebuilding — same template, one level up (Pembee term ladder).
 - **Evidence:** Pembee «Reuse the same lesson template every week and swap only the station progression»; Kunskapsarenan «Kör gärna en och samma redskapsbana några gånger i rad…»; ChalkBucket marie83 12-week progressions (same thread as #1).
 - **Effort:** S once #1 links exist; M alone (would need the links anyway).
@@ -292,6 +283,8 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Lättare / Svårare på Teknik-rad + JSON-import behåller «Medan du väntar» | 62 | **Shipped** 2026-11-15 · PR #70 · merge `2917296`. Pack `slice-62/`. Scout outside sweep 2026-11 #1. PO: alla 16 Teknik har progression-länkar live. |
+| «Medan du väntar» i Teknik-text | 61 | **Shipped** 2026-11-14 · PR #69 · merge `04af122`. Pack `slice-61/`. Scout outside sweep 2026-11 #2. |
 | Spara passet automatiskt (no silent loss on ←) | 39 | **Shipped** · Scout polish pass 2026-10-13 #1. Moved from Approved in Slice 53 (E1). |
 | Teknik markers stack in Blå/Vit hall | 40 | **Shipped** · Scout polish pass 2026-10-13 #2. Moved from Approved in Slice 53 (E1). |
 | Ångra after ×-remove (and after «Använd mall») | 41 | **Shipped** · Scout polish pass 2026-10-13 #3. Moved from Approved in Slice 53 (E1). |
