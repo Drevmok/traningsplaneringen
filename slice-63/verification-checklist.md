@@ -1,8 +1,8 @@
-# Slice 63 — verifieringschecklista (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 63 — verifieringschecklista (LÅST: A1 B1 C1 D1 E1 F1)
 
 Telefon 390×844 om inget annat sägs. Testdata: bundlade seederna räcker (offline eller stand-in med samma länkar som seederna). Ingen SQL. Admin-konto behövs inte.
 
-**12 kontroller.** Föreslaget A1 B1 C1 D1 E1 F1 — uppdateras vid lås.
+**12 kontroller.** Låst A1 B1 C1 D1 E1 F1.
 
 | # | Kontroll | Förväntat |
 |---|---|---|

@@ -1,6 +1,6 @@
-# Slice 63 — HANDOFF till Builder (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 63 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1)
 
-**Status:** **FÖRESLAGEN** — inte låst. Builder får bygga först när Christoffer låst och PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `2917296`, docs-gren `slice-63-docs`. **Ingen merge utan Christoffers OK.**
+**Status:** **LÅST** 2026-11-16 — «Ja, lås A1 B1 C1 D1 E1 F1» (Christoffer, 07:16, Europe/Stockholm, reläat av PO). Se `decisions.md`. **Builder får bygga** när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `2917296`, docs-gren `slice-63-docs`. **Ingen merge utan Christoffers OK.**
 **SQL:** ingen. Ingen schema-SQL, ingen data-UPDATE, ingen `push-promote`. Länkarna finns redan (Slice 62; PO: alla 16 Teknik har dem live). Agenter kör aldrig SQL mot riktiga projektet.
 **Bundle:** inom +512 B gzip (uppskattat +0,12–0,30 kB) — **inget undantag**; rapportera exakta byte mot main i PR. Går det över: korta toasten, inte ta bort kontrollen, och rapportera.
 **Egen worktree från `2917296`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är (oincheckade borttagningar av `tools/bank/out/*`). Städa den inte, och kör inte Doctor eller smokes därifrån.

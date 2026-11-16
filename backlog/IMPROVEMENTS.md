@@ -227,9 +227,9 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 **Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** in PR #66 (`3f0a729`); first listed as Proposed in PR #65 (`72690c1`).
 
-- **#1** Lättare / Svårare → **Shipped** as **Slice 62** (PR #70, merge `2917296`, 2026-11-15). Full write-up under **Shipped**.
+- **#1** Lättare / Svårare → **Shipped** as **Slice 62** (PR #70, merge `2917296`, 2026-11-15). Full write-up under **Shipped**. `update-progression-links.sql` kördes på live 2026-11-15 ca 15:15 med Christoffers ja: 11 rader uppdaterades, 5 hade redan rätt värde, alla 16 Teknik länkade (PO).
 - **#2** «Medan du väntar» → **Shipped** as **Slice 61** (PR #69, merge `04af122`, 2026-11-14). Full write-up under **Shipped**.
-- **#3** Ny vecka «ett steg svårare» — packed in **Slice 63** (`slice-63/`, **FÖRESLAGEN** on `slice-63-docs`). Phase 2 of #1; #1 is live.
+- **#3** Ny vecka «ett steg svårare» — packed in **Slice 63** (`slice-63/`, **LÅST** 2026-11-16 on `slice-63-docs`). Phase 2 of #1; #1 is live.
 
 Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
 
@@ -241,9 +241,9 @@ Full write-up under **Shipped**. Not re-listed here.
 
 Full write-up under **Shipped**. Not re-listed here.
 
-#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02** · packed in **Slice 63 (FÖRESLAGEN)**
+#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02** · packed in **Slice 63 (LÅST 2026-11-16)**
 
-- **Status:** Packed in **Slice 63** (`slice-63/`, **FÖRESLAGEN** on `slice-63-docs`). #1 is live (Slice 62), so this phase-2 idea is in scope.
+- **Status:** Packed in **Slice 63** (`slice-63/`, **LÅST** 2026-11-16 on `slice-63-docs`, A1 B1 C1 D1 E1 F1). #1 is live (Slice 62), so this phase-2 idea is in scope.
 - **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a harder variant (`harderOf` from Slice 62).
 - **Coach benefit:** Week 2 without rebuilding — same template, one level up (Pembee term ladder).
 - **Evidence:** Pembee «Reuse the same lesson template every week and swap only the station progression»; Kunskapsarenan «Kör gärna en och samma redskapsbana några gånger i rad…»; ChalkBucket marie83 12-week progressions (same thread as #1).
@@ -283,7 +283,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
-| Lättare / Svårare på Teknik-rad + JSON-import behåller «Medan du väntar» | 62 | **Shipped** 2026-11-15 · PR #70 · merge `2917296`. Pack `slice-62/`. Scout outside sweep 2026-11 #1. PO: alla 16 Teknik har progression-länkar live. |
+| Lättare / Svårare på Teknik-rad + JSON-import behåller «Medan du väntar» | 62 | **Shipped** 2026-11-15 · PR #70 · merge `2917296`. Pack `slice-62/`. Scout outside sweep 2026-11 #1. `update-progression-links.sql` kördes på live 2026-11-15 ca 15:15 med Christoffers ja: 11 rader uppdaterades, 5 hade redan rätt värde, alla 16 Teknik länkade (PO). |
 | «Medan du väntar» i Teknik-text | 61 | **Shipped** 2026-11-14 · PR #69 · merge `04af122`. Pack `slice-61/`. Scout outside sweep 2026-11 #2. |
 | Spara passet automatiskt (no silent loss on ←) | 39 | **Shipped** · Scout polish pass 2026-10-13 #1. Moved from Approved in Slice 53 (E1). |
 | Teknik markers stack in Blå/Vit hall | 40 | **Shipped** · Scout polish pass 2026-10-13 #2. Moved from Approved in Slice 53 (E1). |

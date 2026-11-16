@@ -1,7 +1,7 @@
 # Slice 63 — Ny vecka, ett steg svårare
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** (ej låst). Bas: main @ `2917296` (Slice 62 live, footer «Slice 62»; PO: alla 16 Teknik har progression-länkar live). Gren: `slice-63-docs`.
+**Status:** **LÅST** 2026-11-16 av Christoffer (07:16, Europe/Stockholm), reläat av Träningsplaneraren - PO, ordagrant: «Ja, lås A1 B1 C1 D1 E1 F1». Se [`decisions.md`](decisions.md). Bas: main @ `2917296` (Slice 62 live, footer «Slice 62»; PO: alla 16 Teknik har progression-länkar live). Gren: `slice-63-docs`.
 **Uppdrag:** Scout 2026-11 #3, Approved av Christoffer 2026-11-02 i `backlog/IMPROVEMENTS.md` via PR #66 (`3f0a729`). #1 är live som Slice 62 (PR #70). Christoffer valde #3 som Slice 63, reläat av PO 2026-11-16.
 **Effort:** **S** (Scout, efter #1). En valfri kontroll. Återanvänder `harderOf` och `swapSessionActivity`. Ingen SQL.
 **Källa:** `backlog/IMPROVEMENTS.md` (Approved, Scout outside sweep 2026-11 #3) och Scout-utkastet `/workspace/scout-drafts/2026-11-monthly-sweep.md`. Scout-formen: efter att Ny vecka kopierat passet, en valfri rad «Gör Teknik ett steg svårare» som applicerar Svårare på varje Teknik med svårare mål; rader utan länk orörda; kontrollen dold om ingen rad har länk.
@@ -40,15 +40,15 @@ Ny vecka kopierar passet oförändrat. Vecka 2 kräver i dag att ledaren trycker
 - Nya par, Admin-länkfält, `push-promote`.
 - Ändrad `startNewWeek` så att kopian redan är stegad.
 
-## A–F (★ = Docs förslag; låses av Christoffer)
+## A–F (★ = Docs förslag; **låst: A1 B1 C1 D1 E1 F1**, se `decisions.md`)
 
 ### A. Placering och text
-- **A1 ★** Efter «Skapa kopia», på kopian i Passbyggaren: en valfri rad/knapp `UI.stepTeknikHarder` «Gör Teknik ett steg svårare» (Scout-/IMPROVEMENTS-formuleringen, ändra inte). Visa den bara på den session Ny vecka just skapade, och bara om minst en Teknik-rad har `harderOf`-mål. Inget extra «Inte nu» — att inte trycka räcker. Dölj efter användning, och när passet ersätts (ny Ny vecka, Använd mall, Nytt pass). Efter Ångra (B1) visas raden igen på samma kopia. Finns kvar om ledaren bara tittar i Passbyggaren eller går till Hallöversikt och tillbaka. Inte i bekräftelserutan, inte i Kör passet, inte i utskrift. Återanvänd befintlig knapp- eller bannertyp; ny CSS bara om det inte går (`App.css` är kärnfil).
+- **A1 ★ — LÅST.** Efter «Skapa kopia», på kopian i Passbyggaren: en valfri rad/knapp `UI.stepTeknikHarder` «Gör Teknik ett steg svårare» (Scout-/IMPROVEMENTS-formuleringen, ändra inte). Visa den bara på den session Ny vecka just skapade, och bara om minst en Teknik-rad har `harderOf`-mål. Inget extra «Inte nu» — att inte trycka räcker. Dölj efter användning, och när passet ersätts (ny Ny vecka, Använd mall, Nytt pass). Efter Ångra (B1) visas raden igen på samma kopia. Finns kvar om ledaren bara tittar i Passbyggaren eller går till Hallöversikt och tillbaka. Inte i bekräftelserutan, inte i Kör passet, inte i utskrift. Återanvänd befintlig knapp- eller bannertyp; ny CSS bara om det inte går (`App.css` är kärnfil).
 - A2 Kryssruta i `NewWeekConfirm`, applicerad när kopian skapas. Ett steg färre, men Scout sa «efter Ny vecka» / «på resultatet», och det blandar obligatorisk bekräftelse med valfri uppgradering. Dölj rutan när ingen rad skulle ändras. Inte ★.
 - A3 Ingen egen kontroll — bara chippen från Slice 62. Det är inte det Approved-förslaget (många tryck). Avråds.
 
 ### B. Ångra
-- **B1 ★** En ångranivå, samma mönster som Slice 41: efter bytet en toast («Teknik är ett steg svårare.» · «Ångra») som lägger tillbaka kopian som den var före steget. Annan ändring (även ett enskilt «Lättare»/«Svårare») avslutar. Förra veckans mall och Ny vecka-kopieringen rörs inte.
+- **B1 ★ — LÅST.** En ångranivå, samma mönster som Slice 41: efter bytet en toast («Teknik är ett steg svårare.» · «Ångra») som lägger tillbaka kopian som den var före steget. Annan ändring (även ett enskilt «Lättare»/«Svårare») avslutar. Förra veckans mall och Ny vecka-kopieringen rörs inte.
 - B2 Ingen egen ångra; ledaren trycker «Lättare» per rad. Billigare, men en massåtgärd utan ångra är hård. Inte ★.
 - B3 En andra kontroll «ett steg lättare» på samma resultat. Utanför scope, budgetrisk.
 
@@ -72,9 +72,9 @@ Ny vecka kopierar passet oförändrat. Vecka 2 kräver i dag att ledaren trycker
 - F2 Ny egen smoke. Onödigt; befintliga Ny vecka- och Passbyggar-smokes räcker, plus checklistan.
 - F3 Bara den manuella checklistan, inga nya enhetstester. Avråds.
 
-## Öppna frågor (besvaras vid lås)
+## Öppna frågor — besvarade vid lås
 
-1. **Placering:** A1 (rad på kopian i Passbyggaren, efter «Skapa kopia») eller A2 (kryssruta i bekräftelsen)? Docs föreslår A1, som Scout skrev.
-2. **Ångra:** B1 (toast med Ångra) eller B2 (ingen egen ångra)? Docs föreslår B1.
+Se `decisions.md`. Kort:
 
-Låssträng, om ★ antas: «Ja, lås A1 B1 C1 D1 E1 F1».
+1. **Placering:** A1 — rad på kopian i Passbyggaren, efter «Skapa kopia».
+2. **Ångra:** B1 — toast med Ångra.

@@ -1,6 +1,6 @@
 # Slice 63 — mikrotext (sv)
 
-**Status:** **FÖRESLAGEN** (A1 B1 C1 D1 E1 F1). Texterna låses med A–F.
+**Status:** **LÅST** 2026-11-16 (A1 B1 C1 D1 E1 F1). Texterna oförändrade vid lås.
 
 «Gör Teknik ett steg svårare» är Scout-/IMPROVEMENTS-formuleringen. Ändra inte och översätt den inte. Låsta termer orörda (Passbyggaren, Hallöversikt, Kör passet, Ny vecka, …). «redskap», inte «utrustning». Inget extra hallmärke i texten. «Lättare» / «Svårare» på Teknik-raden lämnas som i Slice 62.
 

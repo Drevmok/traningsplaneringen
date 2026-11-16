@@ -12,7 +12,9 @@ Beslut: [`slice-62/decisions.md`](slice-62/decisions.md) (Docs `slice-62-docs` @
 - **E1:** `SLICE_NUMBER = '62'`. `UI.easier` «Lättare», `UI.harder` «Svårare».
 
 ## Live-banken (A1)
-`slice-62/content/update-progression-links.sql` följer med **oförändrad** (sha256 `eb00c186795465129f95ca015e5a6b621786ab712aef7fa97826b9f2041ab152`, samma som i `6b97735`). Den har **inte** körts. Christoffer (inte Builder eller någon bot) klistrar in den **efter merge**, när appen är live, och bara efter sitt **separata** ja (eller PO via Supabase MCP efter hans OK). Den rör bara `progression_of` och `regression_of` för de 16 id:na och är idempotent.
+`slice-62/content/update-progression-links.sql` följer med **oförändrad** (sha256 `eb00c186795465129f95ca015e5a6b621786ab712aef7fa97826b9f2041ab152`, samma som i `6b97735`). Den hade **inte** körts vid skeppet. Christoffer (inte Builder eller någon bot) skulle klistra in den **efter merge**, när appen är live, och bara efter sitt **separata** ja (eller PO via Supabase MCP efter hans OK). Den rör bara `progression_of` och `regression_of` för de 16 id:na och är idempotent.
+
+**Uppdatering 2026-11-16 (PO):** `update-progression-links.sql` kördes på live 2026-11-15 ca 15:15 (Europe/Stockholm) med Christoffers ja. 11 rader uppdaterades, 5 hade redan rätt värde, och alla 16 Teknik är länkade.
 
 ## Resultat
 - `bun test src`: **335/0** (main 327/0; +7 i `lib/variantLinks.test.ts`, +1 i `ownImport.test.ts`). Footer-litteraler 61→62 i `feedback.test.ts` och `clubTemplates.test.ts`.
