@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { describe, it } from 'node:test'
 import { getActivityById, seedActivities } from '../data/seedActivities.ts'
 import type { Activity, Session } from '../types.ts'
-import { easierOf, harderOf, swapSessionActivity } from './variantLinks.ts'
+import { easierOf, harderOf, stepTeknikHarder, swapSessionActivity, teknikItemsWithHarder } from './variantLinks.ts'
 
 const by = (id: string) => seedActivities.find((a) => a.id === id) as Activity
 const get = (id: string) => getActivityById(id)
@@ -79,5 +79,45 @@ describe('seed links (Slice 62, C1)', () => {
     const rest = seedActivities.filter((a) => a.blockType === 'techniques' && !ids.has(a.id))
     assert.equal(rest.length, 8)
     for (const a of rest) assert.ok(!a.progressionOf && !a.regressionOf, a.id)
+  })
+})
+
+describe('stepTeknikHarder (Slice 63, D1)', () => {
+  const eq = [{ pieceId: 'eq-trampett', count: 1 }]
+  const pass = (ids: string[], extra: object = {}) => ({
+    id: 's', title: '', totalMinutes: 20, notes: '', hallPlacements: [{ itemId: 'i0', x: 1, y: 2 }], ...extra,
+    blocks: [
+      { id: 'w', type: 'warmup', items: [{ id: 'w1', activityId: 'tech-minihjul', durationMinutes: 4, note: '', order: 0 }] },
+      { id: 'b', type: 'techniques', items: ids.map((activityId, n) => ({
+        id: `i${n}`, activityId, durationMinutes: 5 + n, note: `n${n}`, order: n, ...(n === 1 ? { stationEquipment: eq } : {}),
+      })) },
+    ],
+  }) as unknown as Session
+
+  it('Minihjul → Hjul, Grenhopp → Formhopp, Bro and other blocks untouched; rest kept', () => {
+    const before = pass(['tech-minihjul', 'tech-grenhopp-trampett', 'tech-bro'])
+    const after = stepTeknikHarder(before, get)
+    const [a, b, c] = after.blocks[1].items
+    assert.deepEqual(after.blocks[1].items.map((i) => i.activityId), ['tech-hjul', 'tech-formhopp-over-block', 'tech-bro'])
+    assert.deepEqual([a.id, a.durationMinutes, a.note, a.stationEquipment], ['i0', 5, 'n0', undefined])
+    assert.deepEqual([b.id, b.durationMinutes, b.note, b.stationEquipment], ['i1', 6, 'n1', eq])
+    assert.equal(c, before.blocks[1].items[2])
+    assert.deepEqual(after.blocks[0], before.blocks[0])
+    assert.equal(after.hallPlacements, before.hallPlacements)
+    assert.equal(after.totalMinutes, 20)
+  })
+
+  it('already hardest or only Bro → same session, no hits', () => {
+    for (const ids of [['tech-formhopp-over-block', 'tech-hjul'], ['tech-bro']]) {
+      const s = pass(ids)
+      assert.deepEqual(teknikItemsWithHarder(s, get), [])
+      assert.equal(stepTeknikHarder(s, get), s)
+    }
+  })
+
+  it('one step per call along the chain', () => {
+    const once = stepTeknikHarder(pass(['tech-ljushopp-rockringar']), get)
+    assert.equal(once.blocks[1].items[0].activityId, 'tech-ljushopp-satsbrada')
+    assert.equal(stepTeknikHarder(once, get).blocks[1].items[0].activityId, 'tech-ljushopp-trampett')
   })
 })

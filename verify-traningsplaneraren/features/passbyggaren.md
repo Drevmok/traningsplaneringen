@@ -20,6 +20,8 @@
 
 **Slice 62 (B1):** a Teknik row shows «Lättare» / «Svårare» (`role=button`, class `item-tip-more` under the title) only when a progressionOf/regressionOf link (or the reverse link) hits. One tap swaps the drill; `item.id`, minutes, note and the hall marker stay. Unset redskap follows the new drill's förslag. Not in Kör passet or Skriv ut passet.
 
+**Slice 63 (A1 B1 D1):** right after Ny vecka → «Skapa kopia», the copy can show «Gör Teknik ett steg svårare» (`.btn-secondary` under «Passbyggaren») when at least one Teknik row has a harder variant (`harderOf`). One tap = one step per row via `swapSessionActivity` (minutes, note, hall marker and redskap kept); toast «Teknik är ett steg svårare.» · «Ångra» puts the copy back and shows the row again. Hidden otherwise and after use; never in Kör passet, Skriv ut passet or the Ny vecka confirm.
+
 **Stabila väljare** (Slice 50; roll + synlig svensk etikett först, sedan aria/id/klass som smokes redan använder; inga `data-testid`)
 
 | Vad | Väljare | Källa |

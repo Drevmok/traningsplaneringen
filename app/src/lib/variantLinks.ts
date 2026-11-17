@@ -30,3 +30,21 @@ export function swapSessionActivity(session: Session, itemId: string, nextActivi
     })),
   }
 }
+
+/** Slice 63 — Teknik items whose drill has a harder variant (block order, then item order). */
+export function teknikItemsWithHarder(session: Session, getById: GetById): { itemId: string; nextActivityId: string }[] {
+  const hits: { itemId: string; nextActivityId: string }[] = []
+  for (const b of session.blocks) {
+    if (b.type !== 'techniques') continue
+    for (const i of [...b.items].sort((x, y) => x.order - y.order)) {
+      const a = getById(i.activityId)
+      const next = a && harderOf(a, getById)
+      if (next && next.id !== i.activityId) hits.push({ itemId: i.id, nextActivityId: next.id })
+    }
+  }
+  return hits
+}
+
+/** Slice 63 — one step harder for every hit, via swapSessionActivity (redskap, minutes, marker kept). */
+export const stepTeknikHarder = (session: Session, getById: GetById): Session =>
+  teknikItemsWithHarder(session, getById).reduce((s, h) => swapSessionActivity(s, h.itemId, h.nextActivityId), session)
