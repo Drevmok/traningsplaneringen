@@ -322,7 +322,7 @@ Full write-up under **Shipped**. Not re-listed here.
 - **Effort:** S
 - **Simplicity check:** No new screen or setting. Hide when there are no redskap. Same caption as today («Skiss — så kan stationen stå.»).
 - **Standing lock?** No fight when it reuses the existing 2,5D sketch. Does not lift hall-CAD or «3D senare».
-- **Suggested slice shape:** See `slice-64/` (FÖRESLAGEN A1: auto-row when there is no saved layout).
+- **Suggested slice shape:** See `slice-64/` (LÅST A1: auto-row when there is no saved layout).
 
 #### S2. Redskapsikoner på Golvklart-märket / utskrift — Effort **S** — **Approved 2026-11-17** · Slice 64
 
@@ -333,7 +333,7 @@ Full write-up under **Shipped**. Not re-listed here.
 - **Effort:** S
 - **Simplicity check:** No new screen. Existing lines gain an icon. Several pieces share an icon (`pad` for several mattor) — text stays, so they remain distinguishable.
 - **Standing lock?** No fight. Edit canvas and one-marker-per-station stay as they are.
-- **Suggested slice shape:** See `slice-64/` (FÖRESLAGEN B1: icon + text, compact `VisualIcon` size).
+- **Suggested slice shape:** See `slice-64/` (LÅST B1: icon + text, compact `VisualIcon` size).
 
 **Dropped this month (simplicity / locks / already shipped):** Gymnastikförbundet Inex (accounts); KINETIC / Sportplan / PlanSport Pro (accounts); Gymnastics Tools floor planner (hall CAD); auto-advance at 00:00 (Slice 34 D1); sidostation as extra markers; purpose/syfte field (Oct drop); TeamSnap roster features; Coach K «3 clicks» (= wizard already); available-equipment filter (adds a step + fights fixed EQUIPMENT_PIECES). **Note for PO (not Proposed):** new ChalkBucket setup-time quotes could reopen parked «Förråd station breakdown» later — held out to keep this run at 3 ideas.
 

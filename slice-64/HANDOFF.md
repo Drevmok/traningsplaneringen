@@ -1,6 +1,6 @@
-# Slice 64 — HANDOFF till Builder (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 64 — HANDOFF till Builder (LÅST: A1 B1 C1 D1 E1 F1)
 
-**Status:** **FÖRESLAGEN** — inte låst. Builder får bygga först när Christoffer låst och PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `937829c`, docs-gren `slice-64-docs`. **Ingen merge utan Christoffers OK.**
+**Status:** **LÅST** 2026-11-17 (`decisions.md`). Builder bygger när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `937829c`, docs-gren `slice-64-docs`. **Ingen merge utan Christoffers OK.**
 **SQL:** ingen. Ingen schema-SQL, ingen data-UPDATE, ingen `push-promote`. Agenter kör aldrig SQL mot riktiga projektet.
 **Bundle:** inom +512 B gzip (uppskattat +0,20–0,45 kB) — **inget undantag**; rapportera exakta byte mot main i PR. Går det över: korta CSS/maxhöjd, inte ta bort skiss eller ikon, och rapportera.
 **Egen worktree från `937829c`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är (oincheckade borttagningar av `tools/bank/out/*`). Städa den inte, och kör inte Doctor eller smokes därifrån.

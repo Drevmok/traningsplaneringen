@@ -1,7 +1,7 @@
 # Slice 64 — Skiss i Kör passet + redskapsikoner
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** (ej låst). Bas: main @ `937829c` (Slice 63 live, PR #71, footer «Slice 63»). Gren: `slice-64-docs`.
+**Status:** **LÅST** 2026-11-17 (A1 B1 C1 D1 E1 F1), se `decisions.md`. Bas: main @ `937829c` (Slice 63 live, PR #71, footer «Slice 63»). Gren: `slice-64-docs`.
 **Uppdrag:** Stationer 17 nov 2026 **S1** + **S2**, Approved av Christoffer 2026-11-17 via PO (alla åtta idéer i backloggen; den här slicen är den smala första). S3–S8 stannar Proposed. Se `backlog/IMPROVEMENTS.md`.
 **Effort:** **S** (två små ytor, samma mål: nya ledare ska förstå stationerna visuellt). Återanvänder `StationSketch`, `layoutForStation`, `HallChip`, `EQUIPMENT_ICON` / `equipmentIconId` och `VisualIcon`. Ingen SQL.
 **Källa:** PO-genomgång 2026-11-17 och `backlog/IMPROVEMENTS.md` (Stationer 17 nov S1–S2).
