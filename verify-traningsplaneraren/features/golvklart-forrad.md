@@ -28,3 +28,5 @@
 | Dialog | `.modal-backdrop[role=dialog]` | `App.css`, `components/ActivityDetail.tsx` |
 
 **Slice 56:** Lägg till i Teknik (Biblioteket eller «Lägg till station») kör `applyAllSuggestedStationEquipment` på hela passet → ingen saknar-rad för nya stationen; rensad `[]` och egen lista står kvar. Tillägg i andra block ändrar inga redskap. Starta från mall utan tillägg: saknar-raden syns som förut.
+
+**Slice 64 (B1):** the redskap lines under the markör on Golvklart and print also show a type icon (`VisualIcon size="gear"`, `EQUIPMENT_ICON`) before the text. Same rule as Slice 14 (only a set `stationEquipment`); never in the edit canvas, tray or Redigera redskap.

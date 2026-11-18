@@ -6,6 +6,7 @@ import {
   UI,
 } from '../data/blockMeta'
 import {
+  equipmentIconId,
   getEquipmentPiece,
   STATION_EQUIPMENT_MAX_SLOTS,
 } from '../data/equipmentPieces'
@@ -74,6 +75,7 @@ export function HallChip({
             return [
               {
                 pieceId: slot.pieceId,
+                icon: equipmentIconId(piece.visualKey),
                 text: stationEquipmentLabelText(piece.labelSv, slot.count),
               },
             ]
@@ -148,6 +150,7 @@ export function HallChip({
                   key={line.pieceId}
                   className="hall-chip-equipment-line"
                 >
+                  <VisualIcon iconId={line.icon} size="gear" neutral />
                   {line.text}
                 </span>
               ))}

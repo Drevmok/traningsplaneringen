@@ -1983,6 +1983,13 @@
   white-space: nowrap;
 }
 
+/* Slice 64 — type icon beside the text, no tile frame */
+.hall-chip-equipment-line .visual-icon-tile {
+  vertical-align: middle;
+  margin-right: 2px;
+  border-width: 0 !important;
+}
+
 /* Golvklart screen (Slice 17): short title under markör; redskap stacked below (mirror print top) */
 .hall-canvas.is-floor .hall-chip--canvas .hall-chip-title--print {
   display: block;
