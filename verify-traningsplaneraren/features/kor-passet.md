@@ -43,3 +43,5 @@ VoiceOver reading order/announcements, audible tone and vibration, real wake-loc
 | Kvar: X min | `.run-left` | `components/RunPass.tsx`, `export.css` |
 | Navigering | `.run-nav` | `components/RunPass.tsx`, `export.css` |
 | Knapp «Kör passet» | `role=button «Kör passet»` | `components/SessionBuilder.tsx`, `data/blockMeta.ts` |
+
+**Slice 64 (A1 C1):** a Teknik step with redskap (`runStationSketch`: set list, else förslag) shows `StationSketch` as the first child of `.run-script` (saved layout when it applies, else the auto row; caption «Skiss — så kan stationen stå.»). Hidden without redskap and on other blocks. Clock, Nästa, Kvar and nav unchanged; only `.run-script` scrolls.

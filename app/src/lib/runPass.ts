@@ -1,7 +1,9 @@
 import { BLOCK_LABELS, BLOCK_ORDER } from '../data/blockMeta'
 import { floorTip } from '../data/activityTips'
 import { getActivityById } from '../data/seedActivities'
-import type { Session } from '../types'
+import { layoutForStation } from '../data/stationLayout'
+import type { Session, StationEquipmentSlot, StationLayout } from '../types'
+import { placeableItems } from './hall'
 import { waitingLine } from './waitingLine'
 
 /** One exercise in pass order. The cue is the first how-step, not the whole sheet. */
@@ -113,4 +115,16 @@ export function runRemainingSeconds(steps: Pick<RunStep, 'seconds'>[], index: nu
 /** Slice 38: «Kvar: X min», whole minutes rounded up (1–60 s → 1, 0 → 0). */
 export function runLeftText(steps: Pick<RunStep, 'seconds'>[], index: number, left: number, label: string): string {
   return label.replace('{n}', String(Math.ceil(runRemainingSeconds(steps, index, left) / 60)))
+}
+
+/** Slice 64 — StationSketch input for a Teknik step with redskap (same rules as stationCards). */
+export function runStationSketch(
+  session: Session,
+  itemId: string,
+): { slots: StationEquipmentSlot[]; layout?: StationLayout } | undefined {
+  const item = placeableItems(session).find((i) => i.id === itemId)
+  const activity = item && getActivityById(item.activityId)
+  const slots = item?.stationEquipment ?? activity?.defaultStationEquipment
+  if (!item || !slots?.length) return undefined
+  return { slots, layout: layoutForStation(activity, item.stationEquipment) }
 }

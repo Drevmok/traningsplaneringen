@@ -31,7 +31,7 @@ export type IconId =
   | 'smile'
   | 'fallback'
 
-export type VisualIconSize = 'block' | 'item' | 'card' | 'marker' | 'detail'
+export type VisualIconSize = 'block' | 'item' | 'card' | 'marker' | 'detail' | 'gear'
 
 export const VISUAL_ICON_SIZES: Record<
   VisualIconSize,
@@ -43,4 +43,6 @@ export const VISUAL_ICON_SIZES: Record<
   /** Slice 12 — hall floor station marker (icon-led) */
   marker: { tile: 48, draw: 28 },
   detail: { tile: 64, draw: 36 },
+  /** Slice 64 — redskap type icon beside the under-markör text (Golvklart + print) */
+  gear: { tile: 14, draw: 12 },
 }

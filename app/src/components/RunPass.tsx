@@ -8,12 +8,14 @@ import {
   resumeClock,
   runNextText,
   runLeftText,
+  runStationSketch,
   runSteps,
   startClock,
   type RunClock,
 } from '../lib/runPass'
 import { playRunSignal, shouldSignal, unlockRunSignal } from '../lib/runSignal'
 import type { Session } from '../types'
+import { StationSketch } from './StationSketch'
 
 interface Props {
   session: Session
@@ -152,6 +154,7 @@ export function RunPass({ session, onClose }: Props) {
     )
   }
 
+  const sketch = runStationSketch(session, step.itemId)
   const clockLabel = `${formatRunClock(left)}. ${
     left === 0 ? `${UI.runTimeUp}. ` : ''
   }${paused ? UI.runResume : UI.runPause}`
@@ -196,6 +199,7 @@ export function RunPass({ session, onClose }: Props) {
       <p className="run-left">{runLeftText(steps, index, left, UI.runLeftLabel)}</p>
 
       <div className="run-script">
+        {sketch && <StationSketch slots={sketch.slots} layout={sketch.layout} />}
         {step.why && (
           <p>
             <span className="run-label">{UI.why}</span>

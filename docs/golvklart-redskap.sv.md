@@ -69,6 +69,8 @@ Example (non-empty, after Slice 17):
      Landningsmatta
 ```
 
+**Slice 64 (LÅST 2026-11-17):** på Golvklart och i utskriften har varje redskapsrad under märket även redskapets typikon före texten. Inte i redigeringsläget.
+
 Quiet redskap still shows the short title on Golvklart/print (no “Inga redskap”).
 
 Rules:

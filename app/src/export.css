@@ -840,6 +840,16 @@
   text-transform: uppercase;
 }
 
+/* Slice 64 — skiss först i skriptet; bara skriptet rullar. */
+.run-script .station-sketch {
+  max-height: 24svh;
+  background: #fff;
+}
+
+.run-script .station-sketch-caption {
+  color: #d6d3d1;
+}
+
 .run-script .run-cue {
   font-size: 1.3rem;
   font-weight: 650;

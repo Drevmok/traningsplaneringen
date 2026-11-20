@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import { BLOCK_BUDGETS, BLOCK_LABELS, BLOCK_ORDER } from '../data/blockMeta.ts'
-import type { Session, SessionBlock } from '../types.ts'
+import type { Activity, Session, SessionBlock, SessionItem, StationLayout } from '../types.ts'
+import { getActivityById } from '../data/seedActivities.ts'
+import { setEphemeralOwn } from './ownActivities.ts'
 import {
   clockRemaining,
   formatRunClock,
   pauseClock,
   resumeClock,
+  runStationSketch,
   runSteps,
   startClock,
 } from './runPass.ts'
@@ -105,5 +108,40 @@ describe('clock', () => {
     const again = resumeClock(paused, 9_000)
     assert.equal(clockRemaining(again, 11_000), 3)
     assert.equal(clockRemaining(again, 20_000), 0)
+  })
+})
+
+describe('runStationSketch (Slice 64, A1 C1)', () => {
+  const eq = [{ pieceId: 'eq-plint', count: 1 }]
+  const layout = { v: 1, poses: [] } as unknown as StationLayout
+  const own = { ...(getActivityById('tech-ljushopp-satsbrada') as Activity), id: 'own-s64', own: true, defaultStationLayout: layout }
+  const pass = (items: Partial<SessionItem>[], type: SessionBlock['type'] = 'techniques') =>
+    ({ id: 's', title: '', totalMinutes: 0, notes: '', blocks: [{ id: 'b', type, items: items.map((i, n) => ({ id: `i${n}`, durationMinutes: 5, note: '', order: n, ...i })) }] }) as unknown as Session
+
+  it('seed Teknik with förslag, unset list, no layout → förslag slots, auto row', () => {
+    const r = runStationSketch(pass([{ activityId: 'tech-ljushopp-satsbrada' }]), 'i0')
+    assert.deepEqual(r?.slots, getActivityById('tech-ljushopp-satsbrada')?.defaultStationEquipment)
+    assert.ok(r?.slots.length)
+    assert.equal(r?.layout, undefined)
+  })
+
+  it('saved layout used while the list is unset or equals the förslag; own list → no layout', () => {
+    setEphemeralOwn([own])
+    try {
+      assert.equal(runStationSketch(pass([{ activityId: own.id }]), 'i0')?.layout, layout)
+      assert.equal(runStationSketch(pass([{ activityId: own.id, stationEquipment: own.defaultStationEquipment }]), 'i0')?.layout, layout)
+      const mine = runStationSketch(pass([{ activityId: own.id, stationEquipment: eq }]), 'i0')
+      assert.deepEqual(mine?.slots, eq)
+      assert.equal(mine?.layout, undefined)
+    } finally {
+      setEphemeralOwn([])
+    }
+  })
+
+  it('uppvärmning, empty list, no förslag, unknown id → undefined', () => {
+    assert.equal(runStationSketch(pass([{ activityId: 'warm-hall-varv' }], 'warmup'), 'i0'), undefined)
+    assert.equal(runStationSketch(pass([{ activityId: 'tech-ljushopp-satsbrada', stationEquipment: [] }]), 'i0'), undefined)
+    assert.equal(runStationSketch(pass([{ activityId: 'tech-ljushopp-satsbrada' }]), 'nope'), undefined)
+    assert.equal(runStationSketch(pass([{ activityId: 'finns-inte' }]), 'i0'), undefined)
   })
 })
