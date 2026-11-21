@@ -1,6 +1,6 @@
 # Slice 65 — mikrotext (sv)
 
-**Status:** **FÖRESLAGEN** (A1 B1 C1 D1 E1 F1). Texterna låses med A–F.
+**Status:** **LÅST** 2026-11-21 (A1 B1 C1 D1 E1 F1).
 
 Nya korta `UI.`-strängar för guiden. Låsta termer orörda (Kör passet, Golvklart, Hallöversikt, Passbyggaren, Redigera redskap, Förrådslista, Skriv ut passet). «redskap», inte «utrustning». «Skiss», inte en ny produktterm. «Bygg hallen» är den nya ytan. Inget extra hallmärke i texten.
 

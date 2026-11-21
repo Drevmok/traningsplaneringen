@@ -1,4 +1,4 @@
-# Slice 65 — verifieringschecklista (FÖRESLAGEN: A1 B1 C1 D1 E1 F1)
+# Slice 65 — verifieringschecklista (LÅST: A1 B1 C1 D1 E1 F1)
 
 Telefon 390×844 om inget annat sägs. Testdata: bundlade seederna efter Planera pass eller «Använd alla förslag» så att stationer är placerade och `stationEquipment` satt. En oplacerad Teknik behövs för kontroll 3 (ta bort ett märke i redigeringsläget). En övning med sparad `defaultStationLayout` behövs för kontroll 4 — seeds har ingen layout. Ingen SQL. Admin-konto behövs inte för kontroll 1–3 och 5–13.
 

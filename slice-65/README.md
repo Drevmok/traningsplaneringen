@@ -1,7 +1,7 @@
 # Slice 65 — Bygg hallen
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN** (A1 B1 C1 D1 E1 F1). Bas: main @ `6698a63` (Slice 64 live, PR #72, footer «Slice 64»). Gren: `slice-65-docs`.
+**Status:** **LÅST** 2026-11-21 (A1 B1 C1 D1 E1 F1, se `decisions.md`). Bas: main @ `6698a63` (Slice 64 live, PR #72, footer «Slice 64»). Gren: `slice-65-docs`.
 **Uppdrag:** Stationer 17 nov 2026 **S3** «Bygg hallen», Approved av Christoffer 2026-11-20 via PO. S4–S8 och S9 stannar Proposed. S9 ingår inte. Se `backlog/IMPROVEMENTS.md`.
 **Effort:** **M**. Återanvänder `StationSketch`, `layoutForStation`, `runStationSketch`, `HallChip`, `EQUIPMENT_ICON` / `equipmentIconId`, Golvklart, Förrådslista och `PassPrint`. Ingen SQL. Inte en andra halleditor, inte hall-CAD, ett märke per station.
 **Källa:** PO-genomgång 2026-11-17 och 2026-11-20; `backlog/IMPROVEMENTS.md` (S3). Produktmål 20 nov: en ny ledare ska kunna ställa i ordning hallen och förstå bygget. Mobilen tas bara fram kort i hallen (mobilförbud under träningen), så utskriften och Golvklart är viktiga.

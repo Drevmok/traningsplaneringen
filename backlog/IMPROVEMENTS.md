@@ -312,7 +312,7 @@ Full write-up under **Shipped**. Not re-listed here.
 
 **S1–S2** were **Approved 2026-11-17** (Christoffer, via PO) and are now **Shipped** as **Slice 64** (PR #72, merge `6698a63`, 2026-11-20; pack `slice-64/`). LÅST 2026-11-17 (A1 B1 C1 D1 E1 F1). Full write-up under **Shipped**.
 
-**S3** was **Approved 2026-11-20** (Christoffer, via PO) as **Slice 65** (pack `slice-65/`, FÖRESLAGEN). S4–S8 stay **Proposed**. S9 is **Proposed** (Christoffer 2026-11-20) and is not part of Slice 65. Numbered **S1–S9** so they do not collide with Scout 2026-11 #1–#3. Goal: new leaders should understand the stations visually and be able to set up the hall.
+**S3** was **Approved 2026-11-20** (Christoffer, via PO) as **Slice 65** (pack `slice-65/`, LÅST 2026-11-21). S4–S8 stay **Proposed**. S9 is **Proposed** (Christoffer 2026-11-20) and is not part of Slice 65. Numbered **S1–S9** so they do not collide with Scout 2026-11 #1–#3. Goal: new leaders should understand the stations visually and be able to set up the hall.
 
 #### S1. Skiss i Kör passet — Effort **S** — **Shipped → Slice 64** (PR #72, `6698a63`)
 
@@ -329,7 +329,7 @@ Full write-up under **Shipped**. Not re-listed here.
 - **Effort:** M
 - **Simplicity check:** One optional guide, not a second hall editor. Reuse existing sketches / redskap, Golvklart and Förrådslista — not a new placement model.
 - **Standing lock?** Must not become hall-CAD. One marker per station stays. Parked «Compose stations by placing separate equipment pins on the hall (CAD-lite)» stays parked. S9 (club inventory / missing / alternatives) stays out.
-- **Suggested slice shape:** See `slice-65/` (FÖRESLAGEN).
+- **Suggested slice shape:** See `slice-65/` (LÅST 2026-11-21, A1–F1).
 
 **Dropped this month (simplicity / locks / already shipped):** Gymnastikförbundet Inex (accounts); KINETIC / Sportplan / PlanSport Pro (accounts); Gymnastics Tools floor planner (hall CAD); auto-advance at 00:00 (Slice 34 D1); sidostation as extra markers; purpose/syfte field (Oct drop); TeamSnap roster features; Coach K «3 clicks» (= wizard already); available-equipment filter (adds a step + fights fixed EQUIPMENT_PIECES). **Note for PO (not Proposed):** new ChalkBucket setup-time quotes could reopen parked «Förråd station breakdown» later — held out to keep this run at 3 ideas.
 
