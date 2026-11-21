@@ -2,9 +2,10 @@ import { BLOCK_LABELS, BLOCK_ORDER, stationEquipmentLabelText, UI } from '../dat
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
 import { listSessionItems, placeableItems, stationRanks } from '../lib/hall'
+import { hallSetupSteps } from '../lib/hallSetup'
 import { HallCanvas } from './HallCanvas'
 import { StationSketch } from './StationSketch'
-import { stationCards } from '../lib/stationCards'
+import { equipmentLine, stationCards } from '../lib/stationCards'
 import type { Session } from '../types'
 
 interface Props {
@@ -113,6 +114,22 @@ export function PassPrint({ session }: Props) {
           </ul>
         </section>
       )}
+      {/* Slice 65 D1 — «Bygg hallen»: same steps as the guide, an empty box to tick on paper. */}
+      <section className="pass-sheet-build">
+        <h2>{UI.buildHall}</h2>
+        <ul>
+          {hallSetupSteps(session).map((step) => (
+            <li key={step.itemId}>
+              <strong>
+                ☐ {step.rank ? `${step.rank}. ` : ''}
+                {cardById.get(step.itemId)?.title}
+              </strong>
+              {step.slots[0] && <StationSketch slots={step.slots} layout={step.layout} />}
+              <p>{equipmentLine(step.slots)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

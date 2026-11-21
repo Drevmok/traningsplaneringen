@@ -71,6 +71,9 @@ import { startPointerDrag } from '../lib/pointerDrag'
 import { PassPrint } from './PassPrint'
 import { StationComposeSheet } from './StationComposeSheet'
 import { usePassPrint } from '../lib/bodyPrint'
+import { hallSetupSteps } from '../lib/hallSetup'
+import { equipmentLine } from '../lib/stationCards'
+import { StationSketch } from './StationSketch'
 
 interface Props {
   session: Session
@@ -128,6 +131,9 @@ export function HallBoard({
   /** Slice 24 — brief highlight when Förråd soft CTA points at apply-all */
   const [applyAllHighlight, setApplyAllHighlight] = useState(false)
   const pp = usePassPrint()
+  /** Slice 65 A1/C1 — «Bygg hallen» step (null = off) and «Byggd» ticks, in memory only. */
+  const [build, setBuild] = useState<number | null>(null)
+  const [built, setBuilt] = useState<Record<string, boolean>>({})
 
   // Slice 31 — activity-derived values are plain (not memoized on session) so a bank
   // refresh that re-renders the board shows the new text in place.
@@ -363,6 +369,7 @@ export function HallBoard({
   }
 
   function exitFloor() {
+    setBuild(null)
     setTrayCollapsed(true)
     setHallMode('edit')
   }
@@ -492,6 +499,10 @@ export function HallBoard({
     )
   }
 
+  const steps = build === null ? [] : hallSetupSteps(session)
+  const step = build === null ? undefined : steps[build]
+  const stepTitle = step && getActivityById(findSessionItem(session, step.itemId)?.activityId as string)?.title
+
   // Slice 43 D1b: in edit mode the zoom − / + sits in the layout row; Golvklart keeps it above the hall.
   const zoomBar = isNarrow && (
     <div className="hall-zoom-bar no-print" role="group" aria-label={UI.hallZoom}>
@@ -527,6 +538,17 @@ export function HallBoard({
               onClick={exitFloor}
             >
               {UI.hallExitFloor}
+            </button>
+            <button
+              type="button"
+              className="btn-secondary hall-tap-target"
+              aria-label={UI.buildHallAria}
+              onClick={() => {
+                setBuilt({})
+                setBuild(0)
+              }}
+            >
+              {UI.buildHall}
             </button>
             <button
               type="button"
@@ -673,7 +695,7 @@ export function HallBoard({
           session={session}
           hallMode={hallMode}
           placeModeItemId={isFloor ? null : placeModeItemId}
-          selectedItemId={selectedItemId}
+          selectedItemId={isFloor ? step?.itemId ?? null : selectedItemId}
           viewZoom={viewZoom}
           onViewZoomChange={handlePinchZoom}
           onPlaceAt={placeAt}
@@ -695,6 +717,42 @@ export function HallBoard({
           dragPreview={dragPreview}
         />
         <p className="hall-schematic-note">{UI.hallSchematicNote}</p>
+        {step && (
+          <section className="hall-station-list no-print">
+            <p className="muted">
+              {step.rank
+                ? UI.buildHallStep.replace('{n}', String(step.rank)).replace('{total}', String(steps.filter((s) => s.rank).length))
+                : UI.buildHallUnplaced}
+            </p>
+            <h2 className="hall-station-list-title">{stepTitle}</h2>
+            {step.slots[0] && <StationSketch slots={step.slots} layout={step.layout} />}
+            <p>{equipmentLine(step.slots)}</p>
+            <label>
+              <input
+                type="checkbox"
+                checked={!!built[step.itemId]}
+                onChange={(e) => setBuilt({ ...built, [step.itemId]: e.target.checked })}
+              />{' '}
+              {UI.buildHallDone}
+            </label>
+            <div className="hall-floor-actions">
+              <button type="button" className="btn-secondary" disabled={!build} onClick={() => setBuild(build! - 1)}>
+                {UI.runPrev}
+              </button>
+              <button
+                type="button"
+                className="btn-primary"
+                disabled={build! >= steps.length - 1}
+                onClick={() => setBuild(build! + 1)}
+              >
+                {UI.buildHallNext}
+              </button>
+              <button type="button" className="btn-secondary" onClick={() => setBuild(null)}>
+                {UI.buildHallExit}
+              </button>
+            </div>
+          </section>
+        )}
         {!isFloor && stationsEdit && (
           <HallStationList
             session={session}

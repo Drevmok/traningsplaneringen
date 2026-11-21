@@ -226,6 +226,17 @@
     border-bottom: 1px solid #e7e5e4;
   }
 
+  .pass-sheet-build ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  .pass-sheet-build li {
+    break-inside: avoid;
+    padding: 2mm 0;
+    border-bottom: 1px solid #e7e5e4;
+  }
+
   .run-pass {
     display: none !important;
   }

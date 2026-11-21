@@ -20,7 +20,7 @@ export interface StationCardModel {
   experienced: boolean
 }
 
-function equipmentLine(slots: StationEquipmentSlot[] | undefined): string | undefined {
+export function equipmentLine(slots: StationEquipmentSlot[] | undefined): string | undefined {
   if (!slots || slots.length === 0) return undefined
   return slots
     .map((slot) => {
