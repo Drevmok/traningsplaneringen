@@ -26,7 +26,7 @@ Locks A1 B1 C1 D1 E1 F1 (Christoffer 2026-11-21 12:08). Spec: slice-65-docs @ 24
 - `bun test src`: **345 pass / 0 fail** (main 341). Four new `hallSetupSteps` tests: stationRanks order, unplaced last without rank, förslag vs own slots + layout rule, empty / no Teknik → [].
 - `npm run build` exit 0 (incl. `tsc -b`); `npm run lint` exit 0, 8 warnings (same as main).
 - Bundle js+css: gzip -9 **221150 → 221661 (+511 B, budget +512)**; raw 796332 → 798642 (+2310 B).
-- `pick-smokes 6698a63 HEAD`: **HELA LOOPEN** (blockMeta.ts). 22 run: **21 SAMMA, 1 NY FAIL**: `slice-44-builder-smoke` AC9 «Golvklart actions» now reads `Avsluta golvklart|Bygg hallen|Förrådslista|Skriv ut passet`. This is the expected «Bygg hallen» difference named in check 12. The smoke itself is unchanged (no smoke edits in this pack). netlog 3967 requests, 0 to the live host.
+- `pick-smokes 6698a63 HEAD`: **HELA LOOPEN** (blockMeta.ts). 22 run: **21 SAMMA, 1 NY FAIL**: `slice-44-builder-smoke` AC9 «Golvklart actions» read `Avsluta golvklart|Bygg hallen|Förrådslista|Skriv ut passet` (the expected «Bygg hallen» difference, check 12). **Fixed (PO decision):** AC9 now expects those 4 buttons; re-run of slice-44-builder-smoke 32/32 pass, SAMMA vs baseline, 0 to the live host. Full-loop netlog 3967 requests, 0 to the live host.
 
 ## Checklist (own Playwright, local preview, 390×844 + 844×390, 0 live-host requests)
 | # | Status |
@@ -42,7 +42,7 @@ Locks A1 B1 C1 D1 E1 F1 (Christoffer 2026-11-21 12:08). Spec: slice-65-docs @ 24
 | 9 | PASS both: Förrådslista 5 flat rows, no «saknas» |
 | 10 | PASS 844×390: sketch 576 px wide, «Avsluta Bygg hallen» not covered (elementFromPoint). The panel sits below the map, so you scroll to it |
 | 11 | PASS both: footer «Slice 65», no page errors |
-| 12 | build / lint / unit green; full loop 21 SAMMA + expected slice-44 AC9 diff |
+| 12 | build / lint / unit green; full loop 21 SAMMA + slice-44 AC9 (expected Bygg hallen diff) fixed → 32/32 pass |
 | 13 | +511 B gzip (≤ +512); no SQL run |
 
 Head SHA: see the PR (this commit's parent is 39d1f47).
