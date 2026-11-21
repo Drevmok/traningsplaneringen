@@ -270,7 +270,7 @@ export function HallCanvas({
               <HallChip
                 item={item}
                 variant="canvas"
-                selected={!isFloor && selectedItemId === item.id}
+                selected={selectedItemId === item.id}
                 stationRank={ranks.get(item.id)}
                 movable={!isFloor}
                 dragging={Boolean(live)}

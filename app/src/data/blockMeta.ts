@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '64'
+export const SLICE_NUMBER = '65'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -240,6 +240,14 @@ export const UI = {
   hallFloorReady: 'Golvklart',
   hallFloorReadyShort: 'Visa för golvet',
   hallExitFloor: 'Avsluta golvklart',
+  // Slice 65 — Bygg hallen (microcopy.sv.md)
+  buildHall: 'Bygg hallen',
+  buildHallAria: 'Bygg hallen, station för station',
+  buildHallDone: 'Byggd',
+  buildHallUnplaced: 'Saknar plats',
+  buildHallExit: 'Avsluta Bygg hallen',
+  buildHallNext: 'Nästa',
+  buildHallStep: 'Station {n} av {total}',
   hallUnplacedBanner: '{n} stationer ej placerade',
   hallUnplacedBannerOne: '1 station ej placerad',
   hallFloorModeLabel: 'Golvklart',

@@ -39,3 +39,7 @@ Stationskorten (**Skriv ut kort**, en station per sida) och **Helskär** finns i
 ---
 
 **Slice 57:** Utskriften ritar stationen som admin ställde upp den, om passets redskap är desamma som övningens. Har du ändrat redskapen för passet ritas de i rad som förut.
+
+---
+
+**Slice 65:** Skriv ut passet har en kort sektion «Bygg hallen» efter Förrådslista: stationerna i märkenas ordning, med skiss, redskap och en tom ruta att bocka av i hallen.

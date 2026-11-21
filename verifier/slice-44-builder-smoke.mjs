@@ -150,7 +150,7 @@ await attempt('Golvklart', async () => {
   await p.locator('.hall-canvas').first().waitFor(); await p.getByRole('button', { name: 'Golvklart', exact: true }).click(); await p.waitForTimeout(500)
   const btns = (await p.locator('.hall-floor-actions button').allInnerTexts()).map((x) => x.trim())
   await shot(p, '06_golvklart')
-  check('AC9', 'Golvklart actions: Avsluta Golvklart · Förrådslista · Skriv ut passet', btns.length === 3 && btns[1] === 'Förrådslista' && btns[2] === 'Skriv ut passet' && /golvklart/i.test(btns[0]), btns.join('|'))
+  check('AC9', 'Golvklart actions: Avsluta Golvklart · Bygg hallen · Förrådslista · Skriv ut passet (Slice 65)', btns.length === 4 && btns[1] === 'Bygg hallen' && btns[2] === 'Förrådslista' && btns[3] === 'Skriv ut passet' && /golvklart/i.test(btns[0]), btns.join('|'))
   await p.getByRole('button', { name: 'Skriv ut passet' }).click(); await p.waitForTimeout(600)
   const r = await pdfCheck(p, 'golvklart')
   check('AC17-golv', 'print from Golvklart = same pages', r.pages === measure.webkitPages && r.text.includes('Se upp för.'), `pages=${r.pages}`)
