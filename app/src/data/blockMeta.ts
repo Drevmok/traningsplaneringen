@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '65'
+export const SLICE_NUMBER = '66'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -205,7 +205,6 @@ export const UI = {
   hallUnplaced: 'Ej placerade',
   hallUnplacedWithCount: 'Ej placerade ({n})',
   hallUnplacedStations: 'Ej placerade stationer',
-  hallAllPlaced: 'Alla Teknik-stationer är placerade.',
   hallTrayEmptyStations: 'Alla Teknik-stationer är placerade.',
   hallEmptyPass: 'Inga övningar i passet ännu.',
   hallSchematicNote: 'Schematisk hall — inte exakt mått',
@@ -227,9 +226,6 @@ export const UI = {
   hallStationDragAria: 'Dra för att byta ordning',
   hallMissingActivity: 'Övning saknas',
   hallPlaceHere: 'Placera här',
-  hallDropHint: 'Dra en Teknik-station hit',
-  hallDropHintStations:
-    'De här saknar förslag. Välj en station och tryck Placera här.',
   hallCoachTip:
     'Zonen kommer från övningens redskap. Flytta bara det som sitter fel. Schemat är en hjälp, inte en ritning.',
   hallExperiencedShort: 'Erfaren',
@@ -238,7 +234,6 @@ export const UI = {
   // Slice 06 — Hallayout & snap (locked: hall-presets-copy.sv.md)
   // Slice 07 — Golvklart / flöde / telefon (locked: golvklart-copy.sv.md)
   hallFloorReady: 'Golvklart',
-  hallFloorReadyShort: 'Visa för golvet',
   hallExitFloor: 'Avsluta golvklart',
   // Slice 65 — Bygg hallen (microcopy.sv.md)
   buildHall: 'Bygg hallen',
@@ -336,7 +331,6 @@ export const UI = {
   stationEquipmentCount: '{n}× {label}',
   stationEquipmentOne: '{label}',
   // Slice 14 aliases (same strings; floor/print reuse stationEquipmentLabelText)
-  hallFloorEquipmentCount: '{n}× {label}',
   hallFloorEquipmentOne: '{label}',
   stationEquipmentSuggested: 'Förslag — du kan ändra',
   stationEquipmentUseSuggested: 'Använd förslag',

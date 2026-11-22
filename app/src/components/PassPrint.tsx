@@ -123,6 +123,7 @@ export function PassPrint({ session }: Props) {
               <strong>
                 ☐ {step.rank ? `${step.rank}. ` : ''}
                 {cardById.get(step.itemId)?.title}
+                {!step.rank && ` — ${UI.buildHallUnplaced}`}
               </strong>
               {step.slots[0] && <StationSketch slots={step.slots} layout={step.layout} />}
               <p>{equipmentLine(step.slots)}</p>
