@@ -19,7 +19,70 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 ## Proposed
 
-_(none open — Scout outside sweep 2026-11 #1–#3 **Approved 2026-11-02** by Christoffer; full text moved to **Approved** below)_
+Scout outside sweep 2026-11 #1–#3 are **Shipped** (Slices 61–63). **Stationer 17 nov 2026** S1–S2 are **Shipped** as Slice 64 (main `6698a63`, PR #72). S3 is **Shipped** as Slice 65 (main `d347892`, PR #73). Open items are S4–S8 and S9 below. Two Slice 65 QM Low findings are **Approved** as Slice 66 (Christoffer 2026-11-22; full text under **Approved**).
+
+### Stationer 17 nov 2026 (PO-genomgång) — visual stations for new leaders
+
+**Source:** PO-genomgång 2026-11-17, plus Christoffer 2026-11-20 (S3 was Approved as Slice 65, now Shipped; S9 Proposed) and 2026-11-22 (Slice 66 Approved). Numbered **S1–S9** so they do not collide with Scout outside sweep 2026-11 #1–#3 (already Shipped). Goal: new leaders should understand the stations visually and be able to set up the hall.
+
+S1 and S2 are **Shipped** as **Slice 64** (main `6698a63`, PR #72; pack `slice-64/`). S3 is **Shipped** as **Slice 65** (main `d347892`, PR #73; pack `slice-65/`). S4–S8 stay **Proposed**. S9 is **Proposed** (Christoffer 2026-11-20) and is **not** part of Slice 65 or Slice 66.
+
+**Overlap (these stay Parked — see the Parked table):** S1 is not the parked «Kör passet — redskap line»; S2 is not the parked canvas equipment-count badge; S3 / S5 / S8 do not lift hall-CAD (separate equipment pins; one marker per station stays locked). S9 does not revive Slice 47's removed «Vad finns i hallen ikväll?» inside Slice 65 or 66, and it does not lift the parked custom redskap catalog.
+
+#### S4. «Du är här»-minikarta i Kör passet — Effort **M** — **Proposed**
+
+- **Title:** A small «you are here» hall map on the current step in Kör passet, highlighting the active station.
+- **Coach benefit:** Mid-pass, the leader sees where this station sits in the hall without leaving Kör passet.
+- **Effort:** M
+- **Simplicity check:** A miniature of the existing hall, not a new editor. Complements S1 (setup sketch) rather than replacing it.
+- **Standing lock?** View-only. No extra markers, no CAD pins.
+- **Suggested slice shape:** After S1 (the run already shows a sketch). Keep it small so the clock and nav stay reachable (Slice 38: only `.run-script` scrolls).
+
+#### S5. Ovanifrån-mini vid märket — Effort **M** — **Proposed**
+
+- **Title:** A small top-down layout thumbnail at the Golvklart / print marker (the saved station layout, seen from above).
+- **Coach benefit:** On the floor plan the group looks at, each marker shows how that station is built, not only its number and name.
+- **Effort:** M
+- **Simplicity check:** Reuse `StationSketch` / `layoutForStation` in a tight thumbnail; do not add a second layout format.
+- **Standing lock?** Not hall-CAD. The thumbnail sits at the existing station marker; no separate equipment pins on the hall. Parked CAD-lite stays parked.
+- **Suggested slice shape:** After S2 (markers already carry icon+text). Watch bundle and marker clutter on a crowded Blå hall.
+
+#### S6. Fyll bankens skisser via kön «Saknar skiss» — Effort **S** (innehåll) — **Proposed**
+
+- **Title:** Fill missing `defaultStationLayout` in the bank by working the existing Admin queue «Saknar skiss» (Slice 59).
+- **Coach benefit:** More Teknik then show a saved layout (not only the auto-row) in ActivityDetail, print, and Kör passet (Slice 64).
+- **Effort:** S, content. The queue already exists (`adminLayoutQueue`, `UI.adminLayoutQueue`). No new screen.
+- **Simplicity check:** Content pass, no schema change if layouts write through the existing Slice 57 field.
+- **Standing lock?** No fight. Does not invent 3D or CAD.
+- **Suggested slice shape:** Admin works the queue and saves layouts; SQL / `push-promote` only if Christoffer later asks to promote the rows. Not part of Slice 65 or Slice 66 (no SQL in either).
+
+#### S7. Rotationsklocka med grupper — Effort **L** — **Proposed**
+
+- **Title:** A station rotation clock with groups (and «två varv» / switch calls) so the leader can run rotations from the phone.
+- **Coach benefit:** Mixed groups moving together get a clear «switch» without a separate timer app.
+- **Evidence / history:** Scout outside sweep 2026-10 listed this under **Dropped for simplicity / locks** (needs a group/varv model and settings; Kör passet already covers the core «call the switch» via the step clock). Sources then: [TPT Station Rotation Timer](https://www.teacherspayteachers.com/Product/Station-Rotation-Timer-Group-Maker-Editable-Station-Signs-Center-Rotation-17131354), [Gymnastikförbundet cirkelträning](https://www.gymnastik.se/verksamheter/starta-upp-verksamhet/starta-upp-truppgymnastik-65-/lektionsforslag). Christoffer asked on 2026-11-17 to put it in the backlog anyway.
+- **Effort:** L; may need SQL if groups/rosters are stored.
+- **Simplicity check:** Heavy — new model, likely settings. Keep Proposed, not Approved, until the group model is scoped.
+- **Standing lock?** Roster / accounts stay parked. A clock without accounts is still a large UX add.
+- **Suggested slice shape:** Later, only after a scoped group/varv model and Christoffer's yes on size and any SQL.
+
+#### S8. 3D-vy med Modellmakarns .glb per redskap — Effort **L** — **Proposed**
+
+- **Title:** A 3D view of the station using Modellmakarn's `.glb` per redskap.
+- **Coach benefit:** The most literal picture of how the station stands — useful for a new leader who does not yet read a 2,5D sketch.
+- **Effort:** L. Requires a **bundle exception** (GLBs are large) and an explicit lift of the Slice 57 lock «3D senare» (Christoffer, lock string on Slice 57: «Ja, lås A2 B1 C1 D1 E1 F1. OK över +512 B. SQL före merge. 3D senare.»).
+- **Simplicity check:** Large, and it fights the current soft +512 B budget. The 2,5D sketch (Slices 57–59, and S1) is the near-term picture.
+- **Standing lock?** **Blocked** until Christoffer lifts «3D senare» and approves a bundle exception. This is not hall-CAD (separate pins on the hall stay parked). One marker per station stays.
+- **Suggested slice shape:** Not next. Do not start without those two yeses.
+
+#### S9. Föreningens tillgängliga redskap på stationsbygget — Effort **M** — **Proposed** (Christoffer 2026-11-20)
+
+- **Title:** Koppla varje förenings tillgängliga redskap så att stationsbyggen tydligt visar redskap som saknas eller föreslår alternativ.
+- **Coach benefit:** A new leader sees if the club is missing a piece, or gets an alternative, instead of discovering the gap on the floor.
+- **Effort:** M (per-club inventory; may need SQL later).
+- **Simplicity check:** **Not part of Slice 65 or Slice 66.** Do not revive «Vad finns i hallen ikväll?» (removed in Slice 47) as a side effect of Bygg hallen.
+- **Standing lock?** Overlaps the dropped «available-equipment filter» (adds a step + fights fixed `EQUIPMENT_PIECES`) and the parked custom coach-authored redskap catalog. Keep Proposed until those locks are scoped. One marker per station and the fixed library stay until Christoffer says otherwise.
+- **Suggested slice shape:** After Slice 65. Exact A–F in a later pack.
 
 ### Scout polish pass 2026-10-13 (Slice 37 live)
 
@@ -223,43 +286,65 @@ Full write-ups: #2 under **Shipped** (Slice 26); #1 under **Shipped** (Slice 25)
 
 ## Approved (ready for a slice pack)
 
-### Scout outside sweep 2026-11 (similar apps + unmet demand) — **Approved 2026-11-02**
+### Scout outside sweep 2026-11 (similar apps + unmet demand) — **Approved 2026-11-02** · all three **Shipped**
 
-**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** after PR #65 (`72690c1`). No slice pack yet; Planner drafts one when Christoffer says “what’s next?”. #3 is phase 2 of #1 (bundle or after #1).
+**Approved 2026-11-02** (Christoffer) — all three ideas (#1–#3). Moved from **Proposed** in PR #66 (`3f0a729`); first listed as Proposed in PR #65 (`72690c1`).
+
+- **#1** Lättare / Svårare → **Shipped** as **Slice 62** (PR #70, merge `2917296`, 2026-11-15). Full write-up under **Shipped**. `update-progression-links.sql` kördes på live 2026-11-15 ca 15:15 med Christoffers ja: 11 rader uppdaterades, 5 hade redan rätt värde, alla 16 Teknik länkade (PO).
+- **#2** «Medan du väntar» → **Shipped** as **Slice 61** (PR #69, merge `04af122`, 2026-11-14). Full write-up under **Shipped**.
+- **#3** Ny vecka «ett steg svårare» → **Shipped** as **Slice 63** (PR #71, merge `937829c`, 2026-11-17). Pack `slice-63/`. LÅST 2026-11-16 (A1 B1 C1 D1 E1 F1). Phase 2 of #1.
 
 Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A** similar apps (gymnastics + youth sport) + **B** unmet demand (forums). C (10 station drafts) not in scope this run. Scout draft on box: `scout-drafts/2026-11-monthly-sweep.md` (not in repo). Filter: snabbare/lättare planera pass; ersätt/korta steg. Does **not** re-propose Parked/Declined/Shipped without stronger new evidence; auto-advance ruled out (Slice 34 D1/AC3). Standing locks checked (`PSTACK-OPS.md`).
 
-#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — Effort **M** — **Approved 2026-11-02**
+#### 1. **A** — Lättare / Svårare med ett tryck på Teknik-rad — **Shipped → Slice 62** (PR #70, `2917296`)
 
-- **Title:** On a Teknik pass item (Passbyggaren; optionally Kör passet), chips «Lättare» / «Svårare» swap the activity in place when `regressionOf` / `progressionOf` links exist.
-- **Coach benefit:** Mixed-ability group — station too hard/easy → one tap instead of Bibliotek search; minutes and hall marker stay.
-- **Evidence (A):** [PatioLab](https://patiolab.us/) «easier/harder variations» on activity cards; [Pembee gymnastics lesson plans](https://www.pembee.app/blog/gymnastics-lesson-plans) differentiation grid (forward roll wedge → flat → dive) + «Reuse the same lesson template every week and swap only the station progression»; [MyTeams](https://myteams.no/en/artikler/differensiering-pa-trening/) «one drill, three levels»; [Kunskapsarenan – Teknik och metodik](https://kunskapsarenan.se/gymnastik/barngymnastik-leka-och-lara/teknik-och-metodik) progression by making the same station harder.
-- **Evidence (B):** New coaches ask for station/drill ideas when lost ([r/GymnasticsCoaching «New to Coaching»](https://www.reddit.com/r/GymnasticsCoaching/comments/1kdvga7/new_to_coaching_please_help/) — quote from search index; Reddit blocks live fetch); ChalkBucket [Do you write lesson plans?](https://chalkbucket.com/threads/do-you-write-lesson-plans.42403/) marie83 on 12-week progressions (thread verified in browser).
-- **Repo fact:** Fields already exist (`Activity.progressionOf` / `regressionOf`, ActivityDetail «Bygger på» / «Lättare variant av», bank import). Local seeds have ~6 links; bank seed SQL parts write `progression_of`/`regression_of` as null — content work is the bulk.
-- **Effort:** M (small UI; ~15–25 Teknik pairs in the bank + admin link fields that already exist on import).
-- **Simplicity check:** Replaces a bank search with one tap; chips only when a link exists; no new screen or setting.
-- **Standing lock?** No fight. Not skill-assessment / roster tracking (Oct drop). Hall/CAD/accounts untouched.
-- **Suggested slice shape:** Fill bank links first (or same pack). Pass-row chips → replace `activityId`, keep duration + hall placement, refresh redskap proposals. ActivityDetail labels stay. Optional phase 2 = idea #3. Verifier: Lättare/Svårare changes title, same minutes/marker; no chip when unlinked.
+Full write-up under **Shipped**. Not re-listed here.
 
-#### 2. **B** — «Medan du väntar» i Teknik-text — Effort **S** — **Approved 2026-11-02**
+#### 2. **B** — «Medan du väntar» i Teknik-text — **Shipped → Slice 61** (PR #69, `04af122`)
 
-- **Title:** One line in existing Teknik `how_to` (or the same surface coaches already see) with a waiting drill tied to the main skill — **text only**, not an extra hall marker.
-- **Coach benefit:** Kids in queue have something to do without the new coach inventing side work mid-floor.
-- **Evidence:** Kunskapsarenan Stationsträning: «För att barnen ska slippa stå och vänta på sin tur ska du även bygga två sidostationer bredvid som är direkt kopplade till huvudstationen»; ChalkBucket [Bar Rotation–Waiting/Sitting](https://chalkbucket.com/threads/bar-rotation-waiting-sitting.19005/) (bogwoppit / Harv — verified in browser); Swedish youth-coach guidance against köbildning (e.g. Svensk fotboll ny-tränare guide via search).
-- **Effort:** S if content lives inside `how_to` (preferred); M if a new bank field.
-- **Simplicity check:** Bank content only — no new step, screen, or marker. Sidostation-as-marker would fight one-marker-per-station; text does not.
-- **Standing lock?** No fight when text-only.
-- **Suggested slice shape:** Content pass on ~10–20 Teknik rows: append «Medan du väntar: …». Show wherever how_to already shows (detail / Kör if already there). No schema change if text suffices. Verifier: sample rows show the line; hall still one marker.
+Full write-up under **Shipped**. Not re-listed here.
 
-#### 3. **A** — Ny vecka «ett steg svårare» — Effort **S** (after #1) — **Approved 2026-11-02**
+#### 3. **A** — Ny vecka «ett steg svårare» — **Shipped → Slice 63** (PR #71, `937829c`)
 
-- **Title:** After Ny vecka copies the pass, one optional line «Gör Teknik ett steg svårare» applies Svårare to every Teknik item that has a `progressionOf` link.
-- **Coach benefit:** Week 2 without rebuilding — same template, one level up (Pembee term ladder).
-- **Evidence:** Pembee «Reuse the same lesson template every week and swap only the station progression»; Kunskapsarenan «Kör gärna en och samma redskapsbana några gånger i rad…»; ChalkBucket marie83 12-week progressions (same thread as #1).
-- **Effort:** S once #1 links exist; M alone (would need the links anyway).
-- **Simplicity check:** Borderline (one optional action) — only worth it after #1; otherwise a no-op.
-- **Standing lock?** No fight. Bundle / phase 2 of #1, not a separate large pack without #1.
-- **Suggested slice shape:** Only if #1 Approved. One control on the Ny-vecka result; skip items without links. Verifier: with links → level up; without → no change / control hidden.
+Full write-up under **Shipped**. Not re-listed here.
+
+### Stationer 17 nov 2026 — S1–S3 **Shipped** as **Slices 64–65**
+
+**S1–S2** were **Approved 2026-11-17** (Christoffer, via PO) and are now **Shipped** as **Slice 64** (PR #72, merge `6698a63`, 2026-11-20; pack `slice-64/`). LÅST 2026-11-17 (A1 B1 C1 D1 E1 F1). Full write-up under **Shipped**.
+
+**S3** was **Approved 2026-11-20** (Christoffer, via PO) and is now **Shipped** as **Slice 65** (PR #73, merge `d347892`, 2026-11-21; pack `slice-65/`). LÅST 2026-11-21 (A1 B1 C1 D1 E1 F1). Full write-up under **Shipped**. S4–S8 stay **Proposed**. S9 is **Proposed** (Christoffer 2026-11-20) and is not part of Slice 65 or Slice 66.
+
+#### S1. Skiss i Kör passet — Effort **S** — **Shipped → Slice 64** (PR #72, `6698a63`)
+
+Full write-up under **Shipped**. Not re-listed here.
+
+#### S2. Redskapsikoner på Golvklart-märket / utskrift — Effort **S** — **Shipped → Slice 64** (PR #72, `6698a63`)
+
+Full write-up under **Shipped**. Not re-listed here.
+
+#### S3. Uppställningsguide «Bygg hallen» — Effort **M** — **Shipped → Slice 65** (PR #73, `d347892`)
+
+Full write-up under **Shipped**. Not re-listed here.
+
+### Slice 65 QM-fynd — **Approved 2026-11-22** · Slice 66
+
+**Approved 2026-11-22** (Christoffer, via PO, 11:45 Europe/Stockholm). Pack `slice-66/`. The two Low findings from the Slice 65 verifier report (anmärkning A låg/medel, B låg). Not S4–S9. No SQL. One marker per station stays.
+
+#### 1. Liggande 844×390: stegpanelen under kartan — Effort **S** — **Approved 2026-11-22** · Slice 66
+
+- **Title:** In Bygg hallen at landscape 844×390, the step panel sits below the map and requires scrolling. It must be visible without page scroll, or with a clear minimum (current marker + step chrome).
+- **Coach benefit:** A new leader who only briefly takes out the phone in the hall can see the current station and the map together.
+- **Effort:** S
+- **Evidence:** QM Slice 65 report, anmärkning A. Map `bottom=602,5` / panel `top=673,2` at vh=390, `inView=false`. Did not break Slice 65 AC.
+- **Suggested slice shape:** See `slice-66/` (FÖRESLAGEN).
+
+#### 2. Utskriften märker inte oplacerade med «Saknar plats» — Effort **S** — **Approved 2026-11-22** · Slice 66
+
+- **Title:** PassPrint writes unplaced stations as «☐ Titel» without a number and without the locked «Saknar plats» label already used in the on-screen guide.
+- **Coach benefit:** On the paper carried in the hall, it is clear which stations have no marker.
+- **Effort:** S
+- **Evidence:** QM Slice 65 report, anmärkning B. Reuse `UI.buildHallUnplaced`. Did not break Slice 65 AC.
+- **Suggested slice shape:** See `slice-66/` (FÖRESLAGEN).
 
 **Dropped this month (simplicity / locks / already shipped):** Gymnastikförbundet Inex (accounts); KINETIC / Sportplan / PlanSport Pro (accounts); Gymnastics Tools floor planner (hall CAD); auto-advance at 00:00 (Slice 34 D1); sidostation as extra markers; purpose/syfte field (Oct drop); TeamSnap roster features; Coach K «3 clicks» (= wizard already); available-equipment filter (adds a step + fights fixed EQUIPMENT_PIECES). **Note for PO (not Proposed):** new ChalkBucket setup-time quotes could reopen parked «Förråd station breakdown» later — held out to keep this run at 3 ideas.
 
@@ -280,6 +365,8 @@ Monthly outside sweep (2026-11-02, first Monday). Live Slice 58 @ `31ca3be`. **A
 | Bundle latest DB snapshot into app offline fallback | **Parked / Later** (Christoffer 2026-10-03). Slice 32 AC 45 accepted as partial: `tools/bank/export-db.ts` writes a read-only backup (`out/bank-snapshot.json`) and `seed-promotion.md` has the superseded banner, but the app's offline fallback stays the bundled 51 seeds (no `app/src/data/bankSnapshot.json`; bundle budget AC 49). Later: a small "Banksnapshot <datum>" PR that bundles the snapshot as the fallback | Slice 32 verify report (AC 45) · `slice-31/content/bot-writes.md` |
 | Kör passet — redskap line on the current step | Parked by Christoffer 2026-10-13 | Scout run 2026-10-13 idea #2 |
 
+**Överlapp mot Stationer 17 nov (förblir parkerade):** S1 (skiss i Kör passet) is not this redskap *text* line. S2 (ikoner på Golvklart/utskrift) is not the canvas equipment-count badge. S3 / S5 / S8 do not lift hall-CAD (CAD-lite row above). One marker per station stays. S9 (Proposed, not Slice 65) does not lift the parked custom redskap catalog or the parked Förrådslista station breakdown.
+
 ---
 
 ## Declined
@@ -292,6 +379,11 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Bygg hallen — uppställningsguide i Golvklart + utskrift | 65 | **Shipped** 2026-11-21 · PR #73 · merge `d347892`. Pack `slice-65/`. Stationer 17 nov S3. LÅST 2026-11-21 (A1 B1 C1 D1 E1 F1). Ingen SQL. Bundle +511 B gzip (tak +512). |
+| Skiss i Kör passet + redskapsikoner på Golvklart/utskrift | 64 | **Shipped** 2026-11-20 · PR #72 · merge `6698a63`. Pack `slice-64/`. Stationer 17 nov S1–S2. LÅST 2026-11-17 (A1 B1 C1 D1 E1 F1). Ingen SQL. |
+| Ny vecka «ett steg svårare» | 63 | **Shipped** 2026-11-17 · PR #71 · merge `937829c`. Pack `slice-63/`. Scout outside sweep 2026-11 #3. LÅST 2026-11-16 (A1 B1 C1 D1 E1 F1). Ingen SQL. |
+| Lättare / Svårare på Teknik-rad + JSON-import behåller «Medan du väntar» | 62 | **Shipped** 2026-11-15 · PR #70 · merge `2917296`. Pack `slice-62/`. Scout outside sweep 2026-11 #1. `update-progression-links.sql` kördes på live 2026-11-15 ca 15:15 med Christoffers ja: 11 rader uppdaterades, 5 hade redan rätt värde, alla 16 Teknik länkade (PO). |
+| «Medan du väntar» i Teknik-text | 61 | **Shipped** 2026-11-14 · PR #69 · merge `04af122`. Pack `slice-61/`. Scout outside sweep 2026-11 #2. |
 | Spara passet automatiskt (no silent loss on ←) | 39 | **Shipped** · Scout polish pass 2026-10-13 #1. Moved from Approved in Slice 53 (E1). |
 | Teknik markers stack in Blå/Vit hall | 40 | **Shipped** · Scout polish pass 2026-10-13 #2. Moved from Approved in Slice 53 (E1). |
 | Ångra after ×-remove (and after «Använd mall») | 41 | **Shipped** · Scout polish pass 2026-10-13 #3. Moved from Approved in Slice 53 (E1). |
