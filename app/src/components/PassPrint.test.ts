@@ -47,3 +47,17 @@ describe('Verifier F1: pass print numbers = hall numbers', () => {
     assert.deepEqual([ranks.get(tek[0].id), ranks.get(tek[1].id), ranks.get(tek[2].id)], [1, undefined, 2])
   })
 })
+
+describe('Slice 66 C1: Bygg hallen print section labels unplaced stations', () => {
+  it('unplaced → «☐ Titel — Saknar plats» without a number; placed stays «☐ n. Titel»', async () => {
+    const { placeableItems } = await import('../lib/hall.ts')
+    const s = cloneTemplate(seedTemplates.find((t) => /Nybörjare/.test(t.title)) ?? seedTemplates[0])
+    const tek = placeableItems(s)
+    s.hallPlacements = [{ sessionItemId: tek[2].id, x: 0.2, y: 0.3 }, { sessionItemId: tek[0].id, x: 0.6, y: 0.3 }]
+    const html = renderToStaticMarkup(createElement(PassPrint, { session: s }))
+    const section = html.slice(html.indexOf('class="pass-sheet-build"'))
+    const rows = [...section.matchAll(/<strong>(.*?)<\/strong>/g)].map((m) => m[1].replace(/<!-- -->/g, ''))
+    const title = (i: number) => stationCards(s)[i].title
+    assert.deepEqual(rows, [`☐ 1. ${title(0)}`, `☐ 2. ${title(2)}`, `☐ ${title(1)} — ${UI.buildHallUnplaced}`])
+  })
+})

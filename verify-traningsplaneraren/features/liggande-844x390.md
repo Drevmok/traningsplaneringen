@@ -21,3 +21,5 @@
 | Hallhuvud | `.hall-header button` | `App.css`, `components/HallBoard.tsx` |
 | Stäng ark | `.sheet-close` | `App.css`, `components/HallBoard.tsx` |
 | Mer-knappen | `.more-menu > button` | `components/SessionBuilder.tsx`, `export.css` |
+
+**Slice 66 (A1 B1):** Golvklart → Bygg hallen at 844×390: the map and step panel sit side by side with no page scroll. The sketch shrinks or scrolls inside the panel; the schematic note is hidden while the guide is open. Ordinary Golvklart stays full width.

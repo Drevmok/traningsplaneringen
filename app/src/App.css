@@ -1849,35 +1849,6 @@
   pointer-events: none;
 }
 
-.hall-drop-hint {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  max-width: 70%;
-  z-index: 1;
-  pointer-events: none;
-  color: #475569;
-}
-
-.hall-drop-hint p {
-  margin: 0 0 6px;
-  font-weight: 600;
-}
-
-.hall-coach-tip {
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 400;
-  line-height: 1.35;
-  color: #64748b;
-}
-
-.hall-coach-tip--tray {
-  margin: 0 0 10px;
-}
-
 /* Slice 53 AC9: one layer for all markers; anchors make no stacking context (margin, not transform),
    so every number plate (z-index 2) is drawn above every marker body. */
 .hall-chip-layer {
@@ -3432,4 +3403,47 @@
 .activity-tip-waiting,
 .run-waiting {
   color: #78716c;
+}
+
+/* Slice 66 A1/B1 — landscape phone: Bygg hallen map | panel side by side, no page scroll.
+   The map column is as wide as the hall (about 4:3) that fits the height; the sketch shrinks and scrolls in the panel. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hall-board--floor:has(.hall-station-list) {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    padding-bottom: 8px;
+  }
+
+  .hall-layout--floor:has(.hall-station-list) {
+    flex: 1;
+    min-height: 0;
+    grid-template: minmax(0, 1fr) / minmax(0, calc((100svh - 130px) * 1.35)) 1fr;
+    gap: 8px;
+  }
+
+  .hall-layout--floor .hall-station-list {
+    grid-area: 1 / 2;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 8px 12px;
+    overflow: auto;
+  }
+
+  .hall-layout--floor .hall-station-list > * {
+    margin: 0;
+  }
+
+  .hall-layout--floor .hall-station-list > figure {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .hall-layout--floor:has(.hall-station-list) .hall-schematic-note {
+    display: none;
+  }
 }
