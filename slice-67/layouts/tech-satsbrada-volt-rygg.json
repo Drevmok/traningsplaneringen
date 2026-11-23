@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-satsbrada",
+      "x": 0.396,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-landningsmatta",
+      "x": 0.632,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}

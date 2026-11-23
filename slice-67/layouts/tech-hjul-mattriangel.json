@@ -1,0 +1,23 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-madrass",
+      "x": 0.431,
+      "z": 0.1,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-madrass",
+      "x": 0.569,
+      "z": 0.1,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-madrass",
+      "x": 0.5,
+      "z": 0.95,
+      "yaw": 0
+    }
+  ]
+}

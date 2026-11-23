@@ -1,0 +1,23 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-trampett",
+      "x": 0.271,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-mattberg",
+      "x": 0.507,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-landningsmatta",
+      "x": 0.75,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}

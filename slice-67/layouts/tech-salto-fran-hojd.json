@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-plint",
+      "x": 0.363,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-landningsmatta",
+      "x": 0.572,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}

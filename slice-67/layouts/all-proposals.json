@@ -1,0 +1,421 @@
+{
+  "tech-ljushopp-trampett": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-trampett",
+        "x": 0.419,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.678,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-satsbrada-volt-rygg": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-satsbrada",
+        "x": 0.396,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.632,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-trampett-volt-mattberg": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-trampett",
+        "x": 0.271,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-mattberg",
+        "x": 0.507,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.75,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-rondat-flickis": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-tumblingmatta",
+        "x": 0.355,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.628,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-flickis-kudde": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-flickiskudde",
+        "x": 0.434,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.581,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-falla-bakat-hojd": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-plint",
+        "x": 0.434,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.572,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-salto-fran-hojd": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-plint",
+        "x": 0.363,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.572,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-handstaende-falla-rygg": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-kullerbytta": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-bro": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-balansgang": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-kon",
+        "x": 0.204,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-kon",
+        "x": 0.401,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-kon",
+        "x": 0.599,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-kon",
+        "x": 0.796,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-grenhopp-trampett": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-trampett",
+        "x": 0.419,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.678,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-formhopp-over-block": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-trampett",
+        "x": 0.288,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-skumblock",
+        "x": 0.487,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.704,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-aggrullning-kil": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-kilmatta",
+        "x": 0.436,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.599,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-l-hang-racke": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-racke",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-stod-racke-pendel": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.451,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-racke",
+        "x": 0.516,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-asnesparkar": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-tumblingmatta",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-minihjul": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-tumblingmatta",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-soldatsparkar-bom": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-bom",
+        "x": 0.36,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-landningsmatta",
+        "x": 0.643,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-krabbgang-bom": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-bom",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-ljushopp-rockringar": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-rockring",
+        "x": 0.253,
+        "z": 0.1,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-rockring",
+        "x": 0.418,
+        "z": 0.9,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-rockring",
+        "x": 0.582,
+        "z": 0.1,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-rockring",
+        "x": 0.747,
+        "z": 0.9,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-landning-plint": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-plint",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-igelkottsgunga": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.5,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-hjul-mattriangel": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.431,
+        "z": 0.1,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.569,
+        "z": 0.1,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.5,
+        "z": 0.95,
+        "yaw": 0
+      }
+    ]
+  },
+  "tech-stockrullning-kil": {
+    "v": 1,
+    "poses": [
+      {
+        "pieceId": "eq-kilmatta",
+        "x": 0.436,
+        "z": 0.5,
+        "yaw": 0
+      },
+      {
+        "pieceId": "eq-madrass",
+        "x": 0.599,
+        "z": 0.5,
+        "yaw": 0
+      }
+    ]
+  }
+}
