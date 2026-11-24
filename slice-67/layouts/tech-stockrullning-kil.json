@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-kilmatta",
+      "x": 0.436,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-madrass",
+      "x": 0.599,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+[
+  {
+    "id": "tech-ljushopp-trampett",
+    "title": "Ljushopp på trampett",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-trampett"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Visa tydlig ansats och studs i mitten av trampetten.\n2. Sträckt ljushopp, mjuk landning.\n3. En i taget; vänta tills landningen är klar.\nMedan du väntar: öva ljushopp på stället: armarna upp, landa mjukt."
+  },
+  {
+    "id": "tech-satsbrada-volt-rygg",
+    "title": "Satsbräda volt till rygg",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-satsbrada"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Säkerställ madrass som räcker bakåt innan första försöket.\n2. Satsbräda → rotation → landning på rygg.\n3. Bygg från kortare rotation innan fullare volt; spotta efter nivå.\n4. En i taget.\nMedan du väntar: sitt i kön, haka i och öva rund rygg."
+  },
+  {
+    "id": "tech-trampett-volt-mattberg",
+    "title": "Trampett volt upp på mattberg",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-trampett"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-mattberg"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Kolla att mattberget är stabilt och högt nog.\n2. Ansats → trampett → volt → landning högt på mattberg.\n3. Progressera höjd/rotation efter nivå.\n4. En i taget; nästa väntar tills landningen är klar.\nMedan du väntar: sitt i kön, rulla ihop och öppna igen."
+  },
+  {
+    "id": "tech-rondat-flickis",
+    "title": "Rondat–flickis",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-tumblingmatta"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Endast när erfaren ledare leder och spotttar.\n2. Progressera från bekanta delar innan hela kedjan.\n3. Spotting aktivt under hela setet.\n4. Avbryt om tekniken fallerar."
+  },
+  {
+    "id": "tech-flickis-kudde",
+    "title": "Flickis med flickiskudde",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-flickiskudde"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Placera kudden enligt klubbens metod.\n2. Låt gymnasten känna bakåtrörelsen med stöd.\n3. Progressera mot friare flickis när formen sitter."
+  },
+  {
+    "id": "tech-falla-bakat-hojd",
+    "title": "Falla bakåt från höjd till rygg",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-plint"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Använd plint/höjd som klubben brukar; tjock och lång madrass bakom.\n2. Falla bakåt till rygg med teknikfokus.\n3. Bygg trygghet stegvis — ingen ”vem vågar högst”-lek."
+  },
+  {
+    "id": "tech-salto-fran-hojd",
+    "title": "Salto från höjd",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-plint"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Endast med erfaren ledare och rätt progression bakom.\n2. Spotting och madrassuppställning före första försöket.\n3. En i taget; stoppa tidigt vid osäkra försök."
+  },
+  {
+    "id": "tech-handstaende-falla-rygg",
+    "title": "Handstående falla till rygg",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Lägg madrass bakom innan någon går upp i handstående.\n2. Handstående (mot vägg eller fri enligt nivå) → tippa/falla till rygg.\n3. Cue öppning och mjuk landning på rygg."
+  },
+  {
+    "id": "tech-kullerbytta",
+    "title": "Kullerbytta framåt",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Lägg madrassen fram. Visa haka i och rund rygg.\n2. En i taget från huk, händerna i mattan.\n3. Rulla upp till fötterna utan att sätta fart i väggen.\n4. Nästa startar först när mattan är fri.\nMedan du väntar: sitt på huk i kön, haka i och håll ryggen rund."
+  },
+  {
+    "id": "tech-bro",
+    "title": "Bro",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Madrass. Ligg på rygg, fötterna nära rumpan, händerna vid öronen.\n2. Lyft höfterna till bro, eller stanna på en lägre båge.\n3. Håll en kort stund och kom ner på ryggen, inte på huvudet.\n4. En i taget om ytan är liten."
+  },
+  {
+    "id": "tech-balansgang",
+    "title": "Balansgång",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 4,
+        "pieceId": "eq-kon"
+      }
+    ],
+    "how_to": "1. Markera en linje, eller ställ koner som gång.\n2. Gå framåt med blicken långt fram.\n3. Armarna ut. Vänd kontrollerat.\n4. En i taget om linjen är smal."
+  },
+  {
+    "id": "tech-grenhopp-trampett",
+    "title": "Grenhopp från trampett",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-trampett"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Kort ansats, studs mitt i trampetten.\n2. Benen ut åt sidorna och fram, armarna sträcks mot tårna.\n3. Samla benen före landning och landa på två fötter på mattan: böjda knän, armarna fram.\n4. En i taget, nästa går när mattan är fri.\nMedan du väntar: öva grenhopp på golvet, landa mjukt på två fötter."
+  },
+  {
+    "id": "tech-formhopp-over-block",
+    "title": "Formhopp över block från trampett",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-trampett"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-skumblock"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Ställ ett lågt mjukt block mellan trampetten och landningsmattan.\n2. Studsa och hoppa över blocket med en form: ljushopp, krupen eller gren.\n3. Landa på två fötter på mattan med böjda knän.\n4. Bygg på med fler block när landningarna sitter.\nMedan du väntar: hoppa ljushopp på stället och landa stilla på två fötter."
+  },
+  {
+    "id": "tech-aggrullning-kil",
+    "title": "Äggrullning nerför kil",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-kilmatta"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Lägg kilen på en matta. Gymnasten ligger på rygg högst upp.\n2. Dra upp knäna, håll om dem och för hakan mot bröstet.\n3. Rulla nerför kilen och håll formen hela vägen ner.\n4. Nästa startar när ytan nedanför är fri.\nMedan du väntar: sitt, dra upp knäna och håll äggformen i fem andetag."
+  },
+  {
+    "id": "tech-l-hang-racke",
+    "title": "L-häng i räcke",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-racke"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Gymnasten hänger i räcket med raka armar.\n2. Lyft benen fram så raka som möjligt, tårna pekar framåt.\n3. Håll några sekunder och sänk benen lugnt.\n4. Böj knäna om raka ben inte går än.\nMedan du väntar: sitt med raka ben och håll L-formen i fem andetag."
+  },
+  {
+    "id": "tech-stod-racke-pendel",
+    "title": "Stöd på räcke med pendel",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-racke"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Gymnasten trycker sig upp i stöd, raka armar, händerna ovanpå stången.\n2. Håll kroppen rak och spänd. Pendla benen fram och bak tre gånger.\n3. Tryck ifrån bakåt och landa på mattan: böjda knän, armarna fram.\nMedan du väntar: stå i plankan på golvet och räkna till fem."
+  },
+  {
+    "id": "tech-asnesparkar",
+    "title": "Åsnesparkar",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-tumblingmatta"
+      }
+    ],
+    "how_to": "1. Armarna raka och upp framför kroppen, ett ben böjt fram och ett rakt bak.\n2. Sätt händerna i mattan, skjut ifrån med det främre benet och sparka upp bakåt.\n3. Landa mjukt på fötterna. Byt ben varannan gång."
+  },
+  {
+    "id": "tech-minihjul",
+    "title": "Minihjul (krabbhjul)",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-tumblingmatta"
+      }
+    ],
+    "how_to": "1. Börja på huk vid ena sidan av mattan, armbågarna nära kroppen.\n2. Sätt ner händerna en i taget och hoppa över fötterna till andra sidan: hand, hand, fot, fot.\n3. Gör åt båda håll.\n4. Höj höfterna lite mer när rytmen sitter.\nMedan du väntar: på huk, sätt händerna i golvet en i taget och tillbaka."
+  },
+  {
+    "id": "tech-soldatsparkar-bom",
+    "title": "Soldatsparkar på bom",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-bom"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-landningsmatta"
+      }
+    ],
+    "how_to": "1. Armarna ut åt sidan för balansen.\n2. Ta ett steg och sparka det andra benet rakt fram, tårna pekar.\n3. Byt ben varje steg hela vägen till slutet.\n4. Hoppa ner i slutet och landa på två fötter med böjda knän.\nMedan du väntar: öva soldatsparkar på golvet, armarna ut."
+  },
+  {
+    "id": "tech-krabbgang-bom",
+    "title": "Krabbgång längs bom",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-bom"
+      }
+    ],
+    "how_to": "1. Sitt bredvid bommen och sätt händerna på den bakom dig.\n2. Lyft till bakåtstöd med raka armar och så raka ben som möjligt.\n3. Flytta händer och fötter i sidled längs hela bommen.\nMedan du väntar: gå krabbgång på golvet, i kön."
+  },
+  {
+    "id": "tech-ljushopp-rockringar",
+    "title": "Ljushopp i rockringar",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 4,
+        "pieceId": "eq-rockring"
+      }
+    ],
+    "how_to": "1. Lägg ut rockringar i en sicksack.\n2. Hoppa jämfota från ring till ring.\n3. I varje hopp: armarna raka över huvudet, benen ihop, kroppen rak.\n4. Landa mjukt med böjda knän.\nMedan du väntar: hoppa jämfota på stället: armarna upp, benen ihop."
+  },
+  {
+    "id": "tech-landning-plint",
+    "title": "Landningar upp på och ner från plint",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-plint"
+      }
+    ],
+    "how_to": "1. Hoppa jämfota upp på plinten och landa stilla: böjda knän, armarna fram.\n2. Hoppa ner med en form, t.ex. ljushopp eller krupen.\n3. Landa stilla på golvet i samma landning och håll två sekunder.\nMedan du väntar: hoppa på stället och landa stilla: böjda knän, armarna fram."
+  },
+  {
+    "id": "tech-igelkottsgunga",
+    "title": "Igelkottsgunga (gunga i krupen form)",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Sätt dig på huk längst ner på mattan och ta tag om benen.\n2. Rulla bakåt med rund rygg och hakan in, och sedan tillbaka till huk.\n3. Håll knäna nära bröstet hela vägen, så rullar det mjukt.\n4. Nästa steg: gunga upp till stående utan att ta i med händerna."
+  },
+  {
+    "id": "tech-hjul-mattriangel",
+    "title": "Hjul över hajarna (mattriangel)",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 3,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Lägg tre mattor med kortsidorna mot varandra så att de bildar en triangel i mitten.\n2. Stå på första mattan med magen utåt: vänster fot fram står på höger sida, höger fot fram på vänster.\n3. Hjula med en hand på första mattan och en hand på den andra.\n4. Minska vinkeln mellan mattorna allteftersom. Till slut räcker två mattor på rad."
+  },
+  {
+    "id": "tech-stockrullning-kil",
+    "title": "Stockrullning nerför kil",
+    "status": "published",
+    "equipment": [
+      {
+        "count": 1,
+        "pieceId": "eq-kilmatta"
+      },
+      {
+        "count": 1,
+        "pieceId": "eq-madrass"
+      }
+    ],
+    "how_to": "1. Lägg kilmattan på en madrass. Gymnasten ligger på tvären högst upp.\n2. Armarna sträckta ovanför huvudet, kroppen lång och rak.\n3. Rulla som en orm nerför kilen.\n4. Nästa startar när ytan nedanför är fri."
+  }
+]

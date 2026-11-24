@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-tumblingmatta",
+      "x": 0.355,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-landningsmatta",
+      "x": 0.628,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-rockring",
+      "x": 0.253,
+      "z": 0.1,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-rockring",
+      "x": 0.418,
+      "z": 0.9,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-rockring",
+      "x": 0.582,
+      "z": 0.1,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-rockring",
+      "x": 0.747,
+      "z": 0.9,
+      "yaw": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "poses": [
+    {
+      "pieceId": "eq-flickiskudde",
+      "x": 0.434,
+      "z": 0.5,
+      "yaw": 0
+    },
+    {
+      "pieceId": "eq-madrass",
+      "x": 0.581,
+      "z": 0.5,
+      "yaw": 0
+    }
+  ]
+}
