@@ -1,6 +1,6 @@
 # Slice 68 — mikrotext (sv)
 
-**Status:** **FÖRESLAGEN** (A1 B1 C1 D2 E1 F1).
+**Status:** **LÅST** 25 nov 2026 13:42 (A1 B1 C1 D2 E1 F1).
 
 Låsta termer orörda (Redigera redskap, Passbyggaren, Hallöversikt, Golvklart, Förrådslista, Starta från mall, Kom igång, Föreningens mallar, Bygg hallen, Biblioteket, Admin, Skriv ut passet). «redskap», inte «utrustning». Inte Slice 47-formuleringarna «Vad finns i hallen ikväll?» eller «Visa bara övningar vi kan köra ikväll».
 

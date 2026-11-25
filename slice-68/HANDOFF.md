@@ -1,6 +1,6 @@
-# Slice 68 — HANDOFF till Builder (FÖRESLAGEN: A1 B1 C1 D2 E1 F1)
+# Slice 68 — HANDOFF till Builder (LÅST: A1 B1 C1 D2 E1 F1)
 
-**Status:** **FÖRESLAGEN**. Builder bygger när PO skickat byggkortet efter lås (Docs pingar inte Bob). Bas main @ `0f3be79`, docs-gren `slice-68-docs`. **Ingen merge utan Christoffers OK.**
+**Status:** **LÅST** 25 nov 2026 13:42 («Ja, lås A1 B1 C1 D2 E1 F1»). Builder bygger när PO skickat byggkortet (Docs pingar inte Bob). Bas main @ `0f3be79`, docs-gren `slice-68-docs`. **Ingen merge utan Christoffers OK.**
 **SQL:** `slice-68/sql/68-01-club-equipment.sql` och `68-02-smoke.sql` (schema, inte data). Christoffer klistrar in **efter merge**, och bara efter sitt **separata** ja. **Builder kör varken SQL eller `push-promote --replace`.** Agenter kör aldrig filerna. Ta med dem oförändrade i bygg-PR; skriv inte om dem.
 **Bundle:** inom +512 B gzip mot `0f3be79` (`verifier/tools/build-dists.sh`, `gzip -9`, js+css TOTAL). Uppskattning före bantning +0,50–0,90 kB. Banta minst lika mycket som slicen lägger till (E1). Går det över: korta ny copy/CSS först, därefter släpp utskriftsraden, rapportera — inget undantag utan Christoffers ja.
 **Egen worktree från `0f3be79`.** Huvudklonen `/workspace/gymnastics-planner` lämnas som den är. Städa den inte, och kör inte Doctor eller smokes därifrån.
@@ -27,7 +27,7 @@ Mikrotext: `slice-68/content/microcopy.sv.md`. Låsta termer orörda. Inte formu
 - `StationComposeSheet`: märk valda rader (och ev. rutnätsknapp) som saknas i föreningens lista. Inget filter, inget förbud att lägga till.
 - Bygg hallen-panelen i `HallBoard` och sektionen `.pass-sheet-build` i `PassPrint`: under `equipmentLine`, visa `UI.clubMissingLine` («Föreningen saknar: {labels}») när minst en slot saknas. Annars ingen rad.
 - Förrådslista, hallkarta, ett märke per station, `hallSetupSteps`-ordningen och bannern «N stationer saknar redskap» orörda.
-- D2: ingen «Förslag:»-rad, ingen `swapSessionActivity` i den här slicen.
+- D2 (låst): bara markera det som saknas. Inga ersättningsförslag: ingen «Förslag:»-rad, ingen `swapSessionActivity`, ingen läsning av `variantLinks` i den här slicen.
 
 ## 4. Footer och bantning (E1)
 
@@ -51,6 +51,6 @@ Mikrotext: `slice-68/content/microcopy.sv.md`. Låsta termer orörda. Inte formu
 - Bundle gz mot main @ `0f3be79` i PR; gå inte över +512 B (E1).
 - SQL-filerna följer med oförändrade. Gren `slice-68-code` från `0f3be79`, PR mot main med `SLICE68-SHIPPED.md`. Ingen merge. Head-SHA och bevis till PO, inte till Verifier direkt.
 
-## Avvisat (byggs inte, om ★ låses)
+## Avvisat (byggs inte)
 
 A2, A3, B2, B3, C2, C3, D1, D3, E2, E3, F2 och F3.

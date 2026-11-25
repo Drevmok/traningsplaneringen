@@ -1,7 +1,7 @@
 # Slice 68 — Föreningens redskap
 
 **App:** Träningsplaneraren
-**Status:** **FÖRESLAGEN**. Bas: main @ `0f3be79` (Slice 67 live, PR #75; footer «Slice 66», för 67 rörde inte appen). Gren: `slice-68-docs`.
+**Status:** **LÅST** 25 nov 2026 13:42 («Ja, lås A1 B1 C1 D2 E1 F1»). Bas: main @ `0f3be79` (Slice 67 live, PR #75; footer «Slice 66», för 67 rörde inte appen). Gren: `slice-68-docs`.
 **Uppdrag:** Backlog S9 «Föreningens redskap». Godkänd av Christoffer 25 nov 2026 11:44 (Europe/Stockholm), via PO. Inte S4, S5, S7 eller S8.
 **Effort:** **M**. Håll slicen liten. SQL bara som fil, aldrig körd här. Inte en andra redskapskatalog, inte hall-CAD, ett märke per station.
 

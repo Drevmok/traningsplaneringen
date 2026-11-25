@@ -1,8 +1,8 @@
 # Slice 68 — beslut
 
-**Status:** **FÖRESLAGEN** (inte låst). Bas: main @ `0f3be79`. Gren: `slice-68-docs`. Detaljer i `README.md` och `HANDOFF.md`.
+**Status:** **FASTSTÄLLD** (LÅST 25 nov 2026 13:42). Bas: main @ `0f3be79`. Gren: `slice-68-docs`. Detaljer i `README.md` och `HANDOFF.md`.
 
-Docs förslag (★): **A1 B1 C1 D2 E1 F1**.
+Låst: **A1 B1 C1 D2 E1 F1** (D2, inte D1).
 
 | Fråga | Förslag |
 |---|---|
@@ -13,8 +13,8 @@ Docs förslag (★): **A1 B1 C1 D2 E1 F1**.
 | E Bundle | **E1 ★**: inom +512 B gzip mot `0f3be79`. `SLICE_NUMBER = '68'`. Inget undantag utan hans ja. |
 | F Tester | **F1 ★**: enhetstester för hjälpen; coach-GET-smokes tillåter `club_equipment`. |
 
-Avvisat om ★ låses: A2, A3, B2, B3, C2, C3, D1, D3, E2, E3, F2, F3.
+Avvisat: A2, A3, B2, B3, C2, C3, D1, D3, E2, E3, F2, F3.
 
-**Lås** (lämnas tomt tills Christoffers egna, ordagranna ord reläas):
+**Lås:** Christoffer, 25 nov 2026 13:42 (Europe/Stockholm), reläat ordagrant via Träningsplaneraren - PO:
 
->
+> «Ja, lås A1 B1 C1 D2 E1 F1»
