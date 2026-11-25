@@ -52,7 +52,7 @@ export function ClubEquipmentAdmin({ onToast }: Props) {
   }
 
   return (
-    <section className="club-templates" aria-label={COPY.title}>
+    <section className="admin-area-section" aria-label={COPY.title}>
       <h3 className="template-group">{COPY.title}</h3>
       <p className="muted">{COPY.hint}</p>
       <ul className="template-list">
@@ -63,12 +63,9 @@ export function ClubEquipmentAdmin({ onToast }: Props) {
                 type="checkbox"
                 checked={on.has(id)}
                 onChange={() =>
-                  setOn((prev) => {
-                    const next = new Set(prev)
-                    if (next.has(id)) next.delete(id)
-                    else next.add(id)
-                    return next
-                  })
+                  setOn((prev) =>
+                    prev.has(id) ? new Set([...prev].filter((x) => x !== id)) : new Set(prev).add(id),
+                  )
                 }
               />{' '}
               {label}
