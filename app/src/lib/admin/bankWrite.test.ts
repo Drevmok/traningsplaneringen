@@ -202,6 +202,11 @@ describe('bankWrite (Slice 32 F1)', () => {
         // Slice 47: the one exercises insert is a new pending row.
         assert.equal(inserts.length, 1, n)
         assert.equal(/\.upsert\(/.test(src), false, n)
+      } else if (n === 'clubEquipmentWrite.ts') {
+        // Slice 68: admin upsert of the single club_equipment row (no delete).
+        assert.equal(inserts.length, 1, n)
+        assert.equal(/\.upsert\(/.test(src), true, n)
+        assert.equal(/from\('exercises'\)/.test(src), false, n)
       } else assert.equal(inserts.length, 0, n)
     }
   })

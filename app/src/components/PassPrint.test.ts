@@ -61,3 +61,20 @@ describe('Slice 66 C1: Bygg hallen print section labels unplaced stations', () =
     assert.deepEqual(rows, [`☐ 1. ${title(0)}`, `☐ 2. ${title(2)}`, `☐ ${title(1)} — ${UI.buildHallUnplaced}`])
   })
 })
+
+describe('Slice 68 C1: Bygg hallen print «Föreningen saknar»', () => {
+  it('line only when the club list is filled and a slot is missing; otherwise unchanged', async () => {
+    const { applyClubEquipment, resetClubEquipmentForTests } = await import('../lib/clubEquipment.ts')
+    const s = cloneTemplate(seedTemplates.find((t) => /Nybörjare/.test(t.title)) ?? seedTemplates[0])
+    const none = renderToStaticMarkup(createElement(PassPrint, { session: s }))
+    const section = (html: string) => html.slice(html.indexOf('class="pass-sheet-build"'))
+    assert.equal(section(none).includes(UI.clubMissingLine.split('{')[0]), false)
+    applyClubEquipment(['eq-plint'])
+    const filled = section(renderToStaticMarkup(createElement(PassPrint, { session: s })))
+    assert.ok(filled.includes('Föreningen saknar:'), filled.slice(0, 400))
+    assert.ok(filled.includes('Satsbräda'), filled)
+    applyClubEquipment(null)
+    assert.equal(section(renderToStaticMarkup(createElement(PassPrint, { session: s }))).includes('Föreningen saknar:'), false)
+    resetClubEquipmentForTests()
+  })
+})

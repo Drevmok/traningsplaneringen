@@ -2,6 +2,8 @@ import { BLOCK_LABELS, BLOCK_ORDER, stationEquipmentLabelText, UI } from '../dat
 import { aggregateStationEquipment } from '../data/equipmentPieces'
 import { getActivityById } from '../data/seedActivities'
 import { listSessionItems, placeableItems, stationRanks } from '../lib/hall'
+import { clubAvailableSet, clubMissingCopy } from '../lib/clubEquipment'
+import { useClubEquipment } from '../lib/clubEquipmentFetch'
 import { hallSetupSteps } from '../lib/hallSetup'
 import { HallCanvas } from './HallCanvas'
 import { StationSketch } from './StationSketch'
@@ -14,6 +16,7 @@ interface Props {
 
 /** Slice 44 C1: the pass print carries the station card fields (rank, Erfaren ledare, sketch, Se upp för, Säkerhet, Redskap). */
 export function PassPrint({ session }: Props) {
+  const clubAvail = clubAvailableSet(useClubEquipment())
   const cards = stationCards(session)
   const cardById = new Map(placeableItems(session).map((item, i) => [item.id, cards[i]]))
   // Verifier F1: numbers come from the hall (placed Teknik only); unplaced stations stay unnumbered.
@@ -118,7 +121,9 @@ export function PassPrint({ session }: Props) {
       <section className="pass-sheet-build">
         <h2>{UI.buildHall}</h2>
         <ul>
-          {hallSetupSteps(session).map((step) => (
+          {hallSetupSteps(session).map((step) => {
+            const line = clubMissingCopy(step.slots, clubAvail)
+            return (
             <li key={step.itemId}>
               <strong>
                 ☐ {step.rank ? `${step.rank}. ` : ''}
@@ -127,8 +132,10 @@ export function PassPrint({ session }: Props) {
               </strong>
               {step.slots[0] && <StationSketch slots={step.slots} layout={step.layout} />}
               <p>{equipmentLine(step.slots)}</p>
+              {line && <p className="club-missing">{line}</p>}
             </li>
-          ))}
+            )
+          })}
         </ul>
       </section>
     </div>

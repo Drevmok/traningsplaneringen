@@ -71,6 +71,8 @@ import { startPointerDrag } from '../lib/pointerDrag'
 import { PassPrint } from './PassPrint'
 import { StationComposeSheet } from './StationComposeSheet'
 import { usePassPrint } from '../lib/bodyPrint'
+import { clubAvailableSet, clubMissingCopy } from '../lib/clubEquipment'
+import { useClubEquipment } from '../lib/clubEquipmentFetch'
 import { hallSetupSteps } from '../lib/hallSetup'
 import { equipmentLine } from '../lib/stationCards'
 import { StationSketch } from './StationSketch'
@@ -133,6 +135,7 @@ export function HallBoard({
   const pp = usePassPrint()
   /** Slice 65 A1/C1 — «Bygg hallen» step (null = off) and «Byggd» ticks, in memory only. */
   const [build, setBuild] = useState<number | null>(null)
+  const clubAvail = clubAvailableSet(useClubEquipment())
   const [built, setBuilt] = useState<Record<string, boolean>>({})
 
   // Slice 31 — activity-derived values are plain (not memoized on session) so a bank
@@ -502,6 +505,7 @@ export function HallBoard({
   const steps = build === null ? [] : hallSetupSteps(session)
   const step = build === null ? undefined : steps[build]
   const stepTitle = step && getActivityById(findSessionItem(session, step.itemId)?.activityId as string)?.title
+  const missLine = step && clubMissingCopy(step.slots, clubAvail)
 
   // Slice 43 D1b: in edit mode the zoom − / + sits in the layout row; Golvklart keeps it above the hall.
   const zoomBar = isNarrow && (
@@ -727,6 +731,7 @@ export function HallBoard({
             <h2 className="hall-station-list-title">{stepTitle}</h2>
             {step.slots[0] && <StationSketch slots={step.slots} layout={step.layout} />}
             <p>{equipmentLine(step.slots)}</p>
+{missLine && <p className="club-missing">{missLine}</p>}
             <label>
               <input
                 type="checkbox"

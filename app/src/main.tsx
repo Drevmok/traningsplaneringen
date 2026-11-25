@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { initBank, refreshBank } from './lib/bank'
 import { initClubTemplates, refreshClubTemplates } from './lib/clubTemplates'
+import { initClubEquipment, refreshClubEquipment } from './lib/clubEquipmentFetch'
 import { shouldStartAdmin } from './lib/admin/state'
 import { cleanAuthLeftovers } from './lib/admin/authReturn'
 
@@ -16,6 +17,7 @@ if (cleanUrl) window.history.replaceState(window.history.state, '', cleanUrl)
 initBank()
 // Slice 36 (D1): Föreningens mallar from the device copy, same rule.
 initClubTemplates()
+initClubEquipment()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
 setTimeout(() => {
   void refreshBank()
   void refreshClubTemplates()
+  void refreshClubEquipment()
 }, 0)
 
 // Slice 32/33: admin code (and supabase-js) loads only for a saved admin session in this

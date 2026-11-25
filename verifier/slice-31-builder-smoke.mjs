@@ -76,8 +76,8 @@ async function newPage(ctx, url) {
   page.setDefaultTimeout(8000)
   page.on('pageerror', (e) => pageErrors.push(e.message))
   page.on('request', (r) => {
-    // Slice 51 (C1): Slice 36 added a club_templates GET to the bank build — not part of the Slice 31 bank contract
-    if ((r.url().includes('supabase.co') || r.url().includes('/rest/v1/')) && !r.url().includes('/rest/v1/club_templates'))
+    // Slice 51/68: club_templates + club_equipment are not part of the Slice 31 bank contract
+    if ((r.url().includes('supabase.co') || r.url().includes('/rest/v1/')) && !r.url().includes('/rest/v1/club_templates') && !r.url().includes('/rest/v1/club_equipment'))
       bankLog.push({ page: url, method: r.method(), url: r.url(), headers: r.headers(), body: r.postData() })
   })
   await page.goto(url)

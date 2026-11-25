@@ -355,7 +355,7 @@ await attempt('AC21', 'Coach visit', async () => {
   const js = chunksOf('coach')
   check('AC21b', 'No supabase-js / admin chunk downloaded on a coach visit', !js.some((n) => ADMIN_CHUNK.test(n)), js.join(', '))
   const reqs = bankLog.filter((r) => r.ctx === 'coach')
-  check('AC21c', 'Coach requests: the two Slice 31 GETs + the Slice 36 club_templates GET (publishable key, no Authorization), no auth request', reqs.length === 3 && reqs.map((r) => new URL(r.url).pathname).sort().join() === '/rest/v1/club_templates,/rest/v1/exercises,/rest/v1/redskap' && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization && r.url.includes('/rest/v1/')), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
+  check('AC21c', 'Coach requests: Slice 31 GETs + club_templates + club_equipment (publishable key, no Authorization), no auth request', reqs.length === 4 && reqs.map((r) => new URL(r.url).pathname).sort().join() === '/rest/v1/club_equipment,/rest/v1/club_templates,/rest/v1/exercises,/rest/v1/redskap' && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization && r.url.includes('/rest/v1/')), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
   check('AC21d', 'No admin UI in Biblioteket (no chip, filter, badge)', (await page.locator('.admin-bar, .admin-filter-chip, .admin-badge, .admin-detail').count()) === 0)
   check('AC21e', 'No auth / verifier / pending key in storage', (await store(page, AUTH_KEY)) === null && (await store(page, VERIFIER_KEY)) === null && (await store(page, PENDING_KEY)) === null)
   await shot(page, 'coach_library')
