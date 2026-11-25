@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '66'
+export const SLICE_NUMBER = '68'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -126,7 +126,6 @@ export const UI = {
   exportCopied: 'Länken är kopierad.',
   importFile: 'Importera fil',
   receiveBad: 'Filen eller koden gick inte att läsa.',
-  receiveTitle: 'Ta emot ett pass',
   receiveHint: 'Importera filen, eller klistra in länken, från den andra enheten.',
   pasteCode: 'Länk eller kod',
   openCode: 'Öppna',
@@ -151,8 +150,6 @@ export const UI = {
     'Pass från en annan enhet. Ingenting sparas här förrän du själv sparar.',
   shareBad: 'Länken gick inte att läsa.',
   shareExit: 'Till planeringen',
-  comingSoon: 'Kommer snart',
-  totalTime: 'Total tid',
   passLength: 'Passlängd',
   passLengthMinutes: 'min',
   addActivity: 'Lägg till övning',
@@ -550,6 +547,9 @@ export const UI = {
   clubUnhideAria: 'Visa igen: {title}',
   clubOffline: 'Du behöver nät för att ändra föreningens mallar.',
   clubWriteFailed: 'Det gick inte att spara. Försök igen om en stund.',
+  // Slice 68 — Föreningens redskap (microcopy.sv.md); admin titles live in ClubEquipmentAdmin
+  clubMissingLine: 'Föreningen saknar: {labels}',
+  clubMissingAria: 'Föreningen saknar {label}',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',
@@ -580,10 +580,6 @@ export const UI = {
   newWeekBody:
     'Förra passet sparas som mall om det inte redan finns. Du jobbar i en kopia och kan byta stationer. Utkastet här ersätts av kopian.',
   newWeekConfirm: 'Skapa kopia',
-  swapActivity: 'Byt',
-  swapActivityAria: 'Byt övning. Tiden och platsen i hallen är kvar.',
-  swapBanner: 'Välj en annan övning. Tiden och platsen i hallen är kvar.',
-  swapCancel: 'Avbryt byte',
   swapped: 'Övningen är bytt.',
   ownNew: 'Ny egen övning',
   ownEdit: 'Ändra egen övning',
@@ -674,8 +670,6 @@ export const UI = {
   updateReady: 'En ny version finns. Utkastet ligger kvar på den här enheten.',
   updateNow: 'Uppdatera',
   updateApp: 'Uppdatera appen',
-  updateHomeHint:
-    'Appen på hemskärmen uppdateras inte själv. Tryck Uppdatera appen längst ner. Passet i den här webbläsaren finns kvar.',
   privacyPublicUrl:
     'Har du en öppen länk kan vem som helst öppna den tomma appen. Dina övningar och placeringar sparas bara i din webbläsare — inte på servern.',
 } as const

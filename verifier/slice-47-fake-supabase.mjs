@@ -21,6 +21,7 @@ export function fakeBank(seedPath) {
     if (p.startsWith('/auth/')) return json(400, { message: 'not faked' })
     if (p === '/rest/v1/redskap') return json(200, seed.redskap)
     if (p === '/rest/v1/club_templates') return json(200, [])
+    if (p === '/rest/v1/club_equipment') return json(200, [])
     if (p === '/rest/v1/admins') {
       const isAdmin = email && admins.has(email)
       const single = (req.headers()['accept'] || '').includes('vnd.pgrst.object')

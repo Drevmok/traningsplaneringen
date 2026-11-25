@@ -198,8 +198,8 @@ await attempt('AC26', 'Coach visit', async () => {
   await page.waitForTimeout(500)
   const js = assetLog.filter((a) => a.ctx === 'coach').map((a) => a.url.split('/').pop())
   check('AC26a', 'No supabase-js / admin chunk downloaded on a coach visit', !js.some((n) => /^(dist|session|adminBank|bankWrite|AdminLoginSheet|AdminDetailPanel|AdminBankForm)-/.test(n)), js.join(', '))
-  // Slice 51 (C1): Slice 36 added the club_templates GET to the coach build — not a Slice 31 bank GET
-  const reqs = bankLog.slice(before).filter((r) => !new URL(r.url).pathname.startsWith('/rest/v1/club_templates'))
+  // Slice 51/68: club_templates + club_equipment are not Slice 31 bank GETs
+  const reqs = bankLog.slice(before).filter((r) => { const p = new URL(r.url).pathname; return !p.startsWith('/rest/v1/club_templates') && !p.startsWith('/rest/v1/club_equipment') })
   check('AC26b', 'Coach requests: only the two Slice 31 GETs, publishable key, no Authorization', reqs.length === 2 && reqs.every((r) => r.method === 'GET' && r.headers.apikey === PUB && !r.headers.authorization), reqs.map((r) => r.method + ' ' + new URL(r.url).pathname).join(', '))
   check('AC26c', 'No admin UI in Biblioteket (no Admin chip, no filter chips, no badges)', (await page.locator('.admin-bar, .admin-filter-chip, .admin-badge').count()) === 0)
   check('AC26d', 'No auth key in storage', (await store(page, AUTH_KEY)) === null)

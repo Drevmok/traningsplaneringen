@@ -11,6 +11,8 @@ import {
   getEquipmentPiece,
   sanitizeStationEquipment,
 } from '../data/equipmentPieces'
+import { clubAvailableSet, clubMissingCopy, missingClubPieces } from '../lib/clubEquipment'
+import { useClubEquipment } from '../lib/clubEquipmentFetch'
 import { EquipmentIcon } from './equipmentMark'
 import { useBodyScrollLock } from '../lib/bodyScrollLock'
 import type { StationEquipmentSlot } from '../types'
@@ -58,6 +60,9 @@ export function StationComposeSheet({
   const [confirmDiscard, setConfirmDiscard] = useState(false)
 
   useBodyScrollLock(true)
+  const clubAvail = clubAvailableSet(useClubEquipment())
+  const missing = missingClubPieces(recipe, clubAvail)
+  const missingIds = new Set(missing.map((m) => m.pieceId))
 
   const dirty = !sameRecipe(recipe, baseline)
   const atMaxSlots = recipe.length >= STATION_EQUIPMENT_MAX_SLOTS
@@ -191,8 +196,9 @@ export function StationComposeSheet({
               {recipe.map((s) => {
                 const piece = getEquipmentPiece(s.pieceId)
                 const label = piece?.labelSv ?? s.pieceId
+                const gone = missingIds.has(s.pieceId)
                 return (
-                  <li key={s.pieceId} className="station-compose-recipe-row">
+                  <li key={s.pieceId} className={`station-compose-recipe-row${gone ? ' club-missing' : ''}`}>
                     <EquipmentIcon pieceId={s.pieceId} />
                     <span className="station-compose-recipe-label">
                       {stationEquipmentLabelText(label, s.count)}
@@ -235,6 +241,9 @@ export function StationComposeSheet({
               })}
             </ul>
           )}
+          {missing[0] && (
+            <p className="club-missing" role="status">{clubMissingCopy(recipe, clubAvail)}</p>
+          )}
           {atMaxSlots && (
             <p className="station-compose-max" role="status">
               {UI.composeMaxReached}
@@ -252,12 +261,13 @@ export function StationComposeSheet({
                 <li key={piece.id}>
                   <button
                     type="button"
-                    className={`station-compose-library-btn${inRecipe ? ' is-in-recipe' : ''}`}
+                    className={`station-compose-library-btn${inRecipe ? ' is-in-recipe' : ''}${clubAvail && !clubAvail.has(piece.id) ? ' club-missing' : ''}`}
                     disabled={disabled}
-                    aria-label={UI.composeAddPiece.replace(
-                      '{label}',
-                      piece.labelSv,
-                    )}
+                    aria-label={
+                      clubAvail && !clubAvail.has(piece.id)
+                        ? UI.clubMissingAria.replace('{label}', piece.labelSv)
+                        : UI.composeAddPiece.replace('{label}', piece.labelSv)
+                    }
                     onClick={() => addPiece(piece.id)}
                   >
                     <EquipmentIcon pieceId={piece.id} />

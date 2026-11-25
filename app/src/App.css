@@ -20,106 +20,11 @@
   padding: 48px 24px 64px;
 }
 
-.home-eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
-  color: #78716c;
-  margin: 0 0 8px;
-}
-
 .home h1 {
   font-size: 40px;
   margin: 0 0 12px;
   color: #0c0a09;
   letter-spacing: -0.02em;
-}
-
-.home-invite {
-  font-size: 18px;
-  color: #44403c;
-  margin: 0 0 36px;
-  max-width: 36em;
-}
-
-.home-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.home-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  padding: 24px;
-  border-radius: 16px;
-  border: 1px solid #e7e5e4;
-  background: #fff;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.06);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.home-card:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(28, 25, 23, 0.1);
-}
-
-.home-card.primary {
-  border-color: #8b5cf6;
-  background: linear-gradient(160deg, #f5f3ff, #fff);
-}
-
-.home-card:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.home-card-icon {
-  font-size: 28px;
-}
-
-.home-card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0c0a09;
-}
-
-.home-card-desc {
-  font-size: 14px;
-  color: #57534e;
-}
-
-/* —— Slice 23 — Home secondary CTAs + step flash —— */
-.home-actions-secondary {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.home-secondary-cta {
-  flex: 1 1 140px;
-  font-weight: 600;
-  color: #44403c;
-  background: #fafaf9;
-  border-color: #e7e5e4;
-  box-shadow: none;
-}
-
-.home-step-hint {
-  margin: 10px 0 0;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
-  color: #92400e;
-  font-size: 0.9rem;
-  max-width: 36em;
 }
 
 /* —— Slice 09 — Kom igång / coach tips —— */
@@ -337,77 +242,6 @@
   }
 }
 
-/* —— Slice 10 — localStorage honesty (Home) —— */
-.home-honesty {
-  margin-top: 28px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #e7e5e4;
-  background: #fafaf9;
-  max-width: 36em;
-}
-
-.home-honesty-title {
-  margin: 0 0 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #44403c;
-}
-
-.home-honesty-body,
-.home-honesty-other {
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  color: #57534e;
-}
-
-.home-honesty-other {
-  margin-top: 6px;
-  color: #78716c;
-}
-
-/* —— Slice 23 — Öppna på telefon (honesty cluster) —— */
-.home-phone {
-  margin-top: 14px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #e7e5e4;
-  background: #fafaf9;
-  max-width: 36em;
-}
-
-.home-phone h2 {
-  margin: 0 0 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #44403c;
-}
-
-.home-phone p {
-  margin: 0 0 6px;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  color: #57534e;
-}
-
-.home-phone p:last-child {
-  margin-bottom: 0;
-}
-
-.home-phone a {
-  color: #5b21b6;
-  word-break: break-all;
-}
-
-.home-tips-again {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
 .visa-tips-igen {
   min-height: 44px;
   font-size: 0.9rem;
@@ -427,11 +261,6 @@
 .visa-tips-feedback {
   font-size: 0.85rem;
   color: #166534;
-}
-
-.visa-tips-hint {
-  font-size: 0.8rem;
-  color: #a8a29e;
 }
 
 .app-footer {
@@ -563,16 +392,6 @@
   border-bottom-color: #8b5cf6;
 }
 
-.total-badge {
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  background: #ede9fe;
-  color: #5b21b6;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 14px;
-}
-
 .topbar-help {
   margin: 0;
   font-size: 13px;
@@ -584,23 +403,6 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-}
-
-.export-wrap {
-  position: relative;
-}
-
-.export-tooltip {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  background: #1c1917;
-  color: #fff;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 5;
 }
 
 .builder-main {
@@ -691,24 +493,6 @@
   flex: 1;
   font-size: 17px;
   color: var(--block-text);
-}
-
-.block-budget {
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-  color: #57534e;
-  background: var(--block-bg);
-  padding: 4px 8px;
-  border-radius: 8px;
-}
-
-.block-budget.over {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.overflow-tag {
-  font-weight: 600;
 }
 
 .block-empty {
@@ -1173,7 +957,6 @@
 .btn-primary:focus-visible,
 .btn-secondary:focus-visible,
 .btn-text:focus-visible,
-.home-card:focus-visible,
 .btn-add-inline:focus-visible,
 .activity-card:focus-visible,
 .template-card:focus-visible,
@@ -1186,7 +969,6 @@
 
 .btn-primary:active:not(:disabled),
 .btn-secondary:active:not(:disabled),
-.home-card:active:not(:disabled),
 .btn-add-inline:active,
 .activity-card:active,
 .template-card:active {
@@ -1338,13 +1120,6 @@
     width: 100%;
   }
 
-  .total-badge {
-    flex-shrink: 0;
-    white-space: nowrap;
-    font-size: 13px;
-    padding: 8px 10px;
-  }
-
   .topbar-help {
     font-size: 12px;
   }
@@ -1358,21 +1133,6 @@
     min-height: 44px;
     padding: 10px 12px;
     flex: 1 1 auto;
-  }
-
-  .export-wrap {
-    flex: 1 1 auto;
-  }
-
-  .export-wrap .btn-secondary {
-    width: 100%;
-  }
-
-  .export-tooltip {
-    white-space: normal;
-    max-width: min(240px, 70vw);
-    left: auto;
-    right: 0;
   }
 
   /* Side panel → bottom sheet */
@@ -1470,10 +1230,6 @@
   .block-header {
     flex-wrap: wrap;
     row-gap: 6px;
-  }
-
-  .block-budget {
-    margin-left: auto;
   }
 
   .empty-actions {
@@ -1629,41 +1385,11 @@
     line-height: 1.2;
   }
 
-  .home-invite {
-    font-size: 16px;
-    margin-bottom: 24px;
-  }
-
-  .home-actions {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .home-card {
-    width: 100%;
-    min-height: 44px;
-    padding: 16px;
-  }
-
-  .home-card-title {
-    font-size: 17px;
-  }
-
-  .home-actions-secondary {
-    flex-direction: column;
-  }
-
-  .home-secondary-cta {
-    width: 100%;
-  }
 
   .builder-title-row {
     align-items: stretch;
   }
 
-  .total-badge {
-    align-self: center;
-  }
 }
 
 /* —— Slice 05–07: Hallöversikt + presets/snap + flow/Golvklart —— */
@@ -2268,10 +1994,6 @@
 
 /* —— Slice 22 — progressive Hall hints info (A1) —— */
 
-.hall-station-hint-tray {
-  margin-top: -2px;
-}
-
 .hall-unplaced-banner {
   margin: 4px 0 0;
   padding: 8px 12px;
@@ -2501,9 +2223,7 @@
   .no-print-hide .hall-preset-row,
   .hall-zoom-bar,
   .hall-tray,
-  .hall-chip-remove,
-  .activity-detail-backdrop,
-  .activity-detail-sheet {
+  .hall-chip-remove {
     display: none !important;
   }
 
@@ -3447,3 +3167,5 @@
     display: none;
   }
 }
+
+.club-missing{color:#a50}

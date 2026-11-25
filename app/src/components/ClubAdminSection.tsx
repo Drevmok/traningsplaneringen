@@ -5,6 +5,7 @@ import { hideClubTemplate, loadClubAdmin, unhideClubTemplate, useClubAdmin, type
 import { useClubTemplates, type ClubTemplate } from '../lib/clubStore'
 import { AdminHideConfirm } from './AdminHideConfirm'
 import { AdminStatusBadge } from './AdminStatusBadge'
+import { ClubEquipmentAdmin } from './ClubEquipmentAdmin'
 import { ClubTemplateCard, ClubTemplatesSection } from './ClubTemplates'
 
 interface Props {
@@ -28,7 +29,14 @@ export default function ClubAdminSection({ onPick, onToast }: Props) {
     void loadClubAdmin()
   }, [])
 
-  if (!admin.loaded) return <ClubTemplatesSection club={club} onPick={onPick} />
+  if (!admin.loaded) {
+    return (
+      <>
+        <ClubEquipmentAdmin onToast={onToast} />
+        <ClubTemplatesSection club={club} onPick={onPick} />
+      </>
+    )
+  }
 
   const visible = admin.rows.filter((r) => !r.hidden)
   const hidden = admin.rows.filter((r) => r.hidden)
@@ -44,6 +52,8 @@ export default function ClubAdminSection({ onPick, onToast }: Props) {
   const changed = (r: ClubAdminRow) => <p className="muted admin-last-changed">{lastChangedText(r.updatedAt, r.updatedBy)}</p>
 
   return (
+    <>
+      <ClubEquipmentAdmin onToast={onToast} />
     <section className="club-templates" aria-label={UI.clubTemplatesTitle}>
       <h3 className="template-group">{UI.clubTemplatesTitle}</h3>
       <p className="muted">{UI.clubTemplatesHint}</p>
@@ -121,5 +131,6 @@ export default function ClubAdminSection({ onPick, onToast }: Props) {
         />
       )}
     </section>
+    </>
   )
 }
