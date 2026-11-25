@@ -1,6 +1,6 @@
 # Slice 68 — schema
 
-**FÖRESLAGEN, A1:** ny tabell `public.club_equipment`. Ingen ändring av `club_templates`, `exercises` eller `redskap`. `BANK_LIMITS` orörd. `EQUIPMENT_PIECES` (15) förblir appens bibliotek; `public.redskap` förblir katalogen.
+**LÅST A1 (25 nov 2026 13:42):** ny tabell `public.club_equipment`. Ingen ändring av `club_templates`, `exercises` eller `redskap`. `BANK_LIMITS` orörd. `EQUIPMENT_PIECES` (15) förblir appens bibliotek; `public.redskap` förblir katalogen.
 
 Filer (aldrig körda av agenter):
 
