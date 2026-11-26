@@ -7,7 +7,6 @@ import { EQUIPMENT_PIECES } from '../data/equipmentPieces'
 import { UI } from '../data/blockMeta'
 import type { StationEquipmentSlot } from '../types'
 import {
-  applyClubEquipment,
   getClubEquipment,
   type ClubEquipmentState,
 } from './clubEquipmentStore'
