@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-28T16:16:24.535Z",
+  "at": "2026-10-30T19:48:53.423Z",
   "results": [
     {
       "id": "AC1-main",
@@ -76,7 +76,7 @@
       "karantan": false,
       "name": "Vit, 12 Teknik: all inside, no hang; the 9 free cells (capacity) do not overlap; markers 10–12 use the least-overlap fallback",
       "ok": true,
-      "detail": "943 ms"
+      "detail": "918 ms"
     },
     {
       "id": "AC9",
@@ -116,9 +116,9 @@
     {
       "id": "AC16-footer",
       "karantan": false,
-      "name": "Footer «Träningsplaneraren · Slice 69»",
+      "name": "Footer «Träningsplaneraren · Slice 53»",
       "ok": true,
-      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 69"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
     },
     {
       "id": "F1-forening-bla",

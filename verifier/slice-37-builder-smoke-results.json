@@ -1,172 +1,148 @@
 {
-  "at": "2026-11-28T16:14:57.625Z",
+  "at": "2026-10-13T09:46:38.524Z",
   "pass": 24,
   "fail": 0,
   "results": [
     {
       "id": "note",
-      "karantan": false,
-      "name": "Built-in apply is saved at once (Slice 39 C1): draft present right after apply",
+      "name": "Built-in apply is not auto-saved (pre-existing): draft before «Spara utkast» was absent",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1a",
-      "karantan": false,
       "name": "Built-in «Nybörjare — ca 55 min»: draft has one marker per Teknik item right after apply (hall not opened)",
       "ok": true,
       "detail": "3/3"
     },
     {
       "id": "AC4a",
-      "karantan": false,
-      "name": "Built-in: no non-Teknik markers; hall template = the guide hall (forening-bla since Slice 45)",
+      "name": "Built-in: no non-Teknik markers; hall template = default (standard-trupp)",
       "ok": true,
-      "detail": "forening-bla"
+      "detail": "standard-trupp"
     },
     {
       "id": "AC5",
-      "karantan": false,
       "name": "Använd alla förslag not triggered: no station redskap saved on Teknik items",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9a",
-      "karantan": false,
-      "name": "Built-in apply shows the Slice 46 undo toast «Mallen är i Passbyggaren.»",
+      "name": "Built-in apply shows no toast",
       "ok": true,
-      "detail": "Mallen är i Passbyggaren.\n·\nÅngra"
+      "detail": ""
     },
     {
       "id": "AC6a",
-      "karantan": false,
       "name": "Markers do not stack (distinct spots)",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC8a",
-      "karantan": false,
       "name": "Reload: built-in placements still in the draft",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC1b",
-      "karantan": false,
       "name": "Open Hallöversikt: same markers, no extra or duplicate",
       "ok": true,
       "detail": "canvas chips 3"
     },
     {
       "id": "AC9b",
-      "karantan": false,
-      "name": "Club apply: toast «Mallen är i Passbyggaren.» (Slice 46), and a confirm (if any) has no «Stationerna placerar du själv i Hallöversikt.» line",
+      "name": "Club confirm has no «Stationerna placerar du själv i Hallöversikt.» line",
       "ok": true,
-      "detail": "no confirm (Slice 46), toast «Mallen är i Passbyggaren.\n·\nÅngra»"
+      "detail": ""
     },
     {
       "id": "AC9c",
-      "karantan": false,
-      "name": "Club toast reads «Mallen är i Passbyggaren.» (+ Ångra)",
+      "name": "Club toast reads exactly «Mallen är i Passbyggaren.»",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC2",
-      "karantan": false,
       "name": "Club mall (≥ 2 Teknik): all Teknik placed on apply, in the pass hall template; only Teknik",
       "ok": true,
       "detail": "3/3"
     },
     {
       "id": "AC11",
-      "karantan": false,
       "name": "Club row in the DB still has no hallPlacements",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9d",
-      "karantan": false,
-      "name": "Toast disappears after the undo window (~5 s, Slice 41)",
+      "name": "Toast disappears after ~2 s",
       "ok": true,
-      "detail": "4826 ms after seen"
+      "detail": "2312 ms after seen"
     },
     {
       "id": "AC8b",
-      "karantan": false,
       "name": "Reload: club placements still in the draft",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC9e",
-      "karantan": false,
-      "name": "Egen mall apply shows the undo toast",
+      "name": "Egen mall apply shows no toast",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC3a",
-      "karantan": false,
       "name": "Egen mall with placements: the saved marker keeps its exact spot; the unplaced Teknik item gets one; all Teknik placed once",
       "ok": true,
-      "detail": "kept 1, placed 3/3, first teknik item-17emq2ut-mx0m251v"
+      "detail": "kept 1, placed 3/3, first teknik item-ot4j9xf6-mv6hxptp"
     },
     {
       "id": "AC8c",
-      "karantan": false,
       "name": "Reload: Egen mall placements still in the draft",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC3b",
-      "karantan": false,
       "name": "Egen mall saved without placements: all Teknik placed, nothing else",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC7",
-      "karantan": false,
       "name": "Remove one marker → reopen Hallöversikt: it stays removed (no re-placement)",
       "ok": true,
       "detail": "before 3, after reopen 2"
     },
     {
       "id": "AC12",
-      "karantan": false,
-      "name": "Footer «Träningsplaneraren · Slice 69»; mail ends «Version: Slice 69»",
+      "name": "Footer «Träningsplaneraren · Slice 37»; mail ends «Version: Slice 37»",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC14a",
-      "karantan": false,
       "name": "Planera pass still places all Teknik",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC14b",
-      "karantan": false,
-      "name": "Tomt pass: nothing stored yet (Slice 39 E1), so no hall placements; «Sparat» hidden",
+      "name": "Tomt pass (saved via «Spara utkast»): empty hall",
       "ok": true,
-      "detail": "no draft"
+      "detail": "items 0"
     },
     {
       "id": "AC22",
-      "karantan": false,
       "name": "390 wide: no horizontal scroll",
       "ok": true,
       "detail": ""
     },
     {
       "id": "errors",
-      "karantan": false,
       "name": "No page errors",
       "ok": true,
       "detail": ""

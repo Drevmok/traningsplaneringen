@@ -51,9 +51,9 @@
   {
     "id": "AC6",
     "karantan": false,
-    "name": "Planera pass Mall step: Fråga 2 av 3 «Mall» (Slice 55), Nybörjare + Kort pass, no tools",
+    "name": "Planera pass Mall step unchanged: Fråga 2 av 2 «Mall», Nybörjare + Kort pass, no tools",
     "ok": true,
-    "detail": "Fråga 2 av 3 Mall Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort "
+    "detail": "Fråga 2 av 2 Mall Nybörjare — ca 55 min Trygg start för nya tränare: samling, uppvärmning, enkla tekniker, styrka och lek. ~53 min · Trygg för nya tränare Kort "
   },
   {
     "id": "AC7",
@@ -81,7 +81,7 @@
     "karantan": false,
     "name": "Admin view: «Inget väntar just nu.» then Ny egen övning, Importera övningar, Föreningens mallar",
     "ok": true,
-    "detail": "[11,41,174,572]"
+    "detail": "[11,41,174,254]"
   },
   {
     "id": "AC10",
@@ -102,21 +102,21 @@
     "karantan": false,
     "name": "Admin view order: Väntar på godkännande (n), Behöver granskas (n) (only lists with rows), then Ny egen övning, Importera övningar, Föreningens mallar",
     "ok": true,
-    "detail": "[17,94,258,391,789]"
+    "detail": "[17,94,258,391,471]"
   },
   {
     "id": "AC13",
     "karantan": false,
     "name": "Teknik with redskap → «Spara och skicka till granskning» → toast «Sparad. Den väntar på godkännande.»; row under «Väntar på godkännande (1)» with «Väntar»",
     "ok": true,
-    "detail": "toast=Sparad. Den väntar på godkännande. id=tech-egen-mx0mfz6xji2g eq=[{\"pieceId\":\"eq-trampett\",\"count\":1}]"
+    "detail": "toast=Sparad. Den väntar på godkännande. id=tech-egen-mvvdzu7rwrml eq=[{\"pieceId\":\"eq-trampett\",\"count\":1}]"
   },
   {
     "id": "AC14",
     "karantan": false,
     "name": "Samling saves without Säkerhet; Styrka refuses without it, saves with it",
     "ok": true,
-    "detail": "gather-egen-mx0mfzlavlve:null strength-egen-mx0mg0b61sga:Rak rygg"
+    "detail": "gather-egen-mvvdzukp7mjw:null strength-egen-mvvdzv9onbrr:Rak rygg"
   },
   {
     "id": "AC15",
@@ -165,7 +165,7 @@
     "karantan": false,
     "name": "«Importera 3 övningar» (pasted code) → «3 övningar väntar på godkännande.»; 3 pending rows with new ids, nothing in the local own list",
     "ok": true,
-    "detail": "3 övningar väntar på godkännande. warm-egen-mx0mgnenmd7p|pending tech-egen-mx0mgnez3edm|pending gather-egen-mx0mgnf22f60|pending"
+    "detail": "3 övningar väntar på godkännande. warm-egen-mvve0goytc2j|pending tech-egen-mvve0gpbcaba|pending gather-egen-mvve0gpeax1c|pending"
   },
   {
     "id": "AC21",
@@ -193,19 +193,19 @@
     "karantan": false,
     "name": "landscape: Lägg till övning, Använd mall sheet, Admin view + form usable",
     "ok": true,
-    "detail": "add: side column tabs=0 search=174 card=267 · mall: 8–366 stang=32 scroll=403,358 · admin back=12 form=20+1138 cancel=322"
+    "detail": "add: side column tabs=0 search=174 card=267 · mall: 8–366 stang=32 scroll=403,358 · admin back=12 form=20+1022 cancel=322"
   },
   {
     "id": "AC24-desktop",
     "karantan": false,
     "name": "desktop: Lägg till övning, Använd mall sheet, Admin view + form usable; side panel without tabs",
     "ok": true,
-    "detail": "side tabs=0 list=true · mall: 199–601 stang=223 scroll=403,403 · admin back=12 form=28+1138 cancel=704"
+    "detail": "side tabs=0 list=true · mall: 199–601 stang=223 scroll=403,403 · admin back=12 form=28+1022 cancel=704"
   },
   {
     "id": "AC26-footer",
     "karantan": false,
-    "name": "footer «Träningsplaneraren · Slice 69»",
+    "name": "footer «Träningsplaneraren · Slice 53»",
     "ok": true,
     "detail": ""
   },

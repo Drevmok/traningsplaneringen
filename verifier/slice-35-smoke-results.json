@@ -26,7 +26,7 @@
       "karantan": false,
       "name": "Body decodes to the microcopy body exactly (blank lines, åäö, CRLF)",
       "ok": true,
-      "detail": "\"att du tar dig tid.\\r\\n\\r\\nVersion: Slice 69\""
+      "detail": "\"att du tar dig tid.\\r\\n\\r\\nVersion: Slice 53\""
     },
     {
       "id": "AC3",
@@ -131,7 +131,7 @@
       "karantan": false,
       "name": "Passbyggaren footer: row Tyck till · Visa tips igen · Uppdatera appen, label row «Träningsplaneraren · Slice N»",
       "ok": true,
-      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"] | Träningsplaneraren · Slice 69"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\"] | Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC16a",
@@ -145,7 +145,7 @@
       "karantan": false,
       "name": "Hallöversikt: link in the footer",
       "ok": true,
-      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 69"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
     },
     {
       "id": "AC1d",
@@ -215,7 +215,7 @@
       "karantan": false,
       "name": "admin: Tyck till · Visa tips igen · Uppdatera appen, then Admin · Logga ut, then label",
       "ok": true,
-      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Admin · Logga ut\",\"Träningsplaneraren · Slice 69\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Admin · Logga ut\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12-adminb",
@@ -236,7 +236,7 @@
       "karantan": false,
       "name": "notadmin: Tyck till · Visa tips igen · Uppdatera appen, then inte admin · Logga ut, then label",
       "ok": true,
-      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Du är inloggad men inte admin. · Logga ut\",\"Träningsplaneraren · Slice 69\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Du är inloggad men inte admin. · Logga ut\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12-notadminb",
@@ -257,7 +257,7 @@
       "karantan": false,
       "name": "Bank build logged out: Tyck till · Visa tips igen · Uppdatera appen, then Logga in som admin, then label",
       "ok": true,
-      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Logga in som admin\",\"Träningsplaneraren · Slice 69\"]"
+      "detail": "[\"Tyck till\",\"Visa tips igen\",\"Uppdatera appen\",\"Logga in som admin\",\"Träningsplaneraren · Slice 53\"]"
     },
     {
       "id": "AC12d",

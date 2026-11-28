@@ -1,448 +1,384 @@
 [
   {
     "id": "F",
-    "karantan": false,
-    "name": "Footer still Träningsplaneraren · Slice 69",
+    "name": "Footer still Träningsplaneraren · Slice 30",
     "ok": true,
     "detail": ""
   },
   {
     "id": "L1",
-    "karantan": false,
     "name": "All 11 promoted seeds listed in Bibliotek (Teknik)",
     "ok": true,
     "detail": "24 Teknik drills"
   },
   {
     "id": "L2",
-    "karantan": false,
     "name": "Spindelmannen (#4) not listed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "L3",
-    "karantan": false,
     "name": "Search \"Spindel\" finds nothing",
     "ok": true,
     "detail": ""
   },
   {
     "id": "L4",
-    "karantan": false,
     "name": "New seeds are not marked Egen (fresh device, no own drills)",
     "ok": true,
     "detail": "own badges=0"
   },
   {
     "id": "D1a",
-    "karantan": false,
     "name": "#1 Grenhopp från trampett: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D1b",
-    "karantan": false,
     "name": "#1 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 0:16 ↗\" https://youtu.be/2DJ_oMM81mI?t=16"
   },
   {
     "id": "D1c",
-    "karantan": false,
     "name": "#1 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D1d",
-    "karantan": false,
     "name": "#1 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D2a",
-    "karantan": false,
     "name": "#2 Formhopp över block från trampett: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D2b",
-    "karantan": false,
     "name": "#2 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 0:30 ↗\" https://youtu.be/2DJ_oMM81mI?t=30"
   },
   {
     "id": "D2c",
-    "karantan": false,
     "name": "#2 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D2d",
-    "karantan": false,
     "name": "#2 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D2e",
-    "karantan": false,
     "name": "#2 sketch draws cushion cushion cushion cushion trampett block landing",
     "ok": true,
     "detail": "cushion cushion cushion cushion trampett block landing"
   },
   {
     "id": "D3a",
-    "karantan": false,
     "name": "#3 Äggrullning nerför kil: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D3b",
-    "karantan": false,
     "name": "#3 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 0:50 ↗\" https://youtu.be/2DJ_oMM81mI?t=50"
   },
   {
     "id": "D3c",
-    "karantan": false,
     "name": "#3 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D3d",
-    "karantan": false,
     "name": "#3 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D3e",
-    "karantan": false,
     "name": "#3 sketch draws cushion wedge",
     "ok": true,
     "detail": "cushion wedge"
   },
   {
     "id": "D5a",
-    "karantan": false,
     "name": "#5 L-häng i räcke: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D5b",
-    "karantan": false,
     "name": "#5 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 1:39 ↗\" https://youtu.be/2DJ_oMM81mI?t=99"
   },
   {
     "id": "D5c",
-    "karantan": false,
     "name": "#5 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D5d",
-    "karantan": false,
     "name": "#5 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D5e",
-    "karantan": false,
     "name": "#5 sketch draws bar landing",
     "ok": true,
     "detail": "bar landing"
   },
   {
     "id": "D6a",
-    "karantan": false,
     "name": "#6 Stöd på räcke med pendel: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D6b",
-    "karantan": false,
     "name": "#6 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 1:55 ↗\" https://youtu.be/2DJ_oMM81mI?t=115"
   },
   {
     "id": "D6c",
-    "karantan": false,
     "name": "#6 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D6d",
-    "karantan": false,
     "name": "#6 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D6e",
-    "karantan": false,
     "name": "#6 sketch draws bar landing",
     "ok": true,
     "detail": "bar landing"
   },
   {
     "id": "D7a",
-    "karantan": false,
     "name": "#7 Åsnesparkar: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D7b",
-    "karantan": false,
     "name": "#7 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 2:26 ↗\" https://youtu.be/2DJ_oMM81mI?t=146"
   },
   {
     "id": "D7c",
-    "karantan": false,
     "name": "#7 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D7d",
-    "karantan": false,
     "name": "#7 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D8a",
-    "karantan": false,
     "name": "#8 Minihjul (krabbhjul): exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D8b",
-    "karantan": false,
     "name": "#8 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 2:45 ↗\" https://youtu.be/2DJ_oMM81mI?t=165"
   },
   {
     "id": "D8c",
-    "karantan": false,
     "name": "#8 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D8d",
-    "karantan": false,
     "name": "#8 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D9a",
-    "karantan": false,
     "name": "#9 Soldatsparkar på bom: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D9b",
-    "karantan": false,
     "name": "#9 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 3:04 ↗\" https://youtu.be/2DJ_oMM81mI?t=184"
   },
   {
     "id": "D9c",
-    "karantan": false,
     "name": "#9 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D9d",
-    "karantan": false,
     "name": "#9 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D9e",
-    "karantan": false,
     "name": "#9 sketch draws beam landing",
     "ok": true,
     "detail": "beam landing"
   },
   {
     "id": "D10a",
-    "karantan": false,
     "name": "#10 Krabbgång längs bom: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D10b",
-    "karantan": false,
     "name": "#10 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 3:25 ↗\" https://youtu.be/2DJ_oMM81mI?t=205"
   },
   {
     "id": "D10c",
-    "karantan": false,
     "name": "#10 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D10d",
-    "karantan": false,
     "name": "#10 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D10e",
-    "karantan": false,
     "name": "#10 sketch draws beam",
     "ok": true,
     "detail": "beam"
   },
   {
     "id": "D11a",
-    "karantan": false,
     "name": "#11 Ljushopp i rockringar: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D11b",
-    "karantan": false,
     "name": "#11 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 3:47 ↗\" https://youtu.be/2DJ_oMM81mI?t=227"
   },
   {
     "id": "D11c",
-    "karantan": false,
     "name": "#11 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D11d",
-    "karantan": false,
     "name": "#11 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D11e",
-    "karantan": false,
     "name": "#11 sketch draws hoop hoop hoop hoop",
     "ok": true,
     "detail": "hoop hoop hoop hoop"
   },
   {
     "id": "D12a",
-    "karantan": false,
     "name": "#12 Landningar upp på och ner från plint: exactly one card, no Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D12b",
-    "karantan": false,
     "name": "#12 Källa line",
     "ok": true,
     "detail": "\"Källa: Prime Coaching Sport · 4:05 ↗\" https://youtu.be/2DJ_oMM81mI?t=245"
   },
   {
     "id": "D12c",
-    "karantan": false,
     "name": "#12 no badge / hint / Markera som granskad in detail; no video embed",
     "ok": true,
     "detail": ""
   },
   {
     "id": "D12d",
-    "karantan": false,
     "name": "#12 Teknik · 6 min",
     "ok": true,
     "detail": "Teknik · 6 min"
   },
   {
     "id": "D12e",
-    "karantan": false,
     "name": "#12 sketch draws plint",
     "ok": true,
     "detail": "plint"
   },
   {
     "id": "B1",
-    "karantan": false,
     "name": "Grenhopp links: Bygger på Landningar… / Lättare variant av Formhopp…",
     "ok": true,
     "detail": "Bygger på: Landningar upp på och ner från plint | Lättare variant av: Formhopp över block från trampett"
   },
   {
     "id": "B2",
-    "karantan": false,
     "name": "Minihjul: Lättare variant av: Hjul",
     "ok": true,
     "detail": "Lättare variant av: Hjul"
   },
   {
     "id": "P1",
-    "karantan": false,
     "name": "Seed can be added to Teknik (no badge on pass row)",
     "ok": true,
     "detail": ""
   },
   {
     "id": "P2",
-    "karantan": false,
     "name": "Pass-row info panel: Källa line + seed safety line",
     "ok": true,
     "detail": "Källa: Prime Coaching Sport · 3:47 ↗"
   },
   {
     "id": "I1",
-    "karantan": false,
-    "name": "Coach Biblioteket has no Importera övningar (Slice 47 F1); same-name state covered by ownImport.test.ts",
+    "name": "Importing the old trial file now shows Samma namn finns redan (seed exists)",
     "ok": true,
-    "detail": "buttons=0"
+    "detail": "Samma namn finns redan|Samma namn finns redan"
   },
   {
     "id": "W1",
-    "karantan": false,
     "name": "Planera pass wizard → five blocks filled, Teknik pre-placed",
     "ok": true,
-    "detail": "filled=5 zones=open,open,open"
+    "detail": "filled=5 zones=trampett,trampett,open"
   },
   {
     "id": "E",
-    "karantan": false,
     "name": "No page errors",
     "ok": true,
     "detail": ""
