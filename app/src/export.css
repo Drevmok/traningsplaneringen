@@ -803,6 +803,27 @@
   background: #fff;
 }
 
+/* Slice 69 — minikarta först i skriptet; visning bara, rullar inte. */
+.run-script .run-hall-mini {
+  width: min(100%, calc(16svh * 1.6));
+  margin: 0 auto 8px;
+  pointer-events: none;
+}
+
+.run-hall-mini .hall-canvas {
+  min-height: 0;
+  max-height: 16svh;
+  aspect-ratio: 16 / 10;
+}
+
+.run-hall-mini .hall-canvas-wrap {
+  overflow: hidden;
+}
+
+.run-hall-mini .hall-chip-equipment {
+  display: none !important;
+}
+
 .run-script .station-sketch-caption {
   color: #d6d3d1;
 }

@@ -94,7 +94,7 @@ export const PASS_LENGTHS = [60, 90, 120] as const
 export type PassLength = (typeof PASS_LENGTHS)[number]
 
 /** Slice 35: the one slice number for the footer label and the «Tyck till» mail version line. */
-export const SLICE_NUMBER = '68'
+export const SLICE_NUMBER = '69'
 
 /** UI chrome — Docs ui-chrome.sv.md + Christoffer terminology (pass / gymnaster) */
 export const UI = {
@@ -550,6 +550,7 @@ export const UI = {
   // Slice 68 — Föreningens redskap (microcopy.sv.md); admin titles live in ClubEquipmentAdmin
   clubMissingLine: 'Föreningen saknar: {labels}',
   clubMissingAria: 'Föreningen saknar {label}',
+  runHallMiniAria: 'Aktuell station i hallen',
   homeOpenHall: 'Hallöversikt',
   homeOpenHallAria: 'Öppna Hallöversikt från Hem',
   homeOpenGolvklart: 'Golvklart',

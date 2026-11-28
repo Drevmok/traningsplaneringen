@@ -9,6 +9,7 @@ import {
   formatRunClock,
   pauseClock,
   resumeClock,
+  runHallMini,
   runStationSketch,
   runSteps,
   startClock,
@@ -143,5 +144,35 @@ describe('runStationSketch (Slice 64, A1 C1)', () => {
     assert.equal(runStationSketch(pass([{ activityId: 'tech-ljushopp-satsbrada', stationEquipment: [] }]), 'i0'), undefined)
     assert.equal(runStationSketch(pass([{ activityId: 'tech-ljushopp-satsbrada' }]), 'nope'), undefined)
     assert.equal(runStationSketch(pass([{ activityId: 'finns-inte' }]), 'i0'), undefined)
+  })
+})
+
+describe('runHallMini (Slice 69, C1)', () => {
+  const pass = (placements: Array<{ sessionItemId: string }>) => {
+    const s = session()
+    s.hallPlacements = placements.map((p) => ({ ...p, x: 0.3, y: 0.4 }))
+    s.blocks.find((b) => b.type === 'techniques')!.items.push({
+      id: 'vault2', activityId: 'tech-ljushopp-satsbrada', durationMinutes: 6, note: '', order: 1,
+    })
+    return s
+  }
+
+  it('placed Teknik → show with selectedItemId, not unplaced', () => {
+    assert.deepEqual(runHallMini(pass([{ sessionItemId: 'vault' }]), 'vault'), { show: true, selectedItemId: 'vault', unplaced: false })
+  })
+
+  it('unplaced Teknik while other stations are placed → show, no selection, unplaced', () => {
+    assert.deepEqual(runHallMini(pass([{ sessionItemId: 'vault' }]), 'vault2'), { show: true, selectedItemId: null, unplaced: true })
+  })
+
+  it('no placements → no map and no Saknar plats', () => {
+    assert.deepEqual(runHallMini(pass([]), 'vault'), { show: false, selectedItemId: null, unplaced: false })
+  })
+
+  it('warm-up or gathering step with placements → no map', () => {
+    const s = pass([{ sessionItemId: 'vault' }])
+    assert.equal(runHallMini(s, 'moved').show, false)
+    assert.equal(runHallMini(s, 'hello').show, false)
+    assert.equal(runHallMini(s, 'nope').show, false)
   })
 })
