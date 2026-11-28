@@ -6,6 +6,7 @@ import {
   formatRunClock,
   pauseClock,
   resumeClock,
+  runHallMini,
   runNextText,
   runLeftText,
   runStationSketch,
@@ -15,6 +16,7 @@ import {
 } from '../lib/runPass'
 import { playRunSignal, shouldSignal, unlockRunSignal } from '../lib/runSignal'
 import type { Session } from '../types'
+import { HallCanvas } from './HallCanvas'
 import { StationSketch } from './StationSketch'
 
 interface Props {
@@ -155,6 +157,7 @@ export function RunPass({ session, onClose }: Props) {
   }
 
   const sketch = runStationSketch(session, step.itemId)
+  const mini = runHallMini(session, step.itemId)
   const clockLabel = `${formatRunClock(left)}. ${
     left === 0 ? `${UI.runTimeUp}. ` : ''
   }${paused ? UI.runResume : UI.runPause}`
@@ -199,6 +202,25 @@ export function RunPass({ session, onClose }: Props) {
       <p className="run-left">{runLeftText(steps, index, left, UI.runLeftLabel)}</p>
 
       <div className="run-script">
+        {mini.show && (
+          <div
+            className="run-hall-mini"
+            role="group"
+            aria-label={mini.selectedItemId ? UI.runHallMiniAria : UI.hallOverview}
+          >
+            <HallCanvas
+              session={session}
+              hallMode="floor"
+              placeModeItemId={null}
+              selectedItemId={mini.selectedItemId}
+              viewZoom={1}
+              onPlaceAt={() => {}}
+              onChipClick={() => {}}
+              onRemovePlacement={() => {}}
+            />
+            {mini.unplaced && <p>{UI.buildHallUnplaced}</p>}
+          </div>
+        )}
         {sketch && <StationSketch slots={sketch.slots} layout={sketch.layout} />}
         {step.why && (
           <p>

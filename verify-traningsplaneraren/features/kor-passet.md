@@ -45,3 +45,5 @@ VoiceOver reading order/announcements, audible tone and vibration, real wake-loc
 | Knapp «Kör passet» | `role=button «Kör passet»` | `components/SessionBuilder.tsx`, `data/blockMeta.ts` |
 
 **Slice 64 (A1 C1):** a Teknik step with redskap (`runStationSketch`: set list, else förslag) shows `StationSketch` as the first child of `.run-script` (saved layout when it applies, else the auto row; caption «Skiss — så kan stationen stå.»). Hidden without redskap and on other blocks. Clock, Nästa, Kvar and nav unchanged; only `.run-script` scrolls.
+
+**Slice 69 (A1 B1 C1 D1 E1 F1):** on a Teknik step, when the hall has at least one placed marker, `.run-hall-mini` (read-only `HallCanvas`, `max-height: 16svh`, no taps, no pinch) is the first child of `.run-script` above the sketch; the active marker is `.is-selected`, an unplaced Teknik shows the map plus «Saknar plats», and no placements or a non-Teknik step shows no map. Clock and nav stay on screen; only `.run-script` scrolls.

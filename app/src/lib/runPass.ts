@@ -3,7 +3,7 @@ import { floorTip } from '../data/activityTips'
 import { getActivityById } from '../data/seedActivities'
 import { layoutForStation } from '../data/stationLayout'
 import type { Session, StationEquipmentSlot, StationLayout } from '../types'
-import { placeableItems } from './hall'
+import { getPlacedItems, getPlacement, placeableItems } from './hall'
 import { waitingLine } from './waitingLine'
 
 /** One exercise in pass order. The cue is the first how-step, not the whole sheet. */
@@ -127,4 +127,14 @@ export function runStationSketch(
   const slots = item?.stationEquipment ?? activity?.defaultStationEquipment
   if (!item || !slots?.length) return undefined
   return { slots, layout: layoutForStation(activity, item.stationEquipment) }
+}
+
+/** Slice 69 — «Du är här» minikarta in Kör passet: only on a Teknik step while the hall has placed markers. */
+export function runHallMini(
+  session: Session,
+  itemId: string,
+): { show: boolean; selectedItemId: string | null; unplaced: boolean } {
+  const show = getPlacedItems(session).length > 0 && placeableItems(session).some((i) => i.id === itemId)
+  const selectedItemId = show && getPlacement(session, itemId) ? itemId : null
+  return { show, selectedItemId, unplaced: show && !selectedItemId }
 }

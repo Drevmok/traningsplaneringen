@@ -1,6 +1,6 @@
 # Slice 69 — beslut
 
-**Status:** **FÖRESLAGEN** (inte låst). Bas: main @ `83965f7`. Gren: `slice-69-docs`. Detaljer i `README.md` och `HANDOFF.md`.
+**Status:** **LÅST** 28 nov 2026 16:49 (Europe/Stockholm). Bas: main @ `83965f7`. Gren: `slice-69-docs`. Detaljer i `README.md` och `HANDOFF.md`.
 
 Docs förslag (★): **A1 B1 C1 D1 E1 F1**.
 
@@ -15,6 +15,8 @@ Docs förslag (★): **A1 B1 C1 D1 E1 F1**.
 
 Avvisat om ★ låses: A2, A3, B2, B3, C2, C3, D2, D3, E2, E3, F2, F3.
 
-**Lås** (lämnas tomt tills Christoffers egna, ordagranna ord reläas):
+**Lås** (Christoffers egna, ordagranna ord):
 
->
+> «Ja, lås A1 B1 C1 D1 E1 F1»
+
+Christoffer, 28 nov 2026 16:49 (Europe/Stockholm), reläat via Träningsplaneraren - PO. Skrivet av Builder vid bygget.
