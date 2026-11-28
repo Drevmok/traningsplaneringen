@@ -1,66 +1,77 @@
 [
   {
     "id": "F1",
-    "name": "Footer still Träningsplaneraren · Slice 30",
+    "karantan": false,
+    "name": "Footer still Träningsplaneraren · Slice 69",
     "ok": true,
-    "detail": "Träningsplaneraren · Slice 30 · Visa tips igen · Uppdatera appen"
+    "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 69"
   },
   {
     "id": "S0",
+    "karantan": false,
     "name": "Own drill has source + needsCoachReview, Teknik",
     "ok": true,
     "detail": ""
   },
   {
     "id": "L1",
+    "karantan": false,
     "name": "Bibliotek detail: Källa line + badge still shown",
     "ok": true,
     "detail": ""
   },
   {
     "id": "E1",
+    "karantan": false,
     "name": "Hallöversikt edit detail shows Källa line",
     "ok": true,
     "detail": "Källa: Prime Coaching Sport · 0:30 ↗"
   },
   {
     "id": "E2",
+    "karantan": false,
     "name": "Hallöversikt edit detail shows Behöver granskas badge",
     "ok": true,
     "detail": ""
   },
   {
     "id": "G0",
+    "karantan": false,
     "name": "Golvklart chip opens the Formhopp detail",
     "ok": true,
     "detail": ""
   },
   {
     "id": "G1",
+    "karantan": false,
     "name": "Golvklart detail: NO Källa line",
     "ok": true,
     "detail": ""
   },
   {
     "id": "G2",
+    "karantan": false,
     "name": "Golvklart detail: NO Behöver granskas badge / hint / button",
     "ok": true,
     "detail": ""
   },
   {
     "id": "G3",
+    "karantan": false,
     "name": "Golvklart detail still shows Redskap + sketch",
     "ok": true,
     "detail": ""
   },
   {
     "id": "E3",
+    "karantan": false,
     "name": "After Avsluta golvklart, edit detail shows Källa + badge again",
     "ok": true,
     "detail": ""
   },
   {
     "id": "P",
+    "karantan": false,
     "name": "No page errors",
     "ok": true,
     "detail": ""

@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-30T19:47:33.299Z",
+  "at": "2026-11-28T16:14:29.742Z",
   "pass": 46,
   "fail": 0,
   "results": [
@@ -78,7 +78,7 @@
       "karantan": false,
       "name": "Admin cards show «Senast ändrad {datum} av admin@test.local»",
       "ok": true,
-      "detail": "Senast ändrad 30 okt av admin@test.local | Senast ändrad 30 okt av admin@test.local"
+      "detail": "Senast ändrad 28 nov av admin@test.local | Senast ändrad 28 nov av admin@test.local"
     },
     {
       "id": "AC5a",
@@ -176,7 +176,7 @@
       "karantan": false,
       "name": "Coach visit downloads no admin chunk and no supabase-js",
       "ok": true,
-      "detail": "index-DTLRBc3n.js"
+      "detail": "index-CCKNOwFU.js"
     },
     {
       "id": "AC22a",

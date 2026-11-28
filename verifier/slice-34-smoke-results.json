@@ -40,7 +40,7 @@
       "karantan": false,
       "name": "At 00:00: exactly one tone (one oscillator, started once, stop scheduled ~0.3 s later)",
       "ok": true,
-      "detail": "{\"ctx\":1,\"prime\":1,\"resume\":1,\"osc\":1,\"start\":1,\"stops\":[60.05],\"loops\":0,\"vib\":[200]}"
+      "detail": "{\"ctx\":1,\"prime\":1,\"resume\":1,\"osc\":1,\"start\":1,\"stops\":[60.076],\"loops\":0,\"vib\":[200]}"
     },
     {
       "id": "AC8-sim",
@@ -173,7 +173,7 @@
       "karantan": false,
       "name": "Footer «Träningsplaneraren · Slice N» (N = SLICE_NUMBER)",
       "ok": true,
-      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 53"
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 69"
     },
     {
       "id": "AC16b",

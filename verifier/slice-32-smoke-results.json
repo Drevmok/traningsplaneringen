@@ -1,193 +1,547 @@
 {
   "results": [
     {
-      "id": "AC26",
-      "name": "Coach visit",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })"
+      "id": "AC50a",
+      "karantan": false,
+      "name": "Plain build footer: Träningsplaneraren · Slice 69, no admin link (vars unset)",
+      "ok": true,
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Träningsplaneraren · Slice 69"
     },
     {
-      "id": "AC24",
-      "name": "Unknown e-mail",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })"
+      "id": "AC50",
+      "karantan": false,
+      "name": "Bank build footer reads «Träningsplaneraren · Slice 69 · Logga in som admin»",
+      "ok": true,
+      "detail": "Tyck till · Visa tips igen · Uppdatera appen Logga in som admin Träningsplaneraren · Slice 69"
     },
     {
-      "id": "AC25",
-      "name": "Magic link round trip",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })"
+      "id": "AC26a",
+      "karantan": false,
+      "name": "No supabase-js / admin chunk downloaded on a coach visit",
+      "ok": true,
+      "detail": "index-CCKNOwFU.js"
     },
     {
-      "id": "AC28",
-      "name": "Used link, then a second request within 60 s",
-      "ok": false,
-      "detail": "error: page.goto: url: expected string, got undefined"
+      "id": "AC26b",
+      "karantan": false,
+      "name": "Coach requests: only the two Slice 31 GETs, publishable key, no Authorization",
+      "ok": true,
+      "detail": "GET /rest/v1/exercises, GET /rest/v1/redskap"
     },
     {
-      "id": "AC27",
-      "name": "Logged-in user who is not admin",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('dialog', { name: 'Logga in som admin' }).getByRole('button', { name: 'Skicka länk' })"
+      "id": "AC26c",
+      "karantan": false,
+      "name": "No admin UI in Biblioteket (no Admin chip, no filter chips, no badges)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC26d",
+      "karantan": false,
+      "name": "No auth key in storage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24b",
+      "karantan": false,
+      "name": "No user created (sign-ups off)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24c",
+      "karantan": false,
+      "name": "No mail sent to the unknown address",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC24d",
+      "karantan": false,
+      "name": "OTP request asks never to create users",
+      "ok": true,
+      "detail": "{\"email\":\"okand@test.local\",\"data\":{},\"create_user\":false,\"gotrue_meta_security\":{},\"code_challenge\":\"OVLWKbRybsU-KG2HmY0TP10qOOyURF4zlYaUz0GqBkk\",\"code_challenge_method\":\"s256\"}"
+    },
+    {
+      "id": "AC25f",
+      "karantan": false,
+      "name": "Session stored under gymnastics-planner-admin-auth-v1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC25g",
+      "karantan": false,
+      "name": "Reload keeps the session; footer «Admin · Logga ut»",
+      "ok": true,
+      "detail": "Tyck till · Uppdatera appen Admin · Logga ut Passen sparas bara på den här enheten."
+    },
+    {
+      "id": "AC27a",
+      "karantan": false,
+      "name": "Footer: adminNotAdmin + Logga ut",
+      "ok": true,
+      "detail": "Tyck till · Uppdatera appen Du är inloggad men inte admin. · Logga ut Passen sparas bara på den här enheten."
+    },
+    {
+      "id": "AC27b",
+      "karantan": false,
+      "name": "No admin UI for a non-admin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC27c",
+      "karantan": false,
+      "name": "Direct API update with the non-admin token changes nothing",
+      "ok": true,
+      "detail": "200 []"
+    },
+    {
+      "id": "AC27d",
+      "karantan": false,
+      "name": "Direct API insert refused",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "AC27e",
+      "karantan": false,
+      "name": "Cannot add self to admins",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "AC27f",
+      "karantan": false,
+      "name": "Logga ut (non-admin) removes the session key",
+      "ok": true,
+      "detail": ""
     },
     {
       "id": "AC41a",
+      "karantan": false,
       "name": "Dry-run lists 2 new rows and writes nothing",
       "ok": true,
       "detail": "Torrkörning: 2 nya, 0 ersätts, 0 hoppas över. Inget skrevs."
     },
     {
       "id": "AC41b",
+      "karantan": false,
       "name": "Push → exit 0, «Väntar på godkännande i appen»",
       "ok": true,
       "detail": "Nya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Väntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande). / "
     },
     {
       "id": "AC41c",
+      "karantan": false,
       "name": "Rows pending, needs_coach_review true, updated_by bot:planner",
       "ok": true,
       "detail": "tech-test-aggrullning-kil|pending|true|bot:planner ; tech-test-formhopp-over-lagt-block|pending|true|bot:planner"
     },
     {
       "id": "AC41d",
+      "karantan": false,
       "name": "Invisible to anon",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC42a",
+      "karantan": false,
       "name": "Second push: existing ids skipped + reported, not overwritten",
       "ok": true,
       "detail": "Hoppades över (fanns redan): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil / Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs. / "
     },
     {
       "id": "C5",
+      "karantan": false,
       "name": "All skipped → «Inget nytt …», no «Väntar på godkännande»",
       "ok": true,
       "detail": "Inget nytt: alla övningar i filen fanns redan i banken. Inget skrevs."
     },
     {
       "id": "AC42b",
+      "karantan": false,
       "name": "Publishable key in SUPABASE_PLANNER_BOT_KEY → script refuses",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC42c",
+      "karantan": false,
       "name": "Key never printed",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC43",
+      "karantan": false,
       "name": "Bot key DELETE → permission denied, row still there",
       "ok": true,
       "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for tabl"
     },
     {
       "id": "AC40b",
+      "karantan": false,
       "name": "Secret-style key refused from a browser origin (gateway emulates Supabase 401)",
       "ok": true,
       "detail": ""
     },
     {
-      "id": "AC29",
-      "name": "Admin mode lists",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
+      "id": "AC29b",
+      "karantan": false,
+      "name": "Pending rows not in the normal list",
+      "ok": true,
+      "detail": "51 titles"
     },
     {
-      "id": "AC30",
-      "name": "Another (anon) profile sees the approved row",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })"
+      "id": "AC29a",
+      "karantan": false,
+      "name": "Admin view + «Väntar på godkännande (2)» + «Behöver granskas (16)»; no Dolda list at 0",
+      "ok": true,
+      "detail": "Väntar på godkännande (2) | Behöver granskas (16)"
     },
     {
-      "id": "AC31",
-      "name": "Ändra i banken",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
+      "id": "AC29c",
+      "karantan": false,
+      "name": "Pending list shows exactly the two bot rows with «Väntar» badge",
+      "ok": true,
+      "detail": "Test: formhopp över lågt block, Test: äggrullning nerför kil"
     },
     {
-      "id": "AC33",
-      "name": "Markera som granskad",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
+      "id": "AC29d",
+      "karantan": false,
+      "name": "Väntar list comes first (was: chip pressed; Slice 47 C1 has no chips)",
+      "ok": true,
+      "detail": "Väntar på godkännande (2)"
     },
     {
-      "id": "AC34",
-      "name": "Dölj för alla + Visa igen",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Från mall' })"
-    },
-    {
-      "id": "AC35",
-      "name": "No delete control",
-      "ok": false,
-      "detail": "error: locator.selectOption: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('.filter-row select')"
-    },
-    {
-      "id": "AC36",
-      "name": "Two tabs edit the same exercise",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
-    },
-    {
-      "id": "AC37",
-      "name": "Offline admin",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
-    },
-    {
-      "id": "AC39a",
-      "name": "Admin writes: only auth calls + PATCH of bank columns on exercises",
+      "id": "AC29e",
+      "karantan": false,
+      "name": "Pending detail: not addable to a pass",
       "ok": true,
       "detail": ""
     },
     {
+      "id": "AC29f",
+      "karantan": false,
+      "name": "Pending detail: Godkänn · Ändra i banken · Dölj för alla; review hint; last changed by Planner",
+      "ok": true,
+      "detail": "Godkänn|Ändra i banken|Dölj för alla"
+    },
+    {
+      "id": "AC30a",
+      "karantan": false,
+      "name": "Godkänn → toast + status published",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC38a",
+      "karantan": false,
+      "name": "This device updates at once: approved row in the coach cache, pending row never",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC30b",
+      "karantan": false,
+      "name": "Coach sees the approved row, not the pending one",
+      "ok": true,
+      "detail": "52"
+    },
+    {
+      "id": "AC33c",
+      "karantan": false,
+      "name": "Coach profile: no review badge on bank rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC38b",
+      "karantan": false,
+      "name": "Coach cache has no pending row",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC31a",
+      "karantan": false,
+      "name": "Validation as own form: empty Namn blocked (required, as own form), empty Varför → issue list; nothing sent",
+      "ok": true,
+      "detail": "Skriv varför ni gör den."
+    },
+    {
+      "id": "AC31b",
+      "karantan": false,
+      "name": "Saved fields in the row",
+      "ok": true,
+      "detail": "{\"title\":\"Äggrullning (redigerad)\",\"duration_minutes_default\":9,\"summary\":\"Ny sammanfattning från admin.\",\"how_to\":\"1. Steg ett.\\n2. Steg två.\\n3. Steg tre.\",\"watch_for\":\"Nytt se upp för.\",\"safety_line\":\"Ny säkerhetsrad.\",\"source\":{\"url\":\"https://example.org/video\",\"creator\":\"Testkanal\",\"startSecond"
+    },
+    {
+      "id": "AC31c",
+      "karantan": false,
+      "name": "Tags, difficulty, links, visual, sort order, status preserved",
+      "ok": true,
+      "detail": "{\"tags\":[\"teknik\",\"rullning\",\"kil\",\"form\",\"nybörjare\"],\"difficulty\":\"intro\",\"progression_of\":\"tech-test-formhopp-over-lagt-block\",\"regression_of\":\"tech-kullerbytta\",\"visual_key\":\"tech-test-aggrullning-kil\",\"sort_order\":380,\"status\":\"pending\"}"
+    },
+    {
+      "id": "AC32a",
+      "karantan": false,
+      "name": "updated_by = admin e-mail; updated_at set",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC33a",
+      "karantan": false,
+      "name": "Saving clears needs_coach_review",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC32b",
+      "karantan": false,
+      "name": "Detail shows «Senast ändrad … av admin@test.local»",
+      "ok": true,
+      "detail": "Senast ändrad 28 nov av admin@test.local"
+    },
+    {
+      "id": "AC32c",
+      "karantan": false,
+      "name": "Client-sent updated_by is overwritten with the admin e-mail",
+      "ok": true,
+      "detail": "\"admin@test.local\""
+    },
+    {
+      "id": "AC23a",
+      "karantan": false,
+      "name": "Admin token DELETE refused by the database",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "AC33b0",
+      "karantan": false,
+      "name": "Review list shows the flagged published rows with the review badge (admin only)",
+      "ok": true,
+      "detail": "17"
+    },
+    {
+      "id": "AC33b",
+      "karantan": false,
+      "name": "Markera som granskad clears it without edit (text unchanged, count −1)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC34a",
+      "karantan": false,
+      "name": "Published detail: Ändra i banken · Dölj för alla",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC34b",
+      "karantan": false,
+      "name": "Confirm shows the title and adminHideUsedIn for a mall drill",
+      "ok": true,
+      "detail": "Dölja ”Ljushopp på satsbräda” för alla tränare? Pass som redan har övningen visar den fortfarande. Övningen finns också i en mall eller i Planera pass. Där ligger den kvar tills appen ändras. Avbryt D"
+    },
+    {
+      "id": "AC34c",
+      "karantan": false,
+      "name": "Status hidden in the DB",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC34d",
+      "karantan": false,
+      "name": "Saved pass still resolves the hidden drill (title shown)",
+      "ok": true,
+      "detail": "9 rows"
+    },
+    {
+      "id": "AC34e",
+      "karantan": false,
+      "name": "Hidden drill gone from Biblioteket for the coach",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC34f",
+      "karantan": false,
+      "name": "Hidden detail: «Dold» badge, Visa igen · Ändra i banken",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC34g",
+      "karantan": false,
+      "name": "Visa igen restores published",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC35a",
+      "karantan": false,
+      "name": "Admin detail has no delete control",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC36a",
+      "karantan": false,
+      "name": "Second save → adminSaveConflict",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC36b",
+      "karantan": false,
+      "name": "First edit intact in the DB",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC36c",
+      "karantan": false,
+      "name": "Reopened form shows the other tab's saved title (row refetched)",
+      "ok": true,
+      "detail": "Kullerbytta (flik 1)"
+    },
+    {
+      "id": "AC36d",
+      "karantan": false,
+      "name": "Close + reopen + Spara saves (no 2nd conflict, no reload)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC37a",
+      "karantan": false,
+      "name": "adminOffline line shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC37b",
+      "karantan": false,
+      "name": "All admin actions disabled",
+      "ok": true,
+      "detail": "[true,true]"
+    },
+    {
+      "id": "AC37c",
+      "karantan": false,
+      "name": "Nothing queued: no write sent after coming back online",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC37d",
+      "karantan": false,
+      "name": "Buttons enabled again online",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC39a",
+      "karantan": false,
+      "name": "Admin writes: only auth calls + PATCH of bank columns on exercises",
+      "ok": true,
+      "detail": "POST /auth/v1/otp, POST /auth/v1/verify, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises, PATCH /rest/v1/exercises"
+    },
+    {
       "id": "AC39b",
+      "karantan": false,
       "name": "No pass / own exercise / draft data in any request",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC39c",
+      "karantan": false,
       "name": "No DELETE request ever sent",
       "ok": true,
       "detail": ""
     },
     {
       "id": "AC44a",
+      "karantan": false,
       "name": "Script fails clearly (Nyckeln fungerar inte längre)",
       "ok": true,
       "detail": "Fel: Nyckeln fungerar inte längre (borttagen eller fel). Be Christoffer skapa en ny planner-bot-nyckel och sätta den på boxen. (HTTP 401)"
     },
     {
-      "id": "AC44",
-      "name": "Revoked bot key",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })"
+      "id": "AC44b",
+      "karantan": false,
+      "name": "App unaffected (coach bank loads, no stale line)",
+      "ok": true,
+      "detail": ""
     },
     {
-      "id": "AC48",
-      "name": "Slice 31 behaviour",
-      "ok": false,
-      "detail": "error: locator.click: Timeout 10000ms exceeded. ⏎ Call log: ⏎   - waiting for getByRole('button', { name: 'Tomt pass' })"
+      "id": "AC48a",
+      "karantan": false,
+      "name": "Bank off: bundled 51, no stale line, no request",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC48b",
+      "karantan": false,
+      "name": "Home: no stale line when the bank is down",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC48c",
+      "karantan": false,
+      "name": "Biblioteket: cached bank (incl. approved row + flik-2 title) + stale line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC48d",
+      "karantan": false,
+      "name": "Stale line only in Biblioteket (builder, library closed)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC48e",
+      "karantan": false,
+      "name": "Planera pass wizard still fills five blocks",
+      "ok": true,
+      "detail": ""
     },
     {
       "id": "AC25h",
-      "name": "Logga ut",
-      "ok": false,
-      "detail": "error: locator.waitFor: Timeout 15000ms exceeded. ⏎ Call log: ⏎   - waiting for locator('footer .footer-admin-logout') to be visible"
+      "karantan": false,
+      "name": "Logga ut removes gymnastics-planner-admin-auth-v1; footer back to «Logga in som admin»",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "AC38c",
+      "karantan": false,
+      "name": "After logout the cache still holds no pending rows",
+      "ok": true,
+      "detail": ""
     },
     {
       "id": "E",
+      "karantan": false,
       "name": "No page errors",
       "ok": true,
       "detail": ""
     },
     {
       "id": "N",
+      "karantan": false,
       "name": "Every coach-context bank request was a GET with the publishable key and no Authorization",
       "ok": true,
       "detail": ""
@@ -196,8 +550,9 @@
   "notes": [
     "seed rows flagged needs_coach_review: 16; AC 33 uses gather-narvaro «Närvaro»",
     "mall drill used for AC 34: tech-ljushopp-satsbrada «Ljushopp på satsbräda»",
-    "review count now 16 (16 seed rows + the approved bot row)"
+    "review count now 17 (16 seed rows + the approved bot row)",
+    "coach draft from mall contains tech-ljushopp-satsbrada: true"
   ],
-  "bankRequests": 45,
+  "bankRequests": 174,
   "botOutput": "tech-test-formhopp-over-lagt-block  NY (pending)  «Test: formhopp över lågt block»  techniques · 6 min · sort 370\ntech-test-aggrullning-kil  NY (pending)  «Test: äggrullning nerför kil»  techniques · 6 min · sort 380\nNya (pending): tech-test-formhopp-over-lagt-block, tech-test-aggrullning-kil\nVäntar på godkännande i appen (Logga in som admin → Biblioteket → Väntar på godkännande).\n"
 }
