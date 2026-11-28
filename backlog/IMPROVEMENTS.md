@@ -19,24 +19,15 @@ Statuses: `Proposed` · `Approved` · `Locked` · `In flight` · `Declined` · `
 
 ## Proposed
 
-Scout outside sweep 2026-11 #1–#3 are **Shipped** (Slices 61–63). **Stationer 17 nov 2026** S1–S2 are **Shipped** as Slice 64 (main `6698a63`, PR #72). S3 is **Shipped** as Slice 65 (main `d347892`, PR #73). Slice 66 (the two Slice 65 QM findings) is **Shipped** (main `329a259`, PR #74). S6 is **Shipped** as Slice 67 (main `0f3be79`, PR #75). S9 is **Approved** as Slice 68 (Christoffer 2026-11-25 11:44; full text under **Approved**). Open items are S4, S5, S7 and S8 below.
+Scout outside sweep 2026-11 #1–#3 are **Shipped** (Slices 61–63). **Stationer 17 nov 2026** S1–S2 are **Shipped** as Slice 64 (main `6698a63`, PR #72). S3 is **Shipped** as Slice 65 (main `d347892`, PR #73). Slice 66 (the two Slice 65 QM findings) is **Shipped** (main `329a259`, PR #74). S6 is **Shipped** as Slice 67 (main `0f3be79`, PR #75). S9 is **Shipped** as Slice 68 (main `83965f7`, PR #76 + hotfix #77). S4 is **Approved** as Slice 69 (Christoffer 2026-11-28; full text under **Approved**). Open items are S5, S7 and S8 below.
 
 ### Stationer 17 nov 2026 (PO-genomgång) — visual stations for new leaders
 
-**Source:** PO-genomgång 2026-11-17, plus Christoffer 2026-11-20 (S3 was Approved as Slice 65, now Shipped; S9 Proposed), 2026-11-22 (Slice 66 Approved, now Shipped), 2026-11-23 (S6 Approved as Slice 67, now Shipped) and 2026-11-25 (S9 Approved as Slice 68). Numbered **S1–S9** so they do not collide with Scout outside sweep 2026-11 #1–#3 (already Shipped). Goal: new leaders should understand the stations visually and be able to set up the hall.
+**Source:** PO-genomgång 2026-11-17, plus Christoffer 2026-11-20 (S3 was Approved as Slice 65, now Shipped; S9 Proposed), 2026-11-22 (Slice 66 Approved, now Shipped), 2026-11-23 (S6 Approved as Slice 67, now Shipped), 2026-11-25 (S9 Approved as Slice 68, now Shipped) and 2026-11-28 (S4 Approved as Slice 69). Numbered **S1–S9** so they do not collide with Scout outside sweep 2026-11 #1–#3 (already Shipped). Goal: new leaders should understand the stations visually and be able to set up the hall.
 
-S1 and S2 are **Shipped** as **Slice 64** (main `6698a63`, PR #72; pack `slice-64/`). S3 is **Shipped** as **Slice 65** (main `d347892`, PR #73; pack `slice-65/`). The two Slice 65 QM findings are **Shipped** as **Slice 66** (main `329a259`, PR #74; pack `slice-66/`). S6 is **Shipped** as **Slice 67** (main `0f3be79`, PR #75, 2026-11-24; pack `slice-67/`). S9 is **Approved** as **Slice 68** (Christoffer 2026-11-25 11:44; pack `slice-68/`). S4, S5, S7 and S8 stay **Proposed**.
+S1 and S2 are **Shipped** as **Slice 64** (main `6698a63`, PR #72; pack `slice-64/`). S3 is **Shipped** as **Slice 65** (main `d347892`, PR #73; pack `slice-65/`). The two Slice 65 QM findings are **Shipped** as **Slice 66** (main `329a259`, PR #74; pack `slice-66/`). S6 is **Shipped** as **Slice 67** (main `0f3be79`, PR #75, 2026-11-24; pack `slice-67/`). S9 is **Shipped** as **Slice 68** (PR #76, merge `80b0fb9`, 2026-11-25; hotfix PR #77, main `83965f7`, 2026-11-26; pack `slice-68/`). S4 is **Approved** as **Slice 69** (Christoffer 2026-11-28; pack `slice-69/`). S5, S7 and S8 stay **Proposed**.
 
-**Overlap (these stay Parked — see the Parked table):** S1 is not the parked «Kör passet — redskap line»; S2 is not the parked canvas equipment-count badge; S3 / S5 / S8 do not lift hall-CAD (separate equipment pins; one marker per station stays locked). S9 (Slice 68) does not revive Slice 47's removed «Vad finns i hallen ikväll?» or the library filter, and it does not lift the parked custom redskap catalog or the parked Förrådslista station breakdown.
-
-#### S4. «Du är här»-minikarta i Kör passet — Effort **M** — **Proposed**
-
-- **Title:** A small «you are here» hall map on the current step in Kör passet, highlighting the active station.
-- **Coach benefit:** Mid-pass, the leader sees where this station sits in the hall without leaving Kör passet.
-- **Effort:** M
-- **Simplicity check:** A miniature of the existing hall, not a new editor. Complements S1 (setup sketch) rather than replacing it.
-- **Standing lock?** View-only. No extra markers, no CAD pins.
-- **Suggested slice shape:** After S1 (the run already shows a sketch). Keep it small so the clock and nav stay reachable (Slice 38: only `.run-script` scrolls).
+**Overlap (these stay Parked — see the Parked table):** S1 is not the parked «Kör passet — redskap line»; S4 (Slice 69) is also not that redskap *text* line. S2 is not the parked canvas equipment-count badge; S3 / S5 / S8 do not lift hall-CAD (separate equipment pins; one marker per station stays locked). S9 (Slice 68, Shipped) does not revive Slice 47's removed «Vad finns i hallen ikväll?» or the library filter, and it does not lift the parked custom redskap catalog or the parked Förrådslista station breakdown.
 
 #### S5. Ovanifrån-mini vid märket — Effort **M** — **Proposed**
 
@@ -290,7 +281,7 @@ Full write-up under **Shipped**. Not re-listed here.
 
 Full write-up under **Shipped**. Not re-listed here.
 
-### Stationer 17 nov 2026 — S1–S3 **Shipped** as **Slices 64–65**; QM-fynd **Shipped** as **Slice 66**; S6 **Shipped** as **Slice 67**; S9 **Approved** as **Slice 68**
+### Stationer 17 nov 2026 — S1–S3 **Shipped** as **Slices 64–65**; QM-fynd **Shipped** as **Slice 66**; S6 **Shipped** as **Slice 67**; S9 **Shipped** as **Slice 68**; S4 **Approved** as **Slice 69**
 
 **S1–S2** were **Approved 2026-11-17** (Christoffer, via PO) and are now **Shipped** as **Slice 64** (PR #72, merge `6698a63`, 2026-11-20; pack `slice-64/`). LÅST 2026-11-17 (A1 B1 C1 D1 E1 F1). Full write-up under **Shipped**.
 
@@ -300,7 +291,9 @@ The two Slice 65 QM findings were **Approved 2026-11-22** and are now **Shipped*
 
 **S6** was **Approved 2026-11-23 10:28** (Christoffer, «Godkänn S6 Fyll bankens skisser») and is now **Shipped** as **Slice 67** (PR #75, merge `0f3be79`, 2026-11-24; pack `slice-67/`). Full write-up under **Shipped**.
 
-**S9** was **Approved 2026-11-25 11:44** (Christoffer, via PO) and is **Slice 68** (pack `slice-68/`, FÖRESLAGEN). S4, S5, S7 and S8 stay **Proposed**.
+**S9** was **Approved 2026-11-25 11:44** (Christoffer, via PO) and is now **Shipped** as **Slice 68** (PR #76, merge `80b0fb9`, 2026-11-25; hotfix PR #77, main `83965f7`, 2026-11-26; pack `slice-68/`). Full write-up under **Shipped**.
+
+**S4** was **Approved 2026-11-28** (Christoffer, via PO) and is **Slice 69** (pack `slice-69/`, FÖRESLAGEN). S5, S7 and S8 stay **Proposed**.
 
 #### S1. Skiss i Kör passet — Effort **S** — **Shipped → Slice 64** (PR #72, `6698a63`)
 
@@ -318,16 +311,20 @@ Full write-up under **Shipped**. Not re-listed here.
 
 Full write-up under **Shipped**. Not re-listed here.
 
-#### S9. Föreningens tillgängliga redskap på stationsbygget — Effort **M** — **Approved 2026-11-25** · Slice 68
+#### S9. Föreningens tillgängliga redskap på stationsbygget — Effort **M** — **Shipped → Slice 68** (PR #76, `80b0fb9`; hotfix #77, `83965f7`)
 
-**Approved 2026-11-25 11:44** (Christoffer, via PO). Pack `slice-68/` (FÖRESLAGEN). Not S4, S5, S7 or S8.
+Full write-up under **Shipped**. Not re-listed here.
 
-- **Title:** Koppla föreningens tillgängliga redskap så att stationsbygget tydligt visar vad som saknas (eller, i ett senare val, föreslår ett alternativ).
-- **Coach benefit:** A new leader sees a missing piece on the station build, instead of discovering the gap on the floor.
-- **Effort:** M. Shared list needs a small additive SQL table (`club_equipment`); file in the pack, not run. Local-only storage would not reach a new coach on another phone.
-- **Simplicity check:** Do not revive «Vad finns i hallen ikväll?» or the library filter (Slice 47 B1). Do not lift the parked custom redskap catalog. `EQUIPMENT_PIECES` (15) stays. One marker per station. Not hall-CAD. Not the parked Förrådslista station breakdown. Presence only (has / does not have), not counts.
-- **Standing lock?** Those scope-outs stand unless Christoffer says otherwise in A–F. The existing banner «N stationer saknar redskap» stays about an unsaved station list, not the club set.
-- **Suggested slice shape:** See `slice-68/` (FÖRESLAGEN A–F). SQL / bot write only after merge and Christoffer's separate yes to run.
+#### S4. «Du är här»-minikarta i Kör passet — Effort **M** — **Approved 2026-11-28** · Slice 69
+
+**Approved 2026-11-28** (Christoffer, via PO). Pack `slice-69/` (FÖRESLAGEN). Not S5, S7 or S8.
+
+- **Title:** A small «you are here» hall map on the current step in Kör passet, highlighting the active station.
+- **Coach benefit:** Mid-pass, the leader sees where this station sits in the hall without leaving Kör passet.
+- **Effort:** M
+- **Simplicity check:** A miniature of the existing hall, not a new editor. Complements S1 (setup sketch) rather than replacing it.
+- **Standing lock?** View-only. No extra markers, no CAD pins. Not the parked «Kör passet — redskap line».
+- **Suggested slice shape:** See `slice-69/` (FÖRESLAGEN A–F). Keep it small so the clock and nav stay reachable (Slice 38: only `.run-script` scrolls).
 
 ### Slice 65 QM-fynd — **Shipped → Slice 66** (PR #74, `329a259`)
 
@@ -361,7 +358,7 @@ Full write-up under **Shipped**. Not re-listed here.
 | Bundle latest DB snapshot into app offline fallback | **Parked / Later** (Christoffer 2026-10-03). Slice 32 AC 45 accepted as partial: `tools/bank/export-db.ts` writes a read-only backup (`out/bank-snapshot.json`) and `seed-promotion.md` has the superseded banner, but the app's offline fallback stays the bundled 51 seeds (no `app/src/data/bankSnapshot.json`; bundle budget AC 49). Later: a small "Banksnapshot <datum>" PR that bundles the snapshot as the fallback | Slice 32 verify report (AC 45) · `slice-31/content/bot-writes.md` |
 | Kör passet — redskap line on the current step | Parked by Christoffer 2026-10-13 | Scout run 2026-10-13 idea #2 |
 
-**Överlapp mot Stationer 17 nov (förblir parkerade):** S1 (skiss i Kör passet) is not this redskap *text* line. S2 (ikoner på Golvklart/utskrift) is not the canvas equipment-count badge. S3 / S5 / S8 do not lift hall-CAD (CAD-lite row above). One marker per station stays. S9 (Slice 68) does not lift the parked custom redskap catalog or the parked Förrådslista station breakdown, and it does not revive Slice 47's «Vad finns i hallen ikväll?» or the library filter.
+**Överlapp mot Stationer 17 nov (förblir parkerade):** S1 (skiss i Kör passet) is not this redskap *text* line. S4 (Slice 69, minikarta i Kör passet) is also not that text line. S2 (ikoner på Golvklart/utskrift) is not the canvas equipment-count badge. S3 / S5 / S8 do not lift hall-CAD (CAD-lite row above). One marker per station stays. S9 (Slice 68, Shipped) does not lift the parked custom redskap catalog or the parked Förrådslista station breakdown, and it does not revive Slice 47's «Vad finns i hallen ikväll?» or the library filter.
 
 ---
 
@@ -375,6 +372,7 @@ _(none yet)_
 
 | Idea | Slice | Notes |
 |---|---|---|
+| Föreningens redskap på stationsbygget | 68 | **Shipped** 2026-11-25 · PR #76 · merge `80b0fb9`. Hotfix 2026-11-26 · PR #77 · main `83965f7`. Pack `slice-68/`. Stationer 17 nov S9. LÅST 2026-11-25 (A1 B1 C1 D2 E1 F1). SQL-fil i packen (körning efter merge kräver separat ja). Footer «Slice 68». |
 | Fyll bankens skisser (11 layouter + SQL) | 67 | **Shipped** 2026-11-24 · PR #75 · merge `0f3be79`. Pack `slice-67/`. Stationer 17 nov S6. Content slice; footer kvar på «Slice 66». SQL-fil i packen (körning efter merge kräver separat ja). |
 | Putsa Bygg hallen (liggande stegpanel + «Saknar plats» i utskriften) | 66 | **Shipped** 2026-11-22 · PR #74 · merge `329a259`. Pack `slice-66/`. Slice 65 QM-fynd. LÅST 2026-11-22 (A1 B1 C1 D1 E1 F1). Ingen SQL. |
 | Bygg hallen — uppställningsguide i Golvklart + utskrift | 65 | **Shipped** 2026-11-21 · PR #73 · merge `d347892`. Pack `slice-65/`. Stationer 17 nov S3. LÅST 2026-11-21 (A1 B1 C1 D1 E1 F1). Ingen SQL. Bundle +511 B gzip (tak +512). |
